@@ -38,7 +38,7 @@ public class NovationSBSDevice extends Device {
     public NovationSBSDevice() {
         super(  "Novation",
                 "Super Bass Station",
-                "",
+                null,
                 INFO_TEXT,
                 "Robert Wirski");
     }

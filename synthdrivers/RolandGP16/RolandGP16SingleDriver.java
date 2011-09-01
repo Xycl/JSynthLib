@@ -4,6 +4,7 @@ import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
 import core.DriverUtil;
+import synthdrivers.RolandGP16.RolandGP16DataHandlers;
 /**
  * Single Voice Patch Driver for Roland GP16.
  *

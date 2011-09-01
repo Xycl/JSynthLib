@@ -33,7 +33,7 @@ public class Yamaha01vDevice extends Device {
     public Yamaha01vDevice() {
         super(  "Yamaha",
                 "01v",
-                "",
+                null,
                 INFO_TEXT,
                 "Robert Wirski");
     }

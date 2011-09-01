@@ -138,21 +138,26 @@ PACKAGES = \
 	synthdrivers.MIDIboxSID \
 	synthdrivers.NordLead \
 	synthdrivers.NovationNova1 \
+	synthdrivers.NovationSBS \
 	synthdrivers.NovationXioSynth \
 	synthdrivers.OberheimMatrix \
 	synthdrivers.PeaveyPC1600 \
 	synthdrivers.QuasimidiQuasar \
+	synthdrivers.RolandD10 \
 	synthdrivers.RolandGP16 \
+	synthdrivers.RolandJD800 \
 	synthdrivers.RolandJV80 \
 	synthdrivers.RolandMKS50 \
 	synthdrivers.RolandMKS7 \
 	synthdrivers.RolandMT32 \
 	synthdrivers.RolandTD6 \
+	synthdrivers.RolandVG88 \
 	synthdrivers.RolandXV5080 \
 	synthdrivers.SCIProphet600 \
 	synthdrivers.TCElectronicGMajor \
 	synthdrivers.WaldorfMW2 \
 	synthdrivers.WaldorfPulse \
+	synthdrivers.Yamaha01v \
 	synthdrivers.YamahaDX100 \
 	synthdrivers.YamahaDX5 \
 	synthdrivers.YamahaDX7 \
@@ -509,10 +514,14 @@ synthdrivers.MIDIboxFM : $(call PACKAGE_OBJS,synthdrivers.MIDIboxFM)
 synthdrivers.MIDIboxSID : $(call PACKAGE_OBJS,synthdrivers.MIDIboxSID)
 synthdrivers.NordLead : $(call PACKAGE_OBJS,synthdrivers.NordLead)
 synthdrivers.NovationNova1 : $(call PACKAGE_OBJS,synthdrivers.NovationNova1)
+synthdrivers.NovationSBS : $(call PACKAGE_OBJS,synthdrivers.NovationSBS)
+synthdrivers.NovationXioSynth : $(call PACKAGE_OBJS,synthdrivers.NovationXioSynth)
 synthdrivers.OberheimMatrix : $(call PACKAGE_OBJS,synthdrivers.OberheimMatrix)
 synthdrivers.PeaveyPC1600 : $(call PACKAGE_OBJS,synthdrivers.PeaveyPC1600)
 synthdrivers.QuasimidiQuasar : $(call PACKAGE_OBJS,synthdrivers.QuasimidiQuasar)
+synthdrivers.RolandD10 : $(call PACKAGE_OBJS,synthdrivers.RolandD10)
 synthdrivers.RolandGP16 : $(call PACKAGE_OBJS,synthdrivers.RolandGP16)
+synthdrivers.RolandJD800 : $(call PACKAGE_OBJS,synthdrivers.RolandJD800)
 synthdrivers.RolandJV80 : $(call PACKAGE_OBJS,synthdrivers.RolandJV80)
 synthdrivers.RolandMKS50 : $(call PACKAGE_OBJS,synthdrivers.RolandMKS50)
 synthdrivers.RolandMKS7 : $(call PACKAGE_OBJS,synthdrivers.RolandMKS7)

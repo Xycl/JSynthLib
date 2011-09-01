@@ -42,7 +42,7 @@ public class RolandJD800Device extends Device {
     public RolandJD800Device() {
         super(  "Roland",
                 "JD800",
-                "",
+                null,
                 INFO_TEXT,
                 "Robert Wirski");
     }
