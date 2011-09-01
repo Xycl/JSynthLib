@@ -103,32 +103,32 @@ public class DX7FamilyPerformanceEditor extends PatchEditorFrame
 		"Off",				//
 		"perfect First (Unison)",	// Prime
 		"minor Second",			// kleine Sekunde
-		"major Second",			// große  Sekunde
+		"major Second",			// groÃŸe  Sekunde
 		"minor Third",			// kleine Terz
-		"major Third",			// große  Terz
+		"major Third",			// groÃŸe  Terz
 		"perfect Fourth",		// Quarte
 		"perfect Fifth",		// Quinte bzw. Tritonus 
 		"minor Sixth",			// kleine Sexte
-		"major Sixth",			// große  Sexte
+		"major Sixth",			// groÃŸe  Sexte
 		"minor Seventh",		// kleine Septine
-		"major Seventh",		// große  Septine
+		"major Seventh",		// groÃŸe  Septine
 		"Octave"			// Oktave
 	};
 
 	private static final String [] PitchBendStepName   = new String [] {
 		"Continuous",
-		"±1 Octave	  - 12 Steps",
-		"±1 Octave	  -  6 Steps",
-		"±1 Octave	  -  4 Steps",
-		"±1 Octave	  -  3 Steps",
-		"±1 minor Seventh -  2 Steps",
-		"±1 Octave	  -  2 Steps",
-		"±1 Fifth	  -  1 Step ",
-		"±1 major Fifth   -  1 Step ",
-		"±1 Sixth	  -  1 Step ",
-		"±1 minor Seventh -  1 Step ",
-		"±1 major Seventh -  1 Step ",
-		"±1 Octave	  -  1 Step "
+		"Â±1 Octave	  - 12 Steps",
+		"Â±1 Octave	  -  6 Steps",
+		"Â±1 Octave	  -  4 Steps",
+		"Â±1 Octave	  -  3 Steps",
+		"Â±1 minor Seventh -  2 Steps",
+		"Â±1 Octave	  -  2 Steps",
+		"Â±1 Fifth	  -  1 Step ",
+		"Â±1 major Fifth   -  1 Step ",
+		"Â±1 Sixth	  -  1 Step ",
+		"Â±1 minor Seventh -  1 Step ",
+		"Â±1 major Seventh -  1 Step ",
+		"Â±1 Octave	  -  1 Step "
 	};
 
 	private static final String [] PortGlissName	   = new String [] {

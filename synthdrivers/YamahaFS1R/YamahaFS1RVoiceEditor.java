@@ -241,7 +241,7 @@ class YamahaFS1RVoiceEditor extends PatchEditorFrame
 		oLFO2Pane.add(new ComboBoxWidget("Wave", patch, new FS1RModel(patch, 0x18), new FS1RSender(0x18), new String []{"Triangle", "Saw dawn", "Saw up","Square","Sine","Sample & hold"}));
 		oLFO2Pane.add(new KnobWidget("Speed", patch, 0, 99, 0, new FS1RModel(patch, 0x19), new FS1RSender(0x19)));
 		oLFO2Pane.add(new CheckBoxWidget("Key sync",patch,new FS1RModel(patch,0x1D), new FS1RSender(0x1D)));
-		oLFO2Pane.add(new ComboBoxWidget("Phase", patch, new FS1RModel(patch, 0x1C), new FS1RSender(0x1C), new String []{"0ก", "90ก", "180ก", "270ก"}));
+		oLFO2Pane.add(new ComboBoxWidget("Phase", patch, new FS1RModel(patch, 0x1C), new FS1RSender(0x1C), new String []{"0ยก", "90ยก", "180ยก", "270ยก"}));
 		oLFO2Pane.add(new KnobWidget("Filter Mod", patch, 0, 99, 0, new FS1RModel(patch, 0x5A), new FS1RSender(0x5A)));
 
 		oLFO2Pane.setBorder(new TitledBorder(LineBorder.createGrayLineBorder(), "LFO2",TitledBorder.LEFT,TitledBorder.CENTER));
