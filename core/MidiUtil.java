@@ -133,19 +133,38 @@ public final class MidiUtil {
 	return (MidiDevice.Info[]) list.toArray(new MidiDevice.Info[0]);
     }
 
+    private static void makeNamesUnique(String[] iNames) {
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (int i=0; i < iNames.length; i++) {
+        	Integer val = map.get(iNames[i]);
+        	if (val == null)
+        		val = -i;
+        	else {
+				if (val < 1) { // first duplicate
+					iNames[-val] += ":1";
+					val = 1;
+				}
+				iNames[i] += ":" + (++val);
+			}
+			map.put(iNames[i],val);
+        }
+    }
+    
     /** Fills outputNames and inputNames, with the names of devices
      * made from their descriptions and names */
     private static void createNames() { // wirski@op.pl
         outputNames = new String[outputMidiDeviceInfo.length];
     	for (int i=0; i < outputMidiDeviceInfo.length; i++) {
-            outputNames[i] = outputMidiDeviceInfo[i].getDescription() +
+            outputNames[i] = outputMidiDeviceInfo[i].getDescription() + " " +
                 outputMidiDeviceInfo[i].getName();
         }
+        makeNamesUnique(outputNames);
         inputNames = new String[inputMidiDeviceInfo.length];
         for (int i=0; i < inputMidiDeviceInfo.length; i++) {
-            inputNames[i] = inputMidiDeviceInfo[i].getDescription() +
+            inputNames[i] = inputMidiDeviceInfo[i].getDescription() + " " +
                 inputMidiDeviceInfo[i].getName();
         }
+        makeNamesUnique(inputNames);
     }
     
     /** Returns an array of MidiDevice.Info for MIDI Sequencer device. */
