@@ -26,9 +26,9 @@ class normal_voice extends XMLDriverImplementation {
 		def mid = pmsg[6]
 		def low = pmsg[7] + param.getOffset() - 8
     		if (param.getType() != param.STRING) {
-			def msg = "F0 43 ${hex(d.getChannel()+16)} 6B
+			def msg = """"F0 43 ${hex(d.getChannel()+16)} 6B
 				      ${hex(hi)} ${hex(mid)} ${hex(low)}
-				      ${param.encode(patch)} F7"
+				      ${param.encode(patch)} F7"""
     			d.send(midiMessage(msg))
     		}// Could loop and send each character individually,
     		 // but I don't think it's necessary
