@@ -75,32 +75,32 @@ public class DX7FamilyAdditionalVoiceEditor extends PatchEditorFrame
 		"Off",				//
 		"perfect First (Unison)",	// Prime
 		"minor Second",			// kleine Sekunde
-		"major Second",			// große  Sekunde
+		"major Second",			// grosse  Sekunde
 		"minor Third",			// kleine Terz
-		"major Third",			// große  Terz
+		"major Third",			// grosse  Terz
 		"perfect Fourth",		// Quarte
 		"perfect Fifth",		// Quinte bzw. Tritonus 
 		"minor Sixth",			// kleine Sexte
-		"major Sixth",			// große  Sexte
+		"major Sixth",			// grosse  Sexte
 		"minor Seventh",		// kleine Septine
-		"major Seventh",		// große  Septine
+		"major Seventh",		// grosse  Septine
 		"Octave"			// Oktave
 	};
 
 	static final String [] PitchBendStepName  = new String [] {
 		"Continuous",
-		"±1 Octave	- 12 Steps",
-		"±1 Octave	-  6 Steps",
-		"±1 Octave	-  4 Steps",
-		"±1 Octave	-  3 Steps",
-		"±1 minor Seventh -  2 Steps",
-		"±1 Octave	-  2 Steps",
-		"±1 Fifth		-  1 Step ",
-		"±1 major Fifth	-  1 Step ",
-		"±1 Sixth		-  1 Step ",
-		"±1 minor Seventh -  1 Step ",
-		"±1 major Seventh -  1 Step ",
-		"±1 Octave	-  1 Step "
+		"\u00B11 Octave	- 12 Steps",// 00B1 is the plus/minus symbol
+		"\u00B11 Octave	-  6 Steps",
+		"\u00B11 Octave	-  4 Steps",
+		"\u00B11 Octave	-  3 Steps",
+		"\u00B11 minor Seventh -  2 Steps",
+		"\u00B11 Octave	-  2 Steps",
+		"\u00B11 Fifth		-  1 Step ",
+		"\u00B11 major Fifth	-  1 Step ",
+		"\u00B11 Sixth		-  1 Step ",
+		"\u00B11 minor Seventh -  1 Step ",
+		"\u00B11 major Seventh -  1 Step ",
+		"\u00B11 Octave	-  1 Step "
 	};
 
 	static final String [] PitchBendModeName  = new String [] {
@@ -119,15 +119,15 @@ public class DX7FamilyAdditionalVoiceEditor extends PatchEditorFrame
 		"smooth",			//
 		"perfect First (Unison)",	// Prime
 		"minor Second",			// kleine Sekunde
-		"major Second",			// große  Sekunde
+		"major Second",			// grosse  Sekunde
 		"minor Third",			// kleine Terz
-		"major Third",			// große  Terz
+		"major Third",			// grosse  Terz
 		"perfect Fourth",		// Quarte
 		"perfect Fifth",		// Quinte bzw. Tritonus 
 		"minor Sixth",			// kleine Sexte
-		"major Sixth",			// große  Sexte
+		"major Sixth",			// grosse  Sexte
 		"minor Seventh",		// kleine Septine
-		"major Seventh",		// große  Septine
+		"major Seventh",		// grosse  Septine
 		"Octave"			// Oktave
 	};
 
