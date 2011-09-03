@@ -201,31 +201,22 @@ public class JSLDesktop implements JSLFrameListener {
      */
     public void updateLookAndFeel() { proxy.updateLookAndFeel(); }
     
-    public boolean confirmExiting() { 
-        readyToExit = JOptionPane.showConfirmDialog(PatchEdit.getRootFrame(),
-                "Exit JSynthLib?", "Confirmation",
-                JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION; // wirski@op.pl
-        return readyToExit;
-    }
-    
     public boolean isReadyToExit() { // wirski@op.pl
         return readyToExit;
     }
     
     public void closingProc() { // wirski@op.pl
-        if (confirmExiting()) {
-            Iterator it = getJSLFrameIterator();
-            while (it.hasNext()) {
-                JSLFrame frame = (JSLFrame) it.next();
-                try {
-                    frame.setClosed(true);
-                } catch (Exception ex) {
-                    ErrorMsg.reportStatus(ex);
-                }
+        Iterator it = getJSLFrameIterator();
+        while (it.hasNext()) {
+            JSLFrame frame = (JSLFrame) it.next();
+            try {
+                frame.setClosed(true);
+            } catch (Exception ex) {
+                ErrorMsg.reportStatus(ex);
             }
-            AppConfig.savePrefs();
-            System.exit(0);
         }
+        AppConfig.savePrefs();
+        System.exit(0);
     }
 
     private interface JSLDesktopProxy {
