@@ -314,7 +314,8 @@ final public class Actions {
         menuPatch.add(extractAction);
         menuPatch.addSeparator();
 
-        menuPatch.add(newPatchAction);
+        mi = menuPatch.add(newPatchAction);
+        mi.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.SHIFT_MASK + mask));//ctrl+shift+p
         menuPatch.add(uploadAction);
         menuPatch.addMenuListener(new MenuListener() { // need this???
             public void menuCanceled(MenuEvent e) {}
