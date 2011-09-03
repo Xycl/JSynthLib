@@ -1101,7 +1101,8 @@ for the data value to be transmitted and the channel (Device ID) to transmit
 on. When the SysexWidget attached to this instance of the SysexSender moves,
 the <var>generate</var> method of the SysexSender gets called with the value to
 send. The generate function simply puts the value and channel into the
-message and returns it.
+message and returns it - "@@" is replaced by the channel number and 
+"**" is replaced by the value passed to the generate function.
 
 <p>RolandTD6.RolandDT1Sender is an example which implements {@link
 core.SysexWidget.ISender} directly without extending {@link
