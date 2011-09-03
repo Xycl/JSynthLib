@@ -26,7 +26,7 @@
 
 	Remko Troncon <remko@ulyssis.org>
 
-	Version: $Id: build.xml,v 1.17 2007-10-01 23:50:47 billzwicky Exp $
+	Version: $Id$
 -->
 
 <project name="JSynthLib" default="build" basedir=".">
@@ -147,8 +147,8 @@
 	<target name="doc" depends="api_docs"/>
 
 
-	<!-- Distribution --> <!--,api_docs"-->
-	<target name="dist" depends="init,build-run"
+	<!-- Distribution -->
+	<target name="dist" depends="init,build-run,api_docs"
 			description="Create package distribution files (jar, sources, ...)">
 		<mkdir dir="${dist}"/>
 
