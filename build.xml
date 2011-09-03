@@ -77,7 +77,8 @@
 		<javac srcdir="${src}" destdir="${bin}" 
 			classpath="groovy.jar"
 			deprecation="${deprecation}"
-			source="1.5" target="1.5">
+			source="1.5" target="1.5"
+      includeantruntime="false">
 			<include name="**/*.java"/>
 			<exclude name="core/MacOSXMidiWrapper.java" unless="isMacOS"/>
 			<exclude name="midiprovider/**"/>
