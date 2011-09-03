@@ -11,46 +11,59 @@ import javax.swing.event.*;
 class YamahaTX81zSingleEditor extends PatchEditorFrame
 {
   ImageIcon algoIcon[]=new ImageIcon[8];
+  ImageIcon waveformIcon[] = new ImageIcon[8];
+  
   public YamahaTX81zSingleEditor(Patch patch)
   {
     super ("Yamaha TX81z Single Editor",patch);
-  algoIcon[0]=new ImageIcon(getClass().getResource("1.gif"));
-  algoIcon[1]=new ImageIcon(getClass().getResource("2.gif"));
-  algoIcon[2]=new ImageIcon(getClass().getResource("3.gif"));
-  algoIcon[3]=new ImageIcon(getClass().getResource("4.gif"));
-  algoIcon[4]=new ImageIcon(getClass().getResource("5.gif"));
-  algoIcon[5]=new ImageIcon(getClass().getResource("6.gif"));
-  algoIcon[6]=new ImageIcon(getClass().getResource("7.gif"));
-  algoIcon[7]=new ImageIcon(getClass().getResource("8.gif"));
-  final JLabel l=new JLabel(algoIcon[patch.sysex[99]]);
+    algoIcon[0]=new ImageIcon(getClass().getResource("images/algo1.gif"));
+    algoIcon[1]=new ImageIcon(getClass().getResource("images/algo2.gif"));
+    algoIcon[2]=new ImageIcon(getClass().getResource("images/algo3.gif"));
+    algoIcon[3]=new ImageIcon(getClass().getResource("images/algo4.gif"));
+    algoIcon[4]=new ImageIcon(getClass().getResource("images/algo5.gif"));
+    algoIcon[5]=new ImageIcon(getClass().getResource("images/algo6.gif"));
+    algoIcon[6]=new ImageIcon(getClass().getResource("images/algo7.gif"));
+    algoIcon[7]=new ImageIcon(getClass().getResource("images/algo8.gif"));
+    
+    waveformIcon[0]=new ImageIcon(getClass().getResource("images/waveform1.png"));
+    waveformIcon[1]=new ImageIcon(getClass().getResource("images/waveform2.png"));
+    waveformIcon[2]=new ImageIcon(getClass().getResource("images/waveform3.png"));
+    waveformIcon[3]=new ImageIcon(getClass().getResource("images/waveform4.png"));
+    waveformIcon[4]=new ImageIcon(getClass().getResource("images/waveform5.png"));
+    waveformIcon[5]=new ImageIcon(getClass().getResource("images/waveform6.png"));
+    waveformIcon[6]=new ImageIcon(getClass().getResource("images/waveform7.png"));
+    waveformIcon[7]=new ImageIcon(getClass().getResource("images/waveform8.png"));
+    
+    
+    final JLabel l=new JLabel(algoIcon[patch.sysex[99]]);
+	
+	  JPanel lfoPane=new JPanel();
+	  lfoPane.setLayout(new GridBagLayout());gbc.weightx=1;
+	  addWidget(lfoPane,new ScrollBarWidget("LFO Speed",patch,0,99,0,new ParamModel(patch,101),new VcedSender(54)),0,0,7,1,20);
+	  addWidget(lfoPane,new ScrollBarWidget("LFO Delay",patch,0,99,0,new ParamModel(patch,102),new VcedSender(55)),0,1,7,1,21);
+	  addWidget(lfoPane,new ScrollBarWidget("Pitch Mod Depth",patch,0,99,0,new ParamModel(patch,103),new VcedSender(56)),0,2,7,1,22);
+	  addWidget(lfoPane,new ScrollBarWidget("Pitch Mod Sensitivity",patch,0,7,0,new ParamModel(patch,107),new VcedSender(60)),0,3,7,1,23);
+	  addWidget(lfoPane,new ScrollBarWidget("Amplitude Mod Depth",patch,0,99,0,new ParamModel(patch,104),new VcedSender(57)),0,4,7,1,24);
+	  addWidget(lfoPane,new ScrollBarWidget("Amplitude Mod Sensitivity",patch,0,3,0,new ParamModel(patch,108),new VcedSender(61)),0,5,7,1,25);
+	  addWidget(lfoPane,new CheckBoxWidget("LFO Sync",patch,new ParamModel(patch,105),new VcedSender(58)),1,6,1,1,-18);
+	  addWidget(lfoPane,new ComboBoxWidget("LFO Wave",patch,new ParamModel(patch,106),new VcedSender(59),new String []{"Saw Up","Square",
+							           "Triangle","S/Hold"}),0,6,1,1,26);
+	  gbc.gridx=2;gbc.gridy=6;gbc.gridwidth=1;gbc.gridheight=1;
+	  lfoPane.add(new JLabel(" AM->Osc "),gbc);
+	  addWidget(lfoPane,new CheckBoxWidget("1",patch,new ParamModel(patch,55+3*13),new VcedSender(3*13+8)),3,6,1,1,-19);
+	  addWidget(lfoPane,new CheckBoxWidget("2",patch,new ParamModel(patch,55+1*13),new VcedSender(1*13+8)),4,6,1,1,-20);
+	  addWidget(lfoPane,new CheckBoxWidget("3",patch,new ParamModel(patch,55+2*13),new VcedSender(2*13+8)),5,6,1,1,-21);
+	  addWidget(lfoPane,new CheckBoxWidget("4",patch,new ParamModel(patch,55+0*13),new VcedSender(0*13+8)),6,6,1,1,-22);
+	  gbc.gridx=0;gbc.gridy=9;gbc.gridwidth=3;gbc.gridheight=4;
+	  lfoPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED),"LFO Settings",TitledBorder.CENTER,TitledBorder.CENTER));
+	  scrollPane.add(lfoPane,gbc);
+	
+	  JPanel cmnPane= new JPanel();
+	  cmnPane.setLayout(new GridBagLayout());
+	  final ScrollBarWidget algo=new ScrollBarWidget(" Algorithm",patch,0,7,1,new ParamModel(patch,99),new VcedSender(52));
+	  addWidget(cmnPane,algo,1,0,3,1,17);
 
-  JPanel lfoPane=new JPanel();
-  lfoPane.setLayout(new GridBagLayout());gbc.weightx=1;
-  addWidget(lfoPane,new ScrollBarWidget("LFO Speed",patch,0,99,0,new ParamModel(patch,101),new VcedSender(54)),0,0,7,1,20);
-  addWidget(lfoPane,new ScrollBarWidget("LFO Delay",patch,0,99,0,new ParamModel(patch,102),new VcedSender(55)),0,1,7,1,21);
-  addWidget(lfoPane,new ScrollBarWidget("Pitch Mod Depth",patch,0,99,0,new ParamModel(patch,103),new VcedSender(56)),0,2,7,1,22);
-  addWidget(lfoPane,new ScrollBarWidget("Pitch Mod Sensitivity",patch,0,7,0,new ParamModel(patch,107),new VcedSender(60)),0,3,7,1,23);
-  addWidget(lfoPane,new ScrollBarWidget("Amplitude Mod Depth",patch,0,99,0,new ParamModel(patch,104),new VcedSender(57)),0,4,7,1,24);
-  addWidget(lfoPane,new ScrollBarWidget("Amplitude Mod Sensitivity",patch,0,3,0,new ParamModel(patch,108),new VcedSender(61)),0,5,7,1,25);
-  addWidget(lfoPane,new CheckBoxWidget("LFO Sync",patch,new ParamModel(patch,105),new VcedSender(58)),1,6,1,1,-18);
-  addWidget(lfoPane,new ComboBoxWidget("LFO Wave",patch,new ParamModel(patch,106),new VcedSender(59),new String []{"Saw Up","Square",
-	   							           "Triangle","S/Hold"}),0,6,1,1,26);
-  gbc.gridx=2;gbc.gridy=6;gbc.gridwidth=1;gbc.gridheight=1;
-  lfoPane.add(new JLabel(" AM->Osc "),gbc);
-  addWidget(lfoPane,new CheckBoxWidget("1",patch,new ParamModel(patch,55+3*13),new VcedSender(3*13+8)),3,6,1,1,-19);
-  addWidget(lfoPane,new CheckBoxWidget("2",patch,new ParamModel(patch,55+1*13),new VcedSender(1*13+8)),4,6,1,1,-20);
-  addWidget(lfoPane,new CheckBoxWidget("3",patch,new ParamModel(patch,55+2*13),new VcedSender(2*13+8)),5,6,1,1,-21);
-  addWidget(lfoPane,new CheckBoxWidget("4",patch,new ParamModel(patch,55+0*13),new VcedSender(0*13+8)),6,6,1,1,-22);
-  gbc.gridx=0;gbc.gridy=9;gbc.gridwidth=3;gbc.gridheight=4;
-  lfoPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED),"LFO Settings",TitledBorder.CENTER,TitledBorder.CENTER));
-  scrollPane.add(lfoPane,gbc);
-
-  JPanel cmnPane= new JPanel();
-  cmnPane.setLayout(new GridBagLayout());
-  final ScrollBarWidget algo=new ScrollBarWidget(" Algorithm",patch,0,7,1,new ParamModel(patch,99),new VcedSender(52));
-  addWidget(cmnPane,algo,1,0,3,1,17);
-
-    algo.addEventListener(new ChangeListener() {
+      algo.addEventListener(new ChangeListener() {
 	   public void stateChanged(ChangeEvent e) {
                 l.setIcon(algoIcon[algo.getValue()]);
                }});
@@ -104,8 +117,21 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame
      JPanel panel = new JPanel();
      panel.setLayout(new GridBagLayout());
      oscPane.addTab("Osc"+(j),panel);gbc.weightx=0;
-      addWidget(panel,new ScrollBarWidget("Wave",patch,0,7,1,new ParamModel(patch,19+(i*5)),new AcedSender(i*5+3)),0,0,3,1,1);
-      addWidget(panel,new ScrollBarWidget("Level",patch,0,99,0,new ParamModel(patch,57+(i*13)),new VcedSender(i*13+10)),0,1,3,1,2);
+     
+     final JLabel waves=new JLabel(waveformIcon[patch.sysex[99+(i*5)]]);
+     
+     final ScrollBarWidget waveform = new ScrollBarWidget("Wave",patch,0,7,1,new ParamModel(patch,19+(i*5)),new AcedSender(i*5+3)); 
+     
+      waveform.addEventListener(new ChangeListener() {
+	   public void stateChanged(ChangeEvent e) {
+                waves.setIcon(waveformIcon[waveform.getValue()]);
+               }});
+      
+      gbc.gridx=0;gbc.gridy=0;gbc.gridwidth=1;gbc.gridheight=2;
+      panel.add(waves,gbc);            
+      //addWidget(panel, waves, 0,0,1,2,25);
+      addWidget(panel,waveform,1,0,2,1,1);
+      addWidget(panel,new ScrollBarWidget("Level",patch,0,99,0,new ParamModel(patch,57+(i*13)),new VcedSender(i*13+10)),1,1,2,1,2);
       addWidget(panel,new ScrollBarWidget("Frequency (Course)",patch,0,63,0,new ParamModel(patch,58+(i*13)),new VcedSender(i*13+11)),0,2,3,1,3);
       addWidget(panel,new ScrollBarWidget("Frequency (Fine)",patch,0,15,0,new ParamModel(patch,18+(i*5)),new AcedSender(i*5+2)),0,3,3,1,4);
       addWidget(panel,new ComboBoxWidget("Fix Range",patch,new ParamModel(patch,17+(i*5)),new AcedSender(i*5+1),new String []
@@ -119,14 +145,16 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame
       addWidget(panel,new ComboBoxWidget("EG Shift",patch,new ParamModel(patch,20+(i*5)),new AcedSender(i*5+4),new String []
       			{"96db","48db","24db","12db"}),0,4,1,1,5);
 
-     addWidget(panel,new EnvelopeWidget("  Envelope",patch,new EnvelopeWidget.Node [] {
+      addWidget(panel,new EnvelopeWidget("  Envelope",patch,new EnvelopeWidget.Node [] {
         new EnvelopeWidget.Node(0,0,null,0,0,null,0,false,null,null,null,null),
-	new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+47),30,30,null,10,true,new VcedSender(i*13),null," AR",null),
-	new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+48),0,15,new ParamModel(patch,i*13+51),25,true,new VcedSender(i*13+1),new VcedSender(i*13+4),"D1R","D1L"),
-	new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+49),0,0,null,10,true,new VcedSender(i*13+2),null,"D2R",null),
-	new EnvelopeWidget.Node(1,15,new ParamModel(patch,i*13+50),0,0,null,0,true,new VcedSender(i*13+3),null,"RR",null),
-
+        new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+47),30,30,null,10,true,new VcedSender(i*13),null," AR",null),
+        new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+48),0,15,new ParamModel(patch,i*13+51),25,true,new VcedSender(i*13+1),new VcedSender(i*13+4),"D1R","D1L"),
+        new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+49),0,0,null,10,true,new VcedSender(i*13+2),null,"D2R",null),
+        new EnvelopeWidget.Node(1,15,new ParamModel(patch,i*13+50),0,0,null,0,true,new VcedSender(i*13+3),null,"RR",null),
       }     ),3,0,3,5,10);
+     
+
+     
       if (i==3) i=1; else if (i==1) i=2; else if (i==2) i=0;else if (i==0) i=5;
      j++;
    }
