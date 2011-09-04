@@ -122,24 +122,27 @@ class YamahaDX100SingleEditor extends PatchEditorFrame
 
      addWidget(panel,new EnvelopeWidget("  Envelope",patch,new EnvelopeWidget.Node [] {
         new EnvelopeWidget.Node(0,0,null,0,0,null,0,false,null,null,null,null),
-	new EnvelopeWidget.Node(0,31,new ParamModel(patch,-41+i*13+47),30,30,null,10,true,new VcedSender(i*13),null," AR",null),
-	new EnvelopeWidget.Node(0,31,new ParamModel(patch,-41+i*13+48),0,15,new ParamModel(patch,-41+i*13+51),25,true,new VcedSender(i*13+1),new VcedSender(i*13+4),"D1R","D1L"),
-	new EnvelopeWidget.Node(0,31,new ParamModel(patch,-41+i*13+49),0,0,null,10,true,new VcedSender(i*13+2),null,"D2R",null),
-	new EnvelopeWidget.Node(0,15,new ParamModel(patch,-41+i*13+50),0,0,null,0,true,new VcedSender(i*13+3),null,"RR",null),
+	    new EnvelopeWidget.Node(0,31,new ParamModel(patch,-41+i*13+47),0,0,null,15,true,new VcedSender(i*13),null," AR",null),
+	    new EnvelopeWidget.Node(0,31,new ParamModel(patch,-41+i*13+48),0,15,new ParamModel(patch,-41+i*13+51),0,true,new VcedSender(i*13+1),new VcedSender(i*13+4),"D1R","D1L"),
+	    new EnvelopeWidget.Node(0,31,new ParamModel(patch,-41+i*13+49),EnvelopeWidget.Node.SAME,15,null,0,true,new VcedSender(i*13+2),null,"D2R",null),
+	    new EnvelopeWidget.Node(1,15,new ParamModel(patch,-41+i*13+50),0,0,null,0,true,new VcedSender(i*13+3),null,"RR",null),
 
       }     ),3,0,3,7,10);
       if (i==3) i=1; else if (i==1) i=2; else if (i==2) i=0;else if (i==0) i=5;
      j++;
    }
+
   JPanel pegPane = new JPanel();
   pegPane.setLayout(new GridBagLayout());
   if (((YamahaDX100Device)(patch.getDevice())).getWhichSynth()==21) oscPane.addTab("P.E.G.",pegPane);
 gbc.fill=GridBagConstraints.BOTH;
      addWidget(pegPane,new EnvelopeWidget("Pitch Envelope",patch,new EnvelopeWidget.Node [] {
-        new EnvelopeWidget.Node(50,50,null,0,0,null,50,false,null,null,null,null),
-	new EnvelopeWidget.Node(0,99,new ParamModel(patch,93),0,99,new ParamModel(patch,96),0,true,new VcedSender(87),new VcedSender(90),"Rate 1","Pitch 1"),
-	new EnvelopeWidget.Node(0,99,new ParamModel(patch,94),0,99,new ParamModel(patch,97),0,true,new VcedSender(88),new VcedSender(91),"Rate 2","Pitch 2"),
-	new EnvelopeWidget.Node(0,99,new ParamModel(patch,95),0,99,new ParamModel(patch,98),0,true,new VcedSender(89),new VcedSender(92),"Rate 3","Pitch 3"),
+	    new EnvelopeWidget.Node(0,0,null,0,99,new ParamModel(patch,98),0,true,null,new VcedSender(92),null,"Pitch 3"),
+        /*new EnvelopeWidget.Node(0,0,null,0,0,null,50,false,null,null,null,null),*/
+	    new EnvelopeWidget.Node(0,99,new ParamModel(patch,93),0,99,new ParamModel(patch,96),0,true,new VcedSender(87),new VcedSender(90),"Rate 1","Pitch 1"),
+	    new EnvelopeWidget.Node(0,99,new ParamModel(patch,94),0,99,new ParamModel(patch,97),0,true,new VcedSender(88),new VcedSender(91),"Rate 2","Pitch 2"),
+        new EnvelopeWidget.Node(100,100,null,EnvelopeWidget.Node.SAME,99,null,0,true,null,null,null,null),
+	    new EnvelopeWidget.Node(0,99,new ParamModel(patch,95),0,99,new ParamModel(patch,98),0,true,new VcedSender(89),new VcedSender(92),"Rate 3","Pitch 3"),
       }     ),0,0,1,1,1);
       gbc.gridy=1;
 //kludge for envelopewidget size problem. Should really fix that soon.

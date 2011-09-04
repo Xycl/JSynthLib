@@ -146,15 +146,14 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame
       addWidget(panel,new ComboBoxWidget("EG Shift",patch,new ParamModel(patch,20+(i*5)),new AcedSender(i*5+4),new String []
       			{"96db","48db","24db","12db"}),0,4,1,1,5);
 
-      addWidget(panel,new EnvelopeWidget("  Envelope",patch,new EnvelopeWidget.Node [] {
-        new EnvelopeWidget.Node(0,0,null,0,0,null,0,false,null,null,null,null),
-        new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+47),30,30,null,10,true,new VcedSender(i*13),null," AR",null),
-        new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+48),0,15,new ParamModel(patch,i*13+51),25,true,new VcedSender(i*13+1),new VcedSender(i*13+4),"D1R","D1L"),
-        new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+49),0,0,null,10,true,new VcedSender(i*13+2),null,"D2R",null),
-        new EnvelopeWidget.Node(1,15,new ParamModel(patch,i*13+50),0,0,null,0,true,new VcedSender(i*13+3),null,"RR",null),
-      }     ),3,0,3,5,10);
-     
+     addWidget(panel,new EnvelopeWidget("  Envelope",patch,new EnvelopeWidget.Node [] {
+    new EnvelopeWidget.Node(0,0,null,0,0,null,0,false,null,null,null,null),
+	new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+47),0,0,null,15,true,new VcedSender(i*13),null," AR",null),
+	new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+48),0,15,new ParamModel(patch,i*13+51),0,true,new VcedSender(i*13+1),new VcedSender(i*13+4),"D1R","D1L"),
+	new EnvelopeWidget.Node(0,31,new ParamModel(patch,i*13+49),EnvelopeWidget.Node.SAME,15,null,0,true,new VcedSender(i*13+2),null,"D2R",null),
+	new EnvelopeWidget.Node(1,15,new ParamModel(patch,i*13+50),0,0,null,0,true,new VcedSender(i*13+3),null,"RR",null),
 
+      }     ),3,0,3,5,10);
      
       if (i==3) i=1; else if (i==1) i=2; else if (i==2) i=0;else if (i==0) i=5;
      j++;
