@@ -406,10 +406,11 @@ public class DX7FamilyVoiceEditor extends PatchEditorFrame implements ItemListen
 		});
 
 		addWidget(panel,new EnvelopeWidget("Envelope Generator",patch,new EnvelopeWidget.Node [] {
-			new EnvelopeWidget.Node(0,0,null,0,0,null,0,false,null,null,null,null),
+			new EnvelopeWidget.Node(0,0,null,0,99,new ParamModel(patch,6+(i*21)+7),0,true,null,new VoiceSender((i*21)+7),null,"L4"),
 			new EnvelopeWidget.Node(0,99,new ParamModel(patch,6+(i*21)+0),0,99,new ParamModel(patch,6+(i*21)+4),0,true,new VoiceSender((i*21)+0),new VoiceSender((i*21)+4),"R1","L1"),
 			new EnvelopeWidget.Node(0,99,new ParamModel(patch,6+(i*21)+1),0,99,new ParamModel(patch,6+(i*21)+5),0,true,new VoiceSender((i*21)+1),new VoiceSender((i*21)+5),"R2","L2"),
 			new EnvelopeWidget.Node(0,99,new ParamModel(patch,6+(i*21)+2),0,99,new ParamModel(patch,6+(i*21)+6),0,true,new VoiceSender((i*21)+2),new VoiceSender((i*21)+6),"R3","L3"),
+            new EnvelopeWidget.Node(100,100,null,EnvelopeWidget.Node.SAME,99,null,0,true,null,null,null,null),
 			new EnvelopeWidget.Node(0,99,new ParamModel(patch,6+(i*21)+3),0,99,new ParamModel(patch,6+(i*21)+7),0,true,new VoiceSender((i*21)+3),new VoiceSender((i*21)+7),"R4","L4"),
 		}),7,8,6,9,14);
 
@@ -433,10 +434,11 @@ public class DX7FamilyVoiceEditor extends PatchEditorFrame implements ItemListen
 		oscPane.addTab("PEG",pegPane);
 		gbc.fill=GridBagConstraints.BOTH;
 		addWidget(pegPane,new EnvelopeWidget("Pitch Envelope Generator",patch,new EnvelopeWidget.Node [] {
-			new EnvelopeWidget.Node(0,0,null,0,0,null,0,false,null,null,null,null),
+			new EnvelopeWidget.Node(0,0,null,0,99,new ParamModel(patch,6+133),0,true,null,new VoiceSender(133),null,"Pitch 4"),
 			new EnvelopeWidget.Node(0,99,new ParamModel(patch,6+126),0,99,new ParamModel(patch,6+130),0,true,new VoiceSender(126),new VoiceSender(130),"Rate 1","Pitch 1"),
 			new EnvelopeWidget.Node(0,99,new ParamModel(patch,6+127),0,99,new ParamModel(patch,6+131),0,true,new VoiceSender(127),new VoiceSender(131),"Rate 2","Pitch 2"),
 			new EnvelopeWidget.Node(0,99,new ParamModel(patch,6+128),0,99,new ParamModel(patch,6+132),0,true,new VoiceSender(128),new VoiceSender(132),"Rate 3","Pitch 3"),
+            new EnvelopeWidget.Node(100,100,null,EnvelopeWidget.Node.SAME,99,null,0,true,null,null,null,null),
 			new EnvelopeWidget.Node(0,99,new ParamModel(patch,6+129),0,99,new ParamModel(patch,6+133),0,true,new VoiceSender(129),new VoiceSender(133),"Rate 4","Pitch 4"),
 		}),0,0,1,9,1);
 
