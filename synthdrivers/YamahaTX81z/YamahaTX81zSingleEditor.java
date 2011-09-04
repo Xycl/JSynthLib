@@ -111,6 +111,7 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame
 
 
    JTabbedPane oscPane=new JTabbedPane();
+   //for whatever reason, this loop has i values 3,1,2,0,5
    int i=3;int j=1;
    while (i!=5)
    {
@@ -118,7 +119,7 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame
      panel.setLayout(new GridBagLayout());
      oscPane.addTab("Osc"+(j),panel);gbc.weightx=0;
      
-     final JLabel waves=new JLabel(waveformIcon[patch.sysex[99+(i*5)]]);
+     final JLabel waves=new JLabel(waveformIcon[patch.sysex[19+(i*5)]]);
      
      final ScrollBarWidget waveform = new ScrollBarWidget("Wave",patch,0,7,1,new ParamModel(patch,19+(i*5)),new AcedSender(i*5+3)); 
      
