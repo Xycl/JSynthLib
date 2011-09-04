@@ -329,6 +329,8 @@ class DevicesConfig {
     }
 
     Device createDevice(String className, Preferences prefs) {
+            if (className.length() <= 0)
+            	return null;
     		if (className.charAt(0) == XML_FILE_SEPARATOR) {
     		        className = className.replace(XML_FILE_SEPARATOR,File.separatorChar);
     			return XMLDeviceFactory.createDevice(className.substring(1),
