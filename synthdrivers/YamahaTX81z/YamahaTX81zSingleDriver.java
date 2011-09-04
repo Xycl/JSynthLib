@@ -46,13 +46,16 @@ public void storePatch (Patch p, int bankNum,int patchNum)
   }
 public Patch createNewPatch()
  {
-      byte [] sysex = new byte[142];
+     byte [] sysex = new byte[142];
+     //ACED data
      sysex[00]=(byte)0xF0;sysex[01]=(byte)0x43;sysex[02]=(byte)0x00;
      sysex[03]=(byte)0x7E;sysex[04]=(byte)0x00;sysex[05]=(byte)0x21;
      sysex[06]=(byte)0x4C;sysex[07]=(byte)0x4D;sysex[8]=(byte)0x20;
      sysex[9]=(byte)0x20;sysex[10]=(byte)0x38;sysex[11]=(byte)0x39;
      sysex[12]=(byte)0x37;sysex[13]=(byte)0x36;sysex[14]=(byte)0x41;
      sysex[15]=(byte)0x45;sysex[40]=(byte)0xF7;
+
+     //VCED data
      sysex[41]=(byte)0xF0;sysex[42]=(byte)0x43;sysex[43]=(byte)0x00;
      sysex[44]=(byte)0x03;sysex[45]=(byte)0x00;sysex[46]=(byte)0x5D;
      sysex[141]=(byte)0xF7 ;
