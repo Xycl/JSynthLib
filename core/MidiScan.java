@@ -77,6 +77,7 @@ public class MidiScan extends Thread {
         };
         
         anyUnknown = false;
+        boolean responseRcvd = false;
         report = new String();
         SysexMessage inqMsg = new SysexMessage();
         
@@ -136,6 +137,7 @@ public class MidiScan extends Thread {
                         continue;
                     
                     //ErrorMsg.reportStatus("    Message Received");
+                    responseRcvd = true;
                     SysexMessage msg;
                     try {
                         msg = (SysexMessage) MidiUtil.getMessage(i, 1);
@@ -172,10 +174,19 @@ public class MidiScan extends Thread {
         if (pb != null)
             // clear progress bar
             pb.setProgress(maxout * (MAX_DEVICE_ID + 1));
-        if (anyUnknown && (parent != null)) {
-            ScanUnkownReportDialog surd = new ScanUnkownReportDialog(parent, true);
-            surd.addToReport(report);
-            surd.setVisible(true);
+        if (anyUnknown)
+        {  
+        	if (parent != null) {
+                ScanUnkownReportDialog surd = new ScanUnkownReportDialog(parent, true);
+                surd.addToReport(report);
+                surd.setVisible(true);
+        	}
+        	else {
+                ErrorMsg.reportStatus(report);
+                }
+        }
+        else if (!responseRcvd) {
+        	ErrorMsg.reportStatus("No scan responses received");
         }
     }
     

@@ -190,6 +190,8 @@ class SynthConfigPanel extends ConfigPanel {
 	    (null,
 	     "Scanning for SupportedSynthesizers",
 	     "Initializing Midi Devices", 0, 100);
+
+	//TODO: possibly need to pass in a parent so that the "scan unknown device dialogue can be displayed"
         midiScan = new MidiScan((TableModel) table.getModel(), pm, null);
 
         midiScan.start();
