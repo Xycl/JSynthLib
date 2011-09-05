@@ -13,10 +13,12 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 import java.util.prefs.Preferences;
+import java.util.Comparator;
 
 
 /**
@@ -82,6 +84,8 @@ public final class DeviceListWriter {
 				ErrorMsg.reportStatus(e);
 			}
 		}
+        
+        Collections.sort(devs);
     }
     
     public void writeProps(File outFile) throws FileNotFoundException {
@@ -196,6 +200,7 @@ public final class DeviceListWriter {
 	    		out.format("  <td align=\"center\">%s</td>\n", patchEd);
 	    		//infoText is far too large for this table
 //	    		out.format("  <td>%s</td>\n", comment);
+	    		out.println(" <td></td>\n");
 	    		out.println("</tr>\n");
 	    		
 			} catch (Exception e) {
@@ -375,7 +380,7 @@ public final class DeviceListWriter {
 
         d.addClasses(new File("."), "synthdrivers");
         d.writeProps(new File(".", Constants.RESOURCE_NAME_DEVICES_CONFIG));
-//        d.writeDocs(new File(".", "synths.html"));
+        //d.writeDocs(new File(".", "synths.html"));
         
         System.exit(0);
     }

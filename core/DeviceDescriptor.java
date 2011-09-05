@@ -95,7 +95,11 @@ public class DeviceDescriptor implements Comparable {
     public int compareTo(Object obj) {
         if(obj instanceof DeviceDescriptor) {
             DeviceDescriptor that = (DeviceDescriptor) obj;
-            return(this.deviceName.compareTo(that.deviceName));
+            int compManu = manufacturer.compareToIgnoreCase(that.manufacturer);
+            if (0 == compManu)
+                return(this.deviceName.compareToIgnoreCase(that.deviceName));
+            else
+            	return compManu;
         }
         return(0);
     }
