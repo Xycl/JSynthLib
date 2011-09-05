@@ -398,10 +398,6 @@ public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
         }
     }
 
-    protected void finalize() { // ???
-        faderInEnable(false);
-    }
-
     private class FaderReceiver implements Receiver {
         //Receiver interface
         public void close() {

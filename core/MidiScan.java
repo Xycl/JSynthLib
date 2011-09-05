@@ -265,8 +265,4 @@ public class MidiScan extends Thread {
     
     public void close() {
     }
-    
-    public void finalize() {
-        close();
-    }
 }
