@@ -34,7 +34,8 @@ public final class PatchEdit  {
                 + ", OS: " +  Utility.getOSName() + ", " + Utility.getOSVersion());
 
         // Load synth database (synthdrivers.properties)
-	devConfig = new DevicesConfig();
+        devConfig = new DevicesConfig();
+        devConfig.loadAppDevices();
 
 	// Load config file (JSynthLib.properties).
         boolean loadPrefsSuccessfull = AppConfig.loadPrefs();
@@ -105,14 +106,9 @@ public final class PatchEdit  {
 	}
     }
 
-    protected void finalize() {	// ???
-	ErrorMsg.reportStatus("JSynthLib finalizing...");
-	masterInEnable(false);
-    }
-
-    static void showPrefsDialog() {
-	prefsDialog.setVisible(true);
-    }
+	static void showPrefsDialog() {
+		prefsDialog.setVisible(true);
+	}
 
     /**
      * Returns the current active JFrame. Used for the <code>owner</code>

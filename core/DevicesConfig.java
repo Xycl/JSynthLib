@@ -50,13 +50,19 @@ class DevicesConfig {
     private MapOfLists typeList = new MapOfLists();
 
     /**
-     * Constructor
+     * Default constructor.
      */
-    DevicesConfig() {
-        readDevicesFromPropertiesFile();
-        readDevicesFromXMLFile();
+    public DevicesConfig() {
     }
 
+    /**
+     * Load the application devices from appropriate config files.
+     */
+    public void loadAppDevices() {
+        readDevicesFromPropertiesFile();
+        readDevicesFromXMLFile();
+	}
+    
     private void readDevicesFromPropertiesFile() {
         // Load properties file
         InputStream in = this.getClass().getResourceAsStream("/" + Constants.RESOURCE_NAME_DEVICES_CONFIG);
@@ -357,10 +363,11 @@ class DevicesConfig {
      */
     public static void main(String[] args) {
     	DevicesConfig devConf = new DevicesConfig();
+    	devConf.loadAppDevices();
 	    devConf.printAll();
     }
 
-    /**
+	/**
      * Dump out all properties
      */
     private void printAll() {
