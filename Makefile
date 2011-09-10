@@ -155,6 +155,7 @@ PACKAGES = \
 	synthdrivers.RolandXV5080 \
 	synthdrivers.SCIProphet600 \
 	synthdrivers.TCElectronicGMajor \
+	synthdrivers.TCElectronicM350 \
 	synthdrivers.WaldorfMW2 \
 	synthdrivers.WaldorfPulse \
 	synthdrivers.Yamaha01v \
@@ -166,6 +167,8 @@ PACKAGES = \
 	synthdrivers.YamahaDX7s \
 	synthdrivers.YamahaFS1R \
 	synthdrivers.YamahaMotif \
+	synthdrivers.YamahaSY77 \
+	synthdrivers.YamahaSY85 \
 	synthdrivers.YamahaTG100 \
 	synthdrivers.YamahaTG33 \
 	synthdrivers.YamahaTX7 \
@@ -530,6 +533,7 @@ synthdrivers.RolandTD6 : $(call PACKAGE_OBJS,synthdrivers.RolandTD6)
 synthdrivers.RolandXV5080 : $(call PACKAGE_OBJS,synthdrivers.RolandXV5080)
 synthdrivers.SCIProphet600 : $(call PACKAGE_OBJS,synthdrivers.SCIProphet600)
 synthdrivers.TCElectronicGMajor : $(call PACKAGE_OBJS,synthdrivers.TCElectronicGMajor)
+synthdrivers.TCElectronicM350 : $(call PACKAGE_OBJS,synthdrivers.TCElectronicM350)
 synthdrivers.WaldorfMW2 : $(call PACKAGE_OBJS,synthdrivers.WaldorfMW2)
 synthdrivers.WaldorfPulse : $(call PACKAGE_OBJS,synthdrivers.WaldorfPulse)
 synthdrivers.YamahaDX100 : $(call PACKAGE_OBJS,synthdrivers.YamahaDX100)
@@ -540,6 +544,8 @@ synthdrivers.YamahaDX7II : $(call PACKAGE_OBJS,synthdrivers.YamahaDX7II)
 synthdrivers.YamahaDX7s : $(call PACKAGE_OBJS,synthdrivers.YamahaDX7s)
 synthdrivers.YamahaFS1R : $(call PACKAGE_OBJS,synthdrivers.YamahaFS1R)
 synthdrivers.YamahaMotif : $(call PACKAGE_OBJS,synthdrivers.YamahaMotif)
+synthdrivers.YamahaSY77 : $(call PACKAGE_OBJS,synthdrivers.YamahaSY77)
+synthdrivers.YamahaSY85 : $(call PACKAGE_OBJS,synthdrivers.YamahaSY85)
 synthdrivers.YamahaTG100 : $(call PACKAGE_OBJS,synthdrivers.YamahaTG100)
 synthdrivers.YamahaTG33 : $(call PACKAGE_OBJS,synthdrivers.YamahaTG33)
 synthdrivers.YamahaTX7 : $(call PACKAGE_OBJS,synthdrivers.YamahaTX7)
