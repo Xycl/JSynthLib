@@ -13,7 +13,7 @@ class M350Model extends ParamModel {
     	//are valid (although its technically possible
     	//to toggle bypass buttons etc via sysex, this is
     	//not supported in the editor)
-    	super(p, (par == 13 ? 28 : par+30));   
+    	super(p, (par == 13 ? 29 : par+31));   
     	
     	param = par;
     }
