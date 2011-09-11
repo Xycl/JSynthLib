@@ -132,7 +132,7 @@ Most usefult targets:
 		<jar jarfile="${build}/run/${ant.project.name}.jar"
 			 basedir="${bin}"
 			 excludes="core/DeviceListWriter.class,JSynthLib.properties,
-					   linuxdevices.conf">
+					   linuxdevices.conf,build/*/*,build/*,build,.settings/*,.settings,doc/*,doc">
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
 				<attribute name="Main-Class" value="JSynthLib"/>
