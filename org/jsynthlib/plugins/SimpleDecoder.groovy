@@ -165,8 +165,8 @@ class SimpleDecoder extends Decoder {
     }
 
 	public void main(args) {
-	   Class[] args = [ Integer.class, Boolean.class ]
-	   def c = SimpleDecoder.class.getConstructor(args);
+	   Class[] targs = [ Integer.class, Boolean.class ]
+	   def c = SimpleDecoder.class.getConstructor(targs);
 	   Object[] pargs = [7, true]
 	   PluginRegistry.registerDecoder("BE 7bit words",c, pargs);
 	   pargs = [7, false]
