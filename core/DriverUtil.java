@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+
 /**
  * Utility Routines for Synth Drivers.
  * @version $Id$
@@ -42,7 +43,30 @@ public class DriverUtil {
      * read from a Sysex file, for which a Driver is not known.
      */
     public static IPatch[] createPatches(byte[] sysex) {
-        return createPatches(sysex, chooseDriver(sysex));
+        IDriver drv = null;
+        int i;
+        
+        // find first sysex that is supported by one of active drivers
+        while (drv == null) {
+            if ((sysex[0]&0xff) != 0xf0) {
+                for (i = 0; i < sysex.length; i++) {
+                    if ((sysex[i] & 0xff) == 0xf0)
+                        break;
+                }
+                if (i == sysex.length)
+                    break;
+                sysex = Utility.copyOfRange(sysex, i, sysex.length);
+            }
+            drv = chooseDriver(sysex);
+            if (drv == AppConfig.getNullDriver()) {
+                drv = null;
+                sysex = Utility.copyOfRange(sysex, 1, sysex.length);
+            }
+        }
+        if (drv != null)
+            return createPatches(sysex, drv);
+        else
+            return new IPatch[0];
     }
 
     /**

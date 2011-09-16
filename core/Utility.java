@@ -58,6 +58,17 @@ public class Utility extends Object {
     }
     //----- End phil@muqus.com
 
+    // java.util.Arrays.copyOfRange only available in 1.6
+    // for 1.5 provide our own
+    public static byte[] copyOfRange(byte[] original, int from, int to) {
+        int newLength = to - from;
+        if (newLength < 0)
+            throw new IllegalArgumentException(from + " > " + to);
+        byte[] copy = new byte[newLength];
+        System.arraycopy(original, from, copy, 0,
+                         Math.min(original.length - from, newLength));
+        return copy;
+    }
 
     //----- Start Joe Emenaker
     /**
