@@ -2,10 +2,12 @@ package core;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -14,9 +16,10 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
+
+import org.jsynthlib.jsynthlib.Dummy;
 
 /**
  * A virtual JDesktopPane class which supports both MDI (Multiple Document
@@ -241,20 +244,23 @@ public class JSLDesktop implements JSLFrameListener {
             frame = new JFrame(title);
             // Emenaker - 2006-02-02
             // TODO: Move the actual filename to some central config location
-            frame.setIconImage(Toolkit.getDefaultToolkit().getImage("images/JSLIcon48x48.png"));
+            frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
+            		getClass().getResource("/images/JSLIcon48x48.png")));
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            frame.setBounds(INSET, INSET,
-                       screenSize.width  - INSET * 2,
-                       screenSize.height - INSET * 2);
+            if(! AppConfig.getMainWindowBounds(frame))
+	            frame.setBounds(INSET, INSET,
+	                       screenSize.width  - INSET * 2,
+	                       screenSize.height - INSET * 2);
 
             //Quit this app when the big window closes.
             frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             frame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
+                	AppConfig.setMainWindowBounds(frame);
                     closingProc();
                 }
             });
-
+            
             Container c = frame.getContentPane();
             if (tb != null) {
                 c.add(tb, BorderLayout.NORTH);

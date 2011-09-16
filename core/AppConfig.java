@@ -15,9 +15,12 @@ import java.util.ArrayList;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import javax.swing.*;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import org.jsynthlib.jsynthlib.Dummy;
+import org.jsynthlib.utils.AWTUtils;
 
 public class AppConfig {
     static final int GUI_MDI	= 0;
@@ -419,4 +422,48 @@ public class AppConfig {
 	return (IPatchDriver) getDevice(0).getDriver(0);
     }
 
+	/**
+	 * Set frame to remembered size. Updates position, size, and 'maximized'
+	 * state.
+	 * 
+	 * @return true if frame's size was changed
+	 */
+    public static boolean getMainWindowBounds(JFrame frame) {
+    	String val = prefs.get("mainWindow", null);
+    	if(val == null)
+    		return false;
+    	else {
+    		String[] ints = val.split("\\s+");
+    		try {
+    			// fully parse string first
+    			int x = Integer.parseInt(ints[0]);
+    			int y = Integer.parseInt(ints[1]);
+    			int width = Integer.parseInt(ints[2]);
+    			int height = Integer.parseInt(ints[3]);
+    			boolean isMax = Boolean.parseBoolean(ints[4]);
+    			
+    			// parsing succeeded, now update frame
+    			frame.setBounds(x, y, width, height);
+    			if(isMax)
+    				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    			
+    			AWTUtils.moveOnScreen(frame);
+    			return true;
+    		}
+    		catch(Throwable t) {
+    			// On any error, don't touch frame.
+    			return false;
+    		}
+    	}
+    }
+    public static void setMainWindowBounds(JFrame frame) {
+    	boolean isMax = (frame.getExtendedState() & JFrame.MAXIMIZED_BOTH) != 0;
+    	
+    	// TODO figure out how to get the un-maximized bounds of a window even when it's maximized
+    	String val = String.format("%d %d %d %d %s",
+    			frame.getX(), frame.getY(),
+    			frame.getWidth(), frame.getHeight(),
+    			isMax);
+    	prefs.put("mainWindow", val);
+    }
 }
