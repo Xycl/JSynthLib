@@ -10,12 +10,11 @@ import org.jsynthlib.jsynthlib.xml.XMLParameter
  * @author ribrdb
  */
 class SimpleDecoder extends Decoder {
-
-    private int word_size
-    private boolean big_endian
-    private int cur_offset = 0
-    private int size = 0
-    private int default_size
+    int word_size
+    boolean big_endian
+    int cur_offset = 0
+    int size = 0
+    int default_size
     
     /**
      * This appears to be required for loading the plugin.
@@ -160,10 +159,6 @@ class SimpleDecoder extends Decoder {
         }
     }
     
-    public int getSize() {
-        return size;
-    }
-
 	public void main(args) {
 	   Class[] targs = [ Integer.class, Boolean.class ]
 	   def c = SimpleDecoder.class.getConstructor(targs);
@@ -180,25 +175,21 @@ class SimpleDecoder extends Decoder {
 }
 // Groovy doesn't seem to support inner classes
 class SimpleDecoderParameter extends XMLParameter {
-    @Property public int offset;
-    @Property public int size;
-    @Property protected String charset
-    @Property protected boolean signed = false
-    @Property protected int base = 0
-	   
+	//// properties
+    // This is the amount added to the value for display
+    int offset;
+    int size;
+    String charset
+    boolean signed = false
+    int base = 0
+
     SimpleDecoderParameter(decoder, offset) {
         super(decoder)
         this.offset = offset
     }
 	   
-    public void setSize(int size) {
-       this.size = size
-    }
     public void setSize(String s) {
         this.size = Integer.decode(s)
-    }
-    public void setCharset(String s) {
-        charset = s
     }
     public void setAddress(String s) {
     	offset = Integer.decode(s)

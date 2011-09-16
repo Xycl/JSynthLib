@@ -5,9 +5,9 @@ package org.jsynthlib.plugins;
 import org.jsynthlib.jsynthlib.xml.XMLPatch
 
 public class BasicChecksum extends Checksum {
-    @Property int start
-    @Property int end
-    @Property int address
+    int start
+    int end
+    int address
     
     public void setStart(String s) {
         start = Integer.decode(s)
