@@ -117,6 +117,12 @@ class LibraryFrame extends AbstractLibraryFrame {
             } else
                 p = q;
         }
+		// bug 3410743
+		// fix symptoms of issue where apparently the selected row
+		// can be no longer in the table
+		if (numDeleted > 0)
+			table.clearSelection();
+        
         JOptionPane.showMessageDialog(null, numDeleted
                 + " PatchesAndScenes were Deleted", "Delete Duplicates",
                 JOptionPane.INFORMATION_MESSAGE);
