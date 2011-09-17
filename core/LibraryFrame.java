@@ -124,7 +124,7 @@ class LibraryFrame extends AbstractLibraryFrame {
 			table.clearSelection();
         
         JOptionPane.showMessageDialog(null, numDeleted
-                + " PatchesAndScenes were Deleted", "Delete Duplicates",
+                + " Patches and Scenes were deleted", "Delete Duplicates",
                 JOptionPane.INFORMATION_MESSAGE);
         changed();
     }
