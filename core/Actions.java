@@ -1300,15 +1300,21 @@ final public class Actions {
 		 "Delete Duplicate Patches",
 		 JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
 		return;
+	    
+	    int numDeleted=0;
 	    PatchEdit.showWaitDialog("Deleting duplicates...");
             try {
-		((LibraryFrame) getSelectedFrame()).deleteDuplicates();
+		numDeleted = ((LibraryFrame) getSelectedFrame()).deleteDuplicates();
 	    } catch (Exception ex) {
 	        PatchEdit.hideWaitDialog();
 		ErrorMsg.reportError("Error", "Library to Delete Duplicates in must be Focused", ex);
 		return;
 	    }
 	    PatchEdit.hideWaitDialog();
+	    
+	    JOptionPane.showMessageDialog(null, numDeleted
+                + " Patches and Scenes were deleted", "Delete Duplicates",
+                JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

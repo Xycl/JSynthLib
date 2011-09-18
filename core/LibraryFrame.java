@@ -104,7 +104,7 @@ class LibraryFrame extends AbstractLibraryFrame {
                 .getContents(this) != null, Actions.EN_PASTE);
     }
 
-    void deleteDuplicates() {
+    int deleteDuplicates() {
         Collections.sort(myModel.getList(), new SysexSort());
         int numDeleted = 0;
         Iterator it = myModel.getList().iterator();
@@ -123,10 +123,9 @@ class LibraryFrame extends AbstractLibraryFrame {
 		if (numDeleted > 0)
 			table.clearSelection();
         
-        JOptionPane.showMessageDialog(null, numDeleted
-                + " Patches and Scenes were deleted", "Delete Duplicates",
-                JOptionPane.INFORMATION_MESSAGE);
+        
         changed();
+        return numDeleted;
     }
 
     //This is a comparator class used by the delete duplicated action
