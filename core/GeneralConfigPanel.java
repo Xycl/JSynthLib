@@ -77,14 +77,14 @@ public class GeneralConfigPanel extends ConfigPanel {
     }
 
     void init() {
-	cbLF.setSelectedIndex(AppConfig.getLookAndFeel());
+	cbLF.setSelectedItem(AppConfig.getLookAndFeel());
 	cbGS.setSelectedIndex(AppConfig.getGuiStyle());
 	cbxTB.setSelected(AppConfig.getToolBar());
     }
 
     void commitSettings() {
-	if (AppConfig.getLookAndFeel() != cbLF.getSelectedIndex()) {
-            AppConfig.setLookAndFeel(cbLF.getSelectedIndex());
+	if (!AppConfig.getLookAndFeel().equals(cbLF.getSelectedItem())) {
+            AppConfig.setLookAndFeel((String)cbLF.getSelectedItem());
             PatchEdit.getDesktop().updateLookAndFeel();
             ((JPanel) this).updateUI(); // wirski@op.pl
             SwingUtilities.updateComponentTreeUI(this.getRootPane()); // wirski@op.pl

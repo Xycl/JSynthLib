@@ -69,6 +69,9 @@ public class AppConfig {
 		//ErrorMsg.reportStatus("loadDevices: -> " + s);
 
 		addDevice(className, prefsDev.node(devs[i]));
+		
+		
+		//default look and feel is 
 	    }
 	    //ErrorMsg.reportStatus("deviceList: " + deviceList);
 	    return true;
@@ -185,22 +188,27 @@ public class AppConfig {
 
 
     /** Getter for lookAndFeel */
-    static int getLookAndFeel() { return  prefs.getInt("lookAndFeel", 0); }
+    static String getLookAndFeel() { return  prefs.get("lookAndFeel", "Nimbus"); }
 
     /** Setter for lookAndFeel */
-    static void setLookAndFeel(int lookAndFeel) {
+    static void setLookAndFeel(String lookAndFeel) {
         // This causes dialogs and non-internal frames to be painted with the
         // look-and-feel. Emenaker 2005-06-08
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
 
-        prefs.putInt("lookAndFeel", lookAndFeel);
+        prefs.put("lookAndFeel", lookAndFeel);
         UIManager.LookAndFeelInfo [] installedLF;
         installedLF = UIManager.getInstalledLookAndFeels();
         try {
-	    UIManager.setLookAndFeel(installedLF[lookAndFeel].getClassName());
+        	for (UIManager.LookAndFeelInfo info: installedLF)  {
+        		if (info.getName().equals(lookAndFeel)) {
+        			UIManager.setLookAndFeel(info.getClassName());
+        			break;
+        		}
+        	}
         } catch (Exception e) {
-	    ErrorMsg.reportStatus(e);
+        	ErrorMsg.reportStatus(e);
         }
     }
 
