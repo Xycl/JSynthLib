@@ -30,14 +30,14 @@
 -->
 
 <project name="JSynthLib" default="build" basedir=".">
-<!-- Don't indent this .. all whitespace is copied to output. -->
-<description>  JSynthLib: A universal synth librarian
+	<!-- Don't indent this .. all whitespace is copied to output. -->
+	<description>  JSynthLib: A universal synth librarian
 
 Most usefult targets:
   all build dist run
 
 </description>
-	
+
 
 	<!-- User-defined properties -->
 	<property file="build.properties"/>
@@ -70,7 +70,7 @@ Most usefult targets:
 		<!-- Set version number -->
 		<property name="version" value="${DSTAMP}cvs"/>
 		<filter token="version" value="${version}"/>
-		<!--<copy file="Version.java" todir="${build}" filtering="true"/>-->
+		<!--<copy file="Constants.java" todir="${build}" filtering="true"/>-->
 	</target>
 
 
@@ -108,6 +108,9 @@ Most usefult targets:
 			<fileset dir="images"/>
 		</copy>
 		<!-- Resources -->
+		<copy todir="${bin}/org">
+			<fileset dir="org" excludes="**/*.java **/*.groovy **/package.html"/>
+		</copy>
 		<copy file="synthdrivers.properties" todir="${bin}"/>
 		<copy todir="${bin}/synthdrivers">
 			<fileset dir="synthdrivers">
@@ -122,24 +125,24 @@ Most usefult targets:
 		<copy file="doc/programming.html" todir="${docs}"/>
 	</target>
 
-	
+
 	<target name="build-run"
 			description="Build the official runnable file set"
 			depends="build">
 		<mkdir dir="${build}/run"/>
-		
+
 		<!-- Create JAR -->
 		<jar jarfile="${build}/run/${ant.project.name}.jar"
 			 basedir="${bin}"
-			 excludes="core/DeviceListWriter.class,JSynthLib.properties,
-					   linuxdevices.conf,build/*/*,build/*,build,.settings/*,.settings,doc/*,doc">
+			 excludes="core/DeviceListWriter*.class,JSynthLib.properties,
+					   linuxdevices.conf">
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
 				<attribute name="Main-Class" value="JSynthLib"/>
 				<attribute name="Class-Path" value="groovy.jar"/>
 			</manifest>
 		</jar>
-		
+
 		<!-- Assemble extras -->
 		<copy todir="${build}/run">
 			<fileset dir=".">
@@ -148,22 +151,39 @@ Most usefult targets:
 		</copy>
 	</target>
 
-			
+
 	<!-- Documentation -->
 	<target name="api_docs"
 			description="Generate API documentation"
-			depends="init">
+			depends="init,build,api_docs_check"
+			unless="api_docs_uptodate">
 		<mkdir dir="${api_docs}"/>
 		<javadoc destdir="${api_docs}" nohelp="true" private="${show-private-classes}"
 			classpath="groovy.jar">
+			<!-- Pick out only the source dirs -->
 			<packageset dir="${src}">
-				<include name="*/**"/>
-				<exclude name="doc/**"/>
-				<exclude name="groovy/**"/>
-				<exclude name="midiprovider/**"/>
-				<exclude name="org/codehaus/groovy/**"/>
+				<include name="com/**"/>
+				<include name="core/**"/>
+				<include name="images/**" />
+				<include name="org/**" />
+				<include name="synthdrivers/**" />
 			</packageset>
 		</javadoc>
+	</target>
+
+	<!-- Determine if api_docs needs to run -->
+	<target name="api_docs_check">
+		<uptodate property="api_docs_uptodate">
+			<!-- exact copy of api_docs/packageset -->
+			<srcfiles dir="${src}">
+				<include name="com/**"/>
+				<include name="core/**"/>
+				<include name="images/**" />
+				<include name="org/**" />
+				<include name="synthdrivers/**" />
+			</srcfiles>
+			<mapper type="merge" to="${api_docs}/package-list"/>
+		</uptodate>
 	</target>
 
 	<target name="doc"
@@ -178,13 +198,13 @@ Most usefult targets:
 		<mkdir dir="${dist}"/>
 
 		<property name="dist-name" value="${ant.project.name}-${version}"/>
-		
+
 		<!-- Create runnable bundles -->
 		<zip destfile="${dist}/${dist-name}-bin.zip">
 			<zipfileset dir="${build}/run" includes="**"
 				prefix="${ant.project.name}-${version}/"/>
 			<zipfileset dir="." includes="doc/**"
-				prefix="${ant.project.name}-${version}/"/>  <!-- not the api -->
+				prefix="${ant.project.name}-${version}/"/>
 		</zip>
 		<checksum file="${dist}/${dist-name}-bin.zip"
 				  forceoverwrite="yes" fileext=".md5"/>
@@ -194,7 +214,7 @@ Most usefult targets:
 			<tarfileset dir="${build}/run" includes="**"
 				prefix="${ant.project.name}-${version}/"/>
 			<tarfileset dir="." includes="doc/**"
-				prefix="${ant.project.name}-${version}/"/>  <!-- not the api -->
+				prefix="${ant.project.name}-${version}/"/>
 		</tar>
 		<checksum file="${dist}/${dist-name}-bin.tar.gz"
 				  forceoverwrite="yes" fileext=".md5"/>
@@ -209,7 +229,7 @@ Most usefult targets:
 		</zip>
 		<checksum file="${dist}/${dist-name}-src.zip"
 				  forceoverwrite="yes" fileext=".md5"/>
-		
+
 		<tar destfile="${dist}/${dist-name}-src.tar.gz"
 			 compression="gzip" casesensitive="yes" longfile="gnu">
 			<tarfileset dir="." prefix="${ant.project.name}-${version}-src/">
@@ -272,7 +292,7 @@ Most usefult targets:
 		<delete dir="${build}"/>
 	</target>
 
-	
+
 	<!-- ==================== Administrative targets  ======================= -->
 	<target name="clean-build"
 		description="First 'clean' and then 'build'"
