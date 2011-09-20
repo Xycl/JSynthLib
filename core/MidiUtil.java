@@ -151,18 +151,18 @@ public final class MidiUtil {
     }
     
     /** Fills outputNames and inputNames, with the names of devices
-     * made from their descriptions and names */
+     * made only from their names. Description often contains "no details available"
+     * and vendor often contains "unknown vendor" */
+    
     private static void createNames() { // wirski@op.pl
         outputNames = new String[outputMidiDeviceInfo.length];
     	for (int i=0; i < outputMidiDeviceInfo.length; i++) {
-            outputNames[i] = outputMidiDeviceInfo[i].getDescription() + " " +
-                outputMidiDeviceInfo[i].getName();
+            outputNames[i] = outputMidiDeviceInfo[i].getName();
         }
         makeNamesUnique(outputNames);
         inputNames = new String[inputMidiDeviceInfo.length];
         for (int i=0; i < inputMidiDeviceInfo.length; i++) {
-            inputNames[i] = inputMidiDeviceInfo[i].getDescription() + " " +
-                inputMidiDeviceInfo[i].getName();
+            inputNames[i] = inputMidiDeviceInfo[i].getName();
         }
         makeNamesUnique(inputNames);
     }
