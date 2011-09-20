@@ -245,20 +245,41 @@ public class AppConfig {
 	//ErrorMsg.reportStatus("setMidiEnable: " + midiEnable);
     }
 
+	//ff: store the midi in/out devices as a string, in case the order of devices
+	//changes between loads.
+    
     /** Getter for initPortIn */
-    static int getInitPortIn() { return prefs.getInt("initPortIn", 0); }
+    static int getInitPortIn() {
+    	String uniqueName = prefs.get("initPortIn", "");
+    	String[] inputNames = MidiUtil.getInputNames();
+    	for (int i=0; i< inputNames.length; ++i) {
+    		if (inputNames[i].equals(uniqueName))	{
+    			return i;
+    		}
+        }
+    	return 0;
+    }
     /** Setter for initPortIn */
     static void setInitPortIn(int initPortIn) {
         if (initPortIn < 0) initPortIn = 0;
-        prefs.putInt("initPortIn", initPortIn);
+        prefs.put("initPortIn", MidiUtil.getInputNames()[initPortIn]);
     }
 
     /** Getter for initPortOut */
-    static int getInitPortOut() { return  prefs.getInt("initPortOut", 0); }
+    static int getInitPortOut() { 
+    	String uniqueName = prefs.get("initPortOut", "");
+    	String[] outputNames = MidiUtil.getOutputNames();
+    	for (int i=0; i< outputNames.length; ++i) {
+    		if (outputNames[i].equals(uniqueName))	{
+    			return i;
+    		}
+        }
+    	return 0;
+    }
     /** Setter for initPortOut */
     static void setInitPortOut(int initPortOut) {
         if (initPortOut < 0) initPortOut = 0;
-        prefs.putInt("initPortOut", initPortOut);
+        prefs.put("initPortOut", MidiUtil.getOutputNames()[initPortOut]);
     }
 
     /**

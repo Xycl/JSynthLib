@@ -114,8 +114,8 @@ public abstract class Device /*implements Serializable, Storable*/ {
     /** Called after Device(Preferences prefs) is called. */
     protected void setup() {
 	// set default MIDI in/out port
-	setInPort(prefs.getInt("inPort", AppConfig.getInitPortIn()));
-	setPort(prefs.getInt("port", AppConfig.getInitPortOut()));
+	setInPort(getInPort());
+	setPort(getPort());
     }
 
     public final Preferences getPreferences() {
@@ -242,7 +242,14 @@ public abstract class Device /*implements Serializable, Storable*/ {
      * @return Value of property port.
      */
     public final int getPort () {
-	return prefs.getInt("port", AppConfig.getInitPortOut());
+    String uniqueName = prefs.get("port", "");
+    String[] outputNames = MidiUtil.getOutputNames();
+    for (int i=0; i< outputNames.length; ++i) {
+        if (outputNames[i].equals(uniqueName))   {
+            return i;
+        }
+    }
+    return AppConfig.getInitPortOut();
     }
 
     /**
@@ -264,7 +271,7 @@ public abstract class Device /*implements Serializable, Storable*/ {
 		ErrorMsg.reportStatus(e);
 	    }
 	}
-	prefs.putInt("port", port);
+	prefs.put("port", MidiUtil.getOutputNames()[port]);
 	initPort = true;
     }
 
@@ -309,7 +316,14 @@ public abstract class Device /*implements Serializable, Storable*/ {
      * @return Value of property inPort.
      */
     public final int getInPort () {
-	return prefs.getInt("inPort", AppConfig.getInitPortIn());
+    String uniqueName = prefs.get("inPort", "");
+    String[] inputNames = MidiUtil.getInputNames();
+    for (int i=0; i< inputNames.length; ++i) {
+        if (inputNames[i].equals(uniqueName))   {
+            return i;
+        }
+    }
+    return AppConfig.getInitPortIn();
     }
 
     /**
@@ -324,7 +338,7 @@ public abstract class Device /*implements Serializable, Storable*/ {
 
 	if (!initInPort || getInPort() != inPort)
 	    MidiUtil.setSysexInputQueue(inPort);
-	prefs.putInt("inPort", inPort);
+	prefs.put("inPort", MidiUtil.getInputNames()[inPort]);
 	initInPort = true;
     }
 
