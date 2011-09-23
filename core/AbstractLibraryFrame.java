@@ -262,6 +262,14 @@ abstract class AbstractLibraryFrame extends Actions.MenuFrame implements PatchBa
         // This is done in tableChanged for the TableModelListener
         // changed = true;
     }
+    
+    /**
+     * @param the row that was inserted.
+     * TODO: may want to add a different version for modifying a row
+     */      
+    protected void changed(int row) {
+    	myModel.fireTableRowsInserted(row,row);
+    }
 
     public boolean isChanged() {
         return(changed);
@@ -306,13 +314,13 @@ abstract class AbstractLibraryFrame extends Actions.MenuFrame implements PatchBa
     }
 
     public void pastePatch(IPatch p) {
-        myModel.addPatch(p);
-        changed();
+        int row = myModel.addPatch(p);
+        changed(row);
     }
 
     public void pastePatch(IPatch p, int bankNum, int patchNum) {// added by R. Wirski
-        myModel.addPatch(p, bankNum, patchNum);
-        changed();
+        int row = myModel.addPatch(p, bankNum, patchNum);
+        changed(row);
     }
 
     public IPatch getSelectedPatch() {
@@ -480,15 +488,17 @@ abstract class AbstractLibraryFrame extends Actions.MenuFrame implements PatchBa
         /**
          * Add a patch to the end of the internal list.
          * @param p The patch to add
+         * @return the position the patch occupies
          */
-        abstract void addPatch(IPatch p);
+        abstract int addPatch(IPatch p);
 
         /**
          * Add a patch to the end of the internal list.
          * and sets bank and patch numbers
          * @param p The patch to add
+         * @return the position the patch occupies
          */
-        abstract void addPatch(IPatch p, int bankNum, int patchNum);// added by R. Wirski
+        abstract int addPatch(IPatch p, int bankNum, int patchNum);// added by R. Wirski
 
         /**
          * Set (and replace) the patch at the specified row of the list.

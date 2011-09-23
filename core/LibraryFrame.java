@@ -266,14 +266,16 @@ class LibraryFrame extends AbstractLibraryFrame {
 
         // begin PatchTableModel interface methods
         // It is caller's responsibility to update Table.
-        void addPatch(IPatch p) {
+        int addPatch(IPatch p) {
             ErrorMsg.reportStatus("LibraryFrame.addPatch: Patch=" + p);
             list.add(p);
+            return list.size()-1;
         }
 
-        void addPatch(IPatch p, int bankNum, int patchNum) {// wirski@op.pl
+        int addPatch(IPatch p, int bankNum, int patchNum) {// wirski@op.pl
             ErrorMsg.reportStatus("LibraryFrame.addPatch: Patch=" + p);
             list.add(p);
+            return list.size()-1;
         }
 
         void setPatchAt(IPatch p, int row, int bankNum, int patchNum) {// wirski@op.pl
