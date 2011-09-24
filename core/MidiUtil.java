@@ -559,6 +559,12 @@ public final class MidiUtil {
 	if (bufSize == 0 || size <= bufSize) {
 	    rcv.send(msg, -1);
 	    log("XMIT: ", msg);
+	    //always include the delay after sending in case a driver uses multiple calls to send 
+        try {
+            Thread.sleep(delay);
+        } catch (Exception e) {
+            // do nothing
+        }
 	} else {
 	    // divide large System Exclusive Message into multiple
 	    // small messages.

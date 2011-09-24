@@ -298,9 +298,13 @@ public abstract class Device /*implements Serializable, Storable*/ {
 	if (rcvr == null)
 	    return;
 	try {
+		//Always include the delay after a message, in case several 
+		//invocations of this function are made with different sysex 
+		//messages that need to be spread out.
+		/*
 	    if (midiOutBufSize == 0 && AppConfig.getMidiOutBufSize() == 0)
 	        MidiUtil.send(rcvr, message);
-	    else
+	    else*/
 	        MidiUtil.send(rcvr, message,
 	                Math.min(midiOutBufSize, AppConfig.getMidiOutBufSize()),
 	                Math.max(midiOutDelay, AppConfig.getMidiOutDelay()));
