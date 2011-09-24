@@ -25,6 +25,7 @@ public class YamahaTX81zDevice extends Device
     public YamahaTX81zDevice ()
     {
 	super ("Yamaha","TX81z",null,infoText,"Brian Klock");
+    setMidiBufSize(0, 5);
     }
 
     /** Constructor for for actual work. */
@@ -32,7 +33,7 @@ public class YamahaTX81zDevice extends Device
 	this();
 	this.prefs = prefs;
 
-        addDriver (new YamahaTX81zBankDriver ());
+        addDriver (new YamahaTX81zBankDriver ());	
         addDriver (new YamahaTX81zSingleDriver ());
     }
 }

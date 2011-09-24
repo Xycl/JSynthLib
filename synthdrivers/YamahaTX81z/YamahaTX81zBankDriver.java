@@ -14,7 +14,7 @@ public class YamahaTX81zBankDriver extends BankDriver
    super ("Bank","Brian Klock",32,4);
    sysexID="F043**04*000";
    deviceIDoffset=2;
-   bankNumbers =new String[] {"0-Internal"};
+   bankNumbers =new String[] {"I", "A", "B", "C", "D"};
    patchNumbers=new String[] {"I01","I02","I03","I04","I05","I06","I07","I08",
                               "I09","I10","I11","I12","I13","I14","I15","I16", 
                               "I17","I18","I19","I20","I21","I22","I23","I24",
@@ -284,5 +284,57 @@ public Patch createNewPatch()
 	 return p;
  }
 
+  private enum rcButtons {
+	  POWER_ON(64),
+	  STORE(65),
+	  UTILITY(66),
+	  EDIT(67),
+	  PLAY(68),
+	  PARAMETER_DEC(69),
+	  PARAMETER_INC(70),
+	  DATA_ENTRY_DEC(71),
+	  DATA_ENTRY_INC(72),
+	  MASTER_VOLUME_DEC(73),
+	  MASTER_VOLUME_INC(74),
+	  CURSOR(75);
+	  
+	  public final int Value;
+	  private rcButtons(int value){
+		  Value = value;
+	  } 
+  }
+  private void rcUtilityNoteOnOff(){
+	  byte sysex[] = {(byte)0xF0, (byte)0x43, (byte)0x10, (byte)0x10, (byte)0x7B, (byte)0x06, (byte)0x00, (byte)0xF7};
+	  send(sysex);
+  }
+  private void rcPressButton(rcButtons button){
+	  byte sysexPress[] = {(byte)0xF0, (byte)0x43, (byte)0x10, (byte)0x13, (byte)button.Value, (byte)0x7F, (byte)0xF7};
+	  byte sysexRelease[] = {(byte)0xF0, (byte)0x43, (byte)0x10, (byte)0x13, (byte)button.Value, (byte)0x00, (byte)0xF7};
+	  send(sysexPress);
+	  send(sysexRelease);
+  }
 
+  public void requestPatchDump(int bankNum, int patchNum) {
+	  //use remote control to dump a bank.
+	  /********************************
+	   * Bank A could be dumped with the following:
+	   * 	F0 43 10 10 7B 06 00 F7
+			F0 43 10 13 46 7F F7
+			F0 43 10 13 46 00 F7
+			F0 43 10 13 46 7F F7
+			F0 43 10 13 46 00 F7
+			F0 43 10 13 47 7F F7
+		 	F0 43 10 13 47 00 F7
+		 	F0 43 10 13 48 7F F7
+		 	F0 43 10 13 48 00 F7
+	   */
+	  rcUtilityNoteOnOff();
+	  rcPressButton(rcButtons.PARAMETER_INC);
+	  rcPressButton(rcButtons.PARAMETER_INC);
+	  //We're now at "Voice Trans?(I)" screen
+	  while (bankNum-- > 0){
+		  rcPressButton(rcButtons.DATA_ENTRY_DEC);
+	  }
+	  rcPressButton(rcButtons.DATA_ENTRY_INC);
+  }
 }
