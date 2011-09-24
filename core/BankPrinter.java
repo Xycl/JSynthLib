@@ -1,12 +1,15 @@
 package core;
 
-import javax.swing.*;
-import java.awt.print.Printable;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.print.PageFormat;
+import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
+
+import javax.swing.JTable;
 
 // TODO: Unselect any cells in the table before printing... and then select them again afterward.
 
@@ -24,16 +27,9 @@ public class BankPrinter implements Printable {
     boolean includePageNumbers = true; // Include page numbers on the bottom of the page?
 
     public BankPrinter(JTable tableView) {
-        this.table = tableView;
-        PrinterJob pj = PrinterJob.getPrinterJob();
-        pj.setPrintable(this);
-        pj.printDialog();
-        try {
-            pj.print();
-        } catch (Exception PrintException) {
-        }
-    }
-
+    	this.table = tableView;
+	}
+    
     public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.black);
@@ -107,7 +103,7 @@ public class BankPrinter implements Printable {
 */
         g2.setTransform(unscaledTransform);
         g2.scale(scale, scale);
-        AffineTransform scaledTransform = g2.getTransform();
+//        AffineTransform scaledTransform = g2.getTransform();
         table.getTableHeader().paint(g2);//paint header at top
         g2.translate(0,tableHeaderHeightOnPage / scale );
         table.paint(g2);
@@ -130,5 +126,15 @@ public class BankPrinter implements Printable {
 
         return Printable.PAGE_EXISTS;
     }
+    
+    public static void print(JTable tableView) {
+    	BankPrinter bp = new BankPrinter(tableView);
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        pj.setPrintable(bp);
+        pj.printDialog();
+        try {
+            pj.print();
+        } catch (Exception PrintException) {
+        }
+    }
 }
-

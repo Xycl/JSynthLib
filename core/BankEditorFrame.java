@@ -254,7 +254,7 @@ public class BankEditorFrame extends Actions.MenuFrame implements PatchBasket {
     }
 
     public void printPatch() {
-        BankPrinter bp = new BankPrinter(table);
+        BankPrinter.print(table);
     }
 
     public void storeSelectedPatch() {
@@ -372,11 +372,31 @@ public class BankEditorFrame extends Actions.MenuFrame implements PatchBasket {
             //----- End phil@muqus.com
         }
 
-        public void setValueAt(Object value, int row, int col) { // not used
+		/**
+		 * Called when user changes edits a cell in a bank grid. Will change the
+		 * name of the corresponding patch.
+		 */
+        public void setValueAt(Object value, int row, int col) {
+        	// value is formatted like "num - name"
+        	// we need to pluck out 'name', ignore the rest
+        	// field editor is not locked, so user can mangle the 'num -' portion
             int patchNum = getPatchNum(row, col);
             String[] patchNumbers = bankData.getDriver().getPatchNumbers();
-            bankData.setName(patchNum,
-                    ((String) value).substring((patchNumbers[patchNum] + " ").length()));
+        	String prefix = patchNumbers[patchNum];
+        	
+        	String neu = value.toString();
+        	if(neu.length() > prefix.length()) {
+        		// trim prefix only if user left it in
+        		if(neu.startsWith(prefix))
+        			neu = neu.substring(prefix.length()).trim();
+        		else
+        			neu = neu.trim();
+        	}
+        	else
+        		neu = "";
+        		
+            bankData.setName(patchNum, neu);
+            System.out.println(neu);
         }
 
         IPatch getPatchAt(int row, int col) {
