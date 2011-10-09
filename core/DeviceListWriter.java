@@ -388,7 +388,7 @@ public final class DeviceListWriter {
 
         d.addClasses(new File("."), "synthdrivers");
         d.writeProps(new File(".", Constants.RESOURCE_NAME_DEVICES_CONFIG));
-        d.writeDocs(new File(".", "synths-test.html"));
+//        d.writeDocs(new File(".", "synths-test.html"));
         
         System.exit(0);
     }
