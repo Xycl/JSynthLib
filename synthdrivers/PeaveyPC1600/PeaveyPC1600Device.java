@@ -15,7 +15,7 @@ public class PeaveyPC1600Device extends Device
 {
     public PeaveyPC1600Device ()
     {
-     super ("Peavey","PC1600",null,null,"Phil Shepherd");
+     super ("Peavey","PC1600/PC1600x",null,null,"Phil Shepherd");
     }
 
     /** Constructor for for actual work. */

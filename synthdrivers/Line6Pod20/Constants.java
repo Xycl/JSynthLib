@@ -30,10 +30,10 @@ final class Constants {
     /** Manufacturer of device*/
     static final String MANUFACTURER_NAME = "Line6";
     /** Name of device*/
-    static final String DEVICE_NAME = "Pod 2.0";
+    static final String DEVICE_NAME = "POD 2.0";
     /** Name of Converter for device*/
-    static final String CONVERTER_NAME = "Pod 2.0 All Dump Converter";
-    /** Line6 Bass Pod Universal Device Inquiry*/
+    static final String CONVERTER_NAME = "POD 2.0 All Dump Converter";
+    /** Line6 Bass POD Universal Device Inquiry*/
     static final String INQUIRY_ID = "F07E..060200010C00000001........F7";
     /** Text displayed in the synth driver device details window in preferences*/
     static final String INFO_TEXT = "Device for Line6 POD 2.0.";

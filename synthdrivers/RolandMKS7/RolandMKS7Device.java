@@ -31,7 +31,7 @@ public class RolandMKS7Device extends Device
   /** Creates new RolandMKS7Device */
   public RolandMKS7Device()
   {
-    super ("Roland","MKS-7",null,null,"Federico Ferri");
+    super ("Roland","MKS-7 Super Quartet",null,null,"Federico Ferri");
   }
 
   /** Constructor for for actual work. */

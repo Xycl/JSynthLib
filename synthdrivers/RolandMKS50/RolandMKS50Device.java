@@ -11,7 +11,7 @@ public class RolandMKS50Device extends Device
   /** Creates new RolandMKS50Device */
   public RolandMKS50Device()
   {
-    super ("Roland","MKS-50",null,null,"Kenneth L. Martinez");
+    super ("Roland","Alpha Juno-1/MKS-50",null,null,"Kenneth L. Martinez");
   }
 
   /** Constructor for for actual work. */

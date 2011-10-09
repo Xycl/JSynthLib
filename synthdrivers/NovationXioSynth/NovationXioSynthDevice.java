@@ -17,7 +17,7 @@ import java.util.prefs.Preferences;
 public class NovationXioSynthDevice extends Device
 {
     private static final String infoText =
-	"Novation XioSynth Driver\nArpegiator and X-Gator are not implemented,\nnor different midi channels";
+	"Novation Xio Driver\nArpegiator and X-Gator are not implemented,\nnor different midi channels";
     
     public NovationXioSynthDevice ()
     {

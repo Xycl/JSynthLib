@@ -145,7 +145,7 @@ public class Line6Pod20BankDriver extends BankDriver
             Patch p = new Patch(sysex, getDevice());
             return p;
         }catch (Exception e) {
-            ErrorMsg.reportError("Error","Error in Pod 2.0 Bank Driver",e);
+            ErrorMsg.reportError("Error","Error in POD 2.0 Bank Driver",e);
             return null;
         }
     }

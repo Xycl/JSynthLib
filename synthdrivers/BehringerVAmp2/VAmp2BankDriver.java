@@ -129,7 +129,7 @@ public class VAmp2BankDriver extends BankDriver {
             Patch p = new Patch(sysex, getDevice());
             return p;
         } catch (Exception e) {
-            ErrorMsg.reportError("Error", "Error in Bass Pod Bank Driver", e);
+            ErrorMsg.reportError("Error", "Error in Bass POD Bank Driver", e);
             return null;
         }
     }

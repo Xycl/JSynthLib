@@ -17,7 +17,7 @@ public class AlesisA6Device extends Device
   /** Creates new AlesisA6Device */
   public AlesisA6Device()
   {
-    super ("Alesis","A6",null,DRIVER_INFO,"Kenneth L. Martinez");
+    super ("Alesis","Andromeda A6",null,DRIVER_INFO,"Kenneth L. Martinez");
   }
 
   /** Constructor for for actual work. */
