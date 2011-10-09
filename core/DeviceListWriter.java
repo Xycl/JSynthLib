@@ -100,7 +100,7 @@ public final class DeviceListWriter {
 		try {
 			props.store(out, "Generated devicesfile");
 			out.close();
-			System.out.println("Done!");
+			System.out.println(outFile.getName()+" done!");
 		} catch (Exception e) {
 			ErrorMsg.reportStatus(e);
 		}
@@ -124,9 +124,10 @@ public final class DeviceListWriter {
     	out.println("  <title>JSynthLib- Synths supported</title>");
 
     	out.println("</head><body leftmargin=\"0\" topmargin=\"0\" alink=\"Red\" bgcolor=\"#F4F4F4\" link=\"#3D75B4\" text=\"Black\" vlink=\"#315480\">");
+    	out.println("<font face=\"verdana,arial,helvetica\">");
     	out.println("<br><div align=\"center\">");
 
-    	out.println("<table border=\"0\" width=\"600\"><tbody><tr>");
+    	out.println("<table border=\"0\" width=\"800\"><tbody><tr>");
     	out.println("<tr><td><h2>Synths Supported</h2></td></tr>");
     	out.println("<tr><td>The current version of JSynthLib Supports the following Synthesizers:<br><br></td></tr>");
     	
@@ -213,6 +214,8 @@ public final class DeviceListWriter {
     	out.println("</tr></tbody></table></div>");
     	out.println("</body></html>");
     	out.close();
+    	
+        System.out.println(outFile.getName()+" done!");
     }
 
     /**
@@ -271,7 +274,12 @@ public final class DeviceListWriter {
     	}
 
     	public boolean accept(File dir) {
-	        return (dir.isDirectory());
+    	    // keep only dirs that are not hidden
+            if(!dir.isDirectory()
+                    || dir.isHidden()
+                    || dir.getName().startsWith("."))
+                return false;
+            return true;
 	    }
     } // class SyntDirsFilter
 
@@ -380,7 +388,7 @@ public final class DeviceListWriter {
 
         d.addClasses(new File("."), "synthdrivers");
         d.writeProps(new File(".", Constants.RESOURCE_NAME_DEVICES_CONFIG));
-        //d.writeDocs(new File(".", "synths.html"));
+        d.writeDocs(new File(".", "synths-test.html"));
         
         System.exit(0);
     }
