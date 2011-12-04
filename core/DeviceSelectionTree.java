@@ -53,7 +53,8 @@ public class DeviceSelectionTree extends JTree {
      * @param node The node of the tree to add the items to
      */
     private void buildTree(DefaultMutableTreeNode node) {
-        Collection alldevicedescriptors = PatchEdit.devConfig.getDeviceDescriptors();
+        DevicesConfig devConfig = DevicesConfig.getInstance();
+        Collection alldevicedescriptors = devConfig.getDeviceDescriptors();
 
         switch(groupStyle) {
             case GROUP_NONE:

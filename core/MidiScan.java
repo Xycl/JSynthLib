@@ -199,7 +199,8 @@ public class MidiScan extends Thread {
         }
         //  ErrorMsg.reportStatus ("ResponseString "+responseString);
         boolean found = false;
-        Iterator synthIDs = PatchEdit.devConfig.getIDStrings().iterator();
+        DevicesConfig devConfig = DevicesConfig.getInstance();
+        Iterator synthIDs = devConfig.getDeviceIds().iterator();
         while (synthIDs.hasNext()) {
             String se = (String) synthIDs.next();
             // ErrorMsg.reportStatus ("Checking "+se.getManufacturerName ()
@@ -209,12 +210,12 @@ public class MidiScan extends Thread {
                 boolean dontadd = false;
                 for (int checkloop = 0; checkloop < AppConfig.deviceCount(); checkloop++) {
                     String checkDevice = AppConfig.getDevice(checkloop).getClass().getName();
-                    if (checkDevice.equalsIgnoreCase(PatchEdit.devConfig.getClassNameForIDString(se))) {
+                    if (checkDevice.equalsIgnoreCase(devConfig.getClassNameForIDString(se))) {
                         dontadd = true; // Oh, its already there....
                     }
                 }
                 if (!dontadd) { // add it only, if it is not in the list
-                    String cls = PatchEdit.devConfig.getClassNameForIDString(se);
+                    String cls = devConfig.getClassNameForIDString(se);
                     Device useDevice = AppConfig.addDevice(cls);
                     ErrorMsg.reportStatus("MidiOut: " + midiout
                             + ", MidiIn: " + midiin

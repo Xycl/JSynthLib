@@ -122,7 +122,7 @@ public class AlesisQSGlobalDriver extends Driver
 		// set the opcode
 		((Patch)p).sysex[QSConstants.POSITION_OPCODE] = opcode;
 
-		ErrorMsg.reportStatus("foo", ((Patch)p).sysex);
+		ErrorMsg.reportStatus(((Patch)p).sysex);
 		//setBankNum (bankNum);
 		//setPatchNum (patchNum);
 

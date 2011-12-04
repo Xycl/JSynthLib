@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
+import java.util.Arrays;
 
 /**
  * Utility Routines for Synth Drivers.
@@ -55,12 +55,12 @@ public class DriverUtil {
                 }
                 if (i == sysex.length)
                     break;
-                sysex = Utility.copyOfRange(sysex, i, sysex.length);
+                sysex = Arrays.copyOfRange(sysex, i, sysex.length);
             }
             drv = chooseDriver(sysex);
             if (drv == AppConfig.getNullDriver()) {
                 drv = null;
-                sysex = Utility.copyOfRange(sysex, 1, sysex.length);
+                sysex = Arrays.copyOfRange(sysex, 1, sysex.length);
             }
         }
         if (drv != null)

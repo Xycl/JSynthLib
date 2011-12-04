@@ -1,73 +1,101 @@
 package core;
 
-import java.awt.*;
-import java.io.ByteArrayOutputStream;
-import javax.swing.JDialog;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Window;
 
 /**
- * Various utility functions.
+ * This class provides various utility methods.
+ *
  * @author phil@muqus.com - 07/2001
  * @author Hiroo Hayashi
- * @version $Id$
  */
-public class Utility extends Object {
-
-    // don't have to call constructor for Utility class.
+public class Utility {
+    /**
+     * Utility class cannot be instantiated.
+     */
     private Utility() {
-    }
-
-    //----- Start phil@muqus.com
-    /**
-     * Returns byte[] resulting from deleting deleteLength bytes from
-     * src at srcOffset.
-     */
-    public static byte[] byteArrayDelete (byte[] src, int srcOffset, int deleteLength) {
-	ByteArrayOutputStream os = new ByteArrayOutputStream(src.length - deleteLength);
-
-	os.write(src, 0, srcOffset);
-	os.write(src, srcOffset + deleteLength, src.length - (srcOffset + deleteLength));
-	return os.toByteArray();
+        // non-instantiable
     }
 
     /**
-     * Returns byte[] resulting from inserting insertLength bytes into
-     * src at srcOffset.
+     * Get the operating system name.
+     *
+     * @return the operating system name
      */
-    public static byte[] byteArrayInsert (byte[] src, int srcOffset,
-					  byte[] insert, int insertOffset, int insertLength) {
-	ByteArrayOutputStream os = new ByteArrayOutputStream(src.length + insertLength);
-
-	os.write(src, 0, srcOffset);
-	os.write(insert, insertOffset, insertLength);
-	os.write(src, srcOffset, src.length - srcOffset);
-	return os.toByteArray();
+    public static String getOSName() {
+        return System.getProperty("os.name", "");
     }
 
     /**
-     * Returns byte[] array resulting from inserting insertLength
-     * bytes into src at srcOffset, replacing replaceLength bytes.
+     * Get the operating system version.
+     *
+     * @return the operating system version
      */
-    public static byte[] byteArrayReplace (byte[] src, int srcOffset, int replaceLength,
-					   byte[] insert, int insertOffset, int insertLength) {
-	ByteArrayOutputStream os = new ByteArrayOutputStream(src.length + insertLength - replaceLength);
-
-	os.write(src, 0, srcOffset);
-	os.write(insert, insertOffset, insertLength);
-	os.write(src, srcOffset + replaceLength, src.length - (srcOffset + replaceLength));
-	return os.toByteArray();
+    public static String getOSVersion() {
+        return System.getProperty("os.version", "");
     }
-    //----- End phil@muqus.com
 
-    // java.util.Arrays.copyOfRange only available in 1.6
-    // for 1.5 provide our own
-    public static byte[] copyOfRange(byte[] original, int from, int to) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        byte[] copy = new byte[newLength];
-        System.arraycopy(original, from, copy, 0,
-                         Math.min(original.length - from, newLength));
-        return copy;
+    /**
+     * Get the Java version.
+     *
+     * @return the Java version
+     */
+    public static String getJavaVersion() {
+        return System.getProperty("java.version", "");
+    }
+
+    /**
+     * Return a copy of a source byte array with a region deleted.
+     *
+     * @param src the source array to copy
+     * @param offset the offset of the region to delete
+     * @param len the length in bytes of the region to delete
+     * @return a copy of the source array with the region deleted
+     */
+    public static byte[] byteArrayDelete(final byte[] src, final int offset, final int len) {
+        byte[] dest = new byte[src.length - len];
+        System.arraycopy(src, 0, dest, 0, offset);
+        System.arraycopy(src, offset + len, dest, offset, src.length - (offset + len));
+        return dest;
+    }
+
+    /**
+     * Return a copy of a source byte array with a region inserted.
+     *
+     * @param src the source array to copy
+     * @param offset the offset of the region to insert
+     * @param insert the array to insert a region of
+     * @param insertOffset the offset of the region to insert
+     * @param insertLen the length in bytes of the region to insert
+     * @return a copy of the source array with the region inserted
+     */
+    public static byte[] byteArrayInsert(final byte[] src, final int offset, final byte[] insert, final int insertOffset, final int insertLen) {
+        byte[] dest = new byte[src.length + insertLen];
+        System.arraycopy(src, 0, dest, 0, offset);
+        System.arraycopy(insert, insertOffset, dest, offset, insertLen);
+        System.arraycopy(src, offset, dest, offset + insertLen, src.length - offset);
+        return dest;
+    }
+
+    /**
+     * Return a copy of a source byte array with a region replaced.
+     *
+     * @param src the source array to copy
+     * @param offset the offset of the region to replace
+     * @param len the length of the region to replace
+     * @param insert the array to insert a region of
+     * @param insertOffset the offset of the region to insert
+     * @param insertLen the length in bytes of the region to insert
+     * @return a copy of the source array with the region replaced
+     */
+    public static byte[] byteArrayReplace(final byte[] src, final int offset, final int len, final byte[] insert, final int insertOffset, final int insertLen) {
+        byte[] dest = new byte[src.length - len + insertLen];
+        System.arraycopy(src, 0, dest, 0, offset);
+        System.arraycopy(insert, insertOffset, dest, offset, insertLen);
+        System.arraycopy(src, offset + len, dest, offset + insertLen, src.length - offset - len);
+        return dest;
     }
 
     //----- Start Joe Emenaker
@@ -84,7 +112,7 @@ public class Utility extends Object {
      * @return hexa-dump string.
      */
     public static String hexDump(byte[] d, int offset, int len, int bytes, boolean wantspaces) {
-    	StringBuffer buf = new StringBuffer();
+    	StringBuilder buf = new StringBuilder();
 	    if (len == -1 || offset + len > d.length)
     	    len = d.length - offset;
     	for (int i = 0; i < len; i++) {
@@ -243,58 +271,45 @@ public class Utility extends Object {
     //----- End Hiroo Hayashi
 
     /**
-     * Place a JDialog window to the center of computer screen.
+     * Get the parent frame of a component. Returns the component if it is a
+     * an instance of the <code>Frame</code> class, the parent frame, or null if
+     * the component is not an instance of the <code>Frame</code> class and does
+     * not have a parent frame.
+     *
+     * @param component the component to get the parent frame of
+     * @return the parent frame
      */
-    static void centerDialog (JDialog dialog) {
-        Dimension screenSize = dialog.getToolkit().getScreenSize();
-        Dimension size = dialog.getSize();
-        screenSize.height = screenSize.height / 2;
-        screenSize.width = screenSize.width / 2;
-        size.height = size.height / 2;
-        size.width = size.width / 2;
-        int y = screenSize.height - size.height;
-        int x = screenSize.width - size.width;
-        dialog.setLocation(x, y);
+    public static Frame getFrame(final Component component) {
+        for (Component c = component; c != null; c = c.getParent()) {
+            if (c instanceof Frame) {
+                return (Frame) c;
+            }
+        }
+        return null;
     }
 
-    // moved from AppConfig.java
-    /** Returns the "os.name" system property. */
-    //- emenaker 2003.03.13
-    public static String getOSName() {
-	return (getSystemProperty("os.name"));
-    }
+    /**
+     * Request a window to be centered on the display screen.
+     *
+     * @param window the window to request be centered on the display screen
+     */
+    public static void centerWindow(final Window window) {
+        Dimension screenSize = window.getToolkit().getScreenSize();
+        screenSize.height /= 2;
+        screenSize.width /= 2;
 
-    /** Returns the "os.version" system property. */
-    public static String getOSVersion() {
-	return (getSystemProperty("os.version"));
-    }
-   
-    /** Returns the "java.specification.version" system property. */
-    // - emenaker 2003.03.13
-    public static String getJavaSpecVersion() {
-	return (getSystemProperty("java.specification.version"));
-    }
+        Dimension windowSize = window.getSize();
+        windowSize.height /= 2;
+        windowSize.width /= 2;
 
-    /** Returns the "java.version" system property. */
-    public static String getJavaVersion() {
-	return (getSystemProperty("java.version"));
-    }
-
-    /** Looks up a system property and returns "" on exceptions. */
-    private static String getSystemProperty(String key) {
-	try {
-	    return (System.getProperty(key));
-	} catch (Exception e) {
-	    ErrorMsg.reportStatus(e);
-	    return ("");
-	}
+        window.setLocation(screenSize.width - windowSize.width, screenSize.height - windowSize.height);
     }
 
     /**
      * Revalidate Library. Internally this calls <code>revalidateDriver()</code>
      * method of each frame.
      */
-    static void revalidateLibraries() {
+    public static void revalidateLibraries() {
         JSLFrame[] jList = PatchEdit.getDesktop().getAllFrames();
         if (jList.length > 0) {
             PatchEdit.showWaitDialog();
@@ -309,15 +324,4 @@ public class Utility extends Object {
             PatchEdit.hideWaitDialog();
         }
     }
-
-    /**
-     * @param component Any AWT component.
-     * @return component's containing Frame, or null if none found.
-     */
-    public static Frame getFrame(Component component) {
-        while(component != null && ! (component instanceof Frame))
-            component = component.getParent();
-        return (Frame)component;
-    }
-
-} // End Class: Utility
+}

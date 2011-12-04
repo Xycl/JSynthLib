@@ -115,7 +115,7 @@ public class ImportAllDialog extends JDialog
                     container.add (buttonPanel,BorderLayout.SOUTH);
                     getContentPane ().add (container);
                     pack ();
-                    Utility.centerDialog(this);
+                    Utility.centerWindow(this);
         } catch(Exception e) {
 	    ErrorMsg.reportStatus (e);
 	}

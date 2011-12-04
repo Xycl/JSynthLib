@@ -21,8 +21,8 @@
 	Ant build file for JSynthLib.
 
 	Use 'ant -p' to see the available targets for this build file.
-	For using different defaults (e.g. for build.compiler, version), define
-	the specific properties in a file called 'build.properties'.
+	For using different defaults (e.g. for version), define the
+	specific properties in a file called 'build.properties'.
 
 	Remko Troncon <remko@ulyssis.org>
 
@@ -38,7 +38,6 @@ Most usefult targets:
 
 </description>
 
-
 	<!-- User-defined properties -->
 	<property file="build.properties"/>
 
@@ -46,9 +45,9 @@ Most usefult targets:
 	<property name="src" location="."/>
 	<property name="build" location="build"/>
 	<property name="bin" location="${build}/bin"/>
-	<property name="docs" location="${build}/doc"/>
+	<property name="docs" location="${build}/docs"/>
 	<property name="api_docs" location="${docs}/api-docs"/>
-	<property name="dist"  location="${build}/distribution"/>
+	<property name="dist"  location="${build}/dist"/>
 	<property name="synthdrivers"  location="${build}/synthdrivers"/>
 
 	<property name="deprecation"  value="on"/>
@@ -59,72 +58,74 @@ Most usefult targets:
 	<condition property="isWindows"> <os family="windows"/> </condition>
 	<condition property="isUnix"> <os family="unix"/> </condition>
 
-	<!-- Initialization -->
+    <path id='classpath'>
+        <fileset dir='lib' includes='*.jar'/>
+    </path>
+
+    <!-- Initialization -->
 	<target name="init">
 		<!-- Create timestamp -->
 		<tstamp/>
 
-		<!-- Create build dir -->
+		<!-- Create build directories -->
 		<mkdir dir="${build}"/>
+		<mkdir dir="${bin}"/>
 
 		<!-- Set version number -->
 		<property name="version" value="${DSTAMP}cvs"/>
 		<filter token="version" value="${version}"/>
-		<!--<copy file="Constants.java" todir="${build}" filtering="true"/>-->
 	</target>
-
 
 	<!-- Building -->
-	<!--
-	| Note that 'build' is split into build-code and build-rsc since
-	| update-drivers needs to run in the middle.  Neither has a 'description'
-	| tag, as only 'build' should be externally accessible.
-	-->
-	<target name="build"
-			description="Build the complete package"
-			depends="init,build-code,build-rsc">
+
+    <target name="build" description="Build the complete package" depends="init,build-code,build-rsc">
+        <!--
+          Note that 'build' is split into build-code and build-rsc since
+	      update-drivers needs to run in the middle.  Neither has a 'description'
+	      tag, as only 'build' should be externally accessible.
+        -->
 	</target>
 
-	<!-- Compile source code only -->
-	<target name="build-code" depends="init">
-		<mkdir dir="${bin}"/>
-		<!-- Compile -->
-		<javac srcdir="${src}" destdir="${bin}" 
-			classpath="groovy.jar"
+	<!-- Compile the source code -->
+
+    <target name="build-code" depends="init">
+        <javac srcdir="${src}" destdir="${bin}"
 			deprecation="${deprecation}"
-			source="1.5" target="1.5"
 			includeantruntime="false">
+			<classpath refid='classpath'/>
 			<include name="**/*.java"/>
 			<exclude name="core/MacOSXMidiWrapper.java" unless="isMacOS"/>
 			<exclude name="midiprovider/**"/>
 		</javac>
 	</target>
 
-	<!-- Install all non-code files. -->
-	<target name="build-rsc" depends="init,update-drivers">
-		<mkdir dir="${bin}"/>
-		<!-- Images -->
-		<copy todir="${bin}/images">
-			<fileset dir="images"/>
-		</copy>
-		<!-- Resources -->
-		<copy todir="${bin}/org">
-			<fileset dir="org" excludes="**/*.java **/*.groovy **/package.html"/>
-		</copy>
-		<copy file="synthdrivers.properties" todir="${bin}"/>
-		<copy todir="${bin}/synthdrivers">
+    <!-- Process all non-compiled files -->
+
+    <target name="build-rsc" depends="init,update-drivers">
+        <!-- Images -->
+        <copy todir="${bin}/images">
+            <fileset dir="images"/>
+        </copy>
+
+        <!-- Resources -->
+        <copy todir="${bin}/org">
+            <fileset dir="org" includes="**/*.xml"/>
+        </copy>
+        <copy file="LICENSE" todir="${bin}"/>
+        <copy file="synthdrivers.properties" todir="${bin}"/>
+        <copy todir="${bin}/synthdrivers">
 			<fileset dir="synthdrivers">
 				<include name="**/*.gif"/>
 				<include name="**/*.png"/>
 				<include name="**/*.syx"/>
 				<include name="**/*.dat"/>
 			</fileset>
-		</copy>
-		<!-- Extra files -->
+        </copy>
+
+        <!-- Extra files -->
 		<copy file="doc/documentation.html" todir="${docs}"/>
 		<copy file="doc/programming.html" todir="${docs}"/>
 	</target>
-
 
 	<target name="build-run"
 			description="Build the official runnable file set"
@@ -138,7 +139,7 @@ Most usefult targets:
 					   linuxdevices.conf">
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
-				<attribute name="Main-Class" value="JSynthLib"/>
+				<attribute name="Main-Class" value="core.JSynthLib"/>
 				<attribute name="Class-Path" value="groovy.jar"/>
 			</manifest>
 		</jar>
@@ -146,11 +147,10 @@ Most usefult targets:
 		<!-- Assemble extras -->
 		<copy todir="${build}/run">
 			<fileset dir=".">
-				<include name="groovy.jar"/>
+				<include name="${lib}/groovy.jar"/>
 			</fileset>
 		</copy>
 	</target>
-
 
 	<!-- Documentation -->
 	<target name="api_docs"
@@ -159,7 +159,7 @@ Most usefult targets:
 			unless="api_docs_uptodate">
 		<mkdir dir="${api_docs}"/>
 		<javadoc destdir="${api_docs}" nohelp="true" private="${show-private-classes}"
-			classpath="groovy.jar">
+			classpath="${lib}/groovy.jar">
 			<!-- Pick out only the source dirs -->
 			<packageset dir="${src}">
 				<include name="com/**"/>
@@ -254,7 +254,7 @@ Most usefult targets:
 	<target name="run"
 		description="Run the application"
 		depends="init,build">
-		<java classname="JSynthLib" dir="${bin}" fork="true"/>
+		<java classname="core.JSynthLib" dir="${bin}" fork="true"/>
 	</target>
 
 
@@ -262,7 +262,7 @@ Most usefult targets:
 	<target name="run-debug"
 		description="Run the application with debug level 2"
 		depends="init,build">
-		<java classname="JSynthLib" dir="${bin}" fork="true">
+		<java classname="core.JSynthLib" dir="${bin}" fork="true">
 			<arg value="2"/>
 		</java>
 	</target>

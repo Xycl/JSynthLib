@@ -1,43 +1,45 @@
 package core;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.List;
 
-import javax.sound.midi.*;
-import javax.swing.*;
-
-
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Transmitter;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
- * This is the main JSynthLib application object.  It's called
- * PatchEdit, which is probably ambiguous, but probably to late to
- * change now.
- * @version $Id$
+ * This class provides an object that initialises application wide resources.
  */
 public final class PatchEdit  {
-    static DevicesConfig devConfig;
-
     private static Actions.MenuDesktop desktop;
     private static PrefsDialog prefsDialog;
     private static WaitDialog waitDialog;
 
     /**
-     * Initialize Application: 
-     * @param debugLevel debug level
-     * @param fileList list of file name
+     * Construct an object that initialises application wide resources.
+     *
+     * @param files the library files to open
+     * @param debugLevel the debug level
      */
-    public PatchEdit(ArrayList fileList, int debugLevel) {
+    public PatchEdit(final List<String> files, final int debugLevel) {
         ErrorMsg.setDebugLevel(debugLevel);
-        // for bug report
+
         ErrorMsg.reportStatus("JSynthLib: " + Constants.VERSION
                 + ", Java: " +  Utility.getJavaVersion()
                 + ", OS: " +  Utility.getOSName() + ", " + Utility.getOSVersion());
 
-        // Load synth database (synthdrivers.properties)
-        devConfig = new DevicesConfig();
-        devConfig.loadAppDevices();
+        // load the supported devices
 
-	// Load config file (JSynthLib.properties).
+        DevicesConfig devConfig = DevicesConfig.getInstance();
+        if (ErrorMsg.isDebugEnabled()) {
+            devConfig.printAll();
+        }
+
+        // Load config file (JSynthLib.properties).
         boolean loadPrefsSuccessfull = AppConfig.loadPrefs();
 
         // Check if all MIDI ports are available wirski@op.pl
@@ -98,11 +100,9 @@ public final class PatchEdit  {
 	}
 	
 	// open library frame specified on the command line argument.
-	Iterator it = fileList.iterator();
-	while (it.hasNext()) {
-	    fname = (String) it.next();
-	    ErrorMsg.reportStatus("file name: " + fname);
-	    Actions.openFrame(new File(fname));
+	for (String file : files) {
+	    ErrorMsg.reportStatus("file name: " + file);
+	    Actions.openFrame(new File(file));
 	}
     }
 

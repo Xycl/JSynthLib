@@ -79,7 +79,7 @@ public class DeviceAddDialog extends JDialog {
         getContentPane().add(container);
         setSize(400,300);
 
-        Utility.centerDialog(this);
+        Utility.centerWindow(this);
     }
 
     void OKPressed() {
@@ -88,7 +88,8 @@ public class DeviceAddDialog extends JDialog {
         if (s == null)
             return;
 
-        String cls = PatchEdit.devConfig.getClassNameForDeviceName(s);
+        DevicesConfig devConfig = DevicesConfig.getInstance();
+        String cls = devConfig.getClassNameForDeviceName(s);
         Device device = AppConfig.addDevice(cls);
         if (device == null)
             return;

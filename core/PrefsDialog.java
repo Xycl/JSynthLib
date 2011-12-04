@@ -179,7 +179,7 @@ public class PrefsDialog extends JDialog {
         container.add(buttonPanel, BorderLayout.SOUTH);
         getContentPane().add(container);
 	pack();
-	Utility.centerDialog(this);
+	Utility.centerWindow(this);
     }
 
     /**

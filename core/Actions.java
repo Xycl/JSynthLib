@@ -1418,7 +1418,7 @@ final public class Actions {
         public void actionPerformed(ActionEvent e) {
 	    try {
 		if (licWin == null)
-		    licWin = new DocumentationWindow("text/plain", "file:license.txt");
+		    licWin = new DocumentationWindow("text/plain", "file:LICENSE");
 		licWin.setVisible(true);
 	    } catch (Exception ex) {
 		ErrorMsg.reportError("Error", "Unable to show Documentation)", ex);

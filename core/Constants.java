@@ -1,32 +1,34 @@
 package core;
 
 /**
- * Constants.java - Central place for definition of constants
+ * This class provides application wide constants.
+ *
  * @author Zellyn Hunter (zellyn@zellyn.com)
- * @version $Id$
  */
 public class Constants {
-    /** JSynthLib version number */
-    static final String VERSION = "0.21-alpha";
+    /** The application version string. */
+    public static final String VERSION = "0.21-alpha";
 
-    /** Devices Config properties file name */
-    public static final String RESOURCE_NAME_DEVICES_CONFIG =
-    "synthdrivers.properties";
-
-    /** App Config properties file name */
-    public static final String FILE_NAME_APP_CONFIG = "JSynthLib.properties";
-    /** App Config file header */
+    /** The file containing the application configuration. */
+    public static final String APP_CONFIG_FILE_NAME = "JSynthLib.properties";
+    /** The header of the application configuration file. */
     public static final String APP_CONFIG_HEADER = "JSynthLib Saved Properties";
 
-    /** Driver properties name prefix */
-    public static final String PROP_PREFIX_DEVICE_NAME = "deviceName.";
-    /** Device properties class prefix */
-    public static final String PROP_PREFIX_DEVICE_CLASS = "deviceClass.";
-    /** ID properties prefix */
-    public static final String PROP_PREFIX_ID_STRING = "inquiryID.";
-    /** manufacturer name prefix */
-    public static final String PROP_PREFIX_MANUFACTURER = "manufacturer.";
+    /** The file containing the device configurations. */
+    public static final String DEV_CONFIG_FILE_NAME = "synthdrivers.properties";
+    /** The device name property prefix. */
+    public static final String DEV_CONFIG_DEVICE_NAME_PREFIX = "deviceName.";
+    /** The device class property prefix. */
+    public static final String DEV_CONFIG_DEVICE_CLASS_PREFIX = "deviceClass.";
+    /** The device ID string property prefix. */
+    public static final String DEV_CONFIG_ID_STRING_PREFIX = "inquiryID.";
+    /** The device manufacturer property string prefix. */
+    public static final String DEV_CONFIG_MANUFACTURER_PREFIX = "manufacturer.";
 
-    /** Number of faders */
+    /** Number of faders. */
     public static final int NUM_FADERS = 33;
+
+    private Constants() {
+        // non-instantiable
+    }
 }

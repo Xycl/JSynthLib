@@ -65,7 +65,8 @@ public class AppConfig {
 		//ErrorMsg.reportStatus("loadDevices: \"" + devs[i] + "\"");
 		String s = devs[i].substring(0, devs[i].indexOf('#'));
 		//ErrorMsg.reportStatus("loadDevices: -> " + s);
-		String className = PatchEdit.devConfig.getClassNameForShortName(s);
+        DevicesConfig devConfig = DevicesConfig.getInstance();
+		String className = devConfig.getClassNameForShortName(s);
 		//ErrorMsg.reportStatus("loadDevices: -> " + s);
 
 		addDevice(className, prefsDev.node(devs[i]));
@@ -378,7 +379,8 @@ public class AppConfig {
      * @return a <code>Device</code> value created.
      */
     private static Device addDevice(String className, Preferences prefs) {
-    	Device device = PatchEdit.devConfig.createDevice(className, prefs);
+        DevicesConfig devConfig = DevicesConfig.getInstance();
+    	Device device = devConfig.createDevice(className, prefs);
         if (device != null) {
             device.setup();
     	    deviceList.add(device); // always returns true

@@ -1,204 +1,152 @@
 package core;
-import javax.swing.*;
+
+import javax.swing.JOptionPane;
 
 /**
- * This class handles error or warning conditions and debug messages.
- * <p>
- * 
- * <code>reportWarning</code> and <code>reportError</code> methods show
- * warning/error message dialogs to the users.
- * <p>
- * 
- * <code>reportStatus</code> methods show debug information to the console if
- * a <code>(debugLevel & mask)</code> is not equal to 0.
- * <code>debugLevel</code> is a bit mask specified by <code>-D</code>
- * command line option. <code>mask</code> is an argument of the
- * <code>reportStatus</code> method.  At this point the following bit masks are defined.
- * <p>
- * 
- * <pre>
- *      0x1 debug message
- *      0x2 Stack Trace
- *      0x4 MIDI debug message
- *      0x8 JSLFrame debug message
- * </pre>
- * 
- * In general <code>System.out.print</code> or <code>System.out.println</code>
- * should not be used in JSynthLib. An example of the exception is
- * <code>main</code> method for debugging.
- * 
- * @author ???
- * @version $Id$
+ * This class provides utility methods for error, warning and status messages.
  */
 public class ErrorMsg {
-    /** debug message level set by -D command line argument. */
+    /** The bit mask for debug messages. */
+    public static final int DEBUG_ENABLED  = 0x1;
+    /** The bit mask for stack dump messages. */
+    public static final int STACK_DUMP_ENABLED = 0x2;
+
+    /** The debug level. */
     private static int debugLevel = 0;
-    /** debug message. */
-    static final int DEBUG_MSG		= 0x0001;
-    /** show dump stack on Error and Warning message. */
-    static final int DUMP_STACK		= 0x0002;
-    /** show debug message for MIDI. */
-    static final int MIDI		= 0x0004;
-    /** show debug message for JSLFrame. */
-    static final int FRAME		= 0x0008;
 
     /**
-     * @param debugLevel The debug level to set.
+     * Utility class is non-instantiable.
      */
-    static void setDebugLevel(int debugLevel) {
-        ErrorMsg.debugLevel = debugLevel;
+    private ErrorMsg() {
+        // non-instantiable
     }
 
     /**
-     * Show a message in an error dialog window.
+     * Set the debug level.
      *
-     * @param errorTitle title for error dialog.
-     * @param errorMSG error message.
+     * @param lvl the debug level
      */
-    public static void reportError(String errorTitle, String errorMSG) {
-	ErrorDialog.showMessageDialog(PatchEdit.getInstance()/*phil@muqus.com*/,
-				      errorMSG, errorTitle,
-				      JOptionPane.ERROR_MESSAGE);
-	if ((debugLevel & DEBUG_MSG) != 0)
-	    System.out.println("ERR> '" + errorMSG + "' reported.");
-	if ((debugLevel & DUMP_STACK) != 0)
-	    Thread.dumpStack();
+    public static void setDebugLevel(final int lvl) {
+        debugLevel = lvl;
     }
 
     /**
-     * Show a message in an error dialog window with an
-     * <code>Exception</code> information.
+     * Get whether debug messages are enabled.
      *
-     * @param errorTitle title for error dialog.
-     * @param errorMSG error message.
-     * @param e an <code>Exception</code> value
+     * @return whether debug messages are enabled
      */
-    public static void reportError(String errorTitle, String errorMSG,
-				   Exception e) {
-	ErrorDialog.showMessageDialog(PatchEdit.getInstance()/*phil@muqus.com*/,
-				      errorMSG, errorTitle,
-				      JOptionPane.ERROR_MESSAGE, e);
-	if ((debugLevel & DEBUG_MSG) != 0) {
-	    System.out.println("ERR> '" + errorMSG + "' reported.");
-	    System.out.println("ERR> [Exception] " + e.getMessage());
-	}
-	if ((debugLevel & DUMP_STACK) != 0)
-	    e.printStackTrace(System.out);
+    public static boolean isDebugEnabled() {
+        return (debugLevel & DEBUG_ENABLED) != 0;
     }
 
     /**
-     * Show a message in a warning dialog window.
+     * Get whether stack dump messages are enabled.
      *
-     * @param errorTitle title for warning dialog.
-     * @param errorMSG warning message.
+     * @return whether stack dump messages are enabled
      */
-    public static void reportWarning(String errorTitle, String errorMSG) {
-        ErrorDialog.showMessageDialog(PatchEdit.getInstance()/*phil@muqus.com*/,
-				      errorMSG, errorTitle,
-				      JOptionPane.WARNING_MESSAGE);
-	if ((debugLevel & DEBUG_MSG) != 0)
-	    System.out.println("WRN> '" + errorMSG + "' reported.");
-	if ((debugLevel & DUMP_STACK) != 0)
-	    Thread.dumpStack();
+    public static boolean isStackDumpEnabled() {
+        return (debugLevel & STACK_DUMP_ENABLED) != 0;
     }
 
     /**
-     * Show a message in a warning dialog window with an
-     * <code>Exception</code> information.
+     * Show a message in an error dialog.
      *
-     * @param errorTitle title for warning dialog.
-     * @param errorMSG warning message.
-     * @param e an <code>Exception</code> value
+     * @param title the error dialog title
+     * @param msg the error message
      */
-    public static void reportWarning(String errorTitle, String errorMSG,
-				     Exception e) {
-        ErrorDialog.showMessageDialog(PatchEdit.getInstance()/*phil@muqus.com*/,
-				      errorMSG, errorTitle,
-				      JOptionPane.WARNING_MESSAGE);
-	if ((debugLevel & DEBUG_MSG) != 0) {
-	    System.out.println("WRN> '" + errorMSG + "' reported.");
-	    System.out.println("WRN> [Exception] " + e.getMessage());
-	}
-	if ((debugLevel & DUMP_STACK) != 0)
-	    e.printStackTrace(System.out);
+    public static void reportError(final String title, final String msg) {
+        JOptionPane.showMessageDialog(PatchEdit.getInstance(), msg, title, JOptionPane.ERROR_MESSAGE);
+        if (isDebugEnabled()) {
+            System.err.println("[Error] " + msg);
+        }
+        if (isStackDumpEnabled()) {
+            Thread.dumpStack();
+        }
     }
 
     /**
-     * Print a debug message to the console when
-     * <code>(debugLevel & mask)</code> is not equal to 0.
-     * 
-     * @param mask
-     *            debug level bit mask.
-     * @param msg
-     *            debug message string.
-     */
-    public static void reportStatus(int mask, String msg) {
-	if ((debugLevel & mask) != 0)
-	    System.out.println(msg);
-    }
-
-    /**
-     * Print a debug message to the console.
+     * Show a message in an error dialog.
      *
-     * @param msg a <code>String</code> value
+     * @param title the error dialog title
+     * @param msg the error message
+     * @param exception the error exception
      */
-    public static void reportStatus(String msg) {
-        reportStatus(DEBUG_MSG, msg);
+    public static void reportError(final String title, final String msg, final Exception exception) {
+        ErrorDialog.showDialog(PatchEdit.getInstance(), title, msg, exception);
+        if (isDebugEnabled()) {
+    	    System.err.println("[Error] " + msg + " [Exception] " + exception.getMessage());
+        }
+        if (isStackDumpEnabled()) {
+            exception.printStackTrace(System.err);
+        }
     }
 
     /**
-     * Print an <code>Exception</code> information and/or the stack
-     * trace to the console.
+     * Show a message in a warning dialog.
      *
-     * @param e an <code>Exception</code> value
+     * @param title the warning dialog title
+     * @param msg the warning message
      */
-    public static void reportStatus(Exception e) {
-	if ((debugLevel & DEBUG_MSG) != 0)
-	    System.out.println("[Exception] " + e.getMessage());
-	if ((debugLevel & DUMP_STACK) != 0)
-	    e.printStackTrace(System.out);
-    }
-
-    //----- Start phil@muqus.com
-
-    /**
-     * Print byte array as a pretty printed hex dump to the console.
-     *
-     * @param data a <code>byte</code> array.
-     */
-    public static void reportStatus(byte[] data) {
-	reportStatus(null, data);
+    public static void reportWarning(final String title, final String msg) {
+        JOptionPane.showMessageDialog(PatchEdit.getInstance(), msg, title, JOptionPane.WARNING_MESSAGE);
+        if (isDebugEnabled()) {
+            System.err.println("[Warning] " + msg);
+        }
+        if (isStackDumpEnabled()) {
+            Thread.dumpStack();
+        }
     }
 
     /**
-     * Print a debug message and byte array as a pretty printed hex
-     * dump to the console.
+     * Show a message in a warning dialog.
      *
-     * @param sMsg a debug message.
-     * @param data a <code>byte</code> array.
+     * @param title the warning dialog title
+     * @param msg the warning message
+     * @param exception the warning exception
      */
-    public static void reportStatus(String sMsg, byte[] data) {
-	if (sMsg != null)
-	    reportStatus(sMsg);
-
-	if ((debugLevel & DEBUG_MSG) != 0)
-	    reportStatus(Utility.hexDump(data, 0, data.length, 20));
+    public static void reportWarning(final String title, final String msg, final Exception exception) {
+        JOptionPane.showMessageDialog(PatchEdit.getInstance(), msg, title, JOptionPane.WARNING_MESSAGE);
+        if (isDebugEnabled()) {
+    	    System.err.println("[Warning] " + msg + " [Exception] " + exception.getMessage());
+        }
+        if (isStackDumpEnabled()) {
+            exception.printStackTrace(System.err);
+        }
     }
 
     /**
-     * Print a debug message and byte array as a pretty printed hex
-     * dump to the console.
+     * Show a debug message on the console.
      *
-     * @param sMsg a debug message.
-     * @param data a <code>byte</code> array.
-     * @param offset an index of <code>data</code> from which hex dump
-     * starts.
-     * @param len the length of hex dump.
+     * @param msg the debug message
      */
-    public static void reportStatus(String sMsg,
-				    byte[] data, int offset, int len) {
-        if ((debugLevel & DEBUG_MSG) != 0)
-            reportStatus(Utility.hexDump(data, offset, len, 20));
+    public static void reportStatus(final String msg) {
+        if (isDebugEnabled()) {
+            System.err.println("[Message]" + msg);
+        }
     }
-    //----- End phil@muqus.com
+
+    /**
+     * Show an exception message and optional stack trace on the console.
+     *
+     * @param exception the exception
+     */
+    public static void reportStatus(final Exception exception) {
+        if (isDebugEnabled()) {
+            System.err.println("[Exception] " + exception.getMessage());
+        }
+        if (isStackDumpEnabled()) {
+            exception.printStackTrace(System.err);
+        }
+    }
+
+    /**
+     * Show a hex dump of data on the console.
+     *
+     * @param data the data to hex dump
+     */
+    public static void reportStatus(final byte[] data) {
+        if (isDebugEnabled()) {
+            reportStatus(Utility.hexDump(data, 0, data.length, 20));
+        }
+    }
 }

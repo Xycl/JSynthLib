@@ -78,7 +78,7 @@ public class CrossBreedDialog extends JDialog {
         getContentPane().add(container);
         // setSize(400,300);
         pack();
-        Utility.centerDialog(this);
+        Utility.centerWindow(this);
     }
 
     void OKPressed() {

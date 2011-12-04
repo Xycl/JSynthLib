@@ -100,7 +100,7 @@ public class DocumentationWindow extends JDialog
 	setSize(500,400);
 
 	//pane.getVerticalScrollBar().setValue(pane.getVerticalScrollBar().getMinimum());
-	Utility.centerDialog(this);
+	Utility.centerWindow(this);
     }
 
     void OKPressed() {

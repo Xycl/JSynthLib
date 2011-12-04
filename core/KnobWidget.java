@@ -169,7 +169,7 @@ public class KnobWidget extends SysexWidget {
 	int oValue = Math.round(t.getValue() * (getValueMax() - getValueMin())) + getValueMin();
 	String oVStr = Integer.toString(oValue + mBase);
 	t.setToolTipText(oVStr);
-	t.setValueAsString(oVStr);
+	t.setValueLabel(oVStr);
 	if (mLabelImage != null) {
 	    mLabelImage.setIcon(mImages[oValue]);
 	}
@@ -225,7 +225,7 @@ public class KnobWidget extends SysexWidget {
 	super.setValue(v);
 	String oVStr = Integer.toString(v + mBase);
 	mKnob.setToolTipText(oVStr);
-	mKnob.setValueAsString(oVStr);
+	mKnob.setValueLabel(oVStr);
 	if (mLabelImage != null) {
 	    mLabelImage.setIcon(mImages[v]);
 	}

@@ -158,7 +158,7 @@ public class DevDrvPatchSelector extends JDialog {
         //===== Final initialisation of dialog box
         getContentPane().add(dialogPanel);
         pack();
-        Utility.centerDialog(this);
+        Utility.centerWindow(this);
 
         if (nDriver > 0) {
             setVisible(true);

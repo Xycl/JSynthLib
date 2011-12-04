@@ -212,7 +212,7 @@ public class JSLFrame {
 	    listeners.add(l);
 	}
 	public void setVisible(boolean b) {
-	    ErrorMsg.reportStatus(ErrorMsg.FRAME, "setVisible : " + this.getTitle());
+	    ErrorMsg.reportStatus("setVisible : " + getTitle());
 	    super.setVisible(b);
 	    try {
                 this.setSelected(b);
@@ -223,8 +223,7 @@ public class JSLFrame {
 	}
 
 	public void internalFrameActivated(InternalFrameEvent e) {
-	    ErrorMsg.reportStatus(ErrorMsg.FRAME,
-	            "\"" + this.getTitle() + "\" activated.");
+	    ErrorMsg.reportStatus("\"" + getTitle() + "\" activated.");
 	    JSLFrameEvent fe =
 		new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.ACTIVATED);
 	    Iterator it = listeners.iterator();
@@ -251,8 +250,7 @@ public class JSLFrame {
 		proxy.dispose();
 	}
 	public void internalFrameDeactivated(InternalFrameEvent e) {
-	    ErrorMsg.reportStatus(ErrorMsg.FRAME,
-	            "\"" + this.getTitle() + "\" deactivated.");
+	    ErrorMsg.reportStatus("\"" + this.getTitle() + "\" deactivated.");
 	    JSLFrameEvent fe =
 		new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.DEACTIVATED);
 	    Iterator it = listeners.iterator();
@@ -335,8 +333,7 @@ public class JSLFrame {
 	    super.setVisible(b);
 	}
 	private void showState(String s) {
-	    ErrorMsg.reportStatus(ErrorMsg.FRAME, "\"" + this.getTitle() 
-	            + "\" " + s + " (" + this.getExtendedState() + ")");
+	    ErrorMsg.reportStatus("\"" + getTitle() + "\" " + s + " (" + this.getExtendedState() + ")");
 	}
 	public void windowActivated(WindowEvent e) {
 	    showState("activated");

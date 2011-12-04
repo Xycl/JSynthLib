@@ -2,12 +2,10 @@ package core;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -19,7 +17,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
-import org.jsynthlib.jsynthlib.Dummy;
 
 /**
  * A virtual JDesktopPane class which supports both MDI (Multiple Document
@@ -398,9 +395,10 @@ public class JSLDesktop implements JSLFrameListener {
 
 	// JSLFrameListener methods : called for both toolbar and JSLFrame
 	private void showState(JSLFrame f, String s) {
-	    ErrorMsg.reportStatus(ErrorMsg.FRAME, "\"" + f.getTitle() + "\" " + s);
+	    ErrorMsg.reportStatus("\"" + f.getTitle() + "\" " + s);
 	}
-	public void FrameActivated(JSLFrame f) {
+
+    public void FrameActivated(JSLFrame f) {
 	    if (f == toolbar) {
                 synchronized (in_fake_activation) {
                     if (in_fake_activation.booleanValue())

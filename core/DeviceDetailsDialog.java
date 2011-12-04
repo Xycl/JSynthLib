@@ -99,7 +99,7 @@ public class DeviceDetailsDialog extends JDialog {
         jtp.addTab ("Loaded Drivers",container);
         getContentPane ().add (jtp);
         pack ();
-        Utility.centerDialog(this);
+        Utility.centerWindow(this);
     }
 
     private void OKPressed () {

@@ -79,7 +79,7 @@ class WaitDialog extends JDialog {
     void showDialog(String s) {
         label.setText(s);
         pack();
-        Utility.centerDialog(this);
+        Utility.centerWindow(this);
         timer.start();
     }
 

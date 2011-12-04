@@ -187,7 +187,7 @@ public class AlesisQSProgramDriver extends Driver
     ((Patch)p).sysex[QSConstants.POSITION_OPCODE] = opcode;
     ((Patch)p).sysex[QSConstants.POSITION_LOCATION] = (byte)location;
 
-    ErrorMsg.reportStatus("foo", ((Patch)p).sysex);
+    ErrorMsg.reportStatus(((Patch)p).sysex);
     //setBankNum (bankNum);
     //setPatchNum (patchNum);
 

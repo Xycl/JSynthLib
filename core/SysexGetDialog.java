@@ -138,7 +138,7 @@ public class SysexGetDialog extends JDialog {
     getContentPane().add(dialogPanel);
     pack();
 //    setSize(600, 200);
-    Utility.centerDialog(this);
+    Utility.centerWindow(this);
     sysexSize = 0;
   }
 

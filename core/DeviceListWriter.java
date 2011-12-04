@@ -231,7 +231,7 @@ public final class DeviceListWriter {
         DeviceDescriptor d = new DeviceDescriptor();
         d.setDeviceClass(dev.getClass().getName());
         d.setDeviceName(dev.getManufacturerName() + " " + dev.getModelName() + " Driver");
-        d.setIDString(dev.getInquiryID());
+        d.setDeviceId(dev.getInquiryID());
         d.setManufacturer(dev.getManufacturerName());
         d.setShortName(shortname);
         // Since Devices don't have types yet, just use the first letter of the manufacturer
@@ -244,14 +244,14 @@ public final class DeviceListWriter {
     private static void setProperty(Properties props, DeviceDescriptor dev) {
         String shortname = dev.getShortName();
 
-        props.setProperty(Constants.PROP_PREFIX_DEVICE_CLASS + shortname,
+        props.setProperty(Constants.DEV_CONFIG_DEVICE_CLASS_PREFIX + shortname,
         		dev.getDeviceClass());
-        props.setProperty(Constants.PROP_PREFIX_MANUFACTURER + shortname,
+        props.setProperty(Constants.DEV_CONFIG_MANUFACTURER_PREFIX + shortname,
         		dev.getManufacturer());
-        props.setProperty(Constants.PROP_PREFIX_ID_STRING + shortname,
-        		dev.getIDString());
+        props.setProperty(Constants.DEV_CONFIG_ID_STRING_PREFIX + shortname,
+        		dev.getDeviceId());
         // saving only model name is better.
-        props.setProperty(Constants.PROP_PREFIX_DEVICE_NAME + shortname,
+        props.setProperty(Constants.DEV_CONFIG_DEVICE_NAME_PREFIX + shortname,
         		dev.getDeviceName());
     }
 
@@ -383,11 +383,11 @@ public final class DeviceListWriter {
     	
         if(args.length>=1 && args[0].equals("-v")) {
             d.verbose  = true;
-            ErrorMsg.setDebugLevel(ErrorMsg.DEBUG_MSG);
+            ErrorMsg.setDebugLevel(ErrorMsg.DEBUG_ENABLED);
         }
 
         d.addClasses(new File("."), "synthdrivers");
-        d.writeProps(new File(".", Constants.RESOURCE_NAME_DEVICES_CONFIG));
+        d.writeProps(new File(".", Constants.DEV_CONFIG_FILE_NAME));
 //        d.writeDocs(new File(".", "synths-test.html"));
         
         System.exit(0);

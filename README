@@ -9,10 +9,11 @@ Description:
 	synthesizers.
 
 	This program is free software; you can redistribute it and/or
-	modify it under the GPL license.  See license.txt for more
-	detail.
+	modify it under the GPL license.  See the file LICENSE for more
+	further details.
 
 WWW Site:
+
 	Home Page
 	    http://www.jsynthlib.org/
 
@@ -23,63 +24,35 @@ Install:
 
   Step 1: Java Runtime Environment
 
-	Make sure you have the J2SE JRE (Java Run Time Environment) or
-	SDK (Software Development Kit) which supports Java 1.4 or
+	Make sure you have the J2SE JRE (Java Runtime Environment) or
+	JDK (Java Development Kit) which supports Java 1.5 or
 	later. If you do not have it, you can download it from
-	http://java.sun.com/. If you develop a Java program (for
-	example a JSynthLib synth driver for your synth), you need
-	SDK. Otherwise you need JRE. It spends your disk space less.
-
-	Mac OS X comes with java preinstalled. but you should be sure
-	you have the latest update installed.
+	http://java.sun.com/. If you plan to develop a Java program (for
+	example a JSynthLib driver for your synth), you need the
+	JDK. Otherwise you just need the JRE.
 
   Step 2: MIDI Provider
 
-	JSynthLib-0.19 and/or later uses MIDI Provider, a platform
-	dependent layer of the Java MIDI API. Depends on a version of
-	your Java Environment, you have to install a MIDI Provider.
+	JSynthLib  uses a MIDI Provider, which is a platform dependent
+	layer of the Java MIDI API. Depending on your operating system,
+    you may have to install a MIDI Provider.
 
     Microsoft Windows
 
-	If you have a J2SE version 1.4.2 or newer installed, you don't
-	have to install a MIDI Provider.
-
-	If you use older version of J2SE, download the binary package
-	of WireProvider and put WireProvider.jar under
-	$JAVA_HOME/jre/lib/ext/ directory and put WireProvider.dll
-	under $JAVA_HOME/jre/bin/ directory. ($JAVA_HOME is the root
-	directory of J2SE installation.)
+	If you have a J2SE version 1.5 or newer installed, you don't
+	need to install a MIDI Provider.
 
     GNU/Linux
 
 	If you have a J2SE version 1.5 or newer installed, you don't
-	have to install a MIDI Provider.
-
-	If you use older version of J2SE, download the latest
-	LinuxCharDev.jar from JSynthLib SourceForge site and copy it
-	under $JAVA_HOME/jre/lib/ext/ directory. Then create a file
-	linuxdevices.conf under the main JSynthLib Directory to
-	reflect your setup. Here is an example;
-
-	    /dev/null
-	    /dev/midi
-
-	Each line in this file represents one device that you wish to
-	have accessible in JSynthLib.
-	With the LinuxCharDev MIDI Provider no concurrent access of the
-	used devices is provided. The OSS/"ALSA rawmidi" interfaces
-	are used.
-
-	You may also use the Tritonus ALSA MIDI Provider instead of
-	LinuxCharDev. Please see the Tritonus: Open Source Java Sound
-	web site for further information.
+	need to install a MIDI Provider.
 
     Mac OS X
 
-	At this point (June, 2004) you need to install a MIDI Provider.
+	At this point (June 2004) you need to install a MIDI Provider.
 
-	Download the latest CAProvider.jar from JSynthLib SourceForge
-	site and copy it under /Library/Java/Extensions/
+	Download the latest CAProvider.jar from the JSynthLib SourceForge
+	site and copy it to /Library/Java/Extensions/
 	(~/Library/Java/Extensions/ should also work for a single user
 	installation).
 
@@ -87,12 +60,12 @@ Install:
 
   Step 3: Installing and Invoking JSynthLib
 
-	Download the latest JSynthLib-XXX.jar file from JSynthLib Home
-	Page or JSynthLib SourceForge site and copy it to any
-	directory (for example c:\Program Files\JSynthLib\ or
+	Download the latest JSynthLib-XXX.jar file from the JSynthLib site
+	or JSynthLib SourceForge site and copy it to any
+	directory (for example C:\Program Files\JSynthLib\ or
 	~/Applications/jsynthlib/).
 
-	Application bundle may be provided for Mac OS X. 
+	An application bundle may be provided for Mac OS X.
 
 	Invoke JSynthLib. 
 
@@ -109,7 +82,7 @@ Install:
 		java -Dapple.laf.useScreenMenuBar=true -jar JSynthLib-XXX.jar
 	  from the Terminal. You can also double click the jar file,
 	  but then each window will have it's own menu
-	  bar. Application bundle would remove this step.
+	  bar. An application bundle would remove the need for this step.
 
 	Go to Window->Preferences and set preferences (such as look
 	and feel, default file directories, default MIDI port, etc.)

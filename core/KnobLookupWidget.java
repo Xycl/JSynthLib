@@ -168,7 +168,7 @@ public class KnobLookupWidget extends KnobWidget {
 	int oValue = Math.round(t.getValue() * (getValueMax() - getValueMin()))
 	    + getValueMin();
 	t.setToolTipText(mValueLabels[oValue]);
-	t.setValueAsString(mValueLabels[oValue]);
+	t.setValueLabel(mValueLabels[oValue]);
 	sendSysex(oValue);
 	//ErrorMsg.reportStatus("value = "+(oValue + mBase));
     }

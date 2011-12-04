@@ -90,7 +90,6 @@ import javax.swing.*;
      * 	Set Patch Name (not soported, nameSize for bank is 0)
      */
     public void setPatchName(Patch p, String name) {
-        ErrorMsg  warning = new ErrorMsg();
         ErrorMsg.reportWarning("Advice:",
             "If you want to assign a name to this System Data patch, use 'Field1' or 'Filed2' or 'Comment' fields");
     }

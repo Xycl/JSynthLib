@@ -62,7 +62,7 @@ public class MidiMonitor extends JDialog
 	    setSize(500,400);
 
 // 	    pane.getVerticalScrollBar().setValue(pane.getVerticalScrollBar().getMinimum());
-	    Utility.centerDialog(this);
+	    Utility.centerWindow(this);
 	} catch (Exception e) {
 	    ErrorMsg.reportError("Error","Error opening Monitor",e);
 	}
