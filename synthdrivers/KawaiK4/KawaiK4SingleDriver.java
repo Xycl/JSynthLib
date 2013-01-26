@@ -88,9 +88,62 @@ public class KawaiK4SingleDriver extends Driver {
 
     public Patch createNewPatch() {
         byte[] sysex = new byte[HSIZE + SSIZE + 1];
+
+	// Set the sysex format data
 	sysex[0] = (byte) 0xF0; sysex[1] = (byte) 0x40; sysex[2] = (byte) 0x00;
 	sysex[3] = (byte) 0x23; sysex[4] = (byte) 0x00; sysex[5] = (byte) 0x04;
 	sysex[6] = (byte) 0x0; sysex[HSIZE + SSIZE] = (byte) 0xF7;
+	
+	// Set some initial data for the patch, so we can hear actually anything, when playing (Andreas Rueckert <a_rueckert@gmx.net>).
+	sysex[HSIZE+10] = (byte)80;  // Set the volume to 80.
+	sysex[HSIZE+14] = (byte)1;   // Unmute source 1
+	sysex[HSIZE+15] = (byte)2;   // Vibrato = triange and pitchbend range = 2
+	
+	// For each source to initialize
+	for( int s = 0; s < 3; ++s) {
+
+	    // Set some data for the source, so we can hear this source.
+	    sysex[HSIZE+42+s] = (byte)(24+64);  // Set coarse to 0 and keyscale on.
+	    sysex[HSIZE+58+s] = (byte)80;  // Level (volume) = 80.
+	    sysex[HSIZE+62+s] = (byte)10;  // Attack = 10.
+	    sysex[HSIZE+66+s] = (byte)90;  // Decay = 90;
+	    sysex[HSIZE+70+s] = (byte)90;  // Sustain = 90;
+	    sysex[HSIZE+74+s] = (byte)20;  // Release = 20;
+	    sysex[HSIZE+78+s] = (byte)50;  // Level Mod velocity = 0 (Range is -50 to 50, with values 0 - 100).
+	    sysex[HSIZE+82+s] = (byte)50;  // Level Mod pressure = 0.
+	    sysex[HSIZE+86+s] = (byte)50;  // Level Mod keyscale = 0.
+	    sysex[HSIZE+90+s] = (byte)50;  // Time Mod on velocity = 0;
+	    sysex[HSIZE+94+s] = (byte)50;  // Time Mod off velocity = 0;
+	    sysex[HSIZE+98+s] = (byte)50;  // Time Mod keyscale.
+	}
+
+	sysex[HSIZE+102] = (byte)90;  // Cutoff DCF 1 = 90;
+	sysex[HSIZE+103] = (byte)90;  // Cutoff DCF 2 = 90;
+	sysex[HSIZE+106] = (byte)50;  // DCF 1 cutoff Mod velocity = 0.
+	sysex[HSIZE+107] = (byte)50;  // DCF 2 cutoff Mod velocity = 0.
+	sysex[HSIZE+108] = (byte)50;  // DCF 1 cutoff Mod pressure = 0;
+	sysex[HSIZE+109] = (byte)50;  // DCF 2 cutoff Mod pressure = 0;
+	sysex[HSIZE+110] = (byte)50;  // DCF 1 cutoff Mod keyscale = 0;
+	sysex[HSIZE+111] = (byte)50;  // DCF 2 cutoff Mod keyscale = 0;
+	sysex[HSIZE+112] = (byte)50;  // DCF 1 envelope depth = 0.
+	sysex[HSIZE+113] = (byte)50;  // DCF 2 envelope depth = 0.
+	sysex[HSIZE+114] = (byte)50;  // DCF 1 envelope velocity depth = 0.
+	sysex[HSIZE+115] = (byte)50;  // DCF 2 envelope velocity depth = 0.
+	sysex[HSIZE+116] = (byte)5;   // DCF 1 attack.
+	sysex[HSIZE+117] = (byte)5;   // DCF 2 attack.
+	sysex[HSIZE+118] = (byte)90;   // DCF 1 decay.
+	sysex[HSIZE+119] = (byte)90;   // DCF 2 decay.
+	sysex[HSIZE+120] = (byte)90;   // DCF 1 sustain.
+	sysex[HSIZE+121] = (byte)90;   // DCF 2 sustain.
+	sysex[HSIZE+122] = (byte)10;   // DCF 1 release.
+	sysex[HSIZE+123] = (byte)10;   // DCF 2 release.
+	sysex[HSIZE+124] = (byte)50;   // DCF 1 time Mod on velocity.
+	sysex[HSIZE+125] = (byte)50;   // DCF 2 time Mod on velocity.
+	sysex[HSIZE+126] = (byte)50;   // DCF 1 time Mod off velocity.
+	sysex[HSIZE+127] = (byte)50;   // DCF 2 time Mod off velocity.
+	sysex[HSIZE+128] = (byte)50;   // DCF 1 time Mod keyscale.
+	sysex[HSIZE+129] = (byte)50;   // DCF 2 time Mod keyscale.
+	
 	Patch p = new Patch(sysex, this);
 	setPatchName(p, "New Patch");
 	calculateChecksum(p);
