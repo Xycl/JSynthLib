@@ -222,23 +222,10 @@ web site for further information.
 
 <li><b>Mac OS X</b>
 
-<!--If you have a J2SE older than version 1.5 installed, c
-1.5 isn't availble for OS X yet, and it probably won't contain a
-builtin MIDI provider.-->
-At this point (June, 2004) you need to install a MIDI Provider.<p>
-
-Download the latest <kbd>CAProvider.jar</kbd> from <a
-href="http://sourceforge.net/projects/jsynthlib/">JSynthLib
-SourceForge site</a> and copy it under
-<kbd>/Library/Java/Extensions/</kbd>
-(<kbd>~/Library/Java/Extensions/</kbd> should also work for a single
-user installation).<p>
-
-You may use <a
-href="http://www.cems.uwe.ac.uk/~lrlang/plumstone/">Plum Stone</a>
-instead of <kbd>CAProvider</kbd>.
-</ul>
-
+<p>Make sure to have osxmidi4j.jar on the classpath and Sysex support
+ on Mac OS X should work seemlessly. This has been tested on Mac OS X
+ 10.8.5</p>
+ 
 <h3>Step 3: Installing and Invoking JSynthLib</h3>
 
 <ul>

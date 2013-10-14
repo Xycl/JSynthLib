@@ -97,22 +97,37 @@ public final class MidiUtil {
     private MidiUtil() {
     }
 
+
+
+    static boolean isMac() {
+        String os = System.getProperty("os.name").toLowerCase();
+        return (os.indexOf("mac") >= 0);
+    }
+
+
+
     /** Returns an array of MidiDevice.Info for MIDI input device. */
     private static MidiDevice.Info[] createInputMidiDeviceInfo()
 	throws MidiUnavailableException {
 	ArrayList list = new ArrayList();
 
-	MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-        for (int i = 0; i < infos.length; i++) {
-	    // throws MidiUnavailableException
-	    MidiDevice device = MidiSystem.getMidiDevice(infos[i]);
-	    if (device.getMaxTransmitters() != 0
-		&& !(device instanceof Synthesizer)
-		&& !(device instanceof Sequencer)
-		&& ! EMULATE_NO_MIDI_IN)
-		list.add(infos[i]);
-	}
-	return (MidiDevice.Info[]) list.toArray(new MidiDevice.Info[0]);
+        MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
+        for(int i = 0; i < infos.length; i++) {
+            // throws MidiUnavailableException
+            MidiDevice device = MidiSystem.getMidiDevice(infos[i]);
+            if(device.getMaxTransmitters() != 0 && !(device instanceof Synthesizer) && !(device instanceof Sequencer)
+               && !EMULATE_NO_MIDI_IN) {
+                if(isMac()) {
+                    if("com.github.osxmidi4j.CoreMidiDeviceInfo".equals(infos[i].getClass().getName())) {
+                        list.add(infos[i]);
+                    }
+                }
+                else {
+                    list.add(infos[i]);
+                }
+            }
+        }
+        return (MidiDevice.Info[])list.toArray(new MidiDevice.Info[0]);
     }
 
     /** Returns an array of MidiDevice.Info for MIDI output device. */
@@ -120,17 +135,22 @@ public final class MidiUtil {
 	throws MidiUnavailableException {
 	ArrayList list = new ArrayList();
 
-	MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-        for (int i = 0; i < infos.length; i++) {
-	    // throws MidiUnavailableException
-	    MidiDevice device = MidiSystem.getMidiDevice(infos[i]);
-	    if (device.getMaxReceivers() != 0
-		&& !(device instanceof Synthesizer)
-		&& !(device instanceof Sequencer)
-		&& ! EMULATE_NO_MIDI_OUT)
-		list.add(infos[i]);
-	}
-	return (MidiDevice.Info[]) list.toArray(new MidiDevice.Info[0]);
+        MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
+        for(int i = 0; i < infos.length; i++) {
+            // throws MidiUnavailableException
+            MidiDevice device = MidiSystem.getMidiDevice(infos[i]);
+            if(device.getMaxReceivers() != 0 && !(device instanceof Synthesizer) && !(device instanceof Sequencer)
+               && !EMULATE_NO_MIDI_OUT)
+                if(isMac()) {
+                    if("com.github.osxmidi4j.CoreMidiDeviceInfo".equals(infos[i].getClass().getName())) {
+                        list.add(infos[i]);
+                    }
+                }
+                else {
+                    list.add(infos[i]);
+                }
+        }
+        return (MidiDevice.Info[])list.toArray(new MidiDevice.Info[0]);
     }
 
     private static void makeNamesUnique(String[] iNames) {

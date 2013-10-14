@@ -2,7 +2,8 @@
 <classpath>
 	<classpathentry excluding="bin-groovy/|bin/|build/|doc/|midiprovider/" kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/groovy.jar"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_SUPPORT"/>
+	<classpathentry kind="lib" path="lib/groovy.jar"/>
+	<classpathentry kind="lib" path="lib/osxmidi4j-1.0.jar" sourcepath="/osxmidi4j/src/main/java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
