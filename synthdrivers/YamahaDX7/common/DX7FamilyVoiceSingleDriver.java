@@ -60,7 +60,7 @@ public class DX7FamilyVoiceSingleDriver extends Driver
 
 	public Patch createNewPatch()
 	{
-		return	new Patch(initSysex, this);
+		return	new Patch(initSysex.clone(), this);
 	}
 
 
