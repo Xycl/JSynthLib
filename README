@@ -1,92 +1,99 @@
-$Id: README,v 1.2 2004-06-28 03:04:04 hayashi Exp $
-
-JSynthLib --- A Universal MIDI Synthsizer Librarian/Editor
+JSynthLib - A universal MIDI editor and librarian
 
 Description:
 
-	JSynthLib is a universal MIDI synthesizer librarian /
-	editor. The project aims to eventually support all existing
-	synthesizers.
+        JSynthLib is a universal MIDI editor and librarian. The
+        project aims to support as many MIDI enabled devices as
+        possible.
 
-	This program is free software; you can redistribute it and/or
-	modify it under the GPL license.  See the file LICENSE for more
-	further details.
+        This program is free software; you can redistribute it and/or
+        modify it under the GPL license.  See the file LICENSE for more
+        further details.
 
 WWW Site:
 
-	Home Page
-	    http://www.jsynthlib.org/
+        Home Page
+            http://www.jsynthlib.org/
 
-	Development Home Page
-	    http://sourceforge.net/projects/jsynthlib/
+        Development Home Page
+            http://sourceforge.net/projects/jsynthlib/
 
 Install:
 
   Step 1: Java Runtime Environment
 
-	Make sure you have the J2SE JRE (Java Runtime Environment) or
-	JDK (Java Development Kit) which supports Java 1.5 or
-	later. If you do not have it, you can download it from
-	http://java.sun.com/. If you plan to develop a Java program (for
-	example a JSynthLib driver for your synth), you need the
-	JDK. Otherwise you just need the JRE.
+        Make sure you have the J2SE JRE (Java Runtime Environment) or
+        JDK (Java Development Kit) which supports Java 1.6 or
+        later. If you do not have it, you can download it from
+        http://java.sun.com/. If you plan to develop a Java program (for
+        example a JSynthLib driver for your synth), you need the
+        JDK. Otherwise you just need the JRE.
 
   Step 2: MIDI Provider
 
-	JSynthLib  uses a MIDI Provider, which is a platform dependent
-	layer of the Java MIDI API. Depending on your operating system,
-    you may have to install a MIDI Provider.
+        JSynthLib uses a MIDI Provider, which is a platform dependent
+        layer of the Java MIDI API. Depending on your operating system,
+        you may have to install a MIDI Provider.
 
     Microsoft Windows
 
-	If you have a J2SE version 1.5 or newer installed, you don't
-	need to install a MIDI Provider.
+        If you have a J2SE version 1.6 or newer installed, you don't
+        need to install a MIDI Provider.
 
     GNU/Linux
 
-	If you have a J2SE version 1.5 or newer installed, you don't
-	need to install a MIDI Provider.
+        If you have a J2SE version 1.6 or newer installed, you don't
+        need to install a MIDI Provider.
 
     Mac OS X
 
-	At this point (June 2004) you need to install a MIDI Provider.
+        At the time of writing (June 2004) you need to install a MIDI
+        Provider.
 
-	Download the latest CAProvider.jar from the JSynthLib SourceForge
-	site and copy it to /Library/Java/Extensions/
-	(~/Library/Java/Extensions/ should also work for a single user
-	installation).
+        Download the latest CAProvider.jar from the JSynthLib SourceForge
+        site and copy it to the /Library/Java/Extensions/ folder (the
+        ~/Library/Java/Extensions/ folder wull also work for a single user
+        installation).
 
-	You may use Plum Stone instead of CAProvider. 
+        You may use Plum Stone instead of CAProvider.
 
-  Step 3: Installing and Invoking JSynthLib
+  Step 3: Installing JSynthLib
 
-	Download the latest JSynthLib-XXX.jar file from the JSynthLib site
-	or JSynthLib SourceForge site and copy it to any
-	directory (for example C:\Program Files\JSynthLib\ or
-	~/Applications/jsynthlib/).
+        Download the latest JSynthLib-XXX.jar file from the JSynthLib site
+        or JSynthLib SourceForge site and copy it to any
+        directory (for example C:\Program Files\JSynthLib\ or
+        /Applications/JsynthLib/).
 
-	An application bundle may be provided for Mac OS X.
+        An application bundle may be provided for Mac OS X.
 
-	Invoke JSynthLib. 
+        Invoke JSynthLib.
 
-	  [MS Windows] Run JSynthLib.jar by typing
-		java -jar JSynthLib-XXX.jar
-	  from the command prompt. You may create a shortcut on the
-	  desktop to JSynthLib.jar.
+  Step 4: Invoking JSynthLib
 
-	  [GNU/Linux] Run JSynthLib.jar by typing
-		java -jar JSynthLib-XXX.jar
-	  from the shell prompt.
+    Microsoft Windows
 
-	  [Mac OS X] Run JSynthLib.jar by typing
-		java -Dapple.laf.useScreenMenuBar=true -jar JSynthLib-XXX.jar
-	  from the Terminal. You can also double click the jar file,
-	  but then each window will have it's own menu
-	  bar. An application bundle would remove the need for this step.
+          Run JSynthLib.jar by typing
+                java -jar JSynthLib-XXX.jar
+          from a command prompt. You may create a shortcut on the
+          desktop to JSynthLib.jar.
 
-	Go to Window->Preferences and set preferences (such as look
-	and feel, default file directories, default MIDI port, etc.)
-	as you wish.
+    GNU/Linux
 
-	Go to Window->Synths and add and configure the synthesizers
-	you want to use with JSynthLib.
+          Run JSynthLib.jar by typing
+                java -jar JSynthLib-XXX.jar
+          from a shell prompt.
+
+    Mac OS X
+
+          Run JSynthLib.jar by typing
+                java -Dapple.laf.useScreenMenuBar=true -jar JSynthLib-XXX.jar
+          from a Terminal. You can alternatively double click the jar file,
+          but each window will have it's own menu bar. An application bundle
+          would remove the need for this step.
+
+        Go to Window->Preferences and set preferences (such as look
+        and feel, default file directories, default MIDI port, etc.)
+        as you wish.
+
+        Go to Window->Synths and add and configure the synthesizers
+        you want to use with JSynthLib.
