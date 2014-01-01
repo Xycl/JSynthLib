@@ -1,0 +1,154 @@
+<xs:schema targetNamespace="http://www.jsynthlib.org/driver"
+	xmlns:jsl="http://www.jsynthlib.org/driver" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+
+	<xs:element name="xmldevice">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="manufacturer" type="xs:string" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="xmldrivers" type="jsl:xmldrivers" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="xmldrivers">
+		<xs:sequence>
+			<xs:element name="xmldriver" type="jsl:xmldriver"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="xmldriver">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="xmleditor" type="jsl:xmleditor" />
+			<xs:element name="editable" type="xs:boolean" />
+			<xs:element name="xmlstores" type="jsl:xmlstores" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlstores">
+		<xs:sequence>
+			<xs:element name="xmlstore" type="jsl:xmlstore" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlstore">
+		<xs:sequence>
+			<xs:element name="bank" type="xs:string" />
+			<xs:element name="patch" type="xs:string" />
+			<xs:element name="sysex" type="xs:string" />
+			<xs:element name="xmlPopups" type="jsl:xmlPopups" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmleditor">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="numparams" type="xs:int" />
+			<xs:choice>
+				<xs:element name="xmlparams" type="jsl:xmlparams" />
+				<xs:element name="xmlpatches" type="jsl:xmlpatches" />
+				<xs:element name="xmlPopups" type="jsl:xmlPopups" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlPopups">
+		<xs:sequence>
+			<xs:element name="xmlPopup" type="jsl:xmlPopup"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlPopup">
+		<xs:sequence>
+			<xs:element type="xs:string" name="title" />
+			<xs:element type="xs:string" name="content" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlpatches">
+		<xs:sequence>
+			<xs:element name="numCols" type="xs:int" />
+			<xs:element name="numRows" type="xs:int" />
+			<xs:element name="xmlpatch" type="jsl:xmlpatch" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlpatch">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="sendSysex" type="xs:string" />
+			<xs:element name="xmlPopups" type="jsl:xmlPopups" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlparams">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="xmlparam" type="jsl:xmlparam" />
+			<xs:element name="xmlenvelopeParam" type="jsl:xmlenvelopeParam" />
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="xmlenvelopeParam">
+		<xs:sequence>
+			<xs:element name="label" type="xs:string" />
+			<xs:element name="containerName" type="xs:string" />
+			<xs:element name="xmlparam" type="jsl:xmlparam" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="xmlparam">
+		<xs:sequence>
+			<xs:element name="label" type="xs:string" />
+			<xs:element name="containerName" type="xs:string" />
+			<xs:element name="type">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="CheckBoxWidget" />
+						<xs:enumeration value="ComboBoxWidget" />
+						<xs:enumeration value="Ub99IdComboWidget" />
+						<xs:enumeration value="EnvelopeWidget" />
+						<xs:enumeration value="KnobWidget" />
+						<xs:enumeration value="PatchNameWidget" />
+						<xs:enumeration value="SpinnerWidget" />
+						<xs:enumeration value="ScrollBarWidget" />
+						<xs:enumeration value="ScrollBarLookupWidget" />
+						<xs:enumeration value="TreeWidget" />
+						<xs:enumeration value="DisabledWidget" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="min" type="xs:int" />
+			<xs:element name="max" type="xs:int" />
+			<xs:element name="xmlmessages" type="jsl:xmlmessages" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlmessages">
+		<xs:sequence>
+			<xs:element name="xmlmessage" type="jsl:xmlmessage"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlmessage">
+		<xs:sequence>
+			<xs:element name="xmlinput" type="jsl:xmlinput" />
+			<xs:element name="sysex" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="xmlinput">
+		<xs:choice>
+			<xs:element name="value" type="xs:int" />
+			<xs:element name="string" type="xs:string" />
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>
