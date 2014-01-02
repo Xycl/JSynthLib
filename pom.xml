@@ -2,6 +2,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- mvn clean xmlbeans:xmlbeans package assembly:single -->
     <!-- mvn clean package site checksum:artifacts -->
     <groupId>net.sourceforge.jsynthlib</groupId>
     <artifactId>jsynthlib</artifactId>
@@ -26,10 +27,18 @@
                     <include>**/*.jpeg</include>
                     <include>**/*.gif</include>
                     <include>**/*.png</include>
+                    <include>**/*.syx</include>
+                    <include>**/*.dat</include>
                 </includes>
             </resource>
             <resource>
                 <directory>${project.sourcedir}/resources</directory>
+            </resource>
+            <resource>
+                <directory>${basedir}/doc</directory>
+            </resource>
+            <resource>
+                <directory>${basedir}/doc</directory>
             </resource>
         </resources>
 
@@ -67,15 +76,21 @@
                         <phase>process-classes</phase>
                         <configuration>
                             <target>
-                                <delete file="${project.sourcedir}/resources/synthdrivers.properties" />
-                                <java classname="core.DeviceListWriter" fork="true">
-                                    <arg value="${project.build.outputDirectory}" />
-                                    <arg value="${project.sourcedir}/resources" />
+                                <delete
+                                    file="${project.sourcedir}/resources/synthdrivers.properties" />
+                                <java classname="core.DeviceListWriter"
+                                    fork="true">
+                                    <arg
+                                        value="${project.build.outputDirectory}" />
+                                    <arg
+                                        value="${project.sourcedir}/resources" />
                                     <classpath>
-                                        <pathelement path="${project.build.outputDirectory}" />
+                                        <pathelement
+                                            path="${project.build.outputDirectory}" />
                                     </classpath>
                                 </java>
-                                <copy file="${project.sourcedir}/resources/synthdrivers.properties"
+                                <copy
+                                    file="${project.sourcedir}/resources/synthdrivers.properties"
                                     todir="${project.build.outputDirectory}" />
                             </target>
                         </configuration>
@@ -184,6 +199,27 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>xmlbeans-maven-plugin</artifactId>
+                    <version>2.3.0</version>
+                    <executions>
+                        <execution>
+                            <id />
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>xmlbeans</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <schemaDirectory>src/test/xsd</schemaDirectory>
+                        <verbose>true</verbose>
+                        <quiet>false</quiet>
+                        <javaSource>1.6</javaSource>
+                    </configuration>
+                </plugin>
+
+                <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
                     <version>1.0.0</version>
@@ -256,6 +292,21 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
             <version>2.1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-swing</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.3.0</version>
         </dependency>
     </dependencies>
 </project>

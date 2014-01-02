@@ -8,8 +8,6 @@ import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JTabbedPaneFixture;
 import org.fest.swing.fixture.JTableFixture;
 
-import core.SynthConfigPanel;
-
 public class IsDeviceInstalledAction extends AbstractGuiAction {
 
     private String deviceName;
@@ -32,9 +30,9 @@ public class IsDeviceInstalledAction extends AbstractGuiAction {
 
                     @Override
                     protected boolean isMatching(JPanel component) {
-                        if (component instanceof SynthConfigPanel) {
-                            return true;
-                        }
+//                        if (component instanceof SynthConfigPanel) {
+//                            return true;
+//                        }
                         return false;
                     }
                 }).table();
