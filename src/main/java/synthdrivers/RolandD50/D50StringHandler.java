@@ -60,11 +60,15 @@ public final class D50StringHandler {
 
     public static void setName(Patch patch, String name, int offset, int length) {
         String characters = new String(CHARACTER_SET);
-        for (int i = 0; i < name.length() && i < length; i++) {
+        for (int i = 0; i < length; i++) {
+            if (i < name.length()) {
             char character = name.charAt(i);
             int index = characters.indexOf(character);
             if (index >= 0) {
                 patch.sysex[offset + i] = (byte) index;
+                }
+            } else {
+                patch.sysex[offset + i] = (byte) 0;
             }
         }
     }
