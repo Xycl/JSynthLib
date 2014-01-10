@@ -394,6 +394,7 @@ public class DX7FamilyVoiceEditor extends PatchEditorFrame implements
         JTabbedPane oscPane = new JTabbedPane();
         final DecimalFormat freqFormatter = new DecimalFormat("###0.000");
 
+        ParamModel pitchParamModel = new ParamModel(patch, 6 + 143);
         int i = 5;
         int j = 1;
         while (i != 6) {
@@ -581,8 +582,7 @@ public class DX7FamilyVoiceEditor extends PatchEditorFrame implements
                             (i * 21) + 14)), 7, 5, 6, 1, 13);
             final ScrollBarWidget PitchModSens =
                     new ScrollBarWidget("Pitch (*)", patch, 0, 7, 0,
-                            new ParamModel(patch, 6 + 143),
-                            new VoiceSender(143));
+                            pitchParamModel, new VoiceSender(143));
             addWidget(panel, PitchModSens, 7, 6, 6, 1, 23);
 
             PitchModSens.addEventListener(new ChangeListener() {
@@ -595,8 +595,10 @@ public class DX7FamilyVoiceEditor extends PatchEditorFrame implements
 
                         if ((w instanceof ScrollBarWidget)
                                 && (((ScrollBarWidget) w).getLabel()
-                                        .equals("Pitch (*)")))
+                                        .equals("Pitch (*)"))
+                                && !PitchModSens.equals(w)) {
                             ((ScrollBarWidget) w).setValue(pmsValue);
+                        }
                     }
                 }
             });
