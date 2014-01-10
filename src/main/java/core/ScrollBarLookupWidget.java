@@ -114,7 +114,7 @@ public class ScrollBarLookupWidget extends SysexWidget {
      */
     public ScrollBarLookupWidget(String label, IPatch patch,
             IParamModel pmodel, ISender sender, String[] options) {
-        this(label, patch, 0, options.length, -1, pmodel, sender, options);
+        this(label, patch, 0, options.length - 1, -1, pmodel, sender, options);
     }
 
     protected void createWidgets() {
