@@ -90,12 +90,16 @@ public class DevDrvPatchSelector extends JDialog {
         // ==================================
         // ----- Create the combo boxes
         deviceComboBox = new JComboBox();
+        deviceComboBox.setName("deviceCb");
         deviceComboBox.addActionListener(new DeviceActionListener());
         driverComboBox = new JComboBox();
+        driverComboBox.setName("driverCb");
         if (hasBPComboBox) {
             driverComboBox.addActionListener(new DriverActionListener());
             bankComboBox = new JComboBox();
+            bankComboBox.setName("bankCb");
             patchNumComboBox = new JComboBox();
+            patchNumComboBox.setName("patchNumCb");
         }
 
         // ----- Populate the combo boxes only with devices, which supports the

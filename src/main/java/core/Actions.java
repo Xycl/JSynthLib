@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1058,13 +1059,14 @@ final public class Actions {
                         }
                     }
                 } catch (Exception ex) {
+//                    ex.printStackTrace();
                     ErrorMsg.reportError("Error", "Error in PatchEditor.", ex);
                 }
             }
         }
+
         Worker w = new Worker();
-        w.setDaemon(true);
-        w.start();
+        w.run();
     }
 
     private static class ExportAction extends AbstractAction {
@@ -1503,7 +1505,7 @@ final public class Actions {
                 if (docWin == null)
                     docWin =
                             new DocumentationWindow("text/html",
-                                    "file:doc/documentation.html");
+                                    "documentation.html");
                 docWin.setVisible(true);
             } catch (Exception ex) {
                 ErrorMsg.reportError("Error", "Unable to show Documentation)",
@@ -1524,7 +1526,7 @@ final public class Actions {
                 if (licWin == null)
                     licWin =
                             new DocumentationWindow("text/plain",
-                                    "file:LICENSE");
+                                    "LICENSE");
                 licWin.setVisible(true);
             } catch (Exception ex) {
                 ErrorMsg.reportError("Error", "Unable to show Documentation)",

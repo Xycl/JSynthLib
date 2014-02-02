@@ -66,6 +66,7 @@ class MidiConfigPanel extends ConfigPanel {
         c.insets = new Insets(10, 0, 0, 0);
         p.add(new JLabel("Output Port:"), c);
         cbOut = new JComboBox(MidiUtil.getOutputNames()); // wirski@op.pl
+        cbOut.setName("cbOut");
         c.gridx = 1;
         c.gridwidth = 2;
         p.add(cbOut, c);
@@ -76,6 +77,7 @@ class MidiConfigPanel extends ConfigPanel {
         c.insets = new Insets(0, 0, 0, 0);
         p.add(new JLabel("Input Port:"), c);
         cbIn = new JComboBox(MidiUtil.getInputNames()); // wirski@op.pl
+        cbIn.setName("cbIn");
         c.gridx = 1;
         c.gridwidth = 2;
         p.add(cbIn, c);

@@ -1,0 +1,46 @@
+<xs:schema targetNamespace="http://www.jsynthlib.org/patch"
+	xmlns:syx="http://www.jsynthlib.org/patch" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+
+	<xs:element name="patchFiles">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="manufacturer" type="xs:string" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="patchFile" type="syx:patchFile"
+					minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="patchFile">
+		<xs:sequence>
+			<xs:element name="driverName" type="xs:string" />
+			<xs:element name="fileName" type="xs:string" />
+			<xs:element name="synth" type="xs:string" />
+			<xs:element name="type" type="xs:string" />
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="loadedParams" type="syx:loadedParam"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="loadedBanks" type="syx:loadedBank"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="loadedParam">
+		<xs:sequence>
+			<xs:element name="index" type="xs:int" />
+			<xs:element name="value" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="loadedBank">
+		<xs:sequence>
+			<xs:element name="index" type="xs:int" />
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="loadedParams" type="syx:loadedParam"
+                minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

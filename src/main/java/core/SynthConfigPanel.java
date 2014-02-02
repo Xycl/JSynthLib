@@ -1,11 +1,29 @@
 package core;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.sound.midi.*;
-import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.ProgressMonitor;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  * ConfigPanel for Synthesizer Configuration
@@ -13,7 +31,7 @@ import javax.swing.table.*;
  * @author Hiroo Hayashi
  * @version $Id: SynthConfigPanel.java 1112 2011-09-04 18:46:41Z frankster $
  */
-class SynthConfigPanel extends ConfigPanel {
+public class SynthConfigPanel extends ConfigPanel {
     {
         panelName = "Synth Driver";
         nameSpace = "synthDriver";

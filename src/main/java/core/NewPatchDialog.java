@@ -34,8 +34,10 @@ public class NewPatchDialog extends JDialog {
         container.add(myLabel, BorderLayout.NORTH);
 
         deviceComboBox = new JComboBox();
+        deviceComboBox.setName("deviceCb");
         deviceComboBox.addActionListener(new DeviceActionListener());
         driverComboBox = new JComboBox();
+        driverComboBox.setName("driverCb");
 
         // First Populate the Device/Driver List with
         // Device/Driver. which supports the "createNewPatch" method

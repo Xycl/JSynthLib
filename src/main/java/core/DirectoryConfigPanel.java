@@ -51,6 +51,7 @@ class DirectoryConfigPanel extends ConfigPanel {
         p.add(tFile, c);
 
         b = new JButton("Browse...");
+        b.setName("DefaultLibraryPath");
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CompatibleFileDialog fc = new CompatibleFileDialog();
@@ -85,6 +86,7 @@ class DirectoryConfigPanel extends ConfigPanel {
         p.add(tLib, c);
 
         b = new JButton("Browse...");
+        b.setName("PatchLibraryPath");
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CompatibleFileDialog fc = new CompatibleFileDialog();
@@ -111,6 +113,7 @@ class DirectoryConfigPanel extends ConfigPanel {
         p.add(tSyx, c);
 
         b = new JButton("Browse...");
+        b.setName("SysexFilePath");
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CompatibleFileDialog fc = new CompatibleFileDialog();

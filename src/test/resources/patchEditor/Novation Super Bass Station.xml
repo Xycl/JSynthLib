@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<driv:xmldevice xmlns:driv="http://www.jsynthlib.org/driver"><driv:manufacturer>Novation</driv:manufacturer><driv:name>Novation Super Bass Station</driv:name><driv:xmldrivers><driv:xmldriver><driv:name>synthdrivers.NovationSBS.NovationSBSProgramDriver</driv:name><driv:xmleditor><driv:name xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></driv:xmleditor><driv:editable>false</driv:editable></driv:xmldriver></driv:xmldrivers></driv:xmldevice>

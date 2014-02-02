@@ -111,6 +111,7 @@
 			<xs:element name="type">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
+                        <xs:enumeration value="MultiWidget" />
 						<xs:enumeration value="CheckBoxWidget" />
 						<xs:enumeration value="ComboBoxWidget" />
 						<xs:enumeration value="Ub99IdComboWidget" />

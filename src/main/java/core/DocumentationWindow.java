@@ -73,16 +73,10 @@ public class DocumentationWindow extends JDialog {
             // FileInputStream("doc/documentation.html");
             // jt.read(in,(new HTMLEditorKit()).createDefaultDocument());//new
             // HTMLDocument());
-            if (url.startsWith("file:")) {
-                try {
-                    // try jar file first
-                    jt.setPage(new java.net.URL("jar:file:JSynthLib-"
-                            + Constants.VERSION + ".jar!/" + url.substring(5)));
-                } catch (java.util.zip.ZipException e) {
+            if (url.startsWith("http:")) {
                     jt.setPage(new java.net.URL(url));
-                }
             } else {
-                jt.setPage(new java.net.URL(url));
+                jt.setPage(getClass().getResource("/" + url));
             }
         } catch (java.net.MalformedURLException e) {
             ErrorMsg.reportError("Error", "Wrong URL", e);

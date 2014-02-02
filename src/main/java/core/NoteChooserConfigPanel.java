@@ -153,10 +153,13 @@ public class NoteChooserConfigPanel extends ConfigPanel implements
 
         s1.setMajorTickSpacing(120);
         s1.setPaintLabels(true);
+        s1.setName("midiNote");
         s2.setMajorTickSpacing(25);
         s2.setPaintLabels(true);
+        s2.setName("velocity");
         s3.setMajorTickSpacing(500);
         s3.setPaintLabels(true);
+        s3.setName("duration");
         t1.setEditable(false);
         t2.setEditable(false);
         t3.setEditable(false);

@@ -193,75 +193,10 @@ course, implement proper error handling code if possible.)
 Again catch a specific Exception.  Don't catch <var>Exception</var>
 without good reason.
 
-<h2><a name="compiling" href="#toc">II. How to Compile Files and Check Out from SVN</a></h2>
+<h2><a name="compiling" href="#toc">II. Setup IDE</a></h2>
 
-JSynthLib distribution includes source code.  First extract files from
-the jar file.
-
-<pre>
-    mkdir JSynthLib
-    cd JSynthLib
-    jar xf ../JSynthLib-XXX.jar
-</pre>
-
-You can compile them by the following steps.
-
-<pre>
-    # On Windows use semicolon (;) instead of colon (:).
-    javac -classpath '.:groovy.jar' org/jsynthlib/*/*/*.java org/jsynthlib/*/*.java
-    javac core/*.java
-    javac synthdrivers/*/*/*.java synthdrivers/*/*.java
-    javac *.java
-</pre>
-
-You may also use the following method:
-<pre>
-    find . -name '*.java' | grep -v midiprovider/ > js
-    # On Windows use semicolon (;) instead of colon (:).
-    javac -classpath '.:groovy.jar' @js
-</pre>
-
-And Makefile and ANT build file are included.  You may compile
-JSynthLib by simply typing;
-
-<pre>
-    make all
-</pre>
-or
-<pre>
-    ant
-</pre>
-
-If you are using <a href="http://www.eclipse.org/">Eclipse</a>, enable
-the auto-compile feature.  Eclipse compiles necessary files in
-background every time you save a file.<p>
-
-
-Next, open up a Command Prompt or shell set to 50 row display and set
-it to that directory. This is used to run JSynthLib for testing (the
-50 row display helps keep error messages from scrolling off the screen
-too fast). Make sure that the java[.exe] and javac[.exe] executables
-are in your path for easy access.
-
-<p>Important: Once you've extracted the .jar file and made changes to the
-resultant files, you must launch JSynthLib using;
-<pre>
-    # On Windows use semicolon (;) instead of colon (:).
-    java -classpath '.:groovy.jar' JSynthLib -D 3
-</pre>
-instead of <kbd>java -jar JSynthLib.jar</kbd>. Otherwise you just run
-the old .jar file and none of your alterations get used.  The command
-line option '-D 3' gives you various debug messages from ErrorMsg class.
-The messages help you.<p>
-
-Although the source code for each version of JSynthLib is included in
-the JSynthLib distribution, you may wish to download the latest
-version of the source code to get any improvements made after the
-latest release.  We sometimes have to change API to make JSynthLib
-better. Your driver developed for the released JSynthLib may be
-required some changes for the latest version.
-
-You can downloaded the latest source code via SVN from SourceForge SVN
+<p>
+You can download the latest source code via SVN from SourceForge SVN
 server.
 
 <pre>
@@ -269,7 +204,19 @@ server.
 </pre>
 
 For more detail go to SVN page on <a href="#svnsite">JSynthLib
-SourceForge.net site</a>.<p>
+SourceForge.net site</a>.</p>
+
+<p>JSynthLib is structured as a <ahref="">Maven</a> project. You can thus import the project into 
+any IDE that can handle such projects.</p>
+<p>
+To use Eclipse you must do the following: <br/>
+<ul>
+<li>Install the m2e plugin</li>
+<li>Import the maven project to your workspace</li>
+<li>Run <mvn clean xmlbeans:xmlbeans compile> in order to build necessary class files</li>
+<li>Make sure target/generated-classes/xmlbeans is on your classpath (automatically done if you're using Eclipse)</li>
+</ul>
+</p>
 
 <h2><a name="writing" href="#toc">III. Writing a Synth Driver</a></h2>
 
@@ -1155,6 +1102,20 @@ Instead use the following code.
 <i>!!!FIXME!!! Describe the situation where Converter is used.</i>
 
 <h2><a name="testing" href="#toc">IV. Testing Your Driver...</a></h2>
+
+<h3>Testing</h3>
+
+<p>There are some system tests written in the jUnit format that shall be executed as part of integration testing. These test cases cann all be found in the core package under the src/test folder.</p>
+<p>
+* The PatchEditorTest jUnit class can be run in four different modes:<br/>
+1-3 Using the -Dorg.jsynthlib.testlevel switch:<br/>
+  - Low: Only 1/4 of all devices are tested<br/>
+  - Medium: Only 1/2 of all devices are tested<br/>
+  - High: All devices are tested<br/>
+4 Using the -Dorg.jsynthlib.testDevice switch<br/>
+  - Only the device given by the device name value of this parameter will be tested. All tests will be executed for this device.<br/>  
+* The same class is used to automatically generate the XML files used later on in the test step. Launch the main method without any arguments and it will generate XML for all missing drivers.<br/>
+</p>
 
 <em>This section of the Documentation was written by Yves Lefebvre.</em>
 

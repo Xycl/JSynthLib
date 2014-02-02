@@ -1,27 +1,44 @@
+/*
+ * Copyright 2014 Pascal Collberg
+ *
+ * This file is part of JSynthLib.
+ *
+ * JSynthLib is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation; either version 2 of the License,
+ * or(at your option) any later version.
+ *
+ * JSynthLib is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with JSynthLib; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ */
 package core.guiaction;
 
-import java.awt.Dialog;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
+import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
 import org.fest.swing.core.GenericTypeMatcher;
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
-import org.fest.swing.fixture.ContainerFixture;
 import org.fest.swing.fixture.DialogFixture;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JComboBoxFixture;
-import org.fest.swing.fixture.JInternalFrameFixture;
 
-import core.TitleFinder;
+import core.TitleFinder.FrameWrapper;
 
 public abstract class AbstractGuiAction {
 
@@ -46,25 +63,21 @@ public abstract class AbstractGuiAction {
         return testFrame.dialog();
     }
 
-    public void closeDialog(final String dialogName) {
-        testFrame.dialog(new GenericTypeMatcher<Dialog>(Dialog.class) {
-
-            @Override
-            protected boolean isMatching(Dialog component) {
-                return dialogName.equals(component.getTitle())
-                        && component.isShowing();
-            }
-        }).button(new GenericTypeMatcher<JButton>(JButton.class) {
+    public void closeDialog(final DialogFixture dialog) {
+        final String yesOption =
+                (String) UIManager.get("OptionPane.yesButtonText");
+        dialog.button(new GenericTypeMatcher<JButton>(JButton.class) {
 
             @Override
             protected boolean isMatching(JButton component) {
-                return "OK".equals(component.getText());
+                return "OK".equals(component.getText().trim())
+                        || yesOption.equals(component.getText())
+                        || "Close".equals(component.getText().trim());
             }
         }).click();
     }
 
-    @SuppressWarnings("rawtypes")
-    public void closeFrame(ContainerFixture fixture)
+    public void closeFrame(FrameWrapper fixture, final boolean save)
             throws InterruptedException {
         new Thread(new Runnable() {
 
@@ -72,6 +85,9 @@ public abstract class AbstractGuiAction {
             public void run() {
                 try {
                     Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                }
+                try {
                     testFrame
                             .dialog(new GenericTypeMatcher<JDialog>(
                                     JDialog.class) {
@@ -88,8 +104,13 @@ public abstract class AbstractGuiAction {
 
                                 @Override
                                 protected boolean isMatching(JButton component) {
-                                    return component.getText().contains(
-                                            "Revert");
+                                    if (save) {
+                                        return component.getText().contains(
+                                                "Keep");
+                                    } else {
+                                        return component.getText().contains(
+                                                "Revert");
+                                    }
                                 }
                             }).click();
                 } catch (Exception e) {
@@ -97,16 +118,8 @@ public abstract class AbstractGuiAction {
                 }
             }
         }).start();
-        if (fixture instanceof JInternalFrameFixture) {
-            JInternalFrameFixture type = (JInternalFrameFixture) fixture;
-            log.info("Closing JInternalFrameFixture "
-                    + fixture.target.getName());
-            type.close();
-        } else if (fixture instanceof FrameFixture) {
-            FrameFixture type = (FrameFixture) fixture;
-            log.info("Closing FrameFixture " + fixture.target.getName());
-            type.close();
-        }
+        log.info("Closing Frame " + fixture.getTitle());
+        fixture.close();
     }
 
     public interface IPopupListener {
@@ -122,12 +135,12 @@ public abstract class AbstractGuiAction {
             public void run() {
                 try {
                     while (true) {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                         DialogFixture patchEditDialog = testFrame.dialog();
                         log.info("Found dialog when opening editor");
                         listener.onPopupDetected(patchEditDialog);
                         log.info("Closing open editor dialog");
-                        closeDialog(patchEditDialog.target.getTitle());
+                        closeDialog(patchEditDialog);
                     }
                 } catch (Exception e) {
                 } finally {
@@ -175,31 +188,12 @@ public abstract class AbstractGuiAction {
         return dialog;
     }
 
-    @SuppressWarnings("rawtypes")
-    protected ContainerFixture findNonLibrarayFrame() {
-        Map<String, ContainerFixture> windowTitles =
-                TitleFinder.getWindowTitles(testFrame);
-        if (windowTitles.size() == 2) {
-            Iterator<Entry<String, ContainerFixture>> iterator =
-                    windowTitles.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Entry<String, ContainerFixture> entry = iterator.next();
-                if (!entry.getKey().contains("Unsaved Library")) {
-                    return entry.getValue();
-                }
-            }
-        } else {
-            log.warn("Too many frames detected");
-        }
-
-        return null;
-    }
-    
     protected interface ComboBoxMatcher {
         boolean matches(Object item);
     }
 
-    protected void setComboBoxValue(JComboBoxFixture comboBox, ComboBoxMatcher itemMatcher) {
+    protected void setComboBoxValue(JComboBoxFixture comboBox,
+            ComboBoxMatcher itemMatcher) {
         final JComboBox component = comboBox.component();
 
         if (component.isEnabled()) {
@@ -220,5 +214,25 @@ public abstract class AbstractGuiAction {
                 }
             }
         }
+    }
+
+    protected void clickMenuItem(final String menuitem) {
+        testFrame.menuItem(new GenericTypeMatcher<JMenuItem>(JMenuItem.class) {
+
+            @Override
+            protected boolean isMatching(JMenuItem component) {
+                return component.getActionCommand().equals(menuitem);
+            }
+        }).click();
+    }
+
+    protected FrameWrapper getOpenedFrame(List<FrameWrapper> before,
+            List<FrameWrapper> after) {
+        after.removeAll(before);
+        Iterator<FrameWrapper> iterator = after.iterator();
+        if (iterator.hasNext()) {
+            return iterator.next();
+        }
+        return null;
     }
 }

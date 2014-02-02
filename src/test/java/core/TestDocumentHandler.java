@@ -1,3 +1,23 @@
+/*
+ * Copyright 2014 Pascal Collberg
+ *
+ * This file is part of JSynthLib.
+ *
+ * JSynthLib is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation; either version 2 of the License,
+ * or(at your option) any later version.
+ *
+ * JSynthLib is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with JSynthLib; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ */
 package core;
 
 import static org.junit.Assert.assertEquals;
@@ -11,22 +31,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
-
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
 
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JCheckBoxFixture;
 import org.fest.swing.fixture.JComboBoxFixture;
+import org.fest.swing.fixture.JPanelFixture;
 import org.fest.swing.fixture.JSliderFixture;
 import org.fest.swing.fixture.JSpinnerFixture;
-import org.fest.swing.fixture.JTableFixture;
 import org.fest.swing.fixture.JTextComponentFixture;
+import org.fest.swing.fixture.JTreeFixture;
 import org.jsynthlib.driver.XmlPopup;
 import org.jsynthlib.driver.XmlPopups;
 import org.jsynthlib.driver.XmldeviceDocument;
@@ -43,26 +63,25 @@ import org.jsynthlib.driver.Xmlpatch;
 import org.jsynthlib.driver.Xmlpatches;
 import org.jsynthlib.driver.Xmlstore;
 import org.jsynthlib.driver.Xmlstores;
-import org.jsynthlib.midi.TestMidiDeviceProvider;
+import org.jsynthlib.midi.SingletonMidiDeviceProvider.MidiRecordSession;
 
-import synthdrivers.YamahaUB99.IdComboWidget;
 import core.EnvelopeWidget.Node;
 import core.SysexWidget.IParamModel;
 import core.valuesetter.CheckBoxValueSetter;
 import core.valuesetter.ComboBoxValueSetter;
 import core.valuesetter.IValueSetter;
 import core.valuesetter.KnobValueSetter;
+import core.valuesetter.SliderValueSetter;
 import core.valuesetter.SpinnerValueSetter;
 
 public class TestDocumentHandler extends AbstractDocumentHandler {
 
     private XmldeviceDocument deviceDocument;
     private Xmldevice device;
-    private TestMidiDeviceProvider midiDeviceProvider;
 
     private Map<Xmldriver, Set<Xmlparam>> testedItems;
     private int envelopeIndex;
-    private HashMap<String, Integer> editorParamsMap;
+    private HashMap<Xmleditor, Integer> editorParamsMap;
 
     TestDocumentHandler(File outputFile, FrameFixture testFrame)
             throws XmlException, IOException {
@@ -70,7 +89,6 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
         log.info("Using file " + outputFile.getAbsolutePath());
         deviceDocument = XmldeviceDocument.Factory.parse(outputFile);
         device = deviceDocument.getXmldevice();
-        midiDeviceProvider = TestMidiDeviceProvider.getInstance();
         testedItems = new HashMap<Xmldriver, Set<Xmlparam>>();
     }
 
@@ -79,64 +97,37 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
         assertEquals("Check manufacturer " + deviceName,
                 device.getManufacturer(), manufacturer);
         assertEquals("Check device " + deviceName, device.getName(), deviceName);
-        midiDeviceProvider.getAndClearReceivedMessages();
-        editorParamsMap = new HashMap<String, Integer>();
+        editorParamsMap = new HashMap<Xmleditor, Integer>();
+    }
+
+    Xmlparams getParams(Xmleditor editor) {
+        Integer numParams = editorParamsMap.get(editor);
+        if (numParams == null) {
+            numParams = new Integer(1);
+            editorParamsMap.put(editor, numParams);
+        } else {
+            editorParamsMap.put(editor, new Integer(numParams + 1));
+        }
+        log.info("Num params " + numParams);
+        return editor.getXmlparams();
     }
 
     @Override
-    public void handleParam(Xmleditor editor, SysexWidget sysexWidget,
-            JPanel jPanel) {
+    public Xmlparam handleParamInternal(Xmleditor editor,
+            SysexWidget sysexWidget, String uniqueName) {
         XmlCursor cursor = editor.newCursor();
         cursor.toParent();
         Xmldriver driver = (Xmldriver) cursor.getObject();
         cursor.dispose();
-        Integer numParams = editorParamsMap.get(editor.getName());
-        if (numParams == null) {
-            numParams = new Integer(1);
-            editorParamsMap.put(editor.getName(), numParams);
-        } else {
-            editorParamsMap.put(editor.getName(), new Integer(numParams + 1));
-        }
-
-        if (sysexWidget instanceof LabelWidget) {
-            // Skip...
-            return;
-        }
-
-        Xmlparams params = editor.getXmlparams();
-
         assertTrue("Check driver " + driver.getName(),
                 testedItems.containsKey(driver));
-        Set<Xmlparam> testedParams = testedItems.get(driver);
-        String uniqueName = getUniqueName(sysexWidget, jPanel);
-        if (!sysexWidget.isShowing()) {
-            Xmlparam param = getParamByLabel(params, uniqueName);
-            assertNull("Check param exists " + uniqueName, param);
-            return;
-        }
 
-        if (sysexWidget instanceof EnvelopeWidget) {
-            EnvelopeWidget envWidget = (EnvelopeWidget) sysexWidget;
-            XmlenvelopeParam[] xmlenvelopeParamArray =
-                    params.getXmlenvelopeParamArray();
-            XmlenvelopeParam xmlenvelopeParam =
-                    xmlenvelopeParamArray[envelopeIndex];
-            try {
-                verifyEnvelopeWidget(envWidget, xmlenvelopeParam);
-            } catch (NoSuchFieldException e) {
-                fail("Check param class " + uniqueName + ": " + e.getMessage());
-            } catch (IllegalAccessException e) {
-                fail("Check param class " + uniqueName + ": " + e.getMessage());
-            } catch (InterruptedException e) {
-                fail("Check param class " + uniqueName + ": " + e.getMessage());
-            }
-            envelopeIndex++;
-            return;
-        }
-
+        Xmlparams params = getParams(editor);
         final Xmlparam param = getParamByLabel(params, uniqueName);
         log.info("Testing param " + uniqueName);
         assertNotNull("Testing param " + uniqueName, param);
+
+        Set<Xmlparam> testedParams = testedItems.get(driver);
         assertFalse("Check param exists: " + uniqueName,
                 testedParams.contains(param));
         testedParams.add(param);
@@ -144,117 +135,8 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
                 sysexWidget.getValueMax());
         assertEquals("Check param min: " + uniqueName, param.getMin(),
                 sysexWidget.getValueMin());
+        return param;
 
-        switch (param.getType().intValue()) {
-        case Xmlparam.Type.INT_DISABLED_WIDGET:
-            assertFalse("Check param class " + uniqueName,
-                    sysexWidget.isEnabled());
-            break;
-        case Xmlparam.Type.INT_TREE_WIDGET:
-            break;
-        case Xmlparam.Type.INT_CHECK_BOX_WIDGET:
-            if (!(sysexWidget instanceof CheckBoxWidget)) {
-                fail("Check param class " + uniqueName + ": "
-                        + sysexWidget.getClass().getName()
-                        + " is not subclass to "
-                        + CheckBoxWidget.class.getName());
-            }
-            CheckBoxWidget cbWidget = (CheckBoxWidget) sysexWidget;
-
-            final JCheckBoxFixture cbFixture =
-                    new JCheckBoxFixture(testFrame.robot, cbWidget.cb);
-            int value =
-                    cbFixture.target.isSelected() ? param.getMax() : param
-                            .getMin();
-            testMessages(param,
-                    new CheckBoxValueSetter(cbFixture, param.getMin()), value,
-                    param.getMin(), param.getMax());
-            break;
-        case Xmlparam.Type.INT_COMBO_BOX_WIDGET:
-            if (!(sysexWidget instanceof ComboBoxWidget)) {
-                fail("Check param class " + uniqueName + ": "
-                        + sysexWidget.getClass().getName()
-                        + " is not subclass to "
-                        + ComboBoxWidget.class.getName());
-            }
-            ComboBoxWidget comboWidget = (ComboBoxWidget) sysexWidget;
-            verifyComboboxWidget(new JComboBoxFixture(testFrame.robot,
-                    comboWidget.cb), param);
-            break;
-        case Xmlparam.Type.INT_UB_99_ID_COMBO_WIDGET:
-            assertEquals("Check param class " + uniqueName,
-                    IdComboWidget.class, sysexWidget.getClass());
-            try {
-                IdComboWidget idComboWidget = (IdComboWidget) sysexWidget;
-                JComboBox cb = getField("cb", JComboBox.class, idComboWidget);
-                verifyComboboxWidget(new JComboBoxFixture(testFrame.robot, cb),
-                        param);
-            } catch (IllegalAccessException e1) {
-                fail("Check param class " + uniqueName + ": " + e1.getMessage());
-            } catch (NoSuchFieldException e1) {
-                fail("Check param class " + uniqueName + ": " + e1.getMessage());
-            }
-            break;
-        case Xmlparam.Type.INT_KNOB_WIDGET:
-            if (!(sysexWidget instanceof KnobWidget)) {
-                fail("Check param class " + uniqueName + ": "
-                        + sysexWidget.getClass().getName() + " is not a "
-                        + KnobWidget.class.getName());
-            }
-            final KnobWidget kWidget = (KnobWidget) sysexWidget;
-            value = kWidget.getValue();
-
-            testMessages(param, new KnobValueSetter(kWidget), value,
-                    param.getMin(), param.getMax());
-            break;
-        case Xmlparam.Type.INT_PATCH_NAME_WIDGET:
-            if (!(sysexWidget instanceof PatchNameWidget)) {
-                fail("Check param class " + uniqueName + ": "
-                        + sysexWidget.getClass().getName()
-                        + " is not subclass to "
-                        + PatchNameWidget.class.getName());
-            }
-            PatchNameWidget pnWidget = (PatchNameWidget) sysexWidget;
-            verifyPatchNameWidget(pnWidget, param);
-            break;
-        case Xmlparam.Type.INT_SCROLL_BAR_WIDGET:
-            if (!(sysexWidget instanceof ScrollBarWidget)) {
-                fail("Check param class " + uniqueName + ": "
-                        + sysexWidget.getClass().getName()
-                        + " is not subclass to "
-                        + ScrollBarWidget.class.getName());
-            }
-            ScrollBarWidget sbWidget = (ScrollBarWidget) sysexWidget;
-            verifyScrollbarWidget(new JSliderFixture(testFrame.robot,
-                    sbWidget.slider), param);
-            break;
-        case Xmlparam.Type.INT_SCROLL_BAR_LOOKUP_WIDGET:
-            if (!(sysexWidget instanceof ScrollBarLookupWidget)) {
-                fail("Check param class " + uniqueName + ": "
-                        + sysexWidget.getClass().getName()
-                        + " is not subclass to "
-                        + ScrollBarLookupWidget.class.getName());
-            }
-            ScrollBarLookupWidget sblWidget =
-                    (ScrollBarLookupWidget) sysexWidget;
-            verifyScrollbarWidget(new JSliderFixture(testFrame.robot,
-                    sblWidget.slider), param);
-            break;
-        case Xmlparam.Type.INT_SPINNER_WIDGET:
-            assertEquals("Check param class " + uniqueName,
-                    SpinnerWidget.class, sysexWidget.getClass());
-            SpinnerWidget sWidget = (SpinnerWidget) sysexWidget;
-            final JSpinnerFixture sFixture =
-                    new JSpinnerFixture(testFrame.robot, sWidget.spinner);
-
-            value = (Integer) sFixture.target.getValue();
-            testMessages(param, new SpinnerValueSetter(sFixture), value,
-                    param.getMin(), param.getMax());
-            break;
-        default:
-            fail("Weird widget type " + uniqueName);
-            break;
-        }
     }
 
     Xmlparam getParamByLabel(Xmlparams params, String label) {
@@ -267,109 +149,31 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
         return null;
     }
 
-    void verifyComboboxWidget(final JComboBoxFixture comboFixture,
-            Xmlparam param) {
-        int value = comboFixture.target.getSelectedIndex();
-        testMessages(param, new ComboBoxValueSetter(comboFixture), value,
-                param.getMin(), param.getMax());
-    }
-
     void verifyScrollbarWidget(final JSliderFixture fixture, Xmlparam param) {
         int value = fixture.target.getValue();
         testMessages(param, new SliderValueSetter(fixture), value,
                 param.getMin(), param.getMax());
     }
 
-    void verifyPatchNameWidget(PatchNameWidget pnWidget, Xmlparam param) {
-        final JTextComponentFixture fixture =
-                new JTextComponentFixture(testFrame.robot, pnWidget.name);
-        fixture.deleteText();
-        IClickable clickable =
-                getClickableParentRecursive(pnWidget.getParent());
-        clickable.click();
-        midiDeviceProvider.getAndClearReceivedMessages();
-
-        Xmlmessages messages = param.getXmlmessages();
-        Xmlmessage[] messageArray = messages.getXmlmessageArray();
-        for (Xmlmessage message : messageArray) {
-            String string = message.getXmlinput().getString();
-            fixture.setText(string);
-            clickable.click();
-            String sysex = midiDeviceProvider.getAndClearReceivedMessages();
-            assertEquals("Check param sysex: " + param.getLabel(),
-                    message.getSysex(), sysex);
-        }
-    }
-
-    void verifyEnvelopeWidget(final EnvelopeWidget widget,
-            XmlenvelopeParam xmlenvelopeParam) throws NoSuchFieldException,
-            IllegalAccessException, InterruptedException {
-        Xmlparam[] xmlparamArray = xmlenvelopeParam.getXmlparamArray();
-        Node[] nodes = widget.nodes;
-        int numFaders = 0;
-        for (int i = 0; i < nodes.length; i++) {
-            Node node = nodes[i];
-
-            final IParamModel modelX = getNodeParamModel(node, true);
-            if (modelX != null) {
-                Xmlparam paramX = xmlparamArray[numFaders];
-                final int faderX = widget.getSliderNum() + numFaders++;
-                int minX = getField("minX", Integer.class, node);
-                int maxX = getField("maxX", Integer.class, node);
-
-                int valueX = modelX.get();
-
-                assertEquals("Check paramX label: " + paramX.getLabel(),
-                        paramX.getLabel(), getNodeName(node, true));
-                assertEquals("Check paramX max: " + paramX.getLabel(),
-                        paramX.getMax(), maxX);
-                assertEquals("Check paramX min: " + paramX.getLabel(),
-                        paramX.getMin(), minX);
-
-                testMessages(paramX, new EnvelopeValueSetter(widget, faderX),
-                        valueX, minX, maxX);
-            }
-
-            final IParamModel modelY = getNodeParamModel(node, false);
-            if (modelY != null) {
-                Xmlparam paramY = xmlparamArray[numFaders];
-                final int faderY = widget.getSliderNum() + numFaders++;
-                int minY = getField("minY", Integer.class, node);
-                int maxY = getField("maxY", Integer.class, node);
-                int valueY = modelY.get();
-
-                assertEquals("Check paramY label: " + paramY.getLabel(),
-                        paramY.getLabel(), getNodeName(node, false));
-                assertEquals("Check paramY max: " + paramY.getLabel(),
-                        paramY.getMax(), maxY);
-                assertEquals("Check paramY min: " + paramY.getLabel(),
-                        paramY.getMin(), minY);
-
-                testMessages(paramY, new EnvelopeValueSetter(widget, faderY),
-                        valueY, minY, maxY);
-            }
-        }
-        assertEquals("Check param array length", xmlparamArray.length,
-                numFaders);
-    }
-
     void testMessages(Xmlparam param, IValueSetter setter, int value, int min,
             int max) {
         if (value == min) {
             setter.setValue(max);
-            midiDeviceProvider.getAndClearReceivedMessages();
         }
 
         Xmlmessages messages = param.getXmlmessages();
         for (Xmlmessage message : messages.getXmlmessageArray()) {
+            MidiRecordSession session = midiDeviceProvider.openSession();
             setter.setValue(message.getXmlinput().getValue());
             try {
                 Thread.sleep(5);
             } catch (InterruptedException e) {
             }
-            String sysex = midiDeviceProvider.getAndClearReceivedMessages();
+            String sysex = midiDeviceProvider.closeSession(session);
             assertEquals("Check param " + param.getContainerName() + "/"
-                    + param.getLabel() + " sysex", message.getSysex(), sysex);
+                    + param.getLabel() + " sysex for value "
+                    + message.getXmlinput().getValue(), message.getSysex(),
+                    sysex);
         }
     }
 
@@ -385,7 +189,7 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
                 Xmleditor editor = driver.getXmleditor();
                 Xmlparams params = editor.getXmlparams();
                 if (params != null) {
-                    Integer integer = editorParamsMap.get(editor.getName());
+                    Integer integer = editorParamsMap.get(editor);
                     assertNotNull(
                             "Check editor all params " + editor.getName(),
                             integer);
@@ -401,8 +205,8 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
     }
 
     @Override
-    public Xmleditor handleEditor(Xmldriver driver, boolean editable,
-            String editorName, List<PopupContainer> popups) {
+    public Xmleditor handlePatchEditor(Xmldriver driver,
+            boolean editable, String editorName, List<PopupContainer> popups) {
         String driverName = driver.getName();
         envelopeIndex = 0;
         log.info("Testing driver " + driverName);
@@ -449,82 +253,6 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
     }
 
     @Override
-    public void handlePatch(Xmleditor editor, JTableFixture table) {
-        String[][] contents = table.contents();
-        Xmlpatches patches = editor.getXmlpatches();
-        assertEquals("Check " + editor.getName() + " patch cols",
-                patches.getNumCols(), contents[0].length);
-        assertEquals("Check " + editor.getName() + " patch rows",
-                patches.getNumRows(), contents.length);
-
-        Xmlpatch[] patchArray = patches.getXmlpatchArray();
-        int k = 0;
-        for (int i = 0; i < contents.length; i++) {
-            for (int j = 0; j < contents[i].length; j++) {
-                Xmlpatch patch = patchArray[k];
-                if (patch.getSendSysex() == null) {
-                    continue;
-                }
-
-                String name = (String) table.target.getModel().getValueAt(i, j);
-                assertEquals("Check " + editor.getName() + " patch name",
-                        patch.getName(), name);
-                List<PopupContainer> popups = guiHandler.sendPatch(table, j, i);
-                XmlPopups xmlPopups = patch.getXmlPopups();
-                if (xmlPopups == null) {
-                    assertTrue("Num popups check", popups.isEmpty());
-                } else {
-                    XmlPopup[] popupArray = xmlPopups.getXmlPopupArray();
-                    assertEquals("Num popups check", popupArray.length,
-                            popups.size());
-                    for (int l = 0; l < popupArray.length; l++) {
-                        XmlPopup xmlPopup = popupArray[l];
-                        PopupContainer popupContainer = popups.get(l);
-                        assertEquals("Popup title check", xmlPopup.getTitle(),
-                                popupContainer.getTitle());
-                        assertEquals("Popup content check",
-                                xmlPopup.getContent(),
-                                popupContainer.getContents());
-                    }
-                }
-
-                String sysex = midiDeviceProvider.getAndClearReceivedMessages();
-                assertEquals("Check " + editor.getName() + " patch sysex",
-                        patch.getSendSysex(), sysex);
-                // assertFalse("Check " + editor.getName() + " sysex not empty",
-                // sysex.isEmpty());
-                log.info("Sysex for col " + j + " row " + i + " matched");
-                k++;
-            }
-        }
-    }
-
-    @Override
-    public void handleStore(Xmldriver driver, JTableFixture table,
-            Map<String, List<String>> bankMap) {
-        Xmlstores xmlstores = driver.getXmlstores();
-        Xmlstore[] xmlstoreArray = xmlstores.getXmlstoreArray();
-        Set<String> testedBanks = new HashSet<String>();
-        for (Xmlstore xmlstore : xmlstoreArray) {
-            String bank = xmlstore.getBank();
-            assertTrue(
-                    "Bank " + bank + " is in bank map for driver "
-                            + driver.getName(), bankMap.containsKey(bank));
-            testedBanks.add(bank);
-            List<String> patchNumList = bankMap.get(bank);
-            String patch = xmlstore.getPatch();
-            assertTrue("Patch num " + patch + " is in bank list for driver "
-                    + driver.getName(), patchNumList.contains(patch));
-            guiHandler.storePatch(table, bank, patch);
-            String sysex = midiDeviceProvider.getAndClearReceivedMessages();
-            assertEquals("Sysex check for bank " + bank + " and patch " + patch
-                    + " with driver " + driver.getName(), xmlstore.getSysex(),
-                    sysex);
-        }
-        assertEquals(testedBanks, bankMap.keySet());
-    }
-
-    @Override
     public Xmldriver handleDriver(String driverName) {
         Xmldrivers drivers = device.getXmldrivers();
         Xmldriver[] driverArray = drivers.getXmldriverArray();
@@ -535,6 +263,327 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
         }
         fail("Could not find driver " + driverName);
         return null;
+    }
 
+    @Override
+    protected void handleWidgetNotVisible(String uniqueName, Xmleditor editor) {
+        Xmlparams params = getParams(editor);
+        final Xmlparam param = getParamByLabel(params, uniqueName);
+        assertNull("Check param exists " + uniqueName, param);
+    }
+
+    @Override
+    protected void handleEnvelopeWidget(EnvelopeWidget widget,
+            String uniqueName, Xmleditor editor) {
+        Xmlparams params = getParams(editor);
+        XmlenvelopeParam[] xmlenvelopeParamArray =
+                params.getXmlenvelopeParamArray();
+        XmlenvelopeParam xmlenvelopeParam =
+                xmlenvelopeParamArray[envelopeIndex];
+        try {
+            Xmlparam[] xmlparamArray = xmlenvelopeParam.getXmlparamArray();
+            Node[] nodes = widget.nodes;
+            int numFaders = 0;
+            for (int i = 0; i < nodes.length; i++) {
+                Node node = nodes[i];
+
+                final IParamModel modelX = getNodeParamModel(node, true);
+                if (modelX != null) {
+                    Xmlparam paramX = xmlparamArray[numFaders];
+                    final int faderX = widget.getSliderNum() + numFaders++;
+                    int minX = getField("minX", Integer.class, node);
+                    int maxX = getField("maxX", Integer.class, node);
+
+                    int valueX = modelX.get();
+
+                    assertEquals("Check paramX label: " + paramX.getLabel(),
+                            paramX.getLabel(), getNodeName(node, true));
+                    assertEquals("Check paramX max: " + paramX.getLabel(),
+                            paramX.getMax(), maxX);
+                    assertEquals("Check paramX min: " + paramX.getLabel(),
+                            paramX.getMin(), minX);
+
+                    testMessages(paramX,
+                            new EnvelopeValueSetter(widget, faderX), valueX,
+                            minX, maxX);
+                }
+
+                final IParamModel modelY = getNodeParamModel(node, false);
+                if (modelY != null) {
+                    Xmlparam paramY = xmlparamArray[numFaders];
+                    final int faderY = widget.getSliderNum() + numFaders++;
+                    int minY = getField("minY", Integer.class, node);
+                    int maxY = getField("maxY", Integer.class, node);
+                    int valueY = modelY.get();
+
+                    assertEquals("Check paramY label: " + paramY.getLabel(),
+                            paramY.getLabel(), getNodeName(node, false));
+                    assertEquals("Check paramY max: " + paramY.getLabel(),
+                            paramY.getMax(), maxY);
+                    assertEquals("Check paramY min: " + paramY.getLabel(),
+                            paramY.getMin(), minY);
+
+                    testMessages(paramY,
+                            new EnvelopeValueSetter(widget, faderY), valueY,
+                            minY, maxY);
+                }
+            }
+            assertEquals("Check param array length", xmlparamArray.length,
+                    numFaders);
+        } catch (NoSuchFieldException e) {
+            fail("Check param class " + uniqueName + ": " + e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("Check param class " + uniqueName + ": " + e.getMessage());
+        }
+        envelopeIndex++;
+    }
+
+    @Override
+    protected void handleDisabledWidget(Xmlparam param) {
+        assertEquals("Check param " + param.getLabel() + " type: "
+                + Xmlparam.Type.DISABLED_WIDGET.toString(),
+                Xmlparam.Type.INT_DISABLED_WIDGET, param.getType().intValue());
+    }
+
+    @Override
+    protected void handleTreeWidget(JTreeFixture fixture, Xmlparam param) {
+        assertEquals("Check param " + param.getLabel() + " type: "
+                + Xmlparam.Type.TREE_WIDGET.toString(),
+                Xmlparam.Type.INT_TREE_WIDGET, param.getType().intValue());
+    }
+
+    @Override
+    protected void handleCheckboxWidget(JCheckBoxFixture fixture,
+            Xmlparam param, int min, int max) {
+        assertEquals("Check param " + param.getLabel() + " type: "
+                + Xmlparam.Type.CHECK_BOX_WIDGET.toString(),
+                Xmlparam.Type.INT_CHECK_BOX_WIDGET, param.getType().intValue());
+        int value =
+                fixture.target.isSelected() ? param.getMax() : param.getMin();
+        testMessages(param, new CheckBoxValueSetter(fixture, param.getMin()),
+                value, min, max);
+    }
+
+    @Override
+    protected void handleComboboxWidget(JComboBoxFixture fixture,
+            Xmlparam param, int min, int max) {
+        assertEquals("Check param " + param.getLabel() + " type: "
+                + Xmlparam.Type.COMBO_BOX_WIDGET.toString(),
+                Xmlparam.Type.INT_COMBO_BOX_WIDGET, param.getType().intValue());
+        int value = fixture.target.getSelectedIndex();
+        testMessages(param, new ComboBoxValueSetter(fixture, min), value, min,
+                max);
+    }
+
+    @Override
+    protected void handleUb99ComboboxWidget(JComboBoxFixture fixture,
+            Xmlparam param, int min, int max) {
+        assertEquals("Check param " + param.getLabel() + " type: "
+                + Xmlparam.Type.UB_99_ID_COMBO_WIDGET.toString(),
+                Xmlparam.Type.INT_UB_99_ID_COMBO_WIDGET, param.getType()
+                        .intValue());
+        int value = fixture.target.getSelectedIndex();
+        testMessages(param, new ComboBoxValueSetter(fixture, min), value, min,
+                max);
+    }
+
+    @Override
+    protected void handleKnobWidget(KnobWidget widget, Xmlparam param, int min,
+            int max) {
+        assertEquals("Check param " + param.getLabel() + " type: "
+                + Xmlparam.Type.KNOB_WIDGET.toString(),
+                Xmlparam.Type.INT_KNOB_WIDGET, param.getType().intValue());
+        int value = widget.getValue();
+        testMessages(param, new KnobValueSetter(widget), value, min, max);
+    }
+
+    @Override
+    protected void handlePatchNameWidget(JTextComponentFixture fixture,
+            Xmlparam param, PatchNameWidget widget) {
+        assertEquals("Check param " + param.getLabel() + " type: "
+                + Xmlparam.Type.PATCH_NAME_WIDGET.toString(),
+                Xmlparam.Type.INT_PATCH_NAME_WIDGET, param.getType().intValue());
+        fixture.deleteText();
+        IClickable clickable = getClickableParentRecursive(widget.getParent());
+        clickable.click();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
+
+        Xmlmessages messages = param.getXmlmessages();
+        Xmlmessage[] messageArray = messages.getXmlmessageArray();
+        for (Xmlmessage message : messageArray) {
+            MidiRecordSession session = midiDeviceProvider.openSession();
+            String string = message.getXmlinput().getString();
+            fixture.setText(string);
+            clickable.click();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            String sysex = midiDeviceProvider.closeSession(session);
+            assertEquals("Check param sysex: " + param.getLabel(),
+                    message.getSysex(), sysex);
+        }
+    }
+
+    @Override
+    protected void handleSpinnerWidget(JSpinnerFixture fixture, Xmlparam param,
+            int min, int max) {
+        assertEquals("Check param type", Xmlparam.Type.INT_SPINNER_WIDGET,
+                param.getType().intValue());
+        Integer value = (Integer) fixture.target.getValue();
+        testMessages(param, new SpinnerValueSetter(fixture), value, min, max);
+    }
+
+    @Override
+    protected void handleScrollbarWidget(JSliderFixture fixture,
+            Xmlparam param, int min, int max) {
+        assertEquals("Check param type", Xmlparam.Type.INT_SCROLL_BAR_WIDGET,
+                param.getType().intValue());
+        verifyScrollbarWidget(fixture, param);
+    }
+
+    @Override
+    protected void handleScrollbarLookupWidget(JSliderFixture fixture,
+            Xmlparam param, int min, int max) {
+        assertEquals("Check param type",
+                Xmlparam.Type.INT_SCROLL_BAR_LOOKUP_WIDGET, param.getType()
+                        .intValue());
+        verifyScrollbarWidget(fixture, param);
+    }
+
+    @Override
+    protected void handleMultiWidget(JPanelFixture fixture, Xmlparam param) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected Xmlstores getXmlstores(Xmldriver driver,
+            Map<String, List<String>> bankMap) {
+        log.debug("Testing patch for driver " + driver.getName());
+        Xmlstores xmlstores = driver.getXmlstores();
+        if (xmlstores == null) {
+            assertTrue(bankMap.isEmpty());
+        } else {
+            Iterator<Entry<String, List<String>>> iterator =
+                    bankMap.entrySet().iterator();
+            int storesSize = 0;
+            while (iterator.hasNext()) {
+                Entry<String, List<String>> entry = iterator.next();
+                List<String> value = entry.getValue();
+                if (value.isEmpty()) {
+                    storesSize++;
+                } else {
+                    storesSize += value.size();
+                }
+            }
+            // assertEquals("Check patch stores size",
+            // xmlstores.getXmlstoreArray().length, storesSize);
+        }
+        return xmlstores;
+    }
+
+    Xmlstore getStore(Xmlstores xmlstores, String bank, String patchNum) {
+        Xmlstore[] xmlstoreArray = xmlstores.getXmlstoreArray();
+        for (Xmlstore xmlstore : xmlstoreArray) {
+            boolean bankEquals = false;
+            boolean patchEquals = false;
+            if (bank == null) {
+                bankEquals = xmlstore.getBank() == null;
+            } else {
+                bankEquals = bank.equals(xmlstore.getBank());
+            }
+
+            if (patchNum == null) {
+                patchEquals = xmlstore.getPatch() == null;
+            } else {
+                patchEquals = patchNum.equals(xmlstore.getPatch());
+            }
+            if (bankEquals && patchEquals) {
+                return xmlstore;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected void handleXmlstore(Xmlstores xmlstores, String bank,
+            String patchNum, List<PopupContainer> popupList, String sysex) {
+        Xmlstore xmlstore = getStore(xmlstores, bank, patchNum);
+        assertNotNull("Patch store is in XML", xmlstore);
+        assertEquals("Sysex check for bank " + bank + " and patch " + patchNum,
+                xmlstore.getSysex(), sysex);
+        if (popupList.isEmpty()) {
+            assertNull("Check patch store popup list empty",
+                    xmlstore.getXmlPopups());
+        } else {
+            XmlPopups xmlPopups = xmlstore.getXmlPopups();
+            if (xmlPopups == null) {
+                fail("Expected " + popupList.size() + " popups for bank" + bank
+                        + " patch " + patchNum);
+            }
+            XmlPopup[] xmlPopupArray = xmlPopups.getXmlPopupArray();
+            assertEquals("Check patch store popup number",
+                    xmlPopupArray.length, popupList.size());
+            for (int i = 0; i < xmlPopupArray.length; i++) {
+                XmlPopup xmlPopup = xmlPopupArray[i];
+                PopupContainer popupContainer = popupList.get(i);
+                assertEquals("Check patch store popup title",
+                        xmlPopup.getTitle(), popupContainer.getTitle());
+                assertEquals("Check patch store popup content",
+                        xmlPopup.getContent(), popupContainer.getContents());
+            }
+        }
+    }
+
+    @Override
+    protected Xmlpatches getXmlpatches(Xmleditor editor, String[][] contents) {
+        Xmlpatches patches = editor.getXmlpatches();
+        assertEquals("Check " + editor.getName() + " patch cols",
+                patches.getNumCols(), contents[0].length);
+        assertEquals("Check " + editor.getName() + " patch rows",
+                patches.getNumRows(), contents.length);
+        assertEquals("Check sent patch length",
+                patches.getXmlpatchArray().length, contents.length
+                        * contents[0].length);
+        return patches;
+    }
+
+    Xmlpatch getXmlpatch(Xmlpatches xmlpatches, String name) {
+        Xmlpatch[] xmlpatchArray = xmlpatches.getXmlpatchArray();
+        for (Xmlpatch xmlpatch : xmlpatchArray) {
+            if (name.equals(xmlpatch.getName())) {
+                return xmlpatch;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected void handlePatch(Xmlpatches xmlpatches, String name,
+            String sysex, List<PopupContainer> popups, String[][] contents) {
+        Xmlpatch xmlpatch = getXmlpatch(xmlpatches, name);
+        assertNotNull("Check " + name + " patch exists", xmlpatch);
+        assertEquals("Check " + name + " patch sysex", xmlpatch.getSendSysex(),
+                sysex);
+
+        XmlPopups xmlPopups = xmlpatch.getXmlPopups();
+        if (xmlPopups == null) {
+            assertTrue("Num popups check", popups.isEmpty());
+        } else {
+            XmlPopup[] popupArray = xmlPopups.getXmlPopupArray();
+            assertEquals("Num popups check", popupArray.length, popups.size());
+            for (int l = 0; l < popupArray.length; l++) {
+                XmlPopup xmlPopup = popupArray[l];
+                PopupContainer popupContainer = popups.get(l);
+                assertEquals("Popup title check", xmlPopup.getTitle(),
+                        popupContainer.getTitle());
+                assertEquals("Popup content check", xmlPopup.getContent(),
+                        popupContainer.getContents());
+            }
+        }
     }
 }

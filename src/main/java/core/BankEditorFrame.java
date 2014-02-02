@@ -46,8 +46,12 @@ public class BankEditorFrame extends Actions.MenuFrame implements PatchBasket {
      *            a <code>Patch</code> value
      */
     protected BankEditorFrame(IBankPatch bankPatch) {
-        super(PatchEdit.getDesktop(), bankPatch.getDevice().getModelName()
-                + " " + bankPatch.getType() + " Window");
+        super(PatchEdit.getDesktop(), bankPatch.getDevice()
+                .getManufacturerName()
+                + " "
+                + bankPatch.getDevice().getModelName()
+                + " "
+                + bankPatch.getType() + " Window");
         instance = this;
         bankData = bankPatch;
         initBankEditorFrame();

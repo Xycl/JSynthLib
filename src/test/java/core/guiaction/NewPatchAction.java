@@ -1,3 +1,23 @@
+/*
+ * Copyright 2014 Pascal Collberg
+ *
+ * This file is part of JSynthLib.
+ *
+ * JSynthLib is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation; either version 2 of the License,
+ * or(at your option) any later version.
+ *
+ * JSynthLib is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with JSynthLib; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ */
 package core.guiaction;
 
 import javax.swing.JButton;
@@ -8,15 +28,19 @@ import org.fest.swing.fixture.DialogFixture;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JComboBoxFixture;
 
+import core.TitleFinder.FrameWrapper;
+
 public class NewPatchAction extends AbstractGuiAction {
 
     private IPopupListener listener;
     private Class<?> driverClass;
     private String deviceName;
+    private FrameWrapper libraryFrame;
 
-    public NewPatchAction(FrameFixture testFrame, String deviceName,
+    public NewPatchAction(FrameFixture testFrame, FrameWrapper libraryFrame, String deviceName,
             Class<?> driverClass, final IPopupListener listener) {
         super(testFrame);
+        this.libraryFrame = libraryFrame;
         this.deviceName = deviceName;
         this.driverClass = driverClass;
         this.listener = listener;
@@ -24,6 +48,9 @@ public class NewPatchAction extends AbstractGuiAction {
 
     @Override
     public void perform() {
+        libraryFrame.moveToFront();
+        libraryFrame.table().click();
+
         DialogFixture dialog = openNewPatchDialogAndSelectDevice(deviceName);
 
         JComboBoxFixture comboBox =
@@ -59,5 +86,6 @@ public class NewPatchAction extends AbstractGuiAction {
         }).click();
 
         waitForPopups(listener);
+
     }
 }
