@@ -24,12 +24,20 @@
 
 package synthdrivers.MIDIboxFM;
 
-import core.*;
+import java.io.UnsupportedEncodingException;
 
-import java.io.*;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
+import core.BankDriver;
+import core.DriverUtil;
+import core.ErrorMsg;
+import core.Patch;
+import core.SysexHandler;
 
 public class MIDIboxFMBankDriver extends BankDriver {
+    private final transient Logger log = Logger.getLogger(getClass());
     private byte sysex_type;
     private int num_patches;
 
@@ -69,7 +77,7 @@ public class MIDIboxFMBankDriver extends BankDriver {
         for (int i = 0; i < num_patches; ++i) {
             Patch ps = getPatch(p, i);
             ps.sysex[8] = (byte) bankNum;
-            System.out.println("Sending Patch #" + i);
+            log.info("Sending Patch #" + i);
             send(ps.sysex);
             try {
                 Thread.sleep(600);

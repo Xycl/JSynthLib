@@ -21,16 +21,20 @@
 
 package synthdrivers.Yamaha01v;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.DriverUtil;
-//import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
+
 
 public class Yamaha01vEqDriver extends Driver {
 
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 43 *ID* 7E 4C 4D 20 20 38 42 33 34 51 *patchNum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public Yamaha01vEqDriver() {
         super("Equalizer Library", "Robert Wirski");
@@ -104,7 +108,7 @@ public class Yamaha01vEqDriver extends Driver {
             fileIn.close();
 
         } catch (Exception e) {
-            System.err.println("Unable to find 01v_Equalizer.syx.");
+            log.warn("Unable to find 01v_Equalizer.syx.", e);
         }
         ;
 

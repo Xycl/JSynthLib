@@ -31,30 +31,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.TableColumn;
 
-import core.Patch;
+import org.apache.log4j.Logger;
+
 import core.CheckBoxWidget;
 import core.ComboBoxWidget;
 import core.Driver;
 import core.EnvelopeWidget;
+import core.KnobWidget;
+import core.Patch;
 import core.PatchEditorFrame;
 import core.PatchNameWidget;
 import core.ScrollBarWidget;
-import core.KnobWidget;
 
 class MIDIboxFMPatchEditor extends PatchEditorFrame {
     final String[] parName = new String[] {
@@ -110,6 +112,8 @@ class MIDIboxFMPatchEditor extends PatchEditorFrame {
             "123 | <reserved>", "124 | <reserved>", "125 | Modwheel Assign",
             "126 | Modwheel Init Value", "127 | Modwheel Depth",
             "128 | <reserved>", };
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     MIDIboxFMWavetableModel dataModel = new MIDIboxFMWavetableModel();
     JTable table = new JTable(dataModel);
@@ -1027,7 +1031,7 @@ class MIDIboxFMPatchEditor extends PatchEditorFrame {
         for (int i = 0; i < 4 * 32; ++i) {
             byte stored_value = ((Patch) p).sysex[10 + 0x80 + i];
             if (stored_value != cooked_dump[i]) {
-                System.out.println("Wavetable Field changed: " + i);
+                log.info("Wavetable Field changed: " + i);
                 ((Patch) p).sysex[10 + 0x80 + i] = cooked_dump[i];
                 SlowSender.sendParameter((Driver) ((Patch) p).getDriver(),
                         0x80 + i, cooked_dump[i], 50);

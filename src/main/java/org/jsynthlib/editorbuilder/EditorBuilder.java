@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
+import org.apache.log4j.Logger;
 import org.jsynthlib.editorbuilder.widgets.ContainerWidget;
 import org.jsynthlib.editorbuilder.widgets.Strut;
 import org.jsynthlib.editorbuilder.widgets.Widget;
@@ -24,6 +25,8 @@ import org.jsynthlib.editorbuilder.widgets.Widget;
 import core.CompatibleFileDialog;
 
 public class EditorBuilder {
+
+    private static final Logger LOG = Logger.getLogger(EditorBuilder.class);
 
     protected static ParameterFrame pframe;
     protected static DesignerFrame dframe;
@@ -121,7 +124,7 @@ public class EditorBuilder {
             e.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.warn(e.getMessage(), e);
         }
 
         pframe.setJMenuBar(pmb);

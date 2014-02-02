@@ -11,10 +11,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class provides an object that initialises application wide resources.
  */
 public final class PatchEdit {
+    private static final Logger LOG = Logger.getLogger(PatchEdit.class);
     private static Actions.MenuDesktop desktop;
     private static PrefsDialog prefsDialog;
     private static WaitDialog waitDialog;
@@ -27,18 +30,14 @@ public final class PatchEdit {
      *            the debug level
      */
     public PatchEdit(final List<String> files, final int debugLevel) {
-        ErrorMsg.setDebugLevel(debugLevel);
-
-        ErrorMsg.reportStatus("JSynthLib: " + Constants.VERSION + ", Java: "
+        LOG.info("JSynthLib: " + Constants.VERSION + ", Java: "
                 + Utility.getJavaVersion() + ", OS: " + Utility.getOSName()
                 + ", " + Utility.getOSVersion());
 
         // load the supported devices
 
         DevicesConfig devConfig = DevicesConfig.getInstance();
-        if (ErrorMsg.isDebugEnabled()) {
-            devConfig.printAll();
-        }
+        devConfig.printAll();
 
         // Load config file (JSynthLib.properties).
         boolean loadPrefsSuccessfull = AppConfig.loadPrefs();
@@ -101,13 +100,13 @@ public final class PatchEdit {
         // open default library frame.
         String fname = AppConfig.getDefaultLibrary();
         if (!fname.equals("")) {
-            ErrorMsg.reportStatus("default lib: " + fname);
+            LOG.info("default lib: " + fname);
             Actions.openFrame(new File(fname));
         }
 
         // open library frame specified on the command line argument.
         for (String file : files) {
-            ErrorMsg.reportStatus("file name: " + file);
+            LOG.info("file name: " + file);
             Actions.openFrame(new File(file));
         }
     }
@@ -158,8 +157,7 @@ public final class PatchEdit {
                         new ImageIcon(PatchEdit.class.getClass().getResource(
                                 jarName));
             } catch (java.lang.NullPointerException e) {
-                ErrorMsg.reportStatus("ImageIcon:LoadIcon Could not find: "
-                        + name);
+                LOG.info("ImageIcon:LoadIcon Could not find: " + name);
             }
         }
         return (ImageIcon) icon;
@@ -200,7 +198,7 @@ public final class PatchEdit {
                                                        // Message
                 // I believe Sysex message must be ignored.
                 // || status == SysexMessage.SYSTEM_EXCLUSIVE)
-                ErrorMsg.reportStatus("MasterReceiver: " + message);
+                LOG.info("MasterReceiver: " + message);
                 this.rcvr.send(message, timeStamp);
                 MidiUtil.log("RECV: ", message);
             }
@@ -222,11 +220,11 @@ public final class PatchEdit {
                         MidiUtil.getReceiver(AppConfig.getInitPortOut());
                 rcvr1 = new MasterReceiver(rcvr);
                 trns.setReceiver(rcvr1);
-                // ErrorMsg.reportStatus("masterInEnable.rcvr: " + rcvr);
-                // ErrorMsg.reportStatus("masterInEnable.rcvr1: " + rcvr1);
-                // ErrorMsg.reportStatus("masterInEnable.trns: " + trns);
+                // LOG.info("masterInEnable.rcvr: " + rcvr);
+                // LOG.info("masterInEnable.rcvr1: " + rcvr1);
+                // LOG.info("masterInEnable.trns: " + trns);
             } catch (MidiUnavailableException e) {
-                ErrorMsg.reportStatus(e);
+                LOG.warn(e.getMessage(), e);
             }
         } else {
             if (trns != null)

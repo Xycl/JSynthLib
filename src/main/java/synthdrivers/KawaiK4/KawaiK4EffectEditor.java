@@ -1,11 +1,22 @@
 package synthdrivers.KawaiK4;
 
-import core.*;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
-import javax.swing.border.*;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+import org.apache.log4j.Logger;
+
+import core.ComboBoxWidget;
+import core.LabelWidget;
+import core.Patch;
+import core.PatchEditorFrame;
+import core.ScrollBarWidget;
 
 /**
  * @author Gerrit Gehnen
@@ -38,6 +49,8 @@ class KawaiK4EffectEditor extends PatchEditorFrame {
             "Tone", "Tone", "Tone", "Tone", "Tone", "Tone", "Delay", "Delay",
             "Rate", "1->2 Bal.", "1->2 Bal.", "1->2 Bal.", "1->2 Bal.",
             "1->2 Bal.", "1->2 Bal.", "1->2 Bal." };
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public KawaiK4EffectEditor(Patch patch) {
         super("Kawai K4 Effect Editor", patch);
@@ -130,7 +143,7 @@ class KawaiK4EffectEditor extends PatchEditorFrame {
                     parameter1.setLabel(effectParam1[i]);
                     parameter2.setLabel(effectParam2[i]);
                     parameter3.setLabel(effectParam3[i]);
-                    // System.out.println("Effect selected:"+i);
+                    log.debug("Effect selected:" + i);
                     scroll1.setEnabled(i >= 9);
                     scroll2.setEnabled(i >= 9);
                     scroll3.setEnabled(i >= 9);

@@ -21,16 +21,19 @@
 
 package synthdrivers.TCElectronicGMajor;
 
-// import core.*;
+import org.apache.log4j.Logger;
 
 class TCBit {
-    // static char hexDigits[] = {'0', '1', '2', '3','4', '5', '6', '7','8',
-    // '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    static char hexDigits[] = {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
+            'D', 'E', 'F' };
 
     private int m_mask;
     private int m_shift;
     private int m_ofs;
     private byte[] m_sysex;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Constructs a BitModel given the patch, the offset into the m_sysex
@@ -74,7 +77,7 @@ class TCBit {
     }
 
     private int getValue() {
-        // System.out.println(">>>>GETVALUE :" + printHex() + " " + printBin());
+        log.debug(">>>>GETVALUE :" + printHex() + " " + printBin());
         int value = (m_sysex[m_ofs + 1] << 7);
         value = (value ^ m_sysex[m_ofs]);
         return value;
@@ -92,8 +95,7 @@ class TCBit {
         m_sysex[m_ofs + 1] = (byte) ((j >> 7) & 127);
         m_sysex[m_ofs] = (byte) (j & 127);
 
-        // System.out.println(">>>>SET :" + i + " " + printHex() + " " +
-        // printBin());
+        log.debug(">>>>SET :" + i + " " + printHex() + " " + printBin());
     }
 
     /**
@@ -102,15 +104,21 @@ class TCBit {
      */
     public int get() {
         int result = ((getValue() & m_mask) >> m_shift);
-        // System.out.println(">>>>GET: value = " + result);
+        log.debug(">>>>GET: value = " + result);
         return result;
     }
 
-    /*
-     * String byteToHex(byte i) { return ""+hexDigits[(i & 0xF0) >> 4]
-     * +hexDigits[i & 0x0F]; } String printHex() { return
-     * byteToHex(m_sysex[m_ofs]) + byteToHex(m_sysex[m_ofs+1]); } String
-     * printBin() { return Integer.toBinaryString(m_sysex[m_ofs]) + " " +
-     * Integer.toBinaryString(m_sysex[m_ofs+1]); }
-     */
+    String byteToHex(byte i) {
+        return "" + hexDigits[(i & 0xF0) >> 4] + hexDigits[i & 0x0F];
+    }
+
+    String printHex() {
+        return byteToHex(m_sysex[m_ofs]) + byteToHex(m_sysex[m_ofs + 1]);
+    }
+
+    String printBin() {
+        return Integer.toBinaryString(m_sysex[m_ofs]) + " "
+                + Integer.toBinaryString(m_sysex[m_ofs + 1]);
+    }
+
 }

@@ -1,6 +1,11 @@
 package core;
 
 // import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -8,8 +13,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.event.*;
-import java.awt.*;
+
+import org.apache.log4j.Logger;
 
 /**
  * Dialog to create a new Patch of the loaded Devices respective Drivers. Any
@@ -19,6 +24,7 @@ import java.awt.*;
  * @version $Id: NewPatchDialog.java 1182 2011-12-04 22:07:24Z chriswareham $
  */
 public class NewPatchDialog extends JDialog {
+    private final transient Logger log = Logger.getLogger(getClass());
     private JComboBox deviceComboBox;
     private JComboBox driverComboBox;
     private IPatch p;
@@ -84,7 +90,7 @@ public class NewPatchDialog extends JDialog {
 
                 p = driver.createPatch();
                 if (p != null) {
-                    ErrorMsg.reportStatus("Bingo " + driver.toString());
+                    log.info("Bingo " + driver.toString());
                 } else {
                     // If a driver does not override
                     // createNewPatch method unnecessary, this
@@ -115,7 +121,7 @@ public class NewPatchDialog extends JDialog {
         pack();
         Utility.centerWindow(this);
         // } catch(Exception e) {
-        // ErrorMsg.reportStatus(e);
+        // log.info(e);
         // }
     }
 

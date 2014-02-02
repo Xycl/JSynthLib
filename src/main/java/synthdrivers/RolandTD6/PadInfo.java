@@ -103,10 +103,5 @@ public final class PadInfo implements Cloneable {
             throw new InternalError(e.toString());
         }
     }
-    /*
-     * // only for test public static void main(String[] args) { PadInfo p0 =
-     * new PadInfo("P0", 0, true, true, true, true); PadInfo p1 = (PadInfo)
-     * p0.clone(); PadInfo p2 = new PadInfo("P2", 1, true, true, true, true); p2
-     * = (PadInfo) p0.clone(); System.out.println(p2); }
-     */
+
 } // PadInfo

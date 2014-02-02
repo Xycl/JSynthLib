@@ -11,6 +11,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
+import org.apache.log4j.Logger;
+
 /**
  * A Window menu for JSLDesktop and JSLFrame. A JSLFrame is added by
  * <code>add</code> method or is removed when the JSLFrame is closed. A JSLFrame
@@ -22,6 +24,7 @@ import javax.swing.JRadioButtonMenuItem;
  */
 public class JSLWindowMenu extends JMenu implements JSLFrameListener,
         ActionListener {
+    private final transient Logger log = Logger.getLogger(getClass());
     private ButtonGroup bg = new ButtonGroup();
     private HashMap windows = new HashMap();
     private JSLWindowMenuItem none = new JSLWindowMenuItem();
@@ -55,7 +58,7 @@ public class JSLWindowMenu extends JMenu implements JSLFrameListener,
      */
     private void remove(JSLFrame f) {
         // if (f == null) return;
-        ErrorMsg.reportStatus("JSLWindowMenu.remove : " + f.getTitle());
+        log.info("JSLWindowMenu.remove : " + f.getTitle());
         if (windows.containsKey(f)) {
             JSLWindowMenuItem i = (JSLWindowMenuItem) windows.remove(f);
             bg.remove(i);

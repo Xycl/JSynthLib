@@ -1,5 +1,7 @@
 package synthdrivers.KawaiK4;
 
+import org.apache.log4j.Logger;
+
 import core.Converter;
 import core.Patch;
 
@@ -20,6 +22,8 @@ public class KawaiK4BulkConverter extends Converter {
     /** Effect Bank size */
     private static final int ESIZE = 35 * 32;
 
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public KawaiK4BulkConverter() {
         super("Bulk Dump Converter", "Brian Klock & Gerrit Gehnen");
         sysexID = "F040**220004**00";
@@ -31,7 +35,7 @@ public class KawaiK4BulkConverter extends Converter {
      */
     public Patch[] extractPatch(Patch p) {
         byte[] sysex = p.getByteArray();
-        // System.out.println("Length p: " + sysex.length);
+        log.debug("Length p: " + sysex.length);
         byte[] sx = new byte[HSIZE + SSIZE + 1]; // Single Bank
         byte[] mx = new byte[HSIZE + MSIZE + 1]; // Multi Bank
         byte[] dx = new byte[HSIZE + DSIZE + 1]; // Drumset

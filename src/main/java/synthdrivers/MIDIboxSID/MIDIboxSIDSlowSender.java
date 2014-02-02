@@ -26,24 +26,25 @@
 
 package synthdrivers.MIDIboxSID;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 
 public class MIDIboxSIDSlowSender {
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public void sendSysEx(Driver driver, byte[] buffer, int delay) {
         try {
             // PatchEdit.MidiOut.writeLongMessage(port, buffer);
             driver.send(buffer);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            ErrorMsg.reportStatus(ex);
+        } catch (Exception e) {
+            log.warn(e.getMessage(), e);
         }
 
         try {
             Thread.sleep(delay);
         } catch (Exception e) {
         }
-        ;
     }
 
     public void sendParameter(Driver driver, int parameter, byte value,

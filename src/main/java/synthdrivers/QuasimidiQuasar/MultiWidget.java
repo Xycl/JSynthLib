@@ -21,12 +21,20 @@
 
 package synthdrivers.QuasimidiQuasar;
 
-import core.*;
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+
+import org.apache.log4j.Logger;
+
+import core.IPatch;
+import core.SysexWidget;
 
 /**
  * * Special widget
@@ -34,6 +42,9 @@ import javax.swing.*;
  * @version $Id: MultiWidget.java 864 2005-01-31 07:05:54Z jbackhaus $
  */
 public class MultiWidget extends SysexWidget {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     MultiWidgetParams[] multiWidgetParams;
 
     private JCheckBox[] checkBoxes;
@@ -122,8 +133,8 @@ public class MultiWidget extends SysexWidget {
                 countComboBoxes++;
             }
         }
-        // System.err.println("Check boxes: " + countCheckBoxes);
-        // System.err.println("Combo boxes: " + countComboBoxes);
+        log.warn("Check boxes: " + countCheckBoxes);
+        log.warn("Combo boxes: " + countComboBoxes);
     }
 
     protected void layoutWidgets() {

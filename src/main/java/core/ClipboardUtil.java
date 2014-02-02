@@ -1,9 +1,16 @@
 package core;
 
-import java.awt.datatransfer.*;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+
+import org.apache.log4j.Logger;
 
 public class ClipboardUtil implements ClipboardOwner {
+    private static final Logger LOG = Logger.getLogger(ClipboardUtil.class);
     protected final static ClipboardUtil instance = new ClipboardUtil();
 
     protected final static Clipboard c = Toolkit.getDefaultToolkit()
@@ -13,7 +20,7 @@ public class ClipboardUtil implements ClipboardOwner {
         try {
             c.setContents(p, instance);
         } catch (IllegalStateException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         }
     }
 
@@ -23,13 +30,13 @@ public class ClipboardUtil implements ClipboardOwner {
             return (IPatch) t
                     .getTransferData(PatchTransferHandler.PATCH_FLAVOR);
         } catch (IllegalStateException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         } catch (ClassCastException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         } catch (UnsupportedFlavorException e) {
-            ErrorMsg.reportStatus(e);
-        } catch (java.io.IOException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
+        } catch (IOException e) {
+            LOG.warn(e.getMessage(), e);
         }
         return null;
     }

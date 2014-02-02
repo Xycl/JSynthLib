@@ -6,6 +6,8 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
+
 /**
  * A class for MIDI System Exclusive Message patch data.
  * <p>
@@ -30,6 +32,7 @@ import javax.swing.JOptionPane;
  * @see Driver#supportsPatch
  */
 public class Patch implements ISinglePatch, IBankPatch {
+    private final transient Logger log = Logger.getLogger(getClass());
     /** Driver for this Patch. */
     private transient Driver driver;
 
@@ -286,7 +289,7 @@ public class Patch implements ISinglePatch, IBankPatch {
     }
 
     public boolean isDataFlavorSupported(final DataFlavor flavor) {
-        ErrorMsg.reportStatus("Patch.isDataFlavorSupported " + flavor);
+        log.info("Patch.isDataFlavorSupported " + flavor);
         return flavor.match(PatchTransferHandler.PATCH_FLAVOR);
     }
 

@@ -19,10 +19,13 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import org.apache.log4j.Logger;
 import org.jsynthlib.jsynthlib.Dummy;
 import org.jsynthlib.utils.AWTUtils;
 
 public class AppConfig {
+
+    private static final Logger LOG = Logger.getLogger(AppConfig.class);
     static final int GUI_MDI = 0;
     static final int GUI_SDI = 1;
     private static ArrayList deviceList = new ArrayList();
@@ -37,7 +40,7 @@ public class AppConfig {
         try {
             prefs.sync();
         } catch (BackingStoreException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         }
         setLookAndFeel(getLookAndFeel());
     }
@@ -77,12 +80,10 @@ public class AppConfig {
             // ErrorMsg.reportStatus("deviceList: " + deviceList);
             return true;
         } catch (BackingStoreException e) {
-            ErrorMsg.reportStatus("loadPrefs: " + e);
-            e.printStackTrace();
+            LOG.warn(e.getMessage(), e);
             return false;
         } catch (Exception e) {
-            ErrorMsg.reportStatus("loadPrefs: " + e);
-            e.printStackTrace();
+            LOG.warn(e.getMessage(), e);
             return false;
         }
     }
@@ -96,7 +97,8 @@ public class AppConfig {
             // Save the appconfig
             store();
         } catch (Exception e) {
-            ErrorMsg.reportError("Error", "Unable to Save Preferences", e);
+            ErrorMsg.reportError("Error", "Unable to Save Preferences");
+            LOG.warn(e.getMessage(), e);
         }
     }
 
@@ -254,7 +256,7 @@ public class AppConfig {
                 }
             }
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         }
     }
 
@@ -470,16 +472,16 @@ public class AppConfig {
 
     /** returns the 1st unused device node name for Preferences. */
     private static Preferences getDeviceNode(String s) {
-        ErrorMsg.reportStatus("getDeviceNode: " + s);
+        LOG.info("getDeviceNode: " + s);
         s = DevicesConfig.getShortNameForClassName(s);
-        ErrorMsg.reportStatus("getDeviceNode: -> " + s);
+        LOG.info("getDeviceNode: -> " + s);
         int i;
         try {
             for (i = 0; prefsDev.nodeExists(s + "#" + i); i++)
                 ; // do nothing
             return prefsDev.node(s + "#" + i);
         } catch (BackingStoreException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
             return null;
         }
     }
@@ -499,7 +501,7 @@ public class AppConfig {
         try {
             ret.getPreferences().removeNode();
         } catch (BackingStoreException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         }
         return ret;
     }

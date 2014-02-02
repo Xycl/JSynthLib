@@ -2,6 +2,8 @@ package synthdrivers.YamahaFS1R;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.JSLFrame;
 import core.Patch;
@@ -39,6 +41,8 @@ public class YamahaFS1RVoiceDriver extends Driver {
 
     static final int BANK_NUM_INTERNAL = 0;
     static final int BANK_NUM_PERFORMANCE = 1;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private int mCurrentBankNum;
     private int mCurrentPatchNum;
@@ -151,7 +155,7 @@ public class YamahaFS1RVoiceDriver extends Driver {
 
     public void setBankNum(int bankNum) {
         mCurrentBankNum = bankNum;
-        // System.out.println("setBankNum = "+ bankNum);
+        log.debug("setBankNum = " + bankNum);
         updateSysexRequest();
     }
 
@@ -162,7 +166,7 @@ public class YamahaFS1RVoiceDriver extends Driver {
                 mCurrentPatchNum = 3;
             }
         }
-        // System.out.println("setPatchNum = "+patchNum);
+        log.debug("setPatchNum = " + patchNum);
         updateSysexRequest();
     }
 

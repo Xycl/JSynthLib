@@ -42,7 +42,7 @@ import core.TitleFinder.FrameWrapper;
 
 public abstract class AbstractGuiAction {
 
-    protected final Logger log = Logger.getLogger(getClass());
+    protected final transient Logger log = Logger.getLogger(getClass());
     protected final FrameFixture testFrame;
 
     public AbstractGuiAction(FrameFixture testFrame) {

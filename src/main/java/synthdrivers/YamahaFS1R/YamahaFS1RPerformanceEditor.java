@@ -20,6 +20,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.log4j.Logger;
+
 import core.BankEditorFrame;
 import core.CheckBoxWidget;
 import core.ComboBoxWidget;
@@ -88,6 +90,8 @@ class YamahaFS1RPerformanceEditor extends PatchEditorFrame {
     static final int HGAP = 20;
     static final int VGAP = 5;
 
+    private final transient Logger log = Logger.getLogger(getClass());
+
     protected int sysexSize = 0;
     protected int mPartToEdit;
     protected static byte[] buffer = new byte[1024];
@@ -147,7 +151,8 @@ class YamahaFS1RPerformanceEditor extends PatchEditorFrame {
                                             128 + mVoiceSelector[oPart]
                                                     .getValue());
                 }
-                // System.out.println("SEND VOICE "+oPart+" "+mVoiceSelector[oPart].getValue());
+                log.debug("SEND VOICE " + oPart + " "
+                        + mVoiceSelector[oPart].getValue());
                 YamahaFS1RVoiceDriver.getInstance()
                         .sendPatch(oPatch, oPart + 1);
             }
@@ -227,7 +232,7 @@ class YamahaFS1RPerformanceEditor extends PatchEditorFrame {
                             oLine = oBR.readLine();
                         }
                     } catch (IOException ioe) {
-                        ioe.printStackTrace();
+                        log.warn(ioe.getMessage(), ioe);
                     }
                 }
             }

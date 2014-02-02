@@ -3,8 +3,11 @@ package core;
 import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.Vector;
+
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  * A class for efficient and convenient creatation of sysex messages. The basic
@@ -50,6 +53,7 @@ import javax.sound.midi.SysexMessage;
  */
 // Modifications by: phil@muqus.com - 07/2001
 public class SysexHandler /* implements Serializable */{
+    private final transient Logger log = Logger.getLogger(getClass());
     /** Sysex byte array. */
     private byte[] sysex = null;
     /** Vector for "<code>*patchNum*</code>" form value. */
@@ -249,7 +253,7 @@ public class SysexHandler /* implements Serializable */{
         try {
             m.setMessage(sysex, sysex.length);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         return m;
     }

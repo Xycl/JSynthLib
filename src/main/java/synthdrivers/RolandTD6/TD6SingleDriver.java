@@ -21,9 +21,10 @@
 
 package synthdrivers.RolandTD6;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.DriverUtil;
-import core.ErrorMsg;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
@@ -56,6 +57,8 @@ public final class TD6SingleDriver extends Driver {
 
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 41 @@ 00 3F 11 41 *patchNum* 00 00 00 00 00 00 *checkSum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Creates a new <code>TD6SingleDriver</code> instance.
@@ -98,8 +101,8 @@ public final class TD6SingleDriver extends Driver {
      *            drum kit number (0: drum kit 1, ..., 98: drum kit 99)
      */
     public void storePatch(Patch p, int bankNum, int patchNum) {
-        // ErrorMsg.reportStatus("storePatch: " + p);
-        // ErrorMsg.reportStatus("storePatch: " + device);
+        // log.info("storePatch: " + p);
+        // log.info("storePatch: " + device);
         storePatch(p.sysex, 0, patchNum);
     }
 
@@ -131,12 +134,12 @@ public final class TD6SingleDriver extends Driver {
             try {
                 send(p.sysex);
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
             try {
                 Thread.sleep(50); // wait at least 50 milliseconds.
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }

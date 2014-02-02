@@ -4,11 +4,19 @@
 
 package synthdrivers.AlesisA6;
 
-import core.*;
+import javax.swing.JOptionPane;
 
-import javax.swing.*;
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.Patch;
+import core.PatchEdit;
+import core.SysexHandler;
 
 public class AlesisA6MixSingleDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public AlesisA6MixSingleDriver() {
         super("Mix Single", "Kenneth L. Martinez");
         sysexID = "F000000E1D04****";
@@ -93,7 +101,7 @@ public class AlesisA6MixSingleDriver extends Driver {
         try {
             super.playPatch(p2);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

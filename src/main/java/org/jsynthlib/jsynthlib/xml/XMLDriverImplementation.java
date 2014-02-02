@@ -7,9 +7,10 @@ import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
 
+import org.apache.log4j.Logger;
+
 import core.AppConfig;
 import core.Device;
-import core.ErrorMsg;
 
 /* This is the class that will be extended by the scripting language */
 public class XMLDriverImplementation {
@@ -68,6 +69,8 @@ public class XMLDriverImplementation {
         return hex(b.intValue());
     }
 
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public void playPatch(XMLPatch p) {
         try {
             Thread.sleep(100);
@@ -84,7 +87,7 @@ public class XMLDriverImplementation {
                     0); // expecting running status
             d.send(msg);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

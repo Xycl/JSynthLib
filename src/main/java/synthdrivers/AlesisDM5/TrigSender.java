@@ -21,8 +21,12 @@
 
 package synthdrivers.AlesisDM5;
 
-import core.*;
 import javax.sound.midi.InvalidMidiDataException;
+
+import org.apache.log4j.Logger;
+
+import core.IPatchDriver;
+import core.SysexWidget;
 
 /**
  * The TrigSender class is used to send NRPNs to the DM5. The parameters handled
@@ -45,6 +49,8 @@ class TrigSender extends NRPNSender implements SysexWidget.ISender {
 
     private final static int MAX_TRIG_NUM = 11;
     private static int LAST_TRIG_NUM = 99;
+
+    private final transient Logger log = Logger.getLogger(getClass());
     private int trigNum;
 
     /**
@@ -78,7 +84,7 @@ class TrigSender extends NRPNSender implements SysexWidget.ISender {
                 driver.send(newControlChange(driver, 6, trigNum * 127
                         / MAX_TRIG_NUM)); // Set the Trigger Number
             } catch (InvalidMidiDataException e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
             LAST_TRIG_NUM = trigNum;
 
@@ -101,7 +107,7 @@ class TrigSender extends NRPNSender implements SysexWidget.ISender {
                                                                                  // the
                                                                                  // table
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 }

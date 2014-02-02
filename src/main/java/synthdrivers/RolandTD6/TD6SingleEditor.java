@@ -33,9 +33,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.log4j.Logger;
+
 import core.CheckBoxWidget;
 import core.ComboBoxWidget;
-import core.ErrorMsg;
 import core.KnobLookupWidget;
 import core.ParamModel;
 import core.Patch;
@@ -53,6 +54,7 @@ import core.VertScrollBarWidget;
  * @version $Id: TD6SingleEditor.java 956 2005-03-08 05:10:22Z billzwicky $
  */
 final class TD6SingleEditor extends PatchEditorFrame {
+
     /** selected pad */
     private int pad;
     /** false : head is selected, true : rim is relected */
@@ -278,7 +280,7 @@ final class TD6SingleEditor extends PatchEditorFrame {
                     // pad selection is changed.
                     for (int i = 0; i < widgetList.size(); i++) {
                         SysexWidget w = (SysexWidget) widgetList.get(i);
-                        // ErrorMsg.reportStatus(((Object) w).toString());
+                        // log.info(((Object) w).toString());
                         w.setValue();
                     }
                 }
@@ -510,10 +512,10 @@ final class TD6SingleEditor extends PatchEditorFrame {
          *            an <code>int</code> value
          */
         protected void setValue(int value) {
-            // ErrorMsg.reportStatus("TD6PadSender : value : " + value);
+            // log.info("TD6PadSender : value : " + value);
             super.setValue(0x01000000 + ((99 - 1) << 16) + padList[pad].offset
                     + (isRim ? 0x13 : 0) + param, value);
-            // ErrorMsg.reportStatus("TD6PadSender.setValue: " + this);
+            // log.info("TD6PadSender.setValue: " + this);
         }
     }
 
@@ -596,10 +598,10 @@ final class TD6SingleEditor extends PatchEditorFrame {
          * @return an <code>int</code> value
          */
         public int get() {
-            // ErrorMsg.reportStatus("TD6PadModel.get(): param =  " + param
+            // log.info("TD6PadModel.get(): param =  " + param
             // + "(0x" + Integer.toHexString(param) +")");
             ofs = getOffset(padList[pad].offset + (isRim ? 0x13 : 0) + param);
-            // ErrorMsg.reportStatus("TD6PadModel.get(): ofs =  " + ofs
+            // log.info("TD6PadModel.get(): ofs =  " + ofs
             // + "(0x" + Integer.toHexString(ofs) +")");
             return super.get();
         }
@@ -688,6 +690,9 @@ class TD6KitSender extends RolandDT1Sender { // extended by TD6PadSender
  * @author <a href="mailto:hiroo.hayashi@computer.org">Hiroo Hayashi</a>
  */
 class TD6KitModel extends ParamModel { // extended by TD6PadModel
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     /** true for nibbled data */
     private boolean nibbled;
 
@@ -724,7 +729,7 @@ class TD6KitModel extends ParamModel { // extended by TD6PadModel
      * @return an <code>int</code> value
      */
     static int getOffset(int param) {
-        // ErrorMsg.reportStatus("TD6KitModel.getoffset(): param =  " + param
+        // log.info("TD6KitModel.getoffset(): param =  " + param
         // + "(0x" + Integer.toHexString(param) +")");
         int base = (param >> 8) & 0xf;
         return (((base == 0) ? 0 : ((base == 1) ? 37 : 37 + 55 * (base - 1))) + 10 + (param & 0xff));
@@ -736,8 +741,8 @@ class TD6KitModel extends ParamModel { // extended by TD6PadModel
      *            an <code>int</code> value
      */
     public void set(int d) {
-        ErrorMsg.reportStatus("TD6KitModel.set(): d =  " + d + " :" + nibbled);
-        ErrorMsg.reportStatus("TD6KitModel.set(): ofs =  " + ofs + "(0x"
+        log.info("TD6KitModel.set(): d =  " + d + " :" + nibbled);
+        log.info("TD6KitModel.set(): ofs =  " + ofs + "(0x"
                 + Integer.toHexString(ofs) + ")");
         if (nibbled) {
             // 4bit each, MSB first
@@ -748,7 +753,7 @@ class TD6KitModel extends ParamModel { // extended by TD6PadModel
         } else {
             patch.sysex[ofs] = (byte) d;
         }
-        // ErrorMsg.reportStatus(patch.sysex);
+        // log.info(patch.sysex);
     }
 
     /**
@@ -761,11 +766,10 @@ class TD6KitModel extends ParamModel { // extended by TD6PadModel
             int d =
                     (patch.sysex[ofs + 0] << 12 | patch.sysex[ofs + 1] << 8
                             | patch.sysex[ofs + 2] << 4 | patch.sysex[ofs + 3]);
-            /*
-             * ErrorMsg.reportStatus("TD6KitModel.get(): " + d);
-             * ErrorMsg.reportStatus("TD6KitModel.get(): ofs =  " + ofs + "(0x"
-             * + Integer.toHexString(ofs) + ")");
-             */
+
+            log.debug("TD6KitModel.get(): " + d);
+            log.debug("TD6KitModel.get(): ofs =  " + ofs + "(0x"
+                    + Integer.toHexString(ofs) + ")");
             return d;
         } else {
             return patch.sysex[ofs];

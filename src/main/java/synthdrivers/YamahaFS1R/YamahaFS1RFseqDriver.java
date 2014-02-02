@@ -1,5 +1,7 @@
 package synthdrivers.YamahaFS1R;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.JSLFrame;
 import core.ParamModel;
@@ -33,6 +35,8 @@ public class YamahaFS1RFseqDriver extends Driver {
 
     private static String mLabels[] = new String[] {
             "1", "2", "3", "4", "5", "6" };
+
+    private static final Logger LOG = Logger.getLogger(YamahaFS1RFseqDriver.class);
 
     private int mCurrentBank;
 
@@ -108,7 +112,7 @@ public class YamahaFS1RFseqDriver extends Driver {
         for (int i = 0; i < oNbFrames; i++) {
             int off = FSEQHEADER_SIZE + DATA_START + i * FRAME_SIZE;
             oPitch[i] = (int) (p.sysex[off + 1] + (p.sysex[off] << 7));
-            // System.out.println("pitch "+i+" off "+off+" = "+oPitch[i]);
+            LOG.debug("pitch " + i + " off " + off + " = " + oPitch[i]);
         }
         return oPitch;
     }
@@ -130,7 +134,7 @@ public class YamahaFS1RFseqDriver extends Driver {
                     FSEQHEADER_SIZE + DATA_START + i * FRAME_SIZE + offset
                             + aOp;
             oRet[i] = (int) (p.sysex[off + 8] + (p.sysex[off] << 7));
-            // System.out.println("voiced freq "+i+" off "+off+" = "+oRet[i]);
+            LOG.debug("voiced freq " + i + " off " + off + " = " + oRet[i]);
         }
         return oRet;
     }

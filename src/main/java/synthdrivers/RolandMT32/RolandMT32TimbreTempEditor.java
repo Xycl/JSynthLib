@@ -37,16 +37,19 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.log4j.Logger;
+
 import core.CheckBoxWidget;
 import core.ComboBoxWidget;
 import core.EnvelopeWidget;
-import core.ErrorMsg;
 import core.Patch;
 import core.PatchEditorFrame;
 import core.PatchNameWidget;
 import core.ScrollBarWidget;
 
 class RolandMT32TimbreTempEditor extends PatchEditorFrame {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     ImageIcon algoIcon[] = new ImageIcon[13];
 
@@ -172,8 +175,8 @@ class RolandMT32TimbreTempEditor extends PatchEditorFrame {
         int TTAAddrM = TTAModM.get();
         int TTAAddrL = TTAModL.get();
 
-        ErrorMsg.reportStatus("Timbre source address: " + TTAAddrH + " / "
-                + TTAAddrM + " / " + TTAAddrL);
+        log.info("Timbre source address: " + TTAAddrH + " / " + TTAAddrM
+                + " / " + TTAAddrL);
 
         // Common Pane
         gbc.weightx = 5;
@@ -494,7 +497,7 @@ class RolandMT32TimbreTempEditor extends PatchEditorFrame {
                     patch, 0, 4, 0, lwa, new MT32Model(patch, j + 0x30),
                     new MT32Sender(j + k + 0x30, basad)), 0, gy, 3, 1, 55);
             gy++;
-            // System.out.print ("i / j " + i + " / " + j);
+            log.debug("i / j " + i + " / " + j);
             EnvelopeWidget.Node[] aNodes =
                     new EnvelopeWidget.Node[] {
 

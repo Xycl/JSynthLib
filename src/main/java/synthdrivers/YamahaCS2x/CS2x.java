@@ -21,18 +21,22 @@
 
 package synthdrivers.YamahaCS2x;
 
-import core.*;
+import org.apache.log4j.Logger;
+
+import core.DriverUtil;
 
 /**
  * Constants for YamahaCS2x package.
  * @author Peter Geirnaert
  */
 public class CS2x {
+    private static final Logger LOG = Logger.getLogger(CS2x.class);
+
     public static void sleep() {
         try {
             Thread.sleep(220);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         }
     }
 

@@ -1,50 +1,32 @@
 package core;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 /**
  * This class provides utility methods for error, warning and status messages.
  */
-public class ErrorMsg {
-    /** The bit mask for debug messages. */
-    public static final int DEBUG_ENABLED = 0x1;
-    /** The bit mask for stack dump messages. */
-    public static final int STACK_DUMP_ENABLED = 0x2;
-
-    /** The debug level. */
-    private static int debugLevel = 0;
+public class ErrorMsg extends JDialog {
 
     /**
-     * Utility class is non-instantiable.
+     *
      */
-    private ErrorMsg() {
-        // non-instantiable
-    }
-
-    /**
-     * Set the debug level.
-     * @param lvl
-     *            the debug level
-     */
-    public static void setDebugLevel(final int lvl) {
-        debugLevel = lvl;
-    }
-
-    /**
-     * Get whether debug messages are enabled.
-     * @return whether debug messages are enabled
-     */
-    public static boolean isDebugEnabled() {
-        return (debugLevel & DEBUG_ENABLED) != 0;
-    }
-
-    /**
-     * Get whether stack dump messages are enabled.
-     * @return whether stack dump messages are enabled
-     */
-    public static boolean isStackDumpEnabled() {
-        return (debugLevel & STACK_DUMP_ENABLED) != 0;
-    }
+    private static final long serialVersionUID = -7597302157405653987L;
 
     /**
      * Show a message in an error dialog.
@@ -56,12 +38,6 @@ public class ErrorMsg {
     public static void reportError(final String title, final String msg) {
         JOptionPane.showMessageDialog(PatchEdit.getInstance(), msg, title,
                 JOptionPane.ERROR_MESSAGE);
-        if (isDebugEnabled()) {
-            System.err.println("[Error] " + msg);
-        }
-        if (isStackDumpEnabled()) {
-            Thread.dumpStack();
-        }
     }
 
     /**
@@ -75,89 +51,168 @@ public class ErrorMsg {
      */
     public static void reportError(final String title, final String msg,
             final Exception exception) {
-        ErrorDialog.showDialog(PatchEdit.getInstance(), title, msg, exception);
-        if (isDebugEnabled()) {
-            System.err.println("[Error] " + msg + " [Exception] "
-                    + exception.getMessage());
-        }
-        if (isStackDumpEnabled()) {
-            exception.printStackTrace(System.err);
-        }
+        ErrorMsg dialog = new ErrorMsg(PatchEdit.getInstance(), title, msg, null);
+        dialog.setVisible(true);
     }
 
     /**
-     * Show a message in a warning dialog.
+     * The details button.
+     */
+    private JButton detailsButton;
+    /**
+     * The details scroll pane.
+     */
+    private JScrollPane detailsPane;
+    /**
+     * Whether the details are visible.
+     */
+    private boolean detailsVisible;
+    /**
+     * Whether the details have been visible.
+     */
+    private boolean detailsBeenVisible;
+
+    /**
+     * Create an instance of the error dialog.
+     * @param parent
+     *            the parent window
      * @param title
-     *            the warning dialog title
-     * @param msg
-     *            the warning message
+     *            the title
+     * @param message
+     *            the message
+     * @param details
+     *            the details
      */
-    public static void reportWarning(final String title, final String msg) {
-        JOptionPane.showMessageDialog(PatchEdit.getInstance(), msg, title,
-                JOptionPane.WARNING_MESSAGE);
-        if (isDebugEnabled()) {
-            System.err.println("[Warning] " + msg);
-        }
-        if (isStackDumpEnabled()) {
-            Thread.dumpStack();
-        }
+    public ErrorMsg(final Window parent, final String title,
+            final String message, final String details) {
+        super(parent, DEFAULT_MODALITY_TYPE);
+
+        createInterface(parent, title, message, details);
     }
 
     /**
-     * Show a message in a warning dialog.
+     * Create the interface.
+     * @param parent
+     *            the parent window
      * @param title
-     *            the warning dialog title
-     * @param msg
-     *            the warning message
-     * @param exception
-     *            the warning exception
+     *            the title
+     * @param message
+     *            the message
+     * @param details
+     *            the details
      */
-    public static void reportWarning(final String title, final String msg,
-            final Exception exception) {
-        JOptionPane.showMessageDialog(PatchEdit.getInstance(), msg, title,
-                JOptionPane.WARNING_MESSAGE);
-        if (isDebugEnabled()) {
-            System.err.println("[Warning] " + msg + " [Exception] "
-                    + exception.getMessage());
-        }
-        if (isStackDumpEnabled()) {
-            exception.printStackTrace(System.err);
-        }
+    private void createInterface(final Window parent, final String title,
+            final String message, final String details) {
+        setTitle(title);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(final WindowEvent event) {
+                close();
+            }
+        });
+
+        JLabel messageLabel =
+                new JLabel(message, UIManager.getIcon("OptionPane.errorIcon"),
+                        JLabel.CENTER);
+        messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
+        getContentPane().add(messageLabel, BorderLayout.NORTH);
+
+        JTextArea textArea = new JTextArea(details, 8, 0);
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+
+        detailsPane = new JScrollPane(textArea);
+        detailsPane.setBorder(BorderFactory.createLoweredBevelBorder());
+
+        JPanel buttonPanel = new JPanel();
+        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+
+        detailsButton = new JButton("Details >>");
+        detailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                toggleDetails();
+            }
+        });
+        buttonPanel.add(detailsButton);
+
+        JButton closeButton = new JButton("Close");
+        closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent event) {
+                close();
+            }
+        });
+        buttonPanel.add(closeButton);
+
+        pack();
+
+        setLocationRelativeTo(parent);
     }
 
     /**
-     * Show a debug message on the console.
-     * @param msg
-     *            the debug message
+     * Toggle display of the details.
      */
-    public static void reportStatus(final String msg) {
-        if (isDebugEnabled()) {
-            System.err.println("[Message]" + msg);
+    private void toggleDetails() {
+        Dimension dialogSize = getSize();
+
+        if (detailsVisible) {
+            detailsButton.setText("Details >>");
+            getContentPane().remove(detailsPane);
+            Dimension detailsPaneSize = detailsPane.getSize();
+            dialogSize.height -= detailsPaneSize.height;
+        } else {
+            detailsButton.setText("Details <<");
+            getContentPane().add(detailsPane, BorderLayout.CENTER);
+            Dimension detailsPaneSize;
+            if (detailsBeenVisible) {
+                detailsPaneSize = detailsPane.getSize();
+            } else {
+                detailsBeenVisible = true;
+                detailsPaneSize = detailsPane.getPreferredSize();
+            }
+            dialogSize.height += detailsPaneSize.height;
         }
+
+        detailsVisible = !detailsVisible;
+
+        setSize(dialogSize);
+        invalidate();
+        validate();
     }
 
     /**
-     * Show an exception message and optional stack trace on the console.
+     * Close the dialog.
+     */
+    private void close() {
+        setVisible(false);
+        dispose();
+    }
+
+    /**
+     * Get the stack trace of an exception as a string.
      * @param exception
      *            the exception
+     * @return the stack trace as a string
      */
-    public static void reportStatus(final Exception exception) {
-        if (isDebugEnabled()) {
-            System.err.println("[Exception] " + exception.getMessage());
+    private static String stackTraceToString(final Exception exception) {
+        StringBuilder buf = new StringBuilder();
+
+        for (Throwable cause = exception; cause != null; cause =
+                cause.getCause()) {
+            buf.append("Caused by: ");
+            buf.append(cause.getMessage());
+            buf.append('\n');
+            for (StackTraceElement element : cause.getStackTrace()) {
+                buf.append(element.toString());
+                buf.append('\n');
+            }
+            buf.append('\n');
         }
-        if (isStackDumpEnabled()) {
-            exception.printStackTrace(System.err);
-        }
+
+        return buf.toString();
     }
 
-    /**
-     * Show a hex dump of data on the console.
-     * @param data
-     *            the data to hex dump
-     */
-    public static void reportStatus(final byte[] data) {
-        if (isDebugEnabled()) {
-            reportStatus(Utility.hexDump(data, 0, data.length, 20));
-        }
-    }
 }

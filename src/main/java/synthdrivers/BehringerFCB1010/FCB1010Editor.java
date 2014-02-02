@@ -21,11 +21,27 @@
 
 package synthdrivers.BehringerFCB1010;
 
-import core.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import java.awt.event.*;
-import javax.swing.border.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+import org.apache.log4j.Logger;
+
+import core.CheckBoxWidget;
+import core.ComboBoxWidget;
+import core.ISinglePatch;
+import core.Patch;
+import core.PatchEditorFrame;
+import core.Utility;
 
 /**
  * Behringer FCB1010 Patch Editor
@@ -98,6 +114,8 @@ public class FCB1010Editor extends PatchEditorFrame implements ActionListener {
 
     /** Length of a bank in bytes */
     private static final int BANK_LENGTH = 160;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Reference to the Paste Button
@@ -276,7 +294,7 @@ public class FCB1010Editor extends PatchEditorFrame implements ActionListener {
         localScrap = new byte[PRESET_LENGTH];
         System.arraycopy(deNibblizedSysex, startPos, localScrap, 0,
                 PRESET_LENGTH);
-        // System.out.println("  " + (Utility.hexDump(localScrap, 0, -1, 16)));
+        log.debug("  " + (Utility.hexDump(localScrap, 0, -1, 16)));
     }
 
     /**
@@ -293,7 +311,7 @@ public class FCB1010Editor extends PatchEditorFrame implements ActionListener {
         int startPos = Constants.HDR_SIZE + (bank * BANK_LENGTH);
         localScrap = new byte[BANK_LENGTH];
         System.arraycopy(deNibblizedSysex, startPos, localScrap, 0, BANK_LENGTH);
-        // System.out.println("  " + (Utility.hexDump(localScrap, 0, -1, 16)));
+        log.debug("  " + (Utility.hexDump(localScrap, 0, -1, 16)));
     }
 
     /**

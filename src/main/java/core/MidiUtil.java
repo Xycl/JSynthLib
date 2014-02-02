@@ -22,9 +22,27 @@
 package core;
 
 import java.io.File;
-import javax.sound.midi.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
-import java.util.*;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Synthesizer;
+import javax.sound.midi.SysexMessage;
+import javax.sound.midi.Transmitter;
+
+import org.apache.log4j.Logger;
 
 /**
  * MIDI Utility Routines. This class contains methods and inner classes for Java
@@ -56,6 +74,8 @@ import java.util.*;
  *      Java Sound Progremmer Guide</a>
  */
 public final class MidiUtil {
+
+    private static final Logger LOG = Logger.getLogger(MidiUtil.class);
 
     /**
      * holds the state if a SysexMessage is completely displayed or shorten to
@@ -89,7 +109,7 @@ public final class MidiUtil {
             if (inputMidiDeviceInfo.length == 0)
                 isInputAvailable = false;
         } catch (MidiUnavailableException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
             isOutputAvailable = false;
             isInputAvailable = false;
         }
@@ -317,8 +337,8 @@ public final class MidiUtil {
             return null;
         MidiDevice dev = MidiSystem.getMidiDevice(outputMidiDeviceInfo[port]);
         if (!dev.isOpen()) {
-            ErrorMsg.reportStatus("open outport: "
-                    + dev.getDeviceInfo().getName() + ", port: " + port);
+            LOG.info("open outport: " + dev.getDeviceInfo().getName()
+                    + ", port: " + port);
             dev.open();
         }
         return dev;
@@ -367,12 +387,12 @@ public final class MidiUtil {
         try {
             dev = MidiSystem.getMidiDevice(inputMidiDeviceInfo[port]);
             if (!dev.isOpen()) {
-                ErrorMsg.reportStatus("open inport: "
-                        + dev.getDeviceInfo().getName() + ", port: " + port);
+                LOG.info("open inport: " + dev.getDeviceInfo().getName()
+                        + ", port: " + port);
                 dev.open();
             }
         } catch (MidiUnavailableException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         }
         return dev;
     }
@@ -396,7 +416,7 @@ public final class MidiUtil {
         try {
             return dev.getTransmitter();
         } catch (MidiUnavailableException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         }
         return null;
     }
@@ -416,7 +436,7 @@ public final class MidiUtil {
             trns.setReceiver(rcvr);
             sysexInputQueue[port] = rcvr;
         } catch (MidiUnavailableException e) {
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         }
     }
 
@@ -1038,76 +1058,6 @@ public final class MidiUtil {
         CSMstate = !CSMstate;
     }
 
-    /** Only for debugging. */
-    public static void main(String[] args) throws InvalidMidiDataException {
-        int[] id =
-                {
-                        // Sysex Message
-                        0xf0, 0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-                        15, 16, 17, 18,
-                        0xf7,
-                        // MIDI 1.0 Detailed Specification 4.2 page A-1
-                        0x90, 0x3c, 0x27, 0x40, 0x2b, 0x43, 0x25, 0x90, 0x3c,
-                        0x27, 0x3c, 0x00, 0x3e, 0x29,
-                        // MIDI 1.0 Detailed Specification 4.2 page A-2
-                        0xb0, 0x7c, 0x00, 0x01, 0x37,
-                        // sysex
-                        0xf0, 0, 1, 2, 3, 0xf7,
-                        // note on, running status
-                        0x80, 3, 4, 6, 7,
-                        // control change
-                        0xbf, 8, 9,
-                        // program chage, channel presure, RS
-                        0xc0, 0, 0xdf, 1, 2,
-                        // pitch bend x 3
-                        0xe0, 5, 6, 0xef, 7, 8, 9, 0,
-                        // system real time
-                        0xF8, 0xFF,
-                        // sysex + system real time
-                        0xf0, 0, 1, 2, 0xf8, 0xf7, 0xf0, 0, 1, 0xf8, 2, 0xf7,
-                        0xf0, 0, 0xf8, 1, 2, 0xf7,
-                        // system common
-                        0xf1, 3, 0xf2, 4, 5, 0xf3, 6, 0xf4, 0xf5, 0xf6, 0xf7,
-                // 256, -1,
-                };
-        byte[] bd = new byte[id.length];
-        for (int i = 0; i < id.length; i++)
-            bd[i] = (byte) id[i];
-
-        System.out.println(Utility.hexDump(bd, 0, -1, 16));
-        System.out.println("------------");
-        System.out.println(Utility.hexDump(bd, 5, 12, 4));
-        System.out.println("------------");
-
-        SysexMessage sysex = new SysexMessage();
-        System.out.println(sysexMessageToString(sysex, 5));
-        System.out.println("------------");
-        sysex.setMessage(bd, 15);
-        System.out.println(sysexMessageToString(sysex));
-        sysex.setMessage(bd, 16);
-        System.out.println(sysexMessageToString(sysex));
-        sysex.setMessage(bd, 17);
-        System.out.println(sysexMessageToString(sysex));
-        sysex.setMessage(bd, 20);
-        System.out.println(sysexMessageToString(sysex));
-
-        ShortMessage smsg = new ShortMessage();
-        smsg.setMessage(ShortMessage.NOTE_ON, 0x4B, 0x70); // 2B
-        System.out.println(shortMessageToString(smsg));
-        smsg.setMessage(ShortMessage.PROGRAM_CHANGE, 0x4B, 0x70); // 1B
-        System.out.println(shortMessageToString(smsg));
-        smsg.setMessage(ShortMessage.TIMING_CLOCK, 0x4B, 0x70);
-        System.out.println(shortMessageToString(smsg));
-
-        System.out.println(midiMessageToString(sysex));
-        smsg.setMessage(ShortMessage.MIDI_TIME_CODE, 0x4B, 0x70); // 1B
-        System.out.println(midiMessageToString(smsg));
-        MidiMessage msg = new ShortMessage();
-        ((ShortMessage) msg).setMessage(ShortMessage.SONG_POSITION_POINTER,
-                0x4B, 0x70); // 2B
-        System.out.println(midiMessageToString(msg));
-    }
-
     /** Returns true if there is available MIDI output port. */
     public static boolean isOutputAvailable() {
         return isOutputAvailable;
@@ -1138,8 +1088,9 @@ public final class MidiUtil {
 
             sequencer.open();
         } catch (MidiUnavailableException me) {
-            ErrorMsg.reportWarning("MidiSystem Error",
-                    "Can't access sequencer properly", me);
+            ErrorMsg.reportError("MidiSystem Error",
+                    "Can't access sequencer properly");
+            LOG.warn(me.getMessage(), me);
             return;
         }
 
@@ -1147,9 +1098,15 @@ public final class MidiUtil {
             File myMidiFile = new File(AppConfig.getSequencePath());
             Sequence mySeq = MidiSystem.getSequence(myMidiFile);
             sequencer.setSequence(mySeq);
-        } catch (Exception e) {
-            ErrorMsg.reportWarning("MidiSystem Error",
-                    "Can't access MIDI file for sequencer", e);
+        } catch (InvalidMidiDataException e) {
+            ErrorMsg.reportError("MidiSystem Error",
+                    "Can't access sequencer properly");
+            LOG.warn(e.getMessage(), e);
+            return;
+        } catch (IOException e) {
+            ErrorMsg.reportError("MidiSystem Error",
+                    "Can't access MIDI file for sequencer");
+            LOG.warn(e.getMessage(), e);
             return;
         }
 

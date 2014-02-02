@@ -1,7 +1,8 @@
 package synthdrivers.KorgWavestation;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.Patch;
 import core.SysexHandler;
 
@@ -13,6 +14,8 @@ import core.SysexHandler;
  *          04:05:40Z hayashi $
  */
 public class KorgWavestationSinglePerformanceDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public KorgWavestationSinglePerformanceDriver() {
         super("Single Performance", "Gerrit Gehnen");
@@ -54,7 +57,7 @@ public class KorgWavestationSinglePerformanceDriver extends Driver {
         try {
             send(((Patch) p).sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         try {
@@ -75,7 +78,7 @@ public class KorgWavestationSinglePerformanceDriver extends Driver {
         try {
             send(sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
     }
@@ -91,7 +94,7 @@ public class KorgWavestationSinglePerformanceDriver extends Driver {
         try {
             send(((Patch) p).sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -115,12 +118,12 @@ public class KorgWavestationSinglePerformanceDriver extends Driver {
         int i;
         int sum = 0;
 
-        System.out.println("Checksum was" + p.sysex[ofs]);
+        log.debug("Checksum was" + p.sysex[ofs]);
         for (i = start; i <= end; i++) {
             sum += p.sysex[i];
         }
         p.sysex[ofs] = (byte) (sum % 128);
-        System.out.println("Checksum new is" + p.sysex[ofs]);
+        log.debug("Checksum new is" + p.sysex[ofs]);
 
     }
 

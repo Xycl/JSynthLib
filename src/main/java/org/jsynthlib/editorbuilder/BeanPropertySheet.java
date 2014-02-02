@@ -35,7 +35,11 @@ import javax.swing.Spring;
 import javax.swing.SpringLayout;
 import javax.swing.SpringLayout.Constraints;
 
+import org.apache.log4j.Logger;
+
 public class BeanPropertySheet extends JPanel {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public class TextWrapper extends PropertyEditorWrapper implements
             FocusListener, ActionListener {
@@ -230,11 +234,11 @@ public class BeanPropertySheet extends JPanel {
             try {
                 return m.invoke(bean, new Object[0]);
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                log.warn(e.getMessage(), e);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                log.warn(e.getMessage(), e);
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                log.warn(e.getMessage(), e);
             }
             return null;
         }
@@ -292,7 +296,7 @@ public class BeanPropertySheet extends JPanel {
         try {
             bi = Introspector.getBeanInfo(bean.getClass());
         } catch (IntrospectionException e) {
-            e.printStackTrace();
+            log.warn(e.getMessage(), e);
             return;
         }
         LinkedHashMap props = new LinkedHashMap();
@@ -432,9 +436,9 @@ public class BeanPropertySheet extends JPanel {
             try {
                 e = (PropertyEditor) c.newInstance();
             } catch (InstantiationException e1) {
-                e1.printStackTrace();
+                log.warn(e1.getMessage(), e1);
             } catch (IllegalAccessException e1) {
-                e1.printStackTrace();
+                log.warn(e1.getMessage(), e1);
             }
         if (e == null)
             e = PropertyEditorManager.findEditor(descriptor.getPropertyType());

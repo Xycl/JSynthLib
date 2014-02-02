@@ -2,6 +2,8 @@
 
 package synthdrivers.AccessVirus;
 
+import org.apache.log4j.Logger;
+
 import core.BankDriver;
 import core.ErrorMsg;
 import core.Patch;
@@ -16,6 +18,8 @@ public class VirusMultiBankDriver extends BankDriver {
     static final int BANK_NUM_OFFSET = 7;
     static final int PATCH_NUM_OFFSET = 8;
     static final int NUM_IN_BANK = 128;
+    
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public VirusMultiBankDriver() {
         super("Multi Bank", "Kenneth L. Martinez",
@@ -117,7 +121,7 @@ public class VirusMultiBankDriver extends BankDriver {
             }
             PatchEdit.hideWaitDialog();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Error", "Unable to send Patch");
         }
     }

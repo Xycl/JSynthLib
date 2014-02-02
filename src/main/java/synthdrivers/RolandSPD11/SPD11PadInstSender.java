@@ -21,15 +21,21 @@
 
 package synthdrivers.RolandSPD11;
 
-import core.*;
-
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
+
+import org.apache.log4j.Logger;
+
+import core.IPatchDriver;
+import core.SysexSender;
 
 /**
  * @author peter
  */
 public class SPD11PadInstSender extends SysexSender {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     int patch;
     int pad;
 
@@ -84,7 +90,7 @@ public class SPD11PadInstSender extends SysexSender {
             m.setMessage(sysex, sysex.length);
             driver.send(m);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         // generate the message to set the second offset and use value % 16
         sysex = generate2(value);
@@ -92,7 +98,7 @@ public class SPD11PadInstSender extends SysexSender {
         try {
             Thread.sleep(22);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         // send the second message n
         SysexMessage n = new SysexMessage();
@@ -100,7 +106,7 @@ public class SPD11PadInstSender extends SysexSender {
             n.setMessage(sysex, sysex.length);
             driver.send(n);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 }

@@ -1,10 +1,26 @@
 package synthdrivers.RolandGP16;
 
-import core.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.io.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.UnsupportedEncodingException;
+
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+
+import org.apache.log4j.Logger;
+
+import core.CheckBoxWidget;
+import core.ComboBoxWidget;
+import core.Driver;
+import core.IPatch;
+import core.ParamModel;
+import core.Patch;
+import core.PatchNameWidget;
+import core.ScrollBarWidget;
+import core.SysexSender;
 
 /**
  * Marker class that allows dependency checking to work. (It fails if
@@ -113,6 +129,8 @@ class BigValSender extends SysexSender {
 
 /** Almost a direct copy of the MKSBitSender. */
 class GP16BitSender extends SysexSender {
+    private final transient Logger log = Logger.getLogger(getClass());
+
     Patch patch;
     int ofs;
     int bit;
@@ -130,22 +148,23 @@ class GP16BitSender extends SysexSender {
     }
 
     public byte[] generate(int value) {
-        ErrorMsg.reportStatus("GP16BitSender: got value " + (byte) value);
+        log.info("GP16BitSender: got value " + (byte) value);
         int mask = ~(1 << bit);
         int bitfield = patch.sysex[ofs + 8] & mask;
-        ErrorMsg.reportStatus("GP16BitSender: computed bitfield "
-                + (byte) bitfield);
+        log.info("GP16BitSender: computed bitfield " + (byte) bitfield);
         if (value == 1)
             bitfield |= (1 << bit);
         b[2] = (byte) (channel - 1);
         b[8] = (byte) bitfield;
-        ErrorMsg.reportStatus("GP16BitSender: sending data " + (byte) bitfield);
+        log.info("GP16BitSender: sending data " + (byte) bitfield);
         return b;
     }
 }
 
 /** Almost a direct copy of the MKSBitModel. */
 class GP16BitModel extends ParamModel {
+    private final transient Logger log = Logger.getLogger(getClass());
+
     int bit;
 
     public GP16BitModel(Patch p, int o, int b) {
@@ -158,14 +177,14 @@ class GP16BitModel extends ParamModel {
         int value = patch.sysex[ofs] & mask;
         if (i == 1)
             value |= (1 << bit);
-        ErrorMsg.reportStatus("GP16BitModel: setting status " + (byte) value
-                + " to adress " + ofs);
+        log.info("GP16BitModel: setting status " + (byte) value + " to adress "
+                + ofs);
         patch.sysex[ofs] = (byte) value;
     }
 
     public int get() {
-        ErrorMsg.reportStatus("GP16BitModel: getting status "
-                + patch.sysex[ofs] + " from adress " + ofs);
+        log.info("GP16BitModel: getting status " + patch.sysex[ofs]
+                + " from adress " + ofs);
         int mask = 1 << bit;
         if ((patch.sysex[ofs] & mask) > 0)
             return 1;
@@ -230,6 +249,8 @@ class BigValParamModel extends ParamModel {
  * the GP-16.
  */
 class RolandGP16PatchNameWidget extends PatchNameWidget {
+    private final transient Logger log = Logger.getLogger(getClass());
+
     byte[] b = new byte[26];
     int channel;
 
@@ -308,6 +329,8 @@ class RolandGP16PatchNameWidget extends PatchNameWidget {
  * moved.
  */
 class ExpLevScrollBarWidget extends ScrollBarWidget implements ItemListener {
+    private final transient Logger log = Logger.getLogger(getClass());
+
     protected int subDiv;
     private Patch thisPatch;
 
@@ -354,8 +377,7 @@ class ExpLevScrollBarWidget extends ScrollBarWidget implements ItemListener {
     public void itemStateChanged(ItemEvent e) {
         int chosen = ((JComboBox) e.getSource()).getSelectedIndex() - 1;
 
-        ErrorMsg.reportStatus("ExpLevScrollBarWidget: Received ItemEvent "
-                + chosen);
+        log.info("ExpLevScrollBarWidget: Received ItemEvent " + chosen);
         switch (chosen) {
         case -1:
             setRange(0, 0, 0, 1);
@@ -460,8 +482,8 @@ class ExpLevScrollBarWidget extends ScrollBarWidget implements ItemListener {
 
     /** Set the range parameters of the RolandGP16ScrollBarWidget. */
     private void setRange(int newMin, int newMax, int newBase, int newSubDiv) {
-        ErrorMsg.reportStatus("ExpLevScrollBarWidget: Setting quadruple "
-                + newMin + "," + newMax + "," + newBase + "," + newSubDiv);
+        log.info("ExpLevScrollBarWidget: Setting quadruple " + newMin + ","
+                + newMax + "," + newBase + "," + newSubDiv);
         // setMinMax(newMin, newMax);
         setMin(newMin);
         setMax(newMax);
@@ -566,6 +588,8 @@ class GP16CheckBoxWidget extends CheckBoxWidget {
  * consistent.
  */
 class GP16JointPolice {
+    private final transient Logger log = Logger.getLogger(getClass());
+
     /** An array to store the Combos. */
     private Patch thisPatch;
     private int offset;
@@ -581,8 +605,7 @@ class GP16JointPolice {
      * if joint data is ok.
      */
     public void itemStateChanged() {
-        ErrorMsg.reportStatus("GP16JointPolice: Got event, checking says "
-                + sendOk());
+        log.info("GP16JointPolice: Got event, checking says " + sendOk());
         if (sendOk())
             ((Driver) thisPatch.getDriver()).send(sndChange(((Driver) thisPatch
                     .getDriver()).getChannel()));
@@ -595,8 +618,8 @@ class GP16JointPolice {
                 false, false, false, false, false };
         for (int dum = 0; dum < 5; dum++) {
             temp = thisPatch.sysex[dum + offset + 8] - offset;
-            ErrorMsg.reportStatus("GP16JointPolice: dum=" + dum + " temp="
-                    + temp + " used[temp]=" + used[temp]);
+            log.info("GP16JointPolice: dum=" + dum + " temp=" + temp
+                    + " used[temp]=" + used[temp]);
             if (used[temp])
                 return false;
             used[temp] = true;

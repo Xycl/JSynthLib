@@ -27,11 +27,12 @@
 
 package synthdrivers.RolandMT32;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
-import core.ErrorMsg;
 
 public class RolandMT32TimbreTempDriver extends Driver {
     /** Header Size of the Data set DT1 message. */
@@ -41,6 +42,8 @@ public class RolandMT32TimbreTempDriver extends Driver {
     /** Definition of the Request message RQ1 */
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 41 10 16 11 04 *partAddrM* *partAddrL* 00 01 76 *checkSum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public RolandMT32TimbreTempDriver() {
         super("Timbre Temp", "Fred Jan Kraan");
@@ -70,7 +73,7 @@ public class RolandMT32TimbreTempDriver extends Driver {
         try {
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         // int timbreAddr = patchNum * (SSIZE - 1);
@@ -84,13 +87,13 @@ public class RolandMT32TimbreTempDriver extends Driver {
         p.sysex[7] = (byte) timAddrL;
         // calculateChecksum(p);
 
-        ErrorMsg.reportStatus("Store patchNum " + patchNum + " to timAddrM/L "
-                + timAddrM + " / " + timAddrL);
+        log.info("Store patchNum " + patchNum + " to timAddrM/L " + timAddrM
+                + " / " + timAddrL);
         try {
             sendPatchWorker(p);
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         setPatchNum(patchNum); // Program change
     }

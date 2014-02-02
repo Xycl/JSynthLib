@@ -21,15 +21,24 @@
 
 package synthdrivers.YamahaUB99;
 
-import core.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.DriverUtil;
+import core.ErrorMsg;
+import core.JSLFrame;
+import core.Patch;
 
 /**
  * Single patch driver for Yamaha UB99
  */
 public class YamahaUB99Driver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public YamahaUB99Driver() {
         super("Single", "Ton Holsink <a.j.m.holsink@chello.nl>");
@@ -134,7 +143,8 @@ public class YamahaUB99Driver extends Driver {
             send(buf);
 
         } catch (Exception e) {
-            ErrorMsg.reportError("Error", "Unable to Send Patch", e);
+            ErrorMsg.reportError("Error", "Unable to Send Patch");
+            log.warn(e.getMessage(), e);
         }
 
     }
@@ -194,7 +204,8 @@ public class YamahaUB99Driver extends Driver {
                         + " does not exist!");
             }
         } catch (IOException e) {
-            ErrorMsg.reportError("Error", "Unable to open " + fileName, e);
+            ErrorMsg.reportError("Error", "Unable to open " + fileName);
+            log.warn(e.getMessage(), e);
             return null;
         }
     }

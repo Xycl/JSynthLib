@@ -8,7 +8,11 @@ import core.*;
 
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class AlesisA6PgmBankDriver extends BankDriver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public AlesisA6PgmBankDriver() {
         super("Prog Bank", "Kenneth L. Martinez",
@@ -109,7 +113,7 @@ public class AlesisA6PgmBankDriver extends BankDriver {
             }
             PatchEdit.hideWaitDialog();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Error", "Unable to send Patch");
         }
     }

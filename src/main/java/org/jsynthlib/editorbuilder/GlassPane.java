@@ -34,6 +34,7 @@ import javax.swing.Spring;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 
+import org.apache.log4j.Logger;
 import org.jsynthlib.editorbuilder.widgets.AnchoredWidget;
 import org.jsynthlib.editorbuilder.widgets.ButtonWidget;
 import org.jsynthlib.editorbuilder.widgets.ContainerWidget;
@@ -47,6 +48,8 @@ import org.jsynthlib.editorbuilder.widgets.Widget;
 
 public class GlassPane extends JPanel implements DropTargetListener,
         InvocationHandler, java.io.Serializable {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     protected DesignerFrame designer = EditorBuilder.getDesignerFrame();
 
@@ -113,7 +116,7 @@ public class GlassPane extends JPanel implements DropTargetListener,
                         (String) tr.getTransferData(DataFlavor.stringFlavor);
                 e.dropComplete(addComponent(id, e.getLocation()));
             } catch (Exception ex) {
-                ex.printStackTrace();
+                log.warn(ex.getMessage(), ex);
                 e.dropComplete(false);
             }
         } else {
@@ -339,7 +342,7 @@ public class GlassPane extends JPanel implements DropTargetListener,
 
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.warn(ex.getMessage(), ex);
         }
     }
 

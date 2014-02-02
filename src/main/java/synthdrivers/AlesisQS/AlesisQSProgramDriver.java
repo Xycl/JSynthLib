@@ -11,13 +11,18 @@
 
 package synthdrivers.AlesisQS;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
+import core.Utility;
 
 public class AlesisQSProgramDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     /**
      * The offset at which program data starts. In other words, when the Alesis
      * specification says data starts at offset n, it will be found at sysex
@@ -188,7 +193,8 @@ public class AlesisQSProgramDriver extends Driver {
         ((Patch) p).sysex[QSConstants.POSITION_OPCODE] = opcode;
         ((Patch) p).sysex[QSConstants.POSITION_LOCATION] = (byte) location;
 
-        ErrorMsg.reportStatus(((Patch) p).sysex);
+        log.info(Utility.hexDump(((Patch) p).sysex, 0,
+                ((Patch) p).sysex.length, 20));
         // setBankNum (bankNum);
         // setPatchNum (patchNum);
 

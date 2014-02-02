@@ -21,9 +21,10 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+import org.apache.log4j.Logger;
+
 import core.ComboBoxWidget;
 import core.EnvelopeWidget;
-import core.ErrorMsg;
 import core.ParamModel;
 import core.Patch;
 import core.PatchEditorFrame;
@@ -33,6 +34,9 @@ import core.SysexSender;
 import core.SysexWidget;
 
 public class YamahaMotifNormalVoiceEditor extends PatchEditorFrame {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     int slidercount = 0;
     private Container panel;
 
@@ -217,7 +221,7 @@ public class YamahaMotifNormalVoiceEditor extends PatchEditorFrame {
              */
             widgetList.add(widget);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
     }

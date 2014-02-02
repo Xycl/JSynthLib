@@ -6,8 +6,12 @@ import java.beans.PropertyEditorSupport;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.apache.log4j.Logger;
+
 public class AnchorEditor extends PropertyEditorSupport implements
         ChangeListener {
+    private final transient Logger log = Logger.getLogger(getClass());
+
     private Anchor editorValue;
 
     public Component getCustomEditor() {
@@ -24,7 +28,7 @@ public class AnchorEditor extends PropertyEditorSupport implements
         try {
             editorValue = (Anchor) ((Anchor) value).clone();
         } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+            log.warn(e.getMessage(), e);
         }
         super.setValue(value);
     }
@@ -39,7 +43,7 @@ public class AnchorEditor extends PropertyEditorSupport implements
         try {
             super.setValue(((Anchor) e.getSource()).clone());
         } catch (CloneNotSupportedException e1) {
-            e1.printStackTrace();
+            log.warn(e1.getMessage(), e1);
         }
     }
 }

@@ -1,8 +1,15 @@
 package synthdrivers.YamahaFS1R;
 
-import core.*;
+import java.io.UnsupportedEncodingException;
 
-import java.io.*;
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.JSLFrame;
+import core.ParamModel;
+import core.Patch;
+import core.SysexHandler;
+import core.SysexSender;
 
 /**
  * Multi driver for FS1R. Multi are named Performance on FS1R.
@@ -94,6 +101,9 @@ public class YamahaFS1RPerformanceDriver extends Driver {
             0x42, 0x3E, 0x32, 0x00, 0x01, 0x7F, 0x00, 0x01, 0x40, 0x40, 0x00,
             0x00, 0x00, 0x00, 0x76, (byte) 0xF7 };
 
+    private static final Logger LOG = Logger
+            .getLogger(YamahaFS1RPerformanceDriver.class);
+
     private int mCurrentBankNum;
 
     private static YamahaFS1RPerformanceDriver mSingleton;
@@ -125,7 +135,7 @@ public class YamahaFS1RPerformanceDriver extends Driver {
 
     public void setBankNum(int bankNum) {
         mCurrentBankNum = bankNum;
-        // System.out.println("setBankNum = "+ bankNum);
+        LOG.debug("setBankNum = " + bankNum);
         updateSysexRequest();
     }
 
@@ -290,8 +300,8 @@ public class YamahaFS1RPerformanceDriver extends Driver {
             // lineaire
             // dans le sysex, il faut recalculer la valeur sur 16bits lineaires
             super(p, (offset & 127) + ((offset >> 1) & 0x3F80) + DATA_START);
-            // System.out.println("offset 0x"+Integer.toHexString(offset)+"  => "+((offset
-            // & 127) + ((offset >> 1) & 0x3F80) + DATA_START));
+            LOG.debug("offset 0x" + Integer.toHexString(offset) + "  => "
+                    + ((offset & 127) + ((offset >> 1) & 0x3F80) + DATA_START));
             // les parametres d'effets sont en 16 bits
             mIs16Bits =
                     (offset >= 0x50 && offset < 0x60)
@@ -323,7 +333,10 @@ public class YamahaFS1RPerformanceDriver extends Driver {
             } else {
                 patch.sysex[ofs] = (byte) (i & 127);
             }
-            // System.out.println("set part = "+mPart+" ofs = "+Integer.toHexString(mOffset)+" valL = "+Integer.toHexString(patch.sysex[ofs])+" valH = "+Integer.toHexString(patch.sysex[ofs+1]));
+            LOG.debug("set part = " + mPart + " ofs = "
+                    + Integer.toHexString(mOffset) + " valL = "
+                    + Integer.toHexString(patch.sysex[ofs]) + " valH = "
+                    + Integer.toHexString(patch.sysex[ofs + 1]));
         }
 
         public int get() {
@@ -331,7 +344,8 @@ public class YamahaFS1RPerformanceDriver extends Driver {
             if (mIs16Bits) {
                 oRet = patch.sysex[ofs + 1] | (patch.sysex[ofs] << 7);
             }
-            // System.out.println("get part = "+mPart+" ofs = "+Integer.toHexString(mOffset)+" = "+oRet);
+            LOG.debug("get part = " + mPart + " ofs = "
+                    + Integer.toHexString(mOffset) + " = " + oRet);
             return oRet;
         }
     }

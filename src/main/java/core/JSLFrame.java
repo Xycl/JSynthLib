@@ -19,6 +19,8 @@ import javax.swing.JMenuBar;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
+import org.apache.log4j.Logger;
+
 // addJSLFrameListener should probably be implemented in JSLFrame
 // for dynamic switching of type
 /**
@@ -33,6 +35,7 @@ import javax.swing.event.InternalFrameListener;
  * @author Hiroo Hayashi
  */
 public class JSLFrame {
+    private final transient Logger log = Logger.getLogger(getClass());
     private JSLFrameProxy proxy;
     /** parent JSLDesktop. */
     private JSLDesktop desktop;
@@ -338,18 +341,18 @@ public class JSLFrame {
         }
 
         public void setVisible(boolean b) {
-            ErrorMsg.reportStatus("setVisible : " + getTitle());
+            log.info("setVisible : " + getTitle());
             super.setVisible(b);
             try {
                 this.setSelected(b);
             } catch (PropertyVetoException e) {
                 // don't know how this exception occurs
-                e.printStackTrace();
+                log.warn(e.getMessage(), e);
             }
         }
 
         public void internalFrameActivated(InternalFrameEvent e) {
-            ErrorMsg.reportStatus("\"" + getTitle() + "\" activated.");
+            log.info("\"" + getTitle() + "\" activated.");
             JSLFrameEvent fe =
                     new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.ACTIVATED);
             Iterator it = listeners.iterator();
@@ -379,7 +382,7 @@ public class JSLFrame {
         }
 
         public void internalFrameDeactivated(InternalFrameEvent e) {
-            ErrorMsg.reportStatus("\"" + this.getTitle() + "\" deactivated.");
+            log.info("\"" + this.getTitle() + "\" deactivated.");
             JSLFrameEvent fe =
                     new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.DEACTIVATED);
             Iterator it = listeners.iterator();
@@ -481,7 +484,7 @@ public class JSLFrame {
         }
 
         private void showState(String s) {
-            ErrorMsg.reportStatus("\"" + getTitle() + "\" " + s + " ("
+            log.info("\"" + getTitle() + "\" " + s + " ("
                     + this.getExtendedState() + ")");
         }
 

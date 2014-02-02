@@ -1,9 +1,15 @@
 package synthdrivers.KorgWavestation;
 
-import core.*;
+import java.io.UnsupportedEncodingException;
 
-import java.io.*;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
+import core.BankDriver;
+import core.ErrorMsg;
+import core.Patch;
+import core.SysexHandler;
 
 /**
  * Driver for Korg Wavestation Banks of Patches Be carefull: Untested, because I
@@ -13,6 +19,8 @@ import javax.swing.*;
  * @author Gerrit Gehnen
  */
 public class KorgWavestationBankPatchDriver extends BankDriver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public KorgWavestationBankPatchDriver() {
         super("Patch Bank", "Gerrit Gehnen", 35, 1);
@@ -98,12 +106,12 @@ public class KorgWavestationBankPatchDriver extends BankDriver {
         int i;
         int sum = 0;
 
-        // System.out.println("Checksum was" + p.sysex[ofs]);
+        log.info("Checksum was" + p.sysex[ofs]);
         for (i = start; i <= end; i++) {
             sum += p.sysex[i];
         }
         p.sysex[ofs] = (byte) (sum % 128);
-        // System.out.println("Checksum new is" + p.sysex[ofs]);
+        log.info("Checksum new is" + p.sysex[ofs]);
 
     }
 

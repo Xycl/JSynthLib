@@ -38,13 +38,14 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.log4j.Logger;
+
 import synthdrivers.YamahaUB99.format.DoubleFormat;
 import synthdrivers.YamahaUB99.format.IFormat;
 import synthdrivers.YamahaUB99.format.IntFormat;
 import synthdrivers.YamahaUB99.format.ListFormat;
 import core.CheckBoxWidget;
 import core.ComboBoxWidget;
-import core.ErrorMsg;
 import core.Patch;
 import core.PatchEditorFrame;
 import core.PatchNameWidget;
@@ -52,25 +53,7 @@ import core.SysexWidget;
 
 class YamahaUB99Editor extends PatchEditorFrame {
 
-    // private final String[] fxTypeString = {"Acoustic Multi ",
-    // "8 Band Parallel Delay", "8 Band Series Delay", "4 Band 2 Tap Mod Delay",
-    // "2 Band 4 Tap Mod Delay", "8 Multi Tap Mod Delay",
-    // "2 Band Long + 4 Short Mod Delay", "Short + Medium + Long Mod Delay",
-    // "Amp Simulator", "Reverb", "Early Ref.", "Gate Reverb", "Reverse Gate",
-    // "Mono Delay", "Stereo Delay", "Mod Delay", "Delay LCR", "Echo", "Chorus",
-    // "Flange", "Symphonic", "Phaser", "Auto Pan", "Tremolo", "HQ. Pitch",
-    // "Dual Pitch", "Rotary", "Ring Mod.", "Mod. Filter", "Digital Distortion",
-    // "Dyna. Filter", "Dyna. Flange", "Dyna. Phaser", "Reverb + Chorus",
-    // "Reverb -> Chorus", "Reverb + Flange", "Reverb -> Flange",
-    // "Reverb + Symphonic", "Reverb -> Symphonic", "Reverb -> Pan",
-    // "Delay + Early Ref.", "Delay -> Early Ref.", "Delay + Reverb",
-    // "Delay -> Reverb", "Distortion -> Delay", "Multi Filter", "M.Band Dyna.",
-    // "Distortion", "Vintage Flange", "Mono Vintage Phaser",
-    // "Stereo Vintage Phaser", "3 Band Parametric EQ", "Spring Reverb",
-    // "Tape Echo", "Compressor", "Amp Multi (Chorus)", "Amp Multi (Flange)",
-    // "Amp Multi (Tremolo)", "Amp Multi (Phaser)", "Distortion Multi (Chorus)",
-    // "Distortion Multi (Flange)", "Distortion Multi (Tremolo)",
-    // "Distortion Multi (Phaser)"};
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private final String[] eq1FreqString = {
             "50.0", "50.8", "51.7", "52.5", "53.4", "54.3", "55.2", "56.1",
@@ -558,7 +541,7 @@ class YamahaUB99Editor extends PatchEditorFrame {
             gbc.fill = fill;
             parent.add(widget, gbc);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -965,7 +948,7 @@ class YamahaUB99Editor extends PatchEditorFrame {
             break;
 
         default:
-            ErrorMsg.reportStatus("Switch value " + index + " not handled! ");
+            log.info("Switch value " + index + " not handled! ");
         }
         oTabs.setVisible(true);
         KnobVector.add(new IdItem(107, "No Assign"));
@@ -979,8 +962,9 @@ class YamahaUB99Editor extends PatchEditorFrame {
                         index);
         if (p != null) {
             patch = p;
-            for (int i = 0; i < RegisterVector.size(); i++)
+            for (int i = 0; i < RegisterVector.size(); i++) {
                 ((SysexWidget) RegisterVector.elementAt(i)).setValue();
+            }
         }
     }
 

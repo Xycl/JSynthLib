@@ -15,18 +15,19 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import core.ErrorMsg;
-
 /**
  * @author ribrdb
  */
 public class AdvDefaultHandler extends DefaultHandler {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private boolean found_start = false;
     protected Locator locator;
@@ -171,7 +172,7 @@ public class AdvDefaultHandler extends DefaultHandler {
         } catch (SAXException e) {
             throw e;
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
             throw new SAXParseException("Unable to parse " + fn, locator, e);
         }
     }

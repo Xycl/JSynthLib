@@ -1,7 +1,13 @@
 package core;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.sound.midi.SysexMessage;
-// import javax.swing.*;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,9 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.event.*;
-import java.awt.*;
-import java.util.*;
+
+import org.apache.log4j.Logger;
+// import javax.swing.*;
 
 /**
  * Dialog to choose the Device, Driver, BankNumber and PatchNumber of the
@@ -22,6 +28,8 @@ import java.util.*;
  * @version $Id: SysexGetDialog.java 1182 2011-12-04 22:07:24Z chriswareham $
  */
 public class SysexGetDialog extends JDialog {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     // ===== Instance variables
     /** timeout value (in milli second). */
@@ -195,7 +203,7 @@ public class SysexGetDialog extends JDialog {
 
     public class DeviceActionListener implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
-            // ErrorMsg.reportStatus("DeviceActionListener->actionPerformed");
+            // log.info("DeviceActionListener->actionPerformed");
             driverComboBox.removeAllItems();
 
             Device device = (Device) deviceComboBox.getSelectedItem();
@@ -217,7 +225,7 @@ public class SysexGetDialog extends JDialog {
         public void actionPerformed(ActionEvent evt) {
             IPatchDriver driver =
                     (IPatchDriver) driverComboBox.getSelectedItem();
-            // ErrorMsg.reportStatus("DriverActionListener->actionPerformed:" +
+            // log.info("DriverActionListener->actionPerformed:" +
             // driver);
             if (driver == null) // for driverComboBox.removeAllItems()
                 return;
@@ -269,8 +277,8 @@ public class SysexGetDialog extends JDialog {
             int bankNum = bankNumComboBox.getSelectedIndex();
             int patchNum = patchNumComboBox.getSelectedIndex();
             inPort = driver.getDevice().getInPort();
-            ErrorMsg.reportStatus("SysexGetDialog | port: " + inPort
-                    + " | bankNum: " + bankNum + " | patchNum: " + patchNum);
+            log.info("SysexGetDialog | port: " + inPort + " | bankNum: "
+                    + bankNum + " | patchNum: " + patchNum);
 
             // ----- Start timer and request dump
             myLabel.setText("Getting sysex dump...");
@@ -299,7 +307,7 @@ public class SysexGetDialog extends JDialog {
                     SysexMessage msg;
                     msg = (SysexMessage) MidiUtil.getMessage(inPort, timeOut);
                     queue.add(msg);
-                    // ErrorMsg.reportStatus
+                    // log.info
                     // ("TimerActionListener | size more bytes: " +
                     // msg.getLength());
                     sysexSize += msg.getLength();

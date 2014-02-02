@@ -40,7 +40,7 @@ public class YamahaDX100SingleDriver extends Driver {
         setPatchNum(patchNum);
         sendPatch(p);
 
-        ErrorMsg.reportWarning(
+        ErrorMsg.reportError(
                 "Yamaha DX 4op",
                 "The patch has been placed in the edit buffer.\n You must choose to store it from the synths\nfront panel");
     }

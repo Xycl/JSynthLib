@@ -1,14 +1,20 @@
 package core;
 
-import javax.swing.*;
-import java.awt.*;
-import core.MacUtils;
-import java.util.*;
-import java.io.*;
-import javax.swing.filechooser.*;
+import java.awt.Component;
+import java.awt.FileDialog;
+import java.awt.Frame;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.Properties;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
+
+import org.apache.log4j.Logger;
 
 public class CompatibleFileDialog extends JFileChooser {
 
+    private final transient Logger log = Logger.getLogger(getClass());
     protected static final Frame dummyframe = new Frame();
 
     public CompatibleFileDialog() {
@@ -106,7 +112,7 @@ public class CompatibleFileDialog extends JFileChooser {
             setSelectedFile(new File(dialog.getDirectory(), dialog.getFile()));
             return APPROVE_OPTION;
         } catch (Throwable th) { // return ERROR_OPTION; }
-            th.printStackTrace();
+            log.warn(th.getMessage(), th);
             System.exit(274);
             return ERROR_OPTION;
         }

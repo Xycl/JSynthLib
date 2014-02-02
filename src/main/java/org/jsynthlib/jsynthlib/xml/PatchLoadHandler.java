@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.jsynthlib.plugins.Checksum;
 import org.jsynthlib.plugins.Decoder;
 import org.jsynthlib.utils.AdvDefaultHandler;
@@ -13,12 +14,11 @@ import org.jsynthlib.utils.Generator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import core.ErrorMsg;
-
 /**
  * @author ribrdb
  */
 public class PatchLoadHandler extends AdvDefaultHandler {
+    private final transient Logger log = Logger.getLogger(getClass());
     private PatchBuilder curpatch = null;
     private Decoder curdec = null;
 
@@ -135,8 +135,7 @@ public class PatchLoadHandler extends AdvDefaultHandler {
                                 "Parameters are larger than specified size of sysex",
                                 locator);
                     else if (size < decoder.getSize() + 1)
-                        ErrorMsg.reportStatus("Sysex " + name
-                                + " larger than parameters.");
+                        log.info("Sysex " + name + " larger than parameters.");
                 }
             } else {
                 if (decoder == null)

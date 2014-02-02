@@ -10,11 +10,15 @@ import javax.swing.Spring;
 import javax.swing.SpringLayout;
 import javax.swing.SpringLayout.Constraints;
 
+import org.apache.log4j.Logger;
 import org.jsynthlib.editorbuilder.Anchor;
 import org.jsynthlib.utils.XMLWriter;
 import org.xml.sax.SAXException;
 
 public class ContainerWidget extends LabeledWidget {
+    
+    private final transient Logger log = Logger.getLogger(getClass());
+    
     private Collection kids = new LinkedList();
     private Widget[] kidArray;
     private Spring width = Spring.constant(0);
@@ -44,7 +48,7 @@ public class ContainerWidget extends LabeledWidget {
 
     public void addWidget(Widget w, Constraints constraints) {
         if (w == this) {
-            System.out.println("Huh?");
+            log.info("Huh?");
         }
         if (constraints == null) {
             add(w);

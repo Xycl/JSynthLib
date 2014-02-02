@@ -2,14 +2,18 @@ package synthdrivers.RolandSPD11;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
+
 import core.BankDriver;
-import core.ErrorMsg;
 import core.Patch;
 
 /**
  * @author peter
  */
 public class SPD11DumpAllDriver extends BankDriver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     private final SPD11SystemDriver systemDriver;
     private final SPD11ChainDriver chainDriver;
     private final SPD11PadDriver padDriver;
@@ -160,7 +164,7 @@ public class SPD11DumpAllDriver extends BankDriver {
             try {
                 Thread.sleep(22); // wait at least 20 milliseconds .
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
         // request chain
@@ -168,7 +172,7 @@ public class SPD11DumpAllDriver extends BankDriver {
         try {
             Thread.sleep(22); // wait at least 20 milliseconds .
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         systemDriver.requestPatchDump(0, 0);
 

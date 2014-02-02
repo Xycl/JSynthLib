@@ -3,16 +3,41 @@
  */
 package synthdrivers.OberheimMatrix;
 
-import core.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.util.EventObject;
 
-import javax.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
-import java.util.*;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.CellEditorListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+
+import org.apache.log4j.Logger;
+
+import core.CheckBoxWidget;
+import core.ComboBoxWidget;
+import core.EnvelopeWidget;
+import core.ParamModel;
+import core.Patch;
+import core.PatchEditorFrame;
+import core.PatchNameWidget;
+import core.ScrollBarWidget;
+import core.SysexSender;
+import core.Utility;
 
 class OberheimMatrixSingleEditor extends PatchEditorFrame {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     CheckBoxWidget table1Check[] = new CheckBoxWidget[11];
     ScrollBarWidget table2Slider[] = new ScrollBarWidget[18]; // sliders for the
                                                               // modulation
@@ -753,7 +778,7 @@ class OberheimMatrixSingleEditor extends PatchEditorFrame {
         if (Utility.getOSName().equals("Linux")) // Does J2SE 1.4 still require
                                                  // this?
         {
-            ErrorMsg.reportStatus("Matrix1000Editor:  Linux Detected-- adding 30 pixels to window height to compensate for Sun/JRE bug");
+            log.info("Matrix1000Editor:  Linux Detected-- adding 30 pixels to window height to compensate for Sun/JRE bug");
             Dimension rv = getSize();
             setSize(rv.width, rv.height + 30);
         }

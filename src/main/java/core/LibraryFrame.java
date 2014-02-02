@@ -2,11 +2,18 @@ package core;
 
 import java.awt.Toolkit;
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableColumn;
+
+import org.apache.log4j.Logger;
 
 /**
  * @version $Id: LibraryFrame.java 1160 2011-09-23 00:40:25Z frankster $
@@ -27,6 +34,8 @@ class LibraryFrame extends AbstractLibraryFrame {
                     + FILE_EXTENSION + ")", FILE_EXTENSION);
     private static final PatchTransferHandler pth =
             new PatchListTransferHandler();
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     LibraryFrame(File file) {
         super(file.getName(), "Library", pth);
@@ -206,14 +215,12 @@ class LibraryFrame extends AbstractLibraryFrame {
                 case COMMENT:
                     return myPatch.getComment();
                 default:
-                    ErrorMsg.reportStatus("LibraryFrame.getValueAt: internal error.");
+                    log.info("LibraryFrame.getValueAt: internal error.");
                     return null;
                 }
             } catch (NullPointerException e) {
-                ErrorMsg.reportStatus("LibraryFrame.getValueAt: row=" + row
-                        + ", col=" + col + ", Patch=" + myPatch);
-                ErrorMsg.reportStatus("row count =" + getRowCount());
-                // e.printStackTrace();
+                log.info("LibraryFrame.getValueAt: row=" + row + ", col=" + col
+                        + ", Patch=" + myPatch + " row count =" + getRowCount(), e);
                 return null;
             }
         }
@@ -259,7 +266,7 @@ class LibraryFrame extends AbstractLibraryFrame {
                 myPatch.setComment((String) value);
                 break;
             default:
-                ErrorMsg.reportStatus("LibraryFrame.setValueAt: internal error.");
+                log.info("LibraryFrame.setValueAt: internal error.");
             }
             fireTableCellUpdated(row, col);
         }
@@ -267,26 +274,24 @@ class LibraryFrame extends AbstractLibraryFrame {
         // begin PatchTableModel interface methods
         // It is caller's responsibility to update Table.
         int addPatch(IPatch p) {
-            ErrorMsg.reportStatus("LibraryFrame.addPatch: Patch=" + p);
+            log.info("LibraryFrame.addPatch: Patch=" + p);
             list.add(p);
             return list.size() - 1;
         }
 
         int addPatch(IPatch p, int bankNum, int patchNum) {// wirski@op.pl
-            ErrorMsg.reportStatus("LibraryFrame.addPatch: Patch=" + p);
+            log.info("LibraryFrame.addPatch: Patch=" + p);
             list.add(p);
             return list.size() - 1;
         }
 
         void setPatchAt(IPatch p, int row, int bankNum, int patchNum) {// wirski@op.pl
-            ErrorMsg.reportStatus("LibraryFrame.setPatchAt: row=" + row
-                    + ", Patch=" + p);
+            log.info("LibraryFrame.setPatchAt: row=" + row + ", Patch=" + p);
             list.set(row, p);
         }
 
         void setPatchAt(IPatch p, int row) {
-            ErrorMsg.reportStatus("LibraryFrame.setPatchAt: row=" + row
-                    + ", Patch=" + p);
+            log.info("LibraryFrame.setPatchAt: row=" + row + ", Patch=" + p);
             list.set(row, p);
         }
 
@@ -326,7 +331,7 @@ class LibraryFrame extends AbstractLibraryFrame {
         // only for debugging
         // protected void exportDone(JComponent source, Transferable data, int
         // action) {
-        // ErrorMsg.reportStatus("PatchListTransferHandler.exportDone " + data);
+        // log.info("PatchListTransferHandler.exportDone " + data);
         // }
     }
 }

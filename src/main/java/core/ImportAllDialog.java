@@ -21,7 +21,12 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
+import org.apache.log4j.Logger;
+
 public class ImportAllDialog extends JDialog {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public ImportModel myModel;
 
     public ImportAllDialog(JFrame Parent, final File file) {
@@ -31,97 +36,93 @@ public class ImportAllDialog extends JDialog {
         JPanel container = new JPanel();
         container.setLayout(new ColumnLayout());
 
-        try {
-            myModel = new ImportModel();
-            JTable table = new JTable(myModel);
-            TableColumn column = null;
-            column = table.getColumnModel().getColumn(0);
-            column.setPreferredWidth(25);
-            column = table.getColumnModel().getColumn(1);
-            column.setPreferredWidth(250);
-            table.setPreferredScrollableViewportSize(new Dimension(500, 250));
-            JScrollPane scrollPane = new JScrollPane(table);
-            container.add(scrollPane);
+        myModel = new ImportModel();
+        JTable table = new JTable(myModel);
+        TableColumn column = null;
+        column = table.getColumnModel().getColumn(0);
+        column.setPreferredWidth(25);
+        column = table.getColumnModel().getColumn(1);
+        column.setPreferredWidth(250);
+        table.setPreferredScrollableViewportSize(new Dimension(500, 250));
+        JScrollPane scrollPane = new JScrollPane(table);
+        container.add(scrollPane);
 
-            final ButtonGroup group = new ButtonGroup();
-            JRadioButton button1 = new JRadioButton("Nowhere");
-            button1.setActionCommand("0");
-            JRadioButton button2 = new JRadioButton("in Field 1");
-            JRadioButton button3 = new JRadioButton("in Field 2");
-            button2.setActionCommand("1");
-            button3.setActionCommand("2");
-            group.add(button1);
-            group.add(button2);
-            group.add(button3);
-            button1.setSelected(true);
-            JPanel radioPanel = new JPanel();
-            JLabel myLabel =
-                    new JLabel("Place the File name for each Patch:          ",
-                            JLabel.CENTER);
-            radioPanel.setLayout(new FlowLayout());
-            radioPanel.add(myLabel, BorderLayout.NORTH);
-            radioPanel.add(button1);
-            radioPanel.add(button2);
-            radioPanel.add(button3);
-            container.add(radioPanel);
+        final ButtonGroup group = new ButtonGroup();
+        JRadioButton button1 = new JRadioButton("Nowhere");
+        button1.setActionCommand("0");
+        JRadioButton button2 = new JRadioButton("in Field 1");
+        JRadioButton button3 = new JRadioButton("in Field 2");
+        button2.setActionCommand("1");
+        button3.setActionCommand("2");
+        group.add(button1);
+        group.add(button2);
+        group.add(button3);
+        button1.setSelected(true);
+        JPanel radioPanel = new JPanel();
+        JLabel myLabel =
+                new JLabel("Place the File name for each Patch:          ",
+                        JLabel.CENTER);
+        radioPanel.setLayout(new FlowLayout());
+        radioPanel.add(myLabel, BorderLayout.NORTH);
+        radioPanel.add(button1);
+        radioPanel.add(button2);
+        radioPanel.add(button3);
+        container.add(radioPanel);
 
-            final ButtonGroup group2 = new ButtonGroup();
-            JRadioButton button4 = new JRadioButton("No");
-            button4.setActionCommand("0");
-            JRadioButton button5 = new JRadioButton("Yes");
+        final ButtonGroup group2 = new ButtonGroup();
+        JRadioButton button4 = new JRadioButton("No");
+        button4.setActionCommand("0");
+        JRadioButton button5 = new JRadioButton("Yes");
 
-            button5.setActionCommand("1");
-            group2.add(button4);
-            group2.add(button5);
+        button5.setActionCommand("1");
+        group2.add(button4);
+        group2.add(button5);
 
-            button4.setSelected(true);
-            JPanel radioPanel2 = new JPanel();
-            JLabel myLabel2 =
-                    new JLabel("Automatically Extract Patches from Banks?   ",
-                            JLabel.CENTER);
-            radioPanel2.setLayout(new FlowLayout());
-            radioPanel2.add(myLabel2, BorderLayout.NORTH);
-            radioPanel2.add(button4);
-            radioPanel2.add(button5);
+        button4.setSelected(true);
+        JPanel radioPanel2 = new JPanel();
+        JLabel myLabel2 =
+                new JLabel("Automatically Extract Patches from Banks?   ",
+                        JLabel.CENTER);
+        radioPanel2.setLayout(new FlowLayout());
+        radioPanel2.add(myLabel2, BorderLayout.NORTH);
+        radioPanel2.add(button4);
+        radioPanel2.add(button5);
 
-            container.add(radioPanel2);
+        container.add(radioPanel2);
 
-            JPanel buttonPanel = new JPanel();
-            buttonPanel.setLayout(new FlowLayout());
-            JButton done = new JButton(" OK ");
-            done.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    setVisible(false);
-                    String command1 = group.getSelection().getActionCommand();
-                    String command2 = group2.getSelection().getActionCommand();
-                    boolean extract = (command2 == "1");
-                    int putName = 0;
-                    if (command1 == "1")
-                        putName = 1;
-                    if (command1 == "2")
-                        putName = 2;
-                    doImport(putName, extract, file);
-                }
-            });
-            buttonPanel.add(done);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        JButton done = new JButton(" OK ");
+        done.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                String command1 = group.getSelection().getActionCommand();
+                String command2 = group2.getSelection().getActionCommand();
+                boolean extract = (command2 == "1");
+                int putName = 0;
+                if (command1 == "1")
+                    putName = 1;
+                if (command1 == "2")
+                    putName = 2;
+                doImport(putName, extract, file);
+            }
+        });
+        buttonPanel.add(done);
 
-            JButton cancel = new JButton("Cancel");
-            cancel.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    setVisible(false);
-                }
-            });
-            buttonPanel.add(cancel);
+        JButton cancel = new JButton("Cancel");
+        cancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
+        buttonPanel.add(cancel);
 
-            getRootPane().setDefaultButton(done);
+        getRootPane().setDefaultButton(done);
 
-            container.add(buttonPanel, BorderLayout.SOUTH);
-            getContentPane().add(container);
-            pack();
-            Utility.centerWindow(this);
-        } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
-        }
+        container.add(buttonPanel, BorderLayout.SOUTH);
+        getContentPane().add(container);
+        pack();
+        Utility.centerWindow(this);
     }
 
     public void doImport(int putName, boolean extract, File directory) {
@@ -186,7 +187,7 @@ public class ImportAllDialog extends JDialog {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Error", "Unable to Import Patches", e);
             return;
         }

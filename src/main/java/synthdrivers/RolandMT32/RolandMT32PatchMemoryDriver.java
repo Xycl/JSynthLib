@@ -25,11 +25,12 @@
  */
 package synthdrivers.RolandMT32;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
-import core.ErrorMsg;
 
 public class RolandMT32PatchMemoryDriver extends Driver {
     /** Header Size of the Data set DT1 message. */
@@ -39,6 +40,8 @@ public class RolandMT32PatchMemoryDriver extends Driver {
     /** Definition of the Request message RQ1 */
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 41 10 16 11 05 *partAddrM* *partAddrL* 00 00 07 *checkSum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public RolandMT32PatchMemoryDriver() {
         super("Patch Memory", "Fred Jan Kraan");
@@ -74,7 +77,7 @@ public class RolandMT32PatchMemoryDriver extends Driver {
         try {
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         int patchAddr = patchNum * 0x08;
@@ -89,15 +92,15 @@ public class RolandMT32PatchMemoryDriver extends Driver {
 
         calculateChecksum(p, HSIZE, HSIZE + SSIZE - 2, HSIZE + SSIZE - 1);
 
-        ErrorMsg.reportStatus("Store patchNum " + patchNum + " to patAddrM/L "
-                + patAddrM + " / " + patAddrL);
+        log.info("Store patchNum " + patchNum + " to patAddrM/L " + patAddrM
+                + " / " + patAddrL);
         // sendPatchWorker(p);
         // send(p.sysex);
         try {
             sendPatchWorker(p);
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         setPatchNum(patchNum); // Program change
     }

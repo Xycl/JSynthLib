@@ -21,12 +21,17 @@
 
 package synthdrivers.NovationSBS;
 
-import core.Driver;
-//import core.JSLFrame;
-import core.Patch;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.Patch;
+//import core.JSLFrame;
+
 public class NovationSBSProgramDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public NovationSBSProgramDriver() {
         super("Program", "Robert Wirski");
@@ -68,7 +73,7 @@ public class NovationSBSProgramDriver extends Driver {
             fileIn.close();
 
         } catch (Exception e) {
-            System.err.println("Unable to find SBS_ProgramInit.syx.");
+            log.warn("Unable to find SBS_ProgramInit.syx.");
         }
         ;
 

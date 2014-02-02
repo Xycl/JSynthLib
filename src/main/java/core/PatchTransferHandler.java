@@ -11,7 +11,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.TransferHandler;
+
+import org.apache.log4j.Logger;
 
 public abstract class PatchTransferHandler extends TransferHandler {
     public static final DataFlavor PATCHES_FLAVOR = new DataFlavor(
@@ -29,6 +33,8 @@ public abstract class PatchTransferHandler extends TransferHandler {
 
     private DataFlavor[] flavorsAccepted = new DataFlavor[] {
             PATCHES_FLAVOR, PATCH_FLAVOR, SCENE_FLAVOR, TEXT_FLAVOR, };
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     protected abstract boolean storePatch(IPatch p, JComponent c);
 
@@ -53,7 +59,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
                 patchesAndScenes.add(patch);
             }
         } else {
-            ErrorMsg.reportStatus("PatchTransferHandler.createTransferable doesn't recognize the component it was given");
+            log.info("PatchTransferHandler.createTransferable doesn't recognize the component it was given");
         }
         return (patchesAndScenes);
     }
@@ -77,7 +83,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
                              * altering the *same* object. - Emenaker -
                              * 2006-02-26
                              */
-                            ErrorMsg.reportStatus("Cloning: " + patch);
+                            log.info("Cloning: " + patch);
                             IPatch newPatch = (IPatch) patch.clone();
                             // Serialization loses a transient field, driver.
                             newPatch.setDriver();
@@ -97,7 +103,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
                              * altering the *same* object. - Emenaker -
                              * 2006-02-26
                              */
-                            ErrorMsg.reportStatus("Cloning: " + scene);
+                            log.info("Cloning: " + scene);
                             Scene newScene = (Scene) scene.clone();
                             // Serialization loses a transient field, driver.
                             if (!storeScene(newScene, c)) {
@@ -105,7 +111,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
                             }
                             continue; // for(int i=0; i<patches.size(); i++)
                         }
-                        ErrorMsg.reportStatus("PatchTransferHandler.importData was passed an unrecognized object: "
+                        log.info("PatchTransferHandler.importData was passed an unrecognized object: "
                                 + obj);
                         continue; // for(int i=0; i<patches.size(); i++)
                     }
@@ -116,9 +122,9 @@ public abstract class PatchTransferHandler extends TransferHandler {
                         return storePatch(p, c);
                 }
             } catch (UnsupportedFlavorException e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             } catch (IOException e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
         // Let user know we tried to paste.
@@ -129,7 +135,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
     protected IPatch getPatchFromUrl(String s) {
 
         try {
-            ErrorMsg.reportStatus("S = " + s);
+            log.info("S = " + s);
             URL u = new URL(s);
             InputStream in = u.openStream();
             int b;

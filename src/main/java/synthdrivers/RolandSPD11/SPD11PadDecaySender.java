@@ -5,13 +5,18 @@
 
 package synthdrivers.RolandSPD11;
 
-import core.*;
+import org.apache.log4j.Logger;
+
+import core.SysexSender;
 
 /**
  * Decay values are from -31 to 31, they are represented by their 2's complement
  * @author peter
  */
 public class SPD11PadDecaySender extends SysexSender {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     int patch;
     int pad;
     int offset;
@@ -46,7 +51,7 @@ public class SPD11PadDecaySender extends SysexSender {
             try {
                 Thread.sleep(22); // wait more than 20 milliseconds internal.
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
             return syse;
         } else {
@@ -58,7 +63,7 @@ public class SPD11PadDecaySender extends SysexSender {
             try {
                 Thread.sleep(22); // wait more than 20 milliseconds internal.
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
             return syse;
         }

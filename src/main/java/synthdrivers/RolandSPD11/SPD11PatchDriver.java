@@ -2,8 +2,11 @@ package synthdrivers.RolandSPD11;
 
 //import synthdrivers.RolandSPD11.SPD11PadDriver;
 //import synthdrivers.RolandSPD11.SPD11SettingsDriver;
-import core.*;
-import javax.sound.midi.SysexMessage;
+import org.apache.log4j.Logger;
+
+import core.BankDriver;
+import core.Driver;
+import core.Patch;
 
 //import java.io.UnsupportedEncodingException;
 /**
@@ -12,6 +15,9 @@ import javax.sound.midi.SysexMessage;
  * @version $Id :SPD11PatchDriver.java 01 02:05 AM Monday, January 26 2009 $
  */
 public class SPD11PatchDriver extends BankDriver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     /**
      *
      */
@@ -198,7 +204,7 @@ public class SPD11PatchDriver extends BankDriver {
         try {
             Thread.sleep(30); // wait at least 20 milliseconds .
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         singleSize = 28;// then get the pads data, 28 bytes long each
         patchNameSize = 0;// TODO: use a textlist with names for pads, patches
@@ -208,7 +214,7 @@ public class SPD11PatchDriver extends BankDriver {
             try {
                 Thread.sleep(30); // wait 30 milliseconds .
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }

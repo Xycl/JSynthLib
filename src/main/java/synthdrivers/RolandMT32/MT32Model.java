@@ -27,9 +27,14 @@
 
 package synthdrivers.RolandMT32;
 
-import core.*;
+import org.apache.log4j.Logger;
+
+import core.ParamModel;
+import core.Patch;
 
 class MT32Model extends ParamModel {
+    private final transient Logger log = Logger.getLogger(getClass());
+
     private int bitmask;
     private int mult;
 
@@ -60,7 +65,7 @@ class MT32Model extends ParamModel {
             mult = 64;
         else if ((bitmask & 128) == 128)
             mult = 128;
-        // System.out.println("offset: " + offset + "  b: " + b);
+        log.debug("offset: " + offset + "  b: " + b);
     }
 
     public void set(int i) {

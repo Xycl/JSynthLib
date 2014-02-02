@@ -14,11 +14,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class provides a device list writer.
  * @author Gerrit Gehnen
  */
 public class DeviceListWriter {
+
+    private static final Logger LOG = Logger.getLogger(DeviceListWriter.class);
+
     /**
      * Run the device list writer.
      * @param args
@@ -27,7 +32,7 @@ public class DeviceListWriter {
     public static void main(final String[] args) {
         try {
             if (args.length != 2) {
-                System.out.println("Syntax: DeviceListWriter "
+                LOG.info("Syntax: DeviceListWriter "
                         + "<source directory> <output directory>");
                 System.exit(-1);
             }
@@ -39,8 +44,8 @@ public class DeviceListWriter {
             writer.writeProps(new File(outdir, Constants.DEV_CONFIG_FILE_NAME),
                     devs);
         } catch (IOException exception) {
-            System.out.println("Failed to write device list");
-            exception.printStackTrace();
+            LOG.info("Failed to write device list");
+            LOG.warn(exception.getMessage(), exception);
             System.exit(1);
         }
 
@@ -69,7 +74,7 @@ public class DeviceListWriter {
         File dir = new File(codeDir, pakkDir);
         File[] synthDirs = dir.listFiles(new SynthDirsFilter());
 
-        System.out.println("In dir " + codeDir + ":");
+        LOG.info("In dir " + codeDir + ":");
 
         List<DeviceDescriptor> devs = new ArrayList<DeviceDescriptor>();
 
@@ -88,22 +93,21 @@ public class DeviceListWriter {
                             synthDevices[j].substring(0,
                                     synthDevices[j].indexOf('.'));
                     try {
-                        System.out.println("  Checking "
-                                + actSynthDir.getPath());
+                        LOG.info("  Checking " + actSynthDir.getPath());
 
                         Class<?> deviceclass = loader.loadClass(devName, true);
                         Device dev = (Device) deviceclass.newInstance();
                         devs.add(describe(dev));
 
-                        System.out
-                                .println("    Found " + deviceclass.getName());
+                        LOG.info("    Found " + deviceclass.getName());
                     } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("Exception with " + devName);
+                        LOG.warn(
+                                "Exception with " + devName + ": "
+                                        + e.getMessage(), e);
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LOG.warn(e.getMessage(), e);
             }
         }
 
@@ -125,9 +129,9 @@ public class DeviceListWriter {
         try {
             props.store(out, "Generated devicesfile");
             out.close();
-            System.out.println("done!");
+            LOG.info("done!");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.warn(e.getMessage(), e);
         }
     }
 

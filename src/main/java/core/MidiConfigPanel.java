@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+import org.apache.log4j.Logger;
+
 /**
  * The panel that configures the MIDI layer. Taken out of PrefsDialog.
  * @author Joe Emenaker
@@ -22,6 +24,7 @@ import javax.swing.SpinnerNumberModel;
  * @version $Id: MidiConfigPanel.java 1079 2007-09-19 22:50:29Z billzwicky $
  */
 class MidiConfigPanel extends ConfigPanel {
+    private final transient Logger log = Logger.getLogger(getClass());
     {
         panelName = "MIDI";
         nameSpace = "midi";
@@ -183,7 +186,7 @@ class MidiConfigPanel extends ConfigPanel {
             cbIn.setSelectedIndex(AppConfig.getInitPortIn());
             cbMC.setSelectedIndex(AppConfig.getMasterController());
         } catch (IllegalArgumentException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         spBufSize.setValue(new Integer(AppConfig.getMidiOutBufSize()));

@@ -21,10 +21,18 @@
 
 package synthdrivers.Line6Pod20;
 
-import core.*;
-
 import java.io.UnsupportedEncodingException;
-import javax.swing.*;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.JSLFrame;
+import core.Patch;
+import core.SysexHandler;
+import core.Utility;
 
 /**
  * Line6 Single Driver. Used for Line6 program patch.
@@ -48,6 +56,8 @@ public class Line6Pod20SingleDriver extends Driver {
      * header.
      */
     private static int nameStart = Constants.PATCH_NAME_START;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Constructs a Line6Pod20SingleDriver.
@@ -167,7 +177,7 @@ public class Line6Pod20SingleDriver extends Driver {
      * devices do not "Play" patches, so a dialog is presented instead.
      */
     protected void playPatch(Patch p) {
-        ErrorMsg.reportStatus(getPatchName(p) + "  Header -- " + "  "
+        log.info(getPatchName(p) + "  Header -- " + "  "
                 + Utility.hexDump(p.sysex, 0, Constants.PDMP_HDR_SIZE, 16)
                 + "  Data -- " + "  "
                 + Utility.hexDump(p.sysex, Constants.PDMP_HDR_SIZE, -1, 16));

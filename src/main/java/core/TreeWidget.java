@@ -34,6 +34,8 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import org.apache.log4j.Logger;
+
 /**
  * A SysexWidget implementing JTree component.
  * <p>
@@ -45,6 +47,8 @@ import javax.swing.tree.TreeSelectionModel;
  * @see Nodes
  */
 public class TreeWidget extends SysexWidget {
+
+    private final transient Logger log = Logger.getLogger(getClass());
     /** JTree object. */
     protected JTree tree;
     private Nodes treeNodes;
@@ -119,9 +123,9 @@ public class TreeWidget extends SysexWidget {
 
         if (node != null && node.isLeaf()) {
             /*
-             * ErrorMsg.reportStatus("TreeSelectionLister: " + e.getPath());
-             * int[] tmp = getIndices(e.getPath()); for (int i = 0; i <
-             * tmp.length; i++) ErrorMsg.reportStatus(tmp[i]);
+             * log.info("TreeSelectionLister: " + e.getPath()); int[] tmp =
+             * getIndices(e.getPath()); for (int i = 0; i < tmp.length; i++)
+             * log.info(tmp[i]);
              */
             sendSysex(treeNodes.getValue(getIndices(e.getPath())));
         } else {
@@ -197,7 +201,7 @@ public class TreeWidget extends SysexWidget {
         for (int i = 0; i < indices.length; i++) {
             TreeNode node = (TreeNode) path.getLastPathComponent();
             path = path.pathByAddingChild(node.getChildAt(indices[i]));
-            ErrorMsg.reportStatus("getTreePath" + path);
+            log.info("getTreePath" + path);
         }
         return path;
     }

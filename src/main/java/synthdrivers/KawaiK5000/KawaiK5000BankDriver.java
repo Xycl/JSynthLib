@@ -3,12 +3,22 @@
  */
 package synthdrivers.KawaiK5000;
 
-import core.*;
+import java.io.UnsupportedEncodingException;
 
-import java.io.*;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
+import core.BankDriver;
+import core.ErrorMsg;
+import core.Patch;
+import core.PatchEdit;
+import core.SysexHandler;
+import core.Utility;
 
 public class KawaiK5000BankDriver extends BankDriver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     // phil@muqus.com - see K5000W/S Midi Implementation, p23
     final static SysexHandler SYSEX_REQUEST_A_DUMP = new SysexHandler(
@@ -99,7 +109,7 @@ public class KawaiK5000BankDriver extends BankDriver {
         if (exists == patchExists(p, num))
             return;
         int sub = p.sysex[8 + (num / 7)];
-        System.out.println("bitmask was " + sub);
+        log.info("bitmask was " + sub);
         if (num % 7 == 0)
             sub = sub ^ 1;
         if (num % 7 == 1)
@@ -114,7 +124,7 @@ public class KawaiK5000BankDriver extends BankDriver {
             sub = sub ^ 32;
         if (num % 7 == 6)
             sub = sub ^ 64;
-        System.out.println("bitmask is " + sub);
+        log.info("bitmask is " + sub);
 
         p.sysex[8 + (num / 7)] = (byte) sub;
     }
@@ -146,7 +156,7 @@ public class KawaiK5000BankDriver extends BankDriver {
     }
 
     public int getPatchStart(int patchNum) {
-        ErrorMsg.reportStatus("K5kBankDriver:Calling old getPatchStart-- redirecting");
+        log.info("K5kBankDriver:Calling old getPatchStart-- redirecting");
         return getPatchStart(indexedPatch, patchNum);
     }
 
@@ -223,7 +233,7 @@ public class KawaiK5000BankDriver extends BankDriver {
         int nextPatchNum = patchNum;
         while (patchIndex[nextPatchNum] == 0)
             nextPatchNum++;
-        System.out.println("Insert at patchNum: " + nextPatchNum + " | index: "
+        log.info("Insert at patchNum: " + nextPatchNum + " | index: "
                 + patchIndex[nextPatchNum]);
 
         // p.sysex <DATA> starts at 9, ends just before trailing F7
@@ -326,7 +336,7 @@ public class KawaiK5000BankDriver extends BankDriver {
         // Update index and checksum
         indexedPatch = null;
         setPatchExists(bank, patchNum, false);
-        System.out.println("NumPatches = " + numPatchesinBank(bank));
+        log.info("NumPatches = " + numPatchesinBank(bank));
         generateIndex(bank);
         calculateChecksum(bank);
     }

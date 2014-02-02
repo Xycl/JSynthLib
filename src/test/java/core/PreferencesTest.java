@@ -70,7 +70,7 @@ import core.guiaction.AbstractGuiAction.IPopupListener;
 
 public class PreferencesTest {
 
-    private final Logger log = Logger.getLogger(getClass());
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private final IPopupListener listener = new IPopupListener() {
 

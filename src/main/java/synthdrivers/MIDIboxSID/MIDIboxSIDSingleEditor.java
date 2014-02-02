@@ -47,6 +47,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
+import org.apache.log4j.Logger;
+
 import core.CheckBoxWidget;
 import core.ComboBoxWidget;
 import core.Driver;
@@ -148,6 +150,8 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
             "C-7", "C#7", "D-7", "D#7", "E-7", "F-7", "F#7", "G-7", "G#7",
             "A-7", "A#7", "B-7", "C-8", "C#8", "D-8", "D#8", "E-8", "F-8",
             "F#8", "G-8" };
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     MIDIboxSIDWavetableModel dataModel = new MIDIboxSIDWavetableModel();
     JTable table = new JTable(dataModel);
@@ -833,7 +837,7 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
         for (int i = 0; i < 4 * 32; ++i) {
             byte stored_value = ((Patch) p).sysex[8 + 0x80 + i];
             if (stored_value != cooked_dump[i]) {
-                System.out.println("Wavetable Field changed: " + i);
+                log.info("Wavetable Field changed: " + i);
                 ((Patch) p).sysex[8 + 0x80 + i] = cooked_dump[i];
                 SlowSender.sendParameter((Driver) ((Patch) p).getDriver(),
                         0x80 + i, cooked_dump[i], 10);

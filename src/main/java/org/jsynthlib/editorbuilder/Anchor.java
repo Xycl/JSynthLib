@@ -19,6 +19,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.SpringLayout.Constraints;
 
+import org.apache.log4j.Logger;
 import org.jsynthlib.editorbuilder.widgets.AnchoredWidget;
 import org.jsynthlib.editorbuilder.widgets.ContainerWidget;
 import org.jsynthlib.editorbuilder.widgets.Widget;
@@ -41,6 +42,8 @@ public class Anchor implements Cloneable {
     protected static final String[] SIDES = new String[] {
             SpringLayout.NORTH, SpringLayout.SOUTH, SpringLayout.EAST,
             SpringLayout.WEST, };
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     protected Widget cWidget;
     protected int cSide;
@@ -294,7 +297,7 @@ public class Anchor implements Cloneable {
 
     private Anchor targetAnchor(Widget target, int side) {
         if (target == null)
-            System.out.println("Debug me!");
+            log.info("Debug me!");
         switch (side) {
         case EAST:
         case WEST:

@@ -77,16 +77,16 @@ public class EnsoniqESQ1SingleDriver extends Driver {
 
     public void storePatch(Patch p, int bankNum, int patchNum) {
         sendPatchWorker(p);
-        ErrorMsg.reportWarning(
-                "Ensoniq ESQ!",
-                "The patch has been placed in the edit buffer\nYou must now hold the 'write' button 'exit' on the ESQ1's\nand choose a location to store the patch.");
+        ErrorMsg.reportError(
+                        "Ensoniq ESQ!",
+                        "The patch has been placed in the edit buffer\nYou must now hold the 'write' button 'exit' on the ESQ1's\nand choose a location to store the patch.");
     }
 
     public void sendPatch(Patch p) {
         sendPatchWorker(p);
-        ErrorMsg.reportWarning(
-                "Ensoniq ESQ!",
-                "You must now hit 'exit' on the ESQ1's\nfront panel before you can\nsend another patch.");
+        ErrorMsg.reportError(
+                        "Ensoniq ESQ!",
+                        "You must now hit 'exit' on the ESQ1's\nfront panel before you can\nsend another patch.");
     }
 
     protected void calculateChecksum(Patch p, int start, int end, int ofs) {

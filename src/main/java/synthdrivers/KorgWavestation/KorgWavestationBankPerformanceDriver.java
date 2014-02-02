@@ -5,6 +5,8 @@ import core.*;
 import java.io.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 /**
  * Driver for Korg Wavestation Banks of Performances Be carefull: Untested,
  * because I only have access to a file containing some WS patches....
@@ -13,6 +15,8 @@ import javax.swing.*;
  * @author Gerrit Gehnen
  */
 public class KorgWavestationBankPerformanceDriver extends BankDriver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public KorgWavestationBankPerformanceDriver() {
         super("Performance Bank", "Gerrit Gehnen", 50, 1);
@@ -99,12 +103,12 @@ public class KorgWavestationBankPerformanceDriver extends BankDriver {
         int i;
         int sum = 0;
 
-        System.out.println("Checksum was" + p.sysex[ofs]);
+        log.info("Checksum was" + p.sysex[ofs]);
         for (i = start; i <= end; i++) {
             sum += p.sysex[i];
         }
         p.sysex[ofs] = (byte) (sum % 128);
-        System.out.println("Checksum new is" + p.sysex[ofs]);
+        log.info("Checksum new is" + p.sysex[ofs]);
     }
 
     public void calculateChecksum(Patch p) {

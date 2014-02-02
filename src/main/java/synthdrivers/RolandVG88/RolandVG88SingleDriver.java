@@ -21,7 +21,13 @@
 
 package synthdrivers.RolandVG88;
 
-import core.*;
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.DriverUtil;
+import core.ErrorMsg;
+import core.Patch;
+import core.SysexHandler;
 
 /**
  * Single Driver for Roland VG88
@@ -74,6 +80,8 @@ public final class RolandVG88SingleDriver extends Driver {
     /** patch file name for createNewPatch() */
     private static final String patchDefFileName = "RolandVG88DefaultPatch.syx";
 
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public RolandVG88SingleDriver() {
         super("Patch", "Nacho Alonso");
 
@@ -111,12 +119,12 @@ public final class RolandVG88SingleDriver extends Driver {
             try {
                 send(tmpSysex);
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
             try {
                 Thread.sleep(50); // wait at least 50 milliseconds.
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -223,7 +231,7 @@ public final class RolandVG88SingleDriver extends Driver {
     }
 
     protected void playPatch(Patch p) {
-        ErrorMsg.reportWarning("Advice: ",
+        ErrorMsg.reportError("Advice: ",
                 "VG88 can't play anything by itself. You can test the sound with your guitar.");
     }
 

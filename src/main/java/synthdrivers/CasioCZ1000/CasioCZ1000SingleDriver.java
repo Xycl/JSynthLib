@@ -27,8 +27,9 @@
 
 package synthdrivers.CasioCZ1000;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.JSLFrame;
 import core.Patch;
 
@@ -41,6 +42,9 @@ import core.Patch;
  * @author Bill Zwicky
  */
 public class CasioCZ1000SingleDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     // mis-ordered to make Internal the default
     private String[] BANK_NAMES = {
             "Internal", "Cartridge", "Preset" };
@@ -86,7 +90,7 @@ public class CasioCZ1000SingleDriver extends Driver {
         try {
             send(newsysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         try {
             Thread.sleep(100);
@@ -108,7 +112,7 @@ public class CasioCZ1000SingleDriver extends Driver {
         try {
             send(newsysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

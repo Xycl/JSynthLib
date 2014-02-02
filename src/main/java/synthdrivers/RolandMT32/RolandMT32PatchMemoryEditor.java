@@ -27,12 +27,25 @@
 
 package synthdrivers.RolandMT32;
 
-import core.*;
-import javax.swing.*;
-import java.awt.*;
-import javax.swing.border.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+import org.apache.log4j.Logger;
+
+import core.CheckBoxWidget;
+import core.ComboBoxWidget;
+import core.Patch;
+import core.PatchEditorFrame;
+import core.ScrollBarWidget;
 
 class RolandMT32PatchMemoryEditor extends PatchEditorFrame {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     final String[] TimbreGroupName = new String[] {
             "Group A", "Group B", "Memory", "Rhythm" };
@@ -53,8 +66,8 @@ class RolandMT32PatchMemoryEditor extends PatchEditorFrame {
         int PTAAddrM = PTAModM.get();
         int PTAAddrL = PTAModL.get();
 
-        ErrorMsg.reportStatus("Patch source address: " + PTAAddrH + " / "
-                + PTAAddrM + " / " + PTAAddrL);
+        log.info("Patch source address: " + PTAAddrH + " / " + PTAAddrM + " / "
+                + PTAAddrL);
 
         // Common Pane
         gbc.weightx = 5;

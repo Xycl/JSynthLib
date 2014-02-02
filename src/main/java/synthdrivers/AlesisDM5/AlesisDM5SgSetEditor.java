@@ -21,14 +21,37 @@
 
 package synthdrivers.AlesisDM5;
 
-import core.*;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
-import java.awt.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
-import java.awt.event.*;
 import javax.sound.midi.ShortMessage;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import org.apache.log4j.Logger;
+
+import core.AppConfig;
+import core.ComboBoxWidget;
+import core.Driver;
+import core.IPatch;
+import core.Patch;
+import core.PatchEditorFrame;
+import core.PatchNameWidget;
+import core.ScrollBarLookupWidget;
+import core.ScrollBarWidget;
+import core.SysexWidget;
 
 /**
  * Alesis DM5 Single Drumset Editor Edits individual note parameters and trigger
@@ -54,6 +77,8 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
      * Size of program patch header--7 bytes.
      */
     static final int headerSize = Constants.HDR_SIZE;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private int ctrlBase = 1;
     private int widgetCount = 1;
@@ -403,7 +428,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
                     noteVal, 0); // expecting running status
             driver.send(msg);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

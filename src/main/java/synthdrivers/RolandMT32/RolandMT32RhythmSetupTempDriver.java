@@ -27,11 +27,12 @@
 
 package synthdrivers.RolandMT32;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
-import core.ErrorMsg;
 
 public class RolandMT32RhythmSetupTempDriver extends Driver {
     //
@@ -47,6 +48,8 @@ public class RolandMT32RhythmSetupTempDriver extends Driver {
     // calculation is mandatory and done in requestPatchDump
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 41 10 16 11 03 01 10 00 00 04 *checkSum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     // | Header | Addr | Size | | |
     public RolandMT32RhythmSetupTempDriver() {
@@ -72,7 +75,7 @@ public class RolandMT32RhythmSetupTempDriver extends Driver {
         // try {
         // Thread.sleep(100);
         // } catch (Exception e) {
-        // ErrorMsg.reportStatus(e);
+        // log.warn(e.getMessage(), e);
         // }
 
         p.sysex[0] = (byte) 0xF0;
@@ -80,7 +83,7 @@ public class RolandMT32RhythmSetupTempDriver extends Driver {
         p.sysex[6] = (byte) 0x01;
         p.sysex[7] = (byte) 0x10;
 
-        // System.out.println ("store patchNum " + patchNum + " to patAddrM/L "
+        // log.debug ("store patchNum " + patchNum + " to patAddrM/L "
         // + patAddrM + " / " + patAddrL);
         // sendPatchWorker(p);
         // send(p.sysex);
@@ -90,7 +93,7 @@ public class RolandMT32RhythmSetupTempDriver extends Driver {
             sendPatchWorker(p);
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         // setPatchNum(patchNum); // Program change
     }
@@ -116,7 +119,7 @@ public class RolandMT32RhythmSetupTempDriver extends Driver {
         // this.calculateChecksum(p, 4, 253, 0);
         // p.sysex[255] = (byte) 0xF7;
 
-        // System.out.println("sendPatch: Not implemented yet.");
+        // log.debug("sendPatch: Not implemented yet.");
         sendPatchWorker(p);
     }
 

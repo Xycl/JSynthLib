@@ -15,16 +15,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import javax.swing.*;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileFilter;
+
+import org.apache.log4j.Logger;
 
 /**
  * Define Action classes
  * @version $Id: Actions.java 1182 2011-12-04 22:07:24Z chriswareham $
  */
 final public class Actions {
+
+    private static final Logger LOG = Logger.getLogger(Actions.class);
     // I hope 64bit is enough for a while.
     static final long EN_ABOUT = 0x0000000000000001L;
     static final long EN_COPY = 0x0000000000000002L;
@@ -367,7 +385,7 @@ final public class Actions {
                 }
             } catch (PropertyVetoException e) {
                 // don't know how to handle this.
-                e.printStackTrace();
+                LOG.warn(e.getMessage(), e);
             }
         }
     };
@@ -563,8 +581,7 @@ final public class Actions {
             }
         } else { // no image found
             button.setText(label);
-            ErrorMsg.reportStatus("Resource not found: " + "images/" + label
-                    + ".png");
+            LOG.info("Resource not found: images/" + label + ".png");
         }
         return button;
     }
@@ -685,7 +702,8 @@ final public class Actions {
                     // PatchEdit.hideWaitDialog();
                     // See comment at beginning of this method
                     ErrorMsg.reportError("Error", "Error Loading Library:\n "
-                            + file.getAbsolutePath(), e1);
+                            + file.getAbsolutePath());
+                    LOG.warn(e1.getMessage(), e1);
                     return;
                 }
             }
@@ -711,7 +729,7 @@ final public class Actions {
             frame.setSelected(true);
         } catch (PropertyVetoException e) {
             // I don't *actually* know what this is for :-)
-            ErrorMsg.reportStatus(e);
+            LOG.warn(e.getMessage(), e);
         }
     }
 
@@ -728,7 +746,8 @@ final public class Actions {
                 oFrame.save();
             }
         } catch (IOException e) {
-            ErrorMsg.reportError("Error", "Unable to Save Library", e);
+            ErrorMsg.reportError("Error", "Unable to Save Library");
+            LOG.warn(e.getMessage(), e);
         }
     }
 
@@ -741,7 +760,8 @@ final public class Actions {
             if (fn != null)
                 oFrame.save(fn);
         } catch (IOException ex) {
-            ErrorMsg.reportError("Error", "Unable to Save Library", ex);
+            ErrorMsg.reportError("Error", "Unable to Save Library");
+            LOG.warn(ex.getMessage(), ex);
         }
     }
 
@@ -806,10 +826,9 @@ final public class Actions {
             try {
                 getSelectedFrame().reassignSelectedPatch();
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patch to Reassign must be highlighted in the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patch to Reassign must be highlighted in the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -825,10 +844,9 @@ final public class Actions {
             try {
                 getSelectedFrame().playSelectedPatch();
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patch to Play must be highlighted in the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patch to Play must be highlighted in the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -844,10 +862,9 @@ final public class Actions {
             try {
                 getSelectedFrame().storeSelectedPatch();
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patch to Store must be highlighted in the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patch to Store must be highlighted in the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -863,10 +880,9 @@ final public class Actions {
             try {
                 getSelectedFrame().sendSelectedPatch();
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patch to Send must be highlighted in the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patch to Send must be highlighted in the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -882,10 +898,9 @@ final public class Actions {
             try {
                 getSelectedFrame().sendToSelectedPatch();
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patch to 'Send to...' must be highlighted in the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patch to 'Send to...' must be highlighted in the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -907,10 +922,9 @@ final public class Actions {
                             "You can only print a Bank window.");
                 }
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patch to Play must be highlighted in the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patch to Play must be highlighted in the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -926,10 +940,9 @@ final public class Actions {
             try {
                 getSelectedFrame().deleteSelectedPatch();
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patch to delete must be hilighted\nin the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patch to delete must be hilighted\nin the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -945,10 +958,9 @@ final public class Actions {
             try {
                 getSelectedFrame().copySelectedPatch();
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patch to copy must be highlighted\nin the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patch to copy must be highlighted\nin the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -964,10 +976,9 @@ final public class Actions {
             try {
                 ((SceneFrame) getSelectedFrame()).updateSelected();
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patches to update must be highlighted\nin the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patches to update must be highlighted\nin the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -984,10 +995,9 @@ final public class Actions {
                 getSelectedFrame().copySelectedPatch();
                 getSelectedFrame().deleteSelectedPatch();
             } catch (Exception ex) {
-                ErrorMsg.reportError(
-                        "Error",
-                        "Patch to cut must be hilighted\nin the focused Window.",
-                        ex);
+                ErrorMsg.reportError("Error",
+                        "Patch to cut must be hilighted\nin the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1004,7 +1014,8 @@ final public class Actions {
                 getSelectedFrame().pastePatch();
             } catch (Exception ex) {
                 ErrorMsg.reportError("Error",
-                        "Library to Paste into must be the focused Window.", ex);
+                        "Library to Paste into must be the focused Window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
 
@@ -1055,7 +1066,7 @@ final public class Actions {
                         try {
                             frm.setSelected(true);
                         } catch (PropertyVetoException e) {
-                            ErrorMsg.reportStatus(e);
+                            LOG.warn(e.getMessage(), e);
                         }
                     }
                 } catch (Exception ex) {
@@ -1103,8 +1114,8 @@ final public class Actions {
                     getSelectedFrame().exportPatch(file);
                 }
             } catch (IOException ex) {
-                ErrorMsg.reportError("Error", "Unable to Save Exported Patch",
-                        ex);
+                ErrorMsg.reportError("Error", "Unable to Save Exported Patch");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1173,7 +1184,8 @@ final public class Actions {
                 else
                     getSelectedFrame().importPatch(file);
             } catch (IOException ex) {
-                ErrorMsg.reportError("Error", "Unable to Load Sysex Data", ex);
+                ErrorMsg.reportError("Error", "Unable to Load Sysex Data");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1211,7 +1223,8 @@ final public class Actions {
                 ((SceneFrame) getSelectedFrame()).sendScene();
             } catch (Exception ex) {
                 ErrorMsg.reportError("Error",
-                        "Scene Library must be the selected window.", ex);
+                        "Scene Library must be the selected window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1227,7 +1240,8 @@ final public class Actions {
                 ((SceneFrame) getSelectedFrame()).updateScene();
             } catch (Exception ex) {
                 ErrorMsg.reportError("Error",
-                        "Scene Library must be the selected window.", ex);
+                        "Scene Library must be the selected window.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1307,7 +1321,8 @@ final public class Actions {
                         .extractSelectedPatch();
             } catch (Exception ex) {
                 ErrorMsg.reportError("Error",
-                        "Can not Extract (Maybe its not a bank?)", ex);
+                        "Can not Extract (Maybe its not a bank?)");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1324,8 +1339,8 @@ final public class Actions {
                 SortDialog sd = new SortDialog(PatchEdit.getInstance());
                 sd.setVisible(true);
             } catch (Exception ex) {
-                ErrorMsg.reportError("Error",
-                        "Library to Sort must be Focused", ex);
+                ErrorMsg.reportError("Error", "Library to Sort must be Focused");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1343,8 +1358,8 @@ final public class Actions {
                     searchDialog = new SearchDialog(PatchEdit.getInstance());
                 searchDialog.setVisible(true);
             } catch (Exception ex) {
-                ErrorMsg.reportError("Error",
-                        "Library to Sort must be Focused", ex);
+                ErrorMsg.reportError("Error", "Library to Sort must be Focused");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1371,7 +1386,8 @@ final public class Actions {
                         new ImportAllDialog(PatchEdit.getInstance(), file);
                 sd.setVisible(true);
             } catch (Exception ex) {
-                ErrorMsg.reportError("Error", "Unable to Import Patches", ex);
+                ErrorMsg.reportError("Error", "Unable to Import Patches");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1400,7 +1416,8 @@ final public class Actions {
             } catch (Exception ex) {
                 PatchEdit.hideWaitDialog();
                 ErrorMsg.reportError("Error",
-                        "Library to Delete Duplicates in must be Focused", ex);
+                        "Library to Delete Duplicates in must be Focused");
+                LOG.warn(ex.getMessage(), ex);
                 return;
             }
             PatchEdit.hideWaitDialog();
@@ -1427,7 +1444,8 @@ final public class Actions {
                     getSelectedFrame().pastePatch(p);
             } catch (Exception ex) {
                 ErrorMsg.reportError("Error",
-                        "Unable to create this new patch.", ex);
+                        "Unable to create this new patch.");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1457,8 +1475,8 @@ final public class Actions {
                 xbd.setVisible(true);
             } catch (Exception ex) {
                 ErrorMsg.reportError("Error",
-                        "Unable to perform Crossbreed. (No Library selected?)",
-                        ex);
+                        "Unable to perform Crossbreed. (No Library selected?)");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1508,8 +1526,8 @@ final public class Actions {
                                     "documentation.html");
                 docWin.setVisible(true);
             } catch (Exception ex) {
-                ErrorMsg.reportError("Error", "Unable to show Documentation)",
-                        ex);
+                ErrorMsg.reportError("Error", "Unable to show Documentation)");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1529,8 +1547,8 @@ final public class Actions {
                                     "LICENSE");
                 licWin.setVisible(true);
             } catch (Exception ex) {
-                ErrorMsg.reportError("Error", "Unable to show Documentation)",
-                        ex);
+                ErrorMsg.reportError("Error", "Unable to show Documentation)");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1553,8 +1571,8 @@ final public class Actions {
                                     "http://www.jsynthlib.org/");
                 hpWin.setVisible(true);
             } catch (Exception ex) {
-                ErrorMsg.reportError("Error", "Unable to show Documentation)",
-                        ex);
+                ErrorMsg.reportError("Error", "Unable to show Documentation)");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }
@@ -1572,8 +1590,8 @@ final public class Actions {
                     midiMonitor = new MidiMonitor();
                 midiMonitor.setVisible(true);
             } catch (Exception ex) {
-                ErrorMsg.reportError("Error", "Unable to show MIDI Monitor)",
-                        ex);
+                ErrorMsg.reportError("Error", "Unable to show MIDI Monitor)");
+                LOG.warn(ex.getMessage(), ex);
             }
         }
     }

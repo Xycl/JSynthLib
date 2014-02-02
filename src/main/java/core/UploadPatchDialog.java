@@ -20,7 +20,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
+
 public class UploadPatchDialog extends JDialog {
+    private final transient Logger log = Logger.getLogger(getClass());
+
     final JTextField t1;
     final JTextField t2;
     final JTextArea t3;
@@ -174,7 +178,7 @@ public class UploadPatchDialog extends JDialog {
                 String filestr = new String(sysex, "ISO-8859-1");
                 mime += makeMime("file", filestr);
             } catch (Exception e) {
-                ErrorMsg.reportStatus("UploadPatchDialog encoding failed.");
+                log.info("UploadPatchDialog encoding failed.");
             }
             mime += mimeBoundary();
             mime += makeMime("username", userName);
@@ -186,7 +190,7 @@ public class UploadPatchDialog extends JDialog {
             mime += makeMime("send", "Upload");
             mime += mimeBoundary();
             mime += "\r\n\r\n";
-            // ErrorMsg.reportStatus(mime);
+            // log.info(mime);
             if (postData(repository, mime) == 1)
                 setVisible(false);
         }
@@ -221,7 +225,7 @@ public class UploadPatchDialog extends JDialog {
                             conn.getInputStream()));
             String str;
             while ((str = in.readLine()) != null) {
-                // ErrorMsg.reportStatus("Server: "+str);
+                // log.info("Server: "+str);
 
                 if (str.indexOf("<h2") > -1) {
                     int st = str.indexOf(">");
@@ -242,7 +246,7 @@ public class UploadPatchDialog extends JDialog {
             }
             in.close();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         return 0;

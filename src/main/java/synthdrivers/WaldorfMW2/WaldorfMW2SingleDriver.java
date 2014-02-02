@@ -25,10 +25,10 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.DriverUtil;
-import core.ErrorMsg;
-import core.ISinglePatch;
 import core.Patch;
 import core.PatchEdit;
 import core.SysexHandler;
@@ -39,6 +39,8 @@ import core.SysexHandler;
  * @version $Id: WaldorfMW2SingleDriver.java 939 2005-03-03 04:05:40Z hayashi $
  */
 public class WaldorfMW2SingleDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public WaldorfMW2SingleDriver() {
         super("Single program", "Joachim Backhaus");
@@ -69,8 +71,9 @@ public class WaldorfMW2SingleDriver extends Driver {
     protected static void calculateChecksum(byte[] d, int start, int end,
             int ofs) {
         int sum = 0;
-        for (int i = start; i <= end; i++)
+        for (int i = start; i <= end; i++) {
             sum += d[i];
+        }
         d[ofs] = (byte) (sum & 0x7F);
     }
 
@@ -102,7 +105,7 @@ public class WaldorfMW2SingleDriver extends Driver {
                     bankNum); // Bank Number (MSB)
             send(msg);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -173,9 +176,8 @@ public class WaldorfMW2SingleDriver extends Driver {
             p = new Patch(sysex, this);
 
         } catch (Exception e) {
-            System.err.println("Unable to find "
-                    + MW2Constants.DEFAULT_SYSEX_FILENAME
-                    + " using hardcoded default.");
+            log.warn("Unable to find " + MW2Constants.DEFAULT_SYSEX_FILENAME
+                    + " using hardcoded default.", e);
 
             p = new Patch(sysex, this);
             createPatchHeader(p);

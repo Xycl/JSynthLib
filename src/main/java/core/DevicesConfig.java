@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.prefs.Preferences;
 
+import org.apache.log4j.Logger;
 import org.jsynthlib.jsynthlib.xml.XMLDeviceFactory;
 
 /**
@@ -19,6 +20,9 @@ import org.jsynthlib.jsynthlib.xml.XMLDeviceFactory;
  * configuration stored in a <code>synthdrivers.properties</code> file.
  */
 public class DevicesConfig {
+
+    private static final Logger LOG = Logger.getLogger(DevicesConfig.class);
+
     /**
      * The separator for device configuration files in the application
      * configuration.
@@ -163,8 +167,8 @@ public class DevicesConfig {
             return device;
         } catch (Exception exception) {
             ErrorMsg.reportError("Device Create Failure",
-                    "Failed to create device of class '" + className + "'",
-                    exception);
+                    "Failed to create device of class '" + className + "'");
+            LOG.warn(exception.getMessage(), exception);
             return null;
         }
     }
@@ -174,7 +178,7 @@ public class DevicesConfig {
      */
     public void printAll() {
         for (DeviceDescriptor descriptor : descriptors) {
-            System.out.println(descriptor + "\n");
+            LOG.debug(descriptor + "\n");
         }
     }
 
@@ -208,7 +212,8 @@ public class DevicesConfig {
         } catch (Exception exception) {
             ErrorMsg.reportError("Configuration Error",
                     "Failed to read configuration file "
-                            + Constants.DEV_CONFIG_FILE_NAME + ".", exception);
+                            + Constants.DEV_CONFIG_FILE_NAME + ".");
+            LOG.warn(exception.getMessage(), exception);
             return;
         } finally {
             try {

@@ -21,8 +21,12 @@
 
 package synthdrivers.RolandSPD11;
 
-import core.*;
+import org.apache.log4j.Logger;
+
+import core.Driver;
 import core.JSLFrame;
+import core.Patch;
+import core.SysexHandler;
 
 /**
  * @author peter
@@ -36,6 +40,8 @@ public class SPD11Patch2Driver extends Driver {
             // 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14
             (
                     "F0 41 @@ 60 11 00 *bankNum* *patchNum* 00 00 00 00 11 *checkSum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * @param padDriver
@@ -78,14 +84,14 @@ public class SPD11Patch2Driver extends Driver {
         try {
             Thread.sleep(30); // wait at least 20 milliseconds .
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         for (int i = 0; i < 33; i++) {
             pdDriver.requestPatchDump(patchNum, i);
             try {
                 Thread.sleep(30); // wait at least 20 milliseconds .
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }

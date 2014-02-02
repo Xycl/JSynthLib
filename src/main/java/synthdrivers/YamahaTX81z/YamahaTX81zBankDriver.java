@@ -3,12 +3,19 @@
  */
 package synthdrivers.YamahaTX81z;
 
-import core.*;
+import java.io.UnsupportedEncodingException;
 
-import java.io.*;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
+import core.BankDriver;
+import core.ErrorMsg;
+import core.Patch;
 
 public class YamahaTX81zBankDriver extends BankDriver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public YamahaTX81zBankDriver() {
         super("Bank", "Brian Klock", 32, 4);
@@ -499,7 +506,8 @@ public class YamahaTX81zBankDriver extends BankDriver {
             p.calculateChecksum();
             return p;
         } catch (Exception e) {
-            ErrorMsg.reportError("Error", "Error in TX81z Bank Driver", e);
+            ErrorMsg.reportError("Error", "Error in TX81z Bank Driver");
+            log.warn(e.getMessage(), e);
             return null;
         }
     }

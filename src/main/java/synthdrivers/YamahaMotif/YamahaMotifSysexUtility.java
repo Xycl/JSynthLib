@@ -1,6 +1,7 @@
 package synthdrivers.YamahaMotif;
 
-import core.ErrorMsg;
+import org.apache.log4j.Logger;
+
 import core.Driver;
 
 public abstract class YamahaMotifSysexUtility {
@@ -13,6 +14,9 @@ public abstract class YamahaMotifSysexUtility {
     public static final int DATA_OFFSET = 9;
     public static final int CHECKSUM_OFFSET = -2;
     public static final int SYSEX_OVERHEAD = 11;
+
+    private static final Logger LOG = Logger
+            .getLogger(YamahaMotifSysexUtility.class);
 
     public static void checksum(byte[] sysex) {
         for (int size = 0, offset = 0; offset <= sysex.length - SYSEX_OVERHEAD; offset +=
@@ -124,7 +128,7 @@ public abstract class YamahaMotifSysexUtility {
             try {
                 driver.send(msg);
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                LOG.warn(e.getMessage(), e);
             }
         }
     }

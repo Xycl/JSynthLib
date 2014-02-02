@@ -24,7 +24,13 @@ package synthdrivers.TCElectronicGMajor;
 import java.text.DecimalFormat;
 import java.math.BigDecimal;
 
+import org.apache.log4j.Logger;
+
 public class TCElectronicGMajorUtil {
+
+    private static final Logger LOG = Logger
+            .getLogger(TCElectronicGMajorUtil.class);
+
     // don't have to call constructor for Utility class.
     private TCElectronicGMajorUtil() {
     }
@@ -135,7 +141,7 @@ public class TCElectronicGMajorUtil {
         BigDecimal bd = new BigDecimal(((to - from) / step) + 1);
         bd = bd.setScale(0, BigDecimal.ROUND_HALF_UP);
         int l = bd.intValue();
-        System.out.println("" + l);
+        LOG.debug("" + l);
         String[] s = new String[l];
         for (int i = 0; i < l; i++) {
             s[i] = df.format(from + (i * step));

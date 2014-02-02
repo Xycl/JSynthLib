@@ -27,8 +27,9 @@
 
 package synthdrivers.RolandMT32;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
@@ -41,6 +42,8 @@ public class RolandMT32TimbreMemoryDriver extends Driver {
     /** Definition of the Request message RQ1 */
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 41 10 16 11 08 *partAddrM* *partAddrL* 00 01 76 *checkSum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public RolandMT32TimbreMemoryDriver() {
         super("Timbre Memory", "Fred Jan Kraan");
@@ -81,7 +84,7 @@ public class RolandMT32TimbreMemoryDriver extends Driver {
         try {
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         int timbreAddr = patchNum * 0x100;
@@ -98,7 +101,7 @@ public class RolandMT32TimbreMemoryDriver extends Driver {
             sendPatchWorker(p);
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         setPatchNum(patchNum); // Program change
     }

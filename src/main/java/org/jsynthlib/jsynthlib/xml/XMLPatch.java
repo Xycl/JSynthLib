@@ -12,10 +12,11 @@ import java.util.LinkedList;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 
+import org.apache.log4j.Logger;
+
 import core.AppConfig;
 import core.Device;
 import core.DriverUtil;
-import core.ErrorMsg;
 import core.IPatch;
 import core.IPatchDriver;
 import core.ISinglePatch;
@@ -29,6 +30,8 @@ import core.PatchTransferHandler;
 public class XMLPatch implements ISinglePatch {
 
     static final long serialVersionUID = 1;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private byte[][] sysex;
 
@@ -213,7 +216,7 @@ public class XMLPatch implements ISinglePatch {
                 msgs[i].setMessage(SysexMessage.SYSTEM_EXCLUSIVE, sysex[i],
                         sysex[i].length);
             } catch (InvalidMidiDataException e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
         return msgs;
@@ -409,7 +412,7 @@ public class XMLPatch implements ISinglePatch {
                         descs[i].getDecoder().encode(p.getDefault(), p,
                                 patch.sysex[i]);
                     } catch (ArrayIndexOutOfBoundsException ex) {
-                        System.err.println("Arf!");// FIXME!
+                        log.warn(ex.getMessage(), ex);// FIXME!
                     }
                 }
             }

@@ -103,7 +103,7 @@ public class GuiHandler {
     public static final int FIELD1 = 3;
     public static final int FIELD2 = 4;
     public static final int COMMENT = 5;
-    private final Logger log = Logger.getLogger(getClass());
+    private final transient Logger log = Logger.getLogger(getClass());
     private FrameFixture testFrame;
 
     public GuiHandler(FrameFixture testFrame) {

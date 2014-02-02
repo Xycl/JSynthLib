@@ -1,12 +1,17 @@
 package core;
 
-import java.awt.*;
-import java.util.*;
-import java.util.prefs.*;
+import java.awt.Frame;
+import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
-import javax.sound.midi.*;
-import javax.sound.midi.MidiDevice.*;
-import javax.swing.*;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.apache.log4j.Logger;
 
 /**
  * Device class defines some informations for your synthsizer, such as a name of
@@ -49,6 +54,8 @@ import javax.swing.*;
  * @see IDriver
  */
 public abstract class Device /* implements Serializable, Storable */{
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /** Preferences node for storing configuration options. */
     protected Preferences prefs = null;
@@ -281,7 +288,7 @@ public abstract class Device /* implements Serializable, Storable */{
             try {
                 rcvr = MidiUtil.getReceiver(port);
             } catch (MidiUnavailableException e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
         prefs.put("port", MidiUtil.getOutputNames()[port]);
@@ -321,9 +328,9 @@ public abstract class Device /* implements Serializable, Storable */{
                     Math.min(midiOutBufSize, AppConfig.getMidiOutBufSize()),
                     Math.max(midiOutDelay, AppConfig.getMidiOutDelay()));
         } catch (MidiUnavailableException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

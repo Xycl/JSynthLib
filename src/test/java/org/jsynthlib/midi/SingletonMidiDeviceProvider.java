@@ -30,7 +30,7 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
         return instance;
     }
 
-    private final Logger log = Logger.getLogger(getClass());
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private final char[] hexArray;
 

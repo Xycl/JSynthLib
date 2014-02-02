@@ -1,5 +1,7 @@
 package core;
 
+import org.apache.log4j.Logger;
+
 /**
  * Encodes and decodes to and from Base64 notation.
  * <p/>
@@ -189,6 +191,7 @@ public class Base64 {
     private final static byte EQUALS_SIGN_ENC = -1; // Indicates equals sign in
                                                     // encoding
 
+    private static final Logger LOG = Logger.getLogger(Base64.class);
     /**
      * Defeats instantiation.
      */
@@ -358,7 +361,7 @@ public class Base64 {
             oos.writeObject(serializableObject);
         } // end try
         catch (java.io.IOException e) {
-            e.printStackTrace();
+            LOG.warn(e.getMessage(), e);
             return null;
         } // end catch
         finally {
@@ -490,7 +493,7 @@ public class Base64 {
                 gzos.close();
             } // end try
             catch (java.io.IOException e) {
-                e.printStackTrace();
+                LOG.warn(e.getMessage(), e);
                 return null;
             } // end catch
             finally {
@@ -637,13 +640,13 @@ public class Base64 {
 
                 return 3;
             } catch (Exception e) {
-                System.out.println("" + source[srcOffset] + ": "
+                LOG.info("" + source[srcOffset] + ": "
                         + (DECODABET[source[srcOffset]]));
-                System.out.println("" + source[srcOffset + 1] + ": "
+                LOG.info("" + source[srcOffset + 1] + ": "
                         + (DECODABET[source[srcOffset + 1]]));
-                System.out.println("" + source[srcOffset + 2] + ": "
+                LOG.info("" + source[srcOffset + 2] + ": "
                         + (DECODABET[source[srcOffset + 2]]));
-                System.out.println("" + source[srcOffset + 3] + ": "
+                LOG.info("" + source[srcOffset + 3] + ": "
                         + (DECODABET[source[srcOffset + 3]]));
                 return -1;
             } // e nd catch
@@ -695,7 +698,7 @@ public class Base64 {
 
             } // end if: white space, equals sign or better
             else {
-                System.err.println("Bad Base64 input character at " + i + ": "
+                LOG.warn("Bad Base64 input character at " + i + ": "
                         + source[i] + "(decimal)");
                 return null;
             } // end else:
@@ -799,11 +802,11 @@ public class Base64 {
             obj = ois.readObject();
         } // end try
         catch (java.io.IOException e) {
-            e.printStackTrace();
+            LOG.warn(e.getMessage(), e);
             obj = null;
         } // end catch
         catch (java.lang.ClassNotFoundException e) {
-            e.printStackTrace();
+            LOG.warn(e.getMessage(), e);
             obj = null;
         } // end catch
         finally {
@@ -926,7 +929,7 @@ public class Base64 {
 
         } // end try
         catch (java.io.IOException e) {
-            System.err.println("Error decoding from file " + filename);
+            LOG.warn("Error decoding from file " + filename + " " + e.getMessage(), e);
         } // end catch: IOException
         finally {
             try {
@@ -970,7 +973,7 @@ public class Base64 {
 
         } // end try
         catch (java.io.IOException e) {
-            System.err.println("Error encoding from file " + filename);
+            LOG.warn("Error encoding from file " + filename + " " + e.getMessage(), e);
         } // end catch: IOException
         finally {
             try {

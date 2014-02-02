@@ -3,6 +3,8 @@
 
 package synthdrivers.SCIProphet600;
 
+import org.apache.log4j.Logger;
+
 import core.BankDriver;
 import core.ErrorMsg;
 import core.Patch;
@@ -12,6 +14,8 @@ import core.SysexHandler;
 public class P600ProgBankDriver extends BankDriver {
     static final int PATCH_NUM_OFFSET = 3;
     static final int NUM_IN_BANK = 100;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public P600ProgBankDriver() {
         super("Prog Bank", "Kenneth L. Martinez",
@@ -73,7 +77,7 @@ public class P600ProgBankDriver extends BankDriver {
     // }
 
     protected void sendPatchWorker(Patch p, int bankNum) {
-        byte tmp[] = new byte[singleSize]; // send in 100 single-program
+        byte[] tmp = new byte[singleSize]; // send in 100 single-program
                                            // messages
         try {
             PatchEdit.showWaitDialog();
@@ -85,14 +89,14 @@ public class P600ProgBankDriver extends BankDriver {
             }
             PatchEdit.hideWaitDialog();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Error", "Unable to send Patch");
         }
     }
 
     public Patch createNewPatch() {
-        byte tmp[] = new byte[singleSize];
-        byte sysex[] = new byte[patchSize];
+        byte[] tmp = new byte[singleSize];
+        byte[] sysex = new byte[patchSize];
         System.arraycopy(P600ProgSingleDriver.NEW_PATCH, 0, tmp, 0, singleSize);
         for (int i = 0; i < NUM_IN_BANK; i++) {
             tmp[PATCH_NUM_OFFSET] = (byte) i; // program #
@@ -110,7 +114,7 @@ public class P600ProgBankDriver extends BankDriver {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
                 ErrorMsg.reportError("Error", "Unable to request Patch " + i);
             }
         }

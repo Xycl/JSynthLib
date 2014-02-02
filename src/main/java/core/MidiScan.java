@@ -32,6 +32,8 @@ import javax.swing.JDialog;
 import javax.swing.ProgressMonitor;
 import javax.swing.table.AbstractTableModel;
 
+import org.apache.log4j.Logger;
+
 /**
  * Detect MIDI devices by sending out Inquery ID Sysex Message to every MIDI
  * outport port with every DeviceID and poll every MIDI input port.
@@ -44,6 +46,7 @@ public class MidiScan extends Thread {
     // Wait at least 100ms for a response from a device
     private static final int WAITFORRESPONSE = 100;
 
+    private final transient Logger log = Logger.getLogger(getClass());
     private AbstractTableModel model;
     private ProgressMonitor pb;
     private JDialog parent;
@@ -89,24 +92,24 @@ public class MidiScan extends Thread {
             pb.setNote("Scanning MIDI Devices");
         }
         for (int j = 0; j < maxout; j++) { // For all Outputs
-            ErrorMsg.reportStatus("Out port : " + j);
+            log.info("Out port : " + j);
             Receiver rcvr;
             try {
                 rcvr = MidiUtil.getReceiver(j);
             } catch (MidiUnavailableException e) {
-                ErrorMsg.reportStatus(e + ": Ignored.");
+                log.warn(e.getMessage(), e);
                 continue;
             }
             for (int devID = 0; devID <= MAX_DEVICE_ID; devID++) { // every
                                                                    // devID
                 if (pb != null)
                     pb.setProgress(j * (MAX_DEVICE_ID + 1) + devID);
-                // ErrorMsg.reportStatus("  device ID : " + devID);
+                // log.info("  device ID : " + devID);
                 idData[2] = (byte) devID; // Set the transmit devID
                 try {
                     inqMsg.setMessage(idData, idData.length);
                 } catch (InvalidMidiDataException e) {
-                    ErrorMsg.reportStatus(e);
+                    log.warn(e.getMessage(), e);
                     continue;
                 }
 
@@ -119,33 +122,33 @@ public class MidiScan extends Thread {
                     MidiUtil.send(rcvr, inqMsg, AppConfig.getMidiOutBufSize(),
                             AppConfig.getMidiOutDelay());
                 } catch (MidiUnavailableException e) {
-                    ErrorMsg.reportStatus(e);
+                    log.warn(e.getMessage(), e);
                     continue;
                 } catch (InvalidMidiDataException e) {
-                    ErrorMsg.reportStatus(e);
+                    log.warn(e.getMessage(), e);
                     continue;
                 }
                 try {
                     sleep(WAITFORRESPONSE);
                 } catch (InterruptedException e) {
-                    ErrorMsg.reportStatus(e);
+                    log.warn(e.getMessage(), e);
                     // what should we do?
                 }
                 for (int i = 0; i < maxin; i++) { // For all Inputs
-                    // ErrorMsg.reportStatus("    in port : " + i);
+                    // log.info("    in port : " + i);
                     if (MidiUtil.isSysexInputQueueEmpty(i))
                         continue;
 
-                    // ErrorMsg.reportStatus("    Message Received");
+                    // log.info("    Message Received");
                     responseRcvd = true;
                     SysexMessage msg;
                     try {
                         msg = (SysexMessage) MidiUtil.getMessage(i, 1);
                     } catch (InvalidMidiDataException e) {
-                        ErrorMsg.reportStatus(e);
+                        log.warn(e.getMessage(), e);
                         continue;
                     } catch (MidiUtil.TimeoutException e) {
-                        ErrorMsg.reportStatus(e);
+                        log.warn(e.getMessage(), e);
                         continue;
                     }
                     int sysexSize = msg.getLength();
@@ -167,7 +170,7 @@ public class MidiScan extends Thread {
                         checkResponseData(answerData, sysexSize, j, i, devID);
                     } else if (!Arrays.equals(idData, answerData)) {
                         // don't show debug messge for the inquiry request
-                        ErrorMsg.reportStatus("MidiScan : received non inquiry response data. Ingored.");
+                        log.info("MidiScan : received non inquiry response data. Ingored.");
                     }
                 } // i : input
             } // devID
@@ -182,10 +185,10 @@ public class MidiScan extends Thread {
                 surd.addToReport(report);
                 surd.setVisible(true);
             } else {
-                ErrorMsg.reportStatus(report);
+                log.info(report);
             }
         } else if (!responseRcvd) {
-            ErrorMsg.reportStatus("No scan responses received");
+            log.info("No scan responses received");
         }
     }
 
@@ -197,13 +200,13 @@ public class MidiScan extends Thread {
                 responseString.append("0");
             responseString.append(Integer.toHexString(0xff & answerData[k]));
         }
-        // ErrorMsg.reportStatus ("ResponseString "+responseString);
+        // log.info ("ResponseString "+responseString);
         boolean found = false;
         DevicesConfig devConfig = DevicesConfig.getInstance();
         Iterator synthIDs = devConfig.getDeviceIds().iterator();
         while (synthIDs.hasNext()) {
             String se = (String) synthIDs.next();
-            // ErrorMsg.reportStatus ("Checking "+se.getManufacturerName ()
+            // log.info ("Checking "+se.getManufacturerName ()
             // +" "+se.getModelName ());
             if (checkInquiry(responseString, se)) {
                 // Check, wether the driver is already in the list
@@ -219,8 +222,8 @@ public class MidiScan extends Thread {
                 if (!dontadd) { // add it only, if it is not in the list
                     String cls = devConfig.getClassNameForIDString(se);
                     Device useDevice = AppConfig.addDevice(cls);
-                    ErrorMsg.reportStatus("MidiOut: " + midiout + ", MidiIn: "
-                            + midiin + ", devID: " + devID);
+                    log.info("MidiOut: " + midiout + ", MidiIn: " + midiin
+                            + ", devID: " + devID);
 
                     useDevice.setPort(midiout);
                     useDevice.setInPort(midiin);

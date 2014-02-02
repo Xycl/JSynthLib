@@ -2,14 +2,22 @@
 // $Id: NL2PerfBankDriver.java 832 2005-01-16 18:05:50Z hayashi $
 package synthdrivers.NordLead;
 
-import core.*;
+import javax.swing.JOptionPane;
 
-import javax.swing.*;
+import org.apache.log4j.Logger;
+
+import core.BankDriver;
+import core.ErrorMsg;
+import core.Patch;
+import core.PatchEdit;
+import core.SysexHandler;
 
 public class NL2PerfBankDriver extends BankDriver {
     static final int BANK_NUM_OFFSET = 4;
     static final int PATCH_NUM_OFFSET = 5;
     static final int NUM_IN_BANK = 100;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public NL2PerfBankDriver() {
         super("Perf Bank", "Kenneth L. Martinez",
@@ -98,7 +106,7 @@ public class NL2PerfBankDriver extends BankDriver {
             }
             PatchEdit.hideWaitDialog();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Error", "Unable to send Patch");
         }
     }
@@ -124,7 +132,7 @@ public class NL2PerfBankDriver extends BankDriver {
                 Thread.sleep(250); // it takes some time for each performance to
                                    // be sent
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
                 ErrorMsg.reportError("Error", "Unable to request Patch " + i);
             }
         }

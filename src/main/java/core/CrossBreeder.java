@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
 
+import org.apache.log4j.Logger;
+
 /*
  * Generates a patch with random combinations of the patches for a
  * driver in a library.
@@ -20,6 +22,7 @@ import javax.sound.midi.SysexMessage;
  * @see CrossBreedDialog
  */
 class CrossBreeder {
+    private final transient Logger log = Logger.getLogger(getClass());
     /** The patch we are working on. */
     private IPatch patch;
     /** The patch library we are working on. */
@@ -33,9 +36,9 @@ class CrossBreeder {
 
         // get a base patch.
         IPatch base = library.getSelectedPatch();
-        ErrorMsg.reportStatus("base : " + base);
+        log.info("base : " + base);
         int sysexSize = base.getSize();
-        ErrorMsg.reportStatus("length : " + sysexSize);
+        log.info("length : " + sysexSize);
         IPatchDriver drv = base.getDriver();
 
         byte[] dsysex = new byte[sysexSize];
@@ -53,7 +56,7 @@ class CrossBreeder {
         dsysex[dsysex.length - 1] = (byte) ShortMessage.END_OF_EXCLUSIVE; // EOX
 
         patch = (drv.createPatch(dsysex));
-        ErrorMsg.reportStatus("done : " + patch);
+        log.info("done : " + patch);
     }
 
     IPatch getCurrentPatch() {
@@ -62,7 +65,7 @@ class CrossBreeder {
 
     private IPatch getRandomPatch() {
         int num = (int) (Math.random() * libSize);
-        // ErrorMsg.reportStatus("num : " + num + " / " + libSize);
+        // log.info("num : " + num + " / " + libSize);
         return (IPatch) lib.get(num);
     }
 }

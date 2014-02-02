@@ -3,11 +3,16 @@ package core;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 
+import org.apache.log4j.Logger;
+
 /**
  * An implementation of SysexWidget.ISender.
  * @see SysexWidget.ISender
  */
 public class SysexSender implements SysexWidget.ISender {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     /**
      * Device ID [1-128]. Used by generate(int). Wrong name and should be
      * private. But it's too late, because many synthdriver's subclasses are
@@ -79,7 +84,7 @@ public class SysexSender implements SysexWidget.ISender {
             m.setMessage(sysex, sysex.length);
             driver.send(m);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 }

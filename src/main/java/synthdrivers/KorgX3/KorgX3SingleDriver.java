@@ -1,5 +1,7 @@
 package synthdrivers.KorgX3;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.ErrorMsg;
 import core.JSLFrame;
@@ -19,6 +21,8 @@ import core.SysexHandler;
 public class KorgX3SingleDriver extends Driver {
     // contains unneeded data: F0 42 30 35 23 f7 f0 42 30 35 40
     public static final int EXTRA_HEADER = 23;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Default constructor. Initialize default values for class variables.
@@ -207,7 +211,7 @@ public class KorgX3SingleDriver extends Driver {
         try {
             send(pd);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

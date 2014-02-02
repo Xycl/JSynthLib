@@ -3,8 +3,9 @@
 
 package synthdrivers.NordLead;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.Patch;
 import core.SysexHandler;
 
@@ -169,6 +170,8 @@ public class NLPerfSingleDriver extends Driver {
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0xF7 };
 
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public NLPerfSingleDriver() {
         super("Perf Single", "Kenneth L. Martinez");
         sysexID = "F033**04**";
@@ -236,7 +239,7 @@ public class NLPerfSingleDriver extends Driver {
         try {
             send(p.sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

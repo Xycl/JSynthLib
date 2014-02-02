@@ -21,6 +21,7 @@
 
 package core;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class JSynthLib {
      */
     public static void main(final String[] args) {
         int debugLevel = 0;
+        File logfile = new File("jsynthlib.log");
+        System.setProperty("log.path", logfile.getAbsolutePath());
 
         List<String> files = new ArrayList<String>();
 

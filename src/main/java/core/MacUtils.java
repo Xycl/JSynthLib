@@ -1,12 +1,14 @@
 package core;
 
+import java.awt.event.ActionEvent;
+import java.io.File;
+
+import javax.swing.Action;
+import javax.swing.SwingUtilities;
+
 import com.apple.eawt.Application;
 import com.apple.eawt.ApplicationAdapter;
 import com.apple.eawt.ApplicationEvent;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import javax.swing.Action;
-import javax.swing.SwingUtilities;
 
 public final class MacUtils extends Application {
 
@@ -30,11 +32,7 @@ public final class MacUtils extends Application {
                 // avoid deadlock
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        try {
-                            aboutAction.actionPerformed(event);
-                        } catch (Exception e) {
-                            ErrorMsg.reportStatus(e);
-                        }
+                        aboutAction.actionPerformed(event);
                     }
                 });
                 e.setHandled(true);
@@ -44,11 +42,7 @@ public final class MacUtils extends Application {
                 final File file = new File(e.getFilename());
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        try {
-                            Actions.openFrame(file);
-                        } catch (Exception e) {
-                            ErrorMsg.reportStatus(e);
-                        }
+                        Actions.openFrame(file);
                     }
                 });
                 e.setHandled(true);
@@ -60,11 +54,7 @@ public final class MacUtils extends Application {
                         new ActionEvent(e.getSource(), 0, "Preferences");
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        try {
-                            prefsAction.actionPerformed(event);
-                        } catch (Exception e) {
-                            ErrorMsg.reportStatus(e);
-                        }
+                        prefsAction.actionPerformed(event);
                     }
                 });
             }

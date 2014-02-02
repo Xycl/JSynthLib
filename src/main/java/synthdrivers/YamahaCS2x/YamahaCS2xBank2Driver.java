@@ -27,6 +27,8 @@ import java.io.*;
 import java.text.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 /**
  * There is no bank sysex format for the CS2x so the author decided to put all
  * 128 performances of one bank together.
@@ -54,6 +56,8 @@ public class YamahaCS2xBank2Driver extends BankDriver {
     final static SysexHandler SYS_REQ_LAYER = new SysexHandler
     // 0 1 2 3 4 5 6 7
             ("F0 43 20 63 *banknum* *patchnum* 00 F7"); // FROM LAYERSDRIVER
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Constructor for the YamahaFS1RBankDriver object
@@ -198,12 +202,12 @@ public class YamahaCS2xBank2Driver extends BankDriver {
     public String getPatchName(Patch ip, int patchNum) {
         Patch p = (Patch) ip;
         int oPatchStart = getPatchStart(patchNum);
-        // System.out.println("getPatchName "+patchNum+" start = "+oPatchStart);
+        log.debug("getPatchName " + patchNum + " start = " + oPatchStart);
         try {
             String name =
                     new String(p.sysex, oPatchStart + PATCHNAME_OFFSET,
                             patchNameSize, "US-ASCII");
-            // System.out.println(name+" "+patchNum);
+            log.debug(name + " " + patchNum);
             return name;
         } catch (UnsupportedEncodingException ex) {
             return "no name? :(";
@@ -396,7 +400,7 @@ public class YamahaCS2xBank2Driver extends BankDriver {
      * @return the new "empty" bank
      */
     public Patch createNewPatch() {
-        // System.out.println("createNewPatch");
+        log.debug("createNewPatch");
         byte[] sysex = new byte[128 * 339];
         byte[] initPerf = new byte[339];
         InputStream fileIn = getClass().getResourceAsStream("InitPerf.syx");

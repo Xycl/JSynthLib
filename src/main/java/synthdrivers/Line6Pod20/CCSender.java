@@ -21,15 +21,24 @@
 
 package synthdrivers.Line6Pod20;
 
-import core.*;
-import javax.sound.midi.ShortMessage;
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.ShortMessage;
+
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.IPatchDriver;
+import core.SysexSender;
+import core.SysexWidget;
 
 /**
  * POD generic Continuous Controller message sender class.
  * @author Jeff Weber
  */
 class CCSender extends SysexSender implements SysexWidget.ISender {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     /** Represents the Continuous Controller number. */
     private int param;
 
@@ -122,7 +131,7 @@ class CCSender extends SysexSender implements SysexWidget.ISender {
                     ((Driver) driver).getChannel() - 1, param, value);
             driver.send(m);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 }

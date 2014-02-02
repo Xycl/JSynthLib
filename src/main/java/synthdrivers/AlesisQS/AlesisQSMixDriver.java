@@ -1,9 +1,11 @@
 package synthdrivers.AlesisQS;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.Patch;
 import core.SysexHandler;
+import core.Utility;
 
 /**
  * AlesisQSMixDriver.java Mix program driver for Alesis QS series synths Feb
@@ -14,6 +16,9 @@ import core.SysexHandler;
  */
 
 public class AlesisQSMixDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public AlesisQSMixDriver() {
         super("Mix", "Zellyn Hunter");
         sysexID = "F000000E0E**";
@@ -165,7 +170,8 @@ public class AlesisQSMixDriver extends Driver {
         ((Patch) p).sysex[QSConstants.POSITION_OPCODE] = opcode;
         ((Patch) p).sysex[QSConstants.POSITION_LOCATION] = location;
 
-        ErrorMsg.reportStatus(((Patch) p).sysex);
+        log.info(Utility.hexDump(((Patch) p).sysex, 0,
+                ((Patch) p).sysex.length, 20));
         // setBankNum (bankNum);
         // setPatchNum (patchNum);
 

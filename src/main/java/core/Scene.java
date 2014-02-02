@@ -13,6 +13,8 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.Serializable;
 
+import org.apache.log4j.Logger;
+
 /**
  * A scene is a container for all patches and their explicite bank/patch
  * locations at the synths for a concrete singular song/sound. You can put all
@@ -22,6 +24,8 @@ import java.io.Serializable;
  * @author Gerrit Gehnen
  */
 public class Scene implements Cloneable, Transferable, Serializable {
+    
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private IPatch patch;
 
@@ -135,7 +139,7 @@ public class Scene implements Cloneable, Transferable, Serializable {
     }
 
     public boolean isDataFlavorSupported(final DataFlavor flavor) {
-        ErrorMsg.reportStatus("Scene.isDataFlavorSupported " + flavor);
+        log.info("Scene.isDataFlavorSupported " + flavor);
         return (flavor.match(PatchTransferHandler.SCENE_FLAVOR) || flavor
                 .match(PatchTransferHandler.PATCH_FLAVOR));
     }

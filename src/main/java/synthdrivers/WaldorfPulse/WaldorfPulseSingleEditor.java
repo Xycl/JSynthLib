@@ -35,10 +35,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.log4j.Logger;
+
 import core.CheckBoxWidget;
 import core.ComboBoxWidget;
 import core.EnvelopeWidget;
-import core.ErrorMsg;
 import core.IPatchDriver;
 import core.ParamModel;
 import core.Patch;
@@ -48,6 +49,9 @@ import core.ScrollBarWidget;
 import core.SysexWidget;
 
 class WaldorfPulseSingleEditor extends PatchEditorFrame {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     private ImageIcon plus;
     private GridBagConstraints column_gbc;
     private GridBagConstraints page_gbc;
@@ -928,7 +932,7 @@ class WaldorfPulseSingleEditor extends PatchEditorFrame {
                         .getChannel() - 1, param, value * mult);
                 driver.send(msg);
             } catch (InvalidMidiDataException e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }

@@ -21,12 +21,16 @@
 
 package synthdrivers.AlesisDMPro;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
 
 public class AlesisDMProDrumKitDriver extends Driver {
+    
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private final char[] m_arChars = new char[] {
             ' ', '!', '"', '#', '$', '%', '&', '"', '(', ')', '*', '+', ',',
@@ -124,7 +128,7 @@ public class AlesisDMProDrumKitDriver extends Driver {
             str.append((char) m_arChars[oParser.getValue(8, 4, 7)]);
 
         } catch (Exception e) {
-            System.out.println("getPatchName: " + e.getMessage());
+            log.info("getPatchName: " + e.getMessage());
         }
 
         return str.toString();

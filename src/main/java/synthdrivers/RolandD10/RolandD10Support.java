@@ -20,12 +20,20 @@
  */
 package synthdrivers.RolandD10;
 
-import static synthdrivers.RolandD10.D10Constants.*;
+import static synthdrivers.RolandD10.D10Constants.PATCH_COUNT;
+import static synthdrivers.RolandD10.D10Constants.RYTHM_SETUP_COUNT;
+import static synthdrivers.RolandD10.D10Constants.SIZE_HEADER_DT1;
+import static synthdrivers.RolandD10.D10Constants.SIZE_TRAILER;
+import static synthdrivers.RolandD10.D10Constants.TONE_COUNT;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author Roger Westerlund <roger.westerlund@home.se>
  */
 public class RolandD10Support {
+
+    private static final Logger LOG = Logger.getLogger(RolandD10Support.class);
 
     /** Creates a new instance of RolandD10Support */
     public RolandD10Support() {
@@ -68,13 +76,14 @@ public class RolandD10Support {
     }
 
     public static void dump(byte[] data) {
+        StringBuilder sb = new StringBuilder();
         for (int index = 0; index < data.length; index++) {
             if (index != 0) {
-                System.out.print(" ");
+                sb.append(" ");
             }
-            System.out.print(Integer.toHexString(data[index]));
+            sb.append(Integer.toHexString(data[index]));
         }
-        System.out.println("");
+        LOG.debug(sb.toString());
     }
 
     /**

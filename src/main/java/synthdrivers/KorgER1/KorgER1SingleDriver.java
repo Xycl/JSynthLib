@@ -7,12 +7,15 @@
 
 package synthdrivers.KorgER1;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.Patch;
 import core.SysexHandler;
 
 public class KorgER1SingleDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public KorgER1SingleDriver() {
         super("Single", "Yves Lefebvre");
@@ -64,7 +67,7 @@ public class KorgER1SingleDriver extends Driver {
         try {
             send(((Patch) p).sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         try {
@@ -85,7 +88,7 @@ public class KorgER1SingleDriver extends Driver {
         try {
             send(sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
     }
@@ -101,7 +104,7 @@ public class KorgER1SingleDriver extends Driver {
         try {
             send(((Patch) p).sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

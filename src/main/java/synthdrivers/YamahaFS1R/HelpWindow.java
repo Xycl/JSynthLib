@@ -12,6 +12,7 @@ import core.Actions;
 import core.PatchEdit;
 
 class HelpWindow extends Actions.MenuFrame {
+
     HelpWindow() {
         super(PatchEdit.getDesktop(), "Yamaha FS1R Editor Help", true, true,
                 true, true, false);
@@ -27,7 +28,7 @@ class HelpWindow extends Actions.MenuFrame {
             URL url = getClass().getResource("help.html");
             jt.setPage(url);
         } catch (IOException io) {
-            System.err.println("Can't find help file " + io);
+            System.err.println("Can't find help file " + io.getMessage());
             jt.setDocument(doc);
         }
     }

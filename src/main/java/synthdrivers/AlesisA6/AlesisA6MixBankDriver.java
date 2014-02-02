@@ -8,7 +8,11 @@ import core.*;
 
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 public class AlesisA6MixBankDriver extends BankDriver {
+    
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public AlesisA6MixBankDriver() {
         super("Mix Bank", "Kenneth L. Martinez",
@@ -108,7 +112,7 @@ public class AlesisA6MixBankDriver extends BankDriver {
             }
             PatchEdit.hideWaitDialog();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Error", "Unable to send Patch");
         }
     }

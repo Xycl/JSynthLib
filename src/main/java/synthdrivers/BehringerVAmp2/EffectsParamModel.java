@@ -21,7 +21,11 @@
 
 package synthdrivers.BehringerVAmp2;
 
-import core.*;
+import org.apache.log4j.Logger;
+
+import core.ParamModel;
+import core.Patch;
+import core.Utility;
 
 /**
  * The EffectsParamModel class allows a control to set the individual bits in a
@@ -46,87 +50,89 @@ class EffectsParamModel extends ParamModel {
                     (byte) 0x40, (byte) 0x01, (byte) 0x18, (byte) 0x00,
                     (byte) 0x00, (byte) 0x2D, (byte) 0x58, (byte) 0x04,
                     (byte) 0x1B, (byte) 0x49, (byte) 0x40, (byte) 0x00 }, { // 01
-                                                                            // Delay
+                    // Delay
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x18, (byte) 0x19,
                     (byte) 0x20, (byte) 0x26, (byte) 0x52, (byte) 0x04,
                     (byte) 0x1B, (byte) 0x49, (byte) 0x40, (byte) 0x00 }, { // 02
-                                                                            // Ping
-                                                                            // Pong
+                    // Ping
+                    // Pong
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x02, (byte) 0x39, (byte) 0x61,
                     (byte) 0x00, (byte) 0x26, (byte) 0x60, (byte) 0x04,
                     (byte) 0x1B, (byte) 0x49, (byte) 0x40, (byte) 0x00 }, { // 03
-                                                                            // Phaser/Delay
+                    // Phaser/Delay
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x1F, (byte) 0x00,
                     (byte) 0x20, (byte) 0x2F, (byte) 0x45, (byte) 0x01,
                     (byte) 0x1F, (byte) 0x64, (byte) 0x59, (byte) 0x54 }, { // 04
-                                                                            // Flanger/Delay
-                                                                            // 1
+                    // Flanger/Delay
+                    // 1
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x1F, (byte) 0x00,
                     (byte) 0x20, (byte) 0x2F, (byte) 0x3F, (byte) 0x06,
                     (byte) 0x1F, (byte) 0x5B, (byte) 0x14, (byte) 0x5B }, { // 05
-                                                                            // Flanger/Delay
-                                                                            // 2
+                    // Flanger/Delay
+                    // 2
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x02, (byte) 0x0C, (byte) 0x60,
                     (byte) 0x00, (byte) 0x24, (byte) 0x60, (byte) 0x06,
                     (byte) 0x27, (byte) 0x3F, (byte) 0x07, (byte) 0x46 }, { // 06
-                                                                            // Chorus/Delay
-                                                                            // 1
+                    // Chorus/Delay
+                    // 1
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x1D, (byte) 0x44,
                     (byte) 0x20, (byte) 0x37, (byte) 0x32, (byte) 0x04,
                     (byte) 0x1B, (byte) 0x49, (byte) 0x40, (byte) 0x3E }, { // 07
-                                                                            // Chorus/Delay
-                                                                            // 2
+                    // Chorus/Delay
+                    // 2
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x02, (byte) 0x1B, (byte) 0x14,
                     (byte) 0x00, (byte) 0x1E, (byte) 0x61, (byte) 0x04,
                     (byte) 0x2B, (byte) 0x2B, (byte) 0x40, (byte) 0x3F }, { // 08
-                                                                            // Chorus/Compressor
+                    // Chorus/Compressor
                     (byte) 0x01, (byte) 0x42, (byte) 0x30, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x20, (byte) 0x00,
                     (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04,
                     (byte) 0x1B, (byte) 0x49, (byte) 0x40, (byte) 0x3F }, { // 09
-                                                                            // Compressor
+                    // Compressor
                     (byte) 0x01, (byte) 0x42, (byte) 0x30, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x20, (byte) 0x00,
                     (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04,
                     (byte) 0x1B, (byte) 0x49, (byte) 0x40, (byte) 0x00 }, { // 10
-                                                                            // Auto
-                                                                            // Wah
+                    // Auto
+                    // Wah
                     (byte) 0x02, (byte) 0x37, (byte) 0x53, (byte) 0x47,
                     (byte) 0x42, (byte) 0x00, (byte) 0x20, (byte) 0x00,
                     (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04,
                     (byte) 0x1B, (byte) 0x49, (byte) 0x40, (byte) 0x00 }, { // 11
-                                                                            // Phaser
+                    // Phaser
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x20, (byte) 0x00,
                     (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01,
                     (byte) 0x22, (byte) 0x7F, (byte) 0x5F, (byte) 0x64 }, { // 12
-                                                                            // Chorus
+                    // Chorus
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x20, (byte) 0x00,
                     (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04,
                     (byte) 0x13, (byte) 0x4C, (byte) 0x40, (byte) 0x44 }, { // 13
-                                                                            // Flanger
+                    // Flanger
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x20, (byte) 0x00,
                     (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x06,
                     (byte) 0x1F, (byte) 0x45, (byte) 0x18, (byte) 0x60 }, { // 14
-                                                                            // Tremelo
+                    // Tremelo
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x20, (byte) 0x00,
                     (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x02,
                     (byte) 0x53, (byte) 0x40, (byte) 0x40, (byte) 0x50 }, { // 15
-                                                                            // Rotary
+                    // Rotary
                     (byte) 0x00, (byte) 0x40, (byte) 0x40, (byte) 0x40,
                     (byte) 0x40, (byte) 0x00, (byte) 0x20, (byte) 0x00,
                     (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
                     (byte) 0x49, (byte) 0x7F, (byte) 0x40, (byte) 0x5B } };
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Constructs a EffectsParamModel given the patch, the offset into the sysex
@@ -152,8 +158,8 @@ class EffectsParamModel extends ParamModel {
         System.arraycopy(EFFECT_DEFAULT[value], 0, patch.sysex,
                 Constants.HDR_SIZE + 16, 16);
 
-        ErrorMsg.reportStatus(">>>>>>> Patch After Edit <<<<<<<<<");
-        ErrorMsg.reportStatus("  " + Utility.hexDump(patch.sysex, 0, -1, 16));
+        log.info(">>>>>>> Patch After Edit <<<<<<<<<");
+        log.info("  " + Utility.hexDump(patch.sysex, 0, -1, 16));
     }
 
     /**

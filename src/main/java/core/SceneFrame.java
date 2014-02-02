@@ -3,33 +3,31 @@ package core;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Transferable;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.EventObject;
-import java.lang.reflect.InvocationTargetException;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
 
-import javax.sound.midi.SysexMessage;
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.SysexMessage;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JTable;
 import javax.swing.JOptionPane;
-import javax.swing.ProgressMonitor;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ProgressMonitor;
+import javax.swing.Timer;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
-import javax.swing.SwingUtilities;
 
-import core.AbstractLibraryFrame.PatchTableModel;
+import org.apache.log4j.Logger;
 
 //import core.SysexGetDialog.TimerActionListener;
 
@@ -38,6 +36,7 @@ import core.AbstractLibraryFrame.PatchTableModel;
  * @version $Id: SceneFrame.java 1161 2011-09-23 08:21:45Z frankster $
  */
 class SceneFrame extends AbstractLibraryFrame {
+    private static final Logger LOG = Logger.getLogger(SceneFrame.class);
     private static int openFrameCount = 0;
     // column indices
     private static final int SYNTH = 0;
@@ -136,7 +135,7 @@ class SceneFrame extends AbstractLibraryFrame {
      * Send all patches of the scene to the configured places in the synth's.
      */
     void sendScene() {
-        // ErrorMsg.reportStatus("Transfering Scene");
+        // LOG.info("Transfering Scene");
         for (int i = 0; i < myModel.getRowCount(); i++) {
             Scene scene = ((SceneListModel) myModel).getSceneAt(i);
             scene.getPatch()
@@ -440,14 +439,14 @@ class SceneFrame extends AbstractLibraryFrame {
                 case COMMENT:
                     return myScene.getComment();
                 default:
-                    ErrorMsg.reportStatus("SceneFrame.getValueAt: internal error.");
+                    LOG.info("SceneFrame.getValueAt: internal error.");
                     return null;
                 }
             } catch (NullPointerException e) {
-                ErrorMsg.reportStatus("SceneFrame.getValueAt: row=" + row
-                        + ", col=" + col + ", Patch=" + myPatch);
-                ErrorMsg.reportStatus("row count =" + getRowCount());
-                e.printStackTrace();
+                LOG.info(
+                        "SceneFrame.getValueAt: row=" + row + ", col=" + col
+                                + ", Patch=" + myPatch + " row count ="
+                                + getRowCount(), e);
                 return null;
             }
         }
@@ -467,7 +466,7 @@ class SceneFrame extends AbstractLibraryFrame {
         }
 
         public void setValueAt(Object value, int row, int col) {
-            // ErrorMsg.reportStatus("SetValue at "+row+" "+col+"
+            // LOG.info("SetValue at "+row+" "+col+"
             // Value:"+value);
             // TODO: Remove these comments after June, 2006
             // This isn't the same "changed" as the one used in
@@ -486,7 +485,7 @@ class SceneFrame extends AbstractLibraryFrame {
                 myScene.setComment((String) value);
                 break;
             default:
-                ErrorMsg.reportStatus("SceneFrame.setValueAt: internal error.");
+                LOG.info("SceneFrame.setValueAt: internal error.");
             }
             list.set(row, myScene);
         }
@@ -563,7 +562,7 @@ class SceneFrame extends AbstractLibraryFrame {
                     patchesAndScenes.add(scene);
                 }
             } else {
-                ErrorMsg.reportStatus("PatchTransferHandler.createTransferable doesn't recognize the component it was given");
+                LOG.info("PatchTransferHandler.createTransferable doesn't recognize the component it was given");
             }
             return (patchesAndScenes);
         }
@@ -571,7 +570,7 @@ class SceneFrame extends AbstractLibraryFrame {
         protected boolean storeScene(Scene s, JComponent c) {
             SceneListModel model = (SceneListModel) ((JTable) c).getModel();
             model.addScene(s);
-            ErrorMsg.reportStatus("Stored a Scene into a SceneList");
+            LOG.info("Stored a Scene into a SceneList");
             // TODO This method shouldn't have to worry about calling
             // fireTableDataChanged(). Find a better way.
             model.fireTableDataChanged();
@@ -616,7 +615,7 @@ class SceneFrame extends AbstractLibraryFrame {
         }
 
         public Object getCellEditorValue() {
-            // ErrorMsg.reportStatus("getCellEditorValue
+            // LOG.info("getCellEditorValue
             // "+box.getSelectedItem());
             return new Integer(box.getSelectedIndex());
         }
@@ -658,7 +657,7 @@ class SceneFrame extends AbstractLibraryFrame {
                 row = table.rowAtPoint(e.getPoint());
                 col = table.columnAtPoint(e.getPoint());
             }
-            // ErrorMsg.reportStatus("selectEditor "+ row);
+            // LOG.info("selectEditor "+ row);
             if ((row != oldrow) || (col != oldcol)) {
                 oldrow = row;
                 oldcol = col;

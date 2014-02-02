@@ -3,12 +3,27 @@
  */
 package synthdrivers.NovationXioSynth;
 
-import core.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
-import javax.swing.*;
-import java.awt.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import org.apache.log4j.Logger;
+
+import core.ComboBoxWidget;
+import core.EnvelopeWidget;
+import core.ParamModel;
+import core.Patch;
+import core.PatchEditorFrame;
+import core.PatchNameWidget;
+import core.ScrollBarWidget;
+import core.SysexSender;
 
 class NXSParamModel extends ParamModel {
     private int bitmask;
@@ -56,6 +71,7 @@ class NXSParamModel extends ParamModel {
  */
 
 class NXSSender extends SysexSender {
+    private final transient Logger log = Logger.getLogger(getClass());
     int parameter;
     /* type can be : */
     /* 0 : normal CC */
@@ -118,7 +134,7 @@ class NXSSender extends SysexSender {
     public byte[] generate(int value) {
 
         if (parameter == 0) {
-            System.out.println("Not implemented CC !!\n");
+            log.debug("Not implemented CC !!\n");
         }
 
         if (type == 0) {

@@ -14,7 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import org.apache.log4j.Logger;
+
 public class SortDialog extends JDialog {
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public SortDialog(JFrame parent) {
 
@@ -83,7 +86,7 @@ public class SortDialog extends JDialog {
             pack();
             Utility.centerWindow(this);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

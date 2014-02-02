@@ -26,7 +26,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
+import org.apache.log4j.Logger;
+
 public class BankEditorFrame extends Actions.MenuFrame implements PatchBasket {
+
+    private final transient Logger log = Logger.getLogger(getClass());
     /** This is the patch we are working on. */
     protected IBankPatch bankData;
     /** This BankEditorFrame instance. */
@@ -302,7 +306,7 @@ public class BankEditorFrame extends Actions.MenuFrame implements PatchBasket {
             try {
                 setClosed(true);
             } catch (PropertyVetoException e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
     }
@@ -339,7 +343,7 @@ public class BankEditorFrame extends Actions.MenuFrame implements PatchBasket {
 
         PatchGridModel() {
             super();
-            ErrorMsg.reportStatus("PatchGridModel");
+            log.info("PatchGridModel");
         }
 
         public int getColumnCount() {
@@ -396,7 +400,7 @@ public class BankEditorFrame extends Actions.MenuFrame implements PatchBasket {
                 neu = "";
 
             bankData.setName(patchNum, neu);
-            System.out.println(neu);
+            log.info(neu);
         }
 
         IPatch getPatchAt(int row, int col) {

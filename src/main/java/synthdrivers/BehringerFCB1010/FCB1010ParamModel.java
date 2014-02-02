@@ -21,7 +21,11 @@
 
 package synthdrivers.BehringerFCB1010;
 
-import core.*;
+import org.apache.log4j.Logger;
+
+import core.ParamModel;
+import core.Patch;
+import core.Utility;
 
 /**
  * FCB1010ParamModel. This model is used for all parameters of the FCB1010 and
@@ -59,6 +63,8 @@ class FCB1010ParamModel extends ParamModel {
      * preset.
      */
     static private int prOffset = 0;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Variable holding the mask for this instance of FCB1010ParamModel.
@@ -277,9 +283,13 @@ class FCB1010ParamModel extends ParamModel {
         return patchVal;
     }
 
-    /*
-     * static void dump(byte[] bytes) { for (int i = 0; i < 10; i++) {
-     * System.out.println("Bank " + i + " -----"); System.out.println("  " +
-     * (Utility.hexDump(bytes, Constants.HDR_SIZE + (160 * i), 160, 16))); } }
-     */
+    void dump(byte[] bytes) {
+        for (int i = 0; i < 10; i++) {
+            log.debug("Bank " + i + " -----");
+            log.debug("  "
+                    + (Utility.hexDump(bytes, Constants.HDR_SIZE + (160 * i),
+                            160, 16)));
+        }
+    }
+
 }

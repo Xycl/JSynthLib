@@ -21,7 +21,7 @@ import core.guiaction.AbstractGuiAction.IPopupListener;
 
 public abstract class AbstractPatchHandler {
 
-    protected final Logger log = Logger.getLogger(getClass());
+    protected final transient Logger log = Logger.getLogger(getClass());
 
     public static final String DISABLED_VALUE = "DISABLED";
 

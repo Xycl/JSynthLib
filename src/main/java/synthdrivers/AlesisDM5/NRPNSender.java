@@ -25,6 +25,8 @@ import core.*;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.InvalidMidiDataException;
 
+import org.apache.log4j.Logger;
+
 /**
  * The NRPNSender class is used to send NRPNs to the DM5. The parameters handled
  * by the NRPNSender are specifically related to single drumsets--i.e. all the
@@ -49,6 +51,8 @@ class NRPNSender implements SysexWidget.ISender {
     private final static int NRPN_MSB = 99;
     private final static int NRPN_LSB = 98;
     private final static int DATA_ENTRY_MSB = 6;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     protected int param;
     protected int max;
@@ -132,7 +136,7 @@ class NRPNSender implements SysexWidget.ISender {
                                                                                  // the
                                                                                  // table
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         try {

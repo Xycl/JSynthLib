@@ -1,7 +1,8 @@
 package synthdrivers.KorgWavestation;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.Patch;
 import core.SysexHandler;
 
@@ -13,6 +14,8 @@ import core.SysexHandler;
  * @author Gerrit Gehnen
  */
 public class KorgWavestationPerformanceMapDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public KorgWavestationPerformanceMapDriver() {
         super("Performance Map", "Gerrit Gehnen");
@@ -38,7 +41,7 @@ public class KorgWavestationPerformanceMapDriver extends Driver {
         try {
             send(((Patch) p).sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
     }
@@ -54,7 +57,7 @@ public class KorgWavestationPerformanceMapDriver extends Driver {
         try {
             send(((Patch) p).sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -79,12 +82,12 @@ public class KorgWavestationPerformanceMapDriver extends Driver {
         int i;
         int sum = 0;
 
-        // System.out.println("Checksum was" + p.sysex[ofs]);
+        log.debug("Checksum was" + p.sysex[ofs]);
         for (i = start; i <= end; i++) {
             sum += p.sysex[i];
         }
         p.sysex[ofs] = (byte) (sum % 128);
-        // System.out.println("Checksum new is" + p.sysex[ofs]);
+        log.debug("Checksum new is" + p.sysex[ofs]);
     }
 
     public void requestPatchDump(int bankNum, int patchNum) {

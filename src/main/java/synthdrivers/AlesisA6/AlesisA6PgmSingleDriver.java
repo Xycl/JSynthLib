@@ -4,9 +4,14 @@
 
 package synthdrivers.AlesisA6;
 
-import core.*;
+import javax.swing.JOptionPane;
 
-import javax.swing.*;
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.Patch;
+import core.PatchEdit;
+import core.SysexHandler;
 
 public class AlesisA6PgmSingleDriver extends Driver {
     static final String bankList[] = new String[] {
@@ -28,6 +33,8 @@ public class AlesisA6PgmSingleDriver extends Driver {
             "108", "109", "110", "111", "112", "113", "114", "115", "116",
             "117", "118", "119", "120", "121", "122", "123", "124", "125",
             "126", "127" };
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public AlesisA6PgmSingleDriver() {
         super("Prog Single", "Kenneth L. Martinez");
@@ -151,7 +158,7 @@ public class AlesisA6PgmSingleDriver extends Driver {
         try {
             super.playPatch(p2);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

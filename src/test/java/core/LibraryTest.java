@@ -70,7 +70,7 @@ import core.valuesetter.SliderValueSetter;
 
 public class LibraryTest {
 
-    private final Logger log = Logger.getLogger(getClass());
+    private final transient Logger log = Logger.getLogger(getClass());
 
     private final IPopupListener listener = new IPopupListener() {
 

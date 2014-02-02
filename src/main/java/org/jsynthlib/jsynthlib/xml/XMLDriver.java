@@ -6,6 +6,7 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.SysexMessage;
 
+import org.apache.log4j.Logger;
 import org.jsynthlib.jsynthlib.xml.editor.EditorDescription;
 import org.jsynthlib.jsynthlib.xml.editor.EditorParser;
 import org.jsynthlib.jsynthlib.xml.editor.XMLEditor;
@@ -20,6 +21,7 @@ import core.MidiUtil;
 import core.SysexWidget;
 
 public class XMLDriver implements IPatchDriver {
+    private final transient Logger log = Logger.getLogger(getClass());
     private String authors;
     private XMLPatch base_patch;
 
@@ -91,7 +93,7 @@ public class XMLDriver implements IPatchDriver {
             np.setMessages(msgs);
             return np;
         } catch (IllegalArgumentException ex) {
-            ErrorMsg.reportStatus(ex);
+            log.warn(ex.getMessage(), ex);
             return null;
         }
     }
@@ -102,9 +104,9 @@ public class XMLDriver implements IPatchDriver {
             if (editor != null)
                 return new XMLEditor(editor, (XMLPatch) p);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn(e.getMessage(), e);
             if (e.getCause() != null)
-                e.getCause().printStackTrace();
+                log.warn(e.getCause().getMessage(), e.getCause());
             ErrorMsg.reportError("Error Creating Editor",
                     "There was an error creating the patch editor", e);
         }
@@ -119,11 +121,11 @@ public class XMLDriver implements IPatchDriver {
             Exception ex = e;
             if (e.getException() != null)
                 ex = e.getException();
-            e.printStackTrace();
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Parse Error", "Error parsing editor", ex);
             return null;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Parse Error", "Error parsing editor", e);
             return null;
         }

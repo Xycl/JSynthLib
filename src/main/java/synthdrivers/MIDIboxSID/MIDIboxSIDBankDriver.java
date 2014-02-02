@@ -26,15 +26,20 @@
 
 package synthdrivers.MIDIboxSID;
 
-import core.*;
+import java.io.UnsupportedEncodingException;
 
-import java.io.*;
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
-import synthdrivers.MIDIboxSID.MIDIboxSIDSlowSender;
-import synthdrivers.MIDIboxSID.MIDIboxSIDSingleDriver;
+import org.apache.log4j.Logger;
+
+import core.BankDriver;
+import core.ErrorMsg;
+import core.Patch;
+import core.SysexHandler;
 
 public class MIDIboxSIDBankDriver extends BankDriver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public MIDIboxSIDBankDriver() {
         super("Bank", "Thorsten Klose", 128, 4);
@@ -78,7 +83,7 @@ public class MIDIboxSIDBankDriver extends BankDriver {
 
         for (int i = 0; i < 128; ++i) {
             Patch ps = getPatch(p, i);
-            System.out.println("Sending Patch #" + i);
+            log.info("Sending Patch #" + i);
             // SlowSender.sendSysEx(p.getDriver().getPort(), ps.sysex, 500);
             send(ps.sysex);
             try {

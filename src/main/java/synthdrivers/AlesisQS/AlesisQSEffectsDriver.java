@@ -1,9 +1,11 @@
 package synthdrivers.AlesisQS;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.Patch;
 import core.SysexHandler;
+import core.Utility;
 
 /**
  * AlesisQSEffectsDriver.java Effects program driver for Alesis QS series synths
@@ -14,6 +16,9 @@ import core.SysexHandler;
  */
 
 public class AlesisQSEffectsDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public AlesisQSEffectsDriver() {
         super("Effects", "Zellyn Hunter");
         sysexID = "F000000E0E**";
@@ -151,7 +156,8 @@ public class AlesisQSEffectsDriver extends Driver {
         ((Patch) p).sysex[QSConstants.POSITION_OPCODE] = opcode;
         ((Patch) p).sysex[QSConstants.POSITION_LOCATION] = (byte) location;
 
-        ErrorMsg.reportStatus(((Patch) p).sysex);
+        log.info(Utility.hexDump(((Patch) p).sysex, 0,
+                ((Patch) p).sysex.length, 20));
         // setBankNum (bankNum);
         // setPatchNum (patchNum);
 

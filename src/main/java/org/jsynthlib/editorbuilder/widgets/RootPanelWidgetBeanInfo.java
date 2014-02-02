@@ -6,7 +6,11 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.beans.SimpleBeanInfo;
 
+import org.apache.log4j.Logger;
+
 public class RootPanelWidgetBeanInfo extends SimpleBeanInfo {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public PropertyDescriptor[] getPropertyDescriptors() {
         // no properties in addition to PanelWidget's
@@ -24,7 +28,7 @@ public class RootPanelWidgetBeanInfo extends SimpleBeanInfo {
             return w;
         } catch (IntrospectionException ex) {
             // Shouldn't happen!
-            System.out.println("Break here!");
+            log.info("Break here!");
             return null;
         }
     }

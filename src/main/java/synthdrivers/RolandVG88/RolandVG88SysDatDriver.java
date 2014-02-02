@@ -21,9 +21,15 @@
 
 package synthdrivers.RolandVG88;
 
-import core.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-import javax.swing.*;
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.ErrorMsg;
+import core.Patch;
+import core.SysexHandler;
 
 /**
  * DataSystem Driver for Roland VG88
@@ -74,6 +80,8 @@ public final class RolandVG88SysDatDriver extends Driver {
 
     static final String SYSEX_ID = "F041**002712";
 
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public RolandVG88SysDatDriver(RolandVG88SingleDriver singleDriver) {
         super("Sys-Data", "Nacho Alonso");
 
@@ -103,7 +111,7 @@ public final class RolandVG88SysDatDriver extends Driver {
      * Set Patch Name (not soported, nameSize for bank is 0)
      */
     public void setPatchName(Patch p, String name) {
-        ErrorMsg.reportWarning(
+        ErrorMsg.reportError(
                 "Advice:",
                 "If you want to assign a name to this System Data patch, use 'Field1' or 'Filed2' or 'Comment' fields");
     }
@@ -174,7 +182,7 @@ public final class RolandVG88SysDatDriver extends Driver {
         int len1 = (int) (pack[4] / 0x80);
         int len2 = (int) (pack[4] % 0x80);
         int checkSum = -(dir1 + dir2 + dir3 + dir4 + len1 + len2) & 0x7f;
-        SysexHandler.NameValue nv[] = new SysexHandler.NameValue[7];
+        SysexHandler.NameValue[] nv = new SysexHandler.NameValue[7];
         nv[0] = new SysexHandler.NameValue("dir1", dir1);
         nv[1] = new SysexHandler.NameValue("dir2", dir2);
         nv[2] = new SysexHandler.NameValue("dir3", dir3);
@@ -186,7 +194,7 @@ public final class RolandVG88SysDatDriver extends Driver {
         try {
             Thread.sleep(300); // wait .
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

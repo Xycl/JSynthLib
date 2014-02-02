@@ -20,16 +20,14 @@
  */
 package synthdrivers.RolandD50;
 
-import java.nio.ByteBuffer;
-
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 
+import org.apache.log4j.Logger;
+
 import core.DriverUtil;
-import core.ErrorMsg;
 import core.IPatchDriver;
 import core.SysexSender;
-import core.SysexWidget.ISender;
 
 public class D50Sender extends SysexSender {
 
@@ -70,6 +68,8 @@ public class D50Sender extends SysexSender {
         }
     }
 
+    private final transient Logger log = Logger.getLogger(getClass());
+
     D50Sender(int offset, int deviceId) {
         super();
         message = new byte[BASE_MESSAGE.length];
@@ -100,7 +100,7 @@ public class D50Sender extends SysexSender {
             m.setMessage(message, message.length);
             driver.send(m);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

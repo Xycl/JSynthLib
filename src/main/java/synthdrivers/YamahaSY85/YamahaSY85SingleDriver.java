@@ -21,15 +21,15 @@
 
 package synthdrivers.YamahaSY85;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.ShortMessage;
+
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.DriverUtil;
-import core.ErrorMsg;
-import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
-
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.InvalidMidiDataException;
 
 /**
  * Driver for Yamaha SY85 Singles's (Yamaha calls them "Voices")
@@ -40,6 +40,8 @@ public class YamahaSY85SingleDriver extends Driver {
 
     /** patch file name for createNewPatch() */
     private static final String patchFileName = "InitVce.syx";
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public YamahaSY85SingleDriver() {
         super("Voice", "Christopher Arndt");
@@ -191,7 +193,7 @@ public class YamahaSY85SingleDriver extends Driver {
                     bankNum * 3); // Bank Number (LSB)
             send(msg);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

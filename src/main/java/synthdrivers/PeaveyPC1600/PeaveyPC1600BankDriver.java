@@ -14,8 +14,9 @@
 
 package synthdrivers.PeaveyPC1600;
 
+import org.apache.log4j.Logger;
+
 import core.BankDriver;
-import core.ErrorMsg;
 import core.NibbleSysex;
 import core.Patch;
 import core.SysexHandler;
@@ -68,6 +69,8 @@ public class PeaveyPC1600BankDriver extends BankDriver {
 
     final static SysexHandler SYSEX_REQUEST_DUMP = new SysexHandler(
             "F0 00 00 1B 0B @@ 11 F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     // ----------------------------------------------------------------------------------------------------------------------
     // Constructor: PeaveyPC1600BankDriver()
@@ -167,9 +170,9 @@ public class PeaveyPC1600BankDriver extends BankDriver {
             return createPatchFromData(((Patch) bank).sysex, FIRST_PRESET_START
                     + patchIndex[patchNum], patchIndex[patchNum + 1]
                     - patchIndex[patchNum], getPatchName(bank, patchNum));
-        } catch (Exception ex) {
-            ErrorMsg.reportStatus("PeaveyPC1600BankDriver->getPatch");
-            ErrorMsg.reportStatus(ex);
+        } catch (Exception e) {
+            log.info("PeaveyPC1600BankDriver->getPatch");
+            log.warn(e.getMessage(), e);
             return null;
         }
     }

@@ -8,9 +8,13 @@ import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+import org.apache.log4j.Logger;
 import org.jsynthlib.editorbuilder.widgets.Widget;
 
 public class WidgetComboBoxModel implements ComboBoxModel {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     protected Set widgets;
 
     protected String[] ids = null;
@@ -51,7 +55,7 @@ public class WidgetComboBoxModel implements ComboBoxModel {
                             .getDesignerFrame(),
                             ListDataEvent.CONTENTS_CHANGED, 0, index));
                 } catch (Throwable t) {
-                    t.printStackTrace();
+                    log.warn(t.getMessage(), t);
                 }
             }
         } finally {

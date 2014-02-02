@@ -27,11 +27,12 @@
 
 package synthdrivers.RolandMT32;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
-import core.ErrorMsg;
 
 public class RolandMT32SystemDriver extends Driver {
     /** Header Size of the Data set DT1 message. */
@@ -43,6 +44,8 @@ public class RolandMT32SystemDriver extends Driver {
     /** Definition of the Request message RQ1 */
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 41 10 16 11 10 00 00 00 00 17 *checkSum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public RolandMT32SystemDriver() {
         super("System", "Fred Jan Kraan");
@@ -71,7 +74,7 @@ public class RolandMT32SystemDriver extends Driver {
         try {
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         p.sysex[0] = (byte) 0xF0;
@@ -81,14 +84,14 @@ public class RolandMT32SystemDriver extends Driver {
 
         calculateChecksum(p, HSIZE, HSIZE + SSIZE - 2, HSIZE + SSIZE - 1);
 
-        // System.out.println ("store System");
+        log.debug("store System");
         // sendPatchWorker(p);
         // send(p.sysex);
         try {
             sendPatchWorker(p);
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         // setPatchNum(patchNum); // Program change
     }
@@ -103,7 +106,7 @@ public class RolandMT32SystemDriver extends Driver {
             sendPatchWorker(p);
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -160,8 +163,8 @@ public class RolandMT32SystemDriver extends Driver {
         // setPatchName(p, "System");
         // calculateChecksum(p);
         calculateChecksum(p, 5, HSIZE + SSIZE - 2, HSIZE + SSIZE - 1);
-        // System.out.println ("Checksumcalc " + 5 + " to " + (HSIZE+SSIZE-2) +
-        // " into " + (HSIZE+SSIZE-1));
+        log.debug("Checksumcalc " + 5 + " to " + (HSIZE + SSIZE - 2) + " into "
+                + (HSIZE + SSIZE - 1));
         return p;
     }
 

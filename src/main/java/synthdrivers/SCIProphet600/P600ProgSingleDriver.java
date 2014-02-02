@@ -3,16 +3,17 @@
 
 package synthdrivers.SCIProphet600;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
 
 public class P600ProgSingleDriver extends Driver {
-    static final String BANK_LIST[] = new String[] {
+    static final String[] BANK_LIST = new String[] {
         "User" };
-    static final String PATCH_LIST[] = new String[] {
+    static final String[] PATCH_LIST = new String[] {
             "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
             "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32",
@@ -24,7 +25,7 @@ public class P600ProgSingleDriver extends Driver {
             "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98",
             "99" };
     static final int PATCH_NUM_OFFSET = 3;
-    static final byte NEW_PATCH[] = {
+    static final byte[] NEW_PATCH = {
             (byte) 0xF0, (byte) 0x01, (byte) 0x02, (byte) 0x63, (byte) 0x03,
             (byte) 0x0B, (byte) 0x0F, (byte) 0x01, (byte) 0x00, (byte) 0x04,
             (byte) 0x03, (byte) 0x06, (byte) 0x08, (byte) 0x01, (byte) 0x08,
@@ -33,6 +34,8 @@ public class P600ProgSingleDriver extends Driver {
             (byte) 0x04, (byte) 0x0E, (byte) 0x0F, (byte) 0x00, (byte) 0x00,
             (byte) 0x00, (byte) 0x09, (byte) 0x02, (byte) 0x05, (byte) 0x03,
             (byte) 0x00, (byte) 0x0F7 };
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public P600ProgSingleDriver() {
         super("Prog Single", "Kenneth L. Martinez");
@@ -96,7 +99,7 @@ public class P600ProgSingleDriver extends Driver {
             Thread.sleep(50);
             super.playPatch(p2);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

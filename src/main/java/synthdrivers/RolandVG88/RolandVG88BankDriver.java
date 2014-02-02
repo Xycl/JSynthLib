@@ -21,8 +21,14 @@
 
 package synthdrivers.RolandVG88;
 
-import core.*;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
+import core.BankDriver;
+import core.DriverUtil;
+import core.Patch;
 
 /**
  * Bank Driver for Roland VG88
@@ -38,6 +44,8 @@ public class RolandVG88BankDriver extends BankDriver {
 
     /** bank file name for createNewPatch() */
     private static final String bankDefFileName = "RolandVG88DefaultBank.syx";
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public RolandVG88BankDriver(RolandVG88SingleDriver singleDriver) {
         super("Bank", "Nacho Alonso", RolandVG88SingleDriver.NUM_PATCH,
@@ -151,7 +159,7 @@ public class RolandVG88BankDriver extends BankDriver {
             try {
                 Thread.sleep(600); // wait .
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
         }
         patchSize = patchSize + BANK_NAME_SIZE;

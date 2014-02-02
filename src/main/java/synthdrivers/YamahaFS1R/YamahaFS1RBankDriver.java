@@ -6,6 +6,8 @@ import java.io.*;
 import java.text.*;
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 /**
  * Bank driver for Yamaha FS1R Il n'y a pas de format SYSEX de banque donc ? On
  * reunit 128 perf + 128 voices dans la meme banque. 0..127 performances
@@ -28,6 +30,8 @@ public class YamahaFS1RBankDriver extends BankDriver {
     static final int NB_ROWS = BANK_NB_PATCHES / NB_COLUMNS;
 
     static private YamahaFS1RBankDriver mInstance;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Constructor for the YamahaFS1RBankDriver object
@@ -148,7 +152,7 @@ public class YamahaFS1RBankDriver extends BankDriver {
     public String getPatchName(Patch ip, int patchNum) {
         Patch p = (Patch) ip;
         int oPatchStart = getPatchStart(patchNum);
-        // System.out.println("getPatchName "+patchNum+" start = "+oPatchStart);
+        log.debug("getPatchName " + patchNum + " start = " + oPatchStart);
         if (patchNum > 127)
             return YamahaFS1RVoiceDriver.getInstance().getPatchName(p,
                     oPatchStart);
@@ -195,7 +199,7 @@ public class YamahaFS1RBankDriver extends BankDriver {
      * @return the new "empty" bank
      */
     public Patch createNewPatch() {
-        // System.out.println("createNewPatch");
+        log.debug("createNewPatch");
         byte[] sysex = new byte[BANK_AND_HEADER_SIZE];
         // dummy sysex header (FS1R has no bank sysex)
         sysex[0] = (byte) 0xF0;

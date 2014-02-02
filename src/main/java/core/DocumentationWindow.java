@@ -17,6 +17,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 public class DocumentationWindow extends JDialog {
+
     /**
      * Open a viewer window for a document.
      * @param contentType

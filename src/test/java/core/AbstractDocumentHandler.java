@@ -66,7 +66,7 @@ import core.TitleFinder.FrameWrapper;
 
 public abstract class AbstractDocumentHandler {
 
-    protected final Logger log = Logger.getLogger(getClass());
+    protected final transient Logger log = Logger.getLogger(getClass());
     protected final File outputFile;
     protected final FrameFixture testFrame;
     private final List<String> uniqueNames;
@@ -261,15 +261,20 @@ public abstract class AbstractDocumentHandler {
     protected int getBankIncrement(int length) {
         String testLevelStr = System.getProperty(PatchEditorTest.TEST_LEVEL);
         int testLevel = Integer.parseInt(testLevelStr);
+        int retval = 0;
         switch (testLevel) {
         case PatchEditorTest.TESTLEVEL_LOW:
-            return length / 2;
+            retval = length / 2;
         case PatchEditorTest.TESTLEVEL_MEDIUM:
-            return length / 4;
+            retval = length / 4;
         case PatchEditorTest.TESTLEVEL_HIGH:
         default:
-            return 1;
+            retval = 1;
         }
+        if (retval < 1) {
+            retval = 1;
+        }
+        return retval;
     }
 
     public void handleBankEditor(Xmleditor editor, JTableFixture table) {

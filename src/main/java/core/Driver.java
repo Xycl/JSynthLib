@@ -7,6 +7,8 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
 import javax.sound.midi.InvalidMidiDataException;
 
+import org.apache.log4j.Logger;
+
 /**
  * This is an implementation of ISingleDriver and the base class for single
  * drivers which use <code>Patch<IPatch>.<p>
@@ -34,6 +36,8 @@ import javax.sound.midi.InvalidMidiDataException;
  * @see Patch
  */
 abstract public class Driver implements IPatchDriver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
     /**
      * Which device does this driver go with?
      */
@@ -469,7 +473,7 @@ abstract public class Driver implements IPatchDriver {
                     patchNum, 0); // Program Number
             send(msg);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -491,7 +495,7 @@ abstract public class Driver implements IPatchDriver {
                     bankNum % 128); // Bank Number (MSB)
             send(msg);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -573,8 +577,10 @@ abstract public class Driver implements IPatchDriver {
             msg.setMessage(ShortMessage.NOTE_ON, getChannel() - 1,
                     AppConfig.getNote(), 0); // expecting running status
             send(msg);
-        } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+        } catch (InterruptedException e) {
+            log.warn(e.getMessage(), e);
+        } catch (InvalidMidiDataException e) {
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -662,7 +668,7 @@ abstract public class Driver implements IPatchDriver {
             for (int i = 0; i < a.length; i++)
                 device.send(a[i]);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -672,7 +678,7 @@ abstract public class Driver implements IPatchDriver {
         try {
             msg.setMessage(status, d1, d2);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         send(msg);
     }

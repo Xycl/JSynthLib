@@ -21,8 +21,16 @@
 
 package synthdrivers.TCElectronicGMajor;
 
-import core.*;
 import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
+import core.Driver;
+import core.DriverUtil;
+import core.JSLFrame;
+import core.Patch;
+import core.PatchEdit;
+import core.SysexHandler;
 
 /**
  * Single patch driver for TC Electronic G-Major
@@ -31,6 +39,8 @@ public class TCElectronicGMajorSingleDriver extends Driver {
 
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 00 20 1F 00 48 45 *bankNum* *patchNum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public TCElectronicGMajorSingleDriver() {
         super("Single", "Ton Holsink <a.j.m.holsink@chello.nl>");
@@ -104,7 +114,7 @@ public class TCElectronicGMajorSingleDriver extends Driver {
     }
 
     public void requestPatchDump(int bankNum, int patchNum) {
-        System.out.println("BANKNUM: " + bankNum + "PATCHNUM: " + patchNum);
+        log.debug("BANKNUM: " + bankNum + "PATCHNUM: " + patchNum);
         send(SYS_REQ.toSysexMessage(
                 getChannel(),
                 new SysexHandler.NameValue("bankNum", TCElectronicGMajorUtil

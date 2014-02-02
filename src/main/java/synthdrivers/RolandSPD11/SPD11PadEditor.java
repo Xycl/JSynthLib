@@ -5,14 +5,23 @@
 
 package synthdrivers.RolandSPD11;
 
-import core.*;
+import java.awt.GridBagConstraints;
+
+import org.apache.log4j.Logger;
+
+import core.ComboBoxWidget;
+import core.KnobLookupWidget;
+import core.KnobWidget;
+import core.ParamModel;
+import core.Patch;
+import core.PatchEditorFrame;
 // import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author peter
  */
 public class SPD11PadEditor extends PatchEditorFrame {
+
     /**
      * editor for pad data
      * @param pad
@@ -78,6 +87,9 @@ public class SPD11PadEditor extends PatchEditorFrame {
 }
 
 class SPD11PadModel extends ParamModel {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     /** true for instrument data */
     private boolean nibbled;
 
@@ -113,9 +125,8 @@ class SPD11PadModel extends ParamModel {
      *            an <code>int</code> value
      */
     public void set(int d) {
-        ErrorMsg.reportStatus("SPD11PadModel.set(): d =  " + d + " , nibbled:"
-                + nibbled);
-        ErrorMsg.reportStatus("SPD11PadModel.set(): ofs =  " + ofs + "(0x"
+        log.info("SPD11PadModel.set(): d =  " + d + " , nibbled:" + nibbled);
+        log.info("SPD11PadModel.set(): ofs =  " + ofs + "(0x"
                 + Integer.toHexString(ofs) + ")");
         if (nibbled) {
             patch.sysex[ofs] = (byte) (d / 16);
@@ -124,7 +135,7 @@ class SPD11PadModel extends ParamModel {
         } else {
             patch.sysex[ofs] = (byte) d;
         }
-        // ErrorMsg.reportStatus(patch.sysex);
+        // log.info(patch.sysex);
     }
 
     /**
@@ -135,8 +146,8 @@ class SPD11PadModel extends ParamModel {
         if (nibbled) {
             int d = (((patch.sysex[ofs]) * 16) + (patch.sysex[ofs + 1]));
             // */
-            ErrorMsg.reportStatus("SPD11PadModel.get(): " + d);
-            ErrorMsg.reportStatus("SPD11PadModel.get(): ofs =  " + ofs + "(0x"
+            log.info("SPD11PadModel.get(): " + d);
+            log.info("SPD11PadModel.get(): ofs =  " + ofs + "(0x"
                     + Integer.toHexString(ofs) + ")");
             // */
             return d;

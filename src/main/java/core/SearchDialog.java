@@ -17,9 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
+
 import core.AbstractLibraryFrame.PatchTableModel;
 
 public class SearchDialog extends JDialog {
+    private final transient Logger log = Logger.getLogger(getClass());
     private JRadioButton button2;
     private JRadioButton button3;
 
@@ -111,7 +114,7 @@ public class SearchDialog extends JDialog {
             pack();
             Utility.centerWindow(this);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

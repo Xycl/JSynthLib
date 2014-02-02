@@ -28,8 +28,9 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
 
+import org.apache.log4j.Logger;
+
 import core.IPatchDriver;
-import core.ErrorMsg;
 import core.SysexWidget;
 import core.Utility;
 
@@ -40,6 +41,9 @@ import core.Utility;
  * @version $Id: RolandDT1Sender.java 813 2005-01-10 04:44:28Z hayashi $
  */
 public class RolandDT1Sender implements SysexWidget.ISender {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     /** System Exclusive Data Stream */
     private byte[] b;
     /** address size : 3 or 4 byte */
@@ -142,9 +146,8 @@ public class RolandDT1Sender implements SysexWidget.ISender {
      */
     protected void setValue(int addr, int value)
             throws IllegalArgumentException {
-        ErrorMsg.reportStatus("RolandDT1Sender: addr 0x"
-                + Integer.toHexString(addr) + ", data 0x"
-                + Integer.toHexString(value));
+        log.info("RolandDT1Sender: addr 0x" + Integer.toHexString(addr)
+                + ", data 0x" + Integer.toHexString(value));
         if (addr >= 0) {
             if (addrSize == 3) {
                 b[addrOfst + 0] = (byte) ((addr >> 16) & 0x7f);
@@ -198,14 +201,14 @@ public class RolandDT1Sender implements SysexWidget.ISender {
         for (int i = chkSumOfst; i <= b.length - 3; i++)
             sum += b[i];
         b[b.length - 2] = (byte) (-sum & 0x7f);
-        ErrorMsg.reportStatus(toString());
+        log.info(toString());
         // create and send MIDI message
         SysexMessage m = new SysexMessage();
         try {
             m.setMessage(b, b.length);
             driver.send(m);
         } catch (InvalidMidiDataException e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

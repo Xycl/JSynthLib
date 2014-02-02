@@ -1,10 +1,12 @@
 package synthdrivers.AlesisQS;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
+import core.Utility;
 
 /**
  * AlesisQSGlobalDriver.java Global program driver for Alesis QS series synths
@@ -15,6 +17,9 @@ import core.SysexHandler;
  */
 
 public class AlesisQSGlobalDriver extends Driver {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public AlesisQSGlobalDriver() {
         super("Global", "Zellyn Hunter");
         sysexID = "F000000E0E**";
@@ -121,7 +126,8 @@ public class AlesisQSGlobalDriver extends Driver {
         // set the opcode
         ((Patch) p).sysex[QSConstants.POSITION_OPCODE] = opcode;
 
-        ErrorMsg.reportStatus(((Patch) p).sysex);
+        log.info(Utility.hexDump(((Patch) p).sysex, 0,
+                ((Patch) p).sysex.length, 20));
         // setBankNum (bankNum);
         // setPatchNum (patchNum);
 

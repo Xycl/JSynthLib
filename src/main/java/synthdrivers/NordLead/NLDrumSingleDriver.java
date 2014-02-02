@@ -2,8 +2,9 @@
 // $Id: NLDrumSingleDriver.java 698 2004-09-11 04:39:44Z hayashi $
 package synthdrivers.NordLead;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.Patch;
 import core.SysexHandler;
 
@@ -229,6 +230,8 @@ public class NLDrumSingleDriver extends Driver {
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04, (byte) 0x00,
             (byte) 0x04, (byte) 0x00, (byte) 0xF7 };
 
+    private final transient Logger log = Logger.getLogger(getClass());
+
     public NLDrumSingleDriver() {
         super("Drum Single", "Kenneth L. Martinez");
         sysexID = "F033**04**";
@@ -305,7 +308,7 @@ public class NLDrumSingleDriver extends Driver {
         try {
             send(p.sysex);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 

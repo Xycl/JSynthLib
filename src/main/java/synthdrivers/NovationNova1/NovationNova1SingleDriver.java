@@ -19,9 +19,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
 import core.ColumnLayout;
 import core.Driver;
-import core.ErrorMsg;
 import core.Patch;
 import core.SysexHandler;
 
@@ -128,6 +129,8 @@ class NovationNova1PatchSender extends JDialog {
     public Patch localPatch;
     public static int deviceIDoffset = 0;
     public static int channel = 0;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public NovationNova1PatchSender(JFrame Parent, Patch p, Driver driver) {
         super(Parent, "Nova1 Patch Sender", true);
@@ -242,7 +245,7 @@ class NovationNova1PatchSender extends JDialog {
         try {
             localPatch.send();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         return;
     }
@@ -255,7 +258,7 @@ class NovationNova1PatchSender extends JDialog {
         try {
             localPatch.send();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         return;
     }

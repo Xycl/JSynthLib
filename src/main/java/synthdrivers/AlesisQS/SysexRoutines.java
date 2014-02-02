@@ -1,5 +1,7 @@
 package synthdrivers.AlesisQS;
 
+import org.apache.log4j.Logger;
+
 /**
  * Routines to help with Sysex'es. Alesis compresses data to save space This is
  * taken from the manual.
@@ -32,68 +34,8 @@ package synthdrivers.AlesisQS;
  */
 
 public class SysexRoutines {
-    // if true, then trace
-    static boolean TRACE = false;
 
-    /**
-     * For testing
-     */
-    public static void main(String[] args) {
-        System.out.println("\u00A5");
-        byte[] bytes = {
-                0, 0, 0, 112, 14 };
-        debug("Test1=" + getBits(bytes, 0, 30, 5, false));
-        debug("Test2=" + getBits(bytes, 0, 30, 5, true));
-
-        bigTest();
-    }
-
-    /**
-     * Test it out on a real Sysex message that I captured - this is a dump of
-     * Mix 90, which has "Jazz Piano" in position 0, and nothing much in any of
-     * the other positions.
-     */
-    private static void bigTest() {
-        boolean oldTrace = TRACE;
-        TRACE = false;
-        byte[] bytes =
-                {
-                        (byte) 0xf0, 0x00, 0x00, 0x0e, 0x0e, 0x0e, 0x5a, 0x41,
-                        0x2a, 0x50, 0x56, 0x16, 0x00, 0x2c, 0x32, 0x50, 0x73,
-                        0x13, 0x00, 0x00, 0x47, 0x3f, 0x32, 0x0a, 0x03, 0x78,
-                        0x7f, 0x07, 0x10, 0x58, 0x7d, 0x64, 0x14, 0x46, 0x77,
-                        0x7f, 0x0f, 0x20, 0x20, 0x7c, 0x49, 0x29, 0x0c, 0x60,
-                        0x2e, 0x1f, 0x00, 0x40, 0x75, 0x13, 0x53, 0x18, 0x40,
-                        0x7f, 0x3e, 0x00, 0x60, 0x78, 0x27, 0x26, 0x31, 0x00,
-                        0x7f, 0x79, 0x00, 0x40, 0x71, 0x4f, 0x4c, 0x62, 0x00,
-                        0x7e, 0x73, 0x01, 0x00, 0x63, 0x1f, 0x19, 0x45, 0x01,
-                        0x7c, 0x67, 0x03, 0x00, 0x46, 0x3f, 0x32, 0x0a, 0x03,
-                        0x78, 0x4f, 0x07, 0x00, 0x0c, 0x7f, 0x64, 0x14, 0x06,
-                        0x70, 0x1f, 0x0f, 0x00, 0x18, 0x7e, 0x49, 0x29, 0x0c,
-                        0x60, 0x3f, 0x1e, 0x00, 0x30, 0x7c, 0x13, 0x53, 0x18,
-                        0x40, 0x7f, 0x3c, 0x00, 0x60, 0x78, 0x27, 0x26, 0x31,
-                        0x00, 0x7f, 0x79, 0x00, 0x40, 0x71, 0x4f, 0x4c, 0x62,
-                        0x00, 0x7e, 0x73, 0x01, 0x00, 0x63, 0x1f, 0x19, 0x45,
-                        0x01, 0x7c, 0x67, 0x03, 0x00, 0x46, 0x3f, 0x32, 0x0a,
-                        0x03, 0x78, 0x4f, 0x07, 0x00, 0x0c, 0x7f, 0x64, 0x14,
-                        0x06, 0x70, 0x1f, 0x0f, (byte) 0xf7 };
-
-        debug("Effect Channel     = "
-                + getBits(bytes, QSConstants.HEADER, (0 << 3) + 4, 4, false));
-        String patchName =
-                getChars(bytes, QSConstants.HEADER, QSConstants.MIX_NAME_START,
-                        QSConstants.MIX_NAME_LENGTH);
-        debug("PatchName          = \"" + patchName + "\"");
-
-        setChars("ZellynHunter", bytes, QSConstants.HEADER,
-                QSConstants.MIX_NAME_START, QSConstants.MIX_NAME_LENGTH);
-        patchName =
-                getChars(bytes, QSConstants.HEADER, QSConstants.MIX_NAME_START,
-                        QSConstants.MIX_NAME_LENGTH);
-        debug("PatchName          = \"" + patchName + "\"");
-
-        TRACE = oldTrace;
-    }
+    private static final Logger LOG = Logger.getLogger(SysexRoutines.class);
 
     /**
      * Given a compressed sysex, retrieve a run of consecutive bits as an
@@ -124,38 +66,38 @@ public class SysexRoutines {
         int msBitPos = msBit % 7;
         int lsBitPos = lsBit % 7;
 
-        trace("msBit       = " + msBit);
-        trace("lsBit       = " + lsBit);
-        trace("msByte      = " + msByte);
-        trace("lsByte      = " + lsByte);
-        trace("msBitPos    = " + msBitPos);
-        trace("lsBitPos    = " + lsBitPos);
+        LOG.debug("msBit       = " + msBit);
+        LOG.debug("lsBit       = " + lsBit);
+        LOG.debug("msByte      = " + msByte);
+        LOG.debug("lsByte      = " + lsByte);
+        LOG.debug("msBitPos    = " + msBitPos);
+        LOG.debug("lsBitPos    = " + lsBitPos);
 
         // check if the value spans two bytes
         if (msByte != lsByte) {
-            trace("Calculating top part");
+            LOG.debug("Calculating top part");
             // grab the bits of the top part, shift up above lower part
 
             returnVal = (sysex[headerCount + msByte] & 0xff) << (7 - lsBitPos);
-            trace("Sysex byte  = " + sysex[headerCount + msByte]);
-            trace("& 0xff      = " + (sysex[headerCount + msByte] & 0xff));
-            trace("7-lsBitPos  = " + (7 - lsBitPos));
-            trace("returnVal   = " + returnVal);
+            LOG.debug("Sysex byte  = " + sysex[headerCount + msByte]);
+            LOG.debug("& 0xff      = " + (sysex[headerCount + msByte] & 0xff));
+            LOG.debug("7-lsBitPos  = " + (7 - lsBitPos));
+            LOG.debug("returnVal   = " + returnVal);
         }
 
-        trace("Calculating bottom part");
+        LOG.debug("Calculating bottom part");
         // get the lower part, shift it down, and OR it in
         returnVal |= (sysex[headerCount + lsByte] & 0xff) >> (lsBitPos);
-        trace("Sysex byte  = " + sysex[headerCount + lsByte]);
-        trace("& 0xff      = " + (sysex[headerCount + lsByte] & 0xff));
-        trace(">>lsBitPos  = "
+        LOG.debug("Sysex byte  = " + sysex[headerCount + lsByte]);
+        LOG.debug("& 0xff      = " + (sysex[headerCount + lsByte] & 0xff));
+        LOG.debug(">>lsBitPos  = "
                 + ((sysex[headerCount + lsByte] & 0xff) >> (lsBitPos)));
-        trace("returnVal   = " + returnVal);
+        LOG.debug("returnVal   = " + returnVal);
 
         // mask out only the bytes within the length we want
         // use a power of 2, minus 1, to get a bunch of 1's
         int mask = (1 << bitSize) - 1;
-        trace("Mask        = " + mask);
+        LOG.debug("Mask        = " + mask);
 
         returnVal &= mask;
 
@@ -164,17 +106,17 @@ public class SysexRoutines {
 
         // only do it if it's signed, and the high bit is 1
         if (signed && ((returnVal & (1 << (bitSize - 1))) > 0)) {
-            trace("returnVal   = " + returnVal);
-            trace("Signed value");
+            LOG.debug("returnVal   = " + returnVal);
+            LOG.debug("Signed value");
 
             // all 1's, except for the old mask;
             int signMask = -1 ^ mask;
-            trace("signMask    = " + signMask);
+            LOG.debug("signMask    = " + signMask);
 
             returnVal |= signMask;
         }
 
-        trace("return value= " + returnVal);
+        LOG.debug("return value= " + returnVal);
         return returnVal;
     }
 
@@ -203,32 +145,32 @@ public class SysexRoutines {
         int msBitPos = msBit % 7;
         int lsBitPos = lsBit % 7;
 
-        trace("msBit    = " + msBit);
-        trace("lsBit    = " + lsBit);
-        trace("msByte   = " + msByte);
-        trace("lsByte   = " + lsByte);
-        trace("msBitPos = " + msBitPos);
-        trace("lsBitPos = " + lsBitPos);
+        LOG.debug("msBit    = " + msBit);
+        LOG.debug("lsBit    = " + lsBit);
+        LOG.debug("msByte   = " + msByte);
+        LOG.debug("lsByte   = " + lsByte);
+        LOG.debug("msBitPos = " + msBitPos);
+        LOG.debug("lsBitPos = " + lsBitPos);
 
         // check if the value spans two bytes
         if (msByte != lsByte) {
-            trace("Setting top part");
+            LOG.debug("Setting top part");
 
             // get just the top part
             int topPart = value >> (7 - lsBitPos);
-            trace("top         = " + topPart);
+            LOG.debug("top         = " + topPart);
 
             // mask the relevant bits: 2 ^ width - 1, for 'width' 1's
             int mask = (1 << (msBitPos + 1)) - 1;
-            trace("mask        = " + mask);
+            LOG.debug("mask        = " + mask);
 
             // mask value in to cut off high sign bits if we're negative
             topPart &= mask;
-            trace("masked top  = " + topPart);
+            LOG.debug("masked top  = " + topPart);
 
             // then reverse the mask - to clear bits
             mask = -1 ^ mask;
-            trace("reverse mask= " + mask);
+            LOG.debug("reverse mask= " + mask);
 
             // clear out old value
             sysex[headerCount + msByte] &= mask;
@@ -237,7 +179,7 @@ public class SysexRoutines {
             sysex[headerCount + msByte] |= topPart;
         }
 
-        trace("Setting bottom part");
+        LOG.debug("Setting bottom part");
 
         // calculate how many bits the bottom part uses
         int bottomLen;
@@ -253,23 +195,23 @@ public class SysexRoutines {
 
         // mask is as wide as 'width' 1's, so use 2 ^ width - 1
         int mask = (1 << (bottomLen + 1)) - 1;
-        trace("mask        = " + mask);
+        LOG.debug("mask        = " + mask);
 
         // apply mask to get just bottom bits
         int bottomPart = value & mask;
-        trace("bottom part = " + bottomPart);
+        LOG.debug("bottom part = " + bottomPart);
 
         // shift the value up to the correct position
         bottomPart <<= lsBitPos;
-        trace("and shifted = " + bottomPart);
+        LOG.debug("and shifted = " + bottomPart);
 
         // shift the mask up to the correct position
         mask <<= lsBitPos;
-        trace("shifted mask= " + mask);
+        LOG.debug("shifted mask= " + mask);
 
         // then reverse the mask - to clear bits
         mask = -1 ^ mask;
-        trace("reverse mask= " + mask);
+        LOG.debug("reverse mask= " + mask);
 
         // clear out old value
         sysex[headerCount + lsByte] &= mask;
@@ -365,15 +307,5 @@ public class SysexRoutines {
         int index = QSConstants.QS_LETTERS.indexOf(ch);
 
         return (index == -1) ? QSConstants.QS_UNKNOWN_CHARACTER_CODE : index;
-    }
-
-    public static void trace(String message) {
-        if (TRACE) {
-            System.out.println(message);
-        }
-    }
-
-    public static void debug(String message) {
-        System.out.println(message);
     }
 }

@@ -5,13 +5,18 @@
 
 package synthdrivers.RolandSPD11;
 
-import core.*;
+import org.apache.log4j.Logger;
+
+import core.SysexSender;
 
 /**
  * @author peter to set a parameter, use this sysex message: F0 41 09 60 12 00
  *         "patch" "pad" "parameter" "value" "checksum" F7
  */
 public class SPD11PadParamSender extends SysexSender {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     // String dataSet = "F041@@601200" + "000000**00F7";
     int patch;
     int pad;
@@ -55,7 +60,7 @@ public class SPD11PadParamSender extends SysexSender {
         try {
             Thread.sleep(22); // wait more than 20 milliseconds internal.
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         return syse;
     }
@@ -79,7 +84,7 @@ public class SPD11PadParamSender extends SysexSender {
      * (byte) driver.getDevice().getDeviceID(); byte[] sysex = generate(value);
      * SysexMessage m = new SysexMessage(); try { m.setMessage(sysex,
      * sysex.length); driver.send(m); } catch (InvalidMidiDataException e) {
-     * ErrorMsg.reportStatus(e); } }
+     * log.warn(e.getMessage(), e); } }
      */
 
 }

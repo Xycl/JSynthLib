@@ -21,7 +21,11 @@
 
 package synthdrivers.BehringerVAmp2;
 
-import core.*;
+import org.apache.log4j.Logger;
+
+import core.Converter;
+import core.Patch;
+import core.Utility;
 
 /**
  * Removes "Garbage Data" from response to dump request and extracts desired
@@ -34,6 +38,8 @@ import core.*;
  * @author Jeff Weber
  */
 public class VAmp2Converter extends Converter {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     /**
      * Constructor for VAmp2Converter
@@ -119,10 +125,9 @@ public class VAmp2Converter extends Converter {
         Patch[] newPatchArray = new Patch[1];
         newPatchArray[0] = new Patch(sysex, new VAmp2SingleDriver());
 
-        ErrorMsg.reportStatus(">>>>>>> Patch From Device <<<<<<<<<");
-        ErrorMsg.reportStatus("  "
-                + Utility.hexDump(newPatchArray[0].sysex, 0, -1, 16));
-        ErrorMsg.reportStatus(">>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<");
+        log.info(">>>>>>> Patch From Device <<<<<<<<<");
+        log.info("  " + Utility.hexDump(newPatchArray[0].sysex, 0, -1, 16));
+        log.info(">>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<");
 
         return newPatchArray;
     }

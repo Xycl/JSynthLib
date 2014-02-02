@@ -27,11 +27,12 @@
 
 package synthdrivers.RolandMT32;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
-import core.ErrorMsg;
 
 /**
  * Single Voice Patch Driver for Roland MT32.
@@ -46,6 +47,8 @@ public class RolandMT32PatchTempDriver extends Driver {
     /** Definition of the Request message RQ1 */
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 41 10 16 11 03 *partAddrM* *partAddrL* 00 00 10 *checkSum* F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public RolandMT32PatchTempDriver() {
         super("Patch Temp", "Fred Jan Kraan");
@@ -76,7 +79,7 @@ public class RolandMT32PatchTempDriver extends Driver {
         try {
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
 
         // int timbreAddr = patchNum * (SSIZE - 1);
@@ -92,15 +95,15 @@ public class RolandMT32PatchTempDriver extends Driver {
 
         calculateChecksum(p, HSIZE, HSIZE + SSIZE - 2, HSIZE + SSIZE - 1);
 
-        ErrorMsg.reportStatus("Store patchNum " + patchNum + " to patAddrM/L "
-                + patAddrM + " / " + patAddrL);
+        log.info("Store patchNum " + patchNum + " to patAddrM/L " + patAddrM
+                + " / " + patAddrL);
         // sendPatchWorker(p);
         // send(p.sysex);
         try {
             sendPatchWorker(p);
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         setPatchNum(patchNum); // Program change
     }
@@ -126,7 +129,7 @@ public class RolandMT32PatchTempDriver extends Driver {
         // this.calculateChecksum(p, 4, 253, 0);
         // p.sysex[255] = (byte) 0xF7;
 
-        // System.out.println("sendPatch: Not implemented yet.");
+        log.debug("sendPatch: Not implemented yet.");
         sendPatchWorker(p);
     }
 

@@ -2,6 +2,8 @@
 // $Id: NLPatchBankDriver.java 832 2005-01-16 18:05:50Z hayashi $
 package synthdrivers.NordLead;
 
+import org.apache.log4j.Logger;
+
 import core.BankDriver;
 import core.ErrorMsg;
 import core.Patch;
@@ -12,6 +14,8 @@ public class NLPatchBankDriver extends BankDriver {
     static final int BANK_NUM_OFFSET = 4;
     static final int PATCH_NUM_OFFSET = 5;
     static final int NUM_IN_BANK = 99;
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public NLPatchBankDriver() {
         super("Patch Bank", "Kenneth L. Martinez",
@@ -100,7 +104,7 @@ public class NLPatchBankDriver extends BankDriver {
             }
             PatchEdit.hideWaitDialog();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Error", "Unable to send Patch");
         }
     }
@@ -125,7 +129,7 @@ public class NLPatchBankDriver extends BankDriver {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
                 ErrorMsg.reportError("Error", "Unable to request Patch " + i);
             }
         }

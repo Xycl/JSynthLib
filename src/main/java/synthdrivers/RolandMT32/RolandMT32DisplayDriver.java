@@ -27,11 +27,12 @@
 
 package synthdrivers.RolandMT32;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
 import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
-import core.ErrorMsg;
 
 /**
  * Display Driver for Roland MT32.
@@ -49,6 +50,8 @@ public class RolandMT32DisplayDriver extends Driver {
     /** Definition of the Request message RQ1 */
     // Not very useful as the MT32 doesn't support retrieval from the display
     private static final SysexHandler SYS_REQ = new SysexHandler("");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public RolandMT32DisplayDriver() {
         super("Display", "Fred Jan Kraan");
@@ -73,7 +76,7 @@ public class RolandMT32DisplayDriver extends Driver {
         try {
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         p.sysex[0] = (byte) 0xF0;
         p.sysex[5] = (byte) 0x20; // Point to Display area
@@ -85,7 +88,7 @@ public class RolandMT32DisplayDriver extends Driver {
             sendPatchWorker(p);
             Thread.sleep(100);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
         // setPatchNum(patchNum); // Program change
     }

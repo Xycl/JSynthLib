@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -17,6 +18,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
+
+import org.apache.log4j.Logger;
 
 /**
  * A virtual JDesktopPane class which supports both MDI (Multiple Document
@@ -31,6 +34,7 @@ import javax.swing.SwingUtilities;
  * @author Hiroo Hayashi
  */
 public class JSLDesktop implements JSLFrameListener {
+    private final transient Logger log = Logger.getLogger(getClass());
     private JSLDesktopProxy proxy;
     private Boolean in_fake_activation = Boolean.FALSE;
     private int frame_count = 0;
@@ -177,7 +181,7 @@ public class JSLDesktop implements JSLFrameListener {
     /** add a JSLFrame under this JSLDesktop control. */
     public void add(JSLFrame f) {
         if (windows.contains(f)) {
-            ErrorMsg.reportStatus("JSLDesktop.add : multiple add() call.");
+            log.info("JSLDesktop.add : multiple add() call.");
             return;
         }
         proxy.add(f);
@@ -239,8 +243,8 @@ public class JSLDesktop implements JSLFrameListener {
             JSLFrame frame = (JSLFrame) it.next();
             try {
                 frame.setClosed(true);
-            } catch (Exception ex) {
-                ErrorMsg.reportStatus(ex);
+            } catch (PropertyVetoException ex) {
+                log.warn(ex.getMessage(), ex);
             }
         }
         AppConfig.savePrefs();
@@ -449,7 +453,7 @@ public class JSLDesktop implements JSLFrameListener {
 
         // JSLFrameListener methods : called for both toolbar and JSLFrame
         private void showState(JSLFrame f, String s) {
-            ErrorMsg.reportStatus("\"" + f.getTitle() + "\" " + s);
+            log.info("\"" + f.getTitle() + "\" " + s);
         }
 
         public void FrameActivated(JSLFrame f) {

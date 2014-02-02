@@ -23,12 +23,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
+import org.apache.log4j.Logger;
+
 /**
  * A base class of a patch editor.
  * @author ???
  * @version $Id: PatchEditorFrame.java 1120 2011-09-05 00:49:58Z billzwicky $
  */
 public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
+    private final transient Logger log = Logger.getLogger(getClass());
     /** This is the patch we are working on. */
     protected ISinglePatch p;
     /** Scroll Pane for the editor frame. */
@@ -144,7 +147,7 @@ public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
     public void setVisible(boolean b) {
         if (b) {
             numFaderBanks = getNumFaderBank();
-            ErrorMsg.reportStatus("PatchEditorFrame.show(): Num Fader Banks = "
+            log.info("PatchEditorFrame.show(): Num Fader Banks = "
                     + numFaderBanks);
             faderHighlight();
 
@@ -154,7 +157,7 @@ public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
             // resize if the frame size is bigger than the screen size
             Dimension screenSize = PatchEdit.getDesktop().getSize();
             Dimension frameSize = this.getSize();
-            ErrorMsg.reportStatus("PatchEditorFrame.setVisible(): scrollPane size = "
+            log.info("PatchEditorFrame.setVisible(): scrollPane size = "
                     + scrollPane.getSize() + ", frame size = " + frameSize);
 
             if (frameSize.height > screenSize.height) {
@@ -182,7 +185,7 @@ public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
      * redefined in sub-classes.
      */
     protected void frameClosing() {
-        ErrorMsg.reportStatus("###PE.FrameCloseing: nFrame = " + nFrame);
+        log.info("###PE.FrameCloseing: nFrame = " + nFrame);
         nFrame--;
         // If zero or one frame remains, send a patch next time when a editor
         // frame is activated.
@@ -229,7 +232,7 @@ public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
         // time a frame is activated. This is required because multiple frames
         // for one synth may be opened and it is not easy or worth to know for
         // which synth every frame is.
-        ErrorMsg.reportStatus("###PE.FrameActivated: nFrame = " + nFrame);
+        log.info("###PE.FrameActivated: nFrame = " + nFrame);
         if (sendPatchOnActivated || nFrame > 1) {
             sendPatchOnActivated = false;
             p.send();
@@ -354,7 +357,7 @@ public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
 
             widget.setSliderNum(slidernum);
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
         }
     }
 
@@ -432,9 +435,8 @@ public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
             if (msg.getCommand() == ShortMessage.CONTROL_CHANGE) {
                 int channel = msg.getChannel(); // 0 <= channel < 16
                 int controller = msg.getData1(); // 0 <= controller <= 119
-                ErrorMsg.reportStatus("FaderReceiver: channel: " + channel
-                        + ", control: " + controller + ", value: "
-                        + msg.getData2());
+                log.info("FaderReceiver: channel: " + channel + ", control: "
+                        + controller + ", value: " + msg.getData2());
                 // use hash !!!FIXIT!!!
                 for (int i = 0; i < Constants.NUM_FADERS; i++) {
                     // faderChannel: 0:channel l, ..., 15:channel 16, 16:off
@@ -464,8 +466,7 @@ public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
      *            data value
      */
     private void faderMoved(int fader, int value) {
-        ErrorMsg.reportStatus("FaderMoved: fader: " + fader + ", value: "
-                + value);
+        log.info("FaderMoved: fader: " + fader + ", value: " + value);
         if (fader == 32) { // button 16 : next fader bank
             nextFader();
             return;
@@ -596,7 +597,7 @@ public class PatchEditorFrame extends Actions.MenuFrame implements PatchBasket {
             try {
                 setClosed(true);
             } catch (PropertyVetoException e) {
-                ErrorMsg.reportStatus(e);
+                log.warn(e.getMessage(), e);
             }
             return;
         }

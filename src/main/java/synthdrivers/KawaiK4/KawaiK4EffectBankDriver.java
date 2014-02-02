@@ -1,6 +1,9 @@
 package synthdrivers.KawaiK4;
 
 import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
 import core.BankDriver;
 import core.DriverUtil;
 import core.ErrorMsg;
@@ -22,6 +25,8 @@ public class KawaiK4EffectBankDriver extends BankDriver {
 
     private static final SysexHandler SYS_REQ = new SysexHandler(
             "F0 40 @@ 01 00 04 *bankNum* 00 F7");
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public KawaiK4EffectBankDriver() {
         super("EffectBank", "Gerrit Gehnen", NS, 2);
@@ -45,7 +50,7 @@ public class KawaiK4EffectBankDriver extends BankDriver {
     public String getPatchName(Patch p, int patchNum) {
         int nameStart = getPatchStart(patchNum);
         nameStart += 0; // offset of name in patch data
-        // System.out.println("Patch Num "+patchNum+ "Name Start:"+nameStart);
+        log.debug("Patch Num " + patchNum + "Name Start:" + nameStart);
         String s = "Effect Type " + (p.sysex[nameStart] + 1);
         return s;
     }

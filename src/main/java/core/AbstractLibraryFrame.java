@@ -5,17 +5,41 @@
  */
 package core;
 
-import java.awt.*;
-import java.awt.datatransfer.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.ParseException;
+import java.util.ArrayList;
 
-import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.TransferHandler;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.text.MaskFormatter;
+
+import org.apache.log4j.Logger;
 
 /**
  * Abstract class for unified handling of Library and Scene frames.
@@ -24,6 +48,7 @@ import javax.swing.text.MaskFormatter;
  */
 abstract class AbstractLibraryFrame extends Actions.MenuFrame implements
         PatchBasket {
+    private final transient Logger log = Logger.getLogger(getClass());
     protected JTable table;
     protected PatchTableModel myModel;
 
@@ -124,8 +149,8 @@ abstract class AbstractLibraryFrame extends Actions.MenuFrame implements
                         MaskFormatter Mask = new MaskFormatter();
                         try {
                             Mask.setMask(maskStr);
-                        } catch (Exception ex) {
-                            ErrorMsg.reportStatus(ex);
+                        } catch (ParseException ex) {
+                            log.info(ex.getMessage(), ex);
                         }
                         JFormattedTextField patchName =
                                 new JFormattedTextField(Mask);
@@ -189,8 +214,8 @@ abstract class AbstractLibraryFrame extends Actions.MenuFrame implements
                             try {
                                 jList[j].setSelected(true);
                                 jList[j].setClosed(true);
-                            } catch (Exception e1) {
-                                ErrorMsg.reportStatus(e1);
+                            } catch (PropertyVetoException e1) {
+                                log.info(e1.getMessage(), e1);
                             }
                             break;
                         }
@@ -203,8 +228,8 @@ abstract class AbstractLibraryFrame extends Actions.MenuFrame implements
                             try {
                                 jList[j].setSelected(true);
                                 jList[j].setClosed(true);
-                            } catch (Exception e1) {
-                                ErrorMsg.reportStatus(e1);
+                            } catch (PropertyVetoException e1) {
+                                log.info(e1.getMessage(), e1);
                             }
                             break;
                         }
@@ -295,13 +320,13 @@ abstract class AbstractLibraryFrame extends Actions.MenuFrame implements
     }
 
     public void deleteSelectedPatch() {
-        ErrorMsg.reportStatus("delete patch : " + table.getSelectedRowCount());
+        log.info("delete patch : " + table.getSelectedRowCount());
         int[] ia = table.getSelectedRows();
         // Without this we cannot delete the patch at the bottom.
         table.clearSelection();
         // delete from bottom not to change indices to be removed
         for (int i = ia.length; i > 0; i--) {
-            ErrorMsg.reportStatus("i = " + ia[i - 1]);
+            log.info("i = " + ia[i - 1]);
             myModel.removeAt(ia[i - 1]);
         }
         changed();

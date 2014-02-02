@@ -138,7 +138,7 @@ public class EnsoniqVFXSingleDriver extends Driver {
      */
     public void sendPatch(Patch p) {
         sendPatchWorker(p);
-        ErrorMsg.reportWarning(
+        ErrorMsg.reportError(
                 "Ensoniq VFX!",
                 "The patch has been placed in the edit buffer\nYou must now hold the 'write' button on the VFX's\nand choose a location to store the patch.");
     }

@@ -6,6 +6,8 @@ import core.*;
 
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 /**
  * @version $Id: VirusProgBankDriver.java 939 2005-03-03 04:05:40Z hayashi $
  * @author Kenneth L. Martinez
@@ -14,6 +16,8 @@ public class VirusProgBankDriver extends BankDriver {
     static final int BANK_NUM_OFFSET = 7;
     static final int PATCH_NUM_OFFSET = 8;
     static final int NUM_IN_BANK = 128;
+    
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public VirusProgBankDriver() {
         super("Prog Bank", "Kenneth L. Martinez",
@@ -124,7 +128,7 @@ public class VirusProgBankDriver extends BankDriver {
             }
             PatchEdit.hideWaitDialog();
         } catch (Exception e) {
-            ErrorMsg.reportStatus(e);
+            log.warn(e.getMessage(), e);
             ErrorMsg.reportError("Error", "Unable to send Patch");
         }
     }

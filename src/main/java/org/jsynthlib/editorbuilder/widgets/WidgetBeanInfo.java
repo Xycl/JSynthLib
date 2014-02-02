@@ -4,10 +4,15 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.beans.SimpleBeanInfo;
 
+import org.apache.log4j.Logger;
+
 public class WidgetBeanInfo extends SimpleBeanInfo {
-    private static final PropertyDescriptor props[];
+
+    private static final Logger LOG = Logger.getLogger(WidgetBeanInfo.class);
+
+    private static final PropertyDescriptor[] props;
     static {
-        PropertyDescriptor p[] = null;
+        PropertyDescriptor[] p = null;
         try {
             p = new PropertyDescriptor[] {
                 new PropertyDescriptor("id", Widget.class),
@@ -15,7 +20,7 @@ public class WidgetBeanInfo extends SimpleBeanInfo {
                     };
         } catch (IntrospectionException e) {
             p = new PropertyDescriptor[0];
-            System.out.println("Debug Me!");
+            LOG.info("Debug Me!", e);
         }
         props = p;
     }

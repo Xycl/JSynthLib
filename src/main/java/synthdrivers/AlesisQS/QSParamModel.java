@@ -1,5 +1,7 @@
 package synthdrivers.AlesisQS;
 
+import org.apache.log4j.Logger;
+
 import core.Patch;
 import core.SysexWidget;
 
@@ -11,6 +13,9 @@ import core.SysexWidget;
  */
 
 public class QSParamModel implements SysexWidget.IParamModel {
+
+    private final transient Logger log = Logger.getLogger(getClass());
+
     private int msBit;
     private int bitSize;
     private boolean signed;
@@ -109,16 +114,15 @@ public class QSParamModel implements SysexWidget.IParamModel {
     public int get() {
         // Function header is followed by one normal byte, which is either
         // 0 (for global dump), or the program #, effect #, etc.
-        // System.out.println("msBit=" + this.msBit +
-        // ", bitSize=" + this.bitSize +
-        // ", signed=" + this.signed);
+        log.debug("msBit=" + this.msBit + ", bitSize=" + this.bitSize
+                + ", signed=" + this.signed);
         int retVal =
                 offset
                         + SysexRoutines.getBits(this.patch.sysex,
                                 QSConstants.HEADER, this.msBit, this.bitSize,
                                 false);
 
-        // System.out.println("Returning: " + retVal);
+        log.debug("Returning: " + retVal);
         return retVal;
     }
 

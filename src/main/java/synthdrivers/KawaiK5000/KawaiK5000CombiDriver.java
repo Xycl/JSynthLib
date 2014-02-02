@@ -7,8 +7,9 @@
 
 package synthdrivers.KawaiK5000;
 
+import org.apache.log4j.Logger;
+
 import core.Driver;
-import core.ErrorMsg;
 import core.Patch;
 import core.SysexHandler;
 
@@ -44,6 +45,8 @@ public class KawaiK5000CombiDriver extends Driver {
     final static SysexHandler SYSEX_REQUEST_DUMP = new SysexHandler(
             "F0 40 @@ 00 00 0A 20 00 *patchNum* F7");
 
+    private final transient Logger log = Logger.getLogger(getClass());
+
     // ----------------------------------------------------------------------------------------------------------------------
     // Constructor: KawaiK5000CombiDriver()
     // ----------------------------------------------------------------------------------------------------------------------
@@ -72,8 +75,8 @@ public class KawaiK5000CombiDriver extends Driver {
     // ----------------------------------------------------------------------------------------------------------------------
 
     public void storePatch(Patch p, int bankNum, int patchNum) {
-        ErrorMsg.reportStatus("KawaiK5000CombiDriver->storePatch: " + bankNum
-                + " | " + patchNum);
+        log.info("KawaiK5000CombiDriver->storePatch: " + bankNum + " | "
+                + patchNum);
         setBankNum(bankNum);
         setPatchNum(patchNum);
         try {
@@ -119,7 +122,7 @@ public class KawaiK5000CombiDriver extends Driver {
     // ----------------------------------------------------------------------------------------------------------------------
 
     protected void calculateChecksum(Patch p, int start, int end, int ofs) {
-        // ErrorMsg.reportStatus("KawaiK5000CombiDriver->calculateChecksum");
+        log.debug("KawaiK5000CombiDriver->calculateChecksum");
         int sum = 0;
         for (int i = start; i <= end; i++)
             sum += p.sysex[i];
@@ -132,7 +135,7 @@ public class KawaiK5000CombiDriver extends Driver {
     // ----------------------------------------------------------------------------------------------------------------------
 
     public Patch createNewPatch() {
-        // ErrorMsg.reportStatus("KawaiK5000CombiDriver->createNewPatch");
+        log.debug("KawaiK5000CombiDriver->createNewPatch");
         Patch p =
                 createPatchFromData(new byte[PATCH_DATA_SIZE], 0,
                         PATCH_DATA_SIZE);

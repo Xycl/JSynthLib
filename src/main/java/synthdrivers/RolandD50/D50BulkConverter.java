@@ -23,10 +23,14 @@ package synthdrivers.RolandD50;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.log4j.Logger;
+
 import core.Converter;
 import core.Patch;
 
 public class D50BulkConverter extends Converter {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public D50BulkConverter() {
         super("Bulk Dump Converter", "Pascal Collberg");
@@ -45,7 +49,7 @@ public class D50BulkConverter extends Converter {
                 pos += D50Constants.SYSEX_HEADER.length;
                 for (int i = 0; i < D50Constants.PARTIALS_PER_MESSAGE; i++) {
                     if (partialCounter == 0) {
-                        System.out.println("New patch");
+                        log.debug("New patch");
                         // New patch in message -> Add new byte array
                         byte[] buf =
                                 new byte[D50Constants.SYSEX_HEADER.length

@@ -1,16 +1,21 @@
 package core;
 
 import java.util.Vector;
+
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author Emenaker - 2003.03.20 This class is for running tests on the MIDI
  *         subsystem
  */
 public class MidiTest implements Runnable {
+
+    private static final transient Logger LOG = Logger.getLogger(MidiTest.class);
 
     /** Max data size of system exclusive message test. */
     private static final int MAX_SYSEX_SIZE = 500;
@@ -27,7 +32,7 @@ public class MidiTest implements Runnable {
      *            The number of the port for sending
      */
     static boolean runLoopbackTest(int inport, int outport) {
-        ErrorMsg.reportWarning(
+        ErrorMsg.reportError(
                 "Before we start",
                 "This process is designed to test the communication of\n"
                         + "your MIDI ports. Please connect a MIDI cable from the\n"
@@ -61,7 +66,7 @@ public class MidiTest implements Runnable {
             }
 
             // If we get this far, then things must have gone okay....
-            ErrorMsg.reportWarning(
+            ErrorMsg.reportError(
                     "Congratulations!",
                     "The test appears to have completed successfully.\n"
                             + "Don't forget to hook your MIDI cables back up to your devices.");
@@ -240,8 +245,7 @@ public class MidiTest implements Runnable {
     public static boolean areEqual(MidiMessage msg1, MidiMessage msg2) {
         int msg1size = msg1.getLength();
         int msg2size = msg2.getLength();
-        ErrorMsg.reportStatus(msg1 + ", " + msg1size + ": " + msg2 + ", "
-                + msg2size);
+        LOG.info(msg1 + ", " + msg1size + ": " + msg2 + ", " + msg2size);
         if (msg1size != msg2size)
             return false;
 
