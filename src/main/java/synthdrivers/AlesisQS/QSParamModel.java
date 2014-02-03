@@ -1,9 +1,9 @@
 package synthdrivers.AlesisQS;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.widgets.SysexWidget;
 
 import core.Patch;
-import core.SysexWidget;
 
 /**
  * Param model AlesisQS keyboards. Allows changing of specific ranges of bits in

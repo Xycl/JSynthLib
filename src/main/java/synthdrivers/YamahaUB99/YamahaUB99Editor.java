@@ -39,17 +39,17 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
 
 import synthdrivers.YamahaUB99.format.DoubleFormat;
 import synthdrivers.YamahaUB99.format.IFormat;
 import synthdrivers.YamahaUB99.format.IntFormat;
 import synthdrivers.YamahaUB99.format.ListFormat;
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.PatchNameWidget;
-import core.SysexWidget;
 
 class YamahaUB99Editor extends PatchEditorFrame {
 

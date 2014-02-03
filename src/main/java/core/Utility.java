@@ -4,6 +4,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Window;
+import java.util.Iterator;
+
+import org.jsynthlib.gui.BankEditorFrame;
+import org.jsynthlib.gui.LibraryFrame;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.desktop.JSLDesktop;
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 /**
  * This class provides various utility methods.
@@ -345,18 +352,28 @@ public class Utility {
      * method of each frame.
      */
     public static void revalidateLibraries() {
-        JSLFrame[] jList = PatchEdit.getDesktop().getAllFrames();
-        if (jList.length > 0) {
+        JSLDesktop desktop = JSLDesktop.Factory.getDesktop();
+        Iterator<JSLFrame> iterator = desktop.getJSLFrameIterator();
+        boolean first = true;
+        while (iterator.hasNext()) {
+            // Before first iteration
+            if (first) {
             PatchEdit.showWaitDialog();
-            for (int i = 0; i < jList.length; i++) {
-                if (jList[i] instanceof LibraryFrame)
-                    ((LibraryFrame) (jList[i])).revalidateDrivers();
-                else if (jList[i] instanceof BankEditorFrame)
-                    ((BankEditorFrame) (jList[i])).revalidateDriver();
-                else if (jList[i] instanceof PatchEditorFrame)
-                    ((PatchEditorFrame) (jList[i])).revalidateDriver();
             }
+
+            JSLFrame jslFrame = iterator.next();
+            if (jslFrame instanceof LibraryFrame) {
+                ((LibraryFrame) (jslFrame)).revalidateDrivers();
+            } else if (jslFrame instanceof BankEditorFrame) {
+                ((BankEditorFrame) (jslFrame)).revalidateDriver();
+            } else if (jslFrame instanceof PatchEditorFrame) {
+                ((PatchEditorFrame) (jslFrame)).revalidateDriver();
+            }
+
+            // After last iteration
+            if (!iterator.hasNext()) {
             PatchEdit.hideWaitDialog();
+            }
         }
     }
 }

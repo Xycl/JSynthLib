@@ -29,12 +29,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import core.ComboBoxWidget;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import core.Patch;
-import core.PatchEditorFrame;
-import core.ScrollBarWidget;
 import core.SysexSender;
-import core.SysexWidget;
 
 /**
  * Created on den 4 januari 2003, 23:01

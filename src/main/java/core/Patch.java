@@ -2,11 +2,13 @@ package core;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
+
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 /**
  * A class for MIDI System Exclusive Message patch data.

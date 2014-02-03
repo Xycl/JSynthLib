@@ -21,9 +21,10 @@
 
 package synthdrivers.YamahaTG100;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
 import core.DriverUtil;
-import core.JSLFrame;
 import core.Patch;
 
 /**

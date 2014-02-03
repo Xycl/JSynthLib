@@ -27,8 +27,7 @@ import org.fest.swing.fixture.DialogFixture;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JTabbedPaneFixture;
 import org.fest.swing.fixture.JTableFixture;
-
-import core.SynthConfigPanel;
+import org.jsynthlib.gui.preferences.SynthConfigPanel;
 
 public class IsDeviceInstalledAction extends AbstractGuiAction {
 

@@ -21,9 +21,9 @@
 
 package synthdrivers.YamahaCS2x;
 
-import core.*;
+import org.jsynthlib.gui.desktop.JSLFrame;
 
-import core.JSLFrame;
+import core.*;
 
 /**
  * For a single layer from the current performance

@@ -27,7 +27,10 @@
 package synthdrivers.MIDIboxSID;
 
 import core.*;
+
 import javax.swing.JOptionPane;
+
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 public class MIDIboxSIDSingleDriver extends Driver {
 

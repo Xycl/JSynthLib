@@ -4,6 +4,7 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.widgets.SysexWidget;
 
 /**
  * An implementation of SysexWidget.ISender.

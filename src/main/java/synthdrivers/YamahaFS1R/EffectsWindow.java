@@ -11,9 +11,10 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import core.ComboBoxWidget;
-import core.KnobLookupWidget;
-import core.KnobWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.KnobLookupWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
+
 import core.ParamModel;
 import core.Patch;
 

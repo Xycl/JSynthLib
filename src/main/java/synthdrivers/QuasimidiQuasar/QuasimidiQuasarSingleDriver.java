@@ -25,9 +25,10 @@ import java.io.UnsupportedEncodingException;
 
 import javax.swing.JOptionPane;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
 import core.ErrorMsg;
-import core.JSLFrame;
 import core.Patch;
 import core.PatchEdit;
 import core.SysexHandler;

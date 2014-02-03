@@ -1,9 +1,7 @@
 package synthdrivers.RolandSPD11;
 
-import core.Driver;
-import core.Patch;
-import core.SysexHandler;
-import core.JSLFrame;
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.*;
 
 /**

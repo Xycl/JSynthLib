@@ -2,13 +2,16 @@ package core;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
+
+import org.jsynthlib.gui.desktop.JSLDesktop;
 
 public class MidiMonitor extends JDialog {
     private final MyEditorPane jt;
 
     public MidiMonitor() {
-        super(PatchEdit.getRootFrame(), "JSynthLib Midi Monitor", false);
+        super(JSLDesktop.Factory.getRootFrame(), "JSynthLib Midi Monitor", false);
         JPanel container = new JPanel();
         container.setLayout(new BorderLayout());
         jt = new MyEditorPane();
@@ -82,7 +85,7 @@ public class MidiMonitor extends JDialog {
         }
     }
 
-    void log(String s) {
+    public void log(String s) {
         // move the selection at the end of text
         jt.select(Integer.MAX_VALUE, Integer.MAX_VALUE);
         jt.setEditable(true);

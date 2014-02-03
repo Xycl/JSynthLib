@@ -31,17 +31,17 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 
-import synthdrivers.EmuProteus2.EmuProteus2Sender.Factory;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.EnvelopeWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
 
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
-import core.EnvelopeWidget;
+import synthdrivers.EmuProteus2.EmuProteus2Sender.Factory;
 import core.ParamModel;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.PatchNameWidget;
-import core.ScrollBarWidget;
-import core.SysexWidget;
 
 public class EmuProteus2SingleEditor extends PatchEditorFrame {
 

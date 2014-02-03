@@ -8,13 +8,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
-import core.EnvelopeWidget;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.EnvelopeWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+
 import core.ParamModel;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.ScrollBarWidget;
 
 class P600ProgSingleEditor extends PatchEditorFrame {
     public P600ProgSingleEditor(Patch patch) {

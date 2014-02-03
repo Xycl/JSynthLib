@@ -3,6 +3,8 @@ package core;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.SysexMessage;
 
+import org.jsynthlib.gui.SysexGetDialog;
+
 /**
  * Interface for methods for both single drivers and bank drivers.
  * @author ribrdb

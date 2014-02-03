@@ -3,7 +3,8 @@ package synthdrivers.YamahaFS1R;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import core.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+
 import core.Patch;
 import core.ParamModel;
 import core.SysexSender;

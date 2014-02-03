@@ -22,6 +22,7 @@
 package synthdrivers.YamahaUB99;
 
 import core.*;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
@@ -29,6 +30,9 @@ import java.awt.event.ItemListener;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import java.util.Vector;
 
 public class IdComboWidget extends SysexWidget {

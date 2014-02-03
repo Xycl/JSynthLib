@@ -24,8 +24,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.text.NumberFormat;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
-import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
 

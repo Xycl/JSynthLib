@@ -2,11 +2,11 @@ package org.jsynthlib.jsynthlib.xml;
 
 import java.util.LinkedList;
 
+import org.jsynthlib.gui.widgets.SysexWidget;
 import org.jsynthlib.plugins.Decoder;
 import org.jsynthlib.utils.AdvDefaultHandler;
 
 import core.IPatch;
-import core.SysexWidget;
 
 public class XMLParameter implements SysexWidget.IParameter {
     public static final int RANGE = 0;

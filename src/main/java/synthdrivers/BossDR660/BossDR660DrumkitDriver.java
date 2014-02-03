@@ -5,9 +5,10 @@ package synthdrivers.BossDR660;
 
 import java.io.InputStream;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
 import core.ErrorMsg;
-import core.JSLFrame;
 import core.Patch;
 
 public class BossDR660DrumkitDriver extends Driver {

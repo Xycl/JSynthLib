@@ -7,9 +7,18 @@ package synthdrivers.YamahaDX100;
 import core.*;
 
 import javax.swing.*;
+
 import java.awt.*;
+
 import javax.swing.border.*;
 import javax.swing.event.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.EnvelopeWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
 
 class YamahaDX100SingleEditor extends PatchEditorFrame {
     ImageIcon algoIcon[] = new ImageIcon[8];

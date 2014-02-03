@@ -30,8 +30,13 @@ package synthdrivers.RolandMT32;
 import core.*;
 
 import javax.swing.*;
+
 import java.awt.*;
+
 import javax.swing.border.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
 
 class RolandMT32DisplayEditor extends PatchEditorFrame {
 

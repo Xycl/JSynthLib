@@ -30,14 +30,15 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import core.CheckBoxWidget;
-import core.EnvelopeWidget;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.EnvelopeWidget;
+import org.jsynthlib.gui.widgets.ScrollBarLookupWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import core.IPatchDriver;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.ScrollBarLookupWidget;
-import core.ScrollBarWidget;
-import core.SysexWidget;
 
 /**
  * Editor for a patch from a Casio CZ-101/1000. Patch must be 264 bytes long,

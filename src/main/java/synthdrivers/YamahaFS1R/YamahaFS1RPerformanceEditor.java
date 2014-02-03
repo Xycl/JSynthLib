@@ -21,18 +21,18 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.BankEditorFrame;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.desktop.JSLDesktop;
+import org.jsynthlib.gui.desktop.JSLFrameEvent;
+import org.jsynthlib.gui.desktop.JSLFrameListener;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.SpinnerWidget;
 
-import core.BankEditorFrame;
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
-import core.JSLFrameEvent;
-import core.JSLFrameListener;
-import core.KnobWidget;
 import core.Patch;
-import core.PatchEdit;
-import core.PatchEditorFrame;
-import core.PatchNameWidget;
-import core.SpinnerWidget;
 
 /**
  * Editor for performance, ie group of 4 parts, each part holds a voice.
@@ -398,7 +398,7 @@ class YamahaFS1RPerformanceEditor extends PatchEditorFrame {
                         }
                     });
 
-                    PatchEdit.getDesktop().add(oEdit);
+                    JSLDesktop.Factory.getDesktop().add(oEdit);
                     oEdit.setVisible(true);
                     oEdit.moveToFront();
                 }

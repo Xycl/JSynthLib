@@ -7,8 +7,16 @@ import core.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
+
 import java.awt.*;
+
 import javax.swing.border.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
 
 class KawaiK5000ADDSingleEditor extends PatchEditorFrame {
     final String[] noteName = new String[] {

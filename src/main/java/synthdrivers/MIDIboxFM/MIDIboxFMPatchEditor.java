@@ -47,16 +47,16 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.EnvelopeWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
 
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
 import core.Driver;
-import core.EnvelopeWidget;
-import core.KnobWidget;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.PatchNameWidget;
-import core.ScrollBarWidget;
 
 class MIDIboxFMPatchEditor extends PatchEditorFrame {
     final String[] parName = new String[] {

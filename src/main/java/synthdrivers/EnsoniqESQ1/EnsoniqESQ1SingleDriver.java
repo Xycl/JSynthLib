@@ -3,9 +3,10 @@
  */
 package synthdrivers.EnsoniqESQ1;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
 import core.ErrorMsg;
-import core.JSLFrame;
 import core.Patch;
 
 public class EnsoniqESQ1SingleDriver extends Driver {

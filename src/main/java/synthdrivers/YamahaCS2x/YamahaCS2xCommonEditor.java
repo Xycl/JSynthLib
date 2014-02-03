@@ -22,7 +22,17 @@
 package synthdrivers.YamahaCS2x;
 
 import core.*;
+
 import javax.swing.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.ScrollBarLookupWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import java.awt.*;
 
 /**

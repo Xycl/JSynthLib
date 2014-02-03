@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.DeviceDetailsDialog;
 
 /**
  * Device class defines some informations for your synthsizer, such as a name of
@@ -142,7 +143,7 @@ public abstract class Device /* implements Serializable, Storable */{
      * Create a configration panel. Override this if your device supports a
      * configration panel.
      */
-    protected JPanel config() {
+    public JPanel config() {
         JPanel panel = new JPanel();
         panel.add(new JLabel("This Device has no configuration options."));
         return panel;
@@ -204,7 +205,7 @@ public abstract class Device /* implements Serializable, Storable */{
      * @param synthName
      *            New value of property synthName.
      */
-    protected final void setSynthName(String synthName) {
+    public final void setSynthName(String synthName) {
         prefs.put("synthName", synthName);
     }
 
@@ -226,7 +227,7 @@ public abstract class Device /* implements Serializable, Storable */{
      * @param channel
      *            The value must be 1 or greater than 1, and 16 or less than 16.
      */
-    protected final void setChannel(int channel) {
+    public final void setChannel(int channel) {
         prefs.putInt("channel", channel);
     }
 
@@ -253,7 +254,7 @@ public abstract class Device /* implements Serializable, Storable */{
      *            The value must be 1 or greater than 1, and 256 or less than
      *            256.
      */
-    protected final void setDeviceID(int deviceID) {
+    public final void setDeviceID(int deviceID) {
         prefs.putInt("deviceID", deviceID);
     }
 
@@ -278,7 +279,7 @@ public abstract class Device /* implements Serializable, Storable */{
      * @param port
      *            New value of property port.
      */
-    protected final void setPort(int port) {
+    public final void setPort(int port) {
         if (!MidiUtil.isOutputAvailable())
             return;
 
@@ -355,7 +356,7 @@ public abstract class Device /* implements Serializable, Storable */{
      * @param inPort
      *            New value of property inPort.
      */
-    protected final void setInPort(int inPort) {
+    public final void setInPort(int inPort) {
         if (!MidiUtil.isInputAvailable())
             return;
 
@@ -379,12 +380,12 @@ public abstract class Device /* implements Serializable, Storable */{
     }
 
     /** Size query for driverList. */
-    final int driverCount() {
+    public final int driverCount() {
         return this.driverList.size();
     }
 
     /** Indexed getter for driverList elements. */
-    protected final IDriver getDriver(int i) {
+    public final IDriver getDriver(int i) {
         return (IDriver) this.driverList.get(i);
     }
 
@@ -399,7 +400,7 @@ public abstract class Device /* implements Serializable, Storable */{
     }
 
     /** getter for device number. */
-    final int getDeviceNum() {
+    public final int getDeviceNum() {
         return AppConfig.getDeviceIndex(this);
     }
 

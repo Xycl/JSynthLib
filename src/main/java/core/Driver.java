@@ -1,6 +1,7 @@
 package core;
 
 import java.io.UnsupportedEncodingException;
+
 import javax.swing.JOptionPane;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
@@ -8,6 +9,7 @@ import javax.sound.midi.SysexMessage;
 import javax.sound.midi.InvalidMidiDataException;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 /**
  * This is an implementation of ISingleDriver and the base class for single

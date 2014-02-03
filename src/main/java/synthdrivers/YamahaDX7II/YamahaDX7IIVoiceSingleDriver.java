@@ -23,9 +23,10 @@
  */
 package synthdrivers.YamahaDX7II;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import synthdrivers.YamahaDX7.common.DX7FamilyDevice;
 import synthdrivers.YamahaDX7.common.DX7FamilyVoiceSingleDriver;
-import core.JSLFrame;
 import core.Patch;
 
 public class YamahaDX7IIVoiceSingleDriver extends DX7FamilyVoiceSingleDriver {

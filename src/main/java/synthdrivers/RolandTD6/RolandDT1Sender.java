@@ -29,9 +29,9 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.widgets.SysexWidget;
 
 import core.IPatchDriver;
-import core.SysexWidget;
 import core.Utility;
 
 /**

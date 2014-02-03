@@ -27,9 +27,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 import core.Driver;
-import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
 import core.Utility;

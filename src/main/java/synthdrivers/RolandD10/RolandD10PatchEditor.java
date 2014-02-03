@@ -28,10 +28,11 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-import core.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+
 import core.Patch;
-import core.PatchNameWidget;
-import core.ScrollBarWidget;
 
 public class RolandD10PatchEditor extends RolandD10EditorFrame {
 

@@ -3,9 +3,10 @@
  */
 package synthdrivers.YamahaDX100;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
 import core.ErrorMsg;
-import core.JSLFrame;
 import core.Patch;
 
 public class YamahaDX100SingleDriver extends Driver {

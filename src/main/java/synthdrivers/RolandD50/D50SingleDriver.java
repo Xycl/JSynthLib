@@ -32,10 +32,11 @@ import javax.sound.midi.Receiver;
 import javax.sound.midi.SysexMessage;
 import javax.swing.JOptionPane;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
 import core.DriverUtil;
 import core.ErrorMsg;
-import core.JSLFrame;
 import core.MidiUtil;
 import core.Patch;
 import core.PatchEdit;

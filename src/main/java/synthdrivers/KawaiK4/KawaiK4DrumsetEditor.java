@@ -13,13 +13,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import core.ComboBoxWidget;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import core.ParamModel;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.ScrollBarWidget;
 import core.SysexSender;
-import core.SysexWidget;
 
 class KawaiK4DrumsetEditor extends PatchEditorFrame {
     static final String[] NOTE_NAME = new String[] {

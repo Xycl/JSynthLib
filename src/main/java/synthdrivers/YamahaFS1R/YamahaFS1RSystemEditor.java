@@ -4,11 +4,12 @@ import javax.swing.Box;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import core.ComboBoxWidget;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.SpinnerWidget;
+
 import core.ParamModel;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.SpinnerWidget;
 import core.SysexSender;
 
 /**

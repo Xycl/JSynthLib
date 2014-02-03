@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 import javax.sound.midi.SysexMessage;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 /**
  * Common interface for a Single Patch and a Bank Patch.
  * @version $Id: IPatch.java 748 2004-10-09 04:57:00Z hayashi $

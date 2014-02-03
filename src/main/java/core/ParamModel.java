@@ -1,5 +1,7 @@
 package core;
 
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 /**
  * An implementation of IParamModel for Patch class.
  * @see SysexWidget.IParamModel

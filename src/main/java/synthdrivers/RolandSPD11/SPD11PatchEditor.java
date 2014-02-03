@@ -3,6 +3,10 @@ package synthdrivers.RolandSPD11;
 import core.*;
 
 import javax.swing.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+
 import java.awt.*;
 
 class RolandSPD11PatchEditor extends PatchEditorFrame {

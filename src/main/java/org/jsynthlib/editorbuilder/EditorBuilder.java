@@ -21,8 +21,7 @@ import org.apache.log4j.Logger;
 import org.jsynthlib.editorbuilder.widgets.ContainerWidget;
 import org.jsynthlib.editorbuilder.widgets.Strut;
 import org.jsynthlib.editorbuilder.widgets.Widget;
-
-import core.CompatibleFileDialog;
+import org.jsynthlib.gui.CompatibleFileDialog;
 
 public class EditorBuilder {
 

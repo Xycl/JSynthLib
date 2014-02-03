@@ -75,7 +75,7 @@ public class QuasimidiQuasarDevice extends Device {
      * Create a configration panel. Override this if your device supports a
      * configration panel.
      */
-    protected JPanel config() {
+    public JPanel config() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         firstCardSlot = new JComboBox(QuasarConstants.CARDS);

@@ -8,6 +8,7 @@ import org.fest.swing.data.TableCell;
 import org.fest.swing.data.TableCell.TableCellBuilder;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JTableFixture;
+import org.jsynthlib.gui.widgets.AbstractPatchHandler;
 import org.jsynthlib.patch.LoadedBank;
 import org.jsynthlib.patch.LoadedParam;
 import org.jsynthlib.patch.PatchFile;

@@ -4,10 +4,11 @@
 package synthdrivers.NovationXioSynth;
 
 import core.Driver;
-import core.JSLFrame;
 import core.Patch;
 
 import java.io.*;
+
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 public class NovationXioSynthSingleDriver extends Driver {
     public NovationXioSynthSingleDriver() {

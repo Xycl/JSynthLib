@@ -21,6 +21,8 @@
 
 package synthdrivers.Line6Pod20;
 
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import core.*;
 
 /**

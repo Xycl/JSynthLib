@@ -4,9 +4,11 @@ import core.*;
 
 import java.io.*;
 import java.text.*;
+
 import javax.swing.*;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 /**
  * Bank driver for Yamaha FS1R Il n'y a pas de format SYSEX de banque donc ? On

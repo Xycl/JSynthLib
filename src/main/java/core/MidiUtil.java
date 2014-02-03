@@ -43,6 +43,7 @@ import javax.sound.midi.SysexMessage;
 import javax.sound.midi.Transmitter;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.Actions;
 
 /**
  * MIDI Utility Routines. This class contains methods and inner classes for Java
@@ -262,23 +263,23 @@ public final class MidiUtil {
      * @see #clearSysexInputQueue
      * @see #getMessage
      */
-    static MidiDevice.Info[] getInputMidiDeviceInfo() {
+    public static MidiDevice.Info[] getInputMidiDeviceInfo() {
         return inputMidiDeviceInfo;
     }
 
-    static String[] getOutputNames() { // wirski@op.pl
+    public static String[] getOutputNames() { // wirski@op.pl
         return outputNames;
     }
 
-    static String getOutputName(int port) { // wirski@op.pl
+    public static String getOutputName(int port) { // wirski@op.pl
         return outputNames[port];
     }
 
-    static String[] getInputNames() { // wirski@op.pl
+    public static String[] getInputNames() { // wirski@op.pl
         return inputNames;
     }
 
-    static String getInputName(int port) { // wirski@op.pl
+    public static String getInputName(int port) { // wirski@op.pl
         return inputNames[port];
     }
 
@@ -303,7 +304,7 @@ public final class MidiUtil {
     }
 
     /** for SynthTabelModel (will be obsoleted). */
-    static int getOutPort(String info) {
+    public static int getOutPort(String info) {
         for (int i = 0; i < outputMidiDeviceInfo.length; i++) {
             if (outputNames[i] == info) // wirski@op.pl
                 return i;
@@ -312,7 +313,7 @@ public final class MidiUtil {
     }
 
     /** for SynthTabelModel (will be obsoleted). */
-    static int getInPort(String info) {
+    public static int getInPort(String info) {
         for (int i = 0; i < inputMidiDeviceInfo.length; i++) {
             if (inputNames[i] == info) // wirski@op.pl
                 return i;
@@ -407,7 +408,7 @@ public final class MidiUtil {
      * @see #clearSysexInputQueue
      * @see #getMessage
      */
-    static Transmitter getTransmitter(int port) {
+    public static Transmitter getTransmitter(int port) {
         if (inputMidiDeviceInfo.length == 0)
             return null;
 
@@ -446,7 +447,7 @@ public final class MidiUtil {
      * @see #getInputMidiDeviceInfo()
      * @see #setSysexInputQueue
      */
-    static void clearSysexInputQueue(int port) {
+    public static void clearSysexInputQueue(int port) {
         setSysexInputQueue(port);
         sysexInputQueue[port].clearQueue();
     }
@@ -456,7 +457,7 @@ public final class MidiUtil {
      * @see #getInputMidiDeviceInfo()
      * @see #clearSysexInputQueue
      */
-    static boolean isSysexInputQueueEmpty(int port) {
+    public static boolean isSysexInputQueueEmpty(int port) {
         return sysexInputQueue[port].isEmpty();
     }
 
@@ -465,7 +466,7 @@ public final class MidiUtil {
      * @see #getInputMidiDeviceInfo()
      * @see #clearSysexInputQueue
      */
-    static MidiMessage getMessage(int port, long timeout)
+    public static MidiMessage getMessage(int port, long timeout)
             throws MidiUtil.TimeoutException, InvalidMidiDataException {
         return sysexInputQueue[port].getMessage(timeout);
     }

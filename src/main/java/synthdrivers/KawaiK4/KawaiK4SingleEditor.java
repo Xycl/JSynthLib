@@ -7,8 +7,17 @@ package synthdrivers.KawaiK4;
 import core.*;
 
 import javax.swing.*;
+
 import java.awt.*;
+
 import javax.swing.border.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.EnvelopeWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
 
 class KawaiK4SingleEditor extends PatchEditorFrame {
     private final String[] noteName = new String[] {

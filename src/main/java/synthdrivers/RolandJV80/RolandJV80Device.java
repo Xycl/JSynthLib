@@ -172,7 +172,7 @@ public class RolandJV80Device extends Device {
         return systemSetupDriver;
     }
 
-    protected JPanel config() {
+    public JPanel config() {
         JPanel pane1 = new JPanel(new GridBagLayout());
 
         JLabel lmodel = new JLabel("JV Model");

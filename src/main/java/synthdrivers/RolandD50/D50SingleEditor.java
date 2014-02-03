@@ -35,20 +35,20 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.EnvelopeWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+
 import synthdrivers.RolandD10.D10Constants;
 import synthdrivers.RolandD10.D10ParamModel;
 import synthdrivers.RolandD10.EditSender;
 import synthdrivers.RolandD50.D50Sender.Factory;
-
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
 import core.DriverUtil;
-import core.EnvelopeWidget;
 import core.ParamModel;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.PatchNameWidget;
-import core.ScrollBarWidget;
 import core.SysexSender;
 
 public class D50SingleEditor extends PatchEditorFrame {

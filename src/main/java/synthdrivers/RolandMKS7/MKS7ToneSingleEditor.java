@@ -29,12 +29,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import core.ComboBoxWidget;
-import core.EnvelopeWidget;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.EnvelopeWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+
 import core.ParamModel;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.ScrollBarWidget;
 import core.SysexSender;
 
 class MKS7ToneSingleEditor extends PatchEditorFrame {

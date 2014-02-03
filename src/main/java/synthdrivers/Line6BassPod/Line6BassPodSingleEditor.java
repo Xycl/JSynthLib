@@ -22,9 +22,18 @@
 package synthdrivers.Line6BassPod;
 
 import core.*;
+
 import javax.swing.*;
+
 import java.awt.*;
+
 import javax.swing.border.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
 
 /**
  * Line6 Program Patch Editor

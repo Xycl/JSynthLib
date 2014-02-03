@@ -15,10 +15,11 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.SpinnerWidget;
+
 import core.Patch;
-import core.SpinnerWidget;
 
 /**
  * Matrice de modulation.

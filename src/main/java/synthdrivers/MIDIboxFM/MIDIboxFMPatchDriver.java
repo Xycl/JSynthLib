@@ -24,6 +24,8 @@
 
 package synthdrivers.MIDIboxFM;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.*;
 
 public class MIDIboxFMPatchDriver extends MIDIboxFMSingleDriver {

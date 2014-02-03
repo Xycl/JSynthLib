@@ -6,8 +6,17 @@
 package synthdrivers.RolandSPD11;
 
 import core.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.KnobLookupWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+
 import java.awt.*;
 import java.awt.event.*;
 

@@ -22,9 +22,13 @@
 package synthdrivers.BehringerVAmp2;
 
 import core.*;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+
 import java.awt.event.*;
 
 /**

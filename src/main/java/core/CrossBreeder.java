@@ -6,6 +6,7 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.CrossBreedDialog;
 
 /*
  * Generates a patch with random combinations of the patches for a
@@ -21,7 +22,7 @@ import org.apache.log4j.Logger;
  * @version $Id: CrossBreeder.java 913 2005-02-12 16:01:31Z hayashi $
  * @see CrossBreedDialog
  */
-class CrossBreeder {
+public class CrossBreeder {
     private final transient Logger log = Logger.getLogger(getClass());
     /** The patch we are working on. */
     private IPatch patch;
@@ -30,7 +31,7 @@ class CrossBreeder {
     /** The number of patches in the patch library */
     private int libSize;
 
-    void generateNewPatch(PatchBasket library) {
+    public void generateNewPatch(PatchBasket library) {
         lib = library.getPatchCollection();
         libSize = lib.size();
 
@@ -59,7 +60,7 @@ class CrossBreeder {
         log.info("done : " + patch);
     }
 
-    IPatch getCurrentPatch() {
+    public IPatch getCurrentPatch() {
         return patch;
     }
 

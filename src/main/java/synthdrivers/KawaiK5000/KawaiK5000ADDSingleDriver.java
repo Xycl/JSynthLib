@@ -5,9 +5,10 @@ package synthdrivers.KawaiK5000;
 
 import java.io.InputStream;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
 import core.ErrorMsg;
-import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
 

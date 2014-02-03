@@ -4,10 +4,11 @@ import java.awt.Dimension;
 
 import javax.swing.JTable;
 
-import core.BankEditorFrame;
-import core.JSLFrame;
+import org.jsynthlib.gui.BankEditorFrame;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Patch;
-import core.PatchEditorFrame;
 
 /**
  * Specific bank editor for YamahaFS1R. This bank holds 128 voices + 128

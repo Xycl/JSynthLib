@@ -23,8 +23,9 @@
  */
 package synthdrivers.YamahaTX802;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import synthdrivers.YamahaDX7.common.DX7FamilyPerformanceIIISingleDriver;
-import core.JSLFrame;
 import core.Patch;
 
 public class YamahaTX802PerformanceSingleDriver extends

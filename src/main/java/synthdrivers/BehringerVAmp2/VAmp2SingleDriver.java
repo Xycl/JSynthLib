@@ -22,8 +22,11 @@
 package synthdrivers.BehringerVAmp2;
 
 import core.*;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 /**
  * Behringer VAmp2 Single Driver.

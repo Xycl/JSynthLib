@@ -29,7 +29,8 @@ import java.util.prefs.Preferences;
 
 import javax.swing.JPanel;
 
-import core.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+
 import core.Device;
 
 /**

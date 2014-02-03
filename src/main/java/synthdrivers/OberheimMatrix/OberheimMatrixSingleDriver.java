@@ -3,8 +3,9 @@
  */
 package synthdrivers.OberheimMatrix;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
-import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
 

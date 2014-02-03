@@ -22,7 +22,11 @@
 package synthdrivers.AlesisDM5;
 
 import core.*;
+
 import javax.swing.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
 
 /**
  * Alesis DM5 Program Change Table Editor

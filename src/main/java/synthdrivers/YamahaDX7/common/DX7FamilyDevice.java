@@ -69,7 +69,7 @@ public class DX7FamilyDevice extends Device {
         this.prefs = prefs;
     }
 
-    protected JPanel config() {
+    public JPanel config() {
         JPanel panel = new JPanel();
         GridBagLayout gridbag = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();

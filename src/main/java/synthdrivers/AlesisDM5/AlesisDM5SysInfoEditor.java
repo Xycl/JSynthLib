@@ -22,9 +22,16 @@
 package synthdrivers.AlesisDM5;
 
 import core.*;
+
 import javax.swing.*;
+
 import java.awt.*;
+
 import javax.swing.border.*;
+
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
 
 /**
  * Alesis DM5 System Info Editor. Edits the system info patch which contains

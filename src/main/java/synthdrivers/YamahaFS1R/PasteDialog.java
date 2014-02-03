@@ -2,11 +2,14 @@ package synthdrivers.YamahaFS1R;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
+
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import java.util.*;
 
 import core.Patch;
-import core.SysexWidget;
 
 /**
  * Dialog to choose sources and destinations for operator paste.

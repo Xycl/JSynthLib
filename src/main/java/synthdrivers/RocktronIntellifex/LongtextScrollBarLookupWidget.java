@@ -4,8 +4,9 @@ import java.awt.Dimension;
 
 import javax.swing.JTextField;
 
+import org.jsynthlib.gui.widgets.ScrollBarLookupWidget;
+
 import core.IPatch;
-import core.ScrollBarLookupWidget;
 
 /**
  * Enhanced ScrollBarLookupWidget with right-aligned/size-able value.

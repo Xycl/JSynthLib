@@ -33,6 +33,7 @@ import javax.swing.ProgressMonitor;
 import javax.swing.table.AbstractTableModel;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.ScanUnkownReportDialog;
 
 /**
  * Detect MIDI devices by sending out Inquery ID Sysex Message to every MIDI

@@ -22,16 +22,16 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.EnvelopeWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
 
-import core.ComboBoxWidget;
-import core.EnvelopeWidget;
 import core.ParamModel;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.PatchNameWidget;
-import core.ScrollBarWidget;
 import core.SysexSender;
-import core.SysexWidget;
 
 public class YamahaMotifNormalVoiceEditor extends PatchEditorFrame {
 

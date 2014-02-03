@@ -1,13 +1,12 @@
 package org.jsynthlib.editorbuilder.widgets;
 
 import org.jsynthlib.editorbuilder.Parameter;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.KnobLookupWidget;
+import org.jsynthlib.gui.widgets.ScrollBarLookupWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
 import org.jsynthlib.utils.XMLWriter;
 import org.xml.sax.SAXException;
-
-import core.ComboBoxWidget;
-import core.KnobLookupWidget;
-import core.ScrollBarLookupWidget;
-import core.SysexWidget;
 
 public class LookupParameterWidget extends ParameterWidget {
     protected static final String[] types = new String[] {

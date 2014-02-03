@@ -81,9 +81,8 @@ import org.fest.swing.fixture.JToggleButtonFixture;
 import org.fest.swing.fixture.JToolBarFixture;
 import org.fest.swing.fixture.JTreeFixture;
 import org.fest.swing.timing.Timeout;
-
-import core.JSLFrame.JSLIFrame;
-import core.JSLFrame.JSLJFrame;
+import org.jsynthlib.gui.desktop.mdi.MDIFrameProxy;
+import org.jsynthlib.gui.desktop.sdi.SDIFrameProxy;
 
 public class TitleFinder {
 
@@ -103,14 +102,14 @@ public class TitleFinder {
     }
 
     void findTitlesRecursive(Container component) {
-        if (component instanceof JSLIFrame) {
-            JSLIFrame frame = (JSLIFrame) component;
+        if (component instanceof MDIFrameProxy) {
+            MDIFrameProxy frame = (MDIFrameProxy) component;
             JInternalFrameFixture internalFrameFixture =
                     new JInternalFrameFixture(frameFixture.robot, frame);
             FrameWrapper wrapper = new FrameWrapper(internalFrameFixture);
             map.add(wrapper);
-        } else if (component instanceof JSLJFrame) {
-            JSLJFrame frame = (JSLJFrame) component;
+        } else if (component instanceof SDIFrameProxy) {
+            SDIFrameProxy frame = (SDIFrameProxy) component;
             FrameWrapper wrapper =
                     new FrameWrapper(
                             new FrameFixture(frameFixture.robot, frame));

@@ -24,10 +24,11 @@ import java.io.UnsupportedEncodingException;
 
 import javax.swing.JOptionPane;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import synthdrivers.RolandD50.D50Constants;
 import synthdrivers.RolandD50.D50SingleEditor;
 import core.Driver;
-import core.JSLFrame;
 import core.Patch;
 import core.PatchEdit;
 

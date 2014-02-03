@@ -19,6 +19,8 @@ import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JFileChooserFixture;
 import org.fest.swing.fixture.JTabbedPaneFixture;
 import org.fest.swing.fixture.JTableFixture;
+import org.jsynthlib.gui.widgets.AbstractPatchHandler;
+import org.jsynthlib.gui.widgets.SysexWidget;
 import org.jsynthlib.patch.PatchFile;
 import org.junit.After;
 import org.junit.AfterClass;

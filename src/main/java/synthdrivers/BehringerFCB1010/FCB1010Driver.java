@@ -21,6 +21,8 @@
 
 package synthdrivers.BehringerFCB1010;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.*;
 
 /**

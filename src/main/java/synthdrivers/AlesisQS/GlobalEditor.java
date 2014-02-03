@@ -4,10 +4,11 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-import core.ComboBoxWidget;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+
 import core.Patch;
-import core.PatchEditorFrame;
-import core.ScrollBarWidget;
 
 /**
  * Editor for AlesisQS global parameters.

@@ -1,10 +1,9 @@
 package org.jsynthlib.editorbuilder.widgets;
 
 import org.jsynthlib.editorbuilder.Parameter;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
 import org.jsynthlib.utils.XMLWriter;
 import org.xml.sax.SAXException;
-
-import core.PatchNameWidget;
 
 public class StringParameterWidget extends ParameterWidget {
 

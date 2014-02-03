@@ -21,7 +21,7 @@
 
 package synthdrivers.RolandTD6;
 
-import core.TreeWidget;
+import org.jsynthlib.gui.widgets.TreeWidget;
 
 /**
  * Instrument.java Instrument Tree for Roland TD6 Percussion Module. Created:

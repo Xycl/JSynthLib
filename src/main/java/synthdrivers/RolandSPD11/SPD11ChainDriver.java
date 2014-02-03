@@ -21,10 +21,11 @@
 
 package synthdrivers.RolandSPD11;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
 import core.SysexHandler;
 import core.Patch;
-import core.JSLFrame;
 
 /**
  * SingleDriver for getting the "chain setup" sysexmessage

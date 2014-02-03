@@ -5,7 +5,12 @@
 
 package core;
 
-import javax.sound.midi.*;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.SysexMessage;
+import javax.sound.midi.Track;
+
+import org.jsynthlib.gui.desktop.JSLDesktop;
 
 /**
  * @author Gerrit Gehnen
@@ -14,7 +19,7 @@ import javax.sound.midi.*;
 
 public class ImportMidiFile {
 
-    static boolean doImport(java.io.File file) {
+    public static boolean doImport(java.io.File file) {
         Sequence seq;
         Track[] tr;
 
@@ -31,7 +36,7 @@ public class ImportMidiFile {
             // ErrorMsg.reportStatus("Track "+j+":size "+tr[j].size());
             for (int i = 0; i < tr[j].size(); i++) {
                 PatchBasket frame =
-                        (PatchBasket) PatchEdit.getDesktop().getSelectedFrame();
+                        (PatchBasket) JSLDesktop.Factory.getDesktop().getSelectedFrame();
                 if (tr[j].get(i).getMessage() instanceof SysexMessage) {
                     // ErrorMsg.reportStatus("Track "+j+" Event "+i+" SYSEX!!");
                     IPatch[] patarray =

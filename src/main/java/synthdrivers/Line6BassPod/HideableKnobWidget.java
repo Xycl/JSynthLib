@@ -21,6 +21,8 @@
 
 package synthdrivers.Line6BassPod;
 
+import org.jsynthlib.gui.widgets.KnobWidget;
+
 import core.*;
 
 /**

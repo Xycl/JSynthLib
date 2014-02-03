@@ -35,12 +35,12 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
 
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
 import core.ISinglePatch;
 import core.Patch;
-import core.PatchEditorFrame;
 import core.Utility;
 
 /**

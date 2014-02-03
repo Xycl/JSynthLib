@@ -30,11 +30,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import core.ComboBoxWidget;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+
 import core.ParamModel;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.ScrollBarWidget;
 import core.SysexSender;
 
 public class DX7FamilyAdditionalVoiceEditor extends PatchEditorFrame {

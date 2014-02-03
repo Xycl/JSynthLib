@@ -22,7 +22,11 @@
 package synthdrivers.BehringerFCB1010;
 
 import core.*;
+
 import java.awt.event.*;
+
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
 
 /**
  * Class ControlGroupModel associates a group of ComboBoxWidgets to a single

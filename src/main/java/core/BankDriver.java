@@ -1,5 +1,8 @@
 package core;
 
+import org.jsynthlib.gui.BankEditorFrame;
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 /**
  * This is an implementation of IBankDriver and the base class for bank drivers
  * which use <code>Patch<IPatch>.<p>

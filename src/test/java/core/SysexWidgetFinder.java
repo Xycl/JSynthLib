@@ -27,9 +27,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import core.TitleFinder.FrameWrapper;
 
-class SysexWidgetFinder {
+public class SysexWidgetFinder {
     private List<SysexWidget> list;
     private Map<Container, List<SysexWidget>> widgetMap;
 

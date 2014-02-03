@@ -22,9 +22,10 @@
 package synthdrivers.YamahaCS2x;
 
 import core.*;
+
 import java.io.*;
-import java.io.UnsupportedEncodingException;
-import core.JSLFrame;
+
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 /**
  * YamahaCS2xCommonDriver needs to know about the type (current, bank1 or bank2)

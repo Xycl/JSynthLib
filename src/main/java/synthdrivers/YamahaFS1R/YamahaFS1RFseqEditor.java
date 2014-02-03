@@ -17,14 +17,15 @@ import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import core.Actions;
-import core.ComboBoxWidget;
-import core.KnobWidget;
+import org.jsynthlib.gui.Actions;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.desktop.JSLDesktop;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.SpinnerWidget;
+
 import core.Patch;
-import core.PatchEdit;
-import core.PatchEditorFrame;
-import core.PatchNameWidget;
-import core.SpinnerWidget;
 
 /**
  * Editor for Formant sequence.
@@ -108,7 +109,7 @@ class YamahaFS1RFseqEditor extends PatchEditorFrame {
         oGraphButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Actions.MenuFrame oWin = new FSeqGraphWindow();
-                PatchEdit.getDesktop().add(oWin);
+                JSLDesktop.Factory.getDesktop().add(oWin);
                 oWin.setVisible(true);
                 oWin.moveToFront();
             }
@@ -121,7 +122,7 @@ class YamahaFS1RFseqEditor extends PatchEditorFrame {
 
     class FSeqGraphWindow extends Actions.MenuFrame {
         FSeqGraphWindow() {
-            super(PatchEdit.getDesktop(), "Formant sequence graphic editor");
+            super("Formant sequence graphic editor");
             setSize(600, 400);
             Container oPane = getContentPane();
 

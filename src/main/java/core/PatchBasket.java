@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 /**
  * This interface should be implemented by any window which serves as a holder
  * or "basket" for patches.

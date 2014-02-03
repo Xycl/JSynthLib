@@ -45,8 +45,9 @@ import org.fest.swing.fixture.JScrollBarFixture;
 import org.fest.swing.fixture.JScrollPaneFixture;
 import org.fest.swing.fixture.JTabbedPaneFixture;
 import org.fest.swing.fixture.JTableFixture;
+import org.jsynthlib.gui.desktop.JSLFrameProxy;
+import org.jsynthlib.gui.widgets.SysexWidget;
 
-import core.JSLFrame.JSLFrameProxy;
 import core.TitleFinder.FrameWrapper;
 
 public class ContainerDisplayer {

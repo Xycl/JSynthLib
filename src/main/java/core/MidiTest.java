@@ -31,7 +31,7 @@ public class MidiTest implements Runnable {
      * @param outport
      *            The number of the port for sending
      */
-    static boolean runLoopbackTest(int inport, int outport) {
+    public static boolean runLoopbackTest(int inport, int outport) {
         ErrorMsg.reportError(
                 "Before we start",
                 "This process is designed to test the communication of\n"

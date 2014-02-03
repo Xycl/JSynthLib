@@ -23,10 +23,16 @@ package synthdrivers.YamahaUB99;
 
 import core.*;
 import synthdrivers.YamahaUB99.format.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.event.*;
+
+import org.jsynthlib.gui.widgets.KnobLookupWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import com.dreamfabric.DKnob;
 
 /**

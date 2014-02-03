@@ -21,6 +21,8 @@
 
 package synthdrivers.BehringerFCB1010;
 
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import core.*;
 
 /**

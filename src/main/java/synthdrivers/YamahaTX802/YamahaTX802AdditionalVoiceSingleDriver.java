@@ -23,9 +23,10 @@
  */
 package synthdrivers.YamahaTX802;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import synthdrivers.YamahaDX7.common.DX7FamilyAdditionalVoiceSingleDriver;
 import synthdrivers.YamahaDX7.common.DX7FamilyDevice;
-import core.JSLFrame;
 import core.Patch;
 
 public class YamahaTX802AdditionalVoiceSingleDriver extends

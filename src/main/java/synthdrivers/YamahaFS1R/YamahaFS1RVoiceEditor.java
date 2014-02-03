@@ -7,17 +7,18 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EventObject;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JDialog;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.CellEditorListener;
@@ -26,19 +27,20 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
-import core.JSLFrame;
-import core.KnobLookupWidget;
-import core.KnobWidget;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.desktop.JSLDesktop;
+import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.KnobLookupWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.gui.widgets.SpinnerWidget;
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import core.ParamModel;
 import core.Patch;
-import core.PatchEdit;
-import core.PatchEditorFrame;
-import core.PatchNameWidget;
-import core.SpinnerWidget;
 import core.SysexSender;
-import core.SysexWidget;
 
 /**
  * Voice editor. TODO : pour selectionner le numero de partie performance il
@@ -188,7 +190,7 @@ class YamahaFS1RVoiceEditor extends PatchEditorFrame {
         oHelp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JSLFrame oHelpWin = new HelpWindow();
-                PatchEdit.getDesktop().add(oHelpWin);
+                JSLDesktop.Factory.getDesktop().add(oHelpWin);
                 oHelpWin.setVisible(true);
             }
         });

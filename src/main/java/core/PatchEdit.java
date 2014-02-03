@@ -12,13 +12,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.Actions;
+import org.jsynthlib.gui.WaitDialog;
+import org.jsynthlib.gui.desktop.JSLDesktop;
+import org.jsynthlib.gui.preferences.PrefsDialog;
 
 /**
  * This class provides an object that initialises application wide resources.
  */
 public final class PatchEdit {
     private static final Logger LOG = Logger.getLogger(PatchEdit.class);
-    private static Actions.MenuDesktop desktop;
+    private static JSLDesktop desktop;
     private static PrefsDialog prefsDialog;
     private static WaitDialog waitDialog;
 
@@ -71,10 +75,8 @@ public final class PatchEdit {
         Actions.createActions();
 
         // Set up the GUI.
-        JSLDesktop.setGUIMode(AppConfig.getGuiStyle() == AppConfig.GUI_MDI);
-        desktop =
-                new Actions.MenuDesktop("JSynthLib", Actions.createMenuBar(),
-                        Actions.createToolBar(), Actions.exitAction);
+        JSLDesktop.Factory.setGUIMode(AppConfig.getGuiStyle() == AppConfig.GUI_MDI);
+        desktop = JSLDesktop.Factory.createDesktop("JSynthLib");
 
         // Show dialog for the 1st invokation.
         // This is no longer normal. Maybe we shouldn't save prefs if this
@@ -87,11 +89,11 @@ public final class PatchEdit {
         Actions.createPopupMenu();
 
         // set up Preference Dialog Window
-        prefsDialog = new PrefsDialog(getRootFrame());
+        prefsDialog = new PrefsDialog(JSLDesktop.Factory.getRootFrame());
 
         // Set up a silly little dialog we can pop up for the user to
         // gawk at while we do time consuming work later on.
-        waitDialog = new WaitDialog(getRootFrame());
+        waitDialog = new WaitDialog(JSLDesktop.Factory.getRootFrame());
 
         // Start pumping MIDI information from Input --> Output so the
         // user can play a MIDI Keyboard and make pretty music
@@ -111,7 +113,7 @@ public final class PatchEdit {
         }
     }
 
-    static void showPrefsDialog() {
+    public static void showPrefsDialog() {
         prefsDialog.setVisible(true);
     }
 
@@ -123,23 +125,6 @@ public final class PatchEdit {
      */
     public static JFrame getInstance() {
         return desktop == null ? null : desktop.getSelectedWindow();
-    }
-
-    /**
-     * Returns the root JFrame for the <code>owner</code> parameter for
-     * <code>JDialog</code> constructor. Use this for a dialog window which does
-     * not depend on a frame.
-     * @see #getInstance()
-     */
-    public static JFrame getRootFrame() {
-        return desktop == null ? null : desktop.getRootFrame();
-    }
-
-    /**
-     * Returns JSLDesktop object.
-     */
-    public static Actions.MenuDesktop getDesktop() {
-        return desktop;
     }
 
     // //////////////////////////////////////////////////////////////////////

@@ -1,7 +1,8 @@
 package synthdrivers.KawaiK4;
 
+import org.jsynthlib.gui.widgets.SysexWidget;
+
 import core.Patch;
-import core.SysexWidget;
 
 class WaveModel implements SysexWidget.IParamModel {
     private Patch patch;

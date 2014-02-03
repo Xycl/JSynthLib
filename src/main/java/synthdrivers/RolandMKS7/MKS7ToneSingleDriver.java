@@ -23,8 +23,9 @@
 
 package synthdrivers.RolandMKS7;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.Driver;
-import core.JSLFrame;
 import core.Patch;
 
 public class MKS7ToneSingleDriver extends Driver {

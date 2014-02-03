@@ -7,6 +7,8 @@ import javax.sound.midi.MidiMessage;
 import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.gui.widgets.SysexWidget;
 import org.jsynthlib.jsynthlib.xml.editor.EditorDescription;
 import org.jsynthlib.jsynthlib.xml.editor.EditorParser;
 import org.jsynthlib.jsynthlib.xml.editor.XMLEditor;
@@ -16,9 +18,7 @@ import core.Device;
 import core.ErrorMsg;
 import core.IPatch;
 import core.IPatchDriver;
-import core.JSLFrame;
 import core.MidiUtil;
-import core.SysexWidget;
 
 public class XMLDriver implements IPatchDriver {
     private final transient Logger log = Logger.getLogger(getClass());

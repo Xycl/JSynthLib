@@ -11,12 +11,12 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.LabelWidget;
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
 
-import core.ComboBoxWidget;
-import core.LabelWidget;
 import core.Patch;
-import core.PatchEditorFrame;
-import core.ScrollBarWidget;
 
 /**
  * @author Gerrit Gehnen

@@ -22,8 +22,7 @@ package core.valuesetter;
 
 import org.fest.swing.edt.GuiActionRunner;
 import org.fest.swing.edt.GuiQuery;
-
-import core.KnobWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
 
 public class KnobValueSetter implements IValueSetter {
 

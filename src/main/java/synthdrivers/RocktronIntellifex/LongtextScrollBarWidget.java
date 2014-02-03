@@ -2,10 +2,11 @@ package synthdrivers.RocktronIntellifex;
 
 import javax.swing.JTextField;
 
+import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.gui.widgets.SysexWidget.IParamModel;
+import org.jsynthlib.gui.widgets.SysexWidget.ISender;
+
 import core.IPatch;
-import core.ScrollBarWidget;
-import core.SysexWidget.IParamModel;
-import core.SysexWidget.ISender;
 
 /**
  * Enhanced ScrollBarWidget with right-aligned/size-able value.

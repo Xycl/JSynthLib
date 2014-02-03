@@ -21,6 +21,8 @@
 
 package synthdrivers.RolandSPD11;
 
+import org.jsynthlib.gui.desktop.JSLFrame;
+
 import core.*;
 
 /**

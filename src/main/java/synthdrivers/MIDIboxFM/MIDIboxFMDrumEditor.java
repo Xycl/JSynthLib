@@ -33,11 +33,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
+import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.gui.widgets.CheckBoxWidget;
+import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.gui.widgets.KnobWidget;
+
 import core.Patch;
-import core.CheckBoxWidget;
-import core.ComboBoxWidget;
-import core.PatchEditorFrame;
-import core.KnobWidget;
 
 class MIDIboxFMDrumEditor extends PatchEditorFrame {
 

@@ -1,10 +1,10 @@
 package synthdrivers.KorgX3;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 import core.Driver;
 import core.ErrorMsg;
-import core.JSLFrame;
 import core.Patch;
 import core.SysexHandler;
 

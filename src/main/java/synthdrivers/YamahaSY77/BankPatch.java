@@ -32,7 +32,6 @@ import core.IPatch;
 import core.Patch;
 import core.Device;
 import core.IPatchDriver;
-import core.JSLFrame;
 import core.ISinglePatch;
 import core.PatchTransferHandler;
 import core.Driver;
@@ -40,8 +39,11 @@ import core.Driver;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.UnsupportedEncodingException;
+
 import javax.swing.JOptionPane;
 import javax.sound.midi.SysexMessage;
+
+import org.jsynthlib.gui.desktop.JSLFrame;
 
 public class BankPatch extends Patch {
     private Patch[] mPatches;
