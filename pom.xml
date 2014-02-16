@@ -2,15 +2,33 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- mvn clean xmlbeans:xmlbeans package assembly:single -->
-    <!-- mvn clean package site checksum:artifacts -->
     <groupId>net.sourceforge.jsynthlib</groupId>
     <artifactId>jsynthlib</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>jsynthlib</name>
-    <url>http://maven.apache.org</url>
+    <description>JSynthLib is a universal MIDI synthesizer librarian / editor. The project aims to eventually support all existing synthesizers.</description>
+    <url>http://sourceforge.net/projects/jsynthlib/</url>
+
+    <licenses>
+        <license>
+            <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+            <name>GPL 2.0</name>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:svn:http://svn.code.sf.net/p/jsynthlib/code/trunk</connection>
+        <developerConnection>scm:svn:https://svn.code.sf.net/p/jsynthlib/code/trunk/</developerConnection>
+        <url>http://sourceforge.net/p/jsynthlib/code/HEAD/tree/trunk/</url>
+    </scm>
+
+    <issueManagement>
+        <system>Sourceforge</system>
+        <url>http://sourceforge.net/tracker/?group_id=41208</url>
+    </issueManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,29 +83,57 @@
             </plugin>
 
             <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>core.JSynthLib</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <finalName>jsynthlib-${project.version}-executable</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <dependencySets>
+                                <dependencySet>
+                                    <excludes>
+                                        <exclude>junit:*</exclude>
+                                        <exclude>org.easytesting:*</exclude>
+                                    </excludes>
+                                </dependencySet>
+                            </dependencySets>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>1.7</version>
                 <executions>
                     <execution>
+                        <id>synthdrivers</id>
                         <phase>process-classes</phase>
                         <configuration>
                             <target>
-                                <delete
-                                    file="${project.sourcedir}/resources/synthdrivers.properties" />
-                                <java classname="core.DeviceListWriter"
-                                    fork="true">
-                                    <arg
-                                        value="${project.build.outputDirectory}" />
-                                    <arg
-                                        value="${project.sourcedir}/resources" />
+                                <delete file="${project.sourcedir}/resources/synthdrivers.properties" />
+                                <java classname="core.DeviceListWriter" fork="true">
+                                    <arg value="${project.build.outputDirectory}" />
+                                    <arg value="${project.sourcedir}/resources" />
                                     <classpath>
-                                        <pathelement
-                                            path="${project.build.outputDirectory}" />
+                                        <pathelement path="${project.build.outputDirectory}" />
                                     </classpath>
                                 </java>
-                                <copy
-                                    file="${project.sourcedir}/resources/synthdrivers.properties"
+                                <copy file="${project.sourcedir}/resources/synthdrivers.properties"
                                     todir="${project.build.outputDirectory}" />
                             </target>
                         </configuration>
@@ -99,13 +145,34 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>net.ju-n.maven.plugins</groupId>
                 <artifactId>checksum-maven-plugin</artifactId>
                 <version>1.2</version>
                 <executions>
                     <execution>
+                        <id>artifacts</id>
                         <goals>
                             <goal>artifacts</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>files</id>
+                        <goals>
+                            <goal>files</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -114,82 +181,28 @@
                         <algorithm>MD5</algorithm>
                         <algorithm>SHA-1</algorithm>
                     </algorithms>
+                    <fileSets>
+                        <fileSet>
+                            <directory>${project.build.directory}</directory>
+                            <includes>
+                                <include>*.dmg</include>
+                                <include>*.exe</include>
+                                <include>*.jar</include>
+                            </includes>
+                        </fileSet>
+                    </fileSets>
                 </configuration>
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.0-beta-3</version>
-                <configuration>
-                    <reportPlugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-project-info-reports-plugin</artifactId>
-                            <version>2.4</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-checkstyle-plugin</artifactId>
-                            <version>2.10</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>2.9.1</version>
-                        </plugin>
-                        <!-- <plugin> -->
-                        <!-- <groupId>org.apache.maven.plugins</groupId> -->
-                        <!-- <artifactId>maven-pmd-plugin</artifactId> -->
-                        <!-- <version>3.0.1</version> -->
-                        <!-- </plugin> -->
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>findbugs-maven-plugin</artifactId>
-                            <version>2.5.2</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>taglist-maven-plugin</artifactId>
-                            <version>2.4</version>
-                            <configuration>
-                                <tags>
-                                    <tag>fixme</tag>
-                                    <tag>FixMe</tag>
-                                    <tag>FIXME</tag>
-                                    <tag>@todo</tag>
-                                    <tag>todo</tag>
-                                    <tag>TODO</tag>
-                                    <tag>@deprecated</tag>
-                                </tags>
-                            </configuration>
-                        </plugin>
-                    </reportPlugins>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4</version>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attached</goal>
-                        </goals>
+                        <id>default-deploy</id>
+                        <phase>none</phase>
                     </execution>
                 </executions>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>core.JSynthLib</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <appendAssemblyId>false</appendAssemblyId>
-                </configuration>
             </plugin>
         </plugins>
 
@@ -243,6 +256,98 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>exe</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <exec dir="." executable="cmd" resolveexecutable="true"
+                                            logerror="true">
+                                            <arg value="/c" />
+                                            <arg
+                                                value='windows_installer.bat ${project.version} "${certificate-path}" ${certificate-pass}' />
+                                        </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>macosx</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>exe</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <chmod file="${basedir}/macosx_installer.sh" perm="700" />
+                                        <exec dir="." executable="/bin/sh" resolveexecutable="true"
+                                            logerror="true">
+                                            <arg value="-c" />
+                                            <arg value="${basedir}/macosx_installer.sh ${project.version}" />
+                                        </exec>
+                                        <copy file="JSynthLib-${project.version}-setup.exe"
+                                            tofile="${project.build.directory}/JSynthLib-${project.version}-setup.exe" />
+                                    </target>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>sourceforge-deployment</id>
+                                <phase>deploy</phase>
+                                <configuration>
+                                    <target>
+                                        <chmod file="${basedir}/sf_upload.sh" perm="700" />
+                                        <exec dir="." executable="/bin/sh" resolveexecutable="true"
+                                            logerror="true">
+                                            <arg value="-c" />
+                                            <arg value="${basedir}/sf_upload.sh ${project.version}" />
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <dependencies>
+                <dependency>
+                    <groupId>com.locurasoft</groupId>
+                    <artifactId>osxmidi4j</artifactId>
+                    <version>1.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <reporting>
         <plugins>

@@ -1,6 +1,7 @@
 JSynthLib - A universal MIDI editor and librarian
 
-Description:
+Description
+===========
 
         JSynthLib is a universal MIDI editor and librarian. The
         project aims to support as many MIDI enabled devices as
@@ -10,15 +11,14 @@ Description:
         modify it under the GPL license.  See the file LICENSE for more
         further details.
 
-WWW Site:
-
-        Home Page
-            http://www.jsynthlib.org/
+WWW Site
+========
 
         Development Home Page
             http://sourceforge.net/projects/jsynthlib/
 
-Install:
+Installation instruction
+========================
 
   Step 1: Java Runtime Environment
 
@@ -29,71 +29,90 @@ Install:
         example a JSynthLib driver for your synth), you need the
         JDK. Otherwise you just need the JRE.
 
-  Step 2: MIDI Provider
-
-        JSynthLib uses a MIDI Provider, which is a platform dependent
-        layer of the Java MIDI API. Depending on your operating system,
-        you may have to install a MIDI Provider.
+  Step 2: Installing JSynthLib
 
     Microsoft Windows
 
-        If you have a J2SE version 1.6 or newer installed, you don't
-        need to install a MIDI Provider.
+          Download JSynthLib-<version>-setup.exe and run the installer
 
     GNU/Linux
 
-        If you have a J2SE version 1.6 or newer installed, you don't
-        need to install a MIDI Provider.
+          Download jsynthlib-<version>-executable.jar
 
     Mac OS X
 
-        At the time of writing (June 2004) you need to install a MIDI
-        Provider.
+          Download JSynthLib-<version>.dmg and drag JSynthLib.app to your Applications folder
 
-        Download the latest CAProvider.jar from the JSynthLib SourceForge
-        site and copy it to the /Library/Java/Extensions/ folder (the
-        ~/Library/Java/Extensions/ folder wull also work for a single user
-        installation).
-
-        You may use Plum Stone instead of CAProvider.
-
-  Step 3: Installing JSynthLib
-
-        Download the latest JSynthLib-XXX.jar file from the JSynthLib site
-        or JSynthLib SourceForge site and copy it to any
-        directory (for example C:\Program Files\JSynthLib\ or
-        /Applications/JsynthLib/).
-
-        An application bundle may be provided for Mac OS X.
-
-        Invoke JSynthLib.
-
-  Step 4: Invoking JSynthLib
+  Step 3: Invoking JSynthLib
 
     Microsoft Windows
 
-          Run JSynthLib.jar by typing
-                java -jar JSynthLib-XXX.jar
-          from a command prompt. You may create a shortcut on the
-          desktop to JSynthLib.jar.
+          Shortcut to JSynthLib has been installed in the start menu
 
     GNU/Linux
 
           Run JSynthLib.jar by typing
-                java -jar JSynthLib-XXX.jar
+                java -jar jsynthlib-<version>-executable.jar
           from a shell prompt.
 
     Mac OS X
 
-          Run JSynthLib.jar by typing
-                java -Dapple.laf.useScreenMenuBar=true -jar JSynthLib-XXX.jar
-          from a Terminal. You can alternatively double click the jar file,
-          but each window will have it's own menu bar. An application bundle
-          would remove the need for this step.
+          Run the JSynthLib app from the Applications menu
+          Make sure the selected MIDI ports are prefixed with 'CoreMidi'
+          in the configuration window (see below).
+
+  Step 4: Configuring JSynthLib
 
         Go to Window->Preferences and set preferences (such as look
         and feel, default file directories, default MIDI port, etc.)
         as you wish.
 
-        Go to Window->Synths and add and configure the synthesizers
-        you want to use with JSynthLib.
+        Go to Window->Preferences->Synth Drivers to add and configure
+        the synthesizers you want to use with JSynthLib.
+
+        Please refer to the in application help for more details.
+
+
+ChangeLog for JSynthLib
+=======================
+
+Note: ChangeLog started after release 0.20.0!
+The first logged changes are the ones from version 0.19 to 0.20.
+
+***********
+Release 1.0
+***********
+
+System tests have been written (Windows only)
+Switched to Maven project structure and dependency management
+Installer based Windows installation
+
+New synth drivers:
+- Behringer V-Amp 2
+- Emu Proteus/2
+- Roland D.50
+- Roland JD-800
+- Roland MKS-7
+- Roland SPD11
+- T.C. Electronics GMajor
+- T.C. Electronics M350
+- Yamaha SY77
+- Yamaha SY85
+- Yamaha UB99
+
+************
+Release 0.20
+************
+
+New synth drivers:
+- Alesis DM5
+- Behringer FCB1010
+- Line 6 BassPod
+- Line 6 Pod 2
+- Quasimidi Quasar
+- Roland JV-80
+- Waldorf Microwave 2 (XT/XTK) -> Librarian only
+- Yamaha TG-100
+
+
+

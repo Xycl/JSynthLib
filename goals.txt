@@ -1,0 +1,2 @@
+mvn clean xmlbeans:xmlbeans package
+mvn clean xmlbeans:xmlbeans package site checksum:artifacts
