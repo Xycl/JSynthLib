@@ -13,7 +13,7 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 import core.AppConfig;
 import core.Device;

@@ -25,8 +25,8 @@ import core.*;
 
 import java.awt.event.*;
 
-import org.jsynthlib.gui.widgets.CheckBoxWidget;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.CheckBoxWidget;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
 
 /**
  * Class ControlGroupModel associates a group of ComboBoxWidgets to a single

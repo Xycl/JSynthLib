@@ -30,8 +30,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-import org.jsynthlib.gui.widgets.KnobLookupWidget;
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.KnobLookupWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import com.dreamfabric.DKnob;
 

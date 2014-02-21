@@ -8,7 +8,7 @@ import javax.sound.midi.SysexMessage;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 /**
  * A class for MIDI System Exclusive Message patch data.

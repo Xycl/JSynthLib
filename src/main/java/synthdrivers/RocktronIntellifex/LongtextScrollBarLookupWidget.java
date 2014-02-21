@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.JTextField;
 
-import org.jsynthlib.gui.widgets.ScrollBarLookupWidget;
+import org.jsynthlib.view.widgets.ScrollBarLookupWidget;
 
 import core.IPatch;
 

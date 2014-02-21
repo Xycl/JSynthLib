@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.DeviceDetailsDialog;
+import org.jsynthlib.view.DeviceDetailsDialog;
 
 /**
  * Device class defines some informations for your synthsizer, such as a name of

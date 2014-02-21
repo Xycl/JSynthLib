@@ -21,7 +21,7 @@
 
 package synthdrivers.Line6BassPod;
 
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import core.*;
 

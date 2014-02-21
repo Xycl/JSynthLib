@@ -4,9 +4,9 @@ import javax.swing.Box;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.SpinnerWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.SpinnerWidget;
 
 import core.ParamModel;
 import core.Patch;

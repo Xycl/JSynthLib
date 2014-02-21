@@ -5,10 +5,10 @@ import java.awt.FlowLayout;
 import javax.swing.Box;
 import javax.swing.JPanel;
 
-import org.jsynthlib.gui.widgets.CheckBoxWidget;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.KnobWidget;
-import org.jsynthlib.gui.widgets.SpinnerWidget;
+import org.jsynthlib.view.widgets.CheckBoxWidget;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.KnobWidget;
+import org.jsynthlib.view.widgets.SpinnerWidget;
 
 import core.Patch;
 

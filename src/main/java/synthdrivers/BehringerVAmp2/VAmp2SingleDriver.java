@@ -26,7 +26,7 @@ import core.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 /**
  * Behringer VAmp2 Single Driver.

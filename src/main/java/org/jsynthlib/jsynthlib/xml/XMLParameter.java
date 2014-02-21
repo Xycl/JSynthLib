@@ -2,9 +2,9 @@ package org.jsynthlib.jsynthlib.xml;
 
 import java.util.LinkedList;
 
-import org.jsynthlib.gui.widgets.SysexWidget;
 import org.jsynthlib.plugins.Decoder;
 import org.jsynthlib.utils.AdvDefaultHandler;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import core.IPatch;
 

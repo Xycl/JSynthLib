@@ -27,7 +27,7 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.InvalidMidiDataException;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 /**
  * The NRPNSender class is used to send NRPNs to the DM5. The parameters handled

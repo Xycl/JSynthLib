@@ -22,7 +22,7 @@ package synthdrivers.RolandJV80;
 
 import java.util.Date;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 import core.Device;
 import core.Driver;

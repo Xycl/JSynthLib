@@ -1,14 +1,3 @@
-/**
- * AppConfig.java - class to hold collect application configuration
- * variables in one place for easy saving and loading, and separation
- * of data from display code.  Persistent values are keeped by using
- * <code>java.util.prefs.Preferences</code>.
- * @author Zellyn Hunter (zellyn@zellyn.com)
- * @author Rib Rob
- * @author Hiroo Hayashi
- * @version $Id: AppConfig.java 1182 2011-12-04 22:07:24Z chriswareham $
- */
-
 package core;
 
 import java.util.ArrayList;
@@ -23,6 +12,16 @@ import org.apache.log4j.Logger;
 import org.jsynthlib.jsynthlib.Dummy;
 import org.jsynthlib.utils.AWTUtils;
 
+/**
+ * AppConfig.java - class to hold collect application configuration variables in
+ * one place for easy saving and loading, and separation of data from display
+ * code. Persistent values are keeped by using
+ * <code>java.util.prefs.Preferences</code>.
+ * @author Zellyn Hunter (zellyn@zellyn.com)
+ * @author Rib Rob
+ * @author Hiroo Hayashi
+ * @version $Id: AppConfig.java 1182 2011-12-04 22:07:24Z chriswareham $
+ */
 public class AppConfig {
 
     private static final Logger LOG = Logger.getLogger(AppConfig.class);
@@ -52,12 +51,14 @@ public class AppConfig {
         try {
             String[] devs;
             // Some classes assume that the 1st driver is a Generic Driver.
+            DeviceDescriptor defaultDescriptor = new DeviceDescriptor();
+            defaultDescriptor.setDeviceClass("synthdrivers.Generic.GenericDevice");
             if (prefsDev.nodeExists("Generic#0"))
-                addDevice("synthdrivers.Generic.GenericDevice",
+                addDevice(defaultDescriptor,
                         prefsDev.node("Generic#0"));
             else
                 // create for the 1st time.
-                addDevice("synthdrivers.Generic.GenericDevice");
+                addDevice(defaultDescriptor);
 
             devs = prefsDev.childrenNames();
 
@@ -70,10 +71,11 @@ public class AppConfig {
                 String s = devs[i].substring(0, devs[i].indexOf('#'));
                 // ErrorMsg.reportStatus("loadDevices: -> " + s);
                 DevicesConfig devConfig = DevicesConfig.getInstance();
-                String className = devConfig.getClassNameForShortName(s);
-                // ErrorMsg.reportStatus("loadDevices: -> " + s);
+                DeviceDescriptor descriptor =
+                        devConfig.getDescriptorForShortName(s);
 
-                addDevice(className, prefsDev.node(devs[i]));
+                LOG.info("loadDevices: -> " + s);
+                addDevice(descriptor, prefsDev.node(devs[i]));
 
                 // default look and feel is
             }
@@ -440,16 +442,15 @@ public class AppConfig {
 
     /**
      * Add Device into <code>deviceList</code>.
-     * @param className
-     *            name of Device class (ex.
-     *            "synthdrivers.KawaiK4.KawaiK4Device").
+     * @param descriptor
+     *            the descriptor containing data about the device
      * @param prefs
      *            <code>Preferences</code> node for the Device.
      * @return a <code>Device</code> value created.
      */
-    private static Device addDevice(String className, Preferences prefs) {
+    private static Device addDevice(DeviceDescriptor descriptor, Preferences prefs) {
         DevicesConfig devConfig = DevicesConfig.getInstance();
-        Device device = devConfig.createDevice(className, prefs);
+        Device device = devConfig.createDevice(descriptor, prefs);
         if (device != null) {
             device.setup();
             deviceList.add(device); // always returns true
@@ -466,8 +467,8 @@ public class AppConfig {
      * @return a <code>Device</code> value created.
      */
     // Called by DeviceAddDialog and MidiScan.
-    public static Device addDevice(String className) {
-        return addDevice(className, getDeviceNode(className));
+    public static Device addDevice(DeviceDescriptor descriptor) {
+        return addDevice(descriptor, getDeviceNode(descriptor.getDeviceClass()));
     }
 
     /** returns the 1st unused device node name for Preferences. */

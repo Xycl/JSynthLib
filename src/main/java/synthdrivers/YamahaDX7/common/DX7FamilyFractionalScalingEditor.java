@@ -31,8 +31,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.SpinnerWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.SpinnerWidget;
 
 import core.ParamModel;
 import core.Patch;

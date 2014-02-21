@@ -6,11 +6,11 @@ import java.awt.Frame;
 import java.awt.Window;
 import java.util.Iterator;
 
-import org.jsynthlib.gui.BankEditorFrame;
-import org.jsynthlib.gui.LibraryFrame;
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.desktop.JSLDesktop;
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.BankEditorFrame;
+import org.jsynthlib.view.LibraryFrame;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.desktop.JSLDesktop;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 /**
  * This class provides various utility methods.

@@ -20,7 +20,7 @@
  */
 package synthdrivers.RolandD10;
 
-import org.jsynthlib.gui.widgets.SysexWidget.ISender;
+import org.jsynthlib.view.widgets.SysexWidget.ISender;
 
 import core.IPatchDriver;
 

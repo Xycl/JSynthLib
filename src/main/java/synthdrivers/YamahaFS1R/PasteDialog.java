@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import java.util.*;
 

@@ -1,12 +1,12 @@
 package org.jsynthlib.editorbuilder.widgets;
 
 import org.jsynthlib.editorbuilder.Parameter;
-import org.jsynthlib.gui.widgets.KnobWidget;
-import org.jsynthlib.gui.widgets.ScrollBarWidget;
-import org.jsynthlib.gui.widgets.SpinnerWidget;
-import org.jsynthlib.gui.widgets.SysexWidget;
-import org.jsynthlib.gui.widgets.VertScrollBarWidget;
 import org.jsynthlib.utils.XMLWriter;
+import org.jsynthlib.view.widgets.KnobWidget;
+import org.jsynthlib.view.widgets.ScrollBarWidget;
+import org.jsynthlib.view.widgets.SpinnerWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.VertScrollBarWidget;
 import org.xml.sax.SAXException;
 
 public class RangeParameterWidget extends ParameterWidget {

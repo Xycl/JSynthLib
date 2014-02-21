@@ -30,12 +30,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.CheckBoxWidget;
-import org.jsynthlib.gui.widgets.EnvelopeWidget;
-import org.jsynthlib.gui.widgets.ScrollBarLookupWidget;
-import org.jsynthlib.gui.widgets.ScrollBarWidget;
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.CheckBoxWidget;
+import org.jsynthlib.view.widgets.EnvelopeWidget;
+import org.jsynthlib.view.widgets.ScrollBarLookupWidget;
+import org.jsynthlib.view.widgets.ScrollBarWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import core.IPatchDriver;
 import core.Patch;

@@ -29,8 +29,8 @@ import java.awt.*;
 
 import javax.swing.border.*;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.KnobWidget;
 
 /**
  * Alesis DM5 Trigger Setup Editor. Edits Gain, Velocity, Cross-Talk, Noise

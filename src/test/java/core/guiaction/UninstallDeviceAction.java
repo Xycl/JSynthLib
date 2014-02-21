@@ -32,7 +32,7 @@ import org.fest.swing.fixture.DialogFixture;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JTabbedPaneFixture;
 import org.fest.swing.fixture.JTableFixture;
-import org.jsynthlib.gui.preferences.SynthConfigPanel;
+import org.jsynthlib.view.preferences.SynthConfigPanel;
 
 public class UninstallDeviceAction extends AbstractGuiAction {
 

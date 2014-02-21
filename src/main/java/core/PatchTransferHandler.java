@@ -16,8 +16,8 @@ import javax.swing.JTable;
 import javax.swing.TransferHandler;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.AbstractLibraryFrame;
-import org.jsynthlib.gui.Actions;
+import org.jsynthlib.view.AbstractLibraryFrame;
+import org.jsynthlib.view.Actions;
 
 public abstract class PatchTransferHandler extends TransferHandler {
     public static final DataFlavor PATCHES_FLAVOR = new DataFlavor(

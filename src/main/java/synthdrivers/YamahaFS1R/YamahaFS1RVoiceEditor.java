@@ -27,16 +27,16 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.desktop.JSLDesktop;
-import org.jsynthlib.gui.desktop.JSLFrame;
-import org.jsynthlib.gui.widgets.CheckBoxWidget;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.KnobLookupWidget;
-import org.jsynthlib.gui.widgets.KnobWidget;
-import org.jsynthlib.gui.widgets.PatchNameWidget;
-import org.jsynthlib.gui.widgets.SpinnerWidget;
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.desktop.JSLDesktop;
+import org.jsynthlib.view.desktop.JSLFrame;
+import org.jsynthlib.view.widgets.CheckBoxWidget;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.KnobLookupWidget;
+import org.jsynthlib.view.widgets.KnobWidget;
+import org.jsynthlib.view.widgets.PatchNameWidget;
+import org.jsynthlib.view.widgets.SpinnerWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import core.ParamModel;
 import core.Patch;

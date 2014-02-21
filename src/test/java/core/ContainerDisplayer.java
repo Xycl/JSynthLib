@@ -45,8 +45,8 @@ import org.fest.swing.fixture.JScrollBarFixture;
 import org.fest.swing.fixture.JScrollPaneFixture;
 import org.fest.swing.fixture.JTabbedPaneFixture;
 import org.fest.swing.fixture.JTableFixture;
-import org.jsynthlib.gui.desktop.JSLFrameProxy;
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.desktop.JSLFrameProxy;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import core.TitleFinder.FrameWrapper;
 

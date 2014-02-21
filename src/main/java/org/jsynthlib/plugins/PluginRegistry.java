@@ -6,11 +6,18 @@ import groovy.lang.GroovyShell;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.codehaus.groovy.control.CompilationFailedException;
+import org.jsynthlib.jsynthlib.Dummy;
+import org.jsynthlib.utils.ResourceURLFilter;
+import org.jsynthlib.utils.Resources;
 
 import core.ErrorMsg;
 
@@ -21,9 +28,6 @@ public class PluginRegistry {
     private static boolean plugins_loaded = false;
     private static HashMap checksums = new HashMap();
     private static HashMap decoders = new HashMap();
-    private static String plugin_path =
-            "org/jsynthlib/plugins:/org/jsynthlib/plugins:";
-    private static String user_path = "";
     private static GroovyShell shell = new GroovyShell();
     private static GroovyClassLoader loader = new GroovyClassLoader();
 
@@ -47,28 +51,27 @@ public class PluginRegistry {
         decoders.put(name, new PluginEntry(c, args));
     }
 
-    // FIXME: Have groovy search user_path
-    public static void setPluginPath(String path) {
-        user_path = path;
-    }
-
     public static void loadPlugins() throws CompilationFailedException,
-            IOException {
-        String[] dirs = (plugin_path + user_path).split(":");
-        PluginFilter filter = new PluginFilter();
-        for (int i = 0; i < dirs.length; i++) {
-            File d = new File(dirs[i]);
-            File[] files = d.listFiles(filter);
-            if (files == null)
-                continue;
-            for (int j = 0; j < files.length; j++) {
-                try {
-                    shell.evaluate(files[j]);
-                } catch (Exception ex) {
-                    ErrorMsg.reportError("Error loading plugin",
-                            "Error loading plugin " + files[j].getPath() + "\n"
-                                    + ex.getMessage(), ex);
-                }
+            IOException, URISyntaxException {
+        Set<URL> xmlfiles =
+                Resources.getResourceURLs(Dummy.class, new ResourceURLFilter() {
+
+                    @Override
+                    public boolean accept(URL resourceUrl) {
+                        String path = resourceUrl.getPath();
+                        return path.contains("org/jsynthlib/plugins")
+                                && path.endsWith(".groovy");
+                    }
+                });
+
+        for (URL url : xmlfiles) {
+            InputStreamReader reader = new InputStreamReader(url.openStream());
+            try {
+                shell.evaluate(reader);
+            } catch (Exception ex) {
+                ErrorMsg.reportError("Error loading plugin",
+                        "Error loading plugin " + url.getPath() + "\n"
+                                + ex.getMessage(), ex);
             }
         }
         plugins_loaded = true;
@@ -76,7 +79,7 @@ public class PluginRegistry {
 
     public static Decoder getDecoder(String name)
             throws InstantiationException, IllegalAccessException,
-            InvocationTargetException, CompilationFailedException, IOException {
+            InvocationTargetException, CompilationFailedException, IOException, URISyntaxException {
         // XXX: lazily load for now. may want to change this later
         if (!plugins_loaded)
             loadPlugins();
@@ -89,7 +92,7 @@ public class PluginRegistry {
 
     public static Checksum getChecksum(String name)
             throws InstantiationException, IllegalAccessException,
-            InvocationTargetException, CompilationFailedException, IOException {
+            InvocationTargetException, CompilationFailedException, IOException, URISyntaxException {
         if (!plugins_loaded)
             loadPlugins();
         Checksum c = null;

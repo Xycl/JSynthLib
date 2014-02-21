@@ -27,7 +27,7 @@ package synthdrivers.RolandD10;
 
 import static synthdrivers.RolandD10.D10Constants.*;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 import synthdrivers.RolandD10.message.D10DataSetMessage;
 import synthdrivers.RolandD10.message.D10RequestMessage;

@@ -29,10 +29,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.EnvelopeWidget;
-import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.EnvelopeWidget;
+import org.jsynthlib.view.widgets.ScrollBarWidget;
 
 import core.ParamModel;
 import core.Patch;

@@ -33,10 +33,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.CheckBoxWidget;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.CheckBoxWidget;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.KnobWidget;
 
 import core.Patch;
 

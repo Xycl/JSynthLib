@@ -6,7 +6,7 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.CrossBreedDialog;
+import org.jsynthlib.view.CrossBreedDialog;
 
 /*
  * Generates a patch with random combinations of the patches for a

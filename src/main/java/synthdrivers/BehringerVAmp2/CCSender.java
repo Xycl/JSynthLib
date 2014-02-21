@@ -27,7 +27,7 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.InvalidMidiDataException;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 /**
  * V-Amp 2 generic Continuous Controller message sender class.

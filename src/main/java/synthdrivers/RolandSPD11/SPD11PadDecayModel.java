@@ -5,7 +5,7 @@
 
 package synthdrivers.RolandSPD11;
 
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import core.*;
 

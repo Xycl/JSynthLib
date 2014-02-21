@@ -8,12 +8,12 @@ import org.fest.swing.data.TableCell;
 import org.fest.swing.data.TableCell.TableCellBuilder;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JTableFixture;
-import org.jsynthlib.gui.widgets.AbstractPatchHandler;
 import org.jsynthlib.patch.LoadedBank;
 import org.jsynthlib.patch.LoadedParam;
 import org.jsynthlib.patch.PatchFile;
 import org.jsynthlib.patch.PatchFilesDocument;
 import org.jsynthlib.patch.PatchFilesDocument.PatchFiles;
+import org.jsynthlib.view.widgets.AbstractPatchHandler;
 
 public class CreatePatchHandler extends AbstractPatchHandler {
 

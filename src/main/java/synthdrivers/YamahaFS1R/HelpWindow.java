@@ -8,7 +8,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.text.Document;
 
-import org.jsynthlib.gui.Actions;
+import org.jsynthlib.view.Actions;
 
 class HelpWindow extends Actions.MenuFrame {
 

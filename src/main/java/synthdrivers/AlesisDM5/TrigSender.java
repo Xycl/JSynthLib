@@ -24,7 +24,7 @@ package synthdrivers.AlesisDM5;
 import javax.sound.midi.InvalidMidiDataException;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import core.IPatchDriver;
 

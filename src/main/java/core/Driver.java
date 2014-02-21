@@ -9,7 +9,7 @@ import javax.sound.midi.SysexMessage;
 import javax.sound.midi.InvalidMidiDataException;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 /**
  * This is an implementation of ISingleDriver and the base class for single

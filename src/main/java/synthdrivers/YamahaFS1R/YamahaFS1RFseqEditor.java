@@ -17,13 +17,13 @@ import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jsynthlib.gui.Actions;
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.desktop.JSLDesktop;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.KnobWidget;
-import org.jsynthlib.gui.widgets.PatchNameWidget;
-import org.jsynthlib.gui.widgets.SpinnerWidget;
+import org.jsynthlib.view.Actions;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.desktop.JSLDesktop;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.KnobWidget;
+import org.jsynthlib.view.widgets.PatchNameWidget;
+import org.jsynthlib.view.widgets.SpinnerWidget;
 
 import core.Patch;
 

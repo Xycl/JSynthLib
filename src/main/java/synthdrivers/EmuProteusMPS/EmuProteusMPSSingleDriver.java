@@ -9,7 +9,7 @@ import java.io.*;
 
 import javax.swing.*;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 public class EmuProteusMPSSingleDriver extends Driver {
     final static SysexHandler SysexRequestDump = new SysexHandler(

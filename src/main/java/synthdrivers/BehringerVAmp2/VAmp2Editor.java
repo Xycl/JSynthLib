@@ -29,12 +29,12 @@ import java.awt.event.*;
 
 import javax.swing.border.*;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.CheckBoxWidget;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.KnobWidget;
-import org.jsynthlib.gui.widgets.PatchNameWidget;
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.CheckBoxWidget;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.KnobWidget;
+import org.jsynthlib.view.widgets.PatchNameWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import java.awt.CardLayout;
 import java.awt.Component;

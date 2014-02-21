@@ -33,7 +33,7 @@ import static synthdrivers.RolandD10.D10Constants.TONE_RECORD_SIZE;
 import static synthdrivers.RolandD10.D10Constants.TONE_SIZE;
 import static synthdrivers.RolandD10.D10Constants.TONE_WRITE_REQUEST;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 import synthdrivers.RolandD10.message.D10DataSetMessage;
 import synthdrivers.RolandD10.message.D10RequestMessage;

@@ -21,7 +21,7 @@
 
 package synthdrivers.AlesisDM5;
 
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
 
 import core.*;
 

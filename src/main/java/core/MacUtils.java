@@ -6,8 +6,8 @@ import java.io.File;
 import javax.swing.Action;
 import javax.swing.SwingUtilities;
 
-import org.jsynthlib.gui.Actions;
-import org.jsynthlib.gui.desktop.JSLDesktop;
+import org.jsynthlib.view.Actions;
+import org.jsynthlib.view.desktop.JSLDesktop;
 
 import com.apple.eawt.Application;
 import com.apple.eawt.ApplicationAdapter;

@@ -31,7 +31,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
-import org.jsynthlib.gui.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
 
 import java.util.Vector;
 

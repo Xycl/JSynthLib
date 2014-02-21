@@ -33,7 +33,7 @@ import javax.swing.ProgressMonitor;
 import javax.swing.table.AbstractTableModel;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.ScanUnkownReportDialog;
+import org.jsynthlib.view.ScanUnkownReportDialog;
 
 /**
  * Detect MIDI devices by sending out Inquery ID Sysex Message to every MIDI
@@ -215,14 +215,18 @@ public class MidiScan extends Thread {
                 for (int checkloop = 0; checkloop < AppConfig.deviceCount(); checkloop++) {
                     String checkDevice =
                             AppConfig.getDevice(checkloop).getClass().getName();
-                    if (checkDevice.equalsIgnoreCase(devConfig
-                            .getClassNameForIDString(se))) {
+                    DeviceDescriptor descriptor =
+                            devConfig.getDescriptorForIDString(se);
+                    if (descriptor != null
+                            && checkDevice.equalsIgnoreCase(descriptor
+                                    .getDeviceClass())) {
                         dontadd = true; // Oh, its already there....
                     }
                 }
                 if (!dontadd) { // add it only, if it is not in the list
-                    String cls = devConfig.getClassNameForIDString(se);
-                    Device useDevice = AppConfig.addDevice(cls);
+                    DeviceDescriptor descriptor =
+                            devConfig.getDescriptorForIDString(se);
+                    Device useDevice = AppConfig.addDevice(descriptor);
                     log.info("MidiOut: " + midiout + ", MidiIn: " + midiin
                             + ", devID: " + devID);
 

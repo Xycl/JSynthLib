@@ -8,7 +8,7 @@ import core.Patch;
 
 import java.io.*;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 public class NovationXioSynthSingleDriver extends Driver {
     public NovationXioSynthSingleDriver() {

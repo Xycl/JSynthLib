@@ -2,9 +2,9 @@ package synthdrivers.RocktronIntellifex;
 
 import javax.swing.JTextField;
 
-import org.jsynthlib.gui.widgets.ScrollBarWidget;
-import org.jsynthlib.gui.widgets.SysexWidget.IParamModel;
-import org.jsynthlib.gui.widgets.SysexWidget.ISender;
+import org.jsynthlib.view.widgets.ScrollBarWidget;
+import org.jsynthlib.view.widgets.SysexWidget.IParamModel;
+import org.jsynthlib.view.widgets.SysexWidget.ISender;
 
 import core.IPatch;
 

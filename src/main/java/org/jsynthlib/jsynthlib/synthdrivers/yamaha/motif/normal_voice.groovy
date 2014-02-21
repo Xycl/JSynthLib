@@ -59,7 +59,7 @@ class normal_voice extends XMLDriverImplementation {
     		}
     		p.flush()
     		p.calculateChecksum()
-    		d = p.getDevice()
+    		def d = p.getDevice()
     		for (m in p.getMessages()) {
     			d.send(m)
     		}

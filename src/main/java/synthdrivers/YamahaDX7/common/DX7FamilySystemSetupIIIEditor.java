@@ -37,10 +37,10 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.ScrollBarWidget;
-import org.jsynthlib.gui.widgets.SpinnerWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.ScrollBarWidget;
+import org.jsynthlib.view.widgets.SpinnerWidget;
 
 import core.ParamModel;
 import core.Patch;

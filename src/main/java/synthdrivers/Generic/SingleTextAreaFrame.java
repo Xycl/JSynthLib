@@ -4,7 +4,7 @@ import core.Patch;
 
 import javax.swing.*;
 
-import org.jsynthlib.gui.PatchEditorFrame;
+import org.jsynthlib.view.PatchEditorFrame;
 
 import java.awt.*;
 

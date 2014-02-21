@@ -35,8 +35,8 @@ import java.awt.*;
 
 import javax.swing.border.*;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.PatchNameWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.PatchNameWidget;
 
 class RolandMT32DisplayEditor extends PatchEditorFrame {
 

@@ -43,7 +43,7 @@ import java.io.UnsupportedEncodingException;
 import javax.swing.JOptionPane;
 import javax.sound.midi.SysexMessage;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 public class BankPatch extends Patch {
     private Patch[] mPatches;

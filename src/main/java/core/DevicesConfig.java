@@ -1,11 +1,10 @@
 package core;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -28,10 +27,6 @@ public class DevicesConfig {
      * configuration.
      */
     private static final char XML_FILE_SEPARATOR = ':';
-    /**
-     * The default configuration value for an unknown property.
-     */
-    private static final String DEFAULT_CONFIGURATION_VALUE = "";
 
     /**
      * The singleton instance.
@@ -50,11 +45,6 @@ public class DevicesConfig {
     }
 
     public static String getShortNameForClassName(final String s) {
-        if (s.charAt(0) == XML_FILE_SEPARATOR) {
-            int start = s.lastIndexOf(XML_FILE_SEPARATOR);
-            int end = s.lastIndexOf(".xml");
-            return s.substring(start + 1, end) + "(XML)";
-        }
         return s.substring(s.lastIndexOf('.') + 1, s.lastIndexOf("Device"));
     }
 
@@ -90,10 +80,13 @@ public class DevicesConfig {
      * @return the class for the device (for example,
      *         synthdrivers.KawaiK4.KawaiK4Device)
      */
-    public String getClassNameForIDString(final String deviceId) {
-        DeviceDescriptor descriptor = getDeviceDescriptorForIDString(deviceId);
-        return descriptor != null ? descriptor.getDeviceClass()
-                : DEFAULT_CONFIGURATION_VALUE;
+    public DeviceDescriptor getDescriptorForIDString(final String deviceId) {
+        for (DeviceDescriptor descriptor : descriptors) {
+            if (descriptor.getDeviceId().equals(deviceId)) {
+                return descriptor;
+            }
+        }
+        return null;
     }
 
     /**
@@ -103,11 +96,14 @@ public class DevicesConfig {
      * @return the class for the device (for example,
      *         synthdrivers.KawaiK4.KawaiK4Device)
      */
-    public String getClassNameForShortName(String shortName) {
-        DeviceDescriptor descriptor =
-                getDeviceDescriptorForShortName(shortName);
-        return descriptor != null ? descriptor.getDeviceClass()
-                : DEFAULT_CONFIGURATION_VALUE;
+    public DeviceDescriptor getDescriptorForShortName(
+            final String shortName) {
+        for (DeviceDescriptor descriptor : descriptors) {
+            if (descriptor.getShortName().equals(shortName)) {
+                return descriptor;
+            }
+        }
+        return null;
     }
 
     /**
@@ -117,57 +113,35 @@ public class DevicesConfig {
      * @return the class for the device (for example
      *         synthdrivers.KawaiK4.KawaiK4Device)
      */
-    public String getClassNameForDeviceName(final String deviceName) {
-        DeviceDescriptor descriptor =
-                getDeviceDescriptorForDeviceName(deviceName);
-        return descriptor != null ? descriptor.getDeviceClass()
-                : DEFAULT_CONFIGURATION_VALUE;
-    }
-
-    /**
-     * Get the manufacturer for a device based on device name.
-     * @param deviceName
-     *            the device name (for example Kawai K4/K4R Driver)
-     * @return the class for the device (for example Kawai)
-     */
-    public String getManufacturerForDeviceName(final String deviceName) {
-        DeviceDescriptor descriptor =
-                getDeviceDescriptorForDeviceName(deviceName);
-        return descriptor != null ? descriptor.getManufacturer()
-                : DEFAULT_CONFIGURATION_VALUE;
+    public DeviceDescriptor getDescriptorForDeviceName(
+            final String deviceName) {
+        for (DeviceDescriptor descriptor : descriptors) {
+            if (descriptor.getDeviceName().equals(deviceName)) {
+                return descriptor;
+            }
+        }
+        return null;
     }
 
     /**
      * Create an instance of a device driver.
-     * @param className
+     * @param descriptor
      *            the class name of the device driver
      * @param prefs
      *            the preferences
      * @return an instance of the device driver, or null if one cannot be
      *         instantiated
      */
-    public Device createDevice(final String className, final Preferences prefs) {
-        if (className.isEmpty()) {
+    public Device createDevice(final DeviceDescriptor descriptor, final Preferences prefs) {
+        if (descriptor == null) {
             return null;
         }
 
-        if (className.charAt(0) == XML_FILE_SEPARATOR) {
-            return XMLDeviceFactory.createDevice(
-                    className.replace(XML_FILE_SEPARATOR, File.separatorChar)
-                            .substring(1), prefs);
-        }
-
         try {
-            Class c = Class.forName(className);
-            Class[] args = {
-                Class.forName("java.util.prefs.Preferences") };
-            Constructor con = c.getConstructor(args);
-            Device device = (Device) con.newInstance(new Object[] {
-                prefs });
-            return device;
+            return descriptor.newDevice(prefs);
         } catch (Exception exception) {
             ErrorMsg.reportError("Device Create Failure",
-                    "Failed to create device of class '" + className + "'");
+                    "Failed to create device of class '" + descriptor + "'");
             LOG.warn(exception.getMessage(), exception);
             return null;
         }
@@ -260,20 +234,9 @@ public class DevicesConfig {
      * Read the available devices from XML files.
      */
     private void readDevicesFromXMLFile() {
-        String[][] xmldevices = XMLDeviceFactory.getDeviceNames();
-        if (xmldevices != null) {
-            for (int i = 0; i < xmldevices.length; ++i) {
-                String deviceName = xmldevices[i][0];
-                String deviceClass = XML_FILE_SEPARATOR + xmldevices[i][2];
-                deviceClass =
-                        deviceClass.replace(File.separatorChar,
-                                XML_FILE_SEPARATOR);
-                String shortName = getShortNameForClassName(deviceClass);
-                addDevice(deviceName, shortName, deviceClass, xmldevices[i][1], // IDString
-                        xmldevices[i][3], // Manufacturer
-                        xmldevices[i][3].substring(0, 1) // Type
-                );
-            }
+        List<DeviceDescriptor> xmldevices = XMLDeviceFactory.getDeviceDescriptors();
+        for (DeviceDescriptor deviceDescriptor : xmldevices) {
+            addDevice(deviceDescriptor);
         }
     }
 
@@ -303,34 +266,9 @@ public class DevicesConfig {
 
         deviceIds.add(deviceId);
     }
-
-    private DeviceDescriptor getDeviceDescriptorForDeviceName(
-            final String deviceName) {
-        for (DeviceDescriptor descriptor : descriptors) {
-            if (descriptor.getDeviceName().equals(deviceName)) {
-                return descriptor;
-            }
-        }
-        return null;
-    }
-
-    private DeviceDescriptor getDeviceDescriptorForIDString(
-            final String deviceId) {
-        for (DeviceDescriptor descriptor : descriptors) {
-            if (descriptor.getDeviceId().equals(deviceId)) {
-                return descriptor;
-            }
-        }
-        return null;
-    }
-
-    private DeviceDescriptor getDeviceDescriptorForShortName(
-            final String shortName) {
-        for (DeviceDescriptor descriptor : descriptors) {
-            if (descriptor.getShortName().equals(shortName)) {
-                return descriptor;
-            }
-        }
-        return null;
+    
+    private void addDevice(DeviceDescriptor descriptor) {
+        descriptors.add(descriptor);
+        deviceIds.add(descriptor.getDeviceId());
     }
 }

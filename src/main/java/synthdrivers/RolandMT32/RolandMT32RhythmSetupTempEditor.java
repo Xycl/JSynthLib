@@ -35,10 +35,10 @@ import java.awt.*;
 
 import javax.swing.border.*;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.CheckBoxWidget;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.CheckBoxWidget;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.ScrollBarWidget;
 
 class RolandMT32RhythmSetupTempEditor extends PatchEditorFrame {
 

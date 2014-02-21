@@ -81,8 +81,8 @@ import org.fest.swing.fixture.JToggleButtonFixture;
 import org.fest.swing.fixture.JToolBarFixture;
 import org.fest.swing.fixture.JTreeFixture;
 import org.fest.swing.timing.Timeout;
-import org.jsynthlib.gui.desktop.mdi.MDIFrameProxy;
-import org.jsynthlib.gui.desktop.sdi.SDIFrameProxy;
+import org.jsynthlib.view.desktop.mdi.MDIFrameProxy;
+import org.jsynthlib.view.desktop.sdi.SDIFrameProxy;
 
 public class TitleFinder {
 

@@ -7,11 +7,11 @@ import javax.sound.midi.MidiMessage;
 import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.desktop.JSLFrame;
-import org.jsynthlib.gui.widgets.SysexWidget;
 import org.jsynthlib.jsynthlib.xml.editor.EditorDescription;
 import org.jsynthlib.jsynthlib.xml.editor.EditorParser;
 import org.jsynthlib.jsynthlib.xml.editor.XMLEditor;
+import org.jsynthlib.view.desktop.JSLFrame;
+import org.jsynthlib.view.widgets.SysexWidget;
 import org.xml.sax.SAXException;
 
 import core.Device;

@@ -4,9 +4,9 @@ import java.awt.Dimension;
 
 import javax.swing.JTable;
 
-import org.jsynthlib.gui.BankEditorFrame;
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.BankEditorFrame;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 import core.Patch;
 

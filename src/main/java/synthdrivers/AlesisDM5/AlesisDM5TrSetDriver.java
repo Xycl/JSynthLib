@@ -21,7 +21,7 @@
 
 package synthdrivers.AlesisDM5;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 import core.Driver;
 import core.Patch;

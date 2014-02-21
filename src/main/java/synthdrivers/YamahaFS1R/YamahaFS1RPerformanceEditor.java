@@ -21,16 +21,16 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.BankEditorFrame;
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.desktop.JSLDesktop;
-import org.jsynthlib.gui.desktop.JSLFrameEvent;
-import org.jsynthlib.gui.desktop.JSLFrameListener;
-import org.jsynthlib.gui.widgets.CheckBoxWidget;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.KnobWidget;
-import org.jsynthlib.gui.widgets.PatchNameWidget;
-import org.jsynthlib.gui.widgets.SpinnerWidget;
+import org.jsynthlib.view.BankEditorFrame;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.desktop.JSLDesktop;
+import org.jsynthlib.view.desktop.JSLFrameEvent;
+import org.jsynthlib.view.desktop.JSLFrameListener;
+import org.jsynthlib.view.widgets.CheckBoxWidget;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.KnobWidget;
+import org.jsynthlib.view.widgets.PatchNameWidget;
+import org.jsynthlib.view.widgets.SpinnerWidget;
 
 import core.Patch;
 

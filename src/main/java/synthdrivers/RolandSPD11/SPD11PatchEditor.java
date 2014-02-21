@@ -4,8 +4,8 @@ import core.*;
 
 import javax.swing.*;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.ScrollBarWidget;
 
 import java.awt.*;
 

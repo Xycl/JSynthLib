@@ -34,16 +34,16 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.CheckBoxWidget;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
-import org.jsynthlib.gui.widgets.KnobLookupWidget;
-import org.jsynthlib.gui.widgets.PatchNameWidget;
-import org.jsynthlib.gui.widgets.ScrollBarLookupWidget;
-import org.jsynthlib.gui.widgets.ScrollBarWidget;
-import org.jsynthlib.gui.widgets.SysexWidget;
-import org.jsynthlib.gui.widgets.TreeWidget;
-import org.jsynthlib.gui.widgets.VertScrollBarWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.CheckBoxWidget;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
+import org.jsynthlib.view.widgets.KnobLookupWidget;
+import org.jsynthlib.view.widgets.PatchNameWidget;
+import org.jsynthlib.view.widgets.ScrollBarLookupWidget;
+import org.jsynthlib.view.widgets.ScrollBarWidget;
+import org.jsynthlib.view.widgets.SysexWidget;
+import org.jsynthlib.view.widgets.TreeWidget;
+import org.jsynthlib.view.widgets.VertScrollBarWidget;
 
 import core.ParamModel;
 import core.Patch;

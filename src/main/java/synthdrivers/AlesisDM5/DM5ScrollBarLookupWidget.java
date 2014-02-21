@@ -21,7 +21,7 @@
 
 package synthdrivers.AlesisDM5;
 
-import org.jsynthlib.gui.widgets.ScrollBarLookupWidget;
+import org.jsynthlib.view.widgets.ScrollBarLookupWidget;
 
 import core.*;
 

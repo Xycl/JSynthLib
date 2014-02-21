@@ -2,8 +2,8 @@ package org.jsynthlib.jsynthlib.xml.editor;
 
 import javax.swing.JPanel;
 
-import org.jsynthlib.gui.PatchEditorFrame;
 import org.jsynthlib.jsynthlib.xml.XMLPatch;
+import org.jsynthlib.view.PatchEditorFrame;
 
 public class XMLEditor extends PatchEditorFrame {
 

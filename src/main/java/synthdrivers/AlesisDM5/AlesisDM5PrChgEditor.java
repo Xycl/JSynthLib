@@ -25,8 +25,8 @@ import core.*;
 
 import javax.swing.*;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.ComboBoxWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.ComboBoxWidget;
 
 /**
  * Alesis DM5 Program Change Table Editor

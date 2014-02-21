@@ -31,7 +31,7 @@ class SimpleDecoder extends Decoder {
     
     public XMLParameter newParameter(String type) { 
         SimpleDecoderParameter p = new SimpleDecoderParameter(this, cur_offset)
-        p.setSize(default_size) // Set default size
+        p.setSize(Integer.toString(default_size)) // Set default size
         int t = 0
         switch (type) {
         case "constant":

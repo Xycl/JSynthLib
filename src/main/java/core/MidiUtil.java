@@ -43,7 +43,7 @@ import javax.sound.midi.SysexMessage;
 import javax.sound.midi.Transmitter;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.Actions;
+import org.jsynthlib.view.Actions;
 
 /**
  * MIDI Utility Routines. This class contains methods and inner classes for Java

@@ -25,7 +25,7 @@ import core.*;
 
 import java.io.*;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 /**
  * YamahaCS2xCommonDriver needs to know about the type (current, bank1 or bank2)

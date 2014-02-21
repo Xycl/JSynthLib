@@ -1,5 +1,9 @@
 package core;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.prefs.Preferences;
+
 /**
  * This class encapsulates the details of a MIDI enabled device.
  */
@@ -114,5 +118,18 @@ public class DeviceDescriptor implements Comparable<DeviceDescriptor> {
 
         return deviceId == null ? dd.deviceId == null ? 0 : 1 : deviceId
                 .compareTo(dd.deviceId);
+    }
+
+    public Device newDevice(final Preferences prefs)
+            throws ClassNotFoundException, NoSuchMethodException,
+            InstantiationException, IllegalAccessException,
+            InvocationTargetException {
+        Class<?> c = Class.forName(deviceClass);
+        Class<?>[] args = {
+            Preferences.class };
+        Constructor<?> con = c.getConstructor(args);
+        Device device = (Device) con.newInstance(new Object[] {
+            prefs });
+        return device;
     }
 }

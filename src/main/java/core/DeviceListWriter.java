@@ -141,8 +141,7 @@ public class DeviceListWriter {
      * @return
      */
     private static DeviceDescriptor describe(final Device dev) {
-        String shortname = dev.getClass().getSimpleName();
-        shortname = shortname.substring(0, shortname.lastIndexOf("Device"));
+        
 
         DeviceDescriptor d = new DeviceDescriptor();
         d.setDeviceClass(dev.getClass().getName());
@@ -150,7 +149,6 @@ public class DeviceListWriter {
                 + " Driver");
         d.setDeviceId(dev.getInquiryID());
         d.setManufacturer(dev.getManufacturerName());
-        d.setShortName(shortname);
 
         return d;
     }

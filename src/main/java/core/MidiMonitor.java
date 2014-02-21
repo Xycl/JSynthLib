@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import org.jsynthlib.gui.desktop.JSLDesktop;
+import org.jsynthlib.view.desktop.JSLDesktop;
 
 public class MidiMonitor extends JDialog {
     private final MyEditorPane jt;

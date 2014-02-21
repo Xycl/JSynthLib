@@ -6,7 +6,7 @@ package synthdrivers.Generic;
 
 import java.util.prefs.Preferences;
 
-import org.jsynthlib.gui.desktop.JSLFrame;
+import org.jsynthlib.view.desktop.JSLFrame;
 
 import core.*;
 

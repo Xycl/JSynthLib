@@ -21,7 +21,7 @@
 
 package synthdrivers.Line6Pod20;
 
-import org.jsynthlib.gui.widgets.KnobWidget;
+import org.jsynthlib.view.widgets.KnobWidget;
 
 import core.*;
 

@@ -12,10 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.gui.Actions;
-import org.jsynthlib.gui.WaitDialog;
-import org.jsynthlib.gui.desktop.JSLDesktop;
-import org.jsynthlib.gui.preferences.PrefsDialog;
+import org.jsynthlib.view.Actions;
+import org.jsynthlib.view.WaitDialog;
+import org.jsynthlib.view.desktop.JSLDesktop;
+import org.jsynthlib.view.preferences.PrefsDialog;
 
 /**
  * This class provides an object that initialises application wide resources.

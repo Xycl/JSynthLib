@@ -11,8 +11,8 @@ import java.awt.*;
 
 import javax.swing.border.*;
 
-import org.jsynthlib.gui.PatchEditorFrame;
-import org.jsynthlib.gui.widgets.ScrollBarWidget;
+import org.jsynthlib.view.PatchEditorFrame;
+import org.jsynthlib.view.widgets.ScrollBarWidget;
 
 class RolandGP16SingleEditor extends PatchEditorFrame {
     private String[] expAssChoices = new String[] {

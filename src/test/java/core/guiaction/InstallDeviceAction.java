@@ -29,7 +29,7 @@ import org.fest.swing.fixture.DialogFixture;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JTabbedPaneFixture;
 import org.fest.swing.fixture.JTreeFixture;
-import org.jsynthlib.gui.DeviceAddDialog;
+import org.jsynthlib.view.DeviceAddDialog;
 
 public class InstallDeviceAction extends AbstractGuiAction {
 
