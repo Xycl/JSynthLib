@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 
-import org.apache.log4j.Logger;
 import org.jsynthlib.view.desktop.mdi.MDIFrameProxy;
 import org.jsynthlib.view.desktop.sdi.SDIFrameProxy;
 

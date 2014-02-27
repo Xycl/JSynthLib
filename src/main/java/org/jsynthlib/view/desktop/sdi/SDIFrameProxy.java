@@ -18,14 +18,16 @@ import org.jsynthlib.view.desktop.JSLFrameListener;
 import org.jsynthlib.view.desktop.JSLFrameProxy;
 
 /** use JFrame for SDI (Single Document Interface) mode. */
-public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListener {
-    
+public class SDIFrameProxy extends JFrame implements JSLFrameProxy,
+        WindowListener {
+
     private static final Logger LOG = Logger.getLogger(SDIFrameProxy.class);
 
     private static final long serialVersionUID = 8208502459693393026L;
 
     private WeakReference<JSLFrame> parent;
-    protected List<JSLFrameListener> listeners = new ArrayList<JSLFrameListener>();
+    protected List<JSLFrameListener> listeners =
+            new ArrayList<JSLFrameListener>();
     private boolean closing = false;
 
     public SDIFrameProxy(JSLFrame p) {
@@ -57,8 +59,7 @@ public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListen
 
     public void setClosed(boolean b) {
         if (b)
-            processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_CLOSING));
+            processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
     public void addJSLFrameListener(JSLFrameListener l) {
@@ -72,13 +73,8 @@ public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListen
         super.setVisible(b);
     }
 
-    private void showState(String s) {
-        LOG.info("\"" + getTitle() + "\" " + s + " ("
-                + this.getExtendedState() + ")");
-    }
-
     public void windowActivated(WindowEvent e) {
-        showState("activated");
+        LOG.info("activated (" + this.getExtendedState() + ")");
         JSLFrameEvent fe =
                 new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.ACTIVATED);
         Iterator<JSLFrameListener> it = listeners.iterator();
@@ -88,7 +84,7 @@ public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListen
     }
 
     public void windowClosed(WindowEvent e) {
-        showState("closed");
+        LOG.info("closed (" + this.getExtendedState() + ")");
         JSLFrameEvent fe =
                 new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.CLOSED);
         Iterator<JSLFrameListener> it = listeners.iterator();
@@ -99,7 +95,7 @@ public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListen
     }
 
     public void windowClosing(WindowEvent e) {
-        showState("closing");
+        LOG.info("closing (" + this.getExtendedState() + ")");
         closing = true;
         JSLFrameEvent fe =
                 new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.CLOSING);
@@ -107,8 +103,6 @@ public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListen
         while (it.hasNext()) {
             it.next().JSLFrameClosing(fe);
         }
-        // if (!fe.isConsumed())
-        // proxy.dispose();
     }
 
     public boolean isClosing() {
@@ -116,7 +110,7 @@ public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListen
     }
 
     public void windowDeactivated(WindowEvent e) {
-        showState("deactivated");
+        LOG.info("deactivated (" + this.getExtendedState() + ")");
         JSLFrameEvent fe =
                 new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.DEACTIVATED);
         Iterator<JSLFrameListener> it = listeners.iterator();
@@ -126,7 +120,7 @@ public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListen
     }
 
     public void windowDeiconified(WindowEvent e) {
-        showState("deiconified");
+        LOG.info("deiconified (" + this.getExtendedState() + ")");
         JSLFrameEvent fe =
                 new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.DEICONIFIED);
         Iterator<JSLFrameListener> it = listeners.iterator();
@@ -136,7 +130,7 @@ public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListen
     }
 
     public void windowIconified(WindowEvent e) {
-        showState("iconified");
+        LOG.info("iconified (" + this.getExtendedState() + ")");
         JSLFrameEvent fe =
                 new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.ICONIFIED);
         Iterator<JSLFrameListener> it = listeners.iterator();
@@ -146,7 +140,7 @@ public class SDIFrameProxy extends JFrame implements JSLFrameProxy, WindowListen
     }
 
     public void windowOpened(WindowEvent e) {
-        showState("opened");
+        LOG.info("opened (" + this.getExtendedState() + ")");
         JSLFrameEvent fe =
                 new JSLFrameEvent(getJSLFrame(), JSLFrameEvent.OPENED);
         Iterator<JSLFrameListener> it = listeners.iterator();

@@ -80,7 +80,6 @@ public abstract class XMLDeviceFactory {
                     XMLDeviceDescriptor descriptor = new XMLDeviceDescriptor(url, handler);
                     devices.add(descriptor);
                 } catch (NotDeviceException e) {
-                    LOG.warn(e.getMessage(), e);
                 } catch (FinishedParsingException e) {
                     XMLDeviceDescriptor descriptor = new XMLDeviceDescriptor(url, handler);
                     devices.add(descriptor);

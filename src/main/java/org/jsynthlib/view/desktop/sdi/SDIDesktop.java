@@ -62,7 +62,7 @@ public class SDIDesktop extends JSLDesktop {
         toolbarFrame = new JSLFrame();
         JFrame frame = toolbarFrame.getJFrame();
         toolbarFrame.setTitle(title);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // toolbar.addJSLFrameListener(this);
         if (mb != null)
