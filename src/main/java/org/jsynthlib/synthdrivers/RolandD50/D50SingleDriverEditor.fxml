@@ -1,0 +1,1694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.jsynthlib.device.view.*?>
+<?scenebuilder-classpath-element ../../../../../../../target/classes?>
+<?scenebuilder-classpath-element ../../../../../../../target/jsynthlib-1.1-SNAPSHOT-executable.jar?>
+<?scenebuilder-stylesheet ../../../../application.css?>
+
+<AnchorPane minHeight="765.0" minWidth="1186.0" prefHeight="765.0" prefWidth="1186.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <FlowPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <TitledPane prefWidth="1177.0" text="Patch">
+          <content>
+            <AnchorPane>
+              <children>
+                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                    <TextField fx:id="aaa8ed42c82547b5b96ff00a7c19e337" prefWidth="100.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                    <Label fx:id="lblaaa8ed42c82547b5b96ff00a7c19e337" alignment="CENTER" prefWidth="100.0" text="Name" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Knob fx:id="b49d914c57e0497faa1421c4e1016887" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                    <Label fx:id="lblb49d914c57e0497faa1421c4e1016887" alignment="CENTER" prefWidth="100.0" text="Lower Tone Key Shift" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Knob fx:id="e554b5523e2e4eaaa8310be499f28175" styleClass="knobStyle" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                    <Label fx:id="lble554b5523e2e4eaaa8310be499f28175" alignment="CENTER" prefWidth="100.0" text="Upper Tone Fine Tune" wrapText="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Knob fx:id="7e5c934bce9949e3b6faf980f43a93c4" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                    <Label fx:id="lbl7e5c934bce9949e3b6faf980f43a93c4" alignment="CENTER" prefWidth="100.0" text="Lower Tone Fine Tune" wrapText="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Knob fx:id="debf81e9b2dd4a72b02955f3a1b0cedb" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                    <Label fx:id="lbldebf81e9b2dd4a72b02955f3a1b0cedb" alignment="CENTER" prefWidth="100.0" text="Bender Range" wrapText="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                    <Knob fx:id="fc8222609430408c8b17b86583183541" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    <Label fx:id="lblfc8222609430408c8b17b86583183541" alignment="CENTER" prefWidth="100.0" text="Output Mode" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                    <Knob fx:id="2d15f3b5b4a648fc80c770d7f779d20a" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label fx:id="lbl2d15f3b5b4a648fc80c770d7f779d20a" alignment="CENTER" prefWidth="100.0" text="Total Volume" wrapText="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                    <Knob fx:id="344ce0964abf44318235b84ce7d2891e" styleClass="knobStyle" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                    <Label fx:id="lbl344ce0964abf44318235b84ce7d2891e" alignment="CENTER" prefWidth="100.0" text="Upper Tone Key Shift" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <Knob fx:id="5b5e7bb7d8644b83a78c4027ddb8b0ab" styleClass="knobStyle" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                    <Label fx:id="lbl5b5e7bb7d8644b83a78c4027ddb8b0ab" alignment="CENTER" prefWidth="100.0" text="Tone Balance" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                    <Knob fx:id="83ed808124434e3e92ca72c1f6113219" styleClass="knobStyle" GridPane.columnIndex="6" GridPane.rowIndex="0" />
+                    <Label fx:id="lbl83ed808124434e3e92ca72c1f6113219" alignment="CENTER" prefWidth="100.0" text="After Touch Bend Range" wrapText="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="7f312de71ae8481285c3549998496d1e" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                    <Label fx:id="lbl7f312de71ae8481285c3549998496d1e" alignment="CENTER" prefWidth="100.0" text="Hold Mode" wrapText="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                    <Knob fx:id="f0c194d016a546c0a424afd1791d87dc" styleClass="knobStyle" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                    <Label fx:id="lblf0c194d016a546c0a424afd1791d87dc" alignment="CENTER" prefWidth="100.0" text="Split Point" wrapText="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                    <ComboBox fx:id="cb1c99e816104e179510f07962df762e" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                    <Label fx:id="lblcb1c99e816104e179510f07962df762e" alignment="CENTER" prefWidth="100.0" text="Key Mode" wrapText="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                    <Knob fx:id="08e022872bef4a44b3ce907f7e6240c0" styleClass="knobStyle" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                    <Label fx:id="lbl08e022872bef4a44b3ce907f7e6240c0" alignment="CENTER" prefWidth="100.0" text="Reverb Balance" wrapText="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                    <ComboBox fx:id="4ef59c5dbf3943548910022e3a3ce68e" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                    <Label fx:id="lbl4ef59c5dbf3943548910022e3a3ce68e" alignment="CENTER" prefWidth="100.0" text="Reverb Type" wrapText="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                    <Knob fx:id="5e113d8bb4e94a6e8b1ead30bed4db8e" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                    <Label fx:id="lbl5e113d8bb4e94a6e8b1ead30bed4db8e" alignment="CENTER" prefWidth="100.0" text="Chase Level" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                    <Knob fx:id="8bb8eb13e0b64c93ae53f35a20d275fa" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                    <Label fx:id="lbl8bb8eb13e0b64c93ae53f35a20d275fa" alignment="CENTER" prefWidth="100.0" text="Chase Time" wrapText="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                    <ComboBox fx:id="8443df5511ef4fcdb4edf5367ce8ace1" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                    <Label fx:id="lbl8443df5511ef4fcdb4edf5367ce8ace1" alignment="CENTER" prefWidth="100.0" text="Chase Mode" wrapText="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                    <Knob fx:id="09a196ab8efe4541977a08b804297873" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label fx:id="lbl09a196ab8efe4541977a08b804297873" alignment="CENTER" prefWidth="100.0" text="Portamento Time" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                    <ComboBox fx:id="48135c670b5c439293d70509e4bd8a96" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                    <Label fx:id="lbl48135c670b5c439293d70509e4bd8a96" alignment="CENTER" prefWidth="100.0" text="Portamento Mode" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+        <TabPane prefHeight="540.0" prefWidth="1175.0" tabClosingPolicy="UNAVAILABLE">
+          <tabs>
+            <Tab text="Common Upper">
+              <content>
+                <AnchorPane fx:id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <GridPane prefHeight="509.0" prefWidth="970.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <TitledPane prefHeight="289.0" prefWidth="455.0" text="PITCH ENV" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="b881f3335263444c85a1832158492786" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblb881f3335263444c85a1832158492786" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                    <Envelope fx:id="d40684b09b174ac687652d1552f077c1" prefHeight="200.0" prefWidth="300.0" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="3" />
+                                    <Knob fx:id="5a2386be503843f6b7a44e711f501eda" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl5a2386be503843f6b7a44e711f501eda" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                    <TitledPane text="PITCH MOD" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                      <content>
+                                        <AnchorPane>
+                                          <children>
+                                            <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                              <children>
+                                                <Knob fx:id="f32f9d471c6c41edb1352548f52644e8" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                <Label fx:id="lblf32f9d471c6c41edb1352548f52644e8" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                                <Knob fx:id="7afb62658d6f44d5a0c8b2f8319904aa" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                                <Label fx:id="lbl7afb62658d6f44d5a0c8b2f8319904aa" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Knob fx:id="f3057c5db7b84640849a09185112233c" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                                <Label fx:id="lblf3057c5db7b84640849a09185112233c" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                              </children>
+                                              <columnConstraints>
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                              </rowConstraints>
+                                            </GridPane>
+                                          </children>
+                                        </AnchorPane>
+                                      </content>
+                                    </TitledPane>
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                        </TitledPane>
+                        <GridPane prefHeight="170.0" prefWidth="355.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <children>
+                            <TextField fx:id="42c7bc34512543dfb8288e63466bef91" prefWidth="100.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl42c7bc34512543dfb8288e63466bef91" alignment="CENTER" prefWidth="100.0" text="Name" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                            <Label fx:id="lblb2f114d11f014e97ab95e6dcafba3ec6" alignment="CENTER" prefWidth="100.0" text="Partial Balance" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                            <Label text="Partial Select" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                            <CheckBox fx:id="0d395d1490714941a94d549fb0fb7831" text="Partial 2" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                            <CheckBox fx:id="7291cb9a39584b1eb3931eb63db42d9f" text="Partial 1" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl7608f343a88c45ccbb1c0bcfddeb02b1" alignment="CENTER" prefWidth="100.0" text="Structure" wrapText="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                            <ImageView fx:id="img7608f343a88c45ccbb1c0bcfddeb02b1" fitHeight="43.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                            <Knob fx:id="b2f114d11f014e97ab95e6dcafba3ec6" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Knob fx:id="7608f343a88c45ccbb1c0bcfddeb02b1" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="34.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <children>
+                            <TitledPane text="Low EQ">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <Knob fx:id="0d2b2d0a17674d6e9f41792360f7463e" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl0d2b2d0a17674d6e9f41792360f7463e" alignment="CENTER" prefWidth="100.0" text="Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Label fx:id="lbl8a45591f4242498ea3ac2f3ff68b9217" alignment="CENTER" prefWidth="100.0" text="Gain" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="8a45591f4242498ea3ac2f3ff68b9217" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                            <TitledPane text="High EQ">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <Knob fx:id="25bbf65791b948b38b01a38ec928a404" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl25bbf65791b948b38b01a38ec928a404" alignment="CENTER" prefWidth="100.0" text="Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Knob fx:id="a776d71c5aed4738bf73736973202419" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbla776d71c5aed4738bf73736973202419" alignment="CENTER" prefWidth="100.0" text="Q" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="96b4c28662f44e10b8867b0993ad2333" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl96b4c28662f44e10b8867b0993ad2333" alignment="CENTER" prefWidth="100.0" text="Gain" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints />
+                                        <ColumnConstraints />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                          </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                          <children>
+                            <TitledPane text="LFO1">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <ComboBox fx:id="82bae2be07624b89849226b2d67431f4" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl82bae2be07624b89849226b2d67431f4" alignment="CENTER" prefWidth="100.0" text="Waveform" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Knob fx:id="73d102ff40fc44b7b2cf7cf96f6fd88b" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl73d102ff40fc44b7b2cf7cf96f6fd88b" alignment="CENTER" prefWidth="100.0" text="Rate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="a25d3a9624324d0ea437896381e25b13" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbla25d3a9624324d0ea437896381e25b13" alignment="CENTER" prefWidth="100.0" text="Delay Time" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="ed166460a02a4735aeaba3f05d793a62" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbled166460a02a4735aeaba3f05d793a62" alignment="CENTER" prefWidth="100.0" text="Sync" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints />
+                                        <ColumnConstraints />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                            <TitledPane text="LFO2">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <ComboBox fx:id="6158638d55a44273a5f548d01d6c598b" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl6158638d55a44273a5f548d01d6c598b" alignment="CENTER" prefWidth="100.0" text="Waveform" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Knob fx:id="c7b4d7aba49741d5a796bcf0b6ea4c97" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lblc7b4d7aba49741d5a796bcf0b6ea4c97" alignment="CENTER" prefWidth="100.0" text="Rate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="530b5c5bb46e4d159bae5b7c6752feea" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl530b5c5bb46e4d159bae5b7c6752feea" alignment="CENTER" prefWidth="100.0" text="Delay Time" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="c9b0b0907f5f495db6f7e30b7cffb23f" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label fx:id="lblc9b0b0907f5f495db6f7e30b7cffb23f" alignment="CENTER" prefWidth="100.0" text="Sync" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints />
+                                        <ColumnConstraints />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                            <TitledPane text="LFO3">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <ComboBox fx:id="ed0268e930ac417cbd8424470588048a" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                        <Knob fx:id="35e1d093eed94e23b2040ba1a3c30cc9" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbled0268e930ac417cbd8424470588048a" alignment="CENTER" prefWidth="100.0" text="Waveform" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Label fx:id="lbl35e1d093eed94e23b2040ba1a3c30cc9" alignment="CENTER" prefWidth="100.0" text="Rate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="36d1a27d7e67436ebc930df9ff2682a3" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl36d1a27d7e67436ebc930df9ff2682a3" alignment="CENTER" prefWidth="100.0" text="Delay Time" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="977fed3c97254487b98f2cd9299143fc" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl977fed3c97254487b98f2cd9299143fc" alignment="CENTER" prefWidth="100.0" text="Sync" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                            <TitledPane text="Chorus">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <ComboBox fx:id="8bf73c4cb6f64a938039c387b9f6c8a5" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl8bf73c4cb6f64a938039c387b9f6c8a5" alignment="CENTER" prefWidth="100.0" text="Type" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Knob fx:id="9df8d951ffed4d46ad5744bf1c24c9d5" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl9df8d951ffed4d46ad5744bf1c24c9d5" alignment="CENTER" prefWidth="100.0" text="Rate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="624d0cc22ea34de4affa2b5ba2754a88" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl624d0cc22ea34de4affa2b5ba2754a88" alignment="CENTER" prefWidth="100.0" text="Depth" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="2507e908874849708784ec76ae2eff4f" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl2507e908874849708784ec76ae2eff4f" alignment="CENTER" prefWidth="100.0" text="Balance" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints />
+                                        <ColumnConstraints />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                          </children>
+                        </HBox>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="38.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="169.0" minHeight="10.0" prefHeight="169.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Upper Partial 1">
+              <content>
+                <AnchorPane fx:id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <GridPane minWidth="1177.0" prefHeight="458.0" prefWidth="1177.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <TitledPane text="WG PITCH" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="03ca77b0d2e0422781af8cde56365ec1" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl03ca77b0d2e0422781af8cde56365ec1" alignment="CENTER" prefWidth="100.0" text="Pitch Coarse" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="2fee191b932d49c299258c8f158e4273" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl2fee191b932d49c299258c8f158e4273" alignment="CENTER" prefWidth="100.0" text="Pitch Fine" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="5554506910c04bbc9c8673fb0108ede6" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl5554506910c04bbc9c8673fb0108ede6" alignment="CENTER" prefWidth="100.0" text="Pitch Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="78da954b0545455a8ec655a7d53e9783" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl78da954b0545455a8ec655a7d53e9783" alignment="CENTER" prefWidth="100.0" text="LFO Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Knob fx:id="b041bd766ceb45cebd0bd037bbaa019e" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblb041bd766ceb45cebd0bd037bbaa019e" alignment="CENTER" prefWidth="100.0" text="P-Env Mode" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="fdcffd48e00541baa7338879676fefe9" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblfdcffd48e00541baa7338879676fefe9" alignment="CENTER" prefWidth="100.0" text="Bender Mode" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVA" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="752a640f958640bc990ae041568dda2a" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl752a640f958640bc990ae041568dda2a" alignment="CENTER" prefWidth="100.0" text="Level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="4fcc0900b9814a139edc79bdc361388f" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl4fcc0900b9814a139edc79bdc361388f" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="3736645951bf4558856c79f45a605b54" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl3736645951bf4558856c79f45a605b54" alignment="CENTER" prefWidth="100.0" text="Bias point" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="8a566dba2deb48f9931c0a7b9faf1208" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl8a566dba2deb48f9931c0a7b9faf1208" alignment="CENTER" prefWidth="100.0" text="Bias level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="45a58042231f456e8d8265f1f50759c7" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl45a58042231f456e8d8265f1f50759c7" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="3fdd2d97c1444fa79ebe91b2c82e39be" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl3fdd2d97c1444fa79ebe91b2c82e39be" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="80c28064ac874f65bac3b52e98f67b11" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl80c28064ac874f65bac3b52e98f67b11" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVF" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="09bedc6e1e7d46ca91ec0dee2e2e5643" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl09bedc6e1e7d46ca91ec0dee2e2e5643" alignment="CENTER" prefWidth="100.0" text="Cutoff Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="7a29ac6558fc46b2af3ed8fffb83171f" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl7a29ac6558fc46b2af3ed8fffb83171f" alignment="CENTER" prefWidth="100.0" text="Resonance" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="c0a0dff6f49e41dcb8c0d467f96cbeb5" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblc0a0dff6f49e41dcb8c0d467f96cbeb5" alignment="CENTER" prefWidth="100.0" text="Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="77561b9ae8ea476d85a5a72b4e76d6d0" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl77561b9ae8ea476d85a5a72b4e76d6d0" alignment="CENTER" prefWidth="100.0" text="Bias Point" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Knob fx:id="0f60c56ffd024751b760389296a9aaba" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl0f60c56ffd024751b760389296a9aaba" alignment="CENTER" prefWidth="100.0" text="Bias Level" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="3a6b305994f84be286c780a209e6e5b9" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl3a6b305994f84be286c780a209e6e5b9" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="d8eed1576e9d4e648eab0290b206f2fe" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                    <Knob fx:id="17a97466bfbc4293a70aea2f6d51d317" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbld8eed1576e9d4e648eab0290b206f2fe" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Label fx:id="lbl17a97466bfbc4293a70aea2f6d51d317" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="WG WAVEFORM" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="c38cd50e707e46308a5da7ee9baabb2c" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblc38cd50e707e46308a5da7ee9baabb2c" alignment="CENTER" prefWidth="100.0" text="Waveform / PCM Bank" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="24435619451b438fadde5bc2e9d9be39" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl24435619451b438fadde5bc2e9d9be39" alignment="CENTER" prefWidth="100.0" text="PCM Wave Number" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="317463f1856b410cadb185cb72a6a941" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl317463f1856b410cadb185cb72a6a941" alignment="CENTER" prefWidth="100.0" text="Pulse Width" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="ffa984d6f5f742228248f4e5371edfdb" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblffa984d6f5f742228248f4e5371edfdb" alignment="CENTER" prefWidth="100.0" text="PW Velocity Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="bb5fa6b447c248a4861eab8908837a04" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblbb5fa6b447c248a4861eab8908837a04" alignment="CENTER" prefWidth="100.0" text="PW LFO Select" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="2b8d75733193444d9804b27b96731637" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl2b8d75733193444d9804b27b96731637" alignment="CENTER" prefWidth="100.0" text="PW LFO Depth" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="fefaf5cd8b0842f5867fda57086f46ff" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                    <Label fx:id="lblfefaf5cd8b0842f5867fda57086f46ff" alignment="CENTER" prefWidth="100.0" text="PW After Touch Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVA ENV" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="9d5381bb732349a1ac34f3421de845c5" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl9d5381bb732349a1ac34f3421de845c5" alignment="CENTER" prefWidth="100.0" text="Velocity Keyfollow" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="28c59dfd1da347d0b53eb5e684e8eb02" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl28c59dfd1da347d0b53eb5e684e8eb02" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Envelope fx:id="993e4f315571449fa2d19d4939389450" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVF ENV" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="092929e40f2e4147afeec108e5ee2b6c" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl092929e40f2e4147afeec108e5ee2b6c" alignment="CENTER" prefWidth="100.0" text="Depth" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="f84fa33474274da1834739be3de2cbef" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblf84fa33474274da1834739be3de2cbef" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="dbd3aa829b2645f3b5264b28766bfb2f" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbldbd3aa829b2645f3b5264b28766bfb2f" alignment="CENTER" prefWidth="100.0" text="Depth Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="5f363d90dcbc4cbf844c888a8136bb6b" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl5f363d90dcbc4cbf844c888a8136bb6b" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Envelope fx:id="dde368b6cad54318968bba930ed826ce" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                                    <Label fx:id="lbldde368b6cad54318968bba930ed826ce" alignment="CENTER" prefWidth="100.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="27.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="36.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" percentHeight="34.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Upper Partial 2">
+              <content>
+                <AnchorPane fx:id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <GridPane minWidth="1177.0" prefHeight="458.0" prefWidth="1177.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <TitledPane text="WG PITCH" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="d9db33695c3048b0a2dc814c84ae0ca4" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbld9db33695c3048b0a2dc814c84ae0ca4" alignment="CENTER" prefWidth="100.0" text="Pitch Coarse" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="1d929f6f92254a97ace7a1e9ac5f5728" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl1d929f6f92254a97ace7a1e9ac5f5728" alignment="CENTER" prefWidth="100.0" text="Pitch Fine" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="e297de4cf3d0491e9ad1aa8ae63a4edc" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lble297de4cf3d0491e9ad1aa8ae63a4edc" alignment="CENTER" prefWidth="100.0" text="Pitch Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="a07da3483b4b42c090e3e960a83b47bc" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbla07da3483b4b42c090e3e960a83b47bc" alignment="CENTER" prefWidth="100.0" text="LFO Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Knob fx:id="4a3d74c8d0234685934b7d5b117eb353" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl4a3d74c8d0234685934b7d5b117eb353" alignment="CENTER" prefWidth="100.0" text="P-Env Mode" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="34802090fe9f4b2dbdef442ce7f773ab" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl34802090fe9f4b2dbdef442ce7f773ab" alignment="CENTER" prefWidth="100.0" text="Bender Mode" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVA" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="5da59f1262994c1b97d36c7fa18d2766" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl5da59f1262994c1b97d36c7fa18d2766" alignment="CENTER" prefWidth="100.0" text="Level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="edbfb1fb19d54aa2bfbdb603bb5ca569" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbledbfb1fb19d54aa2bfbdb603bb5ca569" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="cfc5f6c83c41406db787c758962b7143" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblcfc5f6c83c41406db787c758962b7143" alignment="CENTER" prefWidth="100.0" text="Bias point" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="bce3d1657e1c4a72bc863f786095f14e" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblbce3d1657e1c4a72bc863f786095f14e" alignment="CENTER" prefWidth="100.0" text="Bias level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="066dd7a52a3e4ed7be4b150a1181462a" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl066dd7a52a3e4ed7be4b150a1181462a" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="d75a832591cf4f2589666ee6b264d3b5" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbld75a832591cf4f2589666ee6b264d3b5" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="38526f2386a24ab6ae904e5e213c3580" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl38526f2386a24ab6ae904e5e213c3580" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVF" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="db967a913da54bbb9f002a6b7b09e5dd" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbldb967a913da54bbb9f002a6b7b09e5dd" alignment="CENTER" prefWidth="100.0" text="Cutoff Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="9d495082a4a64f6fbea8b2e4e443324a" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl9d495082a4a64f6fbea8b2e4e443324a" alignment="CENTER" prefWidth="100.0" text="Resonance" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="ec70745e216e48e68f0a289a20cbd4c9" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblec70745e216e48e68f0a289a20cbd4c9" alignment="CENTER" prefWidth="100.0" text="Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="aa3a65515cde4637939f0e81d02d095b" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblaa3a65515cde4637939f0e81d02d095b" alignment="CENTER" prefWidth="100.0" text="Bias Point" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Knob fx:id="dd02aefe1bf8492fb08b7e71692d48ea" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbldd02aefe1bf8492fb08b7e71692d48ea" alignment="CENTER" prefWidth="100.0" text="Bias Level" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="8fd7918073354fd6b06b85bb75809180" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl8fd7918073354fd6b06b85bb75809180" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="d7384d156c214cf2ad93c6bd2694cdf4" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                    <Knob fx:id="61f4ee5d0d0040628be21c47c45b333a" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl61f4ee5d0d0040628be21c47c45b333a" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                    <Label fx:id="lbld7384d156c214cf2ad93c6bd2694cdf4" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="WG WAVEFORM" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="135e60553b674e9fa762e8dbbf0bfa82" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl135e60553b674e9fa762e8dbbf0bfa82" alignment="CENTER" prefWidth="100.0" text="Waveform / PCM Bank" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="9108510cd9da46be9705522ad4bfba76" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl9108510cd9da46be9705522ad4bfba76" alignment="CENTER" prefWidth="100.0" text="PCM Wave Number" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="3560fd17323c474cbcd125a7198fbf30" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl3560fd17323c474cbcd125a7198fbf30" alignment="CENTER" prefWidth="100.0" text="Pulse Width" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="f0a9a132428e4c60a7a057638dceca88" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblf0a9a132428e4c60a7a057638dceca88" alignment="CENTER" prefWidth="100.0" text="PW Velocity Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="b0067d931a8544b6ab083c7ed05bc8f5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblb0067d931a8544b6ab083c7ed05bc8f5" alignment="CENTER" prefWidth="100.0" text="PW LFO Select" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="3816ae8a3b4c4e76a1365f5e3bdcf481" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl3816ae8a3b4c4e76a1365f5e3bdcf481" alignment="CENTER" prefWidth="100.0" text="PW LFO Depth" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="61b02dc190f3435684c6c9762222a2f6" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                    <Label fx:id="lbl61b02dc190f3435684c6c9762222a2f6" alignment="CENTER" prefWidth="100.0" text="PW After Touch Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVA ENV" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="cf85fcacec284d528e95462cf1968d6e" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblcf85fcacec284d528e95462cf1968d6e" alignment="CENTER" prefWidth="100.0" text="Velocity Keyfollow" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="3e7010d8ecbc4845bf889e59970e76da" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl3e7010d8ecbc4845bf889e59970e76da" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Envelope fx:id="8c2299f5c1894c31bce5ef251543a1ab" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVF ENV" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="918bf7b2869d4832a2c4b704870d5ede" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl918bf7b2869d4832a2c4b704870d5ede" alignment="CENTER" prefWidth="100.0" text="Depth" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="82463ff81efe4436b8fd54d1d09db3fa" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl82463ff81efe4436b8fd54d1d09db3fa" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="afb8133296d04465ab6bd557398c769d" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblafb8133296d04465ab6bd557398c769d" alignment="CENTER" prefWidth="100.0" text="Depth Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="d91557e8223e4ba388d154e46a2b0241" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbld91557e8223e4ba388d154e46a2b0241" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Envelope fx:id="94c156f1744a4ebc9b30763b4e636ee7" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                                    <Label fx:id="lbl94c156f1744a4ebc9b30763b4e636ee7" alignment="CENTER" prefWidth="100.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="27.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="36.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" percentHeight="34.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Common Lower">
+              <content>
+                <AnchorPane fx:id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <GridPane prefHeight="509.0" prefWidth="970.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <TitledPane prefHeight="289.0" prefWidth="455.0" text="PITCH ENV" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="f5c4f6cbf7b94ede80b173101544faca" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblf5c4f6cbf7b94ede80b173101544faca" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                    <Envelope fx:id="92722ee0bab04035b8181ba720cfebe7" prefHeight="200.0" prefWidth="300.0" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="3" />
+                                    <Knob fx:id="e99971f822244e3e864c603772bf9603" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lble99971f822244e3e864c603772bf9603" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                    <TitledPane text="PITCH MOD" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                      <content>
+                                        <AnchorPane>
+                                          <children>
+                                            <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                              <children>
+                                                <Knob fx:id="24c770bc06024aa396d9e894163c7942" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                <Label fx:id="lbl24c770bc06024aa396d9e894163c7942" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                                <Knob fx:id="15a70e7308eb4082bddcb479bb87b1c3" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                                <Label fx:id="lbl15a70e7308eb4082bddcb479bb87b1c3" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Knob fx:id="31806ad932004c2dbb7e25ebd6235ebd" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                                <Label fx:id="lbl31806ad932004c2dbb7e25ebd6235ebd" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                              </children>
+                                              <columnConstraints>
+                                                <ColumnConstraints />
+                                                <ColumnConstraints />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                                <RowConstraints />
+                                              </rowConstraints>
+                                            </GridPane>
+                                          </children>
+                                        </AnchorPane>
+                                      </content>
+                                    </TitledPane>
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                        </TitledPane>
+                        <GridPane prefHeight="148.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <children>
+                            <TextField fx:id="0427b2fb00564595b0ef275d8904a9d2" prefWidth="100.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl0427b2fb00564595b0ef275d8904a9d2" alignment="CENTER" prefWidth="100.0" text="Name" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                            <Label fx:id="lblffeb67ad8ec843b7bc4c07099f04935e" alignment="CENTER" prefWidth="100.0" text="Partial Balance" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                            <Label text="Partial Select" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                            <CheckBox fx:id="84a5d4372b4a4747b0baefa1feebbdf7" text="Partial 2" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+                            <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46450" text="Partial 1" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
+                            <ImageView fx:id="imga90e33f8bdfa4ae8ab650488ebe76faa" fitHeight="43.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                            <Label fx:id="lbla90e33f8bdfa4ae8ab650488ebe76faa" alignment="CENTER" prefWidth="100.0" text="Structure" wrapText="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                            <Knob fx:id="ffeb67ad8ec843b7bc4c07099f04935e" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Knob fx:id="a90e33f8bdfa4ae8ab650488ebe76faa" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="34.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <children>
+                            <TitledPane text="Low EQ">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <Knob fx:id="4abdcf14354f49d78795c8365d6f056d" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl4abdcf14354f49d78795c8365d6f056d" alignment="CENTER" prefWidth="100.0" text="Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Label fx:id="lbl31c9dd92efbc49d48ea31bb95bbbd755" alignment="CENTER" prefWidth="100.0" text="Gain" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="31c9dd92efbc49d48ea31bb95bbbd755" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                            <TitledPane text="High EQ">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <Knob fx:id="eeb1c22f0e2f4416b0d5da6eeaa230eb" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbleeb1c22f0e2f4416b0d5da6eeaa230eb" alignment="CENTER" prefWidth="100.0" text="Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Knob fx:id="b6f21147add14cecb31324406c17d21a" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lblb6f21147add14cecb31324406c17d21a" alignment="CENTER" prefWidth="100.0" text="Q" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="4b7a31f646a540008430ecf5b09a1235" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl4b7a31f646a540008430ecf5b09a1235" alignment="CENTER" prefWidth="100.0" text="Gain" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints />
+                                        <ColumnConstraints />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                          </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                          <children>
+                            <TitledPane text="LFO1">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <ComboBox fx:id="8b0f4ebb16bf43e2bbe2e9a338c3fbd5" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl8b0f4ebb16bf43e2bbe2e9a338c3fbd5" alignment="CENTER" prefWidth="100.0" text="Waveform" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Knob fx:id="fefaf40165a6412fb99b4480155a8620" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lblfefaf40165a6412fb99b4480155a8620" alignment="CENTER" prefWidth="100.0" text="Rate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="311a56168a7b4a41b43d7294f850d644" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl311a56168a7b4a41b43d7294f850d644" alignment="CENTER" prefWidth="100.0" text="Delay Time" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="cd80e2a65b7d4135bf30477d768bf5fb" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label fx:id="lblcd80e2a65b7d4135bf30477d768bf5fb" alignment="CENTER" prefWidth="100.0" text="Sync" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints />
+                                        <ColumnConstraints />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                            <TitledPane text="LFO2">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <ComboBox fx:id="3eeafd32e7424cd38b32d744b891bb90" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl3eeafd32e7424cd38b32d744b891bb90" alignment="CENTER" prefWidth="100.0" text="Waveform" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Knob fx:id="82949c1fad61452aab3342c11fffd49a" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl82949c1fad61452aab3342c11fffd49a" alignment="CENTER" prefWidth="100.0" text="Rate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="510dd7f39d1243daa08b42b07fb348e3" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl510dd7f39d1243daa08b42b07fb348e3" alignment="CENTER" prefWidth="100.0" text="Delay Time" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="6f066a2cce714c9bbc30865d25a55443" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl6f066a2cce714c9bbc30865d25a55443" alignment="CENTER" prefWidth="100.0" text="Sync" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints />
+                                        <ColumnConstraints />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                            <TitledPane text="LFO3">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <ComboBox fx:id="a377ec1f65cb4fb2aeb9f351124801b3" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                        <Knob fx:id="a5bee8a20d524d53a8168a5c90b427e6" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbla377ec1f65cb4fb2aeb9f351124801b3" alignment="CENTER" prefWidth="100.0" text="Waveform" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Label fx:id="lbla5bee8a20d524d53a8168a5c90b427e6" alignment="CENTER" prefWidth="100.0" text="Rate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="5b994d90acd149c6bf5efd1a450ca808" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl5b994d90acd149c6bf5efd1a450ca808" alignment="CENTER" prefWidth="100.0" text="Delay Time" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="534fa59c2fdf4dc895028d60c8df024e" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl534fa59c2fdf4dc895028d60c8df024e" alignment="CENTER" prefWidth="100.0" text="Sync" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                            <TitledPane text="Chorus">
+                              <content>
+                                <AnchorPane>
+                                  <children>
+                                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <children>
+                                        <ComboBox fx:id="391d6a9526c9457fb03a765353ff6a04" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl391d6a9526c9457fb03a765353ff6a04" alignment="CENTER" prefWidth="100.0" text="Type" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Knob fx:id="6d7b4171cad4438b907d84c3aa54bfb5" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="lbl6d7b4171cad4438b907d84c3aa54bfb5" alignment="CENTER" prefWidth="100.0" text="Rate" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Knob fx:id="1c71e7d19827428ca41b4d26aba4db55" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl1c71e7d19827428ca41b4d26aba4db55" alignment="CENTER" prefWidth="100.0" text="Depth" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <Knob fx:id="147dee7d3927440f890af37f6efbca32" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label fx:id="lbl147dee7d3927440f890af37f6efbca32" alignment="CENTER" prefWidth="100.0" text="Balance" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                      </children>
+                                      <columnConstraints>
+                                        <ColumnConstraints />
+                                        <ColumnConstraints />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                      </rowConstraints>
+                                    </GridPane>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                              <HBox.margin>
+                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                              </HBox.margin>
+                            </TitledPane>
+                          </children>
+                        </HBox>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="38.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Lower Partial 1">
+              <content>
+                <AnchorPane fx:id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <GridPane minWidth="1177.0" prefHeight="458.0" prefWidth="1177.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <TitledPane text="WG PITCH" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="3494528f291a4f0c80d89515baeb61fd" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl3494528f291a4f0c80d89515baeb61fd" alignment="CENTER" prefWidth="100.0" text="Pitch Coarse" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="6f90b65083954c85ba505dc37de851dd" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl6f90b65083954c85ba505dc37de851dd" alignment="CENTER" prefWidth="100.0" text="Pitch Fine" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="7a5c289277f54af7a5d603e846bb5680" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl7a5c289277f54af7a5d603e846bb5680" alignment="CENTER" prefWidth="100.0" text="Pitch Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="b8e4e34be33146dcb6b036b55d8454f7" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblb8e4e34be33146dcb6b036b55d8454f7" alignment="CENTER" prefWidth="100.0" text="LFO Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Knob fx:id="8517cb9eb461437ba34dae6d72b628fa" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl8517cb9eb461437ba34dae6d72b628fa" alignment="CENTER" prefWidth="100.0" text="P-Env Mode" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="15f2d77a0dbd405cbf5200d7c80781fb" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl15f2d77a0dbd405cbf5200d7c80781fb" alignment="CENTER" prefWidth="100.0" text="Bender Mode" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVA" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="9cc114dd4abe43bb94961dae979e6b7f" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl9cc114dd4abe43bb94961dae979e6b7f" alignment="CENTER" prefWidth="100.0" text="Level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="4ea37eb7f27c47b6ae3e79f3fae827b7" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl4ea37eb7f27c47b6ae3e79f3fae827b7" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="5f4e5e5a199b4ca3a17bd28ac5e75bbe" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl5f4e5e5a199b4ca3a17bd28ac5e75bbe" alignment="CENTER" prefWidth="100.0" text="Bias point" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="da4caee0897542f8a1627c2ec8f9be44" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblda4caee0897542f8a1627c2ec8f9be44" alignment="CENTER" prefWidth="100.0" text="Bias level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="03102c8945c04e3d886fa6b359058b23" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl03102c8945c04e3d886fa6b359058b23" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="e9c1eaf248f34c3da04f3813cd81d2a0" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lble9c1eaf248f34c3da04f3813cd81d2a0" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="1a3aa24a48684663a3dcc6dd061b2dfc" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl1a3aa24a48684663a3dcc6dd061b2dfc" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVF" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="5178fdb63b4c416ba80984354862aaad" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl5178fdb63b4c416ba80984354862aaad" alignment="CENTER" prefWidth="100.0" text="Cutoff Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="9caa0e7226d0498d9e023d4518551703" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl9caa0e7226d0498d9e023d4518551703" alignment="CENTER" prefWidth="100.0" text="Resonance" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="f72c693bc897462d938ce8b22fc8bf85" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblf72c693bc897462d938ce8b22fc8bf85" alignment="CENTER" prefWidth="100.0" text="Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="e2dc3c33f6294169a468db783c4549f7" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lble2dc3c33f6294169a468db783c4549f7" alignment="CENTER" prefWidth="100.0" text="Bias Point" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Knob fx:id="9aef7a989f744908ab1ecd921e7db3ea" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl9aef7a989f744908ab1ecd921e7db3ea" alignment="CENTER" prefWidth="100.0" text="Bias Level" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="707703fdb3044b889182d747fd34e1bc" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl707703fdb3044b889182d747fd34e1bc" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="13a836490d344666823207cfd0aa4080" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                    <Knob fx:id="bf9f722f329545cab2b763a09b2f8fc1" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl13a836490d344666823207cfd0aa4080" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Label fx:id="lblbf9f722f329545cab2b763a09b2f8fc1" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="WG WAVEFORM" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="33137efd512e408f979d5870be7ef9fd" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl33137efd512e408f979d5870be7ef9fd" alignment="CENTER" prefWidth="100.0" text="Waveform / PCM Bank" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="6823912340eb487f84c4eefa5f33819c" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl6823912340eb487f84c4eefa5f33819c" alignment="CENTER" prefWidth="100.0" text="PCM Wave Number" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="d8465e559a5346aeb2f9bd856e6e54a2" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbld8465e559a5346aeb2f9bd856e6e54a2" alignment="CENTER" prefWidth="100.0" text="Pulse Width" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="27720cf56b7f4a16a0301af74046685d" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl27720cf56b7f4a16a0301af74046685d" alignment="CENTER" prefWidth="100.0" text="PW Velocity Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="4fc8860e4ce64b74be05ade4641fd139" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl4fc8860e4ce64b74be05ade4641fd139" alignment="CENTER" prefWidth="100.0" text="PW LFO Select" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="9c8eddfcda7a405abd0e6ba0fd68933c" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl9c8eddfcda7a405abd0e6ba0fd68933c" alignment="CENTER" prefWidth="100.0" text="PW LFO Depth" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="52d5dd07dbbb44db93a0dcf5ad1ac0f1" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                    <Label fx:id="lbl52d5dd07dbbb44db93a0dcf5ad1ac0f1" alignment="CENTER" prefWidth="100.0" text="PW After Touch Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVA ENV" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="56f273cd7d164f4aba0c94604f44dcfc" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl56f273cd7d164f4aba0c94604f44dcfc" alignment="CENTER" prefWidth="100.0" text="Velocity Keyfollow" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="5ef255f69e8146ffb7fb0b6eb61f6653" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl5ef255f69e8146ffb7fb0b6eb61f6653" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Envelope fx:id="11d76ec2e362413eaf94d051b0dc55a3" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVF ENV" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="f4fb3352473b4c14bd02c4a160000b63" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblf4fb3352473b4c14bd02c4a160000b63" alignment="CENTER" prefWidth="100.0" text="Depth" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="bdeae1a5fccd4b01be9e76876f14e28f" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblbdeae1a5fccd4b01be9e76876f14e28f" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="af32e02fa142457b8e54b05a80713945" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblaf32e02fa142457b8e54b05a80713945" alignment="CENTER" prefWidth="100.0" text="Depth Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="c2404f36c1594c9399cb2811bfc774d9" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblc2404f36c1594c9399cb2811bfc774d9" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Envelope fx:id="11f9ca33d5ac4a7eb09abe145f2f6221" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                                    <Label fx:id="lbl11f9ca33d5ac4a7eb09abe145f2f6221" alignment="CENTER" prefWidth="100.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="27.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="36.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" percentHeight="34.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Lower Partial 2">
+              <content>
+                <AnchorPane fx:id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <GridPane minWidth="1177.0" prefHeight="458.0" prefWidth="1177.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <TitledPane text="WG PITCH" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="d7f8e279400d4af190cdf742b24bc58c" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbld7f8e279400d4af190cdf742b24bc58c" alignment="CENTER" prefWidth="100.0" text="Pitch Coarse" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="1be12ce1fb34467cae476cd809d165cd" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl1be12ce1fb34467cae476cd809d165cd" alignment="CENTER" prefWidth="100.0" text="Pitch Fine" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="a1e008475f5b42d6a321097c401a8275" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbla1e008475f5b42d6a321097c401a8275" alignment="CENTER" prefWidth="100.0" text="Pitch Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="a7cea9d0bddd4033bfaaa1c3cb824a2f" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbla7cea9d0bddd4033bfaaa1c3cb824a2f" alignment="CENTER" prefWidth="100.0" text="LFO Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Knob fx:id="b4bcf285f99941e4bc41f4c29323d40d" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblb4bcf285f99941e4bc41f4c29323d40d" alignment="CENTER" prefWidth="100.0" text="P-Env Mode" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="8c8c07d51c5d400fa6a055c9aa6e0cb9" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl8c8c07d51c5d400fa6a055c9aa6e0cb9" alignment="CENTER" prefWidth="100.0" text="Bender Mode" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVA" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="3ceba09bed8b4baaac1331cede99e58b" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl3ceba09bed8b4baaac1331cede99e58b" alignment="CENTER" prefWidth="100.0" text="Level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="3c8be1b930b14f23926ccf483d4a5d4a" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl3c8be1b930b14f23926ccf483d4a5d4a" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="56770cf174b248eab8254cdbc476c2a8" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl56770cf174b248eab8254cdbc476c2a8" alignment="CENTER" prefWidth="100.0" text="Bias point" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="04d3dc3af6a34c93969a0c8fa96158bc" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl04d3dc3af6a34c93969a0c8fa96158bc" alignment="CENTER" prefWidth="100.0" text="Bias level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="2fc8a93d99be4f02b98f13ab5925921f" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl2fc8a93d99be4f02b98f13ab5925921f" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="2e1da13a04ab45b4baf7706839ae6d1e" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl2e1da13a04ab45b4baf7706839ae6d1e" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="a3f4af957b9940a38a7062bf76d97f58" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbla3f4af957b9940a38a7062bf76d97f58" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVF" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="e040dac34ecf469599f3831dbd049b63" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lble040dac34ecf469599f3831dbd049b63" alignment="CENTER" prefWidth="100.0" text="Cutoff Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="5950ff4314ac4db0a7fb7742f8daf8cd" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl5950ff4314ac4db0a7fb7742f8daf8cd" alignment="CENTER" prefWidth="100.0" text="Resonance" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="72d530f28d7e411b9aea42dce26328bc" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl72d530f28d7e411b9aea42dce26328bc" alignment="CENTER" prefWidth="100.0" text="Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="d6f60401792c448d8e85c487a3d747d0" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbld6f60401792c448d8e85c487a3d747d0" alignment="CENTER" prefWidth="100.0" text="Bias Point" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Knob fx:id="5b2944c7a87b456ba249207a5ab18aa6" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl5b2944c7a87b456ba249207a5ab18aa6" alignment="CENTER" prefWidth="100.0" text="Bias Level" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="3274ddcfb3c540d58b12bb7321491ae4" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl3274ddcfb3c540d58b12bb7321491ae4" alignment="CENTER" prefWidth="100.0" text="LFO Select" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="6a09d8b2a9db41beb906b615ef04800f" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl6a09d8b2a9db41beb906b615ef04800f" alignment="CENTER" prefWidth="100.0" text="AfterTouch Range" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Knob fx:id="3d5b5798bec24b8895385a160fb026ba" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl3d5b5798bec24b8895385a160fb026ba" alignment="CENTER" prefWidth="100.0" text="LFO Depth" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="WG WAVEFORM" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="f03f007163ff488c9791d774c9852a4c" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblf03f007163ff488c9791d774c9852a4c" alignment="CENTER" prefWidth="100.0" text="Waveform / PCM Bank" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="f55a9e3dff4f4e87993db2f268cc42bc" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblf55a9e3dff4f4e87993db2f268cc42bc" alignment="CENTER" prefWidth="100.0" text="PCM Wave Number" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="29ebadb81def4b3386709350fe5c0057" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl29ebadb81def4b3386709350fe5c0057" alignment="CENTER" prefWidth="100.0" text="Pulse Width" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="38fef6634333482d9b45858179dc5a66" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl38fef6634333482d9b45858179dc5a66" alignment="CENTER" prefWidth="100.0" text="PW Velocity Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="421febd8c548474a99edb8d617d040ca" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl421febd8c548474a99edb8d617d040ca" alignment="CENTER" prefWidth="100.0" text="PW LFO Select" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Knob fx:id="564ecef6764843b1bdbfe72af2e13203" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl564ecef6764843b1bdbfe72af2e13203" alignment="CENTER" prefWidth="100.0" text="PW LFO Depth" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Knob fx:id="cd097a3e69624819bf8be7309c64ea19" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                    <Label fx:id="lblcd097a3e69624819bf8be7309c64ea19" alignment="CENTER" prefWidth="100.0" text="PW After Touch Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVA ENV" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="db77c4dd218440f49367e85ea6a37afc" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbldb77c4dd218440f49367e85ea6a37afc" alignment="CENTER" prefWidth="100.0" text="Velocity Keyfollow" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="8d5f1c57698c4fde9c4b567f224c68dc" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl8d5f1c57698c4fde9c4b567f224c68dc" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Envelope fx:id="5e21cb76b881411a9908744c1c73e409" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                        <TitledPane text="TVF ENV" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane>
+                              <children>
+                                <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <children>
+                                    <Knob fx:id="f1f5a5f4aeb94fff979872f0540a0cdd" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblf1f5a5f4aeb94fff979872f0540a0cdd" alignment="CENTER" prefWidth="100.0" text="Depth" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Knob fx:id="f9b26dbfe71f4bd1b39c2bb3a6896848" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="lblf9b26dbfe71f4bd1b39c2bb3a6896848" alignment="CENTER" prefWidth="100.0" text="Velocity Range" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Knob fx:id="41df559b37314d6881752a0a862480a9" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="lbl41df559b37314d6881752a0a862480a9" alignment="CENTER" prefWidth="100.0" text="Depth Keyfollow" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Knob fx:id="5007854d157b4d1089cd1d255fda4cb3" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="lbl5007854d157b4d1089cd1d255fda4cb3" alignment="CENTER" prefWidth="100.0" text="Time Keyfollow" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Envelope fx:id="16bb0141558345fc8cbee7717ac14373" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                                    <Label fx:id="lbl16bb0141558345fc8cbee7717ac14373" alignment="CENTER" prefWidth="100.0" text="" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <GridPane.margin>
+                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" fx:id="x1" />
+                          </GridPane.margin>
+                        </TitledPane>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="27.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="36.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" percentHeight="34.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+          </tabs>
+        </TabPane>
+      </children>
+    </FlowPane>
+  </children>
+</AnchorPane>

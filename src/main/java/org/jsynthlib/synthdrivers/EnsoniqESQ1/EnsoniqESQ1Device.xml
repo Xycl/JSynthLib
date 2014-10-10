@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xd:xmlDeviceSpec xmlns:xd="http://www.jsynthlib.org/xmldevice">
+    <xd:manufacturer>Ensoniq</xd:manufacturer>
+    <xd:modelName>ESQ-1</xd:modelName>
+    <xd:inquiryId>F07E..06020F0200...........F7</xd:inquiryId>
+    <xd:infoText>Whenever JSynthLib sends a Patch to the ESQ, the synthesizer will go to a screen where you must hit 'exit' on the front panel before you can send another patch. This is kind of annoying, so if anyone knows a way around this let me know. The other ESQ librarians I checked out had the same problem, so it may be impossible</xd:infoText>
+    <xd:authors>Brian Klock</xd:authors>
+    <xd:drivers>
+<!--         <xd:xmlDriverDef> -->
+<!--             <xd:driverClass>org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1BankDriver</xd:driverClass> -->
+<!--             <xd:driverType>Bank</xd:driverType> -->
+<!--         </xd:xmlDriverDef> -->
+        <xd:xmlDriverDef>
+            <xd:driverClass>org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1SingleDriver</xd:driverClass>
+            <xd:driverType>Patch</xd:driverType>
+        </xd:xmlDriverDef>
+    </xd:drivers>
+</xd:xmlDeviceSpec>

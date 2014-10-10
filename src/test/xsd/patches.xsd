@@ -1,5 +1,5 @@
-<xs:schema targetNamespace="http://www.jsynthlib.org/patch"
-	xmlns:syx="http://www.jsynthlib.org/patch" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<xs:schema targetNamespace="http://www.jsynthlib.org/patchtest"
+	xmlns:syx="http://www.jsynthlib.org/patchtest" xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	elementFormDefault="qualified">
 
 	<xs:element name="patchFiles">

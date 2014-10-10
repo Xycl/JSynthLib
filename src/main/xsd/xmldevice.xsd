@@ -1,0 +1,354 @@
+<xs:schema targetNamespace="http://www.jsynthlib.org/xmldevice" xmlns:jsl="http://www.jsynthlib.org/xmldevice" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="xmlDeviceSpec">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="manufacturer" type="xs:string" />
+                <xs:element name="modelName" type="xs:string" />
+                <xs:element name="inquiryId" type="xs:string" minOccurs="0" />
+                <xs:element name="infoText" type="xs:string" minOccurs="0" />
+                <xs:element name="authors" type="xs:string" />
+                <xs:element name="drivers" type="jsl:xmlDriverDefs" />
+                <xs:element name="preferenceDefs" type="jsl:preferenceDefs" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="preferenceDefs">
+        <xs:sequence>
+            <xs:element name="preferenceDef" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="description" type="xs:string" />
+                        <xs:element name="values" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="value" type="xs:string" maxOccurs="unbounded" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="defaultValue" type="xs:string" />
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" />
+                    <xs:attribute name="type">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="STRING" />
+                                <xs:enumeration value="BOOLEAN" />
+                                <xs:enumeration value="INTEGER" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="xmlDriverDefs">
+        <xs:sequence>
+            <xs:element name="xmlDriverDef" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="driverClass" type="xs:string" />
+                        <xs:element name="driverType">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="Patch" />
+                                    <xs:enumeration value="Bank" />
+                                    <xs:enumeration value="Converter" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="xmlDriverSpec">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="infoText" type="xs:string" minOccurs="0" />
+            <xs:element name="authors" type="xs:string" />
+            <xs:element name="patchType" type="xs:string" />
+            <xs:element name="patchSize" type="xs:int" />
+            <xs:element name="sysexID" type="xs:string" />
+            <xs:element name="patchNumbers" type="jsl:stringArray" />
+            <xs:element name="bankNumbers" type="jsl:stringArray" />
+            <xs:element name="deviceIDoffset" type="xs:int" />
+            <xs:element name="sysexRequestDumpString" type="xs:string" minOccurs="0" />
+            <xs:element name="checksumOffset" type="xs:int" />
+            <xs:element name="checksumStart" type="xs:int" />
+            <xs:element name="checksumEnd" type="xs:int" />
+            <xs:element name="patchNameStart" type="xs:int" />
+            <xs:element name="patchNameSize" type="xs:int" />
+            <xs:element name="customProperties" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="customProperty" type="jsl:property" maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="initPatch" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="xmlBankDriverSpec">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="jsl:xmlDriverSpec">
+                    <xs:sequence>
+                        <xs:element name="trimSize" type="xs:int" minOccurs="0" />
+                        <xs:element name="numSysexMsgs" type="xs:int" minOccurs="0" />
+                        <xs:element name="numPatches" type="xs:int" />
+                        <xs:element name="numColumns" type="xs:int" />
+                        <xs:element name="singleSize" type="xs:int" />
+                        <xs:element name="singleSysexID" type="xs:string" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="xmlPatchDriverSpec">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="jsl:xmlDriverSpec">
+                    <xs:sequence>
+                        <xs:element name="patchParams" type="jsl:patchParams" minOccurs="0" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="stringArray">
+        <xs:choice>
+            <xs:element name="string" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+            <xs:element name="generatedBy">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="format" type="xs:string" />
+                        <xs:element name="min" type="xs:int" />
+                        <xs:element name="max" type="xs:int" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="patchParams">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="intParamSpec" type="jsl:intParamSpec" />
+            <xs:element name="stringParamSpec" type="jsl:stringParamSpec" />
+            <xs:element name="patchParamGroup" type="jsl:patchParamGroup" />
+            <xs:element name="envelopeSpec" type="jsl:envelopeSpec" />
+            <xs:element name="combinedgroup" type="jsl:combinedGroup" />
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="patchParamGroup">
+        <xs:complexContent>
+            <xs:extension base="jsl:patchParams">
+                <xs:attribute name="name" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="patchParamSpec">
+        <xs:sequence>
+            <xs:element name="uuid" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="uuidPatchParamSpec">
+        <xs:complexContent>
+            <xs:restriction base="jsl:patchParamSpec">
+                <xs:sequence>
+                    <xs:element name="uuid" type="xs:string" minOccurs="1" />
+                </xs:sequence>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="envelopeSpec">
+        <xs:complexContent>
+            <xs:extension base="jsl:uuidPatchParamSpec">
+                <xs:sequence>
+                    <xs:element name="envelopeNodeSpec" type="jsl:envelopeNodeSpec" maxOccurs="10" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="envelopeNodeSpec">
+        <xs:sequence>
+            <xs:element name="xParam" type="jsl:xEnvelopeParamSpec" minOccurs="0" />
+            <xs:element name="yParam" type="jsl:yEnvelopeParamSpec" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="singleParamSpec">
+        <xs:complexContent>
+            <xs:extension base="jsl:patchParamSpec">
+                <xs:sequence>
+                    <xs:element name="midiSender" type="jsl:midiSender" minOccurs="0" />
+                    <xs:element name="paramModel" type="jsl:paramModel" minOccurs="0" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="uuidSingleParamSpec">
+        <xs:complexContent>
+            <xs:extension base="jsl:uuidPatchParamSpec">
+                <xs:sequence>
+                    <xs:element name="midiSender" type="jsl:midiSender" minOccurs="0" />
+                    <xs:element name="paramModel" type="jsl:paramModel" minOccurs="0" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="combinedGroup">
+        <xs:complexContent>
+            <xs:extension base="jsl:singleParamSpec">
+                <xs:sequence>
+                    <xs:element name="param" type="jsl:combinedIntPatchParam" minOccurs="1" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="combinedIntPatchParam">
+        <xs:complexContent>
+            <xs:extension base="jsl:uuidPatchParamSpec">
+                <xs:sequence>
+                    <xs:element name="min" type="xs:int" />
+                    <xs:element name="max" type="xs:int" />
+                    <xs:element name="patchParamValues" type="jsl:patchParamValues" minOccurs="0" />
+                    <xs:element name="base" type="xs:int" minOccurs="0" />
+                    <xs:element name="leftShift" type="xs:int" minOccurs="0" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="envelopeParamSpec">
+        <xs:complexContent>
+            <xs:extension base="jsl:singleParamSpec">
+                <xs:sequence>
+                    <xs:element name="min" type="xs:int" />
+                    <xs:element name="max" type="xs:int" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="xEnvelopeParamSpec">
+        <xs:complexContent>
+            <xs:extension base="jsl:envelopeParamSpec">
+                <xs:sequence>
+                    <xs:element name="invert" type="xs:boolean" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="yEnvelopeParamSpec">
+        <xs:complexContent>
+            <xs:extension base="jsl:envelopeParamSpec">
+                <xs:sequence>
+                    <xs:element name="base" type="xs:int" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="intParamSpec">
+        <xs:complexContent>
+            <xs:extension base="jsl:uuidSingleParamSpec">
+                <xs:sequence>
+                    <xs:element name="min" type="xs:int" />
+                    <xs:element name="max" type="xs:int" />
+                    <xs:element name="base" type="xs:int" minOccurs="0" />
+                    <xs:choice minOccurs="0">
+                        <xs:element name="patchParamValues" type="jsl:patchParamValues" />
+                        <xs:element name="patchParamResources" type="jsl:patchParamResources" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="property">
+        <xs:attribute name="name" type="xs:string" />
+        <xs:attribute name="value" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="stringParamSpec">
+        <xs:complexContent>
+            <xs:extension base="jsl:uuidSingleParamSpec">
+                <xs:sequence>
+                    <xs:element name="length" type="xs:int" />
+                    <xs:element name="stringSender" type="jsl:stringSenderSpec" minOccurs="0" />
+                    <xs:element name="stringModel" type="jsl:stringModelSpec" minOccurs="0" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="patchParamResources">
+        <xs:sequence>
+            <xs:element name="patchParamResource" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="patchParamValues">
+        <xs:sequence>
+            <xs:element name="patchParamValue" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="paramModel">
+        <xs:sequence>
+            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="modelClass" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="midiSender">
+        <xs:sequence>
+            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="senderClass" type="xs:string" />
+    </xs:complexType>
+    
+    <xs:complexType name="stringSenderSpec">
+        <xs:sequence>
+            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="stringSenderClass" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="stringModelSpec">
+        <xs:sequence>
+            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="stringModelClass" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="propertySpec">
+        <xs:attribute name="name" type="xs:string" />
+        <xs:attribute name="value" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="args">
+        <xs:sequence>
+            <xs:element name="arg" type="xs:string" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

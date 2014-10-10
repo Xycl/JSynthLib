@@ -1,0 +1,50 @@
+.knob {
+    -fx-background-color: transparent;
+    -fx-background-image: url("org/jsynthlib/images/volume.png");
+    -fx-background-position: center center;
+    -fx-padding: 85.0;
+}
+focused .knob {
+    -fx-effect: null;
+    -fx-border-color: rgba(255.0,0.0,0.0,0.6);
+    -fx-border-radius: 500.0;
+}
+.knobDot {
+    -fx-background-color: transparent;
+}
+
+.bordered-titled-title {
+  -fx-background-color: white;
+  -fx-translate-y: -10.0; /* play around with this value when changing the title font to get a vertically centered title */
+}
+
+.bordered-titled-border {
+  -fx-content-display: top;
+  -fx-border-insets: 20.0 15.0 15.0 15.0;
+  -fx-border-radius: 5.0 5.0 5.0 5.0;
+  -fx-background-radius: 5.0 5.0 5.0 5.0;
+  -fx-background-color: white;
+  -fx-border-color: black;
+  -fx-border-style: dashed;
+  -fx-border-width: 1.0;
+}
+
+.bordered-titled-content {
+  -fx-padding: 5.0 5.0 5.0 5.0;
+}
+
+.label {
+	-fx-text-alignment: center;
+}
+
+.chart {
+	-fx-horizontal-grid-lines-visible: false;
+	-fx-vertical-grid-lines-visible: false;
+	-fx-horizontal-zero-line-visible: false;
+	-fx-vertical-zero-line-visible: false;
+}
+
+.axis {
+	-fx-tick-labels-visible: false;
+	-fx-tick-mark-visible: false;
+}

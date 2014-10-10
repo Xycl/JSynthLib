@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlDeviceSpec xmlns="http://www.jsynthlib.org/xmldevice"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jsynthlib.org/xmldevice ../../../../../xsd/xmldevice.xsd">
+	<manufacturer>Roland</manufacturer>
+	<modelName>D-50</modelName>
+	<inquiryId></inquiryId>
+	<infoText>Roland D50.
+Single and bank drivers work together with editor.
+Saving patches onto the D50 does not work though as this must be done by manually pressing buttons on the D50.</infoText>
+	<authors>Pascal Collberg</authors>
+    <drivers>
+        <xmlDriverDef>
+            <driverClass>org.jsynthlib.synthdrivers.RolandD50.D50SingleDriver</driverClass>
+            <driverType>Patch</driverType>
+        </xmlDriverDef>
+        <xmlDriverDef>
+            <driverClass>org.jsynthlib.synthdrivers.RolandD50.D50BankDriver</driverClass>
+            <driverType>Bank</driverType>
+        </xmlDriverDef>
+    </drivers>
+</xmlDeviceSpec>

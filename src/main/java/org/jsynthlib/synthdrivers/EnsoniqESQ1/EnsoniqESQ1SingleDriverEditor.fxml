@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.jsynthlib.device.view.*?>
+<?scenebuilder-classpath-element ../../../../../../../target/jsynthlib-1.1-SNAPSHOT-executable.jar?>
+<?scenebuilder-classpath-element ../../../../../../../target/classes?>
+<?scenebuilder-stylesheet ../../../../application.css?>
+
+<AnchorPane minHeight="976.0" prefHeight="976.0" prefWidth="1372.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <FlowPane prefHeight="2897.0" prefWidth="1200.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+      <children>
+        <GridPane hgap="5.0" prefHeight="971.0" prefWidth="1347.0" vgap="5.0">
+          <children>
+            <TitledPane text="ENV1" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <content>
+                <AnchorPane>
+                  <children>
+                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <Envelope fx:id="5dad0580f40546848b8d375fc5752f5f" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" />
+                        <Knob fx:id="fc7250c8dceb4cafa586d06b90f51f05" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="lblfc7250c8dceb4cafa586d06b90f51f05" alignment="CENTER" prefWidth="100.0" text="LV" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Knob fx:id="7b9e0c910e0f4f07acdcc7ebf4d8b03d" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Knob fx:id="2ee78fa5a4af4c748fc1bf1b247fbc50" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lbl7b9e0c910e0f4f07acdcc7ebf4d8b03d" alignment="CENTER" prefWidth="100.0" text="T1V" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lbl2ee78fa5a4af4c748fc1bf1b247fbc50" alignment="CENTER" prefWidth="100.0" text="TK" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane text="ENV2" GridPane.columnIndex="1" GridPane.rowIndex="0">
+              <content>
+                <AnchorPane>
+                  <children>
+                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <Envelope fx:id="38f7f279591348119aecf5206a614aae" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" />
+                        <Knob fx:id="817c7cb8a7a847f4b4ec6294183e3106" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="lbl817c7cb8a7a847f4b4ec6294183e3106" alignment="CENTER" prefWidth="100.0" text="LV" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Knob fx:id="0e3daf10827b484a8edb5fe0dbd22d03" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Knob fx:id="bda74507906b4065a9c3cc9b81e59e67" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lbl0e3daf10827b484a8edb5fe0dbd22d03" alignment="CENTER" prefWidth="100.0" text="T1V" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblbda74507906b4065a9c3cc9b81e59e67" alignment="CENTER" prefWidth="100.0" text="TK" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane text="ENV3" GridPane.columnIndex="2" GridPane.rowIndex="0">
+              <content>
+                <AnchorPane>
+                  <children>
+                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <Envelope fx:id="8f803333ae8848ae99f377f2ae78904d" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" />
+                        <Knob fx:id="0f5469996d05400599bb2d058506672e" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="lbl0f5469996d05400599bb2d058506672e" alignment="CENTER" prefWidth="100.0" text="LV" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Knob fx:id="4cec899482224767b562e073e15aa1d5" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Knob fx:id="b15a5b8ac3214d9ab2e65dbc08ce46d6" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lbl4cec899482224767b562e073e15aa1d5" alignment="CENTER" prefWidth="100.0" text="T1V" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblb15a5b8ac3214d9ab2e65dbc08ce46d6" alignment="CENTER" prefWidth="100.0" text="TK" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane text="ENV4" GridPane.columnIndex="3" GridPane.rowIndex="0">
+              <content>
+                <AnchorPane>
+                  <children>
+                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <Envelope fx:id="5ad2180325364ceb93a1697b641b3766" maxWidth="450.0" minWidth="300.0" prefHeight="200.0" prefWidth="300.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" />
+                        <Knob fx:id="cf29c999e876453c89a66f026df0df4a" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="lblcf29c999e876453c89a66f026df0df4a" alignment="CENTER" prefWidth="100.0" text="LV" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Knob fx:id="08cb69ca7d074835930852619b7f7dcd" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lbl08cb69ca7d074835930852619b7f7dcd" alignment="CENTER" prefWidth="100.0" text="T1V" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lbl3d5fa1453f86432ba308cab279193942" alignment="CENTER" prefWidth="100.0" text="TK" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Knob fx:id="3d5fa1453f86432ba308cab279193942" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
+              <children>
+                <TitledPane text="OSC1">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Knob fx:id="18e5d19684c942c8ba79f11546c96fed" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl18e5d19684c942c8ba79f11546c96fed" alignment="CENTER" prefWidth="100.0" text="Semitone" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Knob fx:id="c0da07e5be024d8d999d71e0571b7761" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label fx:id="lblc0da07e5be024d8d999d71e0571b7761" alignment="CENTER" prefWidth="100.0" text="Finetune" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="37cff72c92aa4b0cb7bbc1d55f67b4bf" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl37cff72c92aa4b0cb7bbc1d55f67b4bf" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 2" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <ComboBox fx:id="c6de00d084624b26a84a029eb4ad55a9" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                            <Label fx:id="lblc6de00d084624b26a84a029eb4ad55a9" alignment="CENTER" prefWidth="100.0" text="Modulation Source 2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <ComboBox fx:id="dd09a4bf111746acb5cefeb92a6103d5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Knob fx:id="65c8a540625648a08574958667f72e1f" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <Label fx:id="lbldd09a4bf111746acb5cefeb92a6103d5" alignment="CENTER" prefWidth="100.0" text="Modulation Source 1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Label fx:id="lbl65c8a540625648a08574958667f72e1f" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 1" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="7a10a8b1d7ac43e7af5dc3f495d92f7b" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl7a10a8b1d7ac43e7af5dc3f495d92f7b" alignment="CENTER" prefWidth="100.0" text="Waveform" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <Knob fx:id="a6245814c22e41608d93a1549ce22e8a" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="lbla6245814c22e41608d93a1549ce22e8a" alignment="CENTER" prefWidth="100.0" text="Octave" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane text="OSC2">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Knob fx:id="d04e76e562d547d9a91d44d908c8188f" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="lbld04e76e562d547d9a91d44d908c8188f" alignment="CENTER" prefWidth="100.0" text="Semitone" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Knob fx:id="9231b55afa7d491a8863ca9f70221fa0" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl9231b55afa7d491a8863ca9f70221fa0" alignment="CENTER" prefWidth="100.0" text="Finetune" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="c17374775ebf44b2a69eb0c4f5a91017" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label fx:id="lblc17374775ebf44b2a69eb0c4f5a91017" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 2" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <ComboBox fx:id="42a3e07ef2cd4f3e91af687a40254fbb" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl42a3e07ef2cd4f3e91af687a40254fbb" alignment="CENTER" prefWidth="100.0" text="Modulation Source 2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Label fx:id="lblbe8a55279c0440c48b74421b29b6d608" alignment="CENTER" prefWidth="100.0" text="Modulation Source 1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="be8a55279c0440c48b74421b29b6d608" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Knob fx:id="0a445139752b44388f7a5daefe94c732" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl0a445139752b44388f7a5daefe94c732" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 1" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <Label fx:id="lbl2f9ba4061c4243a5bb95dc7a106e636a" alignment="CENTER" prefWidth="100.0" text="Waveform" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="2f9ba4061c4243a5bb95dc7a106e636a" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl2df86cfdcda14ffcbe060889a680d0fe" alignment="CENTER" prefWidth="100.0" text="Octave" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Knob fx:id="2df86cfdcda14ffcbe060889a680d0fe" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane text="OSC3">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Knob fx:id="47cea773cbd74d0382fa7b057a997e7d" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl47cea773cbd74d0382fa7b057a997e7d" alignment="CENTER" prefWidth="100.0" text="Semitone" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Knob fx:id="d76467f9ae1d485f854bbbade3b64b50" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label fx:id="lbld76467f9ae1d485f854bbbade3b64b50" alignment="CENTER" prefWidth="100.0" text="Finetune" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="f5e0b875b1f744a9954d88f7bda490d2" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label fx:id="lblf5e0b875b1f744a9954d88f7bda490d2" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 2" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <ComboBox fx:id="145ecde24a484125baf407daa25aa609" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl145ecde24a484125baf407daa25aa609" alignment="CENTER" prefWidth="100.0" text="Modulation Source 2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Label fx:id="lbla01a89f6435b494fbb992b0e91078668" alignment="CENTER" prefWidth="100.0" text="Modulation Source 1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Label fx:id="lbl0a6ff682b3104e0a908472c49a5b8d92" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 1" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <Knob fx:id="0a6ff682b3104e0a908472c49a5b8d92" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <ComboBox fx:id="a01a89f6435b494fbb992b0e91078668" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl43e385c76a3740f7959a3a8ea88ebc41" alignment="CENTER" prefWidth="100.0" text="Waveform" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="43e385c76a3740f7959a3a8ea88ebc41" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lbld15ab9223f594267b96c5f3f54cfa33d" alignment="CENTER" prefWidth="100.0" text="Octave" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Knob fx:id="d15ab9223f594267b96c5f3f54cfa33d" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+              <children>
+                <TitledPane text="LFO1">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Knob fx:id="bc611a9100574d47b3d625a4fa266eee" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="lblbc611a9100574d47b3d625a4fa266eee" alignment="CENTER" prefWidth="100.0" text="Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Knob fx:id="2a34fa6c5f5248c5a71c9821e6327541" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl2a34fa6c5f5248c5a71c9821e6327541" alignment="CENTER" prefWidth="100.0" text="L1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="dfff6c6048094c6d81f1d14dadc724a1" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                            <Label fx:id="lbldfff6c6048094c6d81f1d14dadc724a1" alignment="CENTER" prefWidth="100.0" text="Modulation Source" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Knob fx:id="9983f09479554038b64d568ef01b8743" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl9983f09479554038b64d568ef01b8743" alignment="CENTER" prefWidth="100.0" text="Delay" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <Knob fx:id="5be9c581dec1439a96376f5891466d2b" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl5be9c581dec1439a96376f5891466d2b" alignment="CENTER" prefWidth="100.0" text="L2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Label fx:id="lblf020259242e447dda588b69eea1ce913" alignment="CENTER" prefWidth="100.0" text="Modulation Waveform" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <VBox prefHeight="40.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                              <children>
+                                <CheckBox fx:id="6e7600d1f25b4ba28702e7991801d213" text="Reset" />
+                                <CheckBox fx:id="627bbf92a80249d3afd7898a3d55bb71" text="Humanize" />
+                              </children>
+                            </VBox>
+                            <ComboBox fx:id="f020259242e447dda588b69eea1ce913" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane text="LFO2">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Knob fx:id="ecfd413265a446758234a56dba07f747" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="lblecfd413265a446758234a56dba07f747" alignment="CENTER" prefWidth="100.0" text="Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Knob fx:id="4a823f100687435ba3f459e66bbcaa20" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl4a823f100687435ba3f459e66bbcaa20" alignment="CENTER" prefWidth="100.0" text="L1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="f3cd9e28712243ed8d641b4e5d4622ca" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                            <Label fx:id="lblf3cd9e28712243ed8d641b4e5d4622ca" alignment="CENTER" prefWidth="100.0" text="Modulation Source" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Knob fx:id="c139fdd516084d76b6fde82dcc53c9bb" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <Label fx:id="lblc139fdd516084d76b6fde82dcc53c9bb" alignment="CENTER" prefWidth="100.0" text="Delay" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <Knob fx:id="6c2d90f6a4414d7eb1750be6162afb3a" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl6c2d90f6a4414d7eb1750be6162afb3a" alignment="CENTER" prefWidth="100.0" text="L2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Label fx:id="lblde3896b4b8c04368a694d6c449fca72b" alignment="CENTER" prefWidth="100.0" text="Modulation Waveform" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <ComboBox fx:id="de3896b4b8c04368a694d6c449fca72b" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                            <VBox prefHeight="40.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                              <children>
+                                <CheckBox fx:id="f0b7eaa31ed044f59bd19f48b3c85299" text="Reset" />
+                                <CheckBox fx:id="b44c255376bc4cd68c63484ad48c30c4" text="Humanize" />
+                              </children>
+                            </VBox>
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane text="LFO3">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Knob fx:id="0bd10419e5604a3bb09085be54113cbb" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl0bd10419e5604a3bb09085be54113cbb" alignment="CENTER" prefWidth="100.0" text="Frequency" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Knob fx:id="9a06666ebeb94a7785fbfb1464b50cfd" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl9a06666ebeb94a7785fbfb1464b50cfd" alignment="CENTER" prefWidth="100.0" text="L1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="53b0ea1bc0c84c10bb5c3081e75c9b4c" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl53b0ea1bc0c84c10bb5c3081e75c9b4c" alignment="CENTER" prefWidth="100.0" text="Modulation Source" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Knob fx:id="a57b0908ebde4f4aa8f4f3d2ce28a4de" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                            <Label fx:id="lbla57b0908ebde4f4aa8f4f3d2ce28a4de" alignment="CENTER" prefWidth="100.0" text="Delay" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <Knob fx:id="2f7869b88d44412a877a4f4cf852d9bd" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl2f7869b88d44412a877a4f4cf852d9bd" alignment="CENTER" prefWidth="100.0" text="L2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Label fx:id="lblb1775577cae94cccbb4e32942cb1db23" alignment="CENTER" prefWidth="100.0" text="Modulation Waveform" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <ComboBox fx:id="b1775577cae94cccbb4e32942cb1db23" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                            <VBox prefHeight="40.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                              <children>
+                                <CheckBox fx:id="733cb91cbe314ac8adee92cd4701386e" text="Reset" />
+                                <CheckBox fx:id="1c5d0011f1e84c5383f2940d4d756d0e" text="Humanize" />
+                              </children>
+                            </VBox>
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+              </children>
+            </HBox>
+            <TitledPane text="DCA1" GridPane.columnIndex="0" GridPane.rowIndex="2">
+              <content>
+                <AnchorPane>
+                  <children>
+                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <Knob fx:id="d0f44724313242e3a860edeeae80f9aa" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="lbld0f44724313242e3a860edeeae80f9aa" alignment="CENTER" prefWidth="100.0" text="Level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="746f1ad542fd466e8f45ca4468d8f8ab" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                        <Label fx:id="lbl746f1ad542fd466e8f45ca4468d8f8ab" alignment="CENTER" prefWidth="100.0" text="Modulation Source 1" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lblb3bd9a1bc90645c4bd7e22c3ead30f98" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Knob fx:id="b3bd9a1bc90645c4bd7e22c3ead30f98" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Knob fx:id="a317f57ecdb945a2a32a1998d573eb66" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="313341d5ca4c410ea82fca0c79b5b98a" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label fx:id="lbl313341d5ca4c410ea82fca0c79b5b98a" alignment="CENTER" prefWidth="100.0" text="Modulation Source 2" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="lbla317f57ecdb945a2a32a1998d573eb66" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="85fe08bcc3654e98b2b26c58b0bdb0b7" text="Output Enable" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane text="DCA2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <content>
+                <AnchorPane>
+                  <children>
+                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <Knob fx:id="a895f216270b4a819e8b1d4fb420f897" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="lbla895f216270b4a819e8b1d4fb420f897" alignment="CENTER" prefWidth="100.0" text="Level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="d70d7c7c550541f59554c6974c19c3fe" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                        <Label fx:id="lbld70d7c7c550541f59554c6974c19c3fe" alignment="CENTER" prefWidth="100.0" text="Modulation Source 1" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lbl03deb0af458340369094d6754bf6f6b8" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Knob fx:id="03deb0af458340369094d6754bf6f6b8" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Knob fx:id="20989e8649224c3f9959f38646774d26" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="becf4444b21f4ef3a7ddc230692e4b41" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label fx:id="lblbecf4444b21f4ef3a7ddc230692e4b41" alignment="CENTER" prefWidth="100.0" text="Modulation Source 2" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="lbl20989e8649224c3f9959f38646774d26" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="9fa673a737b8469db33692a83efc6a2e" text="Output Enable" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane text="DCA3" GridPane.columnIndex="2" GridPane.rowIndex="2">
+              <content>
+                <AnchorPane>
+                  <children>
+                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <Knob fx:id="62415c59a95543a9af752755abe8ca52" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="lbl62415c59a95543a9af752755abe8ca52" alignment="CENTER" prefWidth="100.0" text="Level" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="47fb925ef30a475ebe0f496eab47c9f6" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                        <Label fx:id="lbl47fb925ef30a475ebe0f496eab47c9f6" alignment="CENTER" prefWidth="100.0" text="Modulation Source 1" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lbl404943e009424db6b8907809a26ff62c" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Knob fx:id="404943e009424db6b8907809a26ff62c" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Knob fx:id="60b8320060f34cc6bc6df8863805c953" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="846f1e827e954506964c8d44d0c710c6" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label fx:id="lbl846f1e827e954506964c8d44d0c710c6" alignment="CENTER" prefWidth="100.0" text="Modulation Source 2" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="lbl60b8320060f34cc6bc6df8863805c953" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="9ffc69c235fc427ba1c12f7d516a6112" text="Output Enable" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+              <children>
+                <TitledPane text="FILTER">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Knob fx:id="c4634c50297348ce94e7b553cb7f5453" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="lblc4634c50297348ce94e7b553cb7f5453" alignment="CENTER" prefWidth="100.0" text="Cutoff" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Knob fx:id="39922e42e51d413383b356ef8089dfd5" styleClass="knobStyle" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl39922e42e51d413383b356ef8089dfd5" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 3" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                            <Knob fx:id="74e33ba6eb644e4684460aff339ab488" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl74e33ba6eb644e4684460aff339ab488" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 1" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="ebdeeb85de99446e80ea5e909dedbc0c" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lblebdeeb85de99446e80ea5e909dedbc0c" alignment="CENTER" prefWidth="100.0" text="Modulation Source 1" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Label fx:id="lbl8b25a2e0016c4debb1562055fa9fe58d" alignment="CENTER" prefWidth="100.0" text="Resonance" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Knob fx:id="8b25a2e0016c4debb1562055fa9fe58d" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <ComboBox fx:id="d02b4f5c604b491880725b48b9abb6bd" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lbld02b4f5c604b491880725b48b9abb6bd" alignment="CENTER" prefWidth="100.0" text="Modulation Source 2" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <Knob fx:id="5947644b09514937b0c160dddc98348f" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl5947644b09514937b0c160dddc98348f" alignment="CENTER" prefWidth="100.0" text="Modulation Amount 2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane minWidth="210.0" prefWidth="210.0" text="MODES">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Knob fx:id="df6fec30d36349f8bb40934697e09b80" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label fx:id="lbldf6fec30d36349f8bb40934697e09b80" alignment="CENTER" prefWidth="100.0" text="Glide" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                            <VBox prefHeight="106.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                              <children>
+                                <CheckBox fx:id="45bd7c0b8bea412a8e8e61f77ea5111d" text="AM" />
+                                <CheckBox fx:id="aaa361e79b5343418b5eba16734690b6" text="Sync" />
+                                <CheckBox fx:id="031b6c18a6294b649b7e7200e15a36e8" text="Wave Reset" />
+                                <CheckBox fx:id="3cf712a633594269acf352b03d85c954" text="Mono" />
+                                <CheckBox fx:id="3a854113fc9d4053a671b53c7f803467" text="Rotate" />
+                                <CheckBox fx:id="ee5355d8b8bb4e93ba07810ba1a6b792" text="Envelope Reset" />
+                                <CheckBox fx:id="e0c54c49eb9e4777bb01846993f34065" text="Cycle" />
+                              </children>
+                            </VBox>
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+              </children>
+            </HBox>
+            <TitledPane minWidth="206.0" prefWidth="206.0" text="DCA4" GridPane.columnIndex="3" GridPane.rowIndex="2">
+              <content>
+                <AnchorPane prefWidth="206.0">
+                  <children>
+                    <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <Knob fx:id="714c8eeb020b44de831677172f4e2829" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="lbl714c8eeb020b44de831677172f4e2829" alignment="CENTER" prefWidth="100.0" text="Modulation Amount" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Knob fx:id="db03ad1c514849458d8fb32d744e465a" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label fx:id="lbldb03ad1c514849458d8fb32d744e465a" alignment="CENTER" prefWidth="100.0" text="PAN" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="0ed021e7590640b9be30fedd4e2f1386" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label fx:id="lbl0ed021e7590640b9be30fedd4e2f1386" alignment="CENTER" prefWidth="100.0" text="Pan Modulation Source" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Knob fx:id="0ffaab35f94b4a5488edc2d8e663ad12" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lbl0ffaab35f94b4a5488edc2d8e663ad12" alignment="CENTER" prefWidth="100.0" text="Pan Modulation Amount" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                      </children>
+                    </GridPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+              <children>
+                <TitledPane text="SPLIT/LAYER">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Knob fx:id="0855b552e5fa46ecb09fc7baa0e4f9ad" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl0855b552e5fa46ecb09fc7baa0e4f9ad" alignment="CENTER" prefWidth="100.0" text="Layer Program" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="a798e918cf674a2c889715b6ef2df96e" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="lbla798e918cf674a2c889715b6ef2df96e" alignment="CENTER" prefWidth="100.0" text="Split Layer Program" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="68b84b97570840d9a34fd5420bb70d61" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl68b84b97570840d9a34fd5420bb70d61" alignment="CENTER" prefWidth="100.0" text="Split Direction" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <Knob fx:id="547b7da5b6cd4d8d82d3807099026a4b" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl547b7da5b6cd4d8d82d3807099026a4b" alignment="CENTER" prefWidth="100.0" text="Split Program" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <VBox prefHeight="41.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                              <children>
+                                <CheckBox fx:id="d6f44802eed64c7e9a16640ee5b191c2" text="Layer" />
+                                <CheckBox fx:id="d1017d0526954f02b0de486da6fd1bad" text="Split Layer" />
+                              </children>
+                            </VBox>
+                            <Knob fx:id="c0925b98c72044f6a381599058718e4e" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label fx:id="lblc0925b98c72044f6a381599058718e4e" alignment="CENTER" prefWidth="100.0" text="Split Point" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane text="MASTER">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <TextField fx:id="8a832385b01d4efda79a09f811a1fcf6" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl8a832385b01d4efda79a09f811a1fcf6" alignment="CENTER" prefWidth="100.0" text="Name" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <Knob fx:id="0e035ba3405d4abc8f1c63ef09a91793" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl0e035ba3405d4abc8f1c63ef09a91793" alignment="CENTER" prefWidth="100.0" text="Tuning" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="026d8677c6cc413990efb89c5fdc80d3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl026d8677c6cc413990efb89c5fdc80d3" alignment="CENTER" prefWidth="100.0" text="Velocity" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <CheckBox fx:id="71b98f69503e4e3487869906fae59f5e" text="Chorus" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Knob fx:id="b589329afb1d403baee36cc23b711c00" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lblb589329afb1d403baee36cc23b711c00" alignment="CENTER" prefWidth="100.0" text="Pitch Bend Range" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="fe2edd7132ca4fb1b1b1ed998ba3d38f" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lblfe2edd7132ca4fb1b1b1ed998ba3d38f" alignment="CENTER" prefWidth="100.0" text="Pitch Bend Mode" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                          </children>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
+              </children>
+            </HBox>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="130.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="120.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+          <FlowPane.margin>
+            <Insets />
+          </FlowPane.margin>
+        </GridPane>
+      </children>
+    </FlowPane>
+  </children>
+</AnchorPane>

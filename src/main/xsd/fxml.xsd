@@ -1,0 +1,169 @@
+<xs:schema targetNamespace="http://www.jsynthlib.org/fxml"
+    xmlns:jsl="http://www.jsynthlib.org/fxml" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+
+    <xs:element name="AnchorPane" type="jsl:AnchorPane" />
+
+    <xs:complexType name="Layoutable">
+        <xs:attribute name="id" type="xs:string" />
+        <xs:attribute name="layoutX" type="xs:float" />
+        <xs:attribute name="layoutY" type="xs:float" />
+        <xs:attribute name="prefHeight" type="xs:float" />
+        <xs:attribute name="prefWidth" type="xs:float" />
+        <xs:attribute name="GridPane.columnIndex" type="xs:int" />
+        <xs:attribute name="GridPane.rowIndex" type="xs:int" />
+        <xs:attribute name="styleClass" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="FlowPane.margin">
+        <xs:sequence>
+            <xs:element name="Insets">
+                <xs:complexType>
+                    <xs:attribute name="bottom" type="xs:float" />
+                    <xs:attribute name="left" type="xs:float" />
+                    <xs:attribute name="right" type="xs:float" />
+                    <xs:attribute name="top" type="xs:float" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Pane">
+        <xs:complexContent>
+            <xs:extension base="jsl:Layoutable">
+                <xs:sequence>
+                    <xs:element name="children" type="jsl:children" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AnchorPane">
+        <xs:complexContent>
+            <xs:extension base="jsl:Pane" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="FlowPane">
+        <xs:complexContent>
+            <xs:extension base="jsl:Pane">
+                <xs:attribute name="AnchorPane.bottomAnchor"
+                    type="xs:float" />
+                <xs:attribute name="AnchorPane.leftAnchor"
+                    type="xs:float" />
+                <xs:attribute name="AnchorPane.rightAnchor"
+                    type="xs:float" />
+                <xs:attribute name="AnchorPane.topAnchor"
+                    type="xs:float" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="GridPane">
+        <xs:complexContent>
+            <xs:extension base="jsl:FlowPane" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TitledPane">
+        <xs:complexContent>
+            <xs:extension base="jsl:Layoutable">
+                <xs:sequence>
+                    <xs:element name="content" type="jsl:content" />
+                    <xs:element name="FlowPane.margin" type="jsl:FlowPane.margin"
+                        minOccurs="0" />
+                </xs:sequence>
+                <xs:attribute name="AnchorPane.bottomAnchor"
+                    type="xs:float" />
+                <xs:attribute name="AnchorPane.leftAnchor"
+                    type="xs:float" />
+                <xs:attribute name="AnchorPane.rightAnchor"
+                    type="xs:float" />
+                <xs:attribute name="AnchorPane.topAnchor"
+                    type="xs:float" />
+                <xs:attribute name="text" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="content">
+        <xs:sequence>
+            <xs:element name="AnchorPane" type="jsl:AnchorPane" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="children">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="Slider" type="jsl:Slider" />
+            <xs:element name="Label" type="jsl:Label" />
+            <xs:element name="Pane" type="jsl:Pane" />
+            <xs:element name="FlowPane" type="jsl:FlowPane" />
+            <xs:element name="ComboBox" type="jsl:ComboBox" />
+            <xs:element name="TextField" type="jsl:TextField" />
+            <xs:element name="Knob" type="jsl:Knob" />
+            <xs:element name="GridPane" type="jsl:GridPane" />
+            <xs:element name="TitledPane" type="jsl:TitledPane" />
+            <xs:element name="Envelope" type="jsl:Envelope" />
+            <xs:element name="CheckBox" type="jsl:CheckBox" />
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="Label">
+        <xs:complexContent>
+            <xs:extension base="jsl:Layoutable">
+                <xs:attribute name="text" type="xs:string" />
+                <xs:attribute name="wrapText" type="xs:boolean" />
+                <xs:attribute name="alignment" type="jsl:alignmentType" />
+                <xs:attribute name="textAlignment" type="jsl:alignmentType" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="alignmentType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="LEFT" />
+            <xs:enumeration value="CENTER" />
+            <xs:enumeration value="RIGHT" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Slider">
+        <xs:complexContent>
+            <xs:extension base="jsl:Layoutable" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ComboBox">
+        <xs:complexContent>
+            <xs:extension base="jsl:Layoutable">
+                <xs:attribute name="GridPane.halignment"
+                    type="jsl:alignmentType" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TextField">
+        <xs:complexContent>
+            <xs:extension base="jsl:Layoutable" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Knob">
+        <xs:complexContent>
+            <xs:extension base="jsl:Layoutable" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CheckBox">
+        <xs:complexContent>
+            <xs:extension base="jsl:Layoutable" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    
+    <xs:complexType name="Envelope">
+        <xs:complexContent>
+            <xs:extension base="jsl:Layoutable" />
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

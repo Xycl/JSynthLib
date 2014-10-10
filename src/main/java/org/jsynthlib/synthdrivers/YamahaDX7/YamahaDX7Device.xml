@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xd:xmlDeviceSpec xmlns:xd="http://www.jsynthlib.org/xmldevice">
+    <xd:manufacturer>Yamaha</xd:manufacturer>
+    <xd:modelName>DX7</xd:modelName>
+    <xd:inquiryId>NONE</xd:inquiryId>
+    <xd:infoText>This JSynthLib &quot;Yamaha DX7 Mark-I&quot; device
+        driver supports the following patch types with librarian and
+        editor function: - Voice - Performance (=Function Parameter)
+        GENERAL INFORMATION =================== - DX7 MARK-I Because of
+        the MIDI implementation of the system ROM of the early units
+        (especially the ActiveSensing- and the SysEx-handling), problems
+        will occur with an early DX7 in cooperation with patch
+        libraries/editors. It&#39;s advisable to upgrade early system
+        ROMs to a newer version. - DEVICE DRIVER This driver is tested
+        with a DX7 in an original state (system ROM V1.8 from October
+        24th 1985). Even so there might be some bugs. Since this driver
+        uses special methods you should choose this driver only if you
+        have a DX7 Mark-I. These special methods concern the
+        &quot;Remote Control&quot; function, the &quot;Parameter
+        Change&quot; MIDI messages of the performance editor and others.
+        I made the experience that you can send a single performance
+        patch to the DX7 function
+        edit buffer. At least to a DX7 with
+        the described System ROM. At this time only the direction
+        JSynthLib-&gt;DX7 is working. If a parameter is changed on the
+        DX7 itself, JSynthlib doesn&#39;t become aware of this. -
+        REPORTING BUGS Report bugs to &lt;Torsten.Tittmann@gmx.de&gt;.
+        Any feedback about bugs are welcome. Also comments and proposals
+        of improvements will be helpful to improve this driver. - TODO
+        To extend my driver family to the models DX1 and DX5 I&#39;m
+        looking for the MIDI specification of these models. The access
+        of the two internal &quot;DX7&quot;s as well as the complete
+        specification of the performance patch are unknown. To extend my
+        driver family to the model TX216/TX816 in a satisfying manner
+        some major changes are necessary for the JSynthLib architecture.
+        But since the TF1 modul of the TX216/TX816 is compatible with
+        the TX7, a base support is given. DEVICE CONFIGURATION
+        ==================== You will find some settings in the device
+        configuration to suite the device driver to
+        your preferences: -
+        &quot;Synthesizer Name&quot; This is a free choosable
+        identifier. It might be useful if you have several DX7 Mark-I
+        devices - &quot;Enable Remote Control?&quot; The MIDI
+        specification of the DX7 doesn&#39;t support requesting of a
+        patch. As an alternative this driver can simulate the necessary
+        panel button pushes, if you switch on the &quot;Enable Remote
+        Control&quot; function. The &quot;Enable Remote Control&quot;
+        function makes the SysInfo available, chooses the desired patch
+        number, etc. - &quot;Disable Memory Protection?&quot; The
+        &quot;Disable Memory Protection?&quot; function will switch off
+        the memory protection. - &quot;Display Hints and Tips?&quot; If
+        you are familiar with the DX7 you can switch off the message
+        windows by disabling the &quot;Display Hints and Tips?&quot;
+        function. This will avoid all messages! PATCH TYPE SPECIFIC
+        INFORMATION =============================== &quot;VOICE&quot;
+        SINGLE/BANK DRIVER/EDITOR The underlying patch is identical at
+        least for
+        all members of the &quot;DX7 family&quot; (DX1, DX5,
+        DX7, TX7, TX816, DX7s, DX7-II and TX802). This driver also
+        supports the use of cartridges with the DX7 as far as possible.
+        Of course, you have to use the switches of the cartridges
+        themselves to choose bank A or bank B of a &quot;DX7 VOICE
+        ROM&quot; cartridge or to switch on/off the memory protection of
+        &quot;RAM1&quot; cartridges. Further, the storing of a voice
+        bank to a cartridge &quot;RAM1&quot; isn&#39;t supported! Only
+        those parameters are implemented in the editor, which are stored
+        in the patch. So, you won&#39;t find any function parameter like
+        pitchband, portamento, etc. These are part of the performance
+        driver/editor. There is only one exception: the OPERATOR ON/OFF
+        buttons, because they are useful for programming.
+        &quot;PERFORMANCE&quot; SINGLE DRIVER/EDITOR The underlying
+        patch is identical for the DX1, DX5, DX7, TX7 and TX816. But
+        only those parameters are displayed in the editor, which are
+        evaluated by the DX7. The DX7
+        supports only the receiving of a
+        single performance patch; no transmitting, or requesting.
+    </xd:infoText>
+    <xd:authors>Torsten Tittmann</xd:authors>
+    <xd:drivers>
+        <xd:xmlDriverDef>
+            <xd:driverClass>org.jsynthlib.synthdrivers.YamahaDX7.YamahaDX7VoiceSingleDriver</xd:driverClass>
+            <xd:driverType>Patch</xd:driverType>
+        </xd:xmlDriverDef>
+        <xd:xmlDriverDef>
+            <xd:driverClass>org.jsynthlib.synthdrivers.YamahaDX7.YamahaDX7PerformanceSingleDriver</xd:driverClass>
+            <xd:driverType>Patch</xd:driverType>
+        </xd:xmlDriverDef>
+        <xd:xmlDriverDef>
+            <xd:driverClass>org.jsynthlib.synthdrivers.YamahaDX7.YamahaDX7VoiceBankDriver</xd:driverClass>
+            <xd:driverType>Bank</xd:driverType>
+        </xd:xmlDriverDef>
+        <xd:xmlDriverDef>
+            <xd:driverClass>org.jsynthlib.synthdrivers.YamahaDX7.YamahaDX7PerformanceBankDriver</xd:driverClass>
+            <xd:driverType>Bank</xd:driverType>
+        </xd:xmlDriverDef>
+    </xd:drivers>
+    <xd:preferenceDefs>
+        <xd:preferenceDef name="sbpb" type="BOOLEAN">
+            <xd:description>Enable Remote Control</xd:description>
+            <xd:defaultValue>false</xd:defaultValue>
+        </xd:preferenceDef>
+        <xd:preferenceDef name="swOffMemProt" type="BOOLEAN">
+            <xd:description>Disable Memory Protection</xd:description>
+            <xd:defaultValue>false</xd:defaultValue>
+        </xd:preferenceDef>
+        <xd:preferenceDef name="tipsMsg" type="BOOLEAN">
+            <xd:description>Display Hints and Tips</xd:description>
+            <xd:defaultValue>true</xd:defaultValue>
+        </xd:preferenceDef>
+    </xd:preferenceDefs>
+</xd:xmlDeviceSpec>

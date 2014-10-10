@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.jsynthlib.device.view.*?>
+<?scenebuilder-classpath-element ../../../../../../../target/classes?>
+<?scenebuilder-stylesheet ../../../../application.css?>
+
+<AnchorPane minHeight="448.9998779296875" minWidth="440.00019999999495" prefHeight="558.9998779296875" prefWidth="440.00019999999495" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <FlowPane minHeight="453.0" prefHeight="800.0" prefWidth="851.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <TitledPane prefWidth="423.0" text="Common">
+          <content>
+            <AnchorPane>
+              <children>
+                <GridPane hgap="5.0" styleClass="bordered-titled-content" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                    <TextField fx:id="cb66e43481094254b25505baa2117f53" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label fx:id="lblcb66e43481094254b25505baa2117f53" alignment="CENTER" prefHeight="31.0" prefWidth="200.0" text="Performance Name (30 Char.)" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="f28ff2e9d8014a92b5ba7ecc1eabc5d4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                    <Label fx:id="lblf28ff2e9d8014a92b5ba7ecc1eabc5d4" alignment="CENTER" prefHeight="31.0" prefWidth="149.0" text="Corresponding Voice?" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints prefWidth="200.0" />
+                    <ColumnConstraints prefWidth="150.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="23.0" prefHeight="23.0" />
+                    <RowConstraints maxHeight="31.0" prefHeight="31.0" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+          <FlowPane.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+          </FlowPane.margin>
+        </TitledPane>
+        <TitledPane text="Voice A">
+          <content>
+            <AnchorPane>
+              <children>
+                <GridPane hgap="5.0" styleClass="bordered-titled-content" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                    <TitledPane animated="false" text="Portamento" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                <ComboBox fx:id="09a30322c4d64eb3885855b897aaabec" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl09a30322c4d64eb3885855b897aaabec" alignment="CENTER" prefWidth="100.0" text="Portamento/Glissando" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Label fx:id="lbl28b365dea2f54aa9889191695c5d452b" alignment="CENTER" prefWidth="100.0" text="Mode (Poly/Mono)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <ComboBox fx:id="28b365dea2f54aa9889191695c5d452b" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                <Knob fx:id="d4c77f3098ec4ee5892b18c57a6231c4" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label fx:id="lbld4c77f3098ec4ee5892b18c57a6231c4" alignment="CENTER" prefWidth="100.0" text="Time" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" prefHeight="100.0" text="Foot Controller" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                <ComboBox fx:id="d75628e1032b4967842f9906b6827813" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                <Label fx:id="lbld75628e1032b4967842f9906b6827813" alignment="CENTER" prefWidth="100.0" text="Assign" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Knob fx:id="d4012fa5fda14488a83f5e862658b96c" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label fx:id="lbld4012fa5fda14488a83f5e862658b96c" alignment="CENTER" prefWidth="100.0" text="Sensitivity" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" prefHeight="100.0" text="After Touch" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                <ComboBox fx:id="07fd875080c340228ae2e3b7881774e6" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl07fd875080c340228ae2e3b7881774e6" alignment="CENTER" prefWidth="100.0" text="Assign" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Knob fx:id="72709a99d5b94ae08d445fd104647847" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl72709a99d5b94ae08d445fd104647847" alignment="CENTER" prefWidth="100.0" text="Sensitivity" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" prefHeight="100.0" text="Pitch Bend" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                <ComboBox fx:id="8ff925da0b4e43279fce50b59ef63114" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl8ff925da0b4e43279fce50b59ef63114" alignment="CENTER" prefWidth="100.0" text="Range" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <ComboBox fx:id="72bf04b762534c96b78cab1eb9f58037" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl72bf04b762534c96b78cab1eb9f58037" alignment="CENTER" prefWidth="100.0" text="Step" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" text="Modulation Wheel" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                <ComboBox fx:id="958c44bb4fb245ffa1cb1ef273e1be7d" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl958c44bb4fb245ffa1cb1ef273e1be7d" alignment="CENTER" prefWidth="100.0" text="Assign" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Knob fx:id="d3872949c23b49fb82ef22dda00c9971" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label fx:id="lbld3872949c23b49fb82ef22dda00c9971" alignment="CENTER" prefWidth="100.0" text="Sensitivity" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </TitledPane>
+                    <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <children>
+                        <ComboBox fx:id="8017fe45f2de4041bb44ce3ce3541883" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                        <Label fx:id="lbl8017fe45f2de4041bb44ce3ce3541883" alignment="CENTER" prefWidth="100.0" text="Key Mode Assign" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <TitledPane animated="false" prefHeight="100.0" text="Breath Controller" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                      <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                <ComboBox fx:id="7dee3ae3117149499dc4ca580f96c2b6" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl7dee3ae3117149499dc4ca580f96c2b6" alignment="CENTER" prefWidth="100.0" text="Assign" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Knob fx:id="a347a4fd17174174aeee2ad0ee0b168e" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label fx:id="lbla347a4fd17174174aeee2ad0ee0b168e" alignment="CENTER" prefWidth="100.0" text="Sensitivity" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </TitledPane>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="21.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="118.0" prefHeight="100.0" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+          <FlowPane.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+          </FlowPane.margin>
+        </TitledPane>
+      </children>
+    </FlowPane>
+  </children>
+</AnchorPane>

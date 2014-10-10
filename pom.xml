@@ -29,6 +29,18 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.sourcedir>${basedir}/src/main</project.sourcedir>
   </properties>
+  <repositories>
+    <repository>
+      <id>sonatype snapshots</id>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
+  </repositories>
   <build>
     <resources>
       <resource>
@@ -43,6 +55,9 @@
           <include>**/*.dat</include>
           <include>**/*.xml</include>
           <include>**/*.groovy</include>
+          <include>**/*.properties</include>
+          <include>**/*.fxml</include>
+          <include>**/*.css</include>
         </includes>
       </resource>
       <resource>
@@ -71,8 +86,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.1</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
       <plugin>
@@ -83,7 +98,7 @@
             <configuration>
               <archive>
                 <manifest>
-                  <mainClass>core.JSynthLib</mainClass>
+                  <mainClass>org.jsynthlib.core.JSynthLib</mainClass>
                 </manifest>
               </archive>
               <descriptorRefs>
@@ -120,9 +135,10 @@
                 <property name="compile_classpath"
                           refid="maven.compile.classpath" />
                 <delete file="${project.sourcedir}/resources/synthdrivers.properties" />
-                <java classname="core.DeviceListWriter"
+                <java classname="org.jsynthlib.utils.DeviceListWriter"
                       fork="true">
-                  <arg value="${project.build.outputDirectory}" />
+                  <!-- <arg value="${project.build.outputDirectory}" 
+                                        /> -->
                   <arg value="${project.sourcedir}/resources" />
                   <classpath>
                     <pathelement path="${project.build.outputDirectory}" />
@@ -225,7 +241,6 @@
     </plugins>
     <pluginManagement>
       <plugins>
-
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
@@ -429,6 +444,104 @@
       <groupId>org.apache.xmlbeans</groupId>
       <artifactId>xmlbeans</artifactId>
       <version>2.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-assistedinject</artifactId>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.xmlbeans</groupId>
+      <artifactId>xmlbeans-xpath</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>saxon</artifactId>
+      <version>8.7</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>saxon-dom</artifactId>
+      <version>8.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.codemodel</groupId>
+      <artifactId>codemodel</artifactId>
+      <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>javafx</artifactId>
+      <version>2.0</version>
+      <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.8.3</version>
+    </dependency>
+    <!-- for testing javafx applications -->
+    <dependency>
+      <groupId>net.java.jemmy</groupId>
+      <artifactId>JemmyFX</artifactId>
+      <version>0.9.3-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.java.jemmy</groupId>
+      <artifactId>JemmyFXBrowser</artifactId>
+      <version>0.9.3-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.java.jemmy</groupId>
+      <artifactId>Jemmy3Core</artifactId>
+      <version>0.9.3-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.java.jemmy</groupId>
+      <artifactId>Jemmy3AWT</artifactId>
+      <version>0.9.3-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.java.jemmy</groupId>
+      <artifactId>Jemmy3AWTInput</artifactId>
+      <version>0.9.3-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jfxtras</groupId>
+      <artifactId>jfxtras-labs</artifactId>
+      <version>2.2-r5</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.8</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.byteseek</groupId>
+      <artifactId>byteseek</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr</artifactId>
+      <version>3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <version>3.2</version>
     </dependency>
   </dependencies>
 </project>

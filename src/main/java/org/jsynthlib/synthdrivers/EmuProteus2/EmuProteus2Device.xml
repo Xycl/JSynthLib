@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xd:xmlDeviceSpec xmlns:xd="http://www.jsynthlib.org/xmldevice"><xd:manufacturer>Emu</xd:manufacturer><xd:modelName>Proteus 2</xd:modelName><xd:inquiryId>NONE</xd:inquiryId><xd:infoText>E-mu Proteus/2. 
+Single and bank drivers work together with editor.
+Saving patches onto the Proteus from jSynthlib is not implemented yet. This has to be done manually.</xd:infoText><xd:authors>Pascal Collberg</xd:authors><xd:drivers><xd:xmlDriverDef><xd:driverClass>org.jsynthlib.synthdrivers.EmuProteus2.EmuProteus2SingleDriver</xd:driverClass><xd:driverType>Patch</xd:driverType></xd:xmlDriverDef></xd:drivers></xd:xmlDeviceSpec>

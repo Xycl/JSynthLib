@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xd:xmlPatchDriverSpec xmlns:xd="http://www.jsynthlib.org/xmldevice">
+  <xd:name>Yamaha DX7 Single Performance</xd:name>
+  <xd:infoText>Yamaha DX7 Single PerformanceDriver: --------------------------</xd:infoText>
+  <xd:authors>Torsten Tittmann</xd:authors>
+  <xd:patchType>Performance</xd:patchType>
+  <xd:patchSize>102</xd:patchSize>
+  <xd:sysexID>F0430*01005E</xd:sysexID>
+  <xd:patchNumbers>
+    <xd:string>Edit Buffer</xd:string>
+  </xd:patchNumbers>
+  <xd:bankNumbers>
+    <xd:string>Internal</xd:string>
+  </xd:bankNumbers>
+  <xd:deviceIDoffset>2</xd:deviceIDoffset>
+  <xd:checksumOffset>100</xd:checksumOffset>
+  <xd:checksumStart>6</xd:checksumStart>
+  <xd:checksumEnd>99</xd:checksumEnd>
+  <xd:patchNameStart>70</xd:patchNameStart>
+  <xd:patchNameSize>30</xd:patchNameSize>
+  <xd:initPatch>F0430001005E0000000700000000010801080008000F00000000000000006363070001180000000700000000010801080008000F0000000000000000636307000118000000272059414D4148412020445837202046554E4354494F4E202044415441202009F7</xd:initPatch>
+  <xd:patchParams>
+    <xd:patchParamGroup name="Common">
+      <xd:stringParamSpec name="Performance Name (30 Char.)">
+        <xd:uuid>cb66e43481094254b25505baa2117f53</xd:uuid>
+        <xd:length>30</xd:length>
+        <xd:patchNameSender senderClass="org.jsynthlib.device.model.PatchNameSender" />
+      </xd:stringParamSpec>
+      <xd:intParamSpec name="Corresponding Voice?">
+        <xd:uuid>f28ff2e9d8014a92b5ba7ecc1eabc5d4</xd:uuid>
+        <xd:midiSender />
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="6" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>63</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>1</xd:patchParamValue>
+          <xd:patchParamValue>2</xd:patchParamValue>
+          <xd:patchParamValue>3</xd:patchParamValue>
+          <xd:patchParamValue>4</xd:patchParamValue>
+          <xd:patchParamValue>5</xd:patchParamValue>
+          <xd:patchParamValue>6</xd:patchParamValue>
+          <xd:patchParamValue>7</xd:patchParamValue>
+          <xd:patchParamValue>8</xd:patchParamValue>
+          <xd:patchParamValue>9</xd:patchParamValue>
+          <xd:patchParamValue>10</xd:patchParamValue>
+          <xd:patchParamValue>11</xd:patchParamValue>
+          <xd:patchParamValue>12</xd:patchParamValue>
+          <xd:patchParamValue>13</xd:patchParamValue>
+          <xd:patchParamValue>14</xd:patchParamValue>
+          <xd:patchParamValue>15</xd:patchParamValue>
+          <xd:patchParamValue>16</xd:patchParamValue>
+          <xd:patchParamValue>17</xd:patchParamValue>
+          <xd:patchParamValue>18</xd:patchParamValue>
+          <xd:patchParamValue>19</xd:patchParamValue>
+          <xd:patchParamValue>20</xd:patchParamValue>
+          <xd:patchParamValue>21</xd:patchParamValue>
+          <xd:patchParamValue>22</xd:patchParamValue>
+          <xd:patchParamValue>23</xd:patchParamValue>
+          <xd:patchParamValue>24</xd:patchParamValue>
+          <xd:patchParamValue>25</xd:patchParamValue>
+          <xd:patchParamValue>26</xd:patchParamValue>
+          <xd:patchParamValue>27</xd:patchParamValue>
+          <xd:patchParamValue>28</xd:patchParamValue>
+          <xd:patchParamValue>29</xd:patchParamValue>
+          <xd:patchParamValue>30</xd:patchParamValue>
+          <xd:patchParamValue>31</xd:patchParamValue>
+          <xd:patchParamValue>32</xd:patchParamValue>
+          <xd:patchParamValue>33</xd:patchParamValue>
+          <xd:patchParamValue>34</xd:patchParamValue>
+          <xd:patchParamValue>35</xd:patchParamValue>
+          <xd:patchParamValue>36</xd:patchParamValue>
+          <xd:patchParamValue>37</xd:patchParamValue>
+          <xd:patchParamValue>38</xd:patchParamValue>
+          <xd:patchParamValue>39</xd:patchParamValue>
+          <xd:patchParamValue>40</xd:patchParamValue>
+          <xd:patchParamValue>41</xd:patchParamValue>
+          <xd:patchParamValue>42</xd:patchParamValue>
+          <xd:patchParamValue>43</xd:patchParamValue>
+          <xd:patchParamValue>44</xd:patchParamValue>
+          <xd:patchParamValue>45</xd:patchParamValue>
+          <xd:patchParamValue>46</xd:patchParamValue>
+          <xd:patchParamValue>47</xd:patchParamValue>
+          <xd:patchParamValue>48</xd:patchParamValue>
+          <xd:patchParamValue>49</xd:patchParamValue>
+          <xd:patchParamValue>50</xd:patchParamValue>
+          <xd:patchParamValue>51</xd:patchParamValue>
+          <xd:patchParamValue>52</xd:patchParamValue>
+          <xd:patchParamValue>53</xd:patchParamValue>
+          <xd:patchParamValue>54</xd:patchParamValue>
+          <xd:patchParamValue>55</xd:patchParamValue>
+          <xd:patchParamValue>56</xd:patchParamValue>
+          <xd:patchParamValue>57</xd:patchParamValue>
+          <xd:patchParamValue>58</xd:patchParamValue>
+          <xd:patchParamValue>59</xd:patchParamValue>
+          <xd:patchParamValue>60</xd:patchParamValue>
+          <xd:patchParamValue>61</xd:patchParamValue>
+          <xd:patchParamValue>62</xd:patchParamValue>
+          <xd:patchParamValue>63</xd:patchParamValue>
+          <xd:patchParamValue>64</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+    </xd:patchParamGroup>
+    <xd:patchParamGroup name="Voice A">
+      <xd:intParamSpec name="Key Mode Assign">
+        <xd:uuid>8017fe45f2de4041bb44ce3ce3541883</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="64" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="8" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Poly</xd:patchParamValue>
+          <xd:patchParamValue>Mono</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Range">
+        <xd:uuid>8ff925da0b4e43279fce50b59ef63114</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="65" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="9" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>12</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Off</xd:patchParamValue>
+          <xd:patchParamValue>perfect First (Unison)</xd:patchParamValue>
+          <xd:patchParamValue>minor Second</xd:patchParamValue>
+          <xd:patchParamValue>major Second</xd:patchParamValue>
+          <xd:patchParamValue>minor Third</xd:patchParamValue>
+          <xd:patchParamValue>major Third</xd:patchParamValue>
+          <xd:patchParamValue>perfect Fourth</xd:patchParamValue>
+          <xd:patchParamValue>perfect Fifth</xd:patchParamValue>
+          <xd:patchParamValue>minor Sixth</xd:patchParamValue>
+          <xd:patchParamValue>major Sixth</xd:patchParamValue>
+          <xd:patchParamValue>minor Seventh</xd:patchParamValue>
+          <xd:patchParamValue>major Seventh</xd:patchParamValue>
+          <xd:patchParamValue>Octave</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Step">
+        <xd:uuid>72bf04b762534c96b78cab1eb9f58037</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="66" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="10" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>12</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Continuous</xd:patchParamValue>
+          <xd:patchParamValue>±1 Octave - 12 Steps</xd:patchParamValue>
+          <xd:patchParamValue>±1 Octave - 6 Steps</xd:patchParamValue>
+          <xd:patchParamValue>±1 Octave - 4 Steps</xd:patchParamValue>
+          <xd:patchParamValue>±1 Octave - 3 Steps</xd:patchParamValue>
+          <xd:patchParamValue>±1 minor Seventh - 2 Steps</xd:patchParamValue>
+          <xd:patchParamValue>±1 Octave - 2 Steps</xd:patchParamValue>
+          <xd:patchParamValue>±1 Fifth - 1 Step</xd:patchParamValue>
+          <xd:patchParamValue>±1 major Fifth - 1 Step</xd:patchParamValue>
+          <xd:patchParamValue>±1 Sixth - 1 Step</xd:patchParamValue>
+          <xd:patchParamValue>±1 minor Seventh - 1 Step</xd:patchParamValue>
+          <xd:patchParamValue>±1 major Seventh - 1 Step</xd:patchParamValue>
+          <xd:patchParamValue>±1 Octave - 1 Step</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Portamento/Glissando">
+        <xd:uuid>09a30322c4d64eb3885855b897aaabec</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="68" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="12" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Portamento</xd:patchParamValue>
+          <xd:patchParamValue>Glissando</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Mode (Poly/Mono)">
+        <xd:uuid>28b365dea2f54aa9889191695c5d452b</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="67" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="13" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Retain/Fingered</xd:patchParamValue>
+          <xd:patchParamValue>Follow/Full Time</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Time">
+        <xd:uuid>d4c77f3098ec4ee5892b18c57a6231c4</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="69" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="11" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Assign">
+        <xd:uuid>958c44bb4fb245ffa1cb1ef273e1be7d</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="71" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="16" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Off</xd:patchParamValue>
+          <xd:patchParamValue>Pitch</xd:patchParamValue>
+          <xd:patchParamValue>Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>EG Bias</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + EG Bias</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude + EG Bias</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Sensitivity">
+        <xd:uuid>d3872949c23b49fb82ef22dda00c9971</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="70" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="15" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>15</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Assign">
+        <xd:uuid>d75628e1032b4967842f9906b6827813</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="73" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="18" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Off</xd:patchParamValue>
+          <xd:patchParamValue>Pitch</xd:patchParamValue>
+          <xd:patchParamValue>Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>EG Bias</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + EG Bias</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude + EG Bias</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Sensitivity">
+        <xd:uuid>d4012fa5fda14488a83f5e862658b96c</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="72" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="17" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>15</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Assign">
+        <xd:uuid>07fd875080c340228ae2e3b7881774e6</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="77" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="20" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Off</xd:patchParamValue>
+          <xd:patchParamValue>Pitch</xd:patchParamValue>
+          <xd:patchParamValue>Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>EG Bias</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + EG Bias</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude + EG Bias</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Sensitivity">
+        <xd:uuid>72709a99d5b94ae08d445fd104647847</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="76" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="19" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>15</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Assign">
+        <xd:uuid>7dee3ae3117149499dc4ca580f96c2b6</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="75" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="22" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Off</xd:patchParamValue>
+          <xd:patchParamValue>Pitch</xd:patchParamValue>
+          <xd:patchParamValue>Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>EG Bias</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + EG Bias</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude</xd:patchParamValue>
+          <xd:patchParamValue>Pitch + Amplitude + EG Bias</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Sensitivity">
+        <xd:uuid>a347a4fd17174174aeee2ad0ee0b168e</xd:uuid>
+        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.YamahaDX7.common.PerformanceSender">
+          <xd:property name="parameter"
+                       value="74" />
+        </xd:midiSender>
+        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
+          <xd:property name="offset"
+                       value="21" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>15</xd:max>
+      </xd:intParamSpec>
+    </xd:patchParamGroup>
+  </xd:patchParams>
+</xd:xmlPatchDriverSpec>

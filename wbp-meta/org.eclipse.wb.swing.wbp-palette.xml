@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<palette>
+	<category id="DKnob" name="Custom category" description="Category added for project jsynthlib" open="true">
+		<component class="org.jsynthlib.device.viewcontroller.widgets.Envelope" name="Envelope" description="Envelope widget."/>
+		<component class="com.dreamfabric.DKnob" name="DKnob" description="Knob widget"/>
+	</category>
+</palette>

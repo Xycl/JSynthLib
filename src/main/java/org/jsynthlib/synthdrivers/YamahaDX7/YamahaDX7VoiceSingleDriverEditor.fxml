@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.jsynthlib.device.view.*?>
+<?scenebuilder-classpath-element ../../../../../../../target/classes?>
+<?scenebuilder-stylesheet ../../../../application.css?>
+
+<AnchorPane minHeight="566.0" minWidth="675.0" prefHeight="572.0" prefWidth="789.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <FlowPane minHeight="323.0" minWidth="675.0" prefHeight="572.0" prefWidth="789.0000999999975" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <HBox prefHeight="567.0" prefWidth="794.0" FlowPane.margin="$x1">
+          <children>
+            <VBox prefHeight="548.0" prefWidth="432.0">
+              <children>
+                <HBox alignment="TOP_CENTER" prefHeight="226.0" prefWidth="379.0">
+                  <children>
+                    <TitledPane minWidth="185.0" prefHeight="226.0" prefWidth="272.0" text="Common">
+                      <content>
+                        <AnchorPane prefHeight="175.0" prefWidth="181.0">
+                          <children>
+                            <GridPane prefHeight="226.0" prefWidth="183.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                <Label fx:id="lbl8bfcc5667239435dabc48b0df445280f" alignment="CENTER" prefWidth="100.0" text="Algorithm" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                <Knob fx:id="8bfcc5667239435dabc48b0df445280f" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <TextField fx:id="4ca3834a56d545638b1e1ca382ed5a1a" prefWidth="164.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl4ca3834a56d545638b1e1ca382ed5a1a" alignment="CENTER" prefWidth="100.0" text="Name (10 Char.)" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                                <Label fx:id="lblb6af60fe64ff49c8be053c7b96533992" alignment="CENTER" prefWidth="100.0" text="Feedback" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                <Knob fx:id="b6af60fe64ff49c8be053c7b96533992" prefWidth="185.0" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                <Label fx:id="lbl9a8e9da042b942ba93fe612f658657ac" alignment="CENTER" prefWidth="100.0" text="Key Transpose" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <ComboBox fx:id="9a8e9da042b942ba93fe612f658657ac" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                                <ImageView fx:id="img8bfcc5667239435dabc48b0df445280f" fitHeight="84.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="5" GridPane.valignment="TOP">
+                                  <children>
+                                    <CheckBox fx:id="84a5d4372b4a4747b0baefa1feebbdf8" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="OP 1">
+                                      <VBox.margin>
+                                        <Insets bottom="5.0" fx:id="x3" />
+                                      </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46451" mnemonicParsing="false" text="Op 2" VBox.margin="$x3" />
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46452" mnemonicParsing="false" text="Op 3" VBox.margin="$x3" />
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46453" mnemonicParsing="false" text="Op 4" VBox.margin="$x3" />
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46454" mnemonicParsing="false" text="Op 5" VBox.margin="$x3" />
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46455" mnemonicParsing="false" text="Op 6" />
+                                  </children>
+                                  <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x2" />
+                                  </padding>
+                                </VBox>
+                                <Label text="Op On/Off" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="116.0" percentWidth="-1.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="70.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="33.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                      <HBox.margin>
+                        <Insets right="5.0" />
+                      </HBox.margin>
+                    </TitledPane>
+                    <TitledPane alignment="CENTER_RIGHT" minWidth="166.0" prefHeight="226.0" prefWidth="166.0" text="LFO">
+                      <content>
+                        <AnchorPane minWidth="185.0" prefHeight="173.0" prefWidth="185.0">
+                          <children>
+                            <GridPane prefHeight="173.0" prefWidth="185.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                <Knob fx:id="8e928bf2940f4474ab8778b3dbbdff23" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl8e928bf2940f4474ab8778b3dbbdff23" alignment="CENTER" prefWidth="100.0" text="Speed" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Knob fx:id="28fa6db91c624f25bef95c7a6c953755" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label fx:id="lbl28fa6db91c624f25bef95c7a6c953755" alignment="CENTER" prefWidth="100.0" text="Delay" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Knob fx:id="5928b36517aa4ce48d9d7f03daca54e2" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <Label fx:id="lbl5928b36517aa4ce48d9d7f03daca54e2" alignment="CENTER" prefWidth="100.0" text="AMD" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                <ComboBox fx:id="1ea1af34c15941c68d9826f76ffcb0f0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                <Label fx:id="lbl1ea1af34c15941c68d9826f76ffcb0f0" alignment="CENTER" prefWidth="100.0" text="Wave" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label fx:id="lbl1731e89325f24867b6526d0d13e6deb9" alignment="CENTER" prefWidth="100.0" text="PMD" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                <Knob fx:id="1731e89325f24867b6526d0d13e6deb9" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                <Label fx:id="lbl869efc7c58c34a0fbce95905c4079314" alignment="CENTER" prefWidth="100.0" text="Sync" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <ComboBox fx:id="869efc7c58c34a0fbce95905c4079314" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="36.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="64.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                      <HBox.margin>
+                        <Insets fx:id="x1" />
+                      </HBox.margin>
+                    </TitledPane>
+                  </children>
+                </HBox>
+                <TitledPane prefHeight="317.0" prefWidth="385.0" text="PEG">
+                  <content>
+                    <AnchorPane>
+                      <children>
+                        <GridPane styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <Envelope fx:id="44e8b8c0fb714c1e94bad27aa9e28d49" maxWidth="423.0" minWidth="394.0" prefHeight="274.0" prefWidth="406.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                          </children>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                  <VBox.margin>
+                    <Insets top="5.0" />
+                  </VBox.margin>
+                </TitledPane>
+              </children>
+              <padding>
+                <Insets fx:id="x1" />
+              </padding>
+            </VBox>
+            <TabPane prefHeight="548.0" prefWidth="341.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="OP1">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="517.0" prefWidth="341.0">
+                      <children>
+                        <GridPane minWidth="341.0" prefHeight="512.0" prefWidth="341.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <ComboBox fx:id="34245097bc9646328ecff9165019378c" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl34245097bc9646328ecff9165019378c" alignment="CENTER" prefWidth="100.0" text="Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="1e22b9a1e4094287a3982531c439eecc" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl1e22b9a1e4094287a3982531c439eecc" alignment="CENTER" prefWidth="100.0" text="Sync (*)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="26f58de96ff6442ea57f3b43bed88d27" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl26f58de96ff6442ea57f3b43bed88d27" alignment="CENTER" prefWidth="100.0" text="Frequency Coarse" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Knob fx:id="96607bd7d7014797bb40050a9f8bd21d" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl96607bd7d7014797bb40050a9f8bd21d" alignment="CENTER" prefWidth="100.0" text="Frequency Fine" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Knob fx:id="73cf84aae84e42d989c46102858323f7" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl73cf84aae84e42d989c46102858323f7" alignment="CENTER" prefWidth="100.0" text="Detune" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="85bf6217bea447c89e78a57f489cd843" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl85bf6217bea447c89e78a57f489cd843" alignment="CENTER" prefWidth="100.0" text="Breakpoint" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="345374dba30a40a2bd84c04ffcb49349" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl345374dba30a40a2bd84c04ffcb49349" alignment="CENTER" prefWidth="100.0" text="Curve Left" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="cd1af63533774e41abf6709dfa34c94b" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lblcd1af63533774e41abf6709dfa34c94b" alignment="CENTER" prefWidth="100.0" text="Curve Right" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Knob fx:id="6f543032ef004796824104093c2f5171" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl6f543032ef004796824104093c2f5171" alignment="CENTER" prefWidth="100.0" text="Depth Left" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                            <Knob fx:id="c4ea91ad6a48419598a624147ba289ac" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label fx:id="lblc4ea91ad6a48419598a624147ba289ac" alignment="CENTER" prefWidth="100.0" text="Depth Right" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <Knob fx:id="04d7ed2de1e5487b8a3789964273aae0" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl04d7ed2de1e5487b8a3789964273aae0" alignment="CENTER" prefWidth="100.0" text="Keyboard Rate Scaling" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Knob fx:id="6d52e9c14fd8487b8ae3cd436e12e2c9" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl6d52e9c14fd8487b8ae3cd436e12e2c9" alignment="CENTER" prefWidth="100.0" text="Output Level" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                            <Knob fx:id="7653d773d38745008e1637b25539af6c" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl7653d773d38745008e1637b25539af6c" alignment="CENTER" prefWidth="100.0" text="Velocity Sensitivity" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                            <Knob fx:id="27c48a512b5e4a6a977eb9cdc04d732a" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl27c48a512b5e4a6a977eb9cdc04d732a" alignment="CENTER" prefWidth="100.0" text="Amplitude" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                            <Knob fx:id="956ba34bbb76418b80fea321525370e7" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl956ba34bbb76418b80fea321525370e7" alignment="CENTER" prefWidth="100.0" text="Pitch (*)" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                            <Envelope fx:id="68c5958c188f43669d46e3fd1763a810" maxWidth="336.0" prefHeight="200.0" prefWidth="336.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.34" />
+                          </columnConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="OP2">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <GridPane minWidth="341.0" prefHeight="506.0" prefWidth="341.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <ComboBox fx:id="f1faf40063a84dc3be6d8f2cfb204d93" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lblf1faf40063a84dc3be6d8f2cfb204d93" alignment="CENTER" prefWidth="100.0" text="Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="f97020523bec4c91842189275f700f86" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lblf97020523bec4c91842189275f700f86" alignment="CENTER" prefWidth="100.0" text="Sync (*)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="0f8cac4089a34792a4339fbf5873e3e2" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl0f8cac4089a34792a4339fbf5873e3e2" alignment="CENTER" prefWidth="100.0" text="Frequency Coarse" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Knob fx:id="76242c92b3b24b00a225658f56e1ce54" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl76242c92b3b24b00a225658f56e1ce54" alignment="CENTER" prefWidth="100.0" text="Frequency Fine" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Knob fx:id="4f8187fc1bcd4a3a8983f7494e4abcad" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl4f8187fc1bcd4a3a8983f7494e4abcad" alignment="CENTER" prefWidth="100.0" text="Detune" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="6a8a7981a92a415db2ad446ac547c3bb" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl6a8a7981a92a415db2ad446ac547c3bb" alignment="CENTER" prefWidth="100.0" text="Breakpoint" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="eb466d069b8b42b4bc5256105c241ac6" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lbleb466d069b8b42b4bc5256105c241ac6" alignment="CENTER" prefWidth="100.0" text="Curve Left" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="b4cbfa8d346945ea9a28d6859c9d0efd" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lblb4cbfa8d346945ea9a28d6859c9d0efd" alignment="CENTER" prefWidth="100.0" text="Curve Right" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Knob fx:id="1f5b72a765ec40259dcc80caa40e3927" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl1f5b72a765ec40259dcc80caa40e3927" alignment="CENTER" prefWidth="100.0" text="Depth Left" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                            <Knob fx:id="b00a6728eed14a62972ede77c9ce710c" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label fx:id="lblb00a6728eed14a62972ede77c9ce710c" alignment="CENTER" prefWidth="100.0" text="Depth Right" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <Knob fx:id="a5f5ad87a35c48bd931be7519c852982" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                            <Label fx:id="lbla5f5ad87a35c48bd931be7519c852982" alignment="CENTER" prefWidth="100.0" text="Keyboard Rate Scaling" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Knob fx:id="66c4212e240449da800eab949b1e9819" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl66c4212e240449da800eab949b1e9819" alignment="CENTER" prefWidth="100.0" text="Output Level" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                            <Knob fx:id="898271731e9b41d497b0265f8b32e631" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl898271731e9b41d497b0265f8b32e631" alignment="CENTER" prefWidth="100.0" text="Velocity Sensitivity" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                            <Knob fx:id="11b3e4d5def741bdba1e3c93e80a091e" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl11b3e4d5def741bdba1e3c93e80a091e" alignment="CENTER" prefWidth="100.0" text="Amplitude" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                            <Knob fx:id="cb6e1e793bf84b56bb98f14c5305ff9d" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                            <Label fx:id="lblcb6e1e793bf84b56bb98f14c5305ff9d" alignment="CENTER" prefWidth="100.0" text="Pitch (*)" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                            <Envelope fx:id="eade7ea13cdc46a09eee6e54bfdce92d" maxWidth="336.0" prefHeight="200.0" prefWidth="336.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.34" />
+                          </columnConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="OP3">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <GridPane minWidth="341.0" prefHeight="506.0" prefWidth="341.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <ComboBox fx:id="f9c03f5ef070437abba617a4b2ba88ad" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lblf9c03f5ef070437abba617a4b2ba88ad" alignment="CENTER" prefWidth="100.0" text="Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="20a6345e916f45ca8d0b049f5139c38a" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl20a6345e916f45ca8d0b049f5139c38a" alignment="CENTER" prefWidth="100.0" text="Sync (*)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="9efac692b4ed4afba36276534684c977" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl9efac692b4ed4afba36276534684c977" alignment="CENTER" prefWidth="100.0" text="Frequency Coarse" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Knob fx:id="e88803d05d5e469f910f5d9800598cdf" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="lble88803d05d5e469f910f5d9800598cdf" alignment="CENTER" prefWidth="100.0" text="Frequency Fine" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Knob fx:id="1b36d139dd61480cb616f83a86a173ee" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl1b36d139dd61480cb616f83a86a173ee" alignment="CENTER" prefWidth="100.0" text="Detune" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="c3dd7d616a6140b2b3f0f664ad7874dc" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lblc3dd7d616a6140b2b3f0f664ad7874dc" alignment="CENTER" prefWidth="100.0" text="Breakpoint" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="6f54d434dab540538b53957877751b2f" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl6f54d434dab540538b53957877751b2f" alignment="CENTER" prefWidth="100.0" text="Curve Left" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="ddb2aec2d78a4361a08af52c797bebe0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lblddb2aec2d78a4361a08af52c797bebe0" alignment="CENTER" prefWidth="100.0" text="Curve Right" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Knob fx:id="3589bb544fd347ce8ab2512a50fa4544" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl3589bb544fd347ce8ab2512a50fa4544" alignment="CENTER" prefWidth="100.0" text="Depth Left" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                            <Knob fx:id="f5f0d43de8c940e9a1dca94ec8a3b49c" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label fx:id="lblf5f0d43de8c940e9a1dca94ec8a3b49c" alignment="CENTER" prefWidth="100.0" text="Depth Right" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <Knob fx:id="211b1771c11d48319eebbeb02d1ef259" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl211b1771c11d48319eebbeb02d1ef259" alignment="CENTER" prefWidth="100.0" text="Keyboard Rate Scaling" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Knob fx:id="414e9e26734a497e8d2942d5966f8a40" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl414e9e26734a497e8d2942d5966f8a40" alignment="CENTER" prefWidth="100.0" text="Output Level" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                            <Knob fx:id="75e73fbc7c11423c8add8710ff865deb" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl75e73fbc7c11423c8add8710ff865deb" alignment="CENTER" prefWidth="100.0" text="Velocity Sensitivity" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                            <Knob fx:id="3570c8ac39654631b02184a88bf28acb" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl3570c8ac39654631b02184a88bf28acb" alignment="CENTER" prefWidth="100.0" text="Amplitude" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                            <Knob fx:id="9ea161d64e0c4d2186ba4085946202c8" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl9ea161d64e0c4d2186ba4085946202c8" alignment="CENTER" prefWidth="100.0" text="Pitch (*)" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                            <Envelope fx:id="79497f9d9f2d45a0bf78c7be1d3d4382" maxWidth="336.0" prefHeight="200.0" prefWidth="336.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.34" />
+                          </columnConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="OP4">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <GridPane minWidth="341.0" prefHeight="506.0" prefWidth="341.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <ComboBox fx:id="09071744ab0941978d5c7f5a7c7389fd" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl09071744ab0941978d5c7f5a7c7389fd" alignment="CENTER" prefWidth="100.0" text="Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="34c1a4d8743f4f5b841e96b7072d006d" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl34c1a4d8743f4f5b841e96b7072d006d" alignment="CENTER" prefWidth="100.0" text="Sync (*)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="f5638b733b4e47aa9fdb67ddd2f9def8" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label fx:id="lblf5638b733b4e47aa9fdb67ddd2f9def8" alignment="CENTER" prefWidth="100.0" text="Frequency Coarse" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Knob fx:id="2c86ff592e6f44fe9840c0c64c1f11da" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl2c86ff592e6f44fe9840c0c64c1f11da" alignment="CENTER" prefWidth="100.0" text="Frequency Fine" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Knob fx:id="3443fa99bd594a6da9e106a5ef3f89c4" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl3443fa99bd594a6da9e106a5ef3f89c4" alignment="CENTER" prefWidth="100.0" text="Detune" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="c96ef74e9beb4ff488042a0feca6685d" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lblc96ef74e9beb4ff488042a0feca6685d" alignment="CENTER" prefWidth="100.0" text="Breakpoint" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="5cdc1d23ab5148d287a0167079752a9a" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl5cdc1d23ab5148d287a0167079752a9a" alignment="CENTER" prefWidth="100.0" text="Curve Left" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="f103f554bf654a4fb598dab040f97665" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lblf103f554bf654a4fb598dab040f97665" alignment="CENTER" prefWidth="100.0" text="Curve Right" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Knob fx:id="6751daaac05e4aad9c6c08a4b0cc1964" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl6751daaac05e4aad9c6c08a4b0cc1964" alignment="CENTER" prefWidth="100.0" text="Depth Left" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                            <Knob fx:id="c162a506f4bd438a8931ec7c86777ae1" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label fx:id="lblc162a506f4bd438a8931ec7c86777ae1" alignment="CENTER" prefWidth="100.0" text="Depth Right" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <Knob fx:id="7097f8318944434c8198099b91bcca22" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl7097f8318944434c8198099b91bcca22" alignment="CENTER" prefWidth="100.0" text="Keyboard Rate Scaling" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Knob fx:id="6bb6f19284054769b37d366c62f24a7d" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl6bb6f19284054769b37d366c62f24a7d" alignment="CENTER" prefWidth="100.0" text="Output Level" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                            <Knob fx:id="bdb6318d385c473a98b0d5203a6dc24f" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                            <Label fx:id="lblbdb6318d385c473a98b0d5203a6dc24f" alignment="CENTER" prefWidth="100.0" text="Velocity Sensitivity" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                            <Knob fx:id="56897fbcd1eb4404bfd4afd58cc5d21e" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl56897fbcd1eb4404bfd4afd58cc5d21e" alignment="CENTER" prefWidth="100.0" text="Amplitude" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                            <Knob fx:id="10c6d35a44904e6bae9737f2466ce4bc" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl10c6d35a44904e6bae9737f2466ce4bc" alignment="CENTER" prefWidth="100.0" text="Pitch (*)" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                            <Envelope fx:id="56f6e079abd749049b9f078b954b080e" maxWidth="336.0" prefHeight="200.0" prefWidth="336.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.34" />
+                          </columnConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="OP5">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <GridPane minWidth="341.0" prefHeight="506.0" prefWidth="341.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <ComboBox fx:id="24d308ce008d442cb70b3675a0d39070" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl24d308ce008d442cb70b3675a0d39070" alignment="CENTER" prefWidth="100.0" text="Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="06ee7d9c46aa4adeb4c5fdd940aa8840" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl06ee7d9c46aa4adeb4c5fdd940aa8840" alignment="CENTER" prefWidth="100.0" text="Sync (*)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="a0ed7a6ca2ad40168b45a5bf8ea8f6db" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label fx:id="lbla0ed7a6ca2ad40168b45a5bf8ea8f6db" alignment="CENTER" prefWidth="100.0" text="Frequency Coarse" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Knob fx:id="5e3bcf6dd160423b8d4e71e42a621afb" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl5e3bcf6dd160423b8d4e71e42a621afb" alignment="CENTER" prefWidth="100.0" text="Frequency Fine" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Knob fx:id="4147d6b0ed60429886682bbc279e45b1" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl4147d6b0ed60429886682bbc279e45b1" alignment="CENTER" prefWidth="100.0" text="Detune" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="7f651c0e1ef743bfa9494411c59aaaaf" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl7f651c0e1ef743bfa9494411c59aaaaf" alignment="CENTER" prefWidth="100.0" text="Breakpoint" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="eb172fc6bd31415a969aedcfeda2f90f" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lbleb172fc6bd31415a969aedcfeda2f90f" alignment="CENTER" prefWidth="100.0" text="Curve Left" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="d45c9761d4e146aabacb0bf1ecfc406d" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lbld45c9761d4e146aabacb0bf1ecfc406d" alignment="CENTER" prefWidth="100.0" text="Curve Right" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Knob fx:id="915522ee538f42939d94d7ddc3ddf16b" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl915522ee538f42939d94d7ddc3ddf16b" alignment="CENTER" prefWidth="100.0" text="Depth Left" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                            <Knob fx:id="5e422e204fa8480a825dc884ae10ae50" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl5e422e204fa8480a825dc884ae10ae50" alignment="CENTER" prefWidth="100.0" text="Depth Right" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <Knob fx:id="21e177b666b849478a3b5e8f42fb8ac6" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl21e177b666b849478a3b5e8f42fb8ac6" alignment="CENTER" prefWidth="100.0" text="Keyboard Rate Scaling" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Knob fx:id="90b4bd89dfd44f64ae8995d36bd87580" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl90b4bd89dfd44f64ae8995d36bd87580" alignment="CENTER" prefWidth="100.0" text="Output Level" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                            <Knob fx:id="0bab1ef56fea4b389ee1ea2566acf4e3" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl0bab1ef56fea4b389ee1ea2566acf4e3" alignment="CENTER" prefWidth="100.0" text="Velocity Sensitivity" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                            <Knob fx:id="e409eb48a6e744adb941e08322512fd2" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                            <Label fx:id="lble409eb48a6e744adb941e08322512fd2" alignment="CENTER" prefWidth="100.0" text="Amplitude" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                            <Knob fx:id="7cc3e7bcaecd4194a836339def782eab" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl7cc3e7bcaecd4194a836339def782eab" alignment="CENTER" prefWidth="100.0" text="Pitch (*)" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                            <Envelope fx:id="f6a415437487477a8563be613743bb04" maxWidth="336.0" prefHeight="200.0" prefWidth="336.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.34" />
+                          </columnConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="OP6">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <GridPane minWidth="341.0" prefHeight="506.0" prefWidth="341.0" styleClass="bordered-titled-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <ComboBox fx:id="d3edbe4b03654e3eb4c8d2cf971ecbba" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbld3edbe4b03654e3eb4c8d2cf971ecbba" alignment="CENTER" prefWidth="100.0" text="Mode" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="4e984113b6924669a4a08b317623afa3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl4e984113b6924669a4a08b317623afa3" alignment="CENTER" prefWidth="100.0" text="Sync (*)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Knob fx:id="50339a97c1624b7eb8dc8b45f13f63ee" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                            <Label fx:id="lbl50339a97c1624b7eb8dc8b45f13f63ee" alignment="CENTER" prefWidth="100.0" text="Frequency Coarse" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            <Knob fx:id="b937a446eb6d422aa0651fd1a9be8858" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                            <Label fx:id="lblb937a446eb6d422aa0651fd1a9be8858" alignment="CENTER" prefWidth="100.0" text="Frequency Fine" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                            <Knob fx:id="f0764a043dbf4276aaf15340332db632" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Label fx:id="lblf0764a043dbf4276aaf15340332db632" alignment="CENTER" prefWidth="100.0" text="Detune" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="1e7fde08c71549a093c68ef8c6363854" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <Label fx:id="lbl1e7fde08c71549a093c68ef8c6363854" alignment="CENTER" prefWidth="100.0" text="Breakpoint" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                            <ComboBox fx:id="cc2249b71bbd43fc97b90726d440440e" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lblcc2249b71bbd43fc97b90726d440440e" alignment="CENTER" prefWidth="100.0" text="Curve Left" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="f00c759a2b1b472798476b7e849b6913" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            <Label fx:id="lblf00c759a2b1b472798476b7e849b6913" alignment="CENTER" prefWidth="100.0" text="Curve Right" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            <Knob fx:id="1f2c7bccdb4d4038b54f802b901c1127" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                            <Label fx:id="lbl1f2c7bccdb4d4038b54f802b901c1127" alignment="CENTER" prefWidth="100.0" text="Depth Left" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                            <Knob fx:id="08e0665cc8424b439777611278bd1306" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl08e0665cc8424b439777611278bd1306" alignment="CENTER" prefWidth="100.0" text="Depth Right" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                            <Knob fx:id="8c1919ed94674fb3af64b02cd280ac4e" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl8c1919ed94674fb3af64b02cd280ac4e" alignment="CENTER" prefWidth="100.0" text="Keyboard Rate Scaling" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            <Knob fx:id="1555a66e24ab4557890f421c06cc132d" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                            <Label fx:id="lbl1555a66e24ab4557890f421c06cc132d" alignment="CENTER" prefWidth="100.0" text="Output Level" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                            <Knob fx:id="409e8ebd83df486ca7dee7f81eb682de" styleClass="knobStyle" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                            <Label fx:id="lbl409e8ebd83df486ca7dee7f81eb682de" alignment="CENTER" prefWidth="100.0" text="Velocity Sensitivity" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                            <Knob fx:id="cf6a2354a44445d5a08a28b381b7cf57" styleClass="knobStyle" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                            <Label fx:id="lblcf6a2354a44445d5a08a28b381b7cf57" alignment="CENTER" prefWidth="100.0" text="Amplitude" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                            <Knob fx:id="f5b216de6e2d43e6a91adeb2b80643af" styleClass="knobStyle" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                            <Label fx:id="lblf5b216de6e2d43e6a91adeb2b80643af" alignment="CENTER" prefWidth="100.0" text="Pitch (*)" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                            <Envelope fx:id="70012acef0fa4778977fe2630635337b" maxWidth="336.0" prefHeight="200.0" prefWidth="336.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.33" />
+                            <ColumnConstraints percentWidth="33.34" />
+                          </columnConstraints>
+                        </GridPane>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+              <HBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x2" />
+              </HBox.margin>
+            </TabPane>
+          </children>
+          <padding>
+            <Insets fx:id="x1" />
+          </padding>
+        </HBox>
+      </children>
+    </FlowPane>
+  </children>
+</AnchorPane>
