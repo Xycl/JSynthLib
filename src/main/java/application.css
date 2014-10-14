@@ -2,7 +2,7 @@
     -fx-background-color: transparent;
     -fx-background-image: url("org/jsynthlib/images/volume.png");
     -fx-background-position: center center;
-    -fx-padding: 85.0;
+/*     -fx-padding: 85.0; */
 }
 focused .knob {
     -fx-effect: null;
