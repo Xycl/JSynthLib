@@ -134,7 +134,7 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
     Xmlparam getParamByLabel(Xmlparams params, String label) {
         Xmlparam[] paramArray = params.getXmlparamArray();
         for (final Xmlparam param : paramArray) {
-            if (param.getLabel().equals(label)) {
+            if (param.getLabel().equals(label.trim())) {
                 return param;
             }
         }
@@ -290,7 +290,7 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
                 int maxX = node.getMaxX();
 
                 assertEquals("Check paramX label: " + paramX.getLabel(),
-                        paramX.getLabel(), node.getNameX());
+                        paramX.getLabel(), node.getNameX().trim());
                 assertEquals("Check paramX max: " + paramX.getLabel(),
                         paramX.getMax(), maxX);
                 assertEquals("Check paramX min: " + paramX.getLabel(),
@@ -308,7 +308,7 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
                 int maxY = node.getMaxY();
 
                 assertEquals("Check paramY label: " + paramY.getLabel(),
-                        paramY.getLabel(), node.getNameY());
+                        paramY.getLabel(), node.getNameY().trim());
                 assertEquals("Check paramY max: " + paramY.getLabel(),
                         paramY.getMax(), maxY);
                 assertEquals("Check paramY min: " + paramY.getLabel(),

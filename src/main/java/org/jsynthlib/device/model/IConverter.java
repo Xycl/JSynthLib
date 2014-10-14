@@ -1,6 +1,6 @@
 package org.jsynthlib.device.model;
 
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * This is an interface of a driver which simply converts a patch, which is
@@ -24,5 +24,5 @@ public interface IConverter {
      * @see DriverUtil#createPatches(byte[])
      * @see DriverUtil#createPatches(byte[], Device)
      */
-    IPatch[] createPatches(byte[] sysex);
+    Patch[] createPatches(byte[] sysex);
 }

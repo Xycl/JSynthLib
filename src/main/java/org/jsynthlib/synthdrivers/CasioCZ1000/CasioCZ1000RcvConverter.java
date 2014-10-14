@@ -21,7 +21,6 @@
 package org.jsynthlib.synthdrivers.CasioCZ1000;
 
 import org.jsynthlib.device.model.Converter;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -38,7 +37,7 @@ public class CasioCZ1000RcvConverter extends Converter {
         patchSize = 263;
     }
 
-    public IPatch createPatch(byte[] sysex) {
+    public Patch createPatch(byte[] sysex) {
         // Casio returns a 263 byte patch, but everyone expects 264,
         // because the sysex sent to the Casio contains the bank number,
         // while the sysex sent back does not.

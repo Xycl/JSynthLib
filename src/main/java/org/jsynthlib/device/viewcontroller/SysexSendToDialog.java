@@ -5,8 +5,7 @@
 package org.jsynthlib.device.viewcontroller;
 
 import org.jsynthlib.device.model.IPatchDriver;
-import org.jsynthlib.patch.model.IPatch;
-import org.jsynthlib.patch.model.ISinglePatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * Dialog to choose a Device and Driver to send the patch into an Edit buffer.
@@ -21,7 +20,7 @@ public class SysexSendToDialog extends DevDrvPatchSelector {
      * @param patch
      *            The Patch to 'send to...'
      */
-    public SysexSendToDialog(IPatch patch) {
+    public SysexSendToDialog(Patch patch) {
         // super(PatchEdit.getInstance(),
         // "Send Sysex Data into Edit Buffer of a specified device", true);
         super(patch, "Send Sysex Data into Edit Buffer of a specified device",
@@ -31,9 +30,12 @@ public class SysexSendToDialog extends DevDrvPatchSelector {
     /**
      * Makes the actual work after pressing the 'Send to...' button
      */
+    @Override
     protected void doit() {
         p.setDriver((IPatchDriver) driverComboBox.getSelectedItem());
-        ((ISinglePatch) p).send();
+        if (p.isSinglePatch()) {
+            p.send();
+        }
 
         setVisible(false);
         dispose();

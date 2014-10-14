@@ -33,14 +33,14 @@ import javax.swing.JComboBox;
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.SysexWidget;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 public class IdComboWidget extends SysexWidget {
     protected JComboBox cb;
     /** A vector of the list of the options in the ComboBox. */
     protected Vector options;
 
-    public IdComboWidget(String label, IPatch patch, IParamModel pmodel,
+    public IdComboWidget(String label, Patch patch, IParamModel pmodel,
             ISender sender, Vector options) {
         super(label, patch, 0, Integer.MAX_VALUE, pmodel, sender);
         this.options = options;
@@ -48,16 +48,19 @@ public class IdComboWidget extends SysexWidget {
         layoutWidgets();
     }
 
+    @Override
     protected void createWidgets() {
         cb = new JComboBox(options);
         int v = getValue();
-        for (int i = 0; i < options.size(); i++)
+        for (int i = 0; i < options.size(); i++) {
             if (v == ((IdItem) options.elementAt(i)).getID()) {
                 cb.setSelectedIndex(i);
                 break;
             }
+        }
 
         cb.addItemListener(new ItemListener() {
+            @Override
             public void itemStateChanged(ItemEvent e) {
                 eventListener(e);
             }
@@ -81,6 +84,7 @@ public class IdComboWidget extends SysexWidget {
         cb.addItemListener(l);
     }
 
+    @Override
     protected void layoutWidgets() {
         setLayout(new FlowLayout());
         cb.setMaximumSize(new Dimension(125, 25));
@@ -89,15 +93,18 @@ public class IdComboWidget extends SysexWidget {
         add(cb);
     }
 
+    @Override
     public void setValue(int v) {
         super.setValue(v);
-        for (int i = 0; i < options.size(); i++)
+        for (int i = 0; i < options.size(); i++) {
             if (v == ((IdItem) options.elementAt(i)).getID()) {
                 cb.setSelectedIndex(i);
                 break;
             }
+        }
     }
 
+    @Override
     public void setEnabled(boolean e) {
         cb.setEnabled(e);
     }

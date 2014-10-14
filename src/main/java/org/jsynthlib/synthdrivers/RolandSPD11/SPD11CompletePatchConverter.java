@@ -8,7 +8,6 @@ package org.jsynthlib.synthdrivers.RolandSPD11;
 import javax.sound.midi.SysexMessage;
 
 import org.jsynthlib.device.model.Converter;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -56,7 +55,7 @@ public class SPD11CompletePatchConverter extends Converter {
 
     // If extractPatch returns an array of Patches whose drivers are set
     // properly, override this by;
-    public IPatch[] createPatches(byte[] sysex) {
+    public Patch[] createPatches(byte[] sysex) {
         return extractPatch(getPatchFactory().createNewPatch(sysex, this));
     }
 }

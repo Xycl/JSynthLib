@@ -26,8 +26,6 @@ import java.io.InputStream;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
-import org.jsynthlib.patch.model.IPatch;
-import org.jsynthlib.patch.model.ISinglePatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -99,7 +97,8 @@ public class RolandJD800SinglePatchDriver extends AbstractPatchDriver {
      * into one.
      * @see org.jsynthlib.device.model.AbstractPatchDriver#createPatch(byte[])
      */
-    public IPatch createPatch(byte[] sysex) {
+    @Override
+    public Patch createPatch(byte[] sysex) {
         byte[] out = new byte[JD800.SizeOfSinglePatch + JD800.SizeOfSyxHeader];
         System.arraycopy(sysex, 0, out, 0, JD800.SizeOfSyxHeader
                 + JD800.MaxSyxDataBlock);
@@ -116,15 +115,18 @@ public class RolandJD800SinglePatchDriver extends AbstractPatchDriver {
      * and single concatenated one.
      * @see org.jsynthlib.device.model.AbstractPatchDriver#supportsPatch(String, byte[])
      */
+    @Override
     public boolean supportsPatch(String patchString, byte[] sysex) {
         // The statement below has been changed when compared to original. The
         // rest is the same.
         if (((JD800.SizeOfPatchSyx1 + JD800.SizeOfPatchSyx2) != sysex.length)
-                & ((JD800.SizeOfSyxHeader + JD800.SizeOfSinglePatch) != sysex.length))
+                & ((JD800.SizeOfSyxHeader + JD800.SizeOfSinglePatch) != sysex.length)) {
             return false;
+        }
 
-        if (sysexID == null || patchString.length() < sysexID.length())
+        if (sysexID == null || patchString.length() < sysexID.length()) {
             return false;
+        }
 
         StringBuffer compareString = new StringBuffer();
         for (int i = 0; i < sysexID.length(); i++) {
@@ -145,6 +147,7 @@ public class RolandJD800SinglePatchDriver extends AbstractPatchDriver {
      * messages as it is expected for JD800. <code>bankNum</code> is ignored.
      * @see Patch#send(int, int)
      */
+    @Override
     public void storePatch(Patch p, int bankNum, int patchNum) {
 
         byte[] s1 = new byte[JD800.SizeOfPatchSyx1];
@@ -175,8 +178,9 @@ public class RolandJD800SinglePatchDriver extends AbstractPatchDriver {
         if (s2[6] == 0x7E) {
             s2[5] = (byte) (AddrMSB[patchNum] + 1);
             s2[6] = 0x00;
-        } else
+        } else {
             s2[6] = (byte) (Addr[patchNum] + 2);
+        }
         System.arraycopy(p.sysex,
                 JD800.SizeOfSyxHeader + JD800.MaxSyxDataBlock, s2,
                 JD800.SizeOfSyxHeader, JD800.SizeOfSinglePatch
@@ -194,6 +198,7 @@ public class RolandJD800SinglePatchDriver extends AbstractPatchDriver {
      * @see Patch#send()
      * @see ISinglePatch#send()
      */
+    @Override
     public void sendPatch(Patch p) {
         storePatch(p, 0, 0);
     };
@@ -204,6 +209,7 @@ public class RolandJD800SinglePatchDriver extends AbstractPatchDriver {
      * Data Transfer button and 'Patch dump' option. The messages are
      * concatenated into one.
      */
+    @Override
     public Patch createNewPatch() {
         byte[] out = new byte[JD800.SizeOfSyxHeader + JD800.SizeOfSinglePatch];
         InputStream fileIn =
@@ -226,6 +232,7 @@ public class RolandJD800SinglePatchDriver extends AbstractPatchDriver {
         }
     };
 
+    @Override
     public void requestPatchDump(int bankNum, int patchNum) {
         send(SYS_REQ.toSysexMessage(getDeviceID(), new SysexHandler.NameValue(
                 "AddrMSB", AddrMSB[patchNum]), new SysexHandler.NameValue(

@@ -39,7 +39,6 @@ import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.midi.service.MidiMessageFormatter;
-import org.jsynthlib.patch.model.ISinglePatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -135,17 +134,17 @@ public class FCB1010Editor extends PatchEditorFrame implements ActionListener {
     /**
      * Array used to hold all ControlGroupModels for Program Changes
      */
-    private ControlGroupModel[] pcGroupModel = new ControlGroupModel[5];
+    private final ControlGroupModel[] pcGroupModel = new ControlGroupModel[5];
 
     /**
      * Array used to hold all ControlGroupModels for Control Changes
      */
-    private ControlGroupModel[] ccGroupModel = new ControlGroupModel[2];
+    private final ControlGroupModel[] ccGroupModel = new ControlGroupModel[2];
 
     /**
      * Array used to hold all ControlGroupModels for Expression Pedals
      */
-    private ControlGroupModel[] expGroupModel = new ControlGroupModel[2];
+    private final ControlGroupModel[] expGroupModel = new ControlGroupModel[2];
 
     /**
      * Variable used to hold the ControlGroupModels for Note Control
@@ -262,6 +261,7 @@ public class FCB1010Editor extends PatchEditorFrame implements ActionListener {
      * Handles ActionEvents for the preset select combo box and the copy and
      * paste buttons.
      */
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(SELECT_PRESET_ACTION_CMD)) {
             SelectedPresetModel.setPreset(bankSelect.getSelectedIndex(),
@@ -278,13 +278,13 @@ public class FCB1010Editor extends PatchEditorFrame implements ActionListener {
     /**
      * Copies the currently selected preset to the local scrap.
      */
-    private void doCopyPreset(ISinglePatch p) {
+    private void doCopyPreset(Patch p) {
         pasteButton.setEnabled(true);
         pasteButton.setText("Paste Preset");
 
         int bank = bankSelect.getSelectedIndex();
         int preset = presetSelect.getSelectedIndex();
-        Patch patch = (Patch) p;
+        Patch patch = p;
         byte[] deNibblizedSysex =
                 FCB1010ParamModel.deNibblize(patch.sysex, Constants.HDR_SIZE);
         int startPos =
@@ -299,12 +299,12 @@ public class FCB1010Editor extends PatchEditorFrame implements ActionListener {
     /**
      * Copies the currently selected bank to the local scrap.
      */
-    private void doCopyBank(ISinglePatch p) {
+    private void doCopyBank(Patch p) {
         pasteButton.setEnabled(true);
         pasteButton.setText("Paste Bank");
 
         int bank = bankSelect.getSelectedIndex();
-        Patch patch = (Patch) p;
+        Patch patch = p;
         byte[] deNibblizedSysex =
                 FCB1010ParamModel.deNibblize(patch.sysex, Constants.HDR_SIZE);
         int startPos = Constants.HDR_SIZE + (bank * BANK_LENGTH);
@@ -318,7 +318,7 @@ public class FCB1010Editor extends PatchEditorFrame implements ActionListener {
      * local scrap contains a single preset, the preset is pasted. If the local
      * scrap contains an entire bank, the bank is pasted.
      */
-    private void doPaste(ISinglePatch p) {
+    private void doPaste(Patch p) {
         int startPos = 0;
         int pasteLength = 0;
 
@@ -334,7 +334,7 @@ public class FCB1010Editor extends PatchEditorFrame implements ActionListener {
         }
 
         if (startPos != 0) {
-            Patch patch = (Patch) p;
+            Patch patch = p;
             byte[] denibblizedArray =
                     FCB1010ParamModel.deNibblize(patch.sysex,
                             Constants.HDR_SIZE);

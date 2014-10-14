@@ -10,7 +10,7 @@ import javax.swing.JComboBox;
 
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * A SysexWidget class features JComboBox widget.
@@ -42,7 +42,7 @@ public class ComboBoxWidget extends SysexWidget {
      *            Array, which contains the list of the options in the combobox.
      * @see SysexWidget
      */
-    public ComboBoxWidget(String label, IPatch patch, int min,
+    public ComboBoxWidget(String label, Patch patch, int min,
             IParamModel pmodel, ISender sender, Object[] options) {
         super(label, patch, min, min + options.length - 1, pmodel, sender);
         this.options = options;
@@ -52,7 +52,7 @@ public class ComboBoxWidget extends SysexWidget {
     }
 
     /** <code>min</code> is set to 0. */
-    public ComboBoxWidget(String label, IPatch patch, IParamModel pmodel,
+    public ComboBoxWidget(String label, Patch patch, IParamModel pmodel,
             ISender sender, Object[] options) {
         this(label, patch, 0, pmodel, sender, options);
     }

@@ -31,7 +31,7 @@ import javax.swing.event.ChangeListener;
 
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * Vertical scrollbar SysexWidget.
@@ -64,7 +64,7 @@ public class VertScrollBarLookupWidget extends ScrollBarLookupWidget {
      * @param options
      *            array of label string for each value.
      */
-    public VertScrollBarLookupWidget(String label, IPatch patch, int min,
+    public VertScrollBarLookupWidget(String label, Patch patch, int min,
             int max, int labelWidth, IParamModel pmodel, ISender sender,
             String[] options) {
         super(label, patch, min, max, labelWidth, pmodel, sender, options);
@@ -89,7 +89,7 @@ public class VertScrollBarLookupWidget extends ScrollBarLookupWidget {
      * @param options
      *            array of label strings for each value.
      */
-    public VertScrollBarLookupWidget(String label, IPatch patch, int min,
+    public VertScrollBarLookupWidget(String label, Patch patch, int min,
             int max, IParamModel pmodel, ISender sender, String[] options) {
         this(label, patch, min, max, -1, pmodel, sender, options);
     }
@@ -111,7 +111,7 @@ public class VertScrollBarLookupWidget extends ScrollBarLookupWidget {
      * @param options
      *            array of label strings for each value.
      */
-    public VertScrollBarLookupWidget(String label, IPatch patch,
+    public VertScrollBarLookupWidget(String label, Patch patch,
             IParamModel pmodel, ISender sender, String[] options) {
         this(label, patch, 0, options.length, -1, pmodel, sender, options);
     }

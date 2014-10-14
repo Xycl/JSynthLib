@@ -10,7 +10,7 @@
 
 package org.jsynthlib.device.model;
 
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 //----------------------------------------------------------------------------------------------------------------------
 // Class: SysexMatcher
@@ -50,8 +50,9 @@ public class SysexMatcher extends Object {
         StringBuffer sb = new StringBuffer();
         sb.append("F0"); // Ignore the first byte - assume it is "F0"
         for (int i = 1; i < nBytes; i++) {
-            if (sysex[i] < 16)
+            if (sysex[i] < 16) {
                 sb.append('0');
+            }
             sb.append(Integer.toHexString(sysex[i]));
         }
         sSysexHeader = sb.toString();
@@ -59,8 +60,9 @@ public class SysexMatcher extends Object {
         // ----- Count number of sysex messages
         numSysexMsgs = 0;
         for (int i = 0; i < sysex.length; i++) {
-            if (sysex[i] == F7)
+            if (sysex[i] == F7) {
                 numSysexMsgs++;
+            }
         }
 
         // ----- Store reference to the byte array
@@ -84,23 +86,26 @@ public class SysexMatcher extends Object {
     // ----------------------------------------------------------------------------------------------------------------------
 
     public boolean matches(String sysexID, int size, int numSysexMsgs) {
-        if (size != 0 && size != sysex.length)
+        if (size != 0 && size != sysex.length) {
             return false;
+        }
 
-        if (numSysexMsgs != 0 && numSysexMsgs != this.numSysexMsgs)
+        if (numSysexMsgs != 0 && numSysexMsgs != this.numSysexMsgs) {
             return false;
+        }
 
         StringBuffer sbDriver = new StringBuffer(sysexID);
         for (int i = 0; i < sbDriver.length(); i++) {
-            if (sbDriver.charAt(i) == '*')
+            if (sbDriver.charAt(i) == '*') {
                 sbDriver.setCharAt(i, sSysexHeader.charAt(i));
+            }
         }
 
         return (sbDriver.toString().equalsIgnoreCase(sSysexHeader.substring(0,
                 sbDriver.length())));
     }
 
-    // ----------------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
     // SysexMatcher->detectCorruptSysex(Driver, Patch, String, size,
     // numSysexMsgs)
     // Notes: Called during Patch.dissect for patches which have no detected
@@ -109,12 +114,13 @@ public class SysexMatcher extends Object {
     // If we have a sysexID match, return user friendly string saying why can
     // not match this driver
     // If no match, or no detectable problem, return empty string
-    // ----------------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-    public String detectCorruptSysex(IDriver driver, IPatch patch,
+    public String detectCorruptSysex(IDriver driver, Patch patch,
             String sysexID, int size, int numSysexMsgs) {
-        if (!matches(sysexID, 0, 0)) // Not a match
+        if (!matches(sysexID, 0, 0)) {
             return "";
+        }
 
         if (size != 0 && size != sysex.length) {
             return ("Matches sysexID for driver: " + driver.toString() + "\n"
@@ -143,11 +149,13 @@ public class SysexMatcher extends Object {
 
     public String detectCorruptSysex() {
         StringBuffer sb = new StringBuffer();
-        if (sysex[0] != F0)
+        if (sysex[0] != F0) {
             sb.append("First character of sysex data is not F0.\n");
+        }
 
-        if (sysex[sysex.length - 1] != F7)
+        if (sysex[sysex.length - 1] != F7) {
             sb.append("Last character of sysex data is not F7.\n");
+        }
 
         return sb.toString();
     }

@@ -23,11 +23,9 @@ package org.jsynthlib.patch.model.impl;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 
-import org.jsynthlib.patch.model.IPatch;
-
 public class PatchListTransferHandler extends PatchTransferHandler {
 
-    protected boolean storePatch(IPatch p, JComponent c) {
+    protected boolean storePatch(Patch p, JComponent c) {
         PatchTableModel model = (PatchTableModel) ((JTable) c).getModel();
         model.addPatch(p);
         // TODO This method shouldn't have to worry about calling

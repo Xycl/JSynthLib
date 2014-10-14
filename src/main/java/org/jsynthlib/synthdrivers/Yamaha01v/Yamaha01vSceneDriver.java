@@ -24,7 +24,6 @@ package org.jsynthlib.synthdrivers.Yamaha01v;
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
-import org.jsynthlib.patch.model.ISinglePatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 public class Yamaha01vSceneDriver extends AbstractPatchDriver {
@@ -63,9 +62,11 @@ public class Yamaha01vSceneDriver extends AbstractPatchDriver {
      * <p>
      * @see Patch#send(int, int)
      */
+    @Override
     public void storePatch(Patch p, int bankNum, int patchNum) {
-        if (patchNum == 100)
+        if (patchNum == 100) {
             patchNum = 127;
+        }
         setPatchNum(patchNum);
         setBankNum(0);
         p.sysex[15] = (byte) patchNum; // Location
@@ -80,6 +81,7 @@ public class Yamaha01vSceneDriver extends AbstractPatchDriver {
      * @see Patch#send()
      * @see ISinglePatch#send()
      */
+    @Override
     public void sendPatch(Patch p) {
         p.sysex[15] = (byte) 127; // Location (use Edit Buffer)
         calculateChecksum(p);
@@ -90,6 +92,7 @@ public class Yamaha01vSceneDriver extends AbstractPatchDriver {
     /**
      * @see org.jsynthlib.device.model.AbstractPatchDriver#createNewPatch()
      */
+    @Override
     public Patch createNewPatch() {
         byte[] sysex = new byte[patchSize];
         Patch p;
@@ -109,9 +112,11 @@ public class Yamaha01vSceneDriver extends AbstractPatchDriver {
         return p;
     }
 
+    @Override
     public void requestPatchDump(int bankNum, int patchNum) {
-        if (patchNum == 100)
+        if (patchNum == 100) {
             patchNum = 127;
+        }
         send(SYS_REQ.toSysexMessage(getChannel(), new SysexHandler.NameValue(
                 "ID", getDeviceID() + 0x1F), new SysexHandler.NameValue(
                 "patchNum", patchNum)));

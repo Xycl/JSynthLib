@@ -2,8 +2,6 @@ package org.jsynthlib.device.model;
 
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.viewcontroller.BankEditorFrame;
-import org.jsynthlib.patch.model.IBankPatch;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
@@ -107,7 +105,7 @@ public abstract class AbstractBankDriver extends AbstractDriver implements
      */
     @Override
     public JSLFrame editPatch(Patch bank) {
-        return new BankEditorFrame((IBankPatch) bank);
+        return new BankEditorFrame((BankPatch) bank);
     }
 
     //
@@ -155,7 +153,7 @@ public abstract class AbstractBankDriver extends AbstractDriver implements
     /**
      * Compares the header & size of a Single Patch to this driver to see if
      * this bank can hold the patch.
-     * @see Patch#put(IPatch, int)
+     * @see Patch#put(Patch, int)
      * @see AbstractPatchDriver#supportsPatch
      */
     @Override

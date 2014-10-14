@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * This interface should be implemented by any window which serves as a holder
@@ -28,14 +28,14 @@ public interface PatchBasket {
     void pastePatch();
 
     /** Add a patch into the table of patches. */
-    void pastePatch(IPatch p); // XXX Shall we rename?
+    void pastePatch(Patch p); // XXX Shall we rename?
 
     /** Add a patch into the table of patches including bank and patch numbers. */
-    void pastePatch(IPatch p, int bankNum, int patchNum); // wirski@op.pl
+    void pastePatch(Patch p, int bankNum, int patchNum); // wirski@op.pl
 
     /** Get the selected patch. */
-    IPatch getSelectedPatch();
+    Patch getSelectedPatch();
 
     /** Return collection of all patches in basket. */
-    List<IPatch> getPatchCollection();
+    List<Patch> getPatchCollection();
 }

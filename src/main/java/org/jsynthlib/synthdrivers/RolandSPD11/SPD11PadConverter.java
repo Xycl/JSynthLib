@@ -8,7 +8,6 @@ package org.jsynthlib.synthdrivers.RolandSPD11;
 import javax.sound.midi.SysexMessage;
 
 import org.jsynthlib.device.model.Converter;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -80,7 +79,7 @@ public class SPD11PadConverter extends Converter {
         return pads;
     }
 
-    public IPatch[] createPatches(byte[] sysex) {
+    public Patch[] createPatches(byte[] sysex) {
         return extractPatch(getPatchFactory().createNewPatch(sysex, this));
     }
 

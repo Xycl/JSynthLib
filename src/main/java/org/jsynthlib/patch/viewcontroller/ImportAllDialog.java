@@ -29,9 +29,9 @@ import org.jsynthlib.core.viewcontroller.desktop.JSLDesktop;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IBankPatch;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.MultiPatchImporter;
+import org.jsynthlib.patch.model.impl.BankPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 public class ImportAllDialog extends JDialog {
 
@@ -39,7 +39,7 @@ public class ImportAllDialog extends JDialog {
 
     public ImportModel myModel;
 
-    private MultiPatchImporter patchImporter;
+    private final MultiPatchImporter patchImporter;
 
     public ImportAllDialog(JFrame Parent, final File file) {
         super(Parent, "Import All Files In Directory", true);
@@ -106,16 +106,19 @@ public class ImportAllDialog extends JDialog {
         buttonPanel.setLayout(new FlowLayout());
         JButton done = new JButton(" OK ");
         done.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 String command1 = group.getSelection().getActionCommand();
                 String command2 = group2.getSelection().getActionCommand();
                 boolean extract = (command2 == "1");
                 int putName = 0;
-                if (command1 == "1")
+                if (command1 == "1") {
                     putName = 1;
-                if (command1 == "2")
+                }
+                if (command1 == "2") {
                     putName = 2;
+                }
                 doImport(putName, extract, file);
             }
         });
@@ -123,6 +126,7 @@ public class ImportAllDialog extends JDialog {
 
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
             }
@@ -152,7 +156,7 @@ public class ImportAllDialog extends JDialog {
                     buffer = new byte[1];
                 }
                 if (buffer.length > 16) {
-                    List<IPatch> patarray = patchImporter.createPatches(buffer);
+                    List<Patch> patarray = patchImporter.createPatches(buffer);
                     if (patarray == null) {
                         ErrorMsg.reportError(
                                 "Import All",
@@ -163,11 +167,13 @@ public class ImportAllDialog extends JDialog {
                     }
 
                     // Loop over all found sub-patches
-                    for (IPatch pk : patarray) {
-                        if (putName == 1)
+                    for (Patch pk : patarray) {
+                        if (putName == 1) {
                             pk.setDate(pk.getDate() + files[i].getName());
-                        if (putName == 2)
+                        }
+                        if (putName == 2) {
                             pk.setAuthor(pk.getAuthor() + files[i].getName());
+                        }
                         if (myModel.includeDevice[pk.getDriver().getDevice()
                                 .getDeviceNum()].booleanValue()) {
                             LibraryFrame frame =
@@ -175,17 +181,19 @@ public class ImportAllDialog extends JDialog {
                                             .getDesktop().getSelectedFrame();
                             if (extract && (pk.isBankPatch())) {
                                 String[] pn = pk.getDriver().getPatchNumbers();
-                                for (int j = 0; j < ((IBankPatch) pk)
+                                for (int j = 0; j < ((BankPatch) pk)
                                         .getNumPatches(); j++) {
-                                    IPatch q = ((IBankPatch) pk).get(j);
-                                    if (putName == 1)
+                                    Patch q = ((BankPatch) pk).get(j);
+                                    if (putName == 1) {
                                         q.setDate(q.getDate()
                                                 + files[i].getName() + " "
                                                 + pn[j]);
-                                    if (putName == 2)
+                                    }
+                                    if (putName == 2) {
                                         q.setAuthor(q.getAuthor()
                                                 + files[i].getName() + " "
                                                 + pn[j]);
+                                    }
                                     frame.pastePatch(q);
                                 }
                             } else {
@@ -212,32 +220,38 @@ public class ImportAllDialog extends JDialog {
         public ImportModel() {
             super();
 
-            for (int i = 0; i < includeDevice.length; i++)
+            for (int i = 0; i < includeDevice.length; i++) {
                 includeDevice[i] = new Boolean(true);
+            }
         }
 
+        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
+        @Override
         public int getRowCount() {
             return deviceManager.deviceCount();
         }
 
+        @Override
         public String getColumnName(int col) {
             return columnNames[col];
         }
 
+        @Override
         public Object getValueAt(int row, int col) {
             Device myDevice = deviceManager.getDevice(row);
-            if (col == 1)
+            if (col == 1) {
                 return myDevice.getManufacturerName() + " "
                         + myDevice.getModelName()/*
                                                   * +" "+myDriver.getPatchType
                                                   * ()
                                                   */;
-            else
+            } else {
                 return includeDevice[row];
+            }
         }
 
         /*
@@ -245,6 +259,7 @@ public class ImportAllDialog extends JDialog {
          * each cell. If we didn't implement this method, then the last column
          * would contain text ("true"/"false"), rather than a check box.
          */
+        @Override
         public Class getColumnClass(int c) {
             return getValueAt(0, c).getClass();
         }
@@ -252,19 +267,22 @@ public class ImportAllDialog extends JDialog {
         /*
          * Don't need to implement this method unless your table's editable.
          */
+        @Override
         public boolean isCellEditable(int row, int col) {
             // Note that the data/cell address is constant,
             // no matter where the cell appears onscreen.
-            if (col == 0)
+            if (col == 0) {
                 return true;
-            else
+            } else {
                 return false;
+            }
         }
 
         /*
          * Don't need to implement this method unless your table's data can
          * change.
          */
+        @Override
         public void setValueAt(Object value, int row, int col) {
             includeDevice[row] = (Boolean) value;
             fireTableCellUpdated(row, col);

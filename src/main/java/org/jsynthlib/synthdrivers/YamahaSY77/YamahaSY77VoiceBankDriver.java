@@ -26,7 +26,6 @@ package org.jsynthlib.synthdrivers.YamahaSY77;
 import javax.sound.midi.SysexMessage;
 
 import org.jsynthlib.device.model.AbstractBankDriver;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
@@ -102,7 +101,7 @@ public class YamahaSY77VoiceBankDriver extends AbstractBankDriver {
     }
 
     @Override
-    public IPatch[] createPatches(SysexMessage[] msgs) {
+    public Patch[] createPatches(SysexMessage[] msgs) {
         BankPatch bank = getPatchFactory().newBankPatch(this, sysexID);
         int i, j;
         int n = msgs.length;
@@ -110,9 +109,9 @@ public class YamahaSY77VoiceBankDriver extends AbstractBankDriver {
             n = getNumPatches();
         }
         for (i = 0; i < n; i++) {
-            bank.putSingle((Patch) mVoiceD.createPatch(msgs[i].getMessage()), i);
+            bank.putSingle(mVoiceD.createPatch(msgs[i].getMessage()), i);
         }
-        IPatch[] res = new IPatch[1];
+        Patch[] res = new Patch[1];
         res[0] = bank;
         return res;
     }

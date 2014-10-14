@@ -4,7 +4,6 @@ import javax.sound.midi.MidiMessage;
 import javax.sound.midi.SysexMessage;
 
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -35,8 +34,8 @@ public interface IDriver {
      * Compares the header & size of a Patch to this driver to see if this
      * driver is the correct one to support the patch.
      * @param patchString
-     *            the result of {@link IPatch#getPatchHeader()
-     *            IPatch.getPatchHeader()}.
+     *            the result of {@link Patch#getPatchHeader()
+     *            Patch.getPatchHeader()}.
      * @param sysex
      *            a byte array of sysex message
      * @return <code>true</code> if this driver supports the Patch.
@@ -174,7 +173,7 @@ public interface IDriver {
      * @see #requestPatchDump(int, int)
      * @see SysexGetDialog
      */
-    IPatch[] createPatches(SysexMessage[] msgs);
+    Patch[] createPatches(SysexMessage[] msgs);
 
     /**
      * Request the synth to send a patch dump.
@@ -190,7 +189,7 @@ public interface IDriver {
      * @see IDriver#supportsPatch(String, byte[])
      * @see DriverUtil#createPatch(byte[])
      */
-    IPatch createPatch(byte[] sysex);
+    Patch createPatch(byte[] sysex);
 
     /**
      * Check if this driver supports (implements createPatch()) creating a new
@@ -209,7 +208,7 @@ public interface IDriver {
     /**
      * Create a new Patch for this driver.
      */
-    IPatch createPatch();
+    Patch createPatch();
 
     /** Return MIDI channel number. */
     int getChannel();

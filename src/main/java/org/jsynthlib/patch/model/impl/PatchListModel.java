@@ -20,7 +20,6 @@
  */
 package org.jsynthlib.patch.model.impl;
 
-import org.jsynthlib.patch.model.IPatch;
 
 /**
  * Refactored from PerformanceListModel
@@ -42,7 +41,7 @@ public class PatchListModel extends PatchTableModel {
 
     @Override
     public Object getValueAt(int row, int col) {
-        IPatch myPatch = getList().get(row);
+        Patch myPatch = getList().get(row);
         LibraryColumns column = LibraryColumns.values()[col];
         try {
             switch (column) {
@@ -93,7 +92,7 @@ public class PatchListModel extends PatchTableModel {
     @Override
     public void setValueAt(Object value, int row, int col) {
         LibraryColumns column = LibraryColumns.values()[col];
-        IPatch myPatch = getList().get(row);
+        Patch myPatch = getList().get(row);
         switch (column) {
         case PATCH_NAME:
             myPatch.setName((String) value);

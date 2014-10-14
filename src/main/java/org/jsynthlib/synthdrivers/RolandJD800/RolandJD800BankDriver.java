@@ -29,7 +29,6 @@ import javax.swing.JOptionPane;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.device.model.AbstractBankDriver;
 import org.jsynthlib.device.model.SysexHandler;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
@@ -179,7 +178,7 @@ public class RolandJD800BankDriver extends AbstractBankDriver {
      * Returns one concatenated message created from 96 sysex messages.
      */
     @Override
-    public IPatch createPatch(byte[] sysex) {
+    public Patch createPatch(byte[] sysex) {
         byte[] out =
                 new byte[JD800.SizeOfSinglePatch * JD800.nrOfPatchesInABank
                         + JD800.SizeOfSyxHeader];

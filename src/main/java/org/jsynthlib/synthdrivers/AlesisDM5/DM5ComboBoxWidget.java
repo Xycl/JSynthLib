@@ -24,7 +24,7 @@ package org.jsynthlib.synthdrivers.AlesisDM5;
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * DM5 ComboBoxWidget. Adds functionality to the standard JSynthLib
@@ -40,7 +40,7 @@ class DM5ComboBoxWidget extends ComboBoxWidget {
      * Constructs a new DM5ComboBoxWidget given the standard parameters for a
      * JSynthLib ComboBoxWidget.
      */
-    DM5ComboBoxWidget(String label, IPatch patch, IParamModel pmodel,
+    DM5ComboBoxWidget(String label, Patch patch, IParamModel pmodel,
             ISender sender, Object[] options) {
         super(label, patch, 0, pmodel, sender, options);
         cb.setPrototypeDisplayValue("MMMMMMMMMMMMMM");

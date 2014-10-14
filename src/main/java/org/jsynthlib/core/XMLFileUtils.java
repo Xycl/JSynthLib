@@ -19,7 +19,6 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.PatchFactory;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.viewcontroller.PatchBasket;
@@ -56,18 +55,18 @@ public class XMLFileUtils {
         } catch (ParserConfigurationException e) {
             LOG.warn(e.getMessage(), e);
         }
-        Element root = (Element) document.createElement(patchLibXMLName);
+        Element root = document.createElement(patchLibXMLName);
         document.appendChild(root);
 
-        List<IPatch> pblist = pb.getPatchCollection();
+        List<Patch> pblist = pb.getPatchCollection();
         for (int i = 0; i < pblist.size(); i++) {
-            Patch patch = (Patch) pblist.get(i);
+            Patch patch = pblist.get(i);
             Element patchElement = document.createElement(patchXMLName);
             patchElement.setAttribute(authorXMLName, patch.getAuthor());
             patchElement.setAttribute(dateXMLName, patch.getDate());
             patchElement.setAttribute(commentXMLName, patch.getComment());
             Element patchDataElement =
-                    (Element) document.createElement(patchDataXMLName);
+                    document.createElement(patchDataXMLName);
 
             if (compressPatchData) {
                 patchDataElement.setAttribute("encoding", "GZIP:Base64");
@@ -156,14 +155,16 @@ public class XMLFileUtils {
             LOG.info(" " + spe.getMessage());
             // Use the contained exception, if any
             Exception x = spe;
-            if (spe.getException() != null)
+            if (spe.getException() != null) {
                 x = spe.getException();
+            }
             LOG.warn(x.getMessage(), x);
         } catch (SAXException sxe) {
             // Error generated during parsing
             Exception x = sxe;
-            if (sxe.getException() != null)
+            if (sxe.getException() != null) {
                 x = sxe.getException();
+            }
             LOG.warn(x.getMessage(), x);
         } catch (ParserConfigurationException pce) {
             // Parser with specified options can't be built

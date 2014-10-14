@@ -38,7 +38,6 @@ import org.jsynthlib.device.model.IConverter;
 import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.device.model.IPatchDriver;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.MultiPatchImporter;
 import org.jsynthlib.patch.model.PatchFactory;
 
@@ -62,7 +61,7 @@ public class PatchFactoryImpl implements PatchFactory, MultiPatchImporter {
      * @see org.jsynthlib.patch.model.IPatchFactory#createPatch(byte[])
      */
     @Override
-    public IPatch createPatch(byte[] sysex) {
+    public Patch createPatch(byte[] sysex) {
         IDriver driver = driverIdentifier.chooseDriver(sysex);
         if (driver == null) {
             return null;
@@ -83,7 +82,7 @@ public class PatchFactoryImpl implements PatchFactory, MultiPatchImporter {
      * @see IPatchDriver#createPatch()
      */
     @Override
-    public IPatch createNewPatch(IDriver driver, String fileName, int size) {
+    public Patch createNewPatch(IDriver driver, String fileName, int size) {
         try {
             byte[] buffer = getBuffer(driver, fileName, size);
             return createNewPatch(buffer, driver);
@@ -205,7 +204,7 @@ public class PatchFactoryImpl implements PatchFactory, MultiPatchImporter {
      * @see org.jsynthlib.patch.model.MultiPatchImporter#createPatches(byte[])
      */
     @Override
-    public List<IPatch> createPatches(byte[] sysex) {
+    public List<Patch> createPatches(byte[] sysex) {
         IDriver drv = null;
         int i;
 
@@ -231,7 +230,7 @@ public class PatchFactoryImpl implements PatchFactory, MultiPatchImporter {
         if (drv != null) {
             return createPatches(sysex, drv);
         } else {
-            return new ArrayList<IPatch>();
+            return new ArrayList<Patch>();
         }
     }
 
@@ -241,19 +240,19 @@ public class PatchFactoryImpl implements PatchFactory, MultiPatchImporter {
      * org.jsynthlib.device.model.Device)
      */
     @Override
-    public List<IPatch> createPatches(byte[] sysex, Device device) {
+    public List<Patch> createPatches(byte[] sysex, Device device) {
         return createPatches(sysex,
                 driverIdentifier.chooseDriver(sysex, device));
     }
 
-    List<IPatch> createPatches(byte[] sysex, IDriver driver) {
+    List<Patch> createPatches(byte[] sysex, IDriver driver) {
         if (driver == null) {
             return null;
         } else if (driver.isConverter()) {
-            IPatch[] patches = ((IConverter) driver).createPatches(sysex);
+            Patch[] patches = ((IConverter) driver).createPatches(sysex);
             return Arrays.asList(patches);
         } else {
-            ArrayList<IPatch> list = new ArrayList<IPatch>();
+            ArrayList<Patch> list = new ArrayList<Patch>();
             if (driver instanceof IBankDriver) {
                 IBankDriver bankDriver = (IBankDriver) driver;
                 list.add(newBankPatch(sysex, bankDriver));

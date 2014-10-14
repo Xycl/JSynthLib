@@ -24,7 +24,6 @@ package org.jsynthlib.synthdrivers.RolandSPD11;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -143,7 +142,7 @@ public class SPD11PadDriver extends AbstractPatchDriver {
     }
 
     @Override
-    public IPatch createPatch(byte[] sysex) {
+    public Patch createPatch(byte[] sysex) {
         return createNewPatch(sysex);
         /*
          * Patch p = getPatchFactory().createNewPatch(sysex, this); return p;

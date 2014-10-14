@@ -7,7 +7,7 @@ import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.viewcontroller.CrossBreedDialog;
 import org.jsynthlib.patch.viewcontroller.PatchBasket;
 
@@ -28,9 +28,9 @@ import org.jsynthlib.patch.viewcontroller.PatchBasket;
 public class CrossBreeder {
     private final transient Logger log = Logger.getLogger(getClass());
     /** The patch we are working on. */
-    private IPatch patch;
+    private Patch patch;
     /** The patch library we are working on. */
-    private List<IPatch> lib;
+    private List<Patch> lib;
     /** The number of patches in the patch library */
     private int libSize;
 
@@ -39,7 +39,7 @@ public class CrossBreeder {
         libSize = lib.size();
 
         // get a base patch.
-        IPatch base = library.getSelectedPatch();
+        Patch base = library.getSelectedPatch();
         log.info("base : " + base);
         int sysexSize = base.getSize();
         log.info("length : " + sysexSize);
@@ -48,7 +48,7 @@ public class CrossBreeder {
         byte[] dsysex = new byte[sysexSize];
         dsysex[0] = (byte) SysexMessage.SYSTEM_EXCLUSIVE;
         for (int i = 1; i < sysexSize - 1; i++) {
-            IPatch source;
+            Patch source;
             byte[] ssysex;
             // look for a patch with the same Driver and enough length
             do {
@@ -63,13 +63,13 @@ public class CrossBreeder {
         log.info("done : " + patch);
     }
 
-    public IPatch getCurrentPatch() {
+    public Patch getCurrentPatch() {
         return patch;
     }
 
-    private IPatch getRandomPatch() {
+    private Patch getRandomPatch() {
         int num = (int) (Math.random() * libSize);
         // log.info("num : " + num + " / " + libSize);
-        return (IPatch) lib.get(num);
+        return lib.get(num);
     }
 }

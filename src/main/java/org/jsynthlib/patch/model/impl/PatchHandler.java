@@ -21,7 +21,6 @@
 package org.jsynthlib.patch.model.impl;
 
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
-import org.jsynthlib.patch.model.IPatch;
 
 /**
  * @author Pascal Collberg
@@ -30,7 +29,7 @@ import org.jsynthlib.patch.model.IPatch;
 public interface PatchHandler {
 
     /** Get the selected patch. */
-    IPatch getSelectedPatch();
+    Patch getSelectedPatch();
 
     /** Copy the selected patch. */
     void copySelectedPatch();

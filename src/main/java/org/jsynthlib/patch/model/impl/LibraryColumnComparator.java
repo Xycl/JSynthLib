@@ -22,20 +22,19 @@ package org.jsynthlib.patch.model.impl;
 
 import java.util.Comparator;
 
-import org.jsynthlib.patch.model.IPatch;
-
 /**
  * @author Pascal Collberg
  *
  */
-public class LibraryColumnComparator implements Comparator<IPatch> {
-    private LibraryColumns column;
+public class LibraryColumnComparator implements Comparator<Patch> {
+    private final LibraryColumns column;
 
     public LibraryColumnComparator(LibraryColumns column) {
         this.column = column;
     }
 
-    public int compare(IPatch a1, IPatch a2) {
+    @Override
+    public int compare(Patch a1, Patch a2) {
         String s1;
         String s2;
         switch (column) {

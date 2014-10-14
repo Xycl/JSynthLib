@@ -27,8 +27,7 @@ import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.Utility;
 import org.jsynthlib.core.viewcontroller.desktop.JSLDesktop;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IPatch;
-import org.jsynthlib.patch.model.ISinglePatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.viewcontroller.PatchBasket;
 
 public class UploadPatchDialog extends JDialog {
@@ -51,7 +50,7 @@ public class UploadPatchDialog extends JDialog {
         PatchBasket library =
                 (PatchBasket) JSLDesktop.Factory.getDesktop()
                         .getSelectedFrame();
-        IPatch q = library.getSelectedPatch();
+        Patch q = library.getSelectedPatch();
 
         JPanel container = new JPanel();
         container.setLayout(new BorderLayout());
@@ -93,7 +92,7 @@ public class UploadPatchDialog extends JDialog {
                     PatchBasket library =
                             (PatchBasket) JSLDesktop.Factory.getDesktop()
                                     .getSelectedFrame();
-                    IPatch q = library.getSelectedPatch();
+                    Patch q = library.getSelectedPatch();
                     uploadPatch(q);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null,
@@ -146,7 +145,7 @@ public class UploadPatchDialog extends JDialog {
         this.setVisible(false);
     }
 
-    void uploadPatch(IPatch p) {
+    void uploadPatch(Patch p) {
         String patchType = t1.getText();
         String patchName = t2.getText();
         String desc = t3.getText();
@@ -280,7 +279,7 @@ public class UploadPatchDialog extends JDialog {
         PatchBasket library =
                 (PatchBasket) JSLDesktop.Factory.getDesktop()
                         .getSelectedFrame();
-        IPatch p = library.getSelectedPatch();
+        Patch p = library.getSelectedPatch();
         if (p == null) {
             JOptionPane.showMessageDialog(null, "Patch Must be Selected",
                     "Warning", JOptionPane.WARNING_MESSAGE);
@@ -288,8 +287,8 @@ public class UploadPatchDialog extends JDialog {
             JOptionPane.showMessageDialog(null, "Cannot play a Bank Patch",
                     "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            ((ISinglePatch) p).send();
-            ((ISinglePatch) p).play();
+            p.send();
+            p.play();
         }
     }
 }

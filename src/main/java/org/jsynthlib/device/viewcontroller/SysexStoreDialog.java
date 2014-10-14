@@ -6,7 +6,7 @@ package org.jsynthlib.device.viewcontroller;
 
 import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.device.model.IPatchDriver;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * Dialog to choose the Device, Driver, BankNumber and PatchNumber of the
@@ -24,7 +24,7 @@ public class SysexStoreDialog extends DevDrvPatchSelector {
      * @param patchnum
      *            The default patchNumber selected in the patch Combobox.
      */
-    public SysexStoreDialog(IPatch patch, int banknum, int patchnum) {
+    public SysexStoreDialog(Patch patch, int banknum, int patchnum) {
         super(patch, banknum, patchnum, "Store Sysex Data", "Store...");
     }
 
@@ -32,6 +32,7 @@ public class SysexStoreDialog extends DevDrvPatchSelector {
      * getPatchNumbers is overridden for SystexStoreDialog. Only storable
      * patches are displayed.
      */
+    @Override
     protected String[] getPatchNumbers(IPatchDriver driver) {
         return driver.getPatchNumbersForStore();
     }
@@ -39,6 +40,7 @@ public class SysexStoreDialog extends DevDrvPatchSelector {
     /**
      * Makes the actual work after pressing the 'Store' button
      */
+    @Override
     protected void doit() {
         p.setDriver((IDriver) driverComboBox.getSelectedItem());
         int bankNum = bankComboBox.getSelectedIndex();

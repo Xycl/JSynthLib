@@ -24,7 +24,7 @@ package org.jsynthlib.synthdrivers.AlesisDM5;
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.ScrollBarLookupWidget;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * DM5ScrollBarLookupWidget. Adds functionality to the standard JSynthLib
@@ -35,13 +35,13 @@ class DM5ScrollBarLookupWidget extends ScrollBarLookupWidget {
     private static final String[] noteNames = new String[] {
             "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
 
-    private int numNotes;
+    private final int numNotes;
 
     /**
      * Constructs a new DM5ScrollBarLookupWidget given the standard parameters
      * for a JSynthLib ScrollBarLookupWidget.
      */
-    DM5ScrollBarLookupWidget(String label, IPatch patch, int min, int max,
+    DM5ScrollBarLookupWidget(String label, Patch patch, int min, int max,
             int labelWidth, IParamModel pmodel, ISender sender, int startValue,
             int numNotes) {
         super(label, patch, min, max, labelWidth, pmodel, sender,

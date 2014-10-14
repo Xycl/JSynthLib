@@ -36,10 +36,9 @@ import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrameEvent;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrameListener;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IBankPatch;
-import org.jsynthlib.patch.model.IPatch;
-import org.jsynthlib.patch.model.ISinglePatch;
 import org.jsynthlib.patch.model.PatchFactory;
+import org.jsynthlib.patch.model.impl.BankPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchHandler;
 import org.jsynthlib.patch.model.impl.PatchTransferHandler;
 import org.jsynthlib.patch.model.impl.PatchesAndScenes;
@@ -49,7 +48,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
 
     private final transient Logger log = Logger.getLogger(getClass());
     /** This is the patch we are working on. */
-    protected IBankPatch bankData;
+    protected BankPatch bankData;
     /** This BankEditorFrame instance. */
     protected final BankEditorFrame instance;
     protected Dimension preferredScrollableViewportSize =
@@ -67,7 +66,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
      * @param bankPatch
      *            a <code>Patch</code> value
      */
-    public BankEditorFrame(IBankPatch bankPatch) {
+    public BankEditorFrame(BankPatch bankPatch) {
         super(bankPatch.getDriver().toString() + " Window");
         instance = this;
         bankData = bankPatch;
@@ -234,7 +233,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
 
     // PatchBasket methods
 
-    // This needs to use some sort of factory so correct IPatch can be created.
+    // This needs to use some sort of factory so correct Patch can be created.
     @Override
     public void importPatch(File file) throws IOException,
             FileNotFoundException {
@@ -243,7 +242,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
         fileIn.read(buffer);
         fileIn.close();
 
-        IPatch p = patchFactory.createPatch(buffer);
+        Patch p = patchFactory.createPatch(buffer);
         bankData.put(p, getSelectedPatchNum());
         myModel.fireTableDataChanged();
     }
@@ -254,7 +253,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
         /*
          * Almost the same thing occurs in LibraryFrame and SceneFrame also.
          * Maybe we should have something like static final
-         * writePatch(OutputStream, IPatch) in Patch.
+         * writePatch(OutputStream, Patch) in Patch.
          */
         FileOutputStream fileOut = new FileOutputStream(file);
         fileOut.write(getSelectedPatch().export());
@@ -274,14 +273,14 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
     }
 
     @Override
-    public IPatch getSelectedPatch() {
+    public Patch getSelectedPatch() {
         return bankData.get(getSelectedPatchNum());
     }
 
     @Override
     public void sendSelectedPatch() {
         // A Bank Patch consists from Single Patches.
-        ((ISinglePatch) getSelectedPatch()).send();
+        getSelectedPatch().send();
     }
 
     @Override
@@ -295,7 +294,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
     @Override
     public void playSelectedPatch() {
         // A Bank Patch consists from Single Patches.
-        ISinglePatch p = (ISinglePatch) getSelectedPatch();
+        Patch p = getSelectedPatch();
         p.send();
         p.play();
     }
@@ -326,17 +325,17 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
     }
 
     @Override
-    public void pastePatch(IPatch p) {
+    public void pastePatch(Patch p) {
         myModel.setPatchAt(p, table.getSelectedRow(), table.getSelectedColumn());
     }
 
     @Override
-    public void pastePatch(IPatch p, int bankNum, int patchNum) {// wirski@op.pl
+    public void pastePatch(Patch p, int bankNum, int patchNum) {// wirski@op.pl
         myModel.setPatchAt(p, table.getSelectedRow(), table.getSelectedColumn());
     }
 
     @Override
-    public List<IPatch> getPatchCollection() {
+    public List<Patch> getPatchCollection() {
         return null; // for now bank doesn't support this feature. Need to
                      // extract single and place in collection.
     }
@@ -344,7 +343,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
     // end of PatchBasket methods
 
     // for PatchEditorFrame
-    void setPatchAt(IPatch p, int row, int col) {
+    void setPatchAt(Patch p, int row, int col) {
         myModel.setPatchAt(p, row, col);
     }
 
@@ -372,7 +371,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
     private static class PatchGridTransferHandler extends PatchTransferHandler {
         @Override
         protected Transferable createTransferable(JComponent c) {
-            IPatch patch;
+            Patch patch;
             PatchesAndScenes patchesAndScenes = new PatchesAndScenes();
             JTable t = (JTable) c;
             PatchGridModel m = (PatchGridModel) t.getModel();
@@ -382,7 +381,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
         }
 
         @Override
-        protected boolean storePatch(IPatch p, JComponent c) {
+        protected boolean storePatch(Patch p, JComponent c) {
             JTable t = (JTable) c;
             PatchGridModel m = (PatchGridModel) t.getModel();
             m.setPatchAt(p, t.getSelectedRow(), t.getSelectedColumn());
@@ -463,11 +462,11 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
             log.info(neu);
         }
 
-        IPatch getPatchAt(int row, int col) {
+        Patch getPatchAt(int row, int col) {
             return bankData.get(getPatchNum(row, col));
         }
 
-        void setPatchAt(IPatch p, int row, int col) {
+        void setPatchAt(Patch p, int row, int col) {
             bankData.put(p, getPatchNum(row, col));
         }
     }
@@ -475,7 +474,7 @@ public class BankEditorFrame extends JSLFrame implements PatchBasket, PatchHandl
     /**
      * @return
      */
-    public IPatch getBankData() {
+    public Patch getBankData() {
         return bankData;
     }
 }

@@ -8,7 +8,7 @@ import javax.swing.JCheckBox;
 
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * A SysexWidget class features JCheckBox widget.
@@ -30,7 +30,7 @@ public class CheckBoxWidget extends SysexWidget {
      *            a <code>SysexSender</code> instance.
      * @see SysexWidget
      */
-    public CheckBoxWidget(String label, IPatch patch, IParamModel pmodel,
+    public CheckBoxWidget(String label, Patch patch, IParamModel pmodel,
             ISender sender) {
         super(label, patch, 0, 1, pmodel, sender);
 

@@ -60,10 +60,9 @@ import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.SysexSendToDialog;
 import org.jsynthlib.device.viewcontroller.SysexStoreDialog;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IBankPatch;
-import org.jsynthlib.patch.model.IPatch;
-import org.jsynthlib.patch.model.ISinglePatch;
 import org.jsynthlib.patch.model.MultiPatchImporter;
+import org.jsynthlib.patch.model.impl.BankPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchEdit;
 import org.jsynthlib.patch.model.impl.PatchHandler;
 import org.jsynthlib.patch.model.impl.PatchTableModel;
@@ -161,7 +160,7 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    ISinglePatch patch = (ISinglePatch) getSelectedPatch();
+                    Patch patch = getSelectedPatch();
                     String name = patch.getName();
                     int nameSize = patch.getNameSize();
                     if (patch.hasEditor()) {
@@ -314,8 +313,7 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
 
     // begin PatchBasket methods
     @Override
-    public void importPatch(File file) throws IOException,
-            FileNotFoundException {
+    public void importPatch(File file) throws IOException {
         if (doImport(file)) {
             return;
         }
@@ -323,12 +321,12 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
         byte[] buffer = FileUtils.readFileToByteArray(file);
 
         log.debug("Buffer length: " + buffer.length);
-        List<IPatch> patarray = patchImporter.createPatches(buffer);
-        for (IPatch iPatch : patarray) {
+        List<Patch> patarray = patchImporter.createPatches(buffer);
+        for (Patch patch : patarray) {
             if (table.getSelectedRowCount() == 0) {
-                model.addPatch(iPatch);
+                model.addPatch(patch);
             } else {
-                model.setPatchAt(iPatch, table.getSelectedRow());
+                model.setPatchAt(patch, table.getSelectedRow());
             }
         }
 
@@ -356,11 +354,11 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
                                 .getSelectedFrame();
                 if (tr[j].get(i).getMessage() instanceof SysexMessage) {
                     log.debug("Track " + j + " Event " + i + " SYSEX!!");
-                    List<IPatch> patarray =
+                    List<Patch> patarray =
                             patchImporter.createPatches(tr[j].get(i)
                                     .getMessage().getMessage());
-                    for (IPatch iPatch : patarray) {
-                        frame.pastePatch(iPatch);
+                    for (Patch patch : patarray) {
+                        frame.pastePatch(patch);
                     }
                 }
             }
@@ -430,26 +428,26 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
     }
 
     @Override
-    public void pastePatch(IPatch p) {
+    public void pastePatch(Patch p) {
         int row = model.addPatch(p);
         changed(row);
     }
 
     @Override
-    public void pastePatch(IPatch p, int bankNum, int patchNum) {// added by R.
+    public void pastePatch(Patch p, int bankNum, int patchNum) {// added by R.
                                                                  // Wirski
         int row = model.addPatch(p, bankNum, patchNum);
         changed(row);
     }
 
     @Override
-    public IPatch getSelectedPatch() {
+    public Patch getSelectedPatch() {
         return model.getPatchAt(table.getSelectedRow());
     }
 
     @Override
     public void sendSelectedPatch() {
-        ((ISinglePatch) getSelectedPatch()).send();
+        getSelectedPatch().send();
     }
 
     @Override
@@ -465,7 +463,7 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
 
     @Override
     public void playSelectedPatch() {
-        ISinglePatch myPatch = (ISinglePatch) getSelectedPatch();
+        Patch myPatch = getSelectedPatch();
         myPatch.send();
         myPatch.play();
     }
@@ -483,7 +481,7 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
     }
 
     @Override
-    public List<IPatch> getPatchCollection() {
+    public List<Patch> getPatchCollection() {
         return model.getList();
     }
 
@@ -509,9 +507,9 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
             ErrorMsg.reportError("Error", "No Patch Selected.");
             return;
         }
-        IBankPatch myPatch = (IBankPatch) getSelectedPatch();
+        BankPatch myPatch = (BankPatch) getSelectedPatch();
         for (int i = 0; i < myPatch.getNumPatches(); i++) {
-            ISinglePatch p = myPatch.get(i);
+            Patch p = myPatch.get(i);
             if (p != null) {
                 model.addPatch(p);
             }
@@ -557,8 +555,8 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
         if (readOldFile) {
             FileInputStream f = new FileInputStream(file);
             ObjectInputStream s = new ObjectInputStream(f);
-            List<IPatch> list = (List<IPatch>) s.readObject();
-            for (IPatch iPatch : list) {
+            List<Patch> list = (List<Patch>) s.readObject();
+            for (Patch iPatch : list) {
                 JSynthLibInjector.getInjector().injectMembers(iPatch);
             }
             model.setList(list);
@@ -593,7 +591,7 @@ public abstract class AbstractLibraryFrame extends JSLFrame implements
         model.fireTableDataChanged();
     }
 
-    private void chooseDriver(IPatch patch) {
+    private void chooseDriver(Patch patch) {
         patch.setDriver();
         if (patch.hasNullDriver()) {
             // Unkown patch, try to guess at least the manufacturer

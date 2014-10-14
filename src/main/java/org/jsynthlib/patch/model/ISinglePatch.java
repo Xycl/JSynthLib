@@ -19,19 +19,19 @@
  * USA
  */
 package org.jsynthlib.patch.model;
-
-/**
- * Interface for a Single Patch.
- * @author Hiroo Hayashi
- * @version $Id: ISinglePatch.java 747 2004-10-09 04:14:28Z hayashi $
- */
-public interface ISinglePatch extends IPatch {
-    /**
-     * Sends a patch to the synth's edit buffer. Checksum must be calculated
-     * before sending Sysex Message.
-     */
-    void send();
-
-    /** Play note. */
-    void play();
-}
+//
+///**
+// * Interface for a Single Patch.
+// * @author Hiroo Hayashi
+// * @version $Id: ISinglePatch.java 747 2004-10-09 04:14:28Z hayashi $
+// */
+//public interface ISinglePatch extends IPatch {
+//    /**
+//     * Sends a patch to the synth's edit buffer. Checksum must be calculated
+//     * before sending Sysex Message.
+//     */
+//    void send();
+//
+//    /** Play note. */
+//    void play();
+//}

@@ -17,7 +17,6 @@ import org.apache.log4j.Logger;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.patch.model.IPatch;
 
 /**
  * A scene is a container for all patches and their explicite bank/patch
@@ -27,17 +26,17 @@ import org.jsynthlib.patch.model.IPatch;
  * @version $Id: Scene.java 1079 2007-09-19 22:50:29Z billzwicky $
  * @author Gerrit Gehnen
  */
-public class Scene implements IPatch {
-    
+public class Scene extends Patch {
+
     private final transient Logger log = Logger.getLogger(getClass());
 
-    private IPatch patch;
+    private Patch patch;
 
     private int bankNumber;
 
     private int patchNumber;
 
-    private String comment;
+    private final String comment;
 
     // This is used by java to maintain backwards compatibility.
     private static final long serialVersionUID = 1L;
@@ -47,7 +46,7 @@ public class Scene implements IPatch {
      * public Scene() { patch=new Patch(new byte[1024], (Driver) null);
      * bankNumber=0; patchNumber=0; comment=new StringBuffer(); }
      */
-    public Scene(IPatch p) {
+    public Scene(Patch p) {
         patch = p;
         bankNumber = 0;
         patchNumber = 0;
@@ -55,7 +54,7 @@ public class Scene implements IPatch {
 
     }
 
-    public Scene(IPatch p, int bankNum, int patchNum) {// wirski@op.pl
+    public Scene(Patch p, int bankNum, int patchNum) {// wirski@op.pl
         patch = p;
         bankNumber = bankNum;
         patchNumber = patchNum;
@@ -102,7 +101,7 @@ public class Scene implements IPatch {
      * @param patch
      *            New value of property patch.
      */
-    public void setPatch(IPatch patch) {
+    public void setPatch(Patch patch) {
         this.patch = patch;
     }
 
@@ -110,36 +109,28 @@ public class Scene implements IPatch {
      * Getter for property comment.
      * @return Value of property comment.
      */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * Setter for property comment.
-     * @param comment
-     *            New value of property comment.
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 
     // Transferable interface methods
+    @Override
     public Object getTransferData(DataFlavor flavor)
             throws UnsupportedFlavorException {
-        if (flavor.match(PatchTransferHandler.SCENE_FLAVOR))
+        if (flavor.match(PatchTransferHandler.SCENE_FLAVOR)) {
             return this;
-        else if (flavor.match(PatchTransferHandler.PATCH_FLAVOR))
+        } else if (flavor.match(PatchTransferHandler.PATCH_FLAVOR)) {
             return patch;
-        else
+        } else {
             throw new UnsupportedFlavorException(flavor);
+        }
     }
 
+    @Override
     public boolean isDataFlavorSupported(final DataFlavor flavor) {
         log.info("Scene.isDataFlavorSupported " + flavor);
         return (flavor.match(PatchTransferHandler.SCENE_FLAVOR) || flavor
                 .match(PatchTransferHandler.PATCH_FLAVOR));
     }
 
+    @Override
     public DataFlavor[] getTransferDataFlavors() {
         return new DataFlavor[] {
                 PatchTransferHandler.SCENE_FLAVOR,
@@ -149,115 +140,136 @@ public class Scene implements IPatch {
     // end of Transferable interface methods
 
     // Clone interface method
+    @Override
     public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            // Cannot happen -- we support clone, and so do arrays
-            throw new InternalError(e.toString());
-        }
+        return super.clone();
     }
+
     // end of Clone interface method
 
+    @Override
     public String getDate() {
         return patch.getDate();
     }
 
+    @Override
     public void setDate(String date) {
         patch.setDate(date);
     }
 
+    @Override
     public String getAuthor() {
         return patch.getAuthor();
     }
 
+    @Override
     public void setAuthor(String author) {
         patch.setAuthor(author);
     }
 
+    @Override
     public Device getDevice() {
         return patch.getDevice();
     }
 
+    @Override
     public IDriver getDriver() {
         return patch.getDriver();
     }
 
+    @Override
     public void setDriver(IDriver driver) {
         patch.setDriver(driver);
     }
 
+    @Override
     public void setDriver() {
         patch.setDriver();
     }
 
+    @Override
     public boolean hasNullDriver() {
         return patch.hasNullDriver();
     }
 
+    @Override
     public String getPatchHeader() {
         return patch.getPatchHeader();
     }
 
+    @Override
     public String getName() {
         return patch.getName();
     }
 
+    @Override
     public void setName(String name) {
         patch.setName(name);
     }
 
+    @Override
     public boolean hasEditor() {
         return patch.hasEditor();
     }
 
+    @Override
     public JSLFrame edit() {
         return patch.edit();
     }
 
+    @Override
     public void send(int bankNum, int patchNum) {
         patch.send(bankNum, patchNum);
     }
 
+    @Override
     public SysexMessage[] getMessages() {
         return patch.getMessages();
     }
 
+    @Override
     public byte[] export() {
         return patch.export();
     }
 
+    @Override
     public byte[] getByteArray() {
         return patch.getByteArray();
     }
 
+    @Override
     public int getSize() {
         return patch.getSize();
     }
 
+    @Override
     public String getType() {
         return patch.getType();
     }
 
+    @Override
     public int getNameSize() {
         return patch.getNameSize();
     }
 
+    @Override
     public String lookupManufacturer() {
         return patch.lookupManufacturer();
     }
 
+    @Override
     public boolean isSinglePatch() {
         return patch.isSinglePatch();
     }
 
+    @Override
     public boolean isBankPatch() {
         return patch.isBankPatch();
     }
 
-    public void useSysexFromPatch(IPatch p) {
+    @Override
+    public void useSysexFromPatch(Patch p) {
         patch.useSysexFromPatch(p);
     }
 
-    
 }

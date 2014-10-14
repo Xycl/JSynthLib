@@ -8,7 +8,8 @@ import javax.swing.JPanel;
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.IPatchDriver;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * Base class of SysexWidgets. There are many kinds of extended class.
@@ -18,7 +19,7 @@ import org.jsynthlib.patch.model.IPatch;
  *
  * <pre>
  * class MyScrollBarWidget extends ScrollBarWidget {
- *     MyScrollBarWidget(String label, IPatch patch, int min, int max, int base,
+ *     MyScrollBarWidget(String label, Patch patch, int min, int max, int base,
  *             IParamModel pmodel, ISender sender) {
  *         super(lable, patch, min, max, base, pmodel, sender);
  *     }
@@ -54,7 +55,7 @@ public abstract class SysexWidget extends JPanel {
     private JLabel jlabel;
 
     /** <code>Patch</code> associated with the widget. */
-    private final IPatch patch;
+    private final Patch patch;
 
     /** MIDI message sender. */
     private final ISender sender;
@@ -100,7 +101,7 @@ public abstract class SysexWidget extends JPanel {
      * @param sender
      *            ISender for transmitting the value at editing the parameter.
      */
-    protected SysexWidget(String label, IPatch patch, int min, int max,
+    protected SysexWidget(String label, Patch patch, int min, int max,
             IParamModel pmodel, ISender sender) {
         super();
         this.label = label;
@@ -127,7 +128,7 @@ public abstract class SysexWidget extends JPanel {
      * <code>min</code> is set to <code>Integer.MIN_VALUE</code> and
      * <code>max</code> is set to <code>Integer.MAX_VALUE</code>.
      */
-    protected SysexWidget(String label, IPatch patch, IParamModel pmodel,
+    protected SysexWidget(String label, Patch patch, IParamModel pmodel,
             ISender sender) {
         this(label, patch, Integer.MIN_VALUE, Integer.MAX_VALUE, pmodel, sender);
     }
@@ -239,7 +240,7 @@ public abstract class SysexWidget extends JPanel {
     }
 
     /** Return <code>Patch</code> value. */
-    protected IPatch getPatch() {
+    protected Patch getPatch() {
         return patch;
     }
 

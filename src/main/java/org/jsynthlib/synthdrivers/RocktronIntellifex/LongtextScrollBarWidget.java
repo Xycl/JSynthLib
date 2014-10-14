@@ -5,7 +5,7 @@ import javax.swing.JTextField;
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.ScrollBarWidget;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * Enhanced ScrollBarWidget with right-aligned/size-able value.
@@ -14,7 +14,7 @@ import org.jsynthlib.patch.model.IPatch;
  */
 public class LongtextScrollBarWidget extends ScrollBarWidget {
 
-    public LongtextScrollBarWidget(String label, IPatch patch, int min,
+    public LongtextScrollBarWidget(String label, Patch patch, int min,
             int max, int base, int labelWidth, int textWidth,
             IParamModel pmodel, ISender sender) {
         super(label, patch, min, max, base, labelWidth, pmodel, sender);

@@ -28,7 +28,6 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
-import org.jsynthlib.patch.model.ISinglePatch;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchEdit;
 

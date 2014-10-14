@@ -24,7 +24,7 @@ import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.device.model.IPatchDriver;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchEdit;
 
 /**
@@ -43,9 +43,9 @@ public class DevDrvPatchSelector extends JDialog {
     private int driverNum;
     private int patchNum;
     private int bankNum;
-    protected IPatch p;
-    private byte[] sysex;
-    private String patchString;
+    protected Patch p;
+    private final byte[] sysex;
+    private final String patchString;
 
     private JLabel myLabel;
     private JComboBox deviceComboBox;
@@ -63,7 +63,7 @@ public class DevDrvPatchSelector extends JDialog {
      *            String which describe the used menu item
      */
     // for SendToDialog and reassignDialog
-    public DevDrvPatchSelector(IPatch patch, String wintitle, String action) {
+    public DevDrvPatchSelector(Patch patch, String wintitle, String action) {
         super(PatchEdit.getInstance(), wintitle, true);
 
         p = patch;
@@ -84,7 +84,7 @@ public class DevDrvPatchSelector extends JDialog {
      *            String which describe the used menu item
      */
     // for SysexStoreDialog
-    public DevDrvPatchSelector(IPatch patch, int banknum, int patchnum,
+    public DevDrvPatchSelector(Patch patch, int banknum, int patchnum,
             String wintitle, String action) {
         super(PatchEdit.getInstance(), wintitle, true);
 
@@ -187,6 +187,7 @@ public class DevDrvPatchSelector extends JDialog {
 
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 dispose();
@@ -222,6 +223,7 @@ public class DevDrvPatchSelector extends JDialog {
      * Makes the actual work after pressing the 'Store' button
      */
     private class DoitActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent evt) {
             doit();
         }
@@ -231,6 +233,7 @@ public class DevDrvPatchSelector extends JDialog {
      * Repopulate the Driver ComboBox with valid drivers after a Device change
      */
     private class DeviceActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent evt) {
             driverComboBox.removeAllItems();
 
@@ -257,6 +260,7 @@ public class DevDrvPatchSelector extends JDialog {
      * Device/Driver change
      */
     private class DriverActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent evt) {
 
             IDriver driver =

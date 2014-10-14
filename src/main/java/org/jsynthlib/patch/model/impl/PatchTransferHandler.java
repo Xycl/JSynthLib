@@ -19,16 +19,15 @@ import org.apache.log4j.Logger;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.viewcontroller.Actions;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.PatchFactory;
 
 public abstract class PatchTransferHandler extends TransferHandler {
     public static final DataFlavor PATCHES_FLAVOR = new DataFlavor(
             PatchesAndScenes.class, "Patch Array");
-    // new DataFlavor(IPatch[].class, "Patch Array");
+    // new DataFlavor(Patch[].class, "Patch Array");
 
     public static final DataFlavor PATCH_FLAVOR = new DataFlavor(
-            IPatch[].class, "Patch Array");
+            Patch[].class, "Patch Array");
 
     public static final DataFlavor SCENE_FLAVOR = new DataFlavor(Scene[].class,
             "Scene Array");
@@ -36,22 +35,24 @@ public abstract class PatchTransferHandler extends TransferHandler {
     public static final DataFlavor TEXT_FLAVOR = new DataFlavor(String.class,
             "String");
 
-    private DataFlavor[] flavorsAccepted = new DataFlavor[] {
+    private final DataFlavor[] flavorsAccepted = new DataFlavor[] {
             PATCHES_FLAVOR, PATCH_FLAVOR, SCENE_FLAVOR, TEXT_FLAVOR, };
 
     private final transient Logger log = Logger.getLogger(getClass());
 
-    protected abstract boolean storePatch(IPatch p, JComponent c);
+    protected abstract boolean storePatch(Patch p, JComponent c);
 
     protected boolean storeScene(Scene s, JComponent c) {
         // Default behavior is to just get the patch data
         return storePatch(s, c);
     }
 
+    @Override
     public int getSourceActions(JComponent c) {
         return COPY;
     }
 
+    @Override
     protected Transferable createTransferable(JComponent c) {
         PatchesAndScenes patchesAndScenes = new PatchesAndScenes();
         if (c instanceof JTable) {
@@ -59,7 +60,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
             PatchTableModel pm = (PatchTableModel) table.getModel();
             int[] rowIdxs = table.getSelectedRows();
             for (int i = 0; i < rowIdxs.length; i++) {
-                IPatch patch = pm.getPatchAt(rowIdxs[i]);
+                Patch patch = pm.getPatchAt(rowIdxs[i]);
                 patchesAndScenes.add(patch);
             }
         } else {
@@ -70,6 +71,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
 
     // Used by LibraryFrame and BankEditorFrame.
     // SceneFrame overrides this.
+    @Override
     public boolean importData(JComponent c, Transferable t) {
         if (canImport(c, t.getTransferDataFlavors())) {
             try {
@@ -77,8 +79,8 @@ public abstract class PatchTransferHandler extends TransferHandler {
                     Vector patches = (Vector) t.getTransferData(PATCHES_FLAVOR);
                     for (int i = 0; i < patches.size(); i++) {
                         Object obj = patches.elementAt(i);
-                        if (obj instanceof IPatch) {
-                            IPatch patch = (IPatch) obj;
+                        if (obj instanceof Patch) {
+                            Patch patch = (Patch) obj;
                             /**
                              * Once we get the patch, we need to clone it for
                              * the recipient of the paste. Otherwise, it would
@@ -88,7 +90,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
                              * 2006-02-26
                              */
                             log.info("Cloning: " + patch);
-                            IPatch newPatch = (IPatch) patch.clone();
+                            Patch newPatch = (Patch) patch.clone();
                             // Serialization loses a transient field, driver.
                             newPatch.setDriver();
                             if (!storePatch(newPatch, c)) {
@@ -121,9 +123,10 @@ public abstract class PatchTransferHandler extends TransferHandler {
                     }
                 } else if (t.isDataFlavorSupported(TEXT_FLAVOR)) {
                     String s = (String) t.getTransferData(TEXT_FLAVOR);
-                    IPatch p = getPatchFromUrl(s);
-                    if (p != null)
+                    Patch p = getPatchFromUrl(s);
+                    if (p != null) {
                         return storePatch(p, c);
+                    }
                 }
             } catch (UnsupportedFlavorException e) {
                 log.warn(e.getMessage(), e);
@@ -136,7 +139,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
         return false;
     }
 
-    protected IPatch getPatchFromUrl(String s) {
+    protected Patch getPatchFromUrl(String s) {
         PatchFactory patchFactory = JSynthLibInjector.getInstance(PatchFactory.class);
         try {
             log.info("S = " + s);
@@ -164,6 +167,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
         return null;
     }
 
+    @Override
     public boolean canImport(JComponent c, DataFlavor[] flavorsOffered) {
         for (int i = 0; i < flavorsOffered.length; i++) {
             // ErrorMsg.reportStatus("PatchTransferHandler.canImport(" +
@@ -181,6 +185,7 @@ public abstract class PatchTransferHandler extends TransferHandler {
     }
 
     /* Enable paste action when copying to clipboard. */
+    @Override
     public void exportToClipboard(JComponent comp, Clipboard clip, int action) {
         super.exportToClipboard(comp, clip, action);
         Actions.setEnabled(true, Actions.EN_PASTE);

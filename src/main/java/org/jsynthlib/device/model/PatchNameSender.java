@@ -1,12 +1,12 @@
 package org.jsynthlib.device.model;
 
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 public class PatchNameSender implements IPatchStringSender {
 
-    private IPatch patch;
+    private Patch patch;
 
-    public PatchNameSender(IPatch patch) {
+    public PatchNameSender(Patch patch) {
         super();
         this.patch = patch;
     }
@@ -20,11 +20,11 @@ public class PatchNameSender implements IPatchStringSender {
         patch.setName(name);
     }
 
-    public IPatch getPatch() {
+    public Patch getPatch() {
         return patch;
     }
 
-    public void setPatch(IPatch patch) {
+    public void setPatch(Patch patch) {
         this.patch = patch;
     }
 

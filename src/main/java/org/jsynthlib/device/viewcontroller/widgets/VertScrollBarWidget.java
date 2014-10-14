@@ -12,7 +12,7 @@ import javax.swing.event.ChangeListener;
 
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * Vertical scrollbar SysexWidget.
@@ -41,7 +41,7 @@ public class VertScrollBarWidget extends ScrollBarWidget {
      *            sysexSender for transmitting the value at editing the
      *            parameter
      */
-    public VertScrollBarWidget(String label, IPatch patch, int min, int max,
+    public VertScrollBarWidget(String label, Patch patch, int min, int max,
             int base, IParamModel pmodel, ISender sender) {
         super(label, patch, min, max, base, pmodel, sender);
     }

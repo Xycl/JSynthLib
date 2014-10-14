@@ -35,8 +35,7 @@ import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.midi.domain.MidiSettings;
 import org.jsynthlib.midi.service.MidiService;
 import org.jsynthlib.patch.model.ClipboardUtil;
-import org.jsynthlib.patch.model.IPatch;
-import org.jsynthlib.patch.model.ISinglePatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchHandler;
 
 /**
@@ -47,7 +46,7 @@ import org.jsynthlib.patch.model.impl.PatchHandler;
 public class PatchEditorFrame extends JSLFrame implements PatchHandler {
     private final transient Logger log = Logger.getLogger(getClass());
     /** This is the patch we are working on. */
-    protected ISinglePatch p;
+    protected Patch p;
     /** Scroll Pane for the editor frame. */
     protected JPanel scrollPane;
     /** Note that calling addWidget() method may change the value of this. */
@@ -79,7 +78,7 @@ public class PatchEditorFrame extends JSLFrame implements PatchHandler {
      * This is a copy of the patch when we started editing (in case user wants
      * to revert).
      */
-    private final IPatch originalPatch;
+    private final Patch originalPatch;
     /** which patch in bank we're editing */
     private int patchRow;
     private int patchCol;
@@ -99,17 +98,17 @@ public class PatchEditorFrame extends JSLFrame implements PatchHandler {
      *            a reference to <code>ISinglePatch</code> object stored in a
      *            patch library or a bank patch.
      */
-    protected PatchEditorFrame(String name, ISinglePatch patch) {
+    protected PatchEditorFrame(String name, Patch patch) {
         this(name, patch, new JPanel(new GridBagLayout()));
     }
 
-    protected PatchEditorFrame(String name, ISinglePatch patch, JPanel panel) {
+    protected PatchEditorFrame(String name, Patch patch, JPanel panel) {
         super(name);
 
         nFrame++;
         p = patch;
         // make a backup copy
-        originalPatch = (IPatch) p.clone();
+        originalPatch = (Patch) p.clone();
 
         scrollPane = panel;
         scroller = new JScrollPane(scrollPane);
@@ -301,7 +300,7 @@ public class PatchEditorFrame extends JSLFrame implements PatchHandler {
     }
 
     @Override
-    public IPatch getSelectedPatch() {
+    public Patch getSelectedPatch() {
         return p;
     }
 
@@ -649,7 +648,7 @@ public class PatchEditorFrame extends JSLFrame implements PatchHandler {
     /**
      * return the Patch which is edited.
      */
-    public IPatch getPatch() {
+    public Patch getPatch() {
         return p;
     }
 }

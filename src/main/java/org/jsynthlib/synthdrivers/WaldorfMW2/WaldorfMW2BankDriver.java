@@ -28,7 +28,6 @@ import javax.swing.JOptionPane;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.device.model.AbstractBankDriver;
 import org.jsynthlib.device.model.SysexHandler;
-import org.jsynthlib.patch.model.ISinglePatch;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 

@@ -38,7 +38,7 @@ import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.device.viewcontroller.SysexStoreDialog;
 import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.midi.service.MidiService;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchTableModel;
 import org.jsynthlib.patch.model.impl.PatchTransferHandler;
 import org.jsynthlib.patch.model.impl.PatchesAndScenes;
@@ -65,7 +65,7 @@ public class SceneFrame extends AbstractLibraryFrame {
     private static final PatchTransferHandler pth =
             new SceneListTransferHandler();
 
-    private MidiService midiService;
+    private final MidiService midiService;
 
     public SceneFrame(String name) {
         super(name, "Scene", pth);
@@ -80,10 +80,12 @@ public class SceneFrame extends AbstractLibraryFrame {
         this("Unsaved Scene #" + (++openFrameCount));
     }
 
+    @Override
     protected PatchTableModel createTableModel() {
         return new SceneListModel(/* false */);
     }
 
+    @Override
     protected void setupColumns() {
         SceneTableCellEditor rowEditor = new SceneTableCellEditor();
 
@@ -106,6 +108,7 @@ public class SceneFrame extends AbstractLibraryFrame {
         column.setPreferredWidth(200);
     }
 
+    @Override
     protected void frameActivated() {
         Actions.setEnabled(false, Actions.EN_ALL);
 
@@ -116,6 +119,7 @@ public class SceneFrame extends AbstractLibraryFrame {
     }
 
     /** change state of Actions based on the state of the table. */
+    @Override
     protected void enableActions() {
         // one or more patches are included.
         Actions.setEnabled(table.getRowCount() > 0, Actions.EN_SAVE
@@ -142,10 +146,12 @@ public class SceneFrame extends AbstractLibraryFrame {
     }
 
     // begin PatchBasket methods
-    public List<IPatch> getPatchCollection() {
-        ArrayList<IPatch> ar = new ArrayList<IPatch>();
-        for (int i = 0; i < model.getRowCount(); i++)
+    @Override
+    public List<Patch> getPatchCollection() {
+        ArrayList<Patch> ar = new ArrayList<Patch>();
+        for (int i = 0; i < model.getRowCount(); i++) {
             ar.add(model.getPatchAt(i));
+        }
         return ar;
     }
 
@@ -162,6 +168,7 @@ public class SceneFrame extends AbstractLibraryFrame {
         }
     }
 
+    @Override
     public void storeSelectedPatch() {
         Scene scene =
                 ((SceneListModel) model).getSceneAt(table.getSelectedRow());
@@ -217,7 +224,7 @@ public class SceneFrame extends AbstractLibraryFrame {
         if ((variableSize) || (sysexSize == patchSize)) {
             SysexMessage[] msgs =
                     queue.toArray(new SysexMessage[0]);
-            IPatch[] patarray = driver.createPatches(msgs);
+            Patch[] patarray = driver.createPatches(msgs);
             if (patarray.length == 1) {
                 model.setPatchAt(patarray[0], row, scene.getBankNumber(),
                         scene.getPatchNumber());
@@ -230,19 +237,19 @@ public class SceneFrame extends AbstractLibraryFrame {
     }
 
     public class UpdateSceneTask { // wirski@op.pl
-        private List<IPatch> undo;
+        private final List<Patch> undo;
         private int lengthOfTask;
         private int current = 0;
         private boolean done = false;
         private boolean canceled = false;
         private String statMessage;
-        private int noOfPatches;
-        private int[] sceneIndx;
-        private int[] syxArray;
+        private final int noOfPatches;
+        private final int[] sceneIndx;
+        private final int[] syxArray;
         int waitToClose = 0;
 
         public UpdateSceneTask(PatchTableModel model, int[] indx) {
-            undo = new ArrayList<IPatch>();
+            undo = new ArrayList<Patch>();
             undo.addAll(((SceneListModel) model).getList());
             sceneIndx = indx;
             noOfPatches = sceneIndx.length;
@@ -259,6 +266,7 @@ public class SceneFrame extends AbstractLibraryFrame {
 
         public void go() {
             final SwingWorker worker = new SwingWorker() {
+                @Override
                 public Object construct() {
                     current = 0;
                     done = false;
@@ -319,7 +327,7 @@ public class SceneFrame extends AbstractLibraryFrame {
                     if (canceled) {
                         break;
                     }
-                    IPatch patch =
+                    Patch patch =
                             ((SceneListModel) model).getSceneAt(i);
                     statMessage = patch.getDriver() + ":" + patch.getName();
                     UpdatePatch(sceneIndx[i]);
@@ -361,6 +369,7 @@ public class SceneFrame extends AbstractLibraryFrame {
         timer = new Timer(100, null);
 
         TimerListener = new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 progressMonitor.setProgress(task.getCurrent());
                 String s = task.getMessage();
@@ -389,10 +398,12 @@ public class SceneFrame extends AbstractLibraryFrame {
         timer.start();
     }
 
+    @Override
     public FileFilter getFileFilter() {
         return FILE_FILTER;
     }
 
+    @Override
     public String getFileExtension() {
         return FILE_EXTENSION;
     }
@@ -412,7 +423,7 @@ public class SceneFrame extends AbstractLibraryFrame {
         // - Emenaker 2006-02-21
         // private boolean changed;
 
-        private ArrayList<Scene> list = new ArrayList<Scene>();
+        private final ArrayList<Scene> list = new ArrayList<Scene>();
 
         public SceneListModel(/* boolean c */) {
             // TODO: Remove these comments after June, 2006
@@ -422,17 +433,20 @@ public class SceneFrame extends AbstractLibraryFrame {
             // changed = c;
         }
 
+        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
+        @Override
         public String getColumnName(int col) {
             return columnNames[col];
         }
 
+        @Override
         public Object getValueAt(int row, int col) {
             Scene myScene = list.get(row);
-            IPatch myPatch = myScene;
+            Patch myPatch = myScene;
             try {
                 switch (col) {
                 case SYNTH:
@@ -444,16 +458,18 @@ public class SceneFrame extends AbstractLibraryFrame {
                 case BANK_NUM:
                     // generic driver returns null
                     String[] bn = myPatch.getDriver().getBankNumbers();
-                    if (bn != null)
+                    if (bn != null) {
                         return bn[myScene.getBankNumber()];
-                    else
+                    } else {
                         return String.valueOf(myScene.getBankNumber());
+                    }
                 case PATCH_NUM:
                     String[] pn = myPatch.getDriver().getPatchNumbers();
-                    if (pn != null)
+                    if (pn != null) {
                         return pn[myScene.getPatchNumber()];
-                    else
+                    } else {
                         return String.valueOf(myScene.getPatchNumber());
+                    }
                 case COMMENT:
                     return myScene.getComment();
                 default:
@@ -474,15 +490,18 @@ public class SceneFrame extends AbstractLibraryFrame {
          * each cell. If we didn't implement this method, then the last column
          * would contain text ("true"/"false"), rather than a check box.
          */
+        @Override
         public Class<String> getColumnClass(int c) {
             return String.class;
         }
 
+        @Override
         public boolean isCellEditable(int row, int col) {
             return (col > PATCH_NAME && !((col == BANK_NUM || col == PATCH_NUM) && list
                     .get(row).hasNullDriver()));
         }
 
+        @Override
         public void setValueAt(Object value, int row, int col) {
             // LOG.info("SetValue at "+row+" "+col+"
             // Value:"+value);
@@ -510,21 +529,25 @@ public class SceneFrame extends AbstractLibraryFrame {
 
         // begin PatchTableModel interface methods
         // It is caller's responsibility to update Table.
-        public int addPatch(IPatch p) {
+        @Override
+        public int addPatch(Patch p) {
             list.add(new Scene(p));
             return list.size() - 1;
         }
 
-        public int addPatch(IPatch p, int bankNum, int patchNum) { // wirski@op.pl
+        @Override
+        public int addPatch(Patch p, int bankNum, int patchNum) { // wirski@op.pl
             list.add(new Scene(p, bankNum, patchNum));
             return list.size() - 1;
         }
 
-        public void setPatchAt(IPatch p, int row, int bankNum, int patchNum) { // wirski@op.pl
+        @Override
+        public void setPatchAt(Patch p, int row, int bankNum, int patchNum) { // wirski@op.pl
             list.set(row, new Scene(p, bankNum, patchNum));
         }
 
-        public void setPatchAt(IPatch p, int row) {
+        @Override
+        public void setPatchAt(Patch p, int row) {
             list.set(row, new Scene(p));
         }
 
@@ -548,6 +571,7 @@ public class SceneFrame extends AbstractLibraryFrame {
      */
     private static class SceneListTransferHandler extends PatchTransferHandler {
 
+        @Override
         protected Transferable createTransferable(JComponent c) {
             PatchesAndScenes patchesAndScenes = new PatchesAndScenes();
             if (c instanceof JTable) {
@@ -564,6 +588,7 @@ public class SceneFrame extends AbstractLibraryFrame {
             return (patchesAndScenes);
         }
 
+        @Override
         protected boolean storeScene(Scene s, JComponent c) {
             SceneListModel model = (SceneListModel) ((JTable) c).getModel();
             model.addScene(s);
@@ -574,7 +599,8 @@ public class SceneFrame extends AbstractLibraryFrame {
             return true;
         }
 
-        protected boolean storePatch(IPatch p, JComponent c) {
+        @Override
+        protected boolean storePatch(Patch p, JComponent c) {
             SceneListModel model = (SceneListModel) ((JTable) c).getModel();
             model.addPatch(p);
             // TODO This method shouldn't have to worry about calling
@@ -590,7 +616,8 @@ public class SceneFrame extends AbstractLibraryFrame {
      */
     private class SceneTableCellEditor implements TableCellEditor,
             TableModelListener {
-        private TableCellEditor editor, defaultEditor;
+        private TableCellEditor editor;
+        private final TableCellEditor defaultEditor;
         private JComboBox box;
         private int oldrow = -1;
         private int oldcol = -1;
@@ -605,39 +632,47 @@ public class SceneFrame extends AbstractLibraryFrame {
             table.getModel().addTableModelListener(this);
         }
 
+        @Override
         public Component getTableCellEditorComponent(JTable table,
                 Object value, boolean isSelected, int row, int column) {
             return editor.getTableCellEditorComponent(table, value, isSelected,
                     row, column);
         }
 
+        @Override
         public Object getCellEditorValue() {
             // LOG.info("getCellEditorValue
             // "+box.getSelectedItem());
             return new Integer(box.getSelectedIndex());
         }
 
+        @Override
         public boolean stopCellEditing() {
             return editor.stopCellEditing();
         }
 
+        @Override
         public void cancelCellEditing() {
             editor.cancelCellEditing();
         }
 
+        @Override
         public boolean isCellEditable(EventObject anEvent) {
             selectEditor((MouseEvent) anEvent);
             return editor.isCellEditable(anEvent);
         }
 
+        @Override
         public void addCellEditorListener(CellEditorListener l) {
             editor.addCellEditorListener(l);
         }
 
+        @Override
         public void removeCellEditorListener(CellEditorListener l) {
             editor.removeCellEditorListener(l);
         }
 
+        @Override
         public boolean shouldSelectCell(EventObject anEvent) {
             selectEditor((MouseEvent) anEvent);
             return editor.shouldSelectCell(anEvent);
@@ -670,10 +705,11 @@ public class SceneFrame extends AbstractLibraryFrame {
                         for (int i = 0; i < bankNumbers.length; i++) {
                             box.addItem(bankNumbers[i]);
                         }
-                    } else if (col == PATCH_NUM)
+                    } else if (col == PATCH_NUM) {
                         for (int i = 0; i < patchNumbers.length; i++) {
                             box.addItem(patchNumbers[i]);
                         }
+                    }
                 }
                 editor = new DefaultCellEditor(box);
                 if (editor == null) {
@@ -682,6 +718,7 @@ public class SceneFrame extends AbstractLibraryFrame {
             }
         }
 
+        @Override
         public void tableChanged(TableModelEvent tableModelEvent) {
             oldcol = -1;
             oldrow = -1;

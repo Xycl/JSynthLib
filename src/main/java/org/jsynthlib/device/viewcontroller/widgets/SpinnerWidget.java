@@ -11,7 +11,7 @@ import javax.swing.event.ChangeListener;
 
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * Spinner SysexWidget.
@@ -41,7 +41,7 @@ public class SpinnerWidget extends SysexWidget {
      *            sysexSender for transmitting the value at editing the
      *            parameter
      */
-    public SpinnerWidget(String label, IPatch patch, int min, int max,
+    public SpinnerWidget(String label, Patch patch, int min, int max,
             int base, IParamModel pmodel, ISender sender) {
         super(label, patch, min, max, pmodel, sender);
         this.base = base;

@@ -1,22 +1,24 @@
 package org.jsynthlib.patch.model.impl;
 
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.Serializable;
 
 import javax.inject.Inject;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
+
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.LookupManufacturer;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
+import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.device.model.DriverIdentifier;
 import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.midi.service.MidiMessageFormatter;
 import org.jsynthlib.midi.service.MidiService;
-import org.jsynthlib.patch.model.IPatch;
-import org.jsynthlib.patch.model.ISinglePatch;
 
 /**
  * A class for MIDI System Exclusive Message patch data.
@@ -41,7 +43,7 @@ import org.jsynthlib.patch.model.ISinglePatch;
  * @version $Id: Patch.java 951 2005-03-06 05:05:32Z hayashi $
  * @see AbstractPatchDriver#supportsPatch
  */
-public class Patch implements ISinglePatch {
+public class Patch implements Cloneable, Transferable, Serializable {
     private final transient Logger log = Logger.getLogger(getClass());
     /** Driver for this Patch. */
     private transient IDriver driver;
@@ -77,48 +79,38 @@ public class Patch implements ISinglePatch {
         comment = new StringBuffer();
     }
 
-    // IPatch interface methods
-    @Override
-    public final String getDate() {
+    public String getDate() {
         return date.toString();
     }
 
-    @Override
-    public final void setDate(String date) {
+    public void setDate(String date) {
         this.date = new StringBuffer(date);
     }
 
-    @Override
-    public final String getAuthor() {
+    public String getAuthor() {
         return author.toString();
     }
 
-    @Override
-    public final void setAuthor(String author) {
+    public void setAuthor(String author) {
         this.author = new StringBuffer(author);
     }
 
-    @Override
     public final String getComment() {
         return comment.toString();
     }
 
-    @Override
     public final void setComment(String comment) {
         this.comment = new StringBuffer(comment);
     }
 
-    @Override
-    public final Device getDevice() {
+    public Device getDevice() {
         return driver.getDevice();
     }
 
-    @Override
     public IDriver getDriver() {
         return driver;
     }
 
-    @Override
     public void setDriver(IDriver driver) {
         this.driver = driver;
         if (driver == null) {
@@ -126,49 +118,40 @@ public class Patch implements ISinglePatch {
         }
     }
 
-    @Override
-    public final void setDriver() {
+    public void setDriver() {
         setDriver(driverIdentifier.chooseDriver(sysex));
     }
 
-    @Override
-    public final boolean hasNullDriver() {
+    public boolean hasNullDriver() {
         return driver == deviceManager.getNullDriver();
     }
 
-    @Override
     public String getPatchHeader() {
         return driverIdentifier.getPatchHeader(sysex);
     }
 
-    @Override
-    public final String getName() {
+    public String getName() {
         return driver.getPatchName(this);
     }
 
-    @Override
-    public final void setName(String s) {
+    public void setName(String s) {
         driver.setPatchName(this, s);
     }
 
-    @Override
-    public final boolean hasEditor() {
+    public boolean hasEditor() {
         return driver.hasEditor();
     }
 
-    @Override
-    public final JSLFrame edit() {
+    public JSLFrame edit() {
         return driver.editPatch(this);
     }
 
-    @Override
-    public final void send(int bankNum, int patchNum) {
+    public void send(int bankNum, int patchNum) {
         driver.calculateChecksum(this);
         driver.storePatch(this, bankNum, patchNum);
     }
 
-    @Override
-    public final SysexMessage[] getMessages() {
+    public SysexMessage[] getMessages() {
         try {
             return midiService.byteArrayToSysexMessages(sysex);
         } catch (InvalidMidiDataException ex) {
@@ -176,70 +159,54 @@ public class Patch implements ISinglePatch {
         }
     }
 
-    @Override
-    public final byte[] export() {
+    public byte[] export() {
         driver.calculateChecksum(this);
         return this.sysex;
     }
 
-    @Override
-    public final byte[] getByteArray() {
+    public byte[] getByteArray() {
         return sysex;
     }
 
-    @Override
     public int getSize() {
         return sysex.length;
     }
 
-    @Override
     public String getType() {
         return driver.getPatchType();
     }
 
-    @Override
     public int getNameSize() {
         return driver.getPatchNameSize();
     }
 
-    @Override
-    public final String lookupManufacturer() {
+    public String lookupManufacturer() {
         return LookupManufacturer.get(sysex[1], sysex[2], sysex[3]);
     }
 
-    @Override
-    public final boolean isSinglePatch() {
+    public boolean isSinglePatch() {
         return driver.isSingleDriver();
     }
 
-    @Override
-    public final boolean isBankPatch() {
+    public boolean isBankPatch() {
         return driver.isBankDriver();
     }
 
-    @Override
-    public void useSysexFromPatch(IPatch ip) {
+    public void useSysexFromPatch(Patch ip) {
         if (ip.getSize() != sysex.length) {
             throw new IllegalArgumentException();
         }
         sysex = ip.getByteArray();
     }
 
-    // end of IPatch interface methods
-
-    // ISinglePatch interface methods
-    @Override
     public final void play() {
         driver.playPatch(this);
     }
 
-    @Override
     public final void send() {
         driver.calculateChecksum(this);
         driver.sendPatch(this);
     }
-
-    // end of ISinglePatch interface methods
 
     // Transferable interface methods
 
@@ -269,7 +236,7 @@ public class Patch implements ISinglePatch {
 
     // Clone interface method
     @Override
-    public final Object clone() {
+    public Object clone() {
         try {
             Patch p = (Patch) super.clone();
             p.sysex = sysex.clone();

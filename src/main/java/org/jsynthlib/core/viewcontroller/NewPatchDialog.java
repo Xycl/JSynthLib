@@ -20,7 +20,7 @@ import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * Dialog to create a new Patch of the loaded Devices respective Drivers. Any
@@ -35,7 +35,7 @@ public class NewPatchDialog extends JDialog {
     private final transient Logger log = Logger.getLogger(getClass());
     private final JComboBox deviceComboBox;
     private final JComboBox driverComboBox;
-    private IPatch p;
+    private Patch p;
 
     public NewPatchDialog(JFrame parent) {
         super(parent, "Create New Patch", true);
@@ -135,7 +135,7 @@ public class NewPatchDialog extends JDialog {
         // }
     }
 
-    public IPatch getNewPatch() {
+    public Patch getNewPatch() {
         return p;
     }
 

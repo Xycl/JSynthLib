@@ -12,7 +12,7 @@ import javax.swing.event.ChangeListener;
 
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * Horizontal scrollbar SysexWidget.
@@ -65,7 +65,7 @@ public class ScrollBarWidget extends SysexWidget {
      *            parameter
      * @see SysexWidget
      */
-    public ScrollBarWidget(String label, IPatch patch, int min, int max,
+    public ScrollBarWidget(String label, Patch patch, int min, int max,
             int base, int labelWidth, IParamModel pmodel, ISender sender) {
         super(label, patch, min, max, pmodel, sender);
         this.base = base;
@@ -75,7 +75,7 @@ public class ScrollBarWidget extends SysexWidget {
         layoutWidgets();
     }
 
-    public ScrollBarWidget(String label, IPatch patch, int min, int max,
+    public ScrollBarWidget(String label, Patch patch, int min, int max,
             int base, IParamModel pmodel, ISender sender) {
         this(label, patch, min, max, base, -1, pmodel, sender);
     }

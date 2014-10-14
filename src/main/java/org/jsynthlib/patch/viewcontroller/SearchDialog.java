@@ -22,7 +22,7 @@ import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.Utility;
 import org.jsynthlib.core.viewcontroller.desktop.JSLDesktop;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchTableModel;
 
 public class SearchDialog extends JDialog {
@@ -162,7 +162,6 @@ public class SearchDialog extends JDialog {
             searchFrom = lf.getTable().getSelectedRow() + 1;
         }
 
-        IPatch p;
         int field = 0;
         if (command.equals("P")) {
             field = 0;
@@ -180,7 +179,7 @@ public class SearchDialog extends JDialog {
         int i;
         boolean match = false;
         for (i = searchFrom; i < tm.getRowCount(); i++) {
-            p = tm.getPatchAt(i);
+            Patch p = tm.getPatchAt(i);
 
             match = false;
             if (field == 0 || field == 4) {

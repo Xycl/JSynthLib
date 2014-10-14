@@ -23,6 +23,7 @@ package org.jsynthlib.patch.model;
 import java.util.List;
 
 import org.jsynthlib.device.model.Device;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * @author Pascal Collberg
@@ -34,7 +35,7 @@ public interface MultiPatchImporter {
      * create a patch by using the driver found. This is used for a byte array
      * read from a Sysex file, for which a Driver is not known.
      */
-    List<IPatch> createPatches(byte[] sysex);
+    List<Patch> createPatches(byte[] sysex);
 
     /**
      * Factory method of Patch. Look up the driver of the specified Device for
@@ -42,5 +43,5 @@ public interface MultiPatchImporter {
      * @param device
      *            Device whose driver is looked up.
      */
-    List<IPatch> createPatches(byte[] sysex, Device device);
+    List<Patch> createPatches(byte[] sysex, Device device);
 }

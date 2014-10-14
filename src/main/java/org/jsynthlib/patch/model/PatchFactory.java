@@ -32,7 +32,7 @@ import org.jsynthlib.patch.model.impl.Patch;
  */
 public interface PatchFactory {
 
-    IPatch createPatch(byte[] sysex);
+    Patch createPatch(byte[] sysex);
 
     /**
      * Create new patch using a patch file <code>patchFileName</code>.
@@ -45,7 +45,7 @@ public interface PatchFactory {
      * @return IPatch object
      * @see IPatchDriver#createPatch()
      */
-    IPatch createNewPatch(IDriver driver, String fileName, int size);
+    Patch createNewPatch(IDriver driver, String fileName, int size);
 
     /**
      * Constructor - Driver is known. This is often used by a Single Driver and

@@ -29,7 +29,7 @@ import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.viewcontroller.AbstractDriverEditor;
 import org.jsynthlib.device.viewcontroller.DefaultFxmlDriverEditor;
 import org.jsynthlib.device.viewcontroller.JSLDriverEditorFrame;
-import org.jsynthlib.patch.model.IBankPatch;
+import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.synthdrivers.RolandD50.D50Constants;
 import org.jsynthlib.xmldevice.StringArray;
@@ -73,7 +73,7 @@ public class XMLPatchDriver extends AbstractPatchDriver implements IPatchDriver 
         return p;
     }
 
-    public IBankPatch createNewBankPatch() {
+    public BankPatch createNewBankPatch() {
         return null;
     }
 

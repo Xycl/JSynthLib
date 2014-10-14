@@ -30,11 +30,8 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IBankDriver;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.patch.model.IBankPatch;
-import org.jsynthlib.patch.model.IPatch;
-import org.jsynthlib.patch.model.ISinglePatch;
 
-public class BankPatch extends Patch implements IBankPatch {
+public class BankPatch extends Patch {
 
     private static final long serialVersionUID = 1L;
 
@@ -55,7 +52,7 @@ public class BankPatch extends Patch implements IBankPatch {
         }
     }
 
-    // IPatch interface methods
+    // Patch methods
     @Override
     public String getPatchHeader() {
         return getDriverIdentifier().getPatchHeader(mPatches[0].getByteArray());
@@ -87,7 +84,7 @@ public class BankPatch extends Patch implements IBankPatch {
     }
 
     @Override
-    public void useSysexFromPatch(IPatch ip) {
+    public void useSysexFromPatch(Patch ip) {
         throw new IllegalArgumentException();
     }
 
@@ -123,21 +120,17 @@ public class BankPatch extends Patch implements IBankPatch {
         mPatches = new Patch[getNumPatches()];
     }
 
-    // IBankPatch interface methods
-    @Override
     public final int getNumPatches() {
         return getDriver().getNumPatches();
     }
 
-    @Override
     public final int getNumColumns() {
         return getDriver().getNumColumns();
     }
 
-    @Override
-    public final void put(IPatch singlePatch, int patchNum) {
-        if (getDriver().canHoldPatch((Patch) singlePatch)) {
-            getDriver().putPatch(this, (Patch) singlePatch,
+    public final void put(Patch singlePatch, int patchNum) {
+        if (getDriver().canHoldPatch(singlePatch)) {
+            getDriver().putPatch(this, singlePatch,
                     patchNum);
         } else {
             JOptionPane.showMessageDialog(null,
@@ -147,22 +140,18 @@ public class BankPatch extends Patch implements IBankPatch {
         }
     }
 
-    @Override
     public final void delete(int patchNum) {
         getDriver().deletePatch(this, patchNum);
     }
 
-    @Override
-    public final ISinglePatch get(int patchNum) {
+    public final Patch get(int patchNum) {
         return getDriver().getPatch(this, patchNum);
     }
 
-    @Override
     public final String getName(int patchNum) {
         return getDriver().getPatchName(this, patchNum);
     }
 
-    @Override
     public final void setName(int patchNum, String name) {
         getDriver().setPatchName(this, patchNum, name);
     }

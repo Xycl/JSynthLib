@@ -14,7 +14,7 @@ import javax.swing.event.ChangeListener;
 
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 import com.dreamfabric.DKnob;
 
@@ -56,7 +56,7 @@ public class KnobWidget extends SysexWidget {
      * @param sender
      *            a <code>ISender</code> object.
      */
-    public KnobWidget(String label, IPatch patch, int min, int max, int base,
+    public KnobWidget(String label, Patch patch, int min, int max, int base,
             IParamModel pmodel, ISender sender) {
         this(label, patch, min, max, base, pmodel, sender, null, -1, -1);
     }
@@ -82,7 +82,7 @@ public class KnobWidget extends SysexWidget {
      * @param height
      *            The height of the knob.
      */
-    public KnobWidget(String label, IPatch patch, int min, int max, int base,
+    public KnobWidget(String label, Patch patch, int min, int max, int base,
             IParamModel pmodel, ISender sender, int width, int height) {
         this(label, patch, min, max, base, pmodel, sender, null, width, height);
     }
@@ -92,7 +92,7 @@ public class KnobWidget extends SysexWidget {
      * @param aImages
      *            array of images corresponding to each value.
      */
-    public KnobWidget(String label, IPatch patch, int min, int max, int base,
+    public KnobWidget(String label, Patch patch, int min, int max, int base,
             IParamModel pmodel, ISender sender, ImageIcon[] aImages) {
         this(label, patch, min, max, base, pmodel, sender, aImages, -1, -1);
     }
@@ -102,7 +102,7 @@ public class KnobWidget extends SysexWidget {
      * @param aImages
      *            array of images corresponding to each value.
      */
-    public KnobWidget(String label, IPatch patch, int min, int max, int base,
+    public KnobWidget(String label, Patch patch, int min, int max, int base,
             IParamModel pmodel, ISender sender, ImageIcon[] aImages, int width,
             int height) {
         super(label, patch, min, max, pmodel, sender);

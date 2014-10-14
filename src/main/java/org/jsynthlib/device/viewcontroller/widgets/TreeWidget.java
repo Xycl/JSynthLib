@@ -37,7 +37,7 @@ import javax.swing.tree.TreeSelectionModel;
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * A SysexWidget implementing JTree component.
@@ -54,7 +54,7 @@ public class TreeWidget extends SysexWidget {
     private final transient Logger log = Logger.getLogger(getClass());
     /** JTree object. */
     protected JTree tree;
-    private Nodes treeNodes;
+    private final Nodes treeNodes;
     private DefaultMutableTreeNode rootNode;
 
     // Optionally play with line styles. Possible values are
@@ -77,7 +77,7 @@ public class TreeWidget extends SysexWidget {
      *            SysexSender for transmitting the value at editing the
      *            parameter.
      */
-    public TreeWidget(String label, IPatch patch, Nodes treeNodes,
+    public TreeWidget(String label, Patch patch, Nodes treeNodes,
             IParamModel paramModel, ISender sysexString) {
         super(label, patch, paramModel, sysexString);
         this.treeNodes = treeNodes;
@@ -86,6 +86,7 @@ public class TreeWidget extends SysexWidget {
         layoutWidgets();
     } // TreeWidget constructor
 
+    @Override
     protected void createWidgets() {
         // Create the nodes.
         rootNode = populate(treeNodes.getRoot());
@@ -97,6 +98,7 @@ public class TreeWidget extends SysexWidget {
 
         // Listen for when the selection changes.
         tree.addTreeSelectionListener(new TreeSelectionListener() {
+            @Override
             public void valueChanged(TreeSelectionEvent e) {
                 eventListener(e);
             }
@@ -141,6 +143,7 @@ public class TreeWidget extends SysexWidget {
         tree.addTreeSelectionListener(l);
     }
 
+    @Override
     protected void layoutWidgets() {
         // Create the scroll pane and add the tree to it.
         JScrollPane treeScrollPane = new JScrollPane(tree);
@@ -166,10 +169,12 @@ public class TreeWidget extends SysexWidget {
         DefaultMutableTreeNode child;
         for (int i = 1; i < root.length; i++) {
             Object nodeSpecifier = root[i];
-            if (nodeSpecifier instanceof Object[]) // Ie node with children
+            if (nodeSpecifier instanceof Object[]) {
                 child = populate((Object[]) nodeSpecifier);
-            else
+            }
+            else {
                 child = new DefaultMutableTreeNode(nodeSpecifier); // Ie Leaf
+            }
             node.add(child);
         }
         return (node);
@@ -238,8 +243,9 @@ public class TreeWidget extends SysexWidget {
      */
     protected Object getNode(int indices[]) {
         TreeNode node = rootNode;
-        for (int i = 0; i < indices.length; i++)
+        for (int i = 0; i < indices.length; i++) {
             node = node.getChildAt(indices[i]);
+        }
         return node;
     }
 
@@ -248,18 +254,20 @@ public class TreeWidget extends SysexWidget {
      * @param value
      *            an <code>int</code> value to be set.
      */
+    @Override
     public void setValue(int value) {
         super.setValue(value);
         setSelection(value);
     }
 
+    @Override
     public void setEnabled(boolean e) {
         tree.setEnabled(e);
     }
 
     /**
      * Structured data for Tree Widget. Example of tree data:
-     * 
+     *
      * <pre>
      * Object[] root = {
      *         &quot;root&quot;, &quot;leaf 0&quot;, // { 0 }
@@ -273,7 +281,7 @@ public class TreeWidget extends SysexWidget {
      *                 &quot;leaf 3-1&quot; }, // { 3, 1 }
      *         &quot;leaf 4&quot; }; // { 4 }
      * </pre>
-     * 
+     *
      * Assume the node value of leaf node '2-1' is '48', 'getIndices(48)'
      * returns an array '{ 2, 1 }'. 'getValue( { 2, 1 } )' returns '48'.
      */

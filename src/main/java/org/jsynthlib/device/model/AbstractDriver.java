@@ -34,7 +34,6 @@ import org.apache.log4j.Logger;
 import org.jsynthlib.core.AppConfig;
 import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.midi.service.MidiService;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.MultiPatchImporter;
 import org.jsynthlib.patch.model.PatchFactory;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -355,26 +354,26 @@ public abstract class AbstractDriver implements IDriver {
     }
 
     @Override
-    public IPatch[] createPatches(SysexMessage[] msgs) {
+    public Patch[] createPatches(SysexMessage[] msgs) {
         byte[] sysex = midiService.sysexMessagesToByteArray(msgs);
-        List<IPatch> patarray = patchImporter.createPatches(sysex, getDevice());
+        List<Patch> patarray = patchImporter.createPatches(sysex, getDevice());
 
         // Maybe you don't get the expected patch!
         // Check all devices/drivers again! Call fixpatch() if supportsPatch
         // returns false.
         // XXX Why don't we simply cause error? Hiroo
         for (int k = 0; k < patarray.size(); k++) {
-            IPatch pk = patarray.get(k);
+            Patch pk = patarray.get(k);
             String patchString = pk.getPatchHeader();
             if (!(pk.getDriver().supportsPatch(patchString, pk.getByteArray()))) {
-                patarray.set(k, fixPatch((Patch) pk, patchString));
+                patarray.set(k, fixPatch(pk, patchString));
             }
         }
-        return patarray.toArray(new IPatch[patarray.size()]);
+        return patarray.toArray(new Patch[patarray.size()]);
     }
 
     @Override
-    public IPatch createPatch(byte[] sysex) {
+    public Patch createPatch(byte[] sysex) {
         return patchFactory.createNewPatch(sysex, this);
     }
 
@@ -383,7 +382,7 @@ public abstract class AbstractDriver implements IDriver {
      * @see #createPatches(SysexMessage[])
      * @see IPatchDriver#createPatches(SysexMessage[])
      */
-    private IPatch fixPatch(Patch pk, String patchString) {
+    private Patch fixPatch(Patch pk, String patchString) {
         byte[] sysex = pk.getByteArray();
         for (int i = 0; i < deviceManager.deviceCount(); i++) {
             // first check the device for the patch requested.
@@ -628,7 +627,7 @@ public abstract class AbstractDriver implements IDriver {
     }
 
     @Override
-    public final IPatch createPatch() {
+    public final Patch createPatch() {
         return createNewPatch();
     }
 

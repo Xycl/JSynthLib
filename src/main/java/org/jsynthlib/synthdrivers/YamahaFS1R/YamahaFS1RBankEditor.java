@@ -7,7 +7,7 @@ import javax.swing.JTable;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.viewcontroller.BankEditorFrame;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
-import org.jsynthlib.patch.model.IBankPatch;
+import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -22,7 +22,7 @@ public class YamahaFS1RBankEditor extends BankEditorFrame {
         preferredColumnWidth = 130;
     }
 
-    public YamahaFS1RBankEditor(IBankPatch p) {
+    public YamahaFS1RBankEditor(BankPatch p) {
         super(p);
     }
 
@@ -34,7 +34,7 @@ public class YamahaFS1RBankEditor extends BankEditorFrame {
      * @see YamahaFS1RPerformanceEditor
      */
     public JSLFrame EditPatch(int aNumPatch, int aPart) {
-        Patch p = (Patch) bankData.get(aNumPatch);
+        Patch p = bankData.get(aNumPatch);
         if (p == null) {
             return null;
         }
@@ -48,7 +48,7 @@ public class YamahaFS1RBankEditor extends BankEditorFrame {
     }
 
     public Patch getBankPatch() {
-        return (Patch) bankData;
+        return bankData;
     }
 
 }

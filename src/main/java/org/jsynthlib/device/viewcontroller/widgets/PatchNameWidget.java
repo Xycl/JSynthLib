@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 
 import org.jsynthlib.device.model.IPatchStringSender;
 import org.jsynthlib.device.model.PatchNameSender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * SysexWidget for patch name.
@@ -27,7 +27,7 @@ public class PatchNameWidget extends SysexWidget {
      * @param patch
      *            a <code>Patch</code>, which is edited.
      */
-    public PatchNameWidget(String label, IPatch patch) {
+    public PatchNameWidget(String label, Patch patch) {
         this(label, patch, patch.getNameSize(), new PatchNameSender(patch));
     }
 
@@ -38,7 +38,7 @@ public class PatchNameWidget extends SysexWidget {
      * @param patch
      *            a <code>Patch</code>, which is edited.
      */
-    public PatchNameWidget(String label, IPatch patch, IPatchStringSender sender) {
+    public PatchNameWidget(String label, Patch patch, IPatchStringSender sender) {
         this(label, patch, patch.getNameSize(), sender);
     }
 
@@ -51,7 +51,7 @@ public class PatchNameWidget extends SysexWidget {
      * @param patchNameSize
      *            maximum length of patch name
      */
-    public PatchNameWidget(String label, IPatch patch, int patchNameSize, IPatchStringSender sender) {
+    public PatchNameWidget(String label, Patch patch, int patchNameSize, IPatchStringSender sender) {
         super(label, patch, null, null);
 
         this.sender = sender;

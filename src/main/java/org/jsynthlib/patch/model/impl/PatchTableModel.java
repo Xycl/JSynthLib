@@ -26,7 +26,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.patch.model.IPatch;
 
 /**
  * @author Pascal Collberg
@@ -43,7 +42,7 @@ public abstract class PatchTableModel extends AbstractTableModel {
 
     protected final transient Logger log = Logger.getLogger(getClass());
 
-    private List<IPatch> list = new ArrayList<IPatch>();
+    private List<Patch> list = new ArrayList<Patch>();
 
     @Override
     public int getRowCount() {
@@ -56,7 +55,7 @@ public abstract class PatchTableModel extends AbstractTableModel {
      *            The patch to add
      * @return the position the patch occupies
      */
-    public int addPatch(IPatch p) {
+    public int addPatch(Patch p) {
         log.info("LibraryFrame.addPatch: Patch=" + p);
         list.add(p);
         return list.size() - 1;
@@ -69,7 +68,7 @@ public abstract class PatchTableModel extends AbstractTableModel {
      *            The patch to add
      * @return the position the patch occupies
      */
-    public int addPatch(IPatch p, int bankNum, int patchNum) { // wirski@op.pl
+    public int addPatch(Patch p, int bankNum, int patchNum) { // wirski@op.pl
         log.info("LibraryFrame.addPatch: Patch=" + p);
         list.add(p);
         return list.size() - 1;
@@ -86,7 +85,7 @@ public abstract class PatchTableModel extends AbstractTableModel {
      * @param patchNum
      *            patch number
      */
-    public void setPatchAt(IPatch p, int row, int bankNum, int patchNum) { // wirski@op.pl
+    public void setPatchAt(Patch p, int row, int bankNum, int patchNum) { // wirski@op.pl
         log.info("LibraryFrame.setPatchAt: row=" + row + ", Patch=" + p);
         list.set(row, p);
     }
@@ -98,7 +97,7 @@ public abstract class PatchTableModel extends AbstractTableModel {
      * @param row
      *            The row of the table.
      */
-    public void setPatchAt(IPatch p, int row) {
+    public void setPatchAt(Patch p, int row) {
         log.info("LibraryFrame.setPatchAt: row=" + row + ", Patch=" + p);
         list.set(row, p);
     }
@@ -109,7 +108,7 @@ public abstract class PatchTableModel extends AbstractTableModel {
      *            The row specified
      * @return The patch
      */
-    public IPatch getPatchAt(int row) {
+    public Patch getPatchAt(int row) {
         return list.get(row);
     }
 
@@ -127,11 +126,11 @@ public abstract class PatchTableModel extends AbstractTableModel {
         this.list.remove(row);
     }
 
-    public List<IPatch> getList() {
+    public List<Patch> getList() {
         return this.list;
     }
 
-    public void setList(List<IPatch> newList) {
+    public void setList(List<Patch> newList) {
         this.list = newList;
     }
 }

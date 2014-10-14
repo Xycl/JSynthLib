@@ -17,8 +17,7 @@ import org.jsynthlib.core.ColumnLayout;
 import org.jsynthlib.core.CrossBreeder;
 import org.jsynthlib.core.Utility;
 import org.jsynthlib.core.viewcontroller.desktop.JSLDesktop;
-import org.jsynthlib.patch.model.IPatch;
-import org.jsynthlib.patch.model.ISinglePatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 public class CrossBreedDialog extends JDialog {
 
@@ -65,7 +64,7 @@ public class CrossBreedDialog extends JDialog {
                     PatchBasket library =
                             (PatchBasket) JSLDesktop.Factory.getDesktop()
                                     .getSelectedFrame();
-                    IPatch q = crossBreeder.getCurrentPatch();
+                    Patch q = crossBreeder.getCurrentPatch();
                     library.pastePatch(q);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null,
@@ -103,16 +102,16 @@ public class CrossBreedDialog extends JDialog {
     void generatePressed() {
         crossBreeder.generateNewPatch((PatchBasket) JSLDesktop.Factory.getDesktop()
                 .getSelectedFrame());
-        IPatch p = crossBreeder.getCurrentPatch();
+        Patch p = crossBreeder.getCurrentPatch();
         l1.setText("Patch Type: " + p.getDevice().getManufacturerName() + " "
                 + p.getDevice().getModelName() + " " + p.getType());
         play(p);
     }
 
-    private void play(IPatch p) {
+    private void play(Patch p) {
         if (p.isSinglePatch()) {
-            ((ISinglePatch) p).send();
-            ((ISinglePatch) p).play();
+            p.send();
+            p.play();
         }
     }
 }

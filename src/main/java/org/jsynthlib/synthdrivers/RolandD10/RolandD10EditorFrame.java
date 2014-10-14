@@ -36,18 +36,17 @@ import javax.swing.border.Border;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ScrollBarWidget;
-import org.jsynthlib.patch.model.ISinglePatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 public class RolandD10EditorFrame extends PatchEditorFrame {
 
-    private static Border BORDER = BorderFactory.createEtchedBorder();
+    private static final Border BORDER = BorderFactory.createEtchedBorder();
 
     protected static void setNamedBorder(JComponent panel, String name) {
         panel.setBorder(BorderFactory.createTitledBorder(BORDER, name));
     }
 
-    protected RolandD10EditorFrame(String name, ISinglePatch patch) {
+    protected RolandD10EditorFrame(String name, Patch patch) {
         super(name, patch);
     }
 

@@ -5,7 +5,7 @@ package org.jsynthlib.core.viewcontroller;
 
 import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.device.viewcontroller.DevDrvPatchSelector;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * If more than two devices are loaded which supports the given patch, show this
@@ -23,7 +23,7 @@ public class ReassignPatchDialog extends DevDrvPatchSelector {
      * @param patch
      *            The Patch to reassign
      */
-    public ReassignPatchDialog(IPatch patch) {
+    public ReassignPatchDialog(Patch patch) {
         super(patch, "Reassign Patch to another Device/Driver", "Reassign...");
     }
 

@@ -18,7 +18,7 @@ import javax.swing.event.MouseInputAdapter;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * A SysexWidget implements an envelope editing function.
@@ -55,7 +55,7 @@ public class EnvelopeWidget extends SysexWidget {
      * @param ypadding
      *            space at the top and bottom border.
      */
-    public EnvelopeWidget(String label, IPatch patch, Node[] nodes,
+    public EnvelopeWidget(String label, Patch patch, Node[] nodes,
             int xpadding, int ypadding) {
         super(label, patch, null, null);
         this.nodes = nodes;
@@ -67,7 +67,7 @@ public class EnvelopeWidget extends SysexWidget {
     }
 
     /** <code>xpad</code> and <code>ypad</code> are set to zero. */
-    public EnvelopeWidget(String label, IPatch patch, Node[] options) {
+    public EnvelopeWidget(String label, Patch patch, Node[] options) {
         this(label, patch, options, 0, 0);
     }
 

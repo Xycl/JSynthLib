@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.model.AbstractBankDriver;
-import org.jsynthlib.patch.model.IBankPatch;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
@@ -208,7 +207,7 @@ public class YamahaFS1RBankDriver extends AbstractBankDriver {
     /** Creates an editor window to edit this bank */
     @Override
     public JSLFrame editPatch(Patch p) {
-        return new YamahaFS1RBankEditor((IBankPatch) p);
+        return new YamahaFS1RBankEditor((BankPatch) p);
     }
 
     /**

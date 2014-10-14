@@ -8,7 +8,7 @@ import javax.swing.Action;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.viewcontroller.NewPatchDialog;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchEdit;
 import org.jsynthlib.patch.viewcontroller.PatchBasket;
 
@@ -27,7 +27,7 @@ public class NewPatchAction extends JSLAbstractAction {
         try {
             NewPatchDialog np = new NewPatchDialog(PatchEdit.getInstance());
             np.setVisible(true);
-            IPatch p = np.getNewPatch();
+            Patch p = np.getNewPatch();
             JSLFrame selectedFrame = getSelectedFrame();
             if (p != null && selectedFrame instanceof PatchBasket) {
                 PatchBasket patchBasket = (PatchBasket) selectedFrame;

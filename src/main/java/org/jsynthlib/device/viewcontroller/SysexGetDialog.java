@@ -28,7 +28,7 @@ import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.midi.service.MidiService;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.viewcontroller.PatchBasket;
 
 /**
@@ -52,14 +52,14 @@ public class SysexGetDialog extends JDialog {
     /** MIDI input port from which SysEX messages come. */
     private int inPort;
 
-    private Timer timer;
-    private JLabel myLabel;
-    private JComboBox deviceComboBox;
-    private JComboBox driverComboBox;
-    private JComboBox bankNumComboBox;
-    private JComboBox patchNumComboBox;
+    private final Timer timer;
+    private final JLabel myLabel;
+    private final JComboBox deviceComboBox;
+    private final JComboBox driverComboBox;
+    private final JComboBox bankNumComboBox;
+    private final JComboBox patchNumComboBox;
 
-    private MidiService midiService;
+    private final MidiService midiService;
 
     // --------------------------------------------------------------------------
     // Constructor: SysexGetDialog()
@@ -147,6 +147,7 @@ public class SysexGetDialog extends JDialog {
 
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 timer.stop();
@@ -183,7 +184,7 @@ public class SysexGetDialog extends JDialog {
         IDriver driver = (IDriver) driverComboBox.getSelectedItem();
         SysexMessage[] msgs =
                 (SysexMessage[]) queue.toArray(new SysexMessage[0]);
-        IPatch[] patarray = driver.createPatches(msgs);
+        Patch[] patarray = driver.createPatches(msgs);
         int bankNum = bankNumComboBox.getSelectedIndex(); // wirski@op.pl
         int patchNum = patchNumComboBox.getSelectedIndex(); // wirski@op.pl
 
@@ -207,6 +208,7 @@ public class SysexGetDialog extends JDialog {
     // --------------------------------------------------------------------------
 
     public class DoneActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent evt) {
             timer.stop();
             pasteIntoSelectedFrame();
@@ -219,6 +221,7 @@ public class SysexGetDialog extends JDialog {
     // --------------------------------------------------------------------------
 
     public class DeviceActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent evt) {
             // log.info("DeviceActionListener->actionPerformed");
             driverComboBox.removeAllItems();
@@ -239,13 +242,15 @@ public class SysexGetDialog extends JDialog {
     // --------------------------------------------------------------------------
 
     public class DriverActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent evt) {
             IDriver driver =
                     (IDriver) driverComboBox.getSelectedItem();
             // log.info("DriverActionListener->actionPerformed:" +
             // driver);
-            if (driver == null) // for driverComboBox.removeAllItems()
+            if (driver == null) {
                 return;
+            }
 
             bankNumComboBox.removeAllItems();
             patchNumComboBox.removeAllItems();
@@ -275,6 +280,7 @@ public class SysexGetDialog extends JDialog {
     // --------------------------------------------------------------------------
 
     public class PasteActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent evt) {
             myLabel.setText(" ");
             timer.stop();
@@ -288,6 +294,7 @@ public class SysexGetDialog extends JDialog {
     // --------------------------------------------------------------------------
 
     public class GetActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent evt) {
             IDriver driver =
                     (IDriver) driverComboBox.getSelectedItem();
@@ -318,6 +325,7 @@ public class SysexGetDialog extends JDialog {
     }
 
     public class TimerActionListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent evt) {
             try {
                 while (!isEmpty()) {

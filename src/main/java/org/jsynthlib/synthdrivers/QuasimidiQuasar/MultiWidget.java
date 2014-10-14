@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.SysexWidget;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 /**
  * * Special widget
@@ -48,10 +48,10 @@ public class MultiWidget extends SysexWidget {
 
     MultiWidgetParams[] multiWidgetParams;
 
-    private JCheckBox[] checkBoxes;
+    private final JCheckBox[] checkBoxes;
 
-    private JLabel[] labels;
-    private JComboBox[] comboBoxes;
+    private final JLabel[] labels;
+    private final JComboBox[] comboBoxes;
 
     /** An array of the list of the options in the ComboBox. */
     private Object[] options;
@@ -66,7 +66,7 @@ public class MultiWidget extends SysexWidget {
      * @param sender
      *            Sender
      */
-    public MultiWidget(MultiWidgetParams[] params, IPatch patch,
+    public MultiWidget(MultiWidgetParams[] params, Patch patch,
             IParamModel pmodel, ISender sender) {
         super("", patch, pmodel, sender);
 
@@ -74,16 +74,18 @@ public class MultiWidget extends SysexWidget {
         int maxLength = params.length;
 
         for (int count = 0; count < params.length; count++) {
-            if (params[count] == null)
+            if (params[count] == null) {
                 maxLength--;
-            else if (params[count].isCheckBox())
+            } else if (params[count].isCheckBox()) {
                 numberOfCheckBoxes++;
+            }
         }
 
         // Avoid nasty NPEs if the array is not fully initialised
-        if (params.length != maxLength)
+        if (params.length != maxLength) {
             throw new IllegalArgumentException(
                     "At least one MultiWidgetParams is null, check your MultiWidget creation code!");
+        }
 
         this.multiWidgetParams = params;
 
@@ -100,6 +102,7 @@ public class MultiWidget extends SysexWidget {
 
         checkBoxes[index] = new JCheckBox("", (tempValue != 0));
         checkBoxes[index].addItemListener(new ItemListener() {
+            @Override
             public void itemStateChanged(ItemEvent e) {
                 eventListener(e);
             }
@@ -111,12 +114,14 @@ public class MultiWidget extends SysexWidget {
         comboBoxes[index].setSelectedIndex(multiWidgetParams
                 .getRealValue(getValue()));
         comboBoxes[index].addItemListener(new ItemListener() {
+            @Override
             public void itemStateChanged(ItemEvent e) {
                 eventListener(e);
             }
         });
     }
 
+    @Override
     protected void createWidgets() {
         int countCheckBoxes = 0;
         int countComboBoxes = 0;
@@ -138,6 +143,7 @@ public class MultiWidget extends SysexWidget {
         log.warn("Combo boxes: " + countComboBoxes);
     }
 
+    @Override
     protected void layoutWidgets() {
         setLayout(new FlowLayout());
 
@@ -157,6 +163,7 @@ public class MultiWidget extends SysexWidget {
         }
     }
 
+    @Override
     public void setEnabled(boolean e) {
         for (int count = 0; count < checkBoxes.length; count++) {
             checkBoxes[count].setEnabled(e);
@@ -179,8 +186,9 @@ public class MultiWidget extends SysexWidget {
 
                 if (multiWidgetParams[count].isCheckBox()) {
                     if (checkBoxes[multiWidgetParams[count].getIndex()]
-                            .isSelected())
+                            .isSelected()) {
                         iValue += iTemp;
+                    }
                 } else {
                     iValue +=
                             iTemp
@@ -213,6 +221,7 @@ public class MultiWidget extends SysexWidget {
         }
     }
 
+    @Override
     public void setValue(int iValue) {
         super.setValue(iValue);
         for (int count = 0; count < checkBoxes.length; count++) {

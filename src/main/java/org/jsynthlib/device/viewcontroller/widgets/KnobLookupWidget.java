@@ -4,7 +4,7 @@ import javax.swing.event.ChangeEvent;
 
 import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 
 import com.dreamfabric.DKnob;
 
@@ -31,7 +31,7 @@ public class KnobLookupWidget extends KnobWidget {
      * @param valueLabels
      *            an array of labels for the knob values.
      */
-    public KnobLookupWidget(String label, IPatch patch, IParamModel pmodel,
+    public KnobLookupWidget(String label, Patch patch, IParamModel pmodel,
             ISender sender, String[] valueLabels) {
         this(label, patch, 0, pmodel, sender, valueLabels, -1, -1);
     }
@@ -54,7 +54,7 @@ public class KnobLookupWidget extends KnobWidget {
      * @param height
      *            The height of the knob.
      */
-    public KnobLookupWidget(String label, IPatch patch, IParamModel pmodel,
+    public KnobLookupWidget(String label, Patch patch, IParamModel pmodel,
             ISender sender, String[] valueLabels, int width, int height) {
         this(label, patch, 0, pmodel, sender, valueLabels, width, height);
     }
@@ -74,7 +74,7 @@ public class KnobLookupWidget extends KnobWidget {
      * @param valueLabels
      *            an array of labels for the knob values.
      */
-    public KnobLookupWidget(String label, IPatch patch, int min,
+    public KnobLookupWidget(String label, Patch patch, int min,
             IParamModel pmodel, ISender sender, String[] valueLabels) {
         this(label, patch, min, pmodel, sender, valueLabels, -1, -1);
     }
@@ -98,7 +98,7 @@ public class KnobLookupWidget extends KnobWidget {
      * @param height
      *            The height of the knob.
      */
-    public KnobLookupWidget(String label, IPatch patch, int min,
+    public KnobLookupWidget(String label, Patch patch, int min,
             IParamModel pmodel, ISender sender, String[] valueLabels,
             int width, int height) {
         this(label, patch, min, min + valueLabels.length - 1, pmodel, sender,
@@ -122,7 +122,7 @@ public class KnobLookupWidget extends KnobWidget {
      * @param valueLabels
      *            an array of labels for the knob values.
      */
-    public KnobLookupWidget(String label, IPatch patch, int min, int max,
+    public KnobLookupWidget(String label, Patch patch, int min, int max,
             IParamModel pmodel, ISender sender, String[] valueLabels) {
         this(label, patch, min, max, pmodel, sender, valueLabels, -1, -1);
     }
@@ -153,7 +153,7 @@ public class KnobLookupWidget extends KnobWidget {
      * calculated by using valueLabels.length. => A: You may want a knob with
      * less values than in valueLabels!
      */
-    public KnobLookupWidget(String label, IPatch patch, int min, int max,
+    public KnobLookupWidget(String label, Patch patch, int min, int max,
             IParamModel pmodel, ISender sender, String[] valueLabels,
             int width, int height) {
         super(label, patch, min, max, 0, pmodel, sender);

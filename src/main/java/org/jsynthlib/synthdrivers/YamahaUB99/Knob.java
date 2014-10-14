@@ -33,7 +33,7 @@ import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.KnobLookupWidget;
 import org.jsynthlib.device.viewcontroller.widgets.SysexWidget;
-import org.jsynthlib.patch.model.IPatch;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.synthdrivers.YamahaUB99.format.IFormat;
 
 import com.dreamfabric.DKnob;
@@ -74,7 +74,7 @@ public class Knob extends SysexWidget {
      * @param sender
      *            a <code>ISender</code> object.
      */
-    public Knob(String label, IPatch patch, int min, int max, int base,
+    public Knob(String label, Patch patch, int min, int max, int base,
             IParamModel pmodel, ISender sender) {
         super(label, patch, min, max, pmodel, sender);
         mBase = base;
@@ -83,7 +83,7 @@ public class Knob extends SysexWidget {
         layoutWidgets();
     }
 
-    public Knob(String label, IPatch patch, int min, int max, IFormat format,
+    public Knob(String label, Patch patch, int min, int max, IFormat format,
             IParamModel pmodel, ISender sender) {
         super(label, patch, min, max, pmodel, sender);
         mFormat = format;

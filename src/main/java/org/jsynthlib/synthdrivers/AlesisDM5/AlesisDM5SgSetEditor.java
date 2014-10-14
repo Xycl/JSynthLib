@@ -52,7 +52,6 @@ import org.jsynthlib.device.viewcontroller.widgets.ScrollBarLookupWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ScrollBarWidget;
 import org.jsynthlib.device.viewcontroller.widgets.SysexWidget;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -85,19 +84,19 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
     private int ctrlBase = 1;
     private int widgetCount = 1;
 
-    private Patch patch;
+    private final Patch patch;
 
     private JTextField selectedNoteField;
 
-    private PacketModel[] notePacketModel = new PacketModel[8];
-    private SysexWidget[] sysexWidget = new SysexWidget[8];
+    private final PacketModel[] notePacketModel = new PacketModel[8];
+    private final SysexWidget[] sysexWidget = new SysexWidget[8];
 
     private DM5ScrollBarLookupWidget selectedNoteWidget;
     private NRPNSender selectedNoteSender;
     private DM5ScrollBarLookupWidget rootNoteWidget;
     private DM5ScrollBarLookupWidget closeNoteWidget;
     private DM5ScrollBarLookupWidget heldNoteWidget;
-    private DM5ScrollBarLookupWidget[] triggerWidget =
+    private final DM5ScrollBarLookupWidget[] triggerWidget =
             new DM5ScrollBarLookupWidget[12];
 
     /**
@@ -204,6 +203,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
         selectedNoteSender.send(patch.getDriver(), 0);
         addWidget(panel, selectedNoteWidget, ctrlBase++, 0, 1, 1, widgetCount++);
         selectedNoteWidget.addEventListener(new ChangeListener() {
+            @Override
             public void stateChanged(ChangeEvent e) {
                 selNoteChanged(e);
             }
@@ -217,7 +217,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
      */
     private void selNoteChanged(ChangeEvent e) {
         JSlider sl = (JSlider) e.getSource();
-        int noteVal = (int) sl.getValue();
+        int noteVal = sl.getValue();
         if (!sl.getValueIsAdjusting()) {
             setPacketModels(noteVal);
         }
@@ -279,6 +279,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
         addWidget(panel, sysexWidget[0], ctrlBase++, 0, 1, 1, widgetCount++);
         ((ComboBoxWidget) sysexWidget[0])
                 .addEventListener(new ActionListener() {
+                    @Override
                     public void actionPerformed(ActionEvent e) {
                         familyChanged(e);
                     }
@@ -320,6 +321,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
         addWidget(panel, sysexWidget[2], ctrlBase++, 0, 1, 1, widgetCount++);
         ((ScrollBarLookupWidget) sysexWidget[2])
                 .addEventListener(new ChangeListener() {
+                    @Override
                     public void stateChanged(ChangeEvent e) {
                         coarseTuneChanged(e);
                     }
@@ -334,6 +336,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
         addWidget(panel, sysexWidget[3], ctrlBase++, 0, 1, 1, widgetCount++);
         ((ScrollBarLookupWidget) sysexWidget[3])
                 .addEventListener(new ChangeListener() {
+                    @Override
                     public void stateChanged(ChangeEvent e) {
                         fineTuneChanged(e);
                     }
@@ -366,7 +369,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
      */
     private void coarseTuneChanged(ChangeEvent e) {
         JSlider sl = (JSlider) e.getSource();
-        int slVal = (int) sl.getValue();
+        int slVal = sl.getValue();
         ((FineTuneScrollBarLookupWidget) sysexWidget[3]).setOptions(slVal);
     }
 
@@ -376,7 +379,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
      */
     private void fineTuneChanged(ChangeEvent e) {
         JSlider sl = (JSlider) e.getSource();
-        int slVal = (int) sl.getValue();
+        int slVal = sl.getValue();
         ((CoarseTuneScrollBarLookupWidget) sysexWidget[2]).setOptions(slVal);
     }
 
@@ -403,6 +406,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
         JButton playButton = new JButton("Play Note");
         panel.add(playButton);
         playButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 playPreviewNote();
             }
@@ -446,6 +450,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
                         new NRPNSender(NRPNSender.SET_ROOT_NOTE, 67), 0, 68);
         addWidget(panel, rootNoteWidget, ctrlBase++, 0, 1, 1, widgetCount++);
         rootNoteWidget.addEventListener(new ChangeListener() {
+            @Override
             public void stateChanged(ChangeEvent e) {
                 rootNoteChangeListener(e);
             }
@@ -483,7 +488,7 @@ public class AlesisDM5SgSetEditor extends PatchEditorFrame {
      */
     public void rootNoteChangeListener(ChangeEvent e) {
         JSlider sl = (JSlider) e.getSource();
-        int noteVal = (int) sl.getValue();
+        int noteVal = sl.getValue();
         if (!sl.getValueIsAdjusting()) {
             selectedNoteWidget.updateRootNote(noteVal);
             closeNoteWidget.updateRootNote(noteVal);
@@ -519,7 +524,7 @@ class CoarseTuneScrollBarLookupWidget extends ScrollBarLookupWidget {
      * Constructs a CoarseTuneScrollBarLookupWidget given the label, patch, min
      * and max values, labelWidth, model, and sender.
      */
-    CoarseTuneScrollBarLookupWidget(String label, IPatch patch, int min,
+    CoarseTuneScrollBarLookupWidget(String label, Patch patch, int min,
             int max, int labelWidth, IParamModel pmodel, ISender sender) {
         super(label, patch, min, max, labelWidth, pmodel, sender, posOptions);
     }
@@ -586,7 +591,7 @@ class FineTuneScrollBarLookupWidget extends ScrollBarLookupWidget {
      * Constructs a FineTuneScrollBarLookupWidget given the label, patch, min
      * and max values, labelWidth, model, and sender.
      */
-    FineTuneScrollBarLookupWidget(String label, IPatch patch, int min, int max,
+    FineTuneScrollBarLookupWidget(String label, Patch patch, int min, int max,
             int labelWidth, IParamModel pmodel, ISender sender) {
         super(label, patch, min, max, labelWidth, pmodel, sender, posOptions);
     }

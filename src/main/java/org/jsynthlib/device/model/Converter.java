@@ -2,7 +2,6 @@ package org.jsynthlib.device.model;
 
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -32,7 +31,7 @@ public abstract class Converter extends AbstractDriver implements
     // return extractPatch(new Patch(sysex, this));
     // }
     @Override
-    public IPatch[] createPatches(byte[] sysex) {
+    public Patch[] createPatches(byte[] sysex) {
         Patch patch = getPatchFactory().createNewPatch(sysex, this);
         Patch[] patarray = extractPatch(patch);
         if (patarray == null) {

@@ -14,8 +14,8 @@ import javax.swing.table.TableColumnModel;
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.ExtensionFilter;
 import org.jsynthlib.core.viewcontroller.Actions;
-import org.jsynthlib.patch.model.IPatch;
 import org.jsynthlib.patch.model.impl.LibraryColumns;
+import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchListModel;
 import org.jsynthlib.patch.model.impl.PatchListTransferHandler;
 import org.jsynthlib.patch.model.impl.PatchTableModel;
@@ -117,7 +117,7 @@ public class LibraryFrame extends AbstractLibraryFrame {
     public int deleteDuplicates() {
         Collections.sort(model.getList(), new SysexSort());
         int numDeleted = 0;
-        Iterator<IPatch> it = model.getList().iterator();
+        Iterator<Patch> it = model.getList().iterator();
         byte[] p = it.next().getByteArray();
         while (it.hasNext()) {
             byte[] q = it.next().getByteArray();
@@ -143,9 +143,9 @@ public class LibraryFrame extends AbstractLibraryFrame {
     // to sort based on the sysex data
     // Sorting this way makes the Dups search much easier, since the
     // dups must be next to each other
-    private static class SysexSort implements Comparator<IPatch> {
+    private static class SysexSort implements Comparator<Patch> {
         @Override
-        public int compare(IPatch a1, IPatch a2) {
+        public int compare(Patch a1, Patch a2) {
             String s1 = new String(a1.getByteArray());
             String s2 = new String(a2.getByteArray());
             return s1.compareTo(s2);
@@ -153,7 +153,7 @@ public class LibraryFrame extends AbstractLibraryFrame {
     }
 
     // for SortDialog
-    public void sortPatch(Comparator<IPatch> c) {
+    public void sortPatch(Comparator<Patch> c) {
         Collections.sort(model.getList(), c);
         changed();
     }
