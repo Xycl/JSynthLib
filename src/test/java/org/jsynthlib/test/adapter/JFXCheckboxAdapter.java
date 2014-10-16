@@ -1,5 +1,6 @@
 package org.jsynthlib.test.adapter;
 
+import javafx.application.Platform;
 import javafx.scene.control.CheckBox;
 
 import org.jemmy.fx.SceneDock;
@@ -11,8 +12,7 @@ public class JFXCheckboxAdapter extends AbstractJFXWidgetAdapter {
 
     private final CheckBox checkbox;
 
-    JFXCheckboxAdapter(SceneDock scene, CheckBox checkbox,
-            int max, int min) {
+    JFXCheckboxAdapter(SceneDock scene, CheckBox checkbox, int max, int min) {
         super(scene, checkbox);
         this.checkbox = checkbox;
         setType(Type.CHECKBOX);
@@ -24,7 +24,7 @@ public class JFXCheckboxAdapter extends AbstractJFXWidgetAdapter {
             setValue(min);
         }
     }
-    
+
     /**
      * @param scene
      * @param control
@@ -53,12 +53,18 @@ public class JFXCheckboxAdapter extends AbstractJFXWidgetAdapter {
         return new IValueSetter() {
 
             @Override
-            public void setValue(int value) {
-                if (value == getMax()) {
-                    checkbox.selectedProperty().set(true);
-                } else {
-                    checkbox.selectedProperty().set(false);
-                }
+            public void setValue(final int value) {
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (value == getMax()) {
+                            checkbox.selectedProperty().set(true);
+                        } else {
+                            checkbox.selectedProperty().set(false);
+                        }
+                    }
+                });
             }
         };
     }

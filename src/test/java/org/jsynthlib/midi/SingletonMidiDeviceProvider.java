@@ -38,7 +38,7 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
 
     private final Map<MidiDevice.Info, MidiDevice> deviceMap;
     
-    private List<MidiRecordSession> sessions;
+    private final List<MidiRecordSession> sessions;
 
     public SingletonMidiDeviceProvider() {
         lock = new ReentrantLock();
@@ -63,7 +63,7 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
     }
     
     public static class MidiRecordSession {
-        private StringBuilder sb = new StringBuilder();
+        private final StringBuilder sb = new StringBuilder();
         
         void onMidiInput(String midi) {
             sb.append(midi);
@@ -115,7 +115,7 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
 
     static class TestDeviceInfo extends MidiDevice.Info {
 
-        private boolean input;
+        private final boolean input;
 
         protected TestDeviceInfo(boolean input) {
             super(input ? "Midi Input" : "Midi Output", "JSynthLib",
@@ -130,7 +130,7 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
 
     class TestMidiDevice implements MidiDevice {
 
-        private TestDeviceInfo info;
+        private final TestDeviceInfo info;
         private Transmitter transmitter;
 
         public TestMidiDevice(TestDeviceInfo info) {

@@ -11,6 +11,7 @@ public class SwingKnobAdapter extends AbstractSwingWidgetAdapter {
         super(widget);
         this.widget = widget;
         setType(Type.KNOB);
+        setValue(widget.getValue());
     }
 
     @Override

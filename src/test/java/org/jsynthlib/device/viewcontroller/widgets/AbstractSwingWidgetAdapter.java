@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.fest.swing.exception.ComponentLookupException;
 import org.jsynthlib.core.ContainerDisplayer;
 import org.jsynthlib.core.TitleFinder.FrameWrapper;
+import org.jsynthlib.core.valuesetter.IValueSetter;
 import org.jsynthlib.test.adapter.WidgetAdapter;
 
 public abstract class AbstractSwingWidgetAdapter extends WidgetAdapter {
@@ -18,7 +19,6 @@ public abstract class AbstractSwingWidgetAdapter extends WidgetAdapter {
     private SysexWidget sysexWidget;
 
     public AbstractSwingWidgetAdapter(SysexWidget sysexWidget) {
-        setMax(sysexWidget.getValueMax());
         setMin(sysexWidget.getValueMin());
         setEnabled(sysexWidget.isEnabled());
         setSysexWidget(sysexWidget);
@@ -122,4 +122,17 @@ public abstract class AbstractSwingWidgetAdapter extends WidgetAdapter {
         f.setAccessible(true);
         return (T) f.get(object);
     }
+
+    @Override
+    public IValueSetter getValueSetter() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int getMax() {
+        return sysexWidget.getValueMax();
+    }
+    
+    
 }
