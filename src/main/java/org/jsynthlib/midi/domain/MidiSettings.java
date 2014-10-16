@@ -189,8 +189,6 @@ public class MidiSettings {
     /**
      * return an array of MidiDevice.Info for MIDI output.
      * @see #getOutputMidiDeviceInfo(int)
-     * @see #getReceiver
-     * @see #send
      */
     public MidiDevice.Info[] getOutputMidiDeviceInfo() {
         return outputMidiDeviceInfo;
