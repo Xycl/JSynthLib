@@ -21,21 +21,18 @@ public interface MidiService {
     /**
      * clear MIDI input queue specified. Internally setSysexInputQueue(port) is
      * called.
-     * @see #getInputMidiDeviceInfo()
      * @see #setSysexInputQueue
      */
     void clearSysexInputQueue(int port);
 
     /**
      * return <code>true</code> when MIDI input queue is empty.
-     * @see #getInputMidiDeviceInfo()
      * @see #clearSysexInputQueue
      */
     boolean isSysexInputQueueEmpty(int port);
 
     /**
      * get Sysex Message from MIDI input queue.
-     * @see #getInputMidiDeviceInfo()
      * @see #clearSysexInputQueue
      */
     MidiMessage getMessage(int port, long timeout) throws TimeoutException,
