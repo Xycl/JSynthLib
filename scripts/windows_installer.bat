@@ -4,6 +4,8 @@ SET SIGNTOOL="c:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\signtool.exe"
 SET RES_HACKER="c:\Program Files (x86)\Resource Hacker\ResHacker.exe"
 SET MK_NSIS="C:\Program Files (x86)\NSIS\Bin\makensis.exe"
 
+CD ..
+
 ECHO Create synth.jar
 echo f | xcopy /F /Y target\jsynthlib-%1-executable.jar target\synth.jar
 

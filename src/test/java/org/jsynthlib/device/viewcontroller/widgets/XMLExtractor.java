@@ -2,6 +2,7 @@ package org.jsynthlib.device.viewcontroller.widgets;
 
 import java.awt.Container;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -9,8 +10,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Map.Entry;
 import java.util.UUID;
+
+import javax.swing.ImageIcon;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
@@ -67,19 +71,39 @@ import org.jsynthlib.xmldevice.YEnvelopeParamSpec;
 
 public class XMLExtractor {
 
+    private static final Logger LOG = Logger.getLogger(XMLExtractor.class);
+
     public static void main(String[] args) {
         try {
             String manufacturer = System.getProperty("manufacturer");
+            if (manufacturer == null) {
+                manufacturer = args[0];
+            }
             String device = System.getProperty("device");
-            XMLExtractor extractor = new XMLExtractor(manufacturer, device);
+            if (device == null) {
+                device = args[1];
+            }
+            String output = System.getProperty("output");
+            if (output == null) {
+                output = args[2];
+            }
+            LOG.info("Extracting " + manufacturer + " - " + device + " into "
+                    + output);
+            File outDir = new File(output);
+            if (!outDir.exists()) {
+                boolean mkdir = outDir.mkdir();
+                if (!mkdir) {
+                    throw new IOException("Failed to create " + output);
+                }
+            }
+            XMLExtractor extractor =
+                    new XMLExtractor(manufacturer, device, outDir);
             extractor.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.exit(0);
     }
-
-    private final transient Logger log = Logger.getLogger(getClass());
 
     private FrameFixture testFrame;
     private GuiHandler guiHandler;
@@ -94,10 +118,16 @@ public class XMLExtractor {
 
     private XmlDeviceSpec deviceSpec;
 
-    XMLExtractor(String manufacturer, String device) {
+    private final File outDir;
+    private final Properties properties;
+    private int driverIndex = 0;
+
+    XMLExtractor(String manufacturer, String device, File outDir) {
         groupMap = new HashMap<String, PatchParams>();
         this.manufacturer = manufacturer;
         this.deviceName = device;
+        this.outDir = outDir;
+        properties = new Properties();
     }
 
     void run() throws Exception {
@@ -112,22 +142,23 @@ public class XMLExtractor {
         // uninstall all previously installed drivers.
         guiHandler.uninstallDevice(null);
 
-        log.info("Installing " + manufacturer + "/" + deviceName);
+        LOG.info("Installing " + manufacturer + "/" + deviceName);
         String infoText = guiHandler.installDevice(manufacturer, deviceName);
 
         FrameWrapper library = guiHandler.openLibrary();
         JTableFixture table = library.table();
 
-        log.info("Receiving drivers for device " + deviceName);
+        LOG.info("Receiving drivers for device " + deviceName);
         List<Class<? extends IDriver>> driversForDevice =
                 guiHandler.getDriversForDevice(deviceName);
 
         boolean deviceCreated = false;
+        Device device = null;
         try {
             for (Class<? extends IDriver> driverClass : driversForDevice) {
                 StringBuilder popupBuilder = new StringBuilder();
 
-                log.info("Using driver: " + driverClass.getName());
+                LOG.info("Using driver: " + driverClass.getName());
                 PopupListener driverPopupListener = new PopupListener();
                 guiHandler.newPatch(library, deviceName, driverClass,
                         driverPopupListener);
@@ -138,7 +169,7 @@ public class XMLExtractor {
                     popupBuilder.append("\n\n--------------------------\n\n");
                 }
 
-                log.info("Opening patch editor");
+                LOG.info("Opening patch editor");
                 PopupListener editorPopupListener = new PopupListener();
                 FrameWrapper patchEditor =
                         guiHandler.openPatchEditor(table, -1, 0,
@@ -165,7 +196,8 @@ public class XMLExtractor {
                                     (PatchEditorFrame) jslFrame;
                             IDriver driver = frame.getPatch().getDriver();
                             if (!deviceCreated) {
-                                createDevice(driver.getDevice(), infoText);
+                                device = driver.getDevice();
+                                createDevice(device, infoText);
                                 deviceCreated = true;
                             }
                             createPatchDriver(patchEditor, infoText,
@@ -174,7 +206,8 @@ public class XMLExtractor {
                             BankEditorFrame frame = (BankEditorFrame) jslFrame;
                             IDriver driver = frame.getBankData().getDriver();
                             if (!deviceCreated) {
-                                createDevice(driver.getDevice(), infoText);
+                                device = driver.getDevice();
+                                createDevice(device, infoText);
                                 deviceCreated = true;
                             }
                             createBankDriver(infoText, patchEditor,
@@ -184,25 +217,31 @@ public class XMLExtractor {
 
                 } finally {
                     if (patchEditor != null) {
-                        log.info("Close patch editor frame");
+                        LOG.info("Close patch editor frame");
                         guiHandler.closeFrame(patchEditor, false);
                     }
 
                     if (library != null) {
-                        log.info("Selecting library frame");
+                        LOG.info("Selecting library frame");
                         guiHandler.selectLibraryFrame(library);
                     }
                 }
             }
         } finally {
-            deviceSpecDocument.save(new File(deviceName + ".xml"));
+            if (!deviceCreated) {
+                throw new IllegalStateException("Device was never created");
+            }
+            properties.store(new FileOutputStream(new File(outDir, device
+                    .getClass().getSimpleName() + ".properties")), null);
+            deviceSpecDocument.save(new File(outDir, device.getClass()
+                    .getSimpleName() + ".xml"));
 
             if (library != null) {
-                log.info("Closing library");
+                LOG.info("Closing library");
                 guiHandler.closeLibrary(library);
             }
 
-            log.info("Uninstall device " + deviceName);
+            LOG.info("Uninstall device " + deviceName);
             guiHandler.uninstallDevice(deviceName);
 
             testFrame.cleanUp();
@@ -210,7 +249,8 @@ public class XMLExtractor {
     }
 
     void createBankDriver(String infoText, FrameWrapper patchEditor,
-            IBankDriver driver) throws IllegalAccessException, NoSuchFieldException, IOException {
+            IBankDriver driver) throws IllegalAccessException,
+            NoSuchFieldException, IOException {
         XmlBankDriverSpecDocument document =
                 XmlBankDriverSpecDocument.Factory.newInstance();
         XmlBankDriverSpec driverSpec = document.addNewXmlBankDriverSpec();
@@ -224,17 +264,23 @@ public class XMLExtractor {
 
         if (driver instanceof AbstractBankDriver) {
             AbstractBankDriver bankDriver = (AbstractBankDriver) driver;
-            driverSpec.setNumPatches(getField("numPatches", int.class, bankDriver,
-                    AbstractBankDriver.class));
-            driverSpec.setNumColumns(getField("numColumns", int.class, bankDriver,
-                    AbstractBankDriver.class));
-            driverSpec.setSingleSysexID(getField("singleSysexID", String.class, bankDriver,
-                    AbstractBankDriver.class));
-            driverSpec.setSingleSize(getField("singleSize", int.class, bankDriver,
-                    AbstractBankDriver.class));
+            driverSpec.setNumPatches(getField("numPatches", int.class,
+                    bankDriver, AbstractBankDriver.class));
+            driverSpec.setNumColumns(getField("numColumns", int.class,
+                    bankDriver, AbstractBankDriver.class));
+            driverSpec.setSingleSysexID(getField("singleSysexID", String.class,
+                    bankDriver, AbstractBankDriver.class));
+            driverSpec.setSingleSize(getField("singleSize", int.class,
+                    bankDriver, AbstractBankDriver.class));
         }
 
-        document.save(new File(driver.getClass().getSimpleName() + ".xml"));
+        properties.put(newDriverKey(), driver.getClass().getSimpleName());
+        document.save(new File(outDir, driver.getClass().getSimpleName()
+                + ".xml"));
+    }
+
+    String newDriverKey() {
+        return "driver" + driverIndex++;
     }
 
     void createPatchDriver(FrameWrapper patchEditor, String infoText,
@@ -260,7 +306,9 @@ public class XMLExtractor {
             for (SysexWidget sysexWidget : sysexWidgets) {
                 handleSysexWidget(patchEditor, sysexWidget);
             }
-            document.save(new File(driver.getClass().getSimpleName() + ".xml"));
+            properties.put(newDriverKey(), driver.getClass().getSimpleName());
+            document.save(new File(outDir, driver.getClass().getSimpleName()
+                    + ".xml"));
         }
     }
 
@@ -322,6 +370,8 @@ public class XMLExtractor {
         deviceSpec.setManufacturer(device.getManufacturerName());
         deviceSpec.setModelName(device.getModelName());
         deviceSpec.setInquiryId(device.getInquiryID());
+
+        properties.put("packageName", device.getClass().getPackage().getName());
     }
 
     void handleSysexWidget(FrameWrapper patchEditor, SysexWidget sysexWidget)
@@ -338,10 +388,10 @@ public class XMLExtractor {
             path = path.substring(0, path.length() - 1);
         }
         PatchParams patchParams = null;
-        log.info("Looking for group " + path);
+        LOG.info("Looking for group " + path);
         if (groupMap.containsKey(path)) {
             patchParams = groupMap.get(path);
-            log.info("Found group " + path);
+            LOG.info("Found group " + path);
         } else {
             patchParams = createNewGroup(path);
         }
@@ -357,7 +407,7 @@ public class XMLExtractor {
                         SysexWidget.class);
 
         if (sysexWidget instanceof CheckBoxWidget) {
-            CheckBoxWidget widget = (CheckBoxWidget) sysexWidget;
+//            CheckBoxWidget widget = (CheckBoxWidget) sysexWidget;
             handleDefaultIntParam(patchParams, valueMax, valueMin, name,
                     sender, paramModel, 0);
         } else if (sysexWidget instanceof ComboBoxWidget) {
@@ -366,7 +416,13 @@ public class XMLExtractor {
             String[] values = new String[itemCount];
 
             for (int i = 0; i < itemCount; i++) {
-                String item = (String) widget.cb.getItemAt(i);
+                String item = null;
+                try {
+                    item = (String) widget.cb.getItemAt(i);
+                } catch (ClassCastException e) {
+                    ImageIcon icon = (ImageIcon) widget.cb.getItemAt(i);
+                    item = icon.getAccessibleContext().getAccessibleName();
+                }
                 values[i] = item;
             }
             handleIntParamWValues(values, patchParams, valueMax, valueMin,
@@ -381,7 +437,8 @@ public class XMLExtractor {
             handlePatchName(widget, patchParams, name, sender, paramModel);
         } else if (sysexWidget instanceof ScrollBarWidget) {
             ScrollBarWidget widget = (ScrollBarWidget) sysexWidget;
-            int base = getField("base", int.class, widget, ScrollBarWidget.class);
+            int base =
+                    getField("base", int.class, widget, ScrollBarWidget.class);
             handleDefaultIntParam(patchParams, valueMax, valueMin, name,
                     sender, paramModel, base);
         } else if (sysexWidget instanceof SpinnerWidget) {
@@ -401,13 +458,13 @@ public class XMLExtractor {
             EnvelopeWidget envWidget = (EnvelopeWidget) sysexWidget;
             handleEnvelope(patchParams, envWidget);
         } else {
-            log.warn("Could not handle widget "
+            LOG.warn("Could not handle widget "
                     + sysexWidget.getClass().getName());
         }
     }
 
     private PatchParams createNewGroup(String path) {
-        log.info("Creating group " + path);
+        LOG.info("Creating group " + path);
         String[] split = path.split("/");
         String tempPath = null;
         PatchParams parentGroup = null;
@@ -433,6 +490,7 @@ public class XMLExtractor {
         return paramGroup;
     }
 
+    @SuppressWarnings("unchecked")
     private void handlePatchName(PatchNameWidget widget,
             PatchParams patchParams, String name, ISender sender,
             IParamModel paramModel) throws IllegalAccessException,
@@ -449,7 +507,8 @@ public class XMLExtractor {
         stringParamSpec.setUuid(generateUuid());
         if (sender != null) {
             StringSenderSpec xmlSender = stringParamSpec.addNewStringSender();
-            xmlSender.setStringSenderClass(patchNameSender.getClass().getName());
+            xmlSender
+                    .setStringSenderClass(patchNameSender.getClass().getName());
             try {
                 Map<String, String> description =
                         BeanUtils.describe(patchNameSender);
@@ -462,9 +521,9 @@ public class XMLExtractor {
                     property.setValue(entry.getValue());
                 }
             } catch (InvocationTargetException e) {
-                log.warn(e.getMessage(), e);
+                LOG.warn(e.getMessage(), e);
             } catch (NoSuchMethodException e) {
-                log.warn(e.getMessage(), e);
+                LOG.warn(e.getMessage(), e);
             }
         }
     }
@@ -511,8 +570,8 @@ public class XMLExtractor {
     }
 
     void handleDefaultIntParam(PatchParams patchParams, int valueMax,
-            int valueMin, String name, ISender sender, IParamModel paramModel, int base)
-            throws IllegalAccessException, NoSuchFieldException {
+            int valueMin, String name, ISender sender, IParamModel paramModel,
+            int base) throws IllegalAccessException, NoSuchFieldException {
         IntParamSpec intParamSpec = patchParams.addNewIntParamSpec();
         intParamSpec.setMax(valueMax);
         intParamSpec.setMin(valueMin);
@@ -539,7 +598,7 @@ public class XMLExtractor {
         intParamSpec.setUuid(generateUuid());
         MidiSender midiSender = intParamSpec.addNewMidiSender();
         if (sender == null) {
-            log.warn("Found param w/o sender " + name);
+            LOG.warn("Found param w/o sender " + name);
         } else {
             setSender(midiSender, sender);
         }
@@ -576,11 +635,11 @@ public class XMLExtractor {
                     propertySpec.setValue(entry.getValue());
                 }
             } catch (IllegalAccessException e) {
-                log.warn(e.getMessage(), e);
+                LOG.warn(e.getMessage(), e);
             } catch (InvocationTargetException e) {
-                log.warn(e.getMessage(), e);
+                LOG.warn(e.getMessage(), e);
             } catch (NoSuchMethodException e) {
-                log.warn(e.getMessage(), e);
+                LOG.warn(e.getMessage(), e);
             }
         }
     }

@@ -1,13 +1,42 @@
 <xs:schema targetNamespace="http://www.jsynthlib.org/xmldevice" xmlns:jsl="http://www.jsynthlib.org/xmldevice" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
     <xs:element name="xmlDeviceSpec">
+        <xs:annotation>
+            <xs:documentation>
+                Base tag for device documents.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="manufacturer" type="xs:string" />
-                <xs:element name="modelName" type="xs:string" />
-                <xs:element name="inquiryId" type="xs:string" minOccurs="0" />
-                <xs:element name="infoText" type="xs:string" minOccurs="0" />
-                <xs:element name="authors" type="xs:string" />
+                <xs:element name="manufacturer" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>The company which made the Synthesizer. E.g. Roland or Yamaha.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="modelName" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>The fixed name of the model supported by this driver, as stated on the type plate of the engine. eg TG33/SY22</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="inquiryId" type="xs:string" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The response to the Universal Inquiry Message. It is a regular expression. It can be up to 16 bytes.
+                            Ex.
+                            <code>"F07E..0602413F01000000020000f7"</code>
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="infoText" type="xs:string" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Information about the Device. Displayed when the device is installed.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="authors" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Authors of the device driver.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="drivers" type="jsl:xmlDriverDefs" />
                 <xs:element name="preferenceDefs" type="jsl:preferenceDefs" minOccurs="0" />
             </xs:sequence>
@@ -15,22 +44,50 @@
     </xs:element>
 
     <xs:complexType name="preferenceDefs">
+        <xs:annotation>
+            <xs:documentation>
+                List of preferences associated with the device.
+                <br />
+                This list will generate a configuration window for the device in the JSL preferences window.
+            </xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="preferenceDef" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Device preference element.</xs:documentation>
+                </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="description" type="xs:string" />
+                        <xs:element name="description" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>This text will be displayed next to the preference widget.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
                         <xs:element name="values" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Optional list of string values the user can select among in a combo box.</xs:documentation>
+                            </xs:annotation>
                             <xs:complexType>
                                 <xs:sequence>
                                     <xs:element name="value" type="xs:string" maxOccurs="unbounded" />
                                 </xs:sequence>
                             </xs:complexType>
                         </xs:element>
-                        <xs:element name="defaultValue" type="xs:string" />
+                        <xs:element name="defaultValue" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>The default value of the preference.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
                     </xs:sequence>
-                    <xs:attribute name="name" type="xs:string" />
+                    <xs:attribute name="name" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>A name identifying the preference. This name is used as an id and don't have to be human readable but must be unique for the device.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
                     <xs:attribute name="type">
+                        <xs:annotation>
+                            <xs:documentation>Type of preference.</xs:documentation>
+                        </xs:annotation>
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
                                 <xs:enumeration value="STRING" />
@@ -46,12 +103,25 @@
 
 
     <xs:complexType name="xmlDriverDefs">
+        <xs:annotation>
+            <xs:documentation>List of drivers provided by this device.</xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="xmlDriverDef" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Descriptor for device drivers.</xs:documentation>
+                </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="driverClass" type="xs:string" />
+                        <xs:element name="driverClass" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Java class name for the driver.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
                         <xs:element name="driverType">
+                            <xs:annotation>
+                                <xs:documentation>Specifies whether this driver is a bank, converter or single driver</xs:documentation>
+                            </xs:annotation>
                             <xs:simpleType>
                                 <xs:restriction base="xs:string">
                                     <xs:enumeration value="Patch" />
@@ -67,44 +137,139 @@
     </xs:complexType>
 
     <xs:complexType name="xmlDriverSpec">
+        <xs:annotation>
+            <xs:documentation>Base element for driver XML documents. The properties below will automatically be injected to the driver if there is an appropriate setter method.</xs:documentation>
+        </xs:annotation>
         <xs:sequence>
-            <xs:element name="name" type="xs:string" />
-            <xs:element name="infoText" type="xs:string" minOccurs="0" />
-            <xs:element name="authors" type="xs:string" />
-            <xs:element name="patchType" type="xs:string" />
-            <xs:element name="patchSize" type="xs:int" />
-            <xs:element name="sysexID" type="xs:string" />
-            <xs:element name="patchNumbers" type="jsl:stringArray" />
-            <xs:element name="bankNumbers" type="jsl:stringArray" />
-            <xs:element name="deviceIDoffset" type="xs:int" />
-            <xs:element name="sysexRequestDumpString" type="xs:string" minOccurs="0" />
-            <xs:element name="checksumOffset" type="xs:int" />
-            <xs:element name="checksumStart" type="xs:int" />
-            <xs:element name="checksumEnd" type="xs:int" />
-            <xs:element name="patchNameStart" type="xs:int" />
-            <xs:element name="patchNameSize" type="xs:int" />
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Driver name.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="infoText" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Information about the driver. Displayed when new patches are created.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="authors" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>The names of the authors of this driver.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="patchType" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Type of driver describing the type of patch it handles. E.g. Voice, Drum etc.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="patchSize" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>The size of the patch this Driver supports (or 0 for variable).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sysexID" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The hex header that sysex files of the format this driver supports will have. The program will attempt to match loaded sysex drivers with the sysexID of a loaded driver. It can be up to 16 bytes and have wildcards (
+                        <code>*</code>
+                        ). (ex.
+                        <code>"F041**003F12"</code>
+                        )
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="patchNumbers" type="jsl:stringArray">
+                <xs:annotation>
+                    <xs:documentation>Array holding names/numbers for all patches. Used for comboBox selection.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="bankNumbers" type="jsl:stringArray">
+                <xs:annotation>
+                    <xs:documentation>Array holding names or numbers for all banks. Used for comboBox.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="deviceIDoffset" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Offset of deviceID in sysex.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sysexRequestDumpString" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Optional parameter - not used yet.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="checksumOffset" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Offset of checksum byte.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="checksumStart" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Start of range that Checksum covers.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="checksumEnd" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>End of range that Checksum covers.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="patchNameStart" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>The offset in the patch where the patchname starts. '0' if patch is not named -- remember all offsets are zero based.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="patchNameSize" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Number of characters in the patch name. (0 if no name)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="customProperties" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Custom properties that will be injected to the driver.</xs:documentation>
+                </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="customProperty" type="jsl:property" maxOccurs="unbounded" />
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="initPatch" type="xs:string" minOccurs="0" />
+            <xs:element name="initPatch" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>String of hex characters defining the default patch data.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
     <xs:element name="xmlBankDriverSpec">
+        <xs:annotation>
+            <xs:documentation>Root element for bank driver documents</xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:complexContent>
                 <xs:extension base="jsl:xmlDriverSpec">
                     <xs:sequence>
                         <xs:element name="trimSize" type="xs:int" minOccurs="0" />
                         <xs:element name="numSysexMsgs" type="xs:int" minOccurs="0" />
-                        <xs:element name="numPatches" type="xs:int" />
-                        <xs:element name="numColumns" type="xs:int" />
-                        <xs:element name="singleSize" type="xs:int" />
-                        <xs:element name="singleSysexID" type="xs:string" />
+                        <xs:element name="numPatches" type="xs:int">
+                            <xs:annotation>
+                                <xs:documentation>The Number of Patches the Bank holds.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="numColumns" type="xs:int">
+                            <xs:annotation>
+                                <xs:documentation>How many columns to use when displaying the patches as a table.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="singleSize" type="xs:int">
+                            <xs:annotation>
+                                <xs:documentation>Deprecated - is accessible directly from the single driver.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="singleSysexID" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Deprecated - is accessible directly from the single driver.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -112,6 +277,9 @@
     </xs:element>
 
     <xs:element name="xmlPatchDriverSpec">
+        <xs:annotation>
+            <xs:documentation>Root element for single driver documents</xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:complexContent>
                 <xs:extension base="jsl:xmlDriverSpec">
@@ -139,6 +307,9 @@
     </xs:complexType>
 
     <xs:complexType name="patchParams">
+        <xs:annotation>
+            <xs:documentation>List of driver parameters. This list shall match the controls in the editor.</xs:documentation>
+        </xs:annotation>
         <xs:choice maxOccurs="unbounded">
             <xs:element name="intParamSpec" type="jsl:intParamSpec" />
             <xs:element name="stringParamSpec" type="jsl:stringParamSpec" />
@@ -149,6 +320,9 @@
     </xs:complexType>
 
     <xs:complexType name="patchParamGroup">
+        <xs:annotation>
+            <xs:documentation>Group of editor parameters.</xs:documentation>
+        </xs:annotation>
         <xs:complexContent>
             <xs:extension base="jsl:patchParams">
                 <xs:attribute name="name" type="xs:string" />
@@ -158,16 +332,28 @@
 
     <xs:complexType name="patchParamSpec">
         <xs:sequence>
-            <xs:element name="uuid" type="xs:string" minOccurs="0" />
+            <xs:element name="uuid" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Unique identifier for the parameter. This string must be unique throughout all devices in JSL.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
-        <xs:attribute name="name" type="xs:string" />
+        <xs:attribute name="name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Parameter name.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="uuidPatchParamSpec">
         <xs:complexContent>
             <xs:restriction base="jsl:patchParamSpec">
                 <xs:sequence>
-                    <xs:element name="uuid" type="xs:string" minOccurs="1" />
+                    <xs:element name="uuid" type="xs:string" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Unique identifier for the parameter. This string must be unique throughout all devices in JSL.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:sequence>
             </xs:restriction>
         </xs:complexContent>
@@ -194,8 +380,16 @@
         <xs:complexContent>
             <xs:extension base="jsl:patchParamSpec">
                 <xs:sequence>
-                    <xs:element name="midiSender" type="jsl:midiSender" minOccurs="0" />
-                    <xs:element name="paramModel" type="jsl:paramModel" minOccurs="0" />
+                    <xs:element name="midiSender" type="jsl:midiSender" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>MIDI message sender.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="paramModel" type="jsl:paramModel" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Parameter Model for this control.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -205,14 +399,25 @@
         <xs:complexContent>
             <xs:extension base="jsl:uuidPatchParamSpec">
                 <xs:sequence>
-                    <xs:element name="midiSender" type="jsl:midiSender" minOccurs="0" />
-                    <xs:element name="paramModel" type="jsl:paramModel" minOccurs="0" />
+                    <xs:element name="midiSender" type="jsl:midiSender" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>MIDI message sender.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="paramModel" type="jsl:paramModel" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Parameter Model for this control.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="combinedGroup">
+        <xs:annotation>
+            <xs:documentation>Complex element only for advanced users.</xs:documentation>
+        </xs:annotation>
         <xs:complexContent>
             <xs:extension base="jsl:singleParamSpec">
                 <xs:sequence>
@@ -226,8 +431,16 @@
         <xs:complexContent>
             <xs:extension base="jsl:uuidPatchParamSpec">
                 <xs:sequence>
-                    <xs:element name="min" type="xs:int" />
-                    <xs:element name="max" type="xs:int" />
+                    <xs:element name="min" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>The minimum value.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="max" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>The maximum value.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                     <xs:element name="patchParamValues" type="jsl:patchParamValues" minOccurs="0" />
                     <xs:element name="base" type="xs:int" minOccurs="0" />
                     <xs:element name="leftShift" type="xs:int" minOccurs="0" />
@@ -240,8 +453,16 @@
         <xs:complexContent>
             <xs:extension base="jsl:singleParamSpec">
                 <xs:sequence>
-                    <xs:element name="min" type="xs:int" />
-                    <xs:element name="max" type="xs:int" />
+                    <xs:element name="min" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>The minimum value.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="max" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>The maximum value.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -251,7 +472,11 @@
         <xs:complexContent>
             <xs:extension base="jsl:envelopeParamSpec">
                 <xs:sequence>
-                    <xs:element name="invert" type="xs:boolean" />
+                    <xs:element name="invert" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Sometimes on an X-axis-riding attribute 0 is the fastest, other times it is the slowest. This allows you to choose.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -261,7 +486,19 @@
         <xs:complexContent>
             <xs:extension base="jsl:envelopeParamSpec">
                 <xs:sequence>
-                    <xs:element name="base" type="xs:int" />
+                    <xs:element name="base" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The value will be added to all Y values. This doesn't
+                                change the function of the EnvelopeWidget, but makes it
+                                look nicer and possibly be more intuitive to use.
+                                <br />
+                                Sometimes you don't want zero on a Y-axis-riding-parameter
+                                to be all the way down at the bottom. This gives it a
+                                little bit of rise.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -271,12 +508,32 @@
         <xs:complexContent>
             <xs:extension base="jsl:uuidSingleParamSpec">
                 <xs:sequence>
-                    <xs:element name="min" type="xs:int" />
-                    <xs:element name="max" type="xs:int" />
-                    <xs:element name="base" type="xs:int" minOccurs="0" />
+                    <xs:element name="min" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>The minimum value.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="max" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>The maximum value.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="base" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Base value. This value is added to the actual value for display purposes.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                     <xs:choice minOccurs="0">
-                        <xs:element name="patchParamValues" type="jsl:patchParamValues" />
-                        <xs:element name="patchParamResources" type="jsl:patchParamResources" />
+                        <xs:element name="patchParamValues" type="jsl:patchParamValues">
+                            <xs:annotation>
+                                <xs:documentation>List of strings that will be selectable in a combobox</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="patchParamResources" type="jsl:patchParamResources">
+                            <xs:annotation>
+                                <xs:documentation>List of image resource paths that will be listed or displayed next to the control.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
                     </xs:choice>
                 </xs:sequence>
             </xs:extension>
@@ -315,30 +572,62 @@
 
     <xs:complexType name="paramModel">
         <xs:sequence>
-            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>List of properties that will be injected during instance creation if the param model class provides appropriate setter methods.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
-        <xs:attribute name="modelClass" type="xs:string" />
+        <xs:attribute name="modelClass" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Full Java class qualified name</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="midiSender">
         <xs:sequence>
-            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>List of properties that will be injected during instance creation if the midi sender class provides appropriate setter methods.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
-        <xs:attribute name="senderClass" type="xs:string" />
+        <xs:attribute name="senderClass" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Full Java class qualified name</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
-    
+
     <xs:complexType name="stringSenderSpec">
         <xs:sequence>
-            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>List of properties that will be injected during instance creation if the midi sender class provides appropriate setter methods.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
-        <xs:attribute name="stringSenderClass" type="xs:string" />
+        <xs:attribute name="stringSenderClass" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Full Java class qualified name</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="stringModelSpec">
         <xs:sequence>
-            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="property" type="jsl:propertySpec" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>List of properties that will be injected during instance creation if the string model class provides appropriate setter methods.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
-        <xs:attribute name="stringModelClass" type="xs:string" />
+        <xs:attribute name="stringModelClass" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Full Java class qualified name</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
 
     <xs:complexType name="propertySpec">

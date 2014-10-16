@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd ..
+
 echo Create directories
 mkdir target/JSynthLib.app
 mkdir target/JSynthLib.app/Contents/

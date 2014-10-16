@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sourceforge.jsynthlib</groupId>
     <artifactId>jsynthlib</artifactId>
@@ -141,8 +140,7 @@
                                         <pathelement path="${compile_classpath}" />
                                     </classpath>
                                 </java>
-                                <copy file="${project.sourcedir}/resources/synthdrivers.properties"
-                                    todir="${project.build.outputDirectory}" />
+                                <copy file="${project.sourcedir}/resources/synthdrivers.properties" todir="${project.build.outputDirectory}" />
                             </target>
                         </configuration>
                         <goals>
@@ -161,6 +159,9 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -280,12 +281,15 @@
     </build>
     <profiles>
         <profile>
-            <id>windows</id>
+            <id>windows-exe</id>
             <activation>
                 <os>
                     <family>windows</family>
                 </os>
-                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>completeBuild</name>
+                    <value>true</value>
+                </property>
             </activation>
             <build>
                 <plugins>
@@ -302,12 +306,46 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <exec dir="." executable="cmd" resolveexecutable="true"
-                                            logerror="true">
+                                        <exec dir="." executable="cmd" resolveexecutable="true" logerror="true">
                                             <arg value="/c" />
-                                            <arg
-                                                value='windows_installer.bat ${project.version} &quot;${certificate-path}&quot; ${certificate-pass}' />
+                                            <arg value='windows_installer.bat ${project.version} &quot;${certificate-path}&quot; ${certificate-pass}' />
                                         </exec>
+                                    </target>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>docflex-xml</id>
+                                <phase>site</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target name="XSDDoc">
+                                        <!-- the location of the DocFlex/XML home directory -->
+                                        <property name="DFH" value="${docflex.path}" />
+                                        <!-- the DocFlex/XML Java class path -->
+                                        <property name="CP" value="${DFH}/lib/xml-apis.jar;${DFH}/lib/xercesImpl.jar;${DFH}/lib/resolver.jar;${DFH}/lib/docflex-xml.jar" />
+                                        <java classname="com.docflex.xml.Generator" classpath="${CP}" fork="true" maxmemory="512m">
+                                            <!-- All options you want to pass to the DocFlex/XML Generator should be specified here with the <arg> elements in the same order as on the command line. -->
+                                            <!-- the main template -->
+                                            <arg value="-template" />
+                                            <arg value="${DFH}/templates/XSDDoc/FramedDoc.tpl" />
+                                            <!-- pass the template parameter 'docTitle' (the documentation title) -->
+                                            <arg value="-p:docTitle" />
+                                            <arg value="XML Schema for XML Schemas" />
+                                            <!-- the output format -->
+                                            <arg value="-format" />
+                                            <arg value="HTML" />
+                                            <!-- the output directory -->
+                                            <arg value="-d" />
+                                            <arg value="${project.build.directory}/docflex-xml" />
+                                            <!-- do not launch the generator GUI -->
+                                            <arg value="-nodialog" />
+                                            <!-- do not launch the default viewer for the output file -->
+                                            <arg value="-launchviewer=false" />
+                                            <!-- Specify one or many data source XML files to be processed by the specified template. (Both local pathnames and URLs are allowed.) In this example, it is the XML schema to be documented. -->
+                                            <arg value="${basedir}/src/main/xsd/xmldevice.xsd" />
+                                        </java>
                                     </target>
                                 </configuration>
                             </execution>
@@ -315,13 +353,50 @@
                     </plugin>
                 </plugins>
             </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>2.10</version>
+                        <configuration>
+                            <configLocation>codeanalysis/checkstyle-template.xml</configLocation>
+                            <suppressionsLocation>codeanalysis/checkstyle-suppression.xml</suppressionsLocation>
+                            <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                        </configuration>
+                    </plugin>
+<!--                     <plugin> -->
+<!--                         <groupId>org.codehaus.mojo</groupId> -->
+<!--                         <artifactId>findbugs-maven-plugin</artifactId> -->
+<!--                         <version>2.5.2</version> -->
+<!--                         <configuration> -->
+<!--                             <excludeFilterFile>codeanalysis/findbugs-exclude.xml</excludeFilterFile> -->
+<!--                         </configuration> -->
+<!--                     </plugin> -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <configuration>
+                            <targetJdk>1.7</targetJdk>
+                            <rulesets>
+                                <ruleset>codeanalysis/pmd-template.xml</ruleset>
+                            </rulesets>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </reporting>
         </profile>
         <profile>
-            <id>macosx</id>
+            <id>macosx-dmg</id>
             <activation>
                 <os>
                     <family>mac</family>
                 </os>
+                <property>
+                    <name>completeMacBuild</name>
+                    <value>true</value>
+                </property>
             </activation>
             <build>
                 <plugins>
@@ -339,13 +414,11 @@
                                 <configuration>
                                     <target>
                                         <chmod file="${basedir}/macosx_installer.sh" perm="700" />
-                                        <exec dir="." executable="/bin/sh" resolveexecutable="true"
-                                            logerror="true">
+                                        <exec dir="." executable="/bin/sh" resolveexecutable="true" logerror="true">
                                             <arg value="-c" />
                                             <arg value="${basedir}/macosx_installer.sh ${project.version}" />
                                         </exec>
-                                        <copy file="JSynthLib-${project.version}-setup.exe"
-                                            tofile="${project.build.directory}/JSynthLib-${project.version}-setup.exe" />
+                                        <copy file="JSynthLib-${project.version}-setup.exe" tofile="${project.build.directory}/JSynthLib-${project.version}-setup.exe" />
                                     </target>
                                 </configuration>
                             </execution>
@@ -355,8 +428,7 @@
                                 <configuration>
                                     <target>
                                         <chmod file="${basedir}/sf_upload.sh" perm="700" />
-                                        <exec dir="." executable="/bin/sh" resolveexecutable="true"
-                                            logerror="true">
+                                        <exec dir="." executable="/bin/sh" resolveexecutable="true" logerror="true">
                                             <arg value="-c" />
                                             <arg value="${basedir}/sf_upload.sh ${project.version}" />
                                         </exec>
@@ -370,6 +442,14 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>macosx</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>com.locurasoft</groupId>
@@ -379,39 +459,6 @@
             </dependencies>
         </profile>
     </profiles>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.10</version>
-                <configuration>
-                    <configLocation>codeanalysis/checkstyle-template.xml</configLocation>
-                    <suppressionsLocation>codeanalysis/checkstyle-suppression.xml</suppressionsLocation>
-                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5.2</version>
-                <configuration>
-                    <excludeFilterFile>codeanalysis/findbugs-exclude.xml</excludeFilterFile>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <targetJdk>1.7</targetJdk>
-                    <rulesets>
-                        <ruleset>codeanalysis/pmd-template.xml</ruleset>
-                    </rulesets>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

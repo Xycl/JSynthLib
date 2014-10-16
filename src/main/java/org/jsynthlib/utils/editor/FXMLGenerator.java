@@ -1,11 +1,15 @@
 package org.jsynthlib.utils.editor;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
@@ -41,24 +45,87 @@ import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument;
 import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
 import org.jsynthlib.xmldevice.YEnvelopeParamSpec;
 
-/*
- * TODO: Add fx: in front of id attributes.
- */
 public class FXMLGenerator {
 
+    private static final String XMLNS =
+            "xmlns=\"http://javafx.com/javafx/2.2\" xmlns:fx=\"http://javafx.com/fxml/1\"";
     private static final int MAX_NUM_PARAMS_IN_GROUP = 20;
+    private static final Logger LOG = Logger.getLogger(FXMLGenerator.class);
+
+    static File createOutDir(String name) throws IOException {
+        File outDir = new File(name);
+        if (!outDir.exists()) {
+            boolean mkdir = outDir.mkdir();
+            if (!mkdir) {
+                throw new IOException("Failed to create " + name);
+            }
+        }
+        return outDir;
+    }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
         try {
-            String packageName = System.getProperty("packageName");
-            String fileNamePrefix = System.getProperty("fileNamePrefix");
-            FXMLGenerator editorGenerator = new FXMLGenerator(packageName, fileNamePrefix);
-            editorGenerator.generateClasses();
+            if (args.length == 1) {
+                File inputDir = new File(args[0]);
+                assert inputDir.isDirectory();
+
+                String[] list = inputDir.list(new FilenameFilter() {
+
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.endsWith("properties");
+                    }
+                });
+                if (list.length != 1) {
+                    throw new IllegalArgumentException(
+                            "Found more than one properties file in directory");
+                }
+                Properties properties = new Properties();
+                properties
+                        .load(new FileInputStream(new File(inputDir, list[0])));
+                String packageName = properties.getProperty("packageName");
+                for (Object o : properties.keySet()) {
+                    String key = (String) o;
+                    if (key.startsWith("driver")) {
+                        try {
+                            FXMLGenerator editorGenerator =
+                                    new FXMLGenerator(packageName,
+                                            properties.getProperty(key),
+                                            inputDir);
+                            editorGenerator.generateClasses();
+                        } catch (XmlException e) {
+                            LOG.info("Failed to create editor for driver "
+                                    + properties.getProperty(key)
+                                    + ". This is normal for bank drivers!");
+                        }
+                    }
+                }
+            } else {
+                String packageName = System.getProperty("packageName");
+                if (packageName == null) {
+                    packageName = args[0];
+                }
+                String fileNamePrefix = System.getProperty("fileNamePrefix");
+                if (fileNamePrefix == null) {
+                    fileNamePrefix = args[1];
+                }
+                String output = System.getProperty("output");
+                if (output == null) {
+                    output = args[2];
+                }
+                LOG.info("Generating " + packageName + " - " + fileNamePrefix
+                        + " into " + output);
+                File outDir = createOutDir(output);
+
+                FXMLGenerator editorGenerator =
+                        new FXMLGenerator(packageName, fileNamePrefix, outDir);
+                editorGenerator.generateClasses();
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.warn(e.getMessage(), e);
         }
     }
 
@@ -67,14 +134,17 @@ public class FXMLGenerator {
     private AnchorPaneDocument paneDocument;
     private AnchorPane anchorPane;
     private boolean driverDocEdited;
+    private final File outDir;
 
     /**
      * @param packageName
      * @param fileNamePrefix
+     * @param outDir
      */
-    public FXMLGenerator(String packageName, String fileNamePrefix) {
+    public FXMLGenerator(String packageName, String fileNamePrefix, File outDir) {
         this.packageName = packageName;
         this.fileNamePrefix = fileNamePrefix;
+        this.outDir = outDir;
     }
 
     void generateClasses() throws XmlException, IOException {
@@ -102,16 +172,12 @@ public class FXMLGenerator {
         generateParamsRecursive(flowPane, patchParams, "");
         XmlOptions options = new XmlOptions();
         options.setSavePrettyPrint();
-        // HashMap<String, String> substitutes = new HashMap<String, String>();
-        // substitutes.put("http://www.jsynthlib.org/fxml",
-        // "http://javafx.com/javafx/2.2");
-        // options.setLoadSubstituteNamespaces(substitutes);
         options.setUseDefaultNamespace();
-        // paneDocument.save(new File("output/test.fxml"), options);
+
         String xmlText = paneDocument.xmlText(options);
         String xml =
                 xmlText.replace("xmlns=\"http://www.jsynthlib.org/fxml\"",
-                        "xmlns=\"http://javafx.com/javafx/2.2\"");
+                        XMLNS);
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n")
                 .append("<?import java.lang.*?>\n")
@@ -121,27 +187,22 @@ public class FXMLGenerator {
                 .append("<?import javafx.scene.control.Slider?>\n")
                 .append("<?import javafx.scene.layout.*?>\n")
                 .append("<?import javafx.scene.layout.AnchorPane?>\n")
-                .append("<?import org.jsynthlib.device.view.*?>\n")
-                .append("<?scenebuilder-classpath-element ../../../../../../../target/classes?>\n")
-                .append("<?scenebuilder-stylesheet ../../../../application.css?>\n\n");
-        xml = xml.replace("TextField id=\"", "TextField fx:id=\"");
-        xml = xml.replace("Label id=\"", "Label fx:id=\"");
-        xml = xml.replace("ComboBox id=\"", "ComboBox fx:id=\"");
-        xml = xml.replace("Knob id=\"", "Knob fx:id=\"");
-        xml = xml.replace("Envelope id=\"", "Envelope fx:id=\"");
-//        xml = xml.replace(" id=\"", " fx:id=\"");
-//        xml = xml.replace(" id=\"", " fx:id=\"");
-//        xml = xml.replace(" id=\"", " fx:id=\"");
-//        xml = xml.replace(" id=\"", " fx:id=\"");
+                .append("<?import org.jsynthlib.device.view.*?>\n");
+        xml = xml.replace("fx-id", "fx:id");
         sb.append(xml);
         FileOutputStream fos =
-                new FileOutputStream(new File(fileNamePrefix + "Editor.fxml"));
+                new FileOutputStream(new File(outDir, fileNamePrefix
+                        + "Editor.fxml"));
         fos.write(sb.toString().getBytes());
         fos.flush();
         fos.close();
 
         if (driverDocEdited) {
-            document.save(new File(fileNamePrefix + "XmlUpdate.xml"));
+            LOG.warn("--------------------------------------------------");
+            LOG.warn("FXML Generator has updated the root XML document.");
+            LOG.warn("Saving it as " + fileNamePrefix + "XmlUpdate.xml");
+            LOG.warn("--------------------------------------------------");
+            document.save(new File(outDir, fileNamePrefix + "XmlUpdate.xml"));
         }
     }
 
@@ -239,15 +300,16 @@ public class FXMLGenerator {
                 generateParam(paramChildren, paramSpec.getName(),
                         paramSpec.getUuid(), textField, row, col);
             } else if (xmlObject instanceof EnvelopeSpec) {
-                 EnvelopeSpec envelopeSpec = (EnvelopeSpec) xmlObject;
-                 generateEnvelopeUuids(envelopeSpec);
-                 String uuid = envelopeSpec.getUuid();
-                 if (uuid == null || uuid.isEmpty()) {
-                     envelopeSpec.setUuid(generateUuid());
-                     driverDocEdited = true;
-                 }
-                 Envelope envelope = paramChildren.addNewEnvelope();
-                 generateParam(children, "", envelopeSpec.getUuid(), envelope, row, col);
+                EnvelopeSpec envelopeSpec = (EnvelopeSpec) xmlObject;
+                generateEnvelopeUuids(envelopeSpec);
+                String uuid = envelopeSpec.getUuid();
+                if (uuid == null || uuid.isEmpty()) {
+                    envelopeSpec.setUuid(generateUuid());
+                    driverDocEdited = true;
+                }
+                Envelope envelope = paramChildren.addNewEnvelope();
+                generateParam(children, "", envelopeSpec.getUuid(), envelope,
+                        row, col);
             } else if (xmlObject instanceof CombinedGroup) {
                 CombinedGroup combGroup = (CombinedGroup) xmlObject;
                 CombinedIntPatchParam[] paramArray = combGroup.getParamArray();
@@ -258,7 +320,8 @@ public class FXMLGenerator {
                         driverDocEdited = true;
                     }
 
-                    PatchParamValues paramValues = intPatchParam.getPatchParamValues();
+                    PatchParamValues paramValues =
+                            intPatchParam.getPatchParamValues();
                     if (paramValues == null) {
                         CheckBox cb = paramChildren.addNewCheckBox();
                         generateParam(paramChildren, intPatchParam.getName(),
@@ -280,7 +343,8 @@ public class FXMLGenerator {
     }
 
     void generateEnvelopeUuids(EnvelopeSpec envelopeSpec) {
-        EnvelopeNodeSpec[] envelopeNodeSpecs = envelopeSpec.getEnvelopeNodeSpecArray();
+        EnvelopeNodeSpec[] envelopeNodeSpecs =
+                envelopeSpec.getEnvelopeNodeSpecArray();
         for (EnvelopeNodeSpec envelopeNodeSpec : envelopeNodeSpecs) {
             XEnvelopeParamSpec xParam = envelopeNodeSpec.getXParam();
             String uuid = xParam.getUuid();
@@ -340,23 +404,16 @@ public class FXMLGenerator {
 
     protected void generateParam(Children children, String paramName,
             String uuid, Layoutable layoutable, int row, int col) {
-        // float x = 5 + col * X_OFFSET;
-        // float y = 5 + row * Y_OFFSET * 2;
-        layoutable.setId(uuid);
+        layoutable.setFxId(uuid);
         layoutable.setGridPaneColumnIndex(col);
         layoutable.setGridPaneRowIndex(row);
-        // layoutable.setLayoutX(x);
-        // layoutable.setLayoutY(y);
-        // float lblY = 5 + (row + 1) * Y_OFFSET * 2;
+
         Label label = children.addNewLabel();
         label.setPrefWidth((float) 100.0);
         label.setWrapText(true);
         label.setText(paramName);
-        label.setId("lbl" + uuid);
+        label.setFxId("lbl" + uuid);
         label.setAlignment(AlignmentType.CENTER);
-        // label.setTextAlignment(AlignmentType.CENTER);
-        // label.setLayoutX(x);
-        // label.setLayoutY(lblY);
         label.setGridPaneColumnIndex(col);
         label.setGridPaneRowIndex(row + 1);
     }
