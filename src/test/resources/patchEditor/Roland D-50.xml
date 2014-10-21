@@ -11082,7 +11082,7 @@
             <driv:xmlstores>
                 <driv:xmlstore>
                     <driv:bank>0-Internal</driv:bank>
-                    <driv:patch>I1-1</driv:patch>
+                    <driv:patch>1-1</driv:patch>
                     <driv:sysex />
                     <driv:xmlPopups>
                         <driv:xmlPopup>
@@ -11094,7 +11094,7 @@
                 </driv:xmlstore>
                 <driv:xmlstore>
                     <driv:bank>0-Internal</driv:bank>
-                    <driv:patch>I3-2</driv:patch>
+                    <driv:patch>3-2</driv:patch>
                     <driv:sysex />
                     <driv:xmlPopups>
                         <driv:xmlPopup>
@@ -11106,7 +11106,7 @@
                 </driv:xmlstore>
                 <driv:xmlstore>
                     <driv:bank>0-Internal</driv:bank>
-                    <driv:patch>I5-3</driv:patch>
+                    <driv:patch>5-3</driv:patch>
                     <driv:sysex />
                     <driv:xmlPopups>
                         <driv:xmlPopup>
@@ -11118,7 +11118,7 @@
                 </driv:xmlstore>
                 <driv:xmlstore>
                     <driv:bank>0-Internal</driv:bank>
-                    <driv:patch>I7-4</driv:patch>
+                    <driv:patch>7-4</driv:patch>
                     <driv:sysex />
                     <driv:xmlPopups>
                         <driv:xmlPopup>
@@ -11130,7 +11130,7 @@
                 </driv:xmlstore>
                 <driv:xmlstore>
                     <driv:bank>1-External</driv:bank>
-                    <driv:patch>I1-1</driv:patch>
+                    <driv:patch>1-1</driv:patch>
                     <driv:sysex />
                     <driv:xmlPopups>
                         <driv:xmlPopup>
@@ -11142,7 +11142,7 @@
                 </driv:xmlstore>
                 <driv:xmlstore>
                     <driv:bank>1-External</driv:bank>
-                    <driv:patch>I3-2</driv:patch>
+                    <driv:patch>3-2</driv:patch>
                     <driv:sysex />
                     <driv:xmlPopups>
                         <driv:xmlPopup>
@@ -11154,7 +11154,7 @@
                 </driv:xmlstore>
                 <driv:xmlstore>
                     <driv:bank>1-External</driv:bank>
-                    <driv:patch>I5-3</driv:patch>
+                    <driv:patch>5-3</driv:patch>
                     <driv:sysex />
                     <driv:xmlPopups>
                         <driv:xmlPopup>
@@ -11166,7 +11166,7 @@
                 </driv:xmlstore>
                 <driv:xmlstore>
                     <driv:bank>1-External</driv:bank>
-                    <driv:patch>I7-4</driv:patch>
+                    <driv:patch>7-4</driv:patch>
                     <driv:sysex />
                     <driv:xmlPopups>
                         <driv:xmlPopup>

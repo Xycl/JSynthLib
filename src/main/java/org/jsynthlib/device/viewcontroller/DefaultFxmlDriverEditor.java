@@ -213,6 +213,9 @@ public class DefaultFxmlDriverEditor extends AbstractDriverEditor {
         @Override
         public void changed(ObservableValue<? extends Boolean> arg0,
                 Boolean arg1, Boolean arg2) {
+            if (arg1.booleanValue() == arg2.booleanValue()) {
+                return;
+            }
             paramModel.setBit(intParamSpec.getLeftShift(), arg2.booleanValue());
             int value = paramModel.get();
             sender.send(driver, value);
@@ -409,6 +412,9 @@ public class DefaultFxmlDriverEditor extends AbstractDriverEditor {
         @Override
         public void changed(ObservableValue<? extends Number> arg0,
                 Number arg1, Number arg2) {
+            if (arg1.intValue() == arg2.intValue()) {
+                return;
+            }
             sender.send(driver, arg2.intValue());
             paramModel.set(arg2.intValue());
             if (imgView != null && images != null) {
@@ -435,6 +441,10 @@ public class DefaultFxmlDriverEditor extends AbstractDriverEditor {
             @Override
             public void changed(ObservableValue<? extends String> arg0,
                     String arg1, String arg2) {
+                if (arg1.equals(arg2)) {
+                    return;
+                }
+
                 int value = js.getItems().indexOf(arg2) + paramSpec.getBase();
                 if (sender != null) {
                     sender.send(driver, value);
@@ -459,6 +469,10 @@ public class DefaultFxmlDriverEditor extends AbstractDriverEditor {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0,
                     Boolean arg1, Boolean arg2) {
+                if (arg1.booleanValue() == arg2.booleanValue()) {
+                    return;
+                }
+
                 if (arg2.booleanValue()) {
                     sender.send(driver, paramSpec.getMax());
                     paramModel.set(paramSpec.getMax());
