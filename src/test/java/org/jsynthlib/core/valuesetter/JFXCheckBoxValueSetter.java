@@ -25,6 +25,10 @@ public class JFXCheckBoxValueSetter implements IValueSetter {
         }
         Selector<State> selector = dock.asSelectable().selector();
         selector.select(state);
+        try {
+            Thread.sleep(20);
+        } catch (InterruptedException e) {
+        }
     }
 
 }
