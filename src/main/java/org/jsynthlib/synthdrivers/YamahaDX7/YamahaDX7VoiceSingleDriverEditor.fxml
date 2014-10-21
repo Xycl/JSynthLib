@@ -44,11 +44,11 @@
                                         <Insets bottom="5.0" fx:id="x3" />
                                       </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46451" mnemonicParsing="false" text="Op 2" VBox.margin="$x3" />
-                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46452" mnemonicParsing="false" text="Op 3" VBox.margin="$x3" />
-                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46453" mnemonicParsing="false" text="Op 4" VBox.margin="$x3" />
-                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46454" mnemonicParsing="false" text="Op 5" VBox.margin="$x3" />
-                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46455" mnemonicParsing="false" text="Op 6" />
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46451" mnemonicParsing="false" text="OP 2" VBox.margin="$x3" />
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46452" mnemonicParsing="false" text="OP 3" VBox.margin="$x3" />
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46453" mnemonicParsing="false" text="OP 4" VBox.margin="$x3" />
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46454" mnemonicParsing="false" text="OP 5" VBox.margin="$x3" />
+                                    <CheckBox fx:id="3751c47df34f4b4e85710da6ddd46455" mnemonicParsing="false" text="OP 6" />
                                   </children>
                                   <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x2" />

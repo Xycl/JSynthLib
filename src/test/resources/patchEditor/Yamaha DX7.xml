@@ -8,7 +8,7 @@
             </driv:name>
             <driv:xmleditor>
                 <driv:name>Yamaha DX7 Single Voice Editor</driv:name>
-                <driv:numparams>107</driv:numparams>
+                <driv:numparams>113</driv:numparams>
                 <driv:xmlparams>
                     <driv:xmlparam>
                         <driv:label>/Common/Algorithm</driv:label>
@@ -45,6 +45,126 @@
                                     <driv:value>28</driv:value>
                                 </driv:xmlinput>
                                 <driv:sysex>F0431001061CF7;</driv:sysex>
+                            </driv:xmlmessage>
+                        </driv:xmlmessages>
+                    </driv:xmlparam>
+                    <driv:xmlparam>
+                        <driv:label>/Common/OP 1</driv:label>
+                        <driv:type>CheckBoxWidget</driv:type>
+                        <driv:min>0</driv:min>
+                        <driv:max>1</driv:max>
+                        <driv:xmlmessages>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>0</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BF1F7;F04310011BF0F7;</driv:sysex>
+                            </driv:xmlmessage>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>1</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BF1F7;</driv:sysex>
+                            </driv:xmlmessage>
+                        </driv:xmlmessages>
+                    </driv:xmlparam>
+                    <driv:xmlparam>
+                        <driv:label>/Common/OP 2</driv:label>
+                        <driv:type>CheckBoxWidget</driv:type>
+                        <driv:min>0</driv:min>
+                        <driv:max>1</driv:max>
+                        <driv:xmlmessages>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>0</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BF3F7;F04310011BF1F7;</driv:sysex>
+                            </driv:xmlmessage>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>1</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BF3F7;</driv:sysex>
+                            </driv:xmlmessage>
+                        </driv:xmlmessages>
+                    </driv:xmlparam>
+                    <driv:xmlparam>
+                        <driv:label>/Common/OP 3</driv:label>
+                        <driv:type>CheckBoxWidget</driv:type>
+                        <driv:min>0</driv:min>
+                        <driv:max>1</driv:max>
+                        <driv:xmlmessages>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>0</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BF7F7;F04310011BF3F7;</driv:sysex>
+                            </driv:xmlmessage>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>1</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BF7F7;</driv:sysex>
+                            </driv:xmlmessage>
+                        </driv:xmlmessages>
+                    </driv:xmlparam>
+                    <driv:xmlparam>
+                        <driv:label>/Common/OP 4</driv:label>
+                        <driv:type>CheckBoxWidget</driv:type>
+                        <driv:min>0</driv:min>
+                        <driv:max>1</driv:max>
+                        <driv:xmlmessages>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>0</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BFFF7;F04310011BF7F7;</driv:sysex>
+                            </driv:xmlmessage>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>1</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BFFF7;</driv:sysex>
+                            </driv:xmlmessage>
+                        </driv:xmlmessages>
+                    </driv:xmlparam>
+                    <driv:xmlparam>
+                        <driv:label>/Common/OP 5</driv:label>
+                        <driv:type>CheckBoxWidget</driv:type>
+                        <driv:min>0</driv:min>
+                        <driv:max>1</driv:max>
+                        <driv:xmlmessages>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>0</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BEFF7;</driv:sysex>
+                            </driv:xmlmessage>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>1</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BFFF7;</driv:sysex>
+                            </driv:xmlmessage>
+                        </driv:xmlmessages>
+                    </driv:xmlparam>
+                    <driv:xmlparam>
+                        <driv:label>/Common/OP 6</driv:label>
+                        <driv:type>CheckBoxWidget</driv:type>
+                        <driv:min>0</driv:min>
+                        <driv:max>1</driv:max>
+                        <driv:xmlmessages>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>0</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BDFF7;</driv:sysex>
+                            </driv:xmlmessage>
+                            <driv:xmlmessage>
+                                <driv:xmlinput>
+                                    <driv:value>1</driv:value>
+                                </driv:xmlinput>
+                                <driv:sysex>F04310011BFFF7;</driv:sysex>
                             </driv:xmlmessage>
                         </driv:xmlmessages>
                     </driv:xmlparam>
