@@ -22,6 +22,8 @@ package org.jsynthlib.test.adapter;
 
 import java.util.Iterator;
 
+import javafx.application.Platform;
+
 import org.jsynthlib.core.valuesetter.IValueSetter;
 import org.jsynthlib.device.model.AbstractEnvelopeParam;
 import org.jsynthlib.device.model.EnvelopeModel;
@@ -59,12 +61,19 @@ public class JFXEnvelopeValueSetter implements IValueSetter {
      * @see org.jsynthlib.core.valuesetter.IValueSetter#setValue(int)
      */
     @Override
-    public void setValue(int value) {
-        param.valueProperty().set(value);
+    public void setValue(final int value) {
+        Platform.runLater(new Runnable() {
+            
+            @Override
+            public void run() {
+                param.valueProperty().set(value);
+            }
+        });
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
         }
+
     }
 
 }
