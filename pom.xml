@@ -161,6 +161,7 @@
                         </goals>
                         <configuration>
                             <failOnError>false</failOnError>
+                            <excludePackageNames>org.jsynthlib.synthdrivers.*</excludePackageNames>
                         </configuration>
                     </execution>
                 </executions>
