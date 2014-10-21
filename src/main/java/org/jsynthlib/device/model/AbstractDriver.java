@@ -685,6 +685,10 @@ public abstract class AbstractDriver implements IDriver {
     @Override
     public void calculateChecksum(byte[] sysex, int start, int end, int ofs) {
         int sum = 0;
+        if (end < 0) {
+            end = sysex.length + end;
+        }
+
         for (int i = start; i <= end; i++) {
             sum += sysex[i];
         }
