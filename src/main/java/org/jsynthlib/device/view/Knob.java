@@ -1,5 +1,7 @@
 package org.jsynthlib.device.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
@@ -19,8 +21,22 @@ public class Knob extends Slider {
     private StackPane knobDot;
 
     public Knob() {
+        super();
         setSkin(new KnobSkin(this));
         initialize();
+
+        valueProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                if (isValueChanging()) {
+                    return;
+                } else {
+                    rotateKnob();
+                }
+            }
+        });
     }
 
     private void initialize() {
