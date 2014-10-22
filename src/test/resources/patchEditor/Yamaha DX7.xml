@@ -58,7 +58,7 @@
                                 <driv:xmlinput>
                                     <driv:value>0</driv:value>
                                 </driv:xmlinput>
-                                <driv:sysex>F04310011BF1F7;F04310011BF0F7;</driv:sysex>
+                                <driv:sysex>F04310011BF0F7;</driv:sysex>
                             </driv:xmlmessage>
                             <driv:xmlmessage>
                                 <driv:xmlinput>
@@ -78,7 +78,7 @@
                                 <driv:xmlinput>
                                     <driv:value>0</driv:value>
                                 </driv:xmlinput>
-                                <driv:sysex>F04310011BF3F7;F04310011BF1F7;</driv:sysex>
+                                <driv:sysex>F04310011BF1F7;</driv:sysex>
                             </driv:xmlmessage>
                             <driv:xmlmessage>
                                 <driv:xmlinput>
@@ -98,7 +98,7 @@
                                 <driv:xmlinput>
                                     <driv:value>0</driv:value>
                                 </driv:xmlinput>
-                                <driv:sysex>F04310011BF7F7;F04310011BF3F7;</driv:sysex>
+                                <driv:sysex>F04310011BF3F7;</driv:sysex>
                             </driv:xmlmessage>
                             <driv:xmlmessage>
                                 <driv:xmlinput>
@@ -118,7 +118,7 @@
                                 <driv:xmlinput>
                                     <driv:value>0</driv:value>
                                 </driv:xmlinput>
-                                <driv:sysex>F04310011BFFF7;F04310011BF7F7;</driv:sysex>
+                                <driv:sysex>F04310011BF7F7;</driv:sysex>
                             </driv:xmlmessage>
                             <driv:xmlmessage>
                                 <driv:xmlinput>

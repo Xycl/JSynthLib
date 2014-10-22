@@ -65,8 +65,11 @@ public class JFXCheckboxAdapter extends AbstractJFXWidgetAdapter {
                         }
                     }
                 });
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                }
             }
         };
     }
-
 }
