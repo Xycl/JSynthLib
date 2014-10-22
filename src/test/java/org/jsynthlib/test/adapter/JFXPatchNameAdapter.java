@@ -20,6 +20,7 @@
  */
 package org.jsynthlib.test.adapter;
 
+import javafx.application.Platform;
 import javafx.scene.control.TextField;
 
 import org.jemmy.fx.SceneDock;
@@ -58,16 +59,21 @@ public class JFXPatchNameAdapter extends AbstractJFXWidgetAdapter {
              * @see org.jsynthlib.core.valuesetter.IValueSetter#setValue(int)
              */
             @Override
-            public void setValue(int value) {
+            public void setValue(final int value) {
                 TextInputControlDock textDock =
                         new TextInputControlDock(scene.asParent(),
                                 textField.getId());
                 textDock.asSelectionText().clear();
                 textDock.type(VALUES[value]);
 
-                textField.textProperty().set(VALUES[value]);
+                Platform.runLater(new Runnable() {
 
-                scene.keyboard().pressKey(KeyboardButtons.TAB);
+                    @Override
+                    public void run() {
+                        textField.textProperty().set(VALUES[value]);
+                        scene.keyboard().pressKey(KeyboardButtons.TAB);
+                    }
+                });
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {

@@ -441,7 +441,7 @@ public class DefaultFxmlDriverEditor extends AbstractDriverEditor {
             @Override
             public void changed(ObservableValue<? extends String> arg0,
                     String arg1, String arg2) {
-                if (arg1.equals(arg2)) {
+                if (arg1 != null && arg1.equals(arg2)) {
                     return;
                 }
 

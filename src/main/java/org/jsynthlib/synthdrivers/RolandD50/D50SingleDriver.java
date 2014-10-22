@@ -32,27 +32,6 @@ import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
  */
 public class D50SingleDriver extends XMLPatchDriver {
 
-//    public D50SingleDriver() {
-//        super("Single", "Pascal Collberg");
-//        patchSize = D50Constants.PATCH_SIZE;
-//        sysexID = "F041**1412";
-//        patchNameStart = 392;
-//        patchNameSize = 18;
-//        deviceIDoffset = 2;
-//        checksumStart = D50Constants.SYSEX_HEADER_SIZE;
-//        checksumEnd = D50Constants.PATCH_SIZE - D50Constants.SYSEX_FOOTER_SIZE;
-//        checksumOffset = D50Constants.PATCH_SIZE - 2;
-//        bankNumbers = new String[] {
-//                "0-Internal", "1-External" };
-//        patchNumbers = new String[8 * 8];
-//    }
-//
-//    @Override
-//    public JSLFrame editPatch(Patch p) {
-//        return new D50SingleEditor(p);
-//    }
-
-
     public D50SingleDriver(XmlPatchDriverSpec xmlDriverSpec) {
         super(xmlDriverSpec);
     }

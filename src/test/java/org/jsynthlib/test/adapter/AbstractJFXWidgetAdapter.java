@@ -3,6 +3,7 @@ package org.jsynthlib.test.adapter;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -25,7 +26,8 @@ import org.jsynthlib.device.view.Envelope;
 
 public abstract class AbstractJFXWidgetAdapter extends WidgetAdapter {
 
-    private static final Logger LOG = Logger.getLogger(AbstractJFXWidgetAdapter.class);
+    private static final Logger LOG = Logger
+            .getLogger(AbstractJFXWidgetAdapter.class);
 
     private final Control control;
     private final SceneDock sceneDock;
@@ -46,11 +48,14 @@ public abstract class AbstractJFXWidgetAdapter extends WidgetAdapter {
         return getUniqueNameAndDisplayWidget(control, sceneDock);
     }
 
-    static String getUniqueNameAndDisplayWidget(Control control, SceneDock sceneDock) {
+    static String getUniqueNameAndDisplayWidget(Control control,
+            SceneDock sceneDock) {
         try {
-            ControlDisplayer controlDisplayer = new ControlDisplayer(sceneDock, control);
+            ControlDisplayer controlDisplayer =
+                    new ControlDisplayer(sceneDock, control);
             controlDisplayer.showWidget();
-            return "/" + controlDisplayer.getPath() + controlDisplayer.getName();
+            return "/" + controlDisplayer.getPath()
+                    + controlDisplayer.getName();
         } catch (TimeoutExpiredException e) {
             return control.getId();
         }
@@ -103,13 +108,21 @@ public abstract class AbstractJFXWidgetAdapter extends WidgetAdapter {
                 titleList.add(pane.textProperty().get());
             } else if (parent instanceof TabPane) {
                 TabPane pane = (TabPane) parent;
-                SingleSelectionModel<Tab> selectionModel = pane.getSelectionModel();
+                final SingleSelectionModel<Tab> selectionModel =
+                        pane.getSelectionModel();
                 ObservableList<Tab> tabs = pane.getTabs();
-                for (Tab tab : tabs) {
+                for (final Tab tab : tabs) {
                     Node node = tab.contentProperty().get();
                     if (node.equals(lastAnchorPane)) {
                         titleList.add(tab.getText());
-                        selectionModel.select(tab);
+                        Platform.runLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                selectionModel.select(tab);
+                            }
+                        });
+
                         break;
                     }
                 }

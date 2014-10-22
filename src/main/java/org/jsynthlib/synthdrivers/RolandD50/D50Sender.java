@@ -20,6 +20,8 @@
  */
 package org.jsynthlib.synthdrivers.RolandD50;
 
+import java.util.Arrays;
+
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 
@@ -40,7 +42,7 @@ public class D50Sender extends AbstractSender {
             (byte) 0xF7 };
     private static final int CS_START = D50Constants.SYSEX_HEADER_SIZE - 3;
     private static final int CS_END = BASE_MESSAGE.length
-            - D50Constants.SYSEX_FOOTER_SIZE;
+            - (D50Constants.SYSEX_FOOTER_SIZE + 1);
     private static final int CS_OFS = BASE_MESSAGE.length - 2;
     private final byte[] message;
 
