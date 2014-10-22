@@ -459,13 +459,13 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
             if (bank == null) {
                 bankEquals = xmlstore.getBank() == null;
             } else {
-                bankEquals = bank.equals(xmlstore.getBank());
+                bankEquals = bank.trim().equals(xmlstore.getBank());
             }
 
             if (patchNum == null) {
                 patchEquals = xmlstore.getPatch() == null;
             } else {
-                patchEquals = patchNum.equals(xmlstore.getPatch());
+                patchEquals = patchNum.trim().equals(xmlstore.getPatch());
             }
             if (bankEquals && patchEquals) {
                 return xmlstore;
