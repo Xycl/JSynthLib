@@ -208,7 +208,7 @@ public class TestDocumentHandler extends AbstractDocumentHandler {
         if (driver.getEditable()) {
             Xmleditor editor = driver.getXmleditor();
             assertEquals("Check " + driverName + " editor " + editorName,
-                    editor.getName(), editorName);
+                    editor.getName(), editorName.trim());
             XmlPopups editorPopups = editor.getXmlPopups();
             if (editorPopups == null) {
                 assertTrue("Check " + driverName + " no popup",
