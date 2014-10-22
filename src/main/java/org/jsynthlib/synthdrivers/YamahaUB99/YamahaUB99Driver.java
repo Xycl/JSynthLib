@@ -152,14 +152,6 @@ public class YamahaUB99Driver extends AbstractPatchDriver {
         sendThisPatch(p, 0x00, 0x03);
     }
 
-    @Override
-    public void calculateChecksum(Patch p) {
-    }
-
-    @Override
-    public void calculateChecksum(byte[] sysex, int start, int end, int offset) {
-    }
-
     public byte[] createNewPatchArray() {
         byte[] b = new byte[YamahaUB99Const.SINGLE_SIZE];
         b[1] = 47;
