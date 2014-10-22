@@ -53,29 +53,27 @@ public class KawaiK5000ADDSingleDriver extends AbstractPatchDriver {
 
     @Override
     public void storePatch(Patch p, int bankNum, int patchNum) {
-        setBankNum(bankNum);
-        setPatchNum(patchNum);
         try {
-            Thread.sleep(100);
-        } catch (Exception e) {
-        }
-        p.sysex[3] = (byte) 0x20;
-        p.sysex[8] = (byte) (patchNum);
-        if (bankNum == 0)
-         {
-            p.sysex[7] = 0; // bank a
-        }
-        if (bankNum == 3)
-         {
-            p.sysex[7] = 2; // bank d
-        }
+            setBankNum(bankNum);
+            setPatchNum(patchNum);
 
-        sendPatchWorker(p);
-        try {
             Thread.sleep(100);
-        } catch (Exception e) {
+
+            p.sysex[3] = (byte) 0x20;
+            p.sysex[8] = (byte) (patchNum);
+            if (bankNum < 3) {
+                p.sysex[7] = 0; // bank a, b, c
+            } else {
+                p.sysex[7] = 2; // bank d
+            }
+
+            sendPatchWorker(p);
+
+            Thread.sleep(100);
+
+            setPatchNum(patchNum);
+        } catch (InterruptedException e) {
         }
-        setPatchNum(patchNum);
     }
 
     @Override
@@ -123,9 +121,9 @@ public class KawaiK5000ADDSingleDriver extends AbstractPatchDriver {
      * sysex[0]=(byte)0xF0;
      * sysex[1]=(byte)0x40;sysex[2]=(byte)0x00;sysex[3]=(byte
      * )0x23;sysex[4]=(byte)0x00; sysex[5]=(byte)0x04;
-     * sysex[6]=(byte)0x0;sysex[139]=(byte)0xF7; Patch p = getPatchFactory().createNewPatch(sysex);
-     * p.ChooseDriver(); setPatchName(p,"New Patch"); calculateChecksum(p);
-     * return p; }
+     * sysex[6]=(byte)0x0;sysex[139]=(byte)0xF7; Patch p =
+     * getPatchFactory().createNewPatch(sysex); p.ChooseDriver();
+     * setPatchName(p,"New Patch"); calculateChecksum(p); return p; }
      */
 
     // ----- Start phil@muqus.com
