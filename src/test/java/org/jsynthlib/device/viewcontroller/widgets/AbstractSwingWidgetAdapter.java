@@ -133,6 +133,9 @@ public abstract class AbstractSwingWidgetAdapter extends WidgetAdapter {
     public int getMax() {
         return sysexWidget.getValueMax();
     }
-    
-    
+
+    @Override
+    public int getMin() {
+        return sysexWidget.getValueMin();
+    }
 }
