@@ -143,4 +143,6 @@ public interface AppConfig {
     boolean getMainWindowBounds(JFrame frame);
 
     void setMainWindowBounds(JFrame frame);
+
+    String getJSLVersion();
 }

@@ -20,6 +20,8 @@
  */
 package org.jsynthlib.core.impl;
 
+import java.io.IOException;
+import java.util.Properties;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -27,6 +29,7 @@ import javax.inject.Inject;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.AppConfig;
@@ -41,9 +44,13 @@ import org.jsynthlib.utils.AWTUtils;
  */
 public class AppConfigImpl implements AppConfig {
 
+    private static final String JSL_PROPS = "jsl.properties";
+
     private final transient Logger log = Logger.getLogger(getClass());
     private final Preferences preferences;
     private final MidiSettings midiSettings;
+
+    private final Properties properties;
 
     /* (non-Javadoc)
      * @see org.jsynthlib.core.AppConfig#savePrefs()
@@ -77,6 +84,15 @@ public class AppConfigImpl implements AppConfig {
         try {
             preferences.sync();
         } catch (BackingStoreException e) {
+            ErrorMsg.reportError("Could not load preferences.", e.getMessage());
+            log.warn(e.getMessage(), e);
+        }
+
+        properties = new Properties();
+        try {
+            properties.load(getClass().getResourceAsStream("/" + JSL_PROPS));
+        } catch (IOException e) {
+            ErrorMsg.reportError("Could not load core properties.", e.getMessage());
             log.warn(e.getMessage(), e);
         }
         setLookAndFeel(getLookAndFeel());
@@ -296,7 +312,17 @@ public class AppConfigImpl implements AppConfig {
                     break;
                 }
             }
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
+            ErrorMsg.reportError("Could not set look and feel", e.getMessage());
+            log.warn(e.getMessage(), e);
+        } catch (InstantiationException e) {
+            ErrorMsg.reportError("Could not set look and feel", e.getMessage());
+            log.warn(e.getMessage(), e);
+        } catch (IllegalAccessException e) {
+            ErrorMsg.reportError("Could not set look and feel", e.getMessage());
+            log.warn(e.getMessage(), e);
+        } catch (UnsupportedLookAndFeelException e) {
+            ErrorMsg.reportError("Could not set look and feel", e.getMessage());
             log.warn(e.getMessage(), e);
         }
     }
@@ -451,4 +477,8 @@ public class AppConfigImpl implements AppConfig {
         preferences.put("mainWindow", val);
     }
 
+    @Override
+    public String getJSLVersion() {
+        return properties.getProperty("jsl.version");
+    }
 }

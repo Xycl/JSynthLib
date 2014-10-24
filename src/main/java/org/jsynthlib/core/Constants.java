@@ -4,9 +4,7 @@ package org.jsynthlib.core;
  * This class provides application wide constants.
  * @author Zellyn Hunter (zellyn@zellyn.com)
  */
-public class Constants {
-    /** The application version string. */
-    public static final String VERSION = "0.21-alpha";
+public final class Constants {
 
     /** The file containing the application configuration. */
     public static final String APP_CONFIG_FILE_NAME = "JSynthLib.properties";

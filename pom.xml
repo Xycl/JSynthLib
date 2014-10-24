@@ -60,6 +60,7 @@
             </resource>
             <resource>
                 <directory>${project.sourcedir}/resources</directory>
+                <filtering>true</filtering>
             </resource>
             <resource>
                 <directory>${basedir}/doc</directory>

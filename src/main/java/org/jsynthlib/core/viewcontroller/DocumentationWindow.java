@@ -78,10 +78,6 @@ public class DocumentationWindow extends JDialog {
                 });
         try {
             jt.setContentType(contentType);
-            // FileInputStream in = new
-            // FileInputStream("doc/documentation.html");
-            // jt.read(in,(new HTMLEditorKit()).createDefaultDocument());//new
-            // HTMLDocument());
             if (url.startsWith("http:")) {
                     jt.setPage(new java.net.URL(url));
             } else {
@@ -100,18 +96,17 @@ public class DocumentationWindow extends JDialog {
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OKPressed();
+                okPressed();
             }
         });
         getContentPane().add(ok, BorderLayout.SOUTH);
         getRootPane().setDefaultButton(ok);
         setSize(500, 400);
 
-        // pane.getVerticalScrollBar().setValue(pane.getVerticalScrollBar().getMinimum());
         Utility.centerWindow(this);
     }
 
-    void OKPressed() {
+    void okPressed() {
         this.setVisible(false);
     }
 

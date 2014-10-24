@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.AppConfig;
-import org.jsynthlib.core.Constants;
 import org.jsynthlib.core.Utility;
 import org.jsynthlib.core.viewcontroller.Actions;
 import org.jsynthlib.core.viewcontroller.WaitDialog;
@@ -43,7 +42,8 @@ public final class PatchEdit {
             @Assisted final int debugLevel, MidiSettings midiSettings,
             AppConfig appConfig, DeviceManager deviceManager,
             MasterKeyboardService masterKeyboardService) {
-        LOG.info("JSynthLib: " + Constants.VERSION + ", Java: "
+        String jslVersion = appConfig.getJSLVersion();
+        LOG.info("JSynthLib: " + jslVersion + ", Java: "
                 + Utility.getJavaVersion() + ", OS: " + Utility.getOSName()
                 + ", " + Utility.getOSVersion());
 
@@ -87,7 +87,7 @@ public final class PatchEdit {
         // Set up the GUI.
         JSLDesktop.Factory
                 .setGUIMode(appConfig.getGuiStyle() == AppConfig.GUI_MDI);
-        desktop = JSLDesktop.Factory.createDesktop("JSynthLib");
+        desktop = JSLDesktop.Factory.createDesktop("JSynthLib - " + jslVersion);
 
         // Show dialog for the 1st invokation.
         // This is no longer normal. Maybe we shouldn't save prefs if this
