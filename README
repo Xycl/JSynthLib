@@ -1,0 +1,10 @@
+JSynthLib
+
+JSynthLib is a universal MIDI synthesizer librarian / editor. 
+The project aims to eventually support all existing synthesizers.
+
+For more elaborate documentation please visit http://jsynthlib.sourceforge.net/
+
+Development setup:
+
+https://sourceforge.net/p/jsynthlib/wiki/Programmer%27s%20Guide/#setup-ide
