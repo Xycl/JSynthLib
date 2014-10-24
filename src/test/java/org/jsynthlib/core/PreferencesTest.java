@@ -88,6 +88,7 @@ public class PreferencesTest {
         Assume.assumeTrue(OsUtil.isWindows());
         FailOnThreadViolationRepaintManager.install();
         GuiActionRunner.execute(new GuiQuery<PatchEdit>() {
+            @Override
             protected PatchEdit executeInEDT() {
                 PatchEditFactory patchEditFactory =
                         JSynthLibInjector.getInstance(PatchEditFactory.class);
@@ -101,6 +102,8 @@ public class PreferencesTest {
     private GuiHandler guiHandler;
     private SingletonMidiDeviceProvider midiDeviceProvider;
 
+    private DialogFixture fixture;
+
     @Before
     public void setUp() throws Exception {
         testFrame = new FrameFixture(PatchEdit.getInstance());
@@ -112,6 +115,10 @@ public class PreferencesTest {
 
     @After
     public void tearDown() throws Exception {
+        if (fixture != null) {
+            guiHandler.closeDialog(fixture);
+            fixture = null;
+        }
         guiHandler.uninstallDevice(null);
         testFrame.cleanUp();
     }
@@ -184,32 +191,32 @@ public class PreferencesTest {
 
     @Test
     public void testLicense() {
-        DialogFixture fixture = guiHandler.openDialog("License");
+        fixture = guiHandler.openDialog("License");
         Dialog dialog = fixture.target;
         String title = dialog.getTitle();
         assertEquals("JSynthLib Documentation Viewer", title);
         JTextComponentFixture textBoxFixture = fixture.textBox();
         assertTrue(textBoxFixture.target.getText().contains(
                 "GNU GENERAL PUBLIC LICENSE"));
-        guiHandler.closeDialog(fixture);
     }
 
     @Test
     public void testHelp() throws BadLocationException {
-        DialogFixture fixture = guiHandler.openHelpDialog();
+        fixture = guiHandler.openHelpDialog();
         Dialog dialog = fixture.target;
         String title = dialog.getTitle();
         assertEquals("JSynthLib Documentation Viewer", title);
         JTextComponentFixture textBoxFixture = fixture.textBox();
         Document document = textBoxFixture.target.getDocument();
-        assertTrue(document.getText(0, document.getLength()).contains(
-                "JSynthLib runs under Windows, GNU/Linux, and Mac OS X."));
-        guiHandler.closeDialog(fixture);
+        String text = document.getText(0, document.getLength());
+        log.info("Help text: '" + text + "'");
+        assertTrue(text.contains(
+                "The Main Windows"));
     }
 
     @Test
     public void testAbout() {
-        DialogFixture fixture = guiHandler.openDialog("About");
+        fixture = guiHandler.openDialog("About");
         Dialog dialog = fixture.target;
         String title = dialog.getTitle();
         assertEquals("About JSynthLib", title);
@@ -242,14 +249,14 @@ public class PreferencesTest {
             }
         });
         assertNotNull(label);
-        guiHandler.closeDialog(fixture);
     }
 
     @Test
     public void testPlayNote() throws Exception {
+        guiHandler.setTestMidiDevices();
         guiHandler.installDevice("Roland", "Roland D-50");
 
-        DialogFixture fixture = guiHandler.openPreferencesDialog();
+        fixture = guiHandler.openPreferencesDialog();
 
         JTabbedPaneFixture tabbedPane = fixture.tabbedPane();
         tabbedPane.selectTab("Play Note");
@@ -325,7 +332,7 @@ public class PreferencesTest {
         guiHandler.setTestMidiDevices();
         guiHandler.installDevice("Waldorf", "Waldorf Pulse/Pulse+");
 
-        DialogFixture fixture = guiHandler.openPreferencesDialog();
+        fixture = guiHandler.openPreferencesDialog();
 
         JTabbedPaneFixture tabbedPane = fixture.tabbedPane();
         tabbedPane.selectTab("Fader Box");

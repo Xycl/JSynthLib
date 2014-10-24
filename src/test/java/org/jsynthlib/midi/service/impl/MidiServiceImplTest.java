@@ -1,12 +1,17 @@
 package org.jsynthlib.midi.service.impl;
 
-import static org.junit.Assert.*;
-import static org.easymock.EasyMock.*;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiDevice.Info;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Transmitter;
-import javax.sound.midi.MidiDevice.Info;
 
 import org.easymock.internal.MockBuilder;
 import org.jsynthlib.core.AppConfig;
@@ -34,7 +39,6 @@ public class MidiServiceImplTest {
         MockBuilder<MidiServiceImpl> mockBuilder = new MockBuilder<>(MidiServiceImpl.class);
         mockBuilder.addMockedMethod("getInputMidiDevice", int.class);
         mockBuilder.addMockedMethod("getOutputMidiDevice", int.class);
-//        mockBuilder.withConstructor(MidiSettings.class, MidiMonitorService.class, AppConfig.class);
         mockBuilder.withConstructor(midiSettingsMock, midiMonitorServiceMock, appConfigMock);
         tested = mockBuilder.createMock();
         transmitterMock = createMock(Transmitter.class);
@@ -118,21 +122,34 @@ public class MidiServiceImplTest {
 
         replayAll();
 
-        assertTrue(tested.getMidiDeviceReferenceMap().isEmpty());
+        boolean empty = tested.getMidiDeviceReferenceMap().isEmpty();
+        assertTrue("Reference map is empty at start", empty);
         Transmitter transmitter = tested.getTransmitter(transmitterName);
-        assertEquals(2, tested.getMidiDeviceReferenceMap().size());
-        assertEquals(1, tested.getMidiTransmitterMap().size());
-        assertEquals(transmitterMock, tested.getMidiTransmitterMap().get(transmitterName));
+
+        int deviceSize = tested.getMidiDeviceReferenceMap().size();
+        assertEquals("Device size", 2, deviceSize);
+
+        int txSize = tested.getMidiTransmitterMap().size();
+        assertEquals("TX size", 1, txSize);
+
+        String txResult = tested.getMidiTransmitterMap().get(transmitter);
+        assertEquals(transmitterName, txResult);
 
         tested.getTransmitter(transmitterName);
-        assertEquals(2, tested.getMidiDeviceReferenceMap().size());
+
+        deviceSize = tested.getMidiDeviceReferenceMap().size();
+        assertEquals(2, deviceSize);
+
+        txSize = tested.getMidiTransmitterMap().size();
         assertEquals(1, tested.getMidiTransmitterMap().size());
-        assertEquals(transmitterMock, tested.getMidiTransmitterMap().get(transmitterName));
+
+        txResult = tested.getMidiTransmitterMap().get(transmitter);
+        assertEquals(transmitterName, txResult);
 
         tested.releaseTransmitter(transmitter);
         assertEquals(2, tested.getMidiDeviceReferenceMap().size());
         assertEquals(1, tested.getMidiTransmitterMap().size());
-        assertEquals(transmitterMock, tested.getMidiTransmitterMap().get(transmitterName));
+        assertEquals(transmitterName, tested.getMidiTransmitterMap().get(transmitter));
 
         tested.releaseTransmitter(transmitter);
         assertTrue(tested.getMidiDeviceReferenceMap().isEmpty());

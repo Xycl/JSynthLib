@@ -84,7 +84,7 @@ public class PatchLoadingTest {
     public static Collection<Object[]> data() {
         return PatchEditorTest.data();
     }
-    
+
     private FrameFixture testFrame;
     private GuiHandler guiHandler;
     private AbstractPatchHandler documentHandler;

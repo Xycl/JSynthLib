@@ -20,18 +20,10 @@
  */
 package org.jsynthlib.test.adapter;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.InputStream;
-import java.util.ArrayList;
-
 import org.apache.xmlbeans.XmlObject;
-import org.apache.xmlbeans.XmlOptions;
-import org.jsynthlib.xmldevice.IntParamSpec;
-import org.jsynthlib.xmldevice.PatchParams;
 import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument;
 import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
 import org.junit.Test;
@@ -56,20 +48,6 @@ public class WidgetAdapterProviderTest {
                 tested.getXmlObjectById(xmlDriverSpec,
                         "e554b5523e2e4eaaa8310be499f28175");
         assertNotNull(result);
-
-        XmlOptions xmlOptions = new XmlOptions();
-        ArrayList list = new ArrayList();
-        xmlOptions.setErrorListener(list);
-        String xmlText = result.xmlText();
-        PatchParams patchParams =
-                PatchParams.Factory.parse(xmlText, xmlOptions);
-
-        boolean validate = patchParams.validate(xmlOptions);
-        assertTrue(validate);
-
-        IntParamSpec[] intParamSpecArray = patchParams.getIntParamSpecArray();
-        IntParamSpec intParamSpec = intParamSpecArray[0];
-        assertEquals(100, intParamSpec.getMax());
 
         result =
                 tested.getXmlObjectById(xmlDriverSpec,

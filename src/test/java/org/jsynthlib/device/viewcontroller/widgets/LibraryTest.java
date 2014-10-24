@@ -89,6 +89,7 @@ public class LibraryTest {
         Assume.assumeTrue(OsUtil.isWindows());
         FailOnThreadViolationRepaintManager.install();
         GuiActionRunner.execute(new GuiQuery<PatchEdit>() {
+            @Override
             protected PatchEdit executeInEDT() {
                 PatchEditFactory patchEditFactory =
                         JSynthLibInjector.getInstance(PatchEditFactory.class);
@@ -268,7 +269,7 @@ public class LibraryTest {
 
         guiHandler.saveLibrary(patchTestFolder, "testSaveAndOpenLibrary");
 
-        assertTrue("Patchlib exists", patchlib.exists());
+        assertTrue("Assert patchlib exists", patchlib.exists());
         assertTrue("Patchlib is file", patchlib.isFile());
         assertTrue("XML exists", xml.exists());
         assertTrue("XML is file", xml.isFile());

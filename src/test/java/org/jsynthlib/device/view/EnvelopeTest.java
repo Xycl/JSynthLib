@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import org.jemmy.Point;
 import org.jemmy.fx.AppExecutor;
 import org.jemmy.fx.NodeDock;
 import org.jemmy.fx.SceneDock;
@@ -23,6 +24,7 @@ import org.junit.Test;
 
 public class EnvelopeTest {
 
+    private static final int MOUSE_TIMEOUT = 10;
     private static TestApplication application;
 
     @BeforeClass
@@ -39,22 +41,44 @@ public class EnvelopeTest {
     }
 
     @Test
-    public void test() throws Exception {
+    public void testJFXEnvelopeMove() throws Exception {
         SceneDock scene = new SceneDock();
         NodeDock envelope = new NodeDock(scene.asParent(), Envelope.class);
 
-//        Point start = new Point(47, 290);
-//        Point end = new Point(47, 200);
-//        Mouse mouse = envelope.mouse();
-//        mouse.move(start);
-//        Thread.sleep(1000);
-//        mouse.press();
-//        mouse.move(end);
-//        Thread.sleep(1000);
-//        mouse.release();
+        double y = 110;
+        Point start = new Point(25, y);
+        scene.mouse().move(scene.wrap().toLocal(envelope.wrap().toAbsolute(start)));
 
-        Thread.sleep(60000);
-        assertEquals(20, application.node1X.valueProperty().get());
+        scene.mouse().press();
+        Thread.sleep(MOUSE_TIMEOUT);
+
+        Point end = null;
+        for (int i = 0; i < 100; i++) {
+            end = new Point(25, y - i * 0.25);
+            Thread.sleep(MOUSE_TIMEOUT);
+            scene.mouse().move(scene.wrap().toLocal(envelope.wrap().toAbsolute(end)));
+        }
+        scene.mouse().release();
+
+        start = new Point(25, 90);
+        Thread.sleep(MOUSE_TIMEOUT);
+        scene.mouse().move(scene.wrap().toLocal(envelope.wrap().toAbsolute(start)));
+        Thread.sleep(MOUSE_TIMEOUT);
+
+        scene.mouse().press();
+        Thread.sleep(MOUSE_TIMEOUT);
+
+        y = end.getY();
+        for (int i = 0; i < 100; i++) {
+            end = new Point(25 + i * 0.25, y);
+            Thread.sleep(MOUSE_TIMEOUT);
+            scene.mouse().move(scene.wrap().toLocal(envelope.wrap().toAbsolute(end)));
+        }
+        scene.mouse().release();
+
+
+        assertEquals(40, application.node2X.valueProperty().get());
+        assertEquals(43, application.node2Y.valueProperty().get());
     }
 
     public static class TestApplication extends Application {

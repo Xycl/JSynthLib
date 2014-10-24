@@ -331,7 +331,10 @@ public class GuiHandler {
     }
 
     public void closeDialog(DialogFixture dialog) {
-        new CloseDialogAction(testFrame, dialog).perform();
+        if (dialog != null && dialog.target.isShowing()) {
+            new CloseDialogAction(testFrame, dialog).perform();
+        }
+
     }
 
     public void closeFrame(FrameWrapper fixture, boolean save) {

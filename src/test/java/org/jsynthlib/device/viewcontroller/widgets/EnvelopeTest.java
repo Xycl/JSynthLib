@@ -3,6 +3,7 @@ package org.jsynthlib.device.viewcontroller.widgets;
 import static org.junit.Assert.*;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import org.jsynthlib.device.model.DefaultEnvelopeModel;
 import org.jsynthlib.device.model.EnvelopeNode;
@@ -20,17 +21,23 @@ public class EnvelopeTest {
 
     @Before
     public void setUp() throws Exception {
-        envelope = new Envelope();
-        EnvelopeNode[] nodes =
-                {
-                        new EnvelopeNode(new EnvelopeXParam(0, 100, "Param1X",
-                                false), new EnvelopeYParam(0, 0, "Param1Y", 0)),
-                        new EnvelopeNode(new EnvelopeXParam(0, 100, "Param2X",
-                                true), new EnvelopeYParam(0, 0, "Param2Y", 10)) };
-        model = new DefaultEnvelopeModel(nodes);
-        envelope.setModel(model);
-        envelopeCanvas = envelope.getEnvelopeCanvas();
-        envelopeCanvas.setSize(100, 100);
+        SwingUtilities.invokeAndWait(new Runnable() {
+
+            @Override
+            public void run() {
+                envelope = new Envelope();
+                EnvelopeNode[] nodes =
+                        {
+                                new EnvelopeNode(new EnvelopeXParam(0, 100, "Param1X",
+                                        false), new EnvelopeYParam(0, 0, "Param1Y", 0)),
+                                new EnvelopeNode(new EnvelopeXParam(0, 100, "Param2X",
+                                        true), new EnvelopeYParam(0, 0, "Param2Y", 10)) };
+                model = new DefaultEnvelopeModel(nodes);
+                envelope.setModel(model);
+                envelopeCanvas = envelope.getEnvelopeCanvas();
+                envelopeCanvas.setSize(100, 100);
+            }
+        });
         Thread.sleep(100);
     }
 

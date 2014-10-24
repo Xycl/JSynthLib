@@ -24,10 +24,11 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
     private static final Info[] INFOS = {
             new TestDeviceInfo(true), new TestDeviceInfo(false) };
 
-    private static final SingletonMidiDeviceProvider instance = new SingletonMidiDeviceProvider();
+    private static final SingletonMidiDeviceProvider INSTANCE =
+            new SingletonMidiDeviceProvider();
 
     public static SingletonMidiDeviceProvider getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     private final transient Logger log = Logger.getLogger(getClass());
@@ -37,7 +38,7 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
     private final Lock lock;
 
     private final Map<MidiDevice.Info, MidiDevice> deviceMap;
-    
+
     private final List<MidiRecordSession> sessions;
 
     public SingletonMidiDeviceProvider() {
@@ -61,16 +62,16 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
         }
         return null;
     }
-    
+
     public static class MidiRecordSession {
         private final StringBuilder sb = new StringBuilder();
-        
+
         void onMidiInput(String midi) {
             sb.append(midi);
             sb.append(";");
 
         }
-        
+
         public String getString() {
             return sb.toString();
         }
@@ -80,7 +81,7 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
     public Info[] getDeviceInfo() {
         return INFOS;
     }
-    
+
     public MidiRecordSession openSession() {
         try {
             lock.lock();
@@ -91,7 +92,7 @@ public class SingletonMidiDeviceProvider extends MidiDeviceProvider {
             lock.unlock();
         }
     }
-    
+
     public String closeSession(MidiRecordSession session) {
         try {
             lock.lock();

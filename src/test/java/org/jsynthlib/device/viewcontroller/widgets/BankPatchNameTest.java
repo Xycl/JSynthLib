@@ -79,7 +79,7 @@ public class BankPatchNameTest {
 
     private FrameFixture testFrame;
     private GuiHandler guiHandler;
-    private String xmlFile;
+    private final String xmlFile;
 
     public BankPatchNameTest(String xmlFile) {
         this.xmlFile = xmlFile;
