@@ -97,9 +97,10 @@ public class CloseAllEditorPopupsAction extends AbstractGuiAction {
                                     && component.isShowing();
                         }
                     });
-            closeDialog(dialog);
 
             list.add(getPopupContents(dialog));
+            closeDialog(dialog);
+
             handler.onPopup(dialog.target.getTitle());
         } catch (Exception e) {
         }

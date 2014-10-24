@@ -69,13 +69,7 @@ public class YamahaDX7VoiceBankDriver extends DX7FamilyXmlVoiceBankDriver {
         }
 
         sendPatchWorker(p);
-
-        if (isTipsMsg()) {
-            // show Information
-            YamahaDX7Strings.dxShowInformation(toString(),
-                    YamahaDX7Strings.STORE_SINGLE_VOICE_STRING);
-        }
-    };
+    }
 
     @Override
     public void requestPatchDump(int bankNum, int patchNum) {

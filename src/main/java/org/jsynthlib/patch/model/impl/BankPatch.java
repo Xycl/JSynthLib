@@ -53,10 +53,6 @@ public class BankPatch extends Patch {
     }
 
     // Patch methods
-    @Override
-    public String getPatchHeader() {
-        return getDriverIdentifier().getPatchHeader(mPatches[0].getByteArray());
-    }
 
     public byte[] updateSysex() {
         int i, j, l = 0;
@@ -83,10 +79,6 @@ public class BankPatch extends Patch {
         return l;
     }
 
-    @Override
-    public void useSysexFromPatch(Patch ip) {
-        throw new IllegalArgumentException();
-    }
 
     public void putSingle(Patch singlePatch, int patchNum) {
         mPatches[patchNum] = singlePatch;

@@ -158,7 +158,7 @@ public class MidiSettings {
                 return i;
             }
         }
-        return -1;
+        throw new IllegalArgumentException("Could not find out port named " + info);
     }
 
     public int getInPort(String info) {
@@ -167,7 +167,7 @@ public class MidiSettings {
                 return i;
             }
         }
-        return -1;
+        throw new IllegalArgumentException("Could not find out port named " + info);
     }
 
     public boolean isOutputAvailable() {
