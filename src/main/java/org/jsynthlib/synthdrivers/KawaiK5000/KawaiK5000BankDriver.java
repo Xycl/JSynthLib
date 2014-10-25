@@ -337,12 +337,7 @@ public class KawaiK5000BankDriver extends AbstractBankDriver {
 
     @Override
     public void storePatch(Patch p, int bankNum, int patchNum) {
-        if (bankNum == 0) {
-            p.sysex[7] = 0; // bank a
-        }
-        if (bankNum == 3) {
-            p.sysex[7] = 2; // bank d
-        }
+        p.sysex[7] = (byte) ((bankNum % 2) * 2);
         PatchEdit.showWaitDialog();
         setBankNum(bankNum);
         sendPatchWorker(p);

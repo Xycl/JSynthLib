@@ -68,13 +68,15 @@ import org.jsynthlib.synthdrivers.RolandD50.D50SingleDriver;
 import org.jsynthlib.synthdrivers.YamahaDX7.YamahaDX7VoiceBankDriver;
 import org.jsynthlib.synthdrivers.YamahaDX7.YamahaDX7VoiceSingleDriver;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class LibraryTest {
 
-    private final transient Logger log = Logger.getLogger(getClass());
+    private static final Logger LOG = Logger.getLogger(LibraryTest.class);
 
     private final IPopupListener listener = new IPopupListener() {
 
@@ -83,7 +85,7 @@ public class LibraryTest {
         }
     };
 
-    private File patchTestFolder;
+    private static File patchTestFolder;
 
     {
         Assume.assumeTrue(OsUtil.isWindows());
@@ -97,18 +99,25 @@ public class LibraryTest {
                         .newPatchEdit(new ArrayList<String>(), 2);
             }
         });
-        patchTestFolder = new File("patchTestFolder");
-        patchTestFolder.mkdir();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        FileUtils.deleteDirectory(patchTestFolder);
-        super.finalize();
     }
 
     private FrameFixture testFrame;
     private GuiHandler guiHandler;
+
+    @BeforeClass
+    public static void setupBeforeClass() {
+        patchTestFolder = new File("patchTestFolder");
+        patchTestFolder.mkdir();
+    }
+
+    @AfterClass
+    public static void tearDownAfterClass() {
+        try {
+            FileUtils.deleteDirectory(patchTestFolder);
+        } catch (IOException e) {
+            LOG.warn(e.getMessage(), e);
+        }
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -222,11 +231,11 @@ public class LibraryTest {
         }
 
         if (patchEditor != null) {
-            log.info("Close patch editor frame");
+            LOG.info("Close patch editor frame");
             guiHandler.closeFrame(patchEditor, true);
         }
         if (library != null) {
-            log.info("Selecting library frame");
+            LOG.info("Selecting library frame");
             guiHandler.selectLibraryFrame(library);
         }
 
@@ -249,6 +258,9 @@ public class LibraryTest {
                 new File(patchTestFolder, "testSaveAndOpenLibrary.patchlib");
         File xml =
                 new File(patchTestFolder, "testSaveAndOpenLibrary.patchlib.xml");
+
+        assertTrue(patchTestFolder.exists());
+        assertTrue(patchTestFolder.isDirectory());
 
         deleteFileIfExists(patchlib);
         deleteFileIfExists(xml);
@@ -301,6 +313,9 @@ public class LibraryTest {
         String yamahaData1 = "Yamaha Data1";
         String yamahaData2 = "Yamaha Data2";
         String yamahaComment = "Yamaha Comment";
+
+        assertTrue(patchTestFolder.exists());
+        assertTrue(patchTestFolder.isDirectory());
 
         File patchlib =
                 new File(patchTestFolder,
