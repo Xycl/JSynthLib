@@ -214,12 +214,10 @@ public interface IDriver {
     int getChannel();
 
     /**
-     * Caluculate check sum of a byte array <code>sysex</code>.
+     * Calculate check sum of a byte array <code>sysex</code>.
      * <p>
      * The checksum calculation method of this method is used by Roland, YAMAHA,
-     * etc.
-     * <p>
-     * Compatibility Note: This method became 'static' method.
+     * etc.</p>
      * @param sysex
      *            a byte array
      * @param start
