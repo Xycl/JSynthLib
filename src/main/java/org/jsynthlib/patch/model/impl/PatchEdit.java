@@ -15,7 +15,6 @@ import org.jsynthlib.core.viewcontroller.WaitDialog;
 import org.jsynthlib.core.viewcontroller.desktop.JSLDesktop;
 import org.jsynthlib.core.viewcontroller.preferences.PrefsDialog;
 import org.jsynthlib.device.model.DeviceManager;
-import org.jsynthlib.device.model.DevicesConfig;
 import org.jsynthlib.midi.domain.MidiSettings;
 import org.jsynthlib.midi.service.MasterKeyboardService;
 
@@ -48,8 +47,7 @@ public final class PatchEdit {
                 + ", " + Utility.getOSVersion());
 
         // load the supported devices
-        DevicesConfig devConfig = DevicesConfig.getInstance();
-        devConfig.printAll();
+        deviceManager.printAll();
 
         // Load config file (JSynthLib.properties).
         // boolean loadPrefsSuccessfull = appConfig.loadPrefs();

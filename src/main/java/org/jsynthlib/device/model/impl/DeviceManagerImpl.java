@@ -24,6 +24,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -32,13 +37,13 @@ import javax.inject.Singleton;
 
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
+import org.jsynthlib.core.Constants;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.JSynthLib;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceDescriptor;
 import org.jsynthlib.device.model.DeviceList;
 import org.jsynthlib.device.model.DeviceManager;
-import org.jsynthlib.device.model.DevicesConfig;
 import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.device.model.XMLDevice;
 import org.jsynthlib.device.model.XMLPatchDriver;
@@ -67,6 +72,8 @@ public class DeviceManagerImpl implements DeviceManager {
 
     @Inject
     public DeviceManagerImpl(DeviceList deviceList) {
+        readDevicesFromPropertiesFile();
+
         this.deviceList = deviceList;
         try {
             Preferences preferences =
@@ -102,9 +109,8 @@ public class DeviceManagerImpl implements DeviceManager {
                 // get class name from preferences node name
                 log.debug("loadDevices: \"" + devs[i] + "\"");
                 String s = devs[i].substring(0, devs[i].indexOf('#'));
-                DevicesConfig devConfig = DevicesConfig.getInstance();
                 DeviceDescriptor descriptor =
-                        devConfig.getDescriptorForShortName(s);
+                        getDescriptorForShortName(s);
 
                 log.info("loadDevices: -> " + s);
                 addDevice(descriptor, devicePreferences.node(devs[i]));
@@ -172,7 +178,7 @@ public class DeviceManagerImpl implements DeviceManager {
     /** returns the 1st unused device node name for Preferences. */
     private Preferences getDeviceNode(String s) {
         log.info("getDeviceNode: " + s);
-        s = DevicesConfig.getShortNameForClassName(s);
+        s = s.substring(s.lastIndexOf('.') + 1, s.lastIndexOf("Device"));
         log.info("getDeviceNode: -> " + s);
         try {
             int i = 0;
@@ -339,4 +345,173 @@ public class DeviceManagerImpl implements DeviceManager {
             return driver;
         }
     }
+
+    /**
+     * The available device descriptors.
+     */
+    private final Set<DeviceDescriptor> descriptors =
+            new TreeSet<DeviceDescriptor>();
+    /**
+     * The available device identifiers.
+     */
+    private final Set<String> deviceIds = new TreeSet<String>();
+
+    /* (non-Javadoc)
+     * @see org.jsynthlib.device.model.Temp#getDeviceDescriptors()
+     */
+    @Override
+    public Collection<DeviceDescriptor> getDeviceDescriptors() {
+        return Collections.unmodifiableSet(descriptors);
+    }
+
+    /* (non-Javadoc)
+     * @see org.jsynthlib.device.model.Temp#getDeviceIds()
+     */
+    @Override
+    public Collection<String> getDeviceIds() {
+        return Collections.unmodifiableSet(deviceIds);
+    }
+
+    /* (non-Javadoc)
+     * @see org.jsynthlib.device.model.Temp#getDescriptorForIDString(java.lang.String)
+     */
+    @Override
+    public DeviceDescriptor getDescriptorForIDString(final String deviceId) {
+        for (DeviceDescriptor descriptor : descriptors) {
+            if (descriptor.getDeviceId().equals(deviceId)) {
+                return descriptor;
+            }
+        }
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.jsynthlib.device.model.Temp#getDescriptorForShortName(java.lang.String)
+     */
+    @Override
+    public DeviceDescriptor getDescriptorForShortName(final String shortName) {
+        for (DeviceDescriptor descriptor : descriptors) {
+            if (descriptor.getShortName().equals(shortName)) {
+                return descriptor;
+            }
+        }
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.jsynthlib.device.model.Temp#getDescriptorForDeviceName(java.lang.String)
+     */
+    @Override
+    public DeviceDescriptor getDescriptorForDeviceName(final String deviceName) {
+        for (DeviceDescriptor descriptor : descriptors) {
+            if (descriptor.getDeviceName().equals(deviceName)) {
+                return descriptor;
+            }
+        }
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.jsynthlib.device.model.Temp#printAll()
+     */
+    @Override
+    public void printAll() {
+        for (DeviceDescriptor descriptor : descriptors) {
+            log.debug(descriptor);
+        }
+    }
+
+    /**
+     * Read the available devices from a properties file.
+     */
+    void readDevicesFromPropertiesFile() {
+        InputStream in =
+                getClass().getResourceAsStream(
+                        "/" + Constants.DEV_CONFIG_FILE_NAME);
+
+        if (in == null) {
+            ErrorMsg.reportError("Configuration Error",
+                    "Device configuration file "
+                            + Constants.DEV_CONFIG_FILE_NAME + " not found.");
+            return;
+        }
+
+        Properties props = new Properties();
+
+        try {
+            props.load(in);
+        } catch (Exception exception) {
+            ErrorMsg.reportError("Configuration Error",
+                    "Failed to read configuration file "
+                            + Constants.DEV_CONFIG_FILE_NAME + ".");
+            log.warn(exception.getMessage(), exception);
+            return;
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                log.warn(e.getMessage(), e);
+            }
+        }
+
+        for (String name : props.stringPropertyNames()) {
+            if (name.startsWith(Constants.DEV_CONFIG_DEVICE_NAME_PREFIX)) {
+                // Process a device
+                String shortName =
+                        name.substring(Constants.DEV_CONFIG_DEVICE_NAME_PREFIX
+                                .length());
+                String deviceName = props.getProperty(name);
+                String deviceClass =
+                        props.getProperty(Constants.DEV_CONFIG_DEVICE_CLASS_PREFIX
+                                + shortName);
+                String idString =
+                        props.getProperty(Constants.DEV_CONFIG_ID_STRING_PREFIX
+                                + shortName);
+                String manufacturer =
+                        props.getProperty(Constants.DEV_CONFIG_MANUFACTURER_PREFIX
+                                + shortName);
+                // Since Devices don't have types yet, just use the first letter
+                // of the manufacturer
+                // so that we can test it.
+                String type = manufacturer.substring(0, 1);
+
+                if (deviceClass != null && idString != null) {
+                    addDevice(deviceName, shortName, deviceClass, idString,
+                            manufacturer, type);
+                } else {
+                    ErrorMsg.reportError("Configuration Error",
+                            "Invalid device configuration for " + shortName
+                                    + ".");
+                }
+            }
+        }
+    }
+
+    /**
+     * Add a device.
+     * @param deviceName
+     *            the name of the device
+     * @param shortName
+     *            the short name of the device
+     * @param deviceClass
+     *            the class of the device
+     * @param deviceId
+     *            the id of the device
+     */
+    void addDevice(String deviceName, String shortName,
+            String deviceClass, String deviceId, String manufacturer,
+            String type) {
+        DeviceDescriptor descriptor = new DeviceDescriptor();
+        descriptor.setDeviceName(deviceName);
+        descriptor.setShortName(shortName);
+        descriptor.setDeviceClass(deviceClass);
+        descriptor.setDeviceId(deviceId);
+        descriptor.setManufacturer(manufacturer);
+        descriptor.setType(type);
+
+        descriptors.add(descriptor);
+
+        deviceIds.add(deviceId);
+    }
+
 }

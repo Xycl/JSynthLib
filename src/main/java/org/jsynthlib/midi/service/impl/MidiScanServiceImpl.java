@@ -42,7 +42,6 @@ import org.jsynthlib.core.viewcontroller.ScanUnkownReportDialog;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceDescriptor;
 import org.jsynthlib.device.model.DeviceManager;
-import org.jsynthlib.device.model.DevicesConfig;
 import org.jsynthlib.midi.domain.MidiSettings;
 import org.jsynthlib.midi.service.MidiScanService;
 import org.jsynthlib.midi.service.MidiService;
@@ -223,8 +222,7 @@ public class MidiScanServiceImpl implements MidiScanService {
         log.debug("ResponseString " + responseString);
 
         boolean found = false;
-        DevicesConfig devConfig = DevicesConfig.getInstance();
-        Iterator<String> synthIDs = devConfig.getDeviceIds().iterator();
+        Iterator<String> synthIDs = deviceManager.getDeviceIds().iterator();
         while (synthIDs.hasNext()) {
             String se = synthIDs.next();
             log.debug("Checking " + se);
@@ -237,7 +235,7 @@ public class MidiScanServiceImpl implements MidiScanService {
                             deviceManager.getDevice(checkloop).getClass()
                                     .getName();
                     DeviceDescriptor descriptor =
-                            devConfig.getDescriptorForIDString(se);
+                            deviceManager.getDescriptorForIDString(se);
                     if (descriptor != null
                             && checkDevice.equalsIgnoreCase(descriptor
                                     .getDeviceClass())) {
@@ -246,7 +244,7 @@ public class MidiScanServiceImpl implements MidiScanService {
                 }
                 if (!dontadd) { // add it only, if it is not in the list
                     DeviceDescriptor descriptor =
-                            devConfig.getDescriptorForIDString(se);
+                            deviceManager.getDescriptorForIDString(se);
                     Device useDevice = deviceManager.addDevice(descriptor);
                     log.info("MidiOut: " + midiout + ", MidiIn: " + midiin
                             + ", devID: " + devID);

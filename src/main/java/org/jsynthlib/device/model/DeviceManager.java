@@ -21,6 +21,7 @@
 package org.jsynthlib.device.model;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.prefs.Preferences;
 
 /**
@@ -73,4 +74,50 @@ public interface DeviceManager {
      * not found.
      */
     IDriver getNullDriver();
+
+    /**
+     * Get the available device descriptors.
+     * @return the available device descriptors
+     */
+    Collection<DeviceDescriptor> getDeviceDescriptors();
+
+    /**
+     * Get the available device identifiers.
+     * @return the available device identifiers
+     */
+    Collection<String> getDeviceIds();
+
+    /**
+     * Get the class for a device based on device id.
+     * @param deviceId
+     *            the device id (for example F07E..0602400000040000000000f7)
+     * @return the class for the device (for example,
+     *         synthdrivers.KawaiK4.KawaiK4Device)
+     */
+    DeviceDescriptor getDescriptorForIDString(String deviceId);
+
+    /**
+     * Get the class for a device based on short name.
+     * @param shortName
+     *            the device short name
+     * @return the class for the device (for example,
+     *         synthdrivers.KawaiK4.KawaiK4Device)
+     */
+    DeviceDescriptor getDescriptorForShortName(String shortName);
+
+    /**
+     * Get the class for a device based on device name.
+     * @param deviceName
+     *            the device name (for example Kawai K4/K4R Driver)
+     * @return the class for the device (for example
+     *         synthdrivers.KawaiK4.KawaiK4Device)
+     */
+    DeviceDescriptor getDescriptorForDeviceName(
+            String deviceName);
+
+    /**
+     * Print all available device descriptors to the console.
+     */
+    void printAll();
+
 }

@@ -24,22 +24,22 @@ import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceDescriptor;
 import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.device.model.DeviceSelectionTree;
-import org.jsynthlib.device.model.DevicesConfig;
 import org.jsynthlib.inject.JSynthLibInjector;
 
 public class DeviceAddDialog extends JDialog {
 
-    DeviceSelectionTree AvailableDeviceList;
+    private static final long serialVersionUID = 1L;
+    private final DeviceSelectionTree availableDeviceList;
 
     // DevicesConfig devConf = null;
 
-    public DeviceAddDialog(JFrame Parent) {
-        super(Parent, "Synthesizer Device Install", true);
+    public DeviceAddDialog(JFrame parent) {
+        super(parent, "Synthesizer Device Install", true);
         JPanel container = new JPanel();
         container.setLayout(new BorderLayout());
 
-        AvailableDeviceList = new DeviceSelectionTree();
-        JScrollPane scrollpane = new JScrollPane(AvailableDeviceList);
+        availableDeviceList = new DeviceSelectionTree();
+        JScrollPane scrollpane = new JScrollPane(availableDeviceList);
         container.add(scrollpane, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
@@ -48,11 +48,12 @@ public class DeviceAddDialog extends JDialog {
         // The following code catches double-clicks on leafs and treats them
         // like pressing "OK"
         MouseListener ml = new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent e) {
                 int selRow =
-                        AvailableDeviceList.getRowForLocation(e.getX(),
+                        availableDeviceList.getRowForLocation(e.getX(),
                                 e.getY());
-                TreePath tp = AvailableDeviceList.getPathForRow(selRow);
+                TreePath tp = availableDeviceList.getPathForRow(selRow);
                 // Did they even click on a tree item
                 if (tp != null) {
                     if (e.getClickCount() == 2) {
@@ -62,26 +63,28 @@ public class DeviceAddDialog extends JDialog {
                                         .getLastPathComponent();
                         if (o.isLeaf()) {
                             // User double-clicked on a leaf. Treat it like "OK"
-                            OKPressed();
+                            okPressed();
                         }
                     }
                 }
             }
         };
-        AvailableDeviceList.addMouseListener(ml);
+        availableDeviceList.addMouseListener(ml);
 
         JButton ok = new JButton("OK");
         ok.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                OKPressed();
+                okPressed();
             }
         });
         buttonPanel.add(ok);
         JButton cancel = new JButton("Cancel");
 
         cancel.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                CancelPressed();
+                cancelPressed();
             }
         });
         buttonPanel.add(cancel);
@@ -95,18 +98,19 @@ public class DeviceAddDialog extends JDialog {
         Utility.centerWindow(this);
     }
 
-    void OKPressed() {
+    void okPressed() {
         this.setVisible(false);
-        String s = (String) AvailableDeviceList.getSelectedValue();
-        if (s == null)
+        String s = availableDeviceList.getSelectedValue();
+        if (s == null) {
             return;
+        }
 
-        DevicesConfig devConfig = DevicesConfig.getInstance();
-        DeviceDescriptor descriptor = devConfig.getDescriptorForDeviceName(s);
         DeviceManager deviceManager = JSynthLibInjector.getInstance(DeviceManager.class);
+        DeviceDescriptor descriptor = deviceManager.getDescriptorForDeviceName(s);
         Device device = deviceManager.addDevice(descriptor);
-        if (device == null)
+        if (device == null) {
             return;
+        }
 
         String info = device.getInfoText();
         if (info != null && info.length() > 0) {
@@ -121,7 +125,7 @@ public class DeviceAddDialog extends JDialog {
         }
     }
 
-    void CancelPressed() {
+    void cancelPressed() {
         this.setVisible(false);
     }
 }

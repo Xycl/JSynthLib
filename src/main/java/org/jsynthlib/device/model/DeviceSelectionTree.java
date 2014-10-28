@@ -7,12 +7,18 @@ package org.jsynthlib.device.model;
  * Time: 5:23:02 AM
  */
 
-import javax.swing.JTree;
-import javax.swing.tree.*;
-
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeSet;
-import java.util.Collection;
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultTreeSelectionModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+
+import org.jsynthlib.inject.JSynthLibInjector;
 
 public class DeviceSelectionTree extends JTree {
 
@@ -28,7 +34,7 @@ public class DeviceSelectionTree extends JTree {
     public static final int GROUP_MANUF_TYPE = 4; // Devices are grouped by
                                                   // manufacturer, then type
 
-    private int groupStyle = GROUP_MANUF; // There aren't that many mfrs yet.
+    private final int groupStyle = GROUP_MANUF; // There aren't that many mfrs yet.
 
     /**
      * This initializes the tree and populates it will all of the devices known
@@ -62,8 +68,8 @@ public class DeviceSelectionTree extends JTree {
      *            The node of the tree to add the items to
      */
     private void buildTree(DefaultMutableTreeNode node) {
-        DevicesConfig devConfig = DevicesConfig.getInstance();
-        Collection alldevicedescriptors = devConfig.getDeviceDescriptors();
+        DeviceManager deviceManager = JSynthLibInjector.getInstance(DeviceManager.class);
+        Collection alldevicedescriptors = deviceManager.getDeviceDescriptors();
 
         switch (groupStyle) {
         case GROUP_NONE:
@@ -263,6 +269,7 @@ public class DeviceSelectionTree extends JTree {
             setSelectionMode(DefaultTreeSelectionModel.SINGLE_TREE_SELECTION);
         }
 
+        @Override
         public void addSelectionPath(TreePath path) {
             // This is called if the user tries "Ctrl-Click" or any other
             // multiple-selection keystroke
@@ -271,6 +278,7 @@ public class DeviceSelectionTree extends JTree {
             setSelectionPath(path);
         }
 
+        @Override
         public void addSelectionPaths(TreePath[] paths) {
             // We don't allow multiple selections right now - Emenaker
             // 2005-03-03
@@ -282,6 +290,7 @@ public class DeviceSelectionTree extends JTree {
          * non-leaf (ie, a type or manufacturer) We don't want to let them
          * select non-leafs - Emenaker 2005-03-03
          */
+        @Override
         public void setSelectionPath(TreePath path) {
             if (((TreeNode) path.getLastPathComponent()).isLeaf()) {
                 super.setSelectionPath(path);
