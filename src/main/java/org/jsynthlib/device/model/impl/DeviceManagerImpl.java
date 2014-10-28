@@ -176,10 +176,9 @@ public class DeviceManagerImpl implements DeviceManager {
     }
 
     /** returns the 1st unused device node name for Preferences. */
-    private Preferences getDeviceNode(String s) {
-        log.info("getDeviceNode: " + s);
+    Preferences getDeviceNode(String s) {
         s = s.substring(s.lastIndexOf('.') + 1, s.lastIndexOf("Device"));
-        log.info("getDeviceNode: -> " + s);
+        log.debug("getDeviceNode: -> " + s);
         try {
             int i = 0;
             while (devicePreferences.nodeExists(s + "#" + i)) {
@@ -357,7 +356,7 @@ public class DeviceManagerImpl implements DeviceManager {
     private final Set<String> deviceIds = new TreeSet<String>();
 
     /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.Temp#getDeviceDescriptors()
+     * @see org.jsynthlib.device.model.DeviceManager#getDeviceDescriptors()
      */
     @Override
     public Collection<DeviceDescriptor> getDeviceDescriptors() {
@@ -365,7 +364,7 @@ public class DeviceManagerImpl implements DeviceManager {
     }
 
     /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.Temp#getDeviceIds()
+     * @see org.jsynthlib.device.model.DeviceManager#getDeviceIds()
      */
     @Override
     public Collection<String> getDeviceIds() {
@@ -373,7 +372,7 @@ public class DeviceManagerImpl implements DeviceManager {
     }
 
     /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.Temp#getDescriptorForIDString(java.lang.String)
+     * @see org.jsynthlib.device.model.DeviceManager#getDescriptorForIDString(java.lang.String)
      */
     @Override
     public DeviceDescriptor getDescriptorForIDString(final String deviceId) {
@@ -386,7 +385,7 @@ public class DeviceManagerImpl implements DeviceManager {
     }
 
     /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.Temp#getDescriptorForShortName(java.lang.String)
+     * @see org.jsynthlib.device.model.DeviceManager#getDescriptorForShortName(java.lang.String)
      */
     @Override
     public DeviceDescriptor getDescriptorForShortName(final String shortName) {
@@ -399,7 +398,7 @@ public class DeviceManagerImpl implements DeviceManager {
     }
 
     /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.Temp#getDescriptorForDeviceName(java.lang.String)
+     * @see org.jsynthlib.device.model.DeviceManager#getDescriptorForDeviceName(java.lang.String)
      */
     @Override
     public DeviceDescriptor getDescriptorForDeviceName(final String deviceName) {
@@ -412,7 +411,7 @@ public class DeviceManagerImpl implements DeviceManager {
     }
 
     /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.Temp#printAll()
+     * @see org.jsynthlib.device.model.DeviceManager#printAll()
      */
     @Override
     public void printAll() {
