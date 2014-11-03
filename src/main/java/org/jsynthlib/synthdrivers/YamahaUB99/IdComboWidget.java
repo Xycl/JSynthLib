@@ -30,8 +30,8 @@ import java.util.Vector;
 
 import javax.swing.JComboBox;
 
-import org.jsynthlib.device.model.IParamModel;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.IParamModel;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.SysexWidget;
 import org.jsynthlib.patch.model.impl.Patch;
 

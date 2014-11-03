@@ -3,11 +3,11 @@
  */
 package org.jsynthlib.synthdrivers.EnsoniqESQ1;
 
-import org.jsynthlib.device.model.XMLPatchDriver;
+import org.jsynthlib.device.model.XMLSingleDriver;
 import org.jsynthlib.patch.model.impl.Patch;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 
-public class EnsoniqESQ1SingleDriver extends XMLPatchDriver {
+public class EnsoniqESQ1SingleDriver extends XMLSingleDriver {
 
     // public EnsoniqESQ1SingleDriver() {
     // super("Single", "Brian Klock");
@@ -31,7 +31,7 @@ public class EnsoniqESQ1SingleDriver extends XMLPatchDriver {
     //
     // }
 
-    public EnsoniqESQ1SingleDriver(XmlPatchDriverSpec driverSpec) {
+    public EnsoniqESQ1SingleDriver(XmlSingleDriverDefinition driverSpec) {
         super(driverSpec);
     }
 

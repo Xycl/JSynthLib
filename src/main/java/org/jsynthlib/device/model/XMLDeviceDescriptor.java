@@ -24,20 +24,20 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.xmlbeans.XmlException;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument.XmlDeviceSpec;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 
 /**
  * @author Pascal Collberg
  */
 public class XMLDeviceDescriptor extends DeviceDescriptor {
 
-    private final XmlDeviceSpec xmlDeviceSpec;
+    private final XmlDeviceDefinition xmlDeviceSpec;
 
     public XMLDeviceDescriptor(File xmlFile) throws XmlException, IOException {
-        XmlDeviceSpecDocument document =
-                XmlDeviceSpecDocument.Factory.parse(xmlFile);
-        xmlDeviceSpec = document.getXmlDeviceSpec();
+        XmlDeviceDefinitionDocument document =
+                XmlDeviceDefinitionDocument.Factory.parse(xmlFile);
+        xmlDeviceSpec = document.getXmlDeviceDefinition();
         setManufacturer(xmlDeviceSpec.getManufacturer());
         setDeviceName(xmlDeviceSpec.getManufacturer() + " "
                 + xmlDeviceSpec.getModelName());
@@ -46,7 +46,7 @@ public class XMLDeviceDescriptor extends DeviceDescriptor {
         setDeviceClass(xmlFile.getName().replace(".xml", ""));
     }
 
-    public XmlDeviceSpec getXmlDeviceSpec() {
+    public XmlDeviceDefinition getXmlDeviceSpec() {
         return xmlDeviceSpec;
     }
 }

@@ -1,129 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xd:xmlBankDriverSpec xmlns:xd="http://www.jsynthlib.org/xmldevice">
-    <xd:name>Yamaha DX7 Voice Bank</xd:name>
-    <xd:infoText>This JSynthLib "Yamaha DX7 Mark-I" device driver
-        supports the following patch types with librarian and editor
-        function: - Voice - Performance (=Function Parameter) GENERAL
-        INFORMATION =================== - DX7 MARK-I Because of the MIDI
-        implementation of the system ROM of the early units (especially
-        the ActiveSensing- and the SysEx-handling), problems will occur
-        with an early DX7 in cooperation with patch libraries/editors.
-        It's advisable to upgrade early system ROMs to a newer version.
-        - DEVICE DRIVER This driver is tested with a DX7 in an original
-        state (system ROM V1.8 from October 24th 1985). Even so there
-        might be some bugs. Since this driver uses special methods you
-        should choose this driver only if you have a DX7 Mark-I. These
-        special methods concern the "Remote Control" function, the
-        "Parameter Change" MIDI messages of the performance editor and
-        others. I made the experience that you can send a single
-        performance patch to the DX7 function edit buffer. At least to a
-        DX7 with the described System ROM. At this time only the
-        direction JSynthLib->DX7 is working. If a parameter is changed
-        on the DX7 itself, JSynthlib doesn't become aware of this. -
-        REPORTING BUGS Report bugs to &lt;Torsten.Tittmann@gmx.de>. Any
-        feedback about bugs are welcome. Also comments and proposals of
-        improvements will be helpful to improve this driver. - TODO To
-        extend my driver family to the models DX1 and DX5 I'm looking
-        for the MIDI specification of these models. The access of the
-        two internal "DX7"s as well as the complete specification of the
-        performance patch are unknown. To extend my driver family to the
-        model TX216/TX816 in a satisfying manner some major changes are
-        necessary for the JSynthLib architecture. But since the TF1
-        modul of the TX216/TX816 is compatible with the TX7, a base
-        support is given. DEVICE CONFIGURATION ==================== You
-        will find some settings in the device configuration to suite the
-        device driver to your preferences: - "Synthesizer Name" This is
-        a free choosable identifier. It might be useful if you have
-        several DX7 Mark-I devices - "Enable Remote Control?" The MIDI
-        specification of the DX7 doesn't support requesting of a patch.
-        As an alternative this driver can simulate the necessary panel
-        button pushes, if you switch on the "Enable Remote Control"
-        function. The "Enable Remote Control" function makes the SysInfo
-        available, chooses the desired patch number, etc. - "Disable
-        Memory Protection?" The "Disable Memory Protection?" function
-        will switch off the memory protection. - "Display Hints and
-        Tips?" If you are familiar with the DX7 you can switch off the
-        message windows by disabling the "Display Hints and Tips?"
-        function. This will avoid all messages! PATCH TYPE SPECIFIC
-        INFORMATION =============================== "VOICE" SINGLE/BANK
-        DRIVER/EDITOR The underlying patch is identical at least for all
-        members of the "DX7 family" (DX1, DX5, DX7, TX7, TX816, DX7s,
-        DX7-II and TX802). This driver also supports the use of
-        cartridges with the DX7 as far as possible. Of course, you have
-        to use the switches of the cartridges themselves to choose bank
-        A or bank B of a "DX7 VOICE ROM" cartridge or to switch on/off
-        the memory protection of "RAM1" cartridges. Further, the storing
-        of a voice bank to a cartridge "RAM1" isn't supported! Only
-        those parameters are implemented in the editor, which are stored
-        in the patch. So, you won't find any function parameter like
-        pitchband, portamento, etc. These are part of the performance
-        driver/editor. There is only one exception: the OPERATOR ON/OFF
-        buttons, because they are useful for programming. "PERFORMANCE"
-        SINGLE DRIVER/EDITOR The underlying patch is identical for the
-        DX1, DX5, DX7, TX7 and TX816. But only those parameters are
-        displayed in the editor, which are evaluated by the DX7. The DX7
-        supports only the receiving of a single performance patch; no
-        transmitting, or requesting.
-    </xd:infoText>
-    <xd:authors>Torsten Tittmann</xd:authors>
-    <xd:patchType>Voice</xd:patchType>
-    <xd:patchSize>4104</xd:patchSize>
-    <xd:sysexID>F0430*092000</xd:sysexID>
-    <xd:patchNumbers>
-        <xd:string>01</xd:string>
-        <xd:string>02</xd:string>
-        <xd:string>03</xd:string>
-        <xd:string>04</xd:string>
-        <xd:string>05</xd:string>
-        <xd:string>06</xd:string>
-        <xd:string>07</xd:string>
-        <xd:string>08</xd:string>
-        <xd:string>09</xd:string>
-        <xd:string>10</xd:string>
-        <xd:string>11</xd:string>
-        <xd:string>12</xd:string>
-        <xd:string>13</xd:string>
-        <xd:string>14</xd:string>
-        <xd:string>15</xd:string>
-        <xd:string>16</xd:string>
-        <xd:string>17</xd:string>
-        <xd:string>18</xd:string>
-        <xd:string>19</xd:string>
-        <xd:string>20</xd:string>
-        <xd:string>21</xd:string>
-        <xd:string>22</xd:string>
-        <xd:string>23</xd:string>
-        <xd:string>24</xd:string>
-        <xd:string>25</xd:string>
-        <xd:string>26</xd:string>
-        <xd:string>27</xd:string>
-        <xd:string>28</xd:string>
-        <xd:string>29</xd:string>
-        <xd:string>30</xd:string>
-        <xd:string>31</xd:string>
-        <xd:string>32</xd:string>
-    </xd:patchNumbers>
-    <xd:bankNumbers>
-        <xd:string>Internal</xd:string>
-    </xd:bankNumbers>
-    <xd:deviceIDoffset>2</xd:deviceIDoffset>
-    <xd:checksumOffset>4102</xd:checksumOffset>
-    <xd:checksumStart>6</xd:checksumStart>
-    <xd:checksumEnd>4101</xd:checksumEnd>
-    <xd:patchNameStart>0</xd:patchNameStart>
-    <xd:patchNameSize>10</xd:patchNameSize>
-    <xd:customProperties>
-        <xd:customProperty name="dxSysexHeaderSize"
-            value="6" />
-        <xd:customProperty name="dxPatchNameOffset"
-            value="118" />
-            <xd:customProperty name="dxSinglePackedSize"
-            value="128" />
-    </xd:customProperties>
-    <xd:initPatch>F0430000011B63636363636363000000000000000000000001000763636363636363000000000000000000000001000763636363636363000000000000000000000001000763636363636363000000000000000000000001000763636363636363000000000000000000000001000763636363636363000000000000000000630001000763636363323232320000012300000001000318494E495420564F49434551F7</xd:initPatch>
-    <xd:trimSize>4104</xd:trimSize>
-    <xd:numPatches>32</xd:numPatches>
-    <xd:numColumns>4</xd:numColumns>
-    <xd:singleSize>163</xd:singleSize>
-    <xd:singleSysexID>F0430*00011B</xd:singleSysexID>
-</xd:xmlBankDriverSpec>
+<xmlBankDriverDefinition xmlns="http://www.jsynthlib.org/xmldevice"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jsynthlib.org/xmldevice ../../../../../xsd/xmldevice.xsd">
+	<name>Yamaha DX7 Voice Bank</name>
+	<infoText>This JSynthLib "Yamaha DX7 Mark-I" device driver
+		supports the following patch types with librarian and editor
+		function: - Voice - Performance (=Function Parameter) GENERAL
+		INFORMATION =================== - DX7 MARK-I Because of the MIDI
+		implementation of the system ROM of the early units (especially
+		the ActiveSensing- and the SysEx-handling), problems will occur
+		with an early DX7 in cooperation with patch libraries/editors.
+		It's advisable to upgrade early system ROMs to a newer version.
+		- DEVICE DRIVER This driver is tested with a DX7 in an original
+		state (system ROM V1.8 from October 24th 1985). Even so there
+		might be some bugs. Since this driver uses special methods you
+		should choose this driver only if you have a DX7 Mark-I. These
+		special methods concern the "Remote Control" function, the
+		"Parameter Change" MIDI messages of the performance editor and
+		others. I made the experience that you can send a single
+		performance patch to the DX7 function edit buffer. At least to a
+		DX7 with the described System ROM. At this time only the
+		direction JSynthLib->DX7 is working. If a parameter is changed
+		on the DX7 itself, JSynthlib doesn't become aware of this. -
+		REPORTING BUGS Report bugs to &lt;Torsten.Tittmann@gmx.de>. Any
+		feedback about bugs are welcome. Also comments and proposals of
+		improvements will be helpful to improve this driver. - TODO To
+		extend my driver family to the models DX1 and DX5 I'm looking
+		for the MIDI specification of these models. The access of the
+		two internal "DX7"s as well as the complete specification of the
+		performance patch are unknown. To extend my driver family to the
+		model TX216/TX816 in a satisfying manner some major changes are
+		necessary for the JSynthLib architecture. But since the TF1
+		modul of the TX216/TX816 is compatible with the TX7, a base
+		support is given. DEVICE CONFIGURATION ==================== You
+		will find some settings in the device configuration to suite the
+		device driver to your preferences: - "Synthesizer Name" This is
+		a free choosable identifier. It might be useful if you have
+		several DX7 Mark-I devices - "Enable Remote Control?" The MIDI
+		specification of the DX7 doesn't support requesting of a patch.
+		As an alternative this driver can simulate the necessary panel
+		button pushes, if you switch on the "Enable Remote Control"
+		function. The "Enable Remote Control" function makes the SysInfo
+		available, chooses the desired patch number, etc. - "Disable
+		Memory Protection?" The "Disable Memory Protection?" function
+		will switch off the memory protection. - "Display Hints and
+		Tips?" If you are familiar with the DX7 you can switch off the
+		message windows by disabling the "Display Hints and Tips?"
+		function. This will avoid all messages! PATCH TYPE SPECIFIC
+		INFORMATION =============================== "VOICE" SINGLE/BANK
+		DRIVER/EDITOR The underlying patch is identical at least for all
+		members of the "DX7 family" (DX1, DX5, DX7, TX7, TX816, DX7s,
+		DX7-II and TX802). This driver also supports the use of
+		cartridges with the DX7 as far as possible. Of course, you have
+		to use the switches of the cartridges themselves to choose bank
+		A or bank B of a "DX7 VOICE ROM" cartridge or to switch on/off
+		the memory protection of "RAM1" cartridges. Further, the storing
+		of a voice bank to a cartridge "RAM1" isn't supported! Only
+		those parameters are implemented in the editor, which are stored
+		in the patch. So, you won't find any function parameter like
+		pitchband, portamento, etc. These are part of the performance
+		driver/editor. There is only one exception: the OPERATOR ON/OFF
+		buttons, because they are useful for programming. "PERFORMANCE"
+		SINGLE DRIVER/EDITOR The underlying patch is identical for the
+		DX1, DX5, DX7, TX7 and TX816. But only those parameters are
+		displayed in the editor, which are evaluated by the DX7. The DX7
+		supports only the receiving of a single performance patch; no
+		transmitting, or requesting.
+	</infoText>
+	<authors>Torsten Tittmann</authors>
+	<patchType>Voice</patchType>
+	<patchSize>4104</patchSize>
+	<sysexID>F0430*092000</sysexID>
+	<patchNumbers>
+		<string>01</string>
+		<string>02</string>
+		<string>03</string>
+		<string>04</string>
+		<string>05</string>
+		<string>06</string>
+		<string>07</string>
+		<string>08</string>
+		<string>09</string>
+		<string>10</string>
+		<string>11</string>
+		<string>12</string>
+		<string>13</string>
+		<string>14</string>
+		<string>15</string>
+		<string>16</string>
+		<string>17</string>
+		<string>18</string>
+		<string>19</string>
+		<string>20</string>
+		<string>21</string>
+		<string>22</string>
+		<string>23</string>
+		<string>24</string>
+		<string>25</string>
+		<string>26</string>
+		<string>27</string>
+		<string>28</string>
+		<string>29</string>
+		<string>30</string>
+		<string>31</string>
+		<string>32</string>
+	</patchNumbers>
+	<bankNumbers>
+		<string>Internal</string>
+	</bankNumbers>
+	<deviceIDoffset>2</deviceIDoffset>
+	<checksumOffset>4102</checksumOffset>
+	<checksumStart>6</checksumStart>
+	<checksumEnd>4101</checksumEnd>
+	<patchNameStart>0</patchNameStart>
+	<patchNameSize>10</patchNameSize>
+	<customProperties>
+		<customProperty name="dxSysexHeaderSize" value="6" />
+		<customProperty name="dxPatchNameOffset" value="118" />
+		<customProperty name="dxSinglePackedSize" value="128" />
+	</customProperties>
+	<initPatch>F0430000011B63636363636363000000000000000000000001000763636363636363000000000000000000000001000763636363636363000000000000000000000001000763636363636363000000000000000000000001000763636363636363000000000000000000000001000763636363636363000000000000000000630001000763636363323232320000012300000001000318494E495420564F49434551F7</initPatch>
+	<trimSize>4104</trimSize>
+	<numPatches>32</numPatches>
+	<numColumns>4</numColumns>
+	<singleSize>163</singleSize>
+	<singleSysexID>F0430*00011B</singleSysexID>
+</xmlBankDriverDefinition>

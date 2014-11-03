@@ -32,7 +32,7 @@ import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.core.viewcontroller.desktop.mdi.MDIFrameProxy;
 import org.jsynthlib.device.view.Envelope;
 import org.jsynthlib.device.view.Knob;
-import org.jsynthlib.device.viewcontroller.DefaultFxmlDriverEditor;
+import org.jsynthlib.device.viewcontroller.XmlDriverEditorController;
 import org.jsynthlib.device.viewcontroller.JSLDriverEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.AbstractSwingWidgetAdapter;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
@@ -64,14 +64,14 @@ import org.jsynthlib.xmldevice.CombinedGroup;
 import org.jsynthlib.xmldevice.CombinedIntPatchParam;
 import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.PatchParams;
-import org.jsynthlib.xmldevice.XmlDriverSpec;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
 public class WidgetAdapterProvider {
 
-    private final Logger LOG = Logger.getLogger(getClass());
+    private final Logger log = Logger.getLogger(getClass());
 
     public List<WidgetAdapter> findSysexWidgets(FrameWrapper patchEditor) {
-        LOG.info("Fetching all sysexWidgets");
+        log.info("Fetching all sysexWidgets");
         ComponentFinder componentFinder =
                 BasicComponentFinder.finderWithCurrentAwtHierarchy();
 
@@ -111,9 +111,9 @@ public class WidgetAdapterProvider {
                         }
                     });
             int size = lookup.size();
-            LOG.debug("Found " + size + " in lookup!");
+            log.debug("Found " + size + " in lookup!");
 
-            XmlDriverSpec xmlDriverSpec = null;
+            XmlDriverDefinition xmlDriverSpec = null;
             Container component = patchEditor.component();
             if (component instanceof MDIFrameProxy) {
                 MDIFrameProxy proxy = (MDIFrameProxy) component;
@@ -122,9 +122,9 @@ public class WidgetAdapterProvider {
                     JSLDriverEditorFrame frame =
                             (JSLDriverEditorFrame) jslFrame;
                     JPanel editorPanel = frame.getEditorPanel();
-                    if (editorPanel instanceof DefaultFxmlDriverEditor) {
-                        DefaultFxmlDriverEditor fxmlEditor =
-                                (DefaultFxmlDriverEditor) editorPanel;
+                    if (editorPanel instanceof XmlDriverEditorController) {
+                        XmlDriverEditorController fxmlEditor =
+                                (XmlDriverEditorController) editorPanel;
                         xmlDriverSpec = fxmlEditor.getXmlDriverSpec();
                     }
                 }
@@ -135,7 +135,7 @@ public class WidgetAdapterProvider {
                     Node control = lookup.get(i);
                     String id = control.getId();
                     XmlObject xmlObject = getXmlObjectById(xmlDriverSpec, id);
-                    LOG.debug(control.getClass().getName());
+                    log.debug(control.getClass().getName());
                     WidgetAdapter adapter =
                             newJFXAdapter(control, sceneDock,
                                     xmlObject);
@@ -143,7 +143,7 @@ public class WidgetAdapterProvider {
                         list.add(adapter);
                     }
                 } catch (XmlException e) {
-                    LOG.warn(e.getMessage(), e);
+                    log.warn(e.getMessage(), e);
                 }
             }
         }
@@ -151,7 +151,7 @@ public class WidgetAdapterProvider {
         return list;
     }
 
-    XmlObject getXmlObjectById(XmlDriverSpec driverSpec, String id)
+    XmlObject getXmlObjectById(XmlDriverDefinition driverSpec, String id)
             throws XmlException {
         StringBuilder sb = new StringBuilder();
         sb.append("declare namespace jsl='http://www.jsynthlib.org/xmldevice';");

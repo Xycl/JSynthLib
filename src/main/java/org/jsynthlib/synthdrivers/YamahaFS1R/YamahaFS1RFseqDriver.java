@@ -3,9 +3,9 @@ package org.jsynthlib.synthdrivers.YamahaFS1R;
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.model.AbstractPatchDriver;
-import org.jsynthlib.device.model.ParamModel;
 import org.jsynthlib.device.model.SysexHandler;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**

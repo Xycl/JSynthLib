@@ -37,8 +37,8 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ScrollBarWidget;
@@ -48,44 +48,44 @@ import org.jsynthlib.patch.model.impl.PatchEdit;
 
 public class DX7FamilySystemSetupIIEditor extends PatchEditorFrame {
     static final String[] OnOffName = new String[] {
-            "Off", "On" };
+        "Off", "On" };
 
     static final String[] BlockSelName = new String[] {
-            " 1-32", "33-64" };
+        " 1-32", "33-64" };
 
     static final String[] NoteOnOffName = new String[] {
-            "all", "odd", "even" };
+        "all", "odd", "even" };
 
     static final String[] PrgChgName = new String[] {
-            "off", "normal", "Memory" };
+        "off", "normal", "Memory" };
 
     static final String[] MemProtName = new String[] {
-            "off - off", " on-off", "off- on", " on- on" };
+        "off - off", " on-off", "off- on", " on- on" };
 
     static final String[] SelectChgName = new String[] {
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-            "13", "14", "15" };
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+        "13", "14", "15" };
 
     static final String[] MidiReceiveName = new String[] {
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-            "13", "14", "15", "off" };
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+        "13", "14", "15", "off" };
 
     static final String[] PerfSelNoName = new String[] {
-            "  0", "  1", "  2", "  3", "  4", "  5", "  6", "  7", "  8",
-            "  9", " 10", " 11", " 12", " 13", " 14", " 15", " 16", " 17",
-            " 18", " 19", " 20", " 21", " 22", " 23", " 24", " 25", " 26",
-            " 27", " 28", " 29", " 30", " 31", " 32", " 33", " 34", " 35",
-            " 36", " 37", " 38", " 39", " 40", " 41", " 42", " 43", " 44",
-            " 45", " 46", " 47", " 48", " 49", " 50", " 51", " 52", " 53",
-            " 54", " 55", " 56", " 57", " 58", " 59", " 60", " 61", " 62",
-            " 63", " 64", " 65", " 66", " 67", " 68", " 69", " 70", " 71",
-            " 72", " 73", " 74", " 75", " 76", " 77", " 78", " 79", " 80",
-            " 81", " 82", " 83", " 84", " 85", " 86", " 87", " 88", " 89",
-            " 90", " 91", " 92", " 93", " 94", " 95", " 96", " 97", " 98",
-            " 99", "100", "101", "102", "103", "104", "105", "106", "107",
-            "108", "109", "110", "111", "112", "113", "114", "115", "116",
-            "117", "118", "119", "120", "121", "122", "123", "124", "125",
-            "126", "127", };
+        "  0", "  1", "  2", "  3", "  4", "  5", "  6", "  7", "  8",
+        "  9", " 10", " 11", " 12", " 13", " 14", " 15", " 16", " 17",
+        " 18", " 19", " 20", " 21", " 22", " 23", " 24", " 25", " 26",
+        " 27", " 28", " 29", " 30", " 31", " 32", " 33", " 34", " 35",
+        " 36", " 37", " 38", " 39", " 40", " 41", " 42", " 43", " 44",
+        " 45", " 46", " 47", " 48", " 49", " 50", " 51", " 52", " 53",
+        " 54", " 55", " 56", " 57", " 58", " 59", " 60", " 61", " 62",
+        " 63", " 64", " 65", " 66", " 67", " 68", " 69", " 70", " 71",
+        " 72", " 73", " 74", " 75", " 76", " 77", " 78", " 79", " 80",
+        " 81", " 82", " 83", " 84", " 85", " 86", " 87", " 88", " 89",
+        " 90", " 91", " 92", " 93", " 94", " 95", " 96", " 97", " 98",
+        " 99", "100", "101", "102", "103", "104", "105", "106", "107",
+        "108", "109", "110", "111", "112", "113", "114", "115", "116",
+        "117", "118", "119", "120", "121", "122", "123", "124", "125",
+        "126", "127", };
 
     public DX7FamilySystemSetupIIEditor(String name, Patch patch) {
         super(name, patch);
@@ -95,7 +95,7 @@ public class DX7FamilySystemSetupIIEditor extends PatchEditorFrame {
 
     protected void buildEditor(Patch patch) {
         PatchEdit.showWaitDialog(); // Because it needs some time to build up
-                                    // the editor frame
+        // the editor frame
 
         final DecimalFormat freqFormatter = new DecimalFormat("###0.00");
 
@@ -113,18 +113,19 @@ public class DX7FamilySystemSetupIIEditor extends PatchEditorFrame {
                 new ScrollBarWidget(" ", patch, 0, 127, -64, new ParamModel(
                         patch, 16 + 20), new MasterTuneSender(64));
         MasterTune.addEventListener(new ChangeListener() {
+            @Override
             public void stateChanged(ChangeEvent e) {
                 MasterTune.setLabel("Master Tuning (Concert Pitch: "
                         + freqFormatter
-                                .format(440 + (4.400 * 0.059463094359 * 1.2 * (MasterTune
-                                        .getValue() - 64))) + " Hz)");
+                        .format(440 + (4.400 * 0.059463094359 * 1.2 * (MasterTune
+                                .getValue() - 64))) + " Hz)");
             }
         });
         MasterTune
-                .setLabel("Master Tuning (Concert Pitch: "
-                        + freqFormatter
-                                .format(440 + (4.400 * 0.059463094359 * 1.2 * (MasterTune
-                                        .getValue() - 64))) + " Hz)");
+        .setLabel("Master Tuning (Concert Pitch: "
+                + freqFormatter
+                .format(440 + (4.400 * 0.059463094359 * 1.2 * (MasterTune
+                        .getValue() - 64))) + " Hz)");
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -282,7 +283,7 @@ public class DX7FamilySystemSetupIIEditor extends PatchEditorFrame {
         perfPane.add(
                 new JLabel(
                         "If you set the Program Change Transmission Mode to Memory, this Table determines which"),
-                gbc);
+                        gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 35;
@@ -302,8 +303,9 @@ public class DX7FamilySystemSetupIIEditor extends PatchEditorFrame {
         gbc.gridheight = 1;
         perfPane.add(new JLabel(" "), gbc);
         for (int i = 0, j = 0; i < 64; i++) {
-            if (i % 8 == 0)
+            if (i % 8 == 0) {
                 j++;
+            }
 
             gbc.gridx = 4 * (i % 8);
             gbc.gridy = 3 + j;
@@ -342,7 +344,7 @@ public class DX7FamilySystemSetupIIEditor extends PatchEditorFrame {
         perfPane.add(
                 new JLabel(
                         "be included in bulk data only (does not have parameter change code)"),
-                gbc);
+                        gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -371,8 +373,9 @@ public class DX7FamilySystemSetupIIEditor extends PatchEditorFrame {
             b[6] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
-            b[2] = (byte) (0x10 + channel - 1);
+            b[2] = (byte) (0x10 + getChannel() - 1);
             b[5] = (byte) value;
 
             return b;
@@ -396,8 +399,9 @@ public class DX7FamilySystemSetupIIEditor extends PatchEditorFrame {
             b[6] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
-            b[2] = (byte) (0x10 + channel - 1);
+            b[2] = (byte) (0x10 + getChannel() - 1);
             b[5] = (byte) value;
 
             return b;

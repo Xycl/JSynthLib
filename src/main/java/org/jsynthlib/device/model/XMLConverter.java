@@ -1,13 +1,13 @@
 package org.jsynthlib.device.model;
 
 import org.jsynthlib.patch.model.impl.Patch;
-import org.jsynthlib.xmldevice.XmlDriverSpec;
-import org.jsynthlib.xmldevice.XmlDriverDefs.XmlDriverDef;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
+import org.jsynthlib.xmldevice.XmlDriverReferences.XmlDriverReference;
 
 class XMLConverter extends Converter {
 
-    public XMLConverter(XmlDriverSpec driverSpec) {
-        super(XmlDriverDef.DriverType.CONVERTER.toString(), driverSpec.getAuthors());
+    public XMLConverter(XmlDriverDefinition driverSpec) {
+        super(XmlDriverReference.DriverType.CONVERTER.toString(), driverSpec.getAuthors());
     }
 
     /*

@@ -20,7 +20,7 @@
  */
 package org.jsynthlib.synthdrivers.RolandD10;
 
-import org.jsynthlib.device.model.IParamModel;
+import org.jsynthlib.device.model.handler.IParamModel;
 
 /**
  * This class acts as a param model for each of the four partial mute

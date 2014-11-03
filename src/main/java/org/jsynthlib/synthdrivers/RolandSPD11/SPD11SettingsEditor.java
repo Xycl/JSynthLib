@@ -10,7 +10,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;

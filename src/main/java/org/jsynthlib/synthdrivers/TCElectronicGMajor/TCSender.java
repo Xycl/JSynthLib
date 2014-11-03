@@ -21,7 +21,7 @@
 
 package org.jsynthlib.synthdrivers.TCElectronicGMajor;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.patch.model.impl.Patch;
 
 class TCSender extends SysexSender {

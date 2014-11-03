@@ -31,8 +31,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.SpinnerWidget;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -40,38 +40,38 @@ import org.jsynthlib.patch.model.impl.PatchEdit;
 
 public class DX7FamilyMicroTuningEditor extends PatchEditorFrame {
     static final String[] SemiToneName = new String[] {
-            "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+        "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
 
     static final String[] OctaveName = new String[] {
-            "-2", "-1", "0", "1", "2", "3", "4", "5", "6", "7", "8" };
+        "-2", "-1", "0", "1", "2", "3", "4", "5", "6", "7", "8" };
 
     static final String[] CoarseStepName = new String[] {
-            "-42", "-41", "-40", "-39", "-38", "-37", "-36", "-35", "-34",
-            "-33", "-32", "-31", "-30", "-29", "-28", "-27", "-26", "-25",
-            "-24", "-23", "-22", "-21", "-20", "-19", "-18", "-17", "-16",
-            "-15", "-14", "-13", "-12", "-11", "-10", "-9", "-8", "-7", "-6",
-            "-5", "-4", "-3", "-2", "-1", " 0", " 1", " 2", " 3", " 4", " 5",
-            " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16",
-            "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
-            "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38",
-            "39", "40", "41", "42" };
+        "-42", "-41", "-40", "-39", "-38", "-37", "-36", "-35", "-34",
+        "-33", "-32", "-31", "-30", "-29", "-28", "-27", "-26", "-25",
+        "-24", "-23", "-22", "-21", "-20", "-19", "-18", "-17", "-16",
+        "-15", "-14", "-13", "-12", "-11", "-10", "-9", "-8", "-7", "-6",
+        "-5", "-4", "-3", "-2", "-1", " 0", " 1", " 2", " 3", " 4", " 5",
+        " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16",
+        "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
+        "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38",
+        "39", "40", "41", "42" };
 
     static final String[] FineStepName = new String[] {
-            "  0", "  1", "  2", "  3", "  4", "  5", "  6", "  7", "  8",
-            "  9", " 10", " 11", " 12", " 13", " 14", " 15", " 16", " 17",
-            " 18", " 19", " 20", " 21", " 22", " 23", " 24", " 25", " 26",
-            " 27", " 28", " 29", " 30", " 31", " 32", " 33", " 34", " 35",
-            " 36", " 37", " 38", " 39", " 40", " 41", " 42", " 43", " 44",
-            " 45", " 46", " 47", " 48", " 49", " 50", " 51", " 52", " 53",
-            " 54", " 55", " 56", " 57", " 58", " 59", " 60", " 61", " 62",
-            " 63", " 64", " 65", " 66", " 67", " 68", " 69", " 70", " 71",
-            " 72", " 73", " 74", " 75", " 76", " 77", " 78", " 79", " 80",
-            " 81", " 82", " 83", " 84", " 85", " 86", " 87", " 88", " 89",
-            " 90", " 91", " 92", " 93", " 94", " 95", " 96", " 97", " 98",
-            " 99", "100", "101", "102", "103", "104", "105", "106", "107",
-            "108", "109", "110", "111", "112", "113", "114", "115", "116",
-            "117", "118", "119", "120", "121", "122", "123", "124", "125",
-            "126", "127" };
+        "  0", "  1", "  2", "  3", "  4", "  5", "  6", "  7", "  8",
+        "  9", " 10", " 11", " 12", " 13", " 14", " 15", " 16", " 17",
+        " 18", " 19", " 20", " 21", " 22", " 23", " 24", " 25", " 26",
+        " 27", " 28", " 29", " 30", " 31", " 32", " 33", " 34", " 35",
+        " 36", " 37", " 38", " 39", " 40", " 41", " 42", " 43", " 44",
+        " 45", " 46", " 47", " 48", " 49", " 50", " 51", " 52", " 53",
+        " 54", " 55", " 56", " 57", " 58", " 59", " 60", " 61", " 62",
+        " 63", " 64", " 65", " 66", " 67", " 68", " 69", " 70", " 71",
+        " 72", " 73", " 74", " 75", " 76", " 77", " 78", " 79", " 80",
+        " 81", " 82", " 83", " 84", " 85", " 86", " 87", " 88", " 89",
+        " 90", " 91", " 92", " 93", " 94", " 95", " 96", " 97", " 98",
+        " 99", "100", "101", "102", "103", "104", "105", "106", "107",
+        "108", "109", "110", "111", "112", "113", "114", "115", "116",
+        "117", "118", "119", "120", "121", "122", "123", "124", "125",
+        "126", "127" };
 
     public DX7FamilyMicroTuningEditor(String name, Patch patch) {
         super(name, patch);
@@ -81,7 +81,7 @@ public class DX7FamilyMicroTuningEditor extends PatchEditorFrame {
 
     protected void buildEditor(Patch patch) {
         PatchEdit.showWaitDialog(); // Because it needs some time to build up
-                                    // the editor frame
+        // the editor frame
 
         int SemiTone, Octave, keyByte;
 
@@ -91,8 +91,9 @@ public class DX7FamilyMicroTuningEditor extends PatchEditorFrame {
 
         for (Octave = 0; Octave < OctaveName.length; Octave++) {
             for (SemiTone = 0; SemiTone < SemiToneName.length; SemiTone++) {
-                if ((Octave == OctaveName.length - 1) && (SemiTone == 8))
+                if ((Octave == OctaveName.length - 1) && (SemiTone == 8)) {
                     break; // The last octave goes only till "G8"
+                }
 
                 keyByte = SemiTone + 12 * Octave;
 
@@ -133,16 +134,16 @@ public class DX7FamilyMicroTuningEditor extends PatchEditorFrame {
                 addWidget(microPane, new SpinnerWidget( // coarse
                         "", patch, 0, 84, -42, new ParamModel(patch,
                                 16 + 2 * keyByte), new MicroTuningSender(patch,
-                                keyByte, true)), // true -> coarse
-                        3 * SemiTone + 11, 3 * Octave + 11, 1, 1, 24 * Octave
-                                + 2 * SemiTone);
+                                        keyByte, true)), // true -> coarse
+                                        3 * SemiTone + 11, 3 * Octave + 11, 1, 1, 24 * Octave
+                                        + 2 * SemiTone);
 
                 addWidget(microPane, new SpinnerWidget( // fine
                         "", patch, 0, 127, 0, new ParamModel(patch,
                                 16 + 2 * keyByte + 1), new MicroTuningSender(
-                                patch, keyByte, false)), // false -> fine
-                        3 * SemiTone + 11, 3 * Octave + 12, 1, 1, 24 * Octave
-                                + 2 * SemiTone + 1);
+                                        patch, keyByte, false)), // false -> fine
+                                        3 * SemiTone + 11, 3 * Octave + 12, 1, 1, 24 * Octave
+                                        + 2 * SemiTone + 1);
 
                 gbc.gridx = 3 * SemiTone + 12;
                 gbc.gridy = 3 * Octave + 13;
@@ -182,14 +183,15 @@ public class DX7FamilyMicroTuningEditor extends PatchEditorFrame {
             b[8] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
-            b[2] = (byte) (0x10 + channel - 1);
+            b[2] = (byte) (0x10 + getChannel() - 1);
 
             if (coarse) {
                 b[6] = (byte) value;
-                b[7] = (byte) (patch.sysex[offset + 1]);
+                b[7] = (patch.sysex[offset + 1]);
             } else {
-                b[6] = (byte) (patch.sysex[offset]);
+                b[6] = (patch.sysex[offset]);
                 b[7] = (byte) value;
             }
 

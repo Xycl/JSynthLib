@@ -13,8 +13,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
@@ -49,7 +49,7 @@ class KawaiK5000ADDSingleEditor extends PatchEditorFrame {
             "Off", "Harm Max", "Harm Bright", "Harm Dark", "Harm Saw",
             "Select Loud", "Add Loud", "Add 5th", "Add Odd", "Add Even",
             "HE #1", "HE #2", "HE Loop", "FF Max", "FF Comb", "FF Hi Cut",
-            "FF Comb 2" };
+    "FF Comb 2" };
 
     final String[] waveName = new String[] {
             "342 Piano Noise Attack", "343 EP Noise Attack",
@@ -71,7 +71,7 @@ class KawaiK5000ADDSingleEditor extends PatchEditorFrame {
             "376 Pizz Double Bass Attack", "377 Doo Attack",
             "378 Trombone Attack", "379 Brass Attack", "380 F. Horn 1 Attack",
             "381 F. Horn 2 Attack", "382 Flute Attack", "383 T. Sax Attack",
-            "384 Shamisen Attack" };
+    "384 Shamisen Attack" };
 
     final JPanel srcPanel[] = new JPanel[6];
 
@@ -100,24 +100,27 @@ class KawaiK5000ADDSingleEditor extends PatchEditorFrame {
         addWidget(cmn2Panel, numSources, 0, 2, 2, 1, 2);
 
         numSources.addEventListener(new ChangeListener() {
+            @Override
             public void stateChanged(ChangeEvent e) {
                 int i = numSources.getValue();
 
-                for (int j = i; j < 6; j++)
+                for (int j = i; j < 6; j++) {
                     tabPane.remove(srcPanel[j]);
+                }
 
-                for (int j = 0; j < i; j++)
+                for (int j = 0; j < i; j++) {
                     tabPane.addTab("Source " + (j + 1), srcPanel[j]);
+                }
             }
         });
 
         addWidget(cmn2Panel, new ComboBoxWidget("Poly Mode", patch,
                 new K5kCmnModel(patch, 49), new K5kCmnSender(9), new String[] {
-                        "POLY", "SOLO1", "SOLO2" }), 0, 3, 1, 1, 3);
+            "POLY", "SOLO1", "SOLO2" }), 0, 3, 1, 1, 3);
         addWidget(cmn2Panel, new ComboBoxWidget("AM", patch, new K5kCmnModel(
                 patch, 53), new K5kCmnSender(0x0D), new String[] {
-                "None", "Source 2", "Source 3", "Source 4", "Source 5",
-                "Source 6" }), 1, 3, 1, 1, 4);
+            "None", "Source 2", "Source 3", "Source 4", "Source 5",
+        "Source 6" }), 1, 3, 1, 1, 4);
         addWidget(cmn2Panel, new ScrollBarWidget("Portamento Speed", patch, 0,
                 127, 0, new K5kCmnModel(patch, 61), new K5kCmnSender(0x15)), 0,
                 4, 2, 1, 2);
@@ -246,19 +249,19 @@ class KawaiK5000ADDSingleEditor extends PatchEditorFrame {
         addWidget(switchPanel,
                 new ComboBoxWidget("      Switch 1", patch, new K5kCmnModel(
                         patch, 78), new K5kCmnSender(0x26), switchList), 0, 1,
-                2, 1, 5);
+                        2, 1, 5);
         addWidget(switchPanel,
                 new ComboBoxWidget("      Switch 2", patch, new K5kCmnModel(
                         patch, 79), new K5kCmnSender(0x27), switchList), 0, 2,
-                2, 1, 5);
+                        2, 1, 5);
         addWidget(switchPanel,
                 new ComboBoxWidget("Foot Switch 1", patch, new K5kCmnModel(
                         patch, 80), new K5kCmnSender(0x28), switchList), 0, 3,
-                2, 1, 5);
+                        2, 1, 5);
         addWidget(switchPanel,
                 new ComboBoxWidget("Foot Switch 2", patch, new K5kCmnModel(
                         patch, 81), new K5kCmnSender(0x29), switchList), 0, 4,
-                2, 1, 5);
+                        2, 1, 5);
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -279,8 +282,9 @@ class KawaiK5000ADDSingleEditor extends PatchEditorFrame {
         scrollPane.add(tabPane, gbc);
         for (int i = 0; i < 6; i++) {
             srcPanel[i] = createSourcePanel(i);
-            if (patch.sysex[60] > i)
+            if (patch.sysex[60] > i) {
                 tabPane.addTab("Source " + (i + 1), srcPanel[i]);
+            }
         }
 
         pack();
@@ -348,8 +352,9 @@ class K5kCmnSender extends SysexSender {
         b[13] = (byte) 0xF7;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[2] = (byte) (channel - 1);
+        b[2] = (byte) (getChannel() - 1);
         b[11] = (byte) (value / 128);
         b[12] = (byte) (value & 127);
         return b;
@@ -376,8 +381,9 @@ class K5kSrcSender extends SysexSender {
         b[13] = (byte) 0xF7;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[2] = (byte) (channel - 1);
+        b[2] = (byte) (getChannel() - 1);
         b[11] = (byte) (value / 128);
         b[12] = (byte) (value & 127);
         return b;
@@ -408,18 +414,22 @@ class K5kVelSwModel extends ParamModel {
         this.part = part;
     }
 
+    @Override
     public void set(int i) {
-        if (part == 0)
+        if (part == 0) {
             patch.sysex[offset] = ((byte) (i * 32 + (get() & 31)));
-        else
+        } else {
             patch.sysex[offset] = ((byte) (i + (get() & (127 - 31))));
+        }
     }
 
+    @Override
     public int get() {
-        if (part == 0)
+        if (part == 0) {
             return (patch.sysex[offset] & (127 - 31) / 32);
-        else
+        } else {
             return (patch.sysex[offset] & 31);
+        }
     }
 }
 
@@ -445,8 +455,9 @@ class K5kVelSwSender extends SysexSender {
         b[13] = (byte) 0xF7;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[2] = (byte) (channel - 1);
+        b[2] = (byte) (getChannel() - 1);
         b[11] = (byte) (value / 128);
         b[12] = (byte) (value & 127);
         return b;

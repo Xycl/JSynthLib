@@ -20,28 +20,12 @@
  */
 package org.jsynthlib.device.model;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
-import java.util.prefs.Preferences;
 
 /**
  * @author Pascal Collberg
  */
 public interface DeviceManager {
-
-    /**
-     * Create an instance of a device driver.
-     * @param descriptor
-     *            the class name of the device driver
-     * @param prefs
-     *            the preferences
-     * @return an instance of the device driver, or null if one cannot be
-     *         instantiated
-     */
-    Device addDevice(DeviceDescriptor descriptor, Preferences prefs)
-            throws ClassNotFoundException, NoSuchMethodException,
-            InstantiationException, IllegalAccessException,
-            InvocationTargetException;
 
     /**
      * Add Device into <code>deviceList</code>. A new Preferences node will be
@@ -50,8 +34,10 @@ public interface DeviceManager {
      *            name of Device class (ex.
      *            "synthdrivers.KawaiK4.KawaiK4Device").
      * @return a <code>Device</code> value created.
+     * @throws DeviceException
+     *             if the device creation fails
      */
-    Device addDevice(DeviceDescriptor descriptor);
+    Device addDevice(DeviceDescriptor descriptor) throws DeviceException;
 
     /** Indexed getter for deviceList elements */
     Device getDevice(int i);
@@ -112,8 +98,30 @@ public interface DeviceManager {
      * @return the class for the device (for example
      *         synthdrivers.KawaiK4.KawaiK4Device)
      */
-    DeviceDescriptor getDescriptorForDeviceName(
-            String deviceName);
+    DeviceDescriptor getDescriptorForDeviceName(String deviceName);
+
+    /**
+     * Makes the device available to JSynthLib
+     * @param deviceName
+     *            Name of the device
+     * @param shortName
+     *            Short name of the device
+     * @param deviceClass
+     *            The class of the device
+     * @param deviceId
+     *            The id of the device
+     * @param manufacturer
+     * @param type
+     */
+    void installDevice(String deviceName, String shortName, String deviceClass,
+            String deviceId, String manufacturer, String type);
+
+    /**
+     * Removes the device from the installable device list. TODO: Should also
+     * remove any running instances.
+     * @param deviceDescriptor
+     */
+    void uninstallDevice(DeviceDescriptor deviceDescriptor);
 
     /**
      * Print all available device descriptors to the console.

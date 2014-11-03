@@ -28,7 +28,7 @@ package org.jsynthlib.synthdrivers.YamahaTG100;
  * @version $Id: TG100Model.java 843 2005-01-24 07:24:21Z jbackhaus $
  */
 
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
 
 public class TG100Model extends ParamModel {

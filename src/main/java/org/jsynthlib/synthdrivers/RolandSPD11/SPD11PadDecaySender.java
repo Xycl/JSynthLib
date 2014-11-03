@@ -6,7 +6,7 @@
 package org.jsynthlib.synthdrivers.RolandSPD11;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 /**
  * Decay values are from -31 to 31, they are represented by their 2's complement

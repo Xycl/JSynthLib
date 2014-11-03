@@ -41,6 +41,7 @@ import org.jsynthlib.core.LookupManufacturer;
 import org.jsynthlib.core.viewcontroller.ScanUnkownReportDialog;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceDescriptor;
+import org.jsynthlib.device.model.DeviceException;
 import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.midi.domain.MidiSettings;
 import org.jsynthlib.midi.service.MidiScanService;
@@ -134,7 +135,7 @@ public class MidiScanServiceImpl implements MidiScanService {
                                 log.warn(e.getMessage(), e);
                                 continue;
                             }
-                                Thread.sleep(WAITFORRESPONSE);
+                            Thread.sleep(WAITFORRESPONSE);
                             for (int i = 0; i < maxin; i++) {
                                 // For all Inputs
                                 log.debug("    in port : " + i);
@@ -147,8 +148,8 @@ public class MidiScanServiceImpl implements MidiScanService {
                                 SysexMessage msg;
                                 try {
                                     msg =
-                                            (SysexMessage) midiService.getMessage(
-                                                    i, 1);
+                                            (SysexMessage) midiService
+                                                    .getMessage(i, 1);
                                 } catch (InvalidMidiDataException e) {
                                     log.warn(e.getMessage(), e);
                                     continue;
@@ -163,19 +164,19 @@ public class MidiScanServiceImpl implements MidiScanService {
                                 byte[] answerData = msg.getMessage();
 
                                 /*
-                                 * check, whether it is really an inquiry response.
-                                 * The (answerData[2] == 0x06) and (answerData[3] ==
-                                 * 0x02) parts are a hack that is needed e.g. for
-                                 * the Waldorf Microwave 2 which does not obey the
-                                 * MIDI specification
+                                 * check, whether it is really an inquiry
+                                 * response. The (answerData[2] == 0x06) and
+                                 * (answerData[3] == 0x02) parts are a hack that
+                                 * is needed e.g. for the Waldorf Microwave 2
+                                 * which does not obey the MIDI specification
                                  */
                                 if (((answerData[0] & 0xff) == 0xf0)
                                         && (answerData[1] == 0x7e)
                                         && ((answerData[2] == 0x06) || (answerData[3] == 0x06))
                                         && ((answerData[3] == 0x02) || (answerData[4] == 0x02))) {
                                     // Look in all loaded modules
-                                    checkResponseData(answerData, sysexSize, j, i,
-                                            devID, pb);
+                                    checkResponseData(answerData, sysexSize, j,
+                                            i, devID, pb);
                                 } else if (!Arrays.equals(idData, answerData)) {
                                     // don't show debug messge for the inquiry
                                     // request
@@ -245,17 +246,25 @@ public class MidiScanServiceImpl implements MidiScanService {
                 if (!dontadd) { // add it only, if it is not in the list
                     DeviceDescriptor descriptor =
                             deviceManager.getDescriptorForIDString(se);
-                    Device useDevice = deviceManager.addDevice(descriptor);
-                    log.info("MidiOut: " + midiout + ", MidiIn: " + midiin
-                            + ", devID: " + devID);
+                    try {
+                        Device useDevice = deviceManager.addDevice(descriptor);
+                        log.info("MidiOut: " + midiout + ", MidiIn: " + midiin
+                                + ", devID: " + devID);
 
-                    String outputName = midiSettings.getOutputName(midiout);
-                    useDevice.setOutPortName(outputName);
-                    useDevice.setInPort(midiin);
-                    useDevice.setDeviceID(devID + 1);
-                    if (pb != null) {
-                        pb.setNote("Found " + useDevice.getManufacturerName()
-                                + " " + useDevice.getModelName());
+                        String outputName = midiSettings.getOutputName(midiout);
+                        useDevice.setOutPortName(outputName);
+                        useDevice.setInPort(midiin);
+                        useDevice.setDeviceID(devID + 1);
+                        if (pb != null) {
+                            pb.setNote("Found "
+                                    + useDevice.getManufacturerName() + " "
+                                    + useDevice.getModelName());
+                        }
+                    } catch (DeviceException e) {
+                        log.warn(e.getMessage(), e);
+                        if (pb != null) {
+                            pb.setNote(e.getMessage());
+                        }
                     }
                 }
 

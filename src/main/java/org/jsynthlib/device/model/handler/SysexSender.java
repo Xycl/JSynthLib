@@ -1,9 +1,10 @@
-package org.jsynthlib.device.model;
+package org.jsynthlib.device.model.handler;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.device.model.IDriver;
 
 /**
  * An implementation of SysexWidget.ISender.
@@ -18,7 +19,7 @@ public class SysexSender implements ISender {
      * private. But it's too late, because many synthdriver's subclasses are
      * using this.
      */
-    protected byte channel;
+    private byte channel;
     private String sysex;
 
     /**
@@ -45,7 +46,10 @@ public class SysexSender implements ISender {
      *            <dt><code>"##"</code>
      *            <dd>replaced by <code>(channel - 1 + 16)</code>.
      *            </dl>
+     * @deprecated All device handlers must comply with the Java Beans standard
+     *             and use the empty constructor + getter/setters.
      */
+    @Deprecated
     public SysexSender(String sysex) {
         this.sysex = sysex;
     }
@@ -87,5 +91,17 @@ public class SysexSender implements ISender {
         } catch (InvalidMidiDataException e) {
             log.warn(e.getMessage(), e);
         }
+    }
+
+    public final byte getChannel() {
+        return channel;
+    }
+
+    public final void setChannel(byte channel) {
+        this.channel = channel;
+    }
+
+    public final Logger getLog() {
+        return log;
     }
 }

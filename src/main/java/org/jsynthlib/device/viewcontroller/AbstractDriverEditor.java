@@ -54,27 +54,28 @@ import org.jsynthlib.device.model.EnvelopeNode;
 import org.jsynthlib.device.model.EnvelopeXParam;
 import org.jsynthlib.device.model.EnvelopeYParam;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.IParamModel;
-import org.jsynthlib.device.model.IPatchStringSender;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.MidiSenderFactory;
+import org.jsynthlib.device.model.ParamModelFactory;
 import org.jsynthlib.device.model.PatchParam;
 import org.jsynthlib.device.model.PatchParamLabel;
 import org.jsynthlib.device.model.PatchStringModel;
+import org.jsynthlib.device.model.handler.IParamModel;
+import org.jsynthlib.device.model.handler.IPatchStringSender;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.Envelope;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.xmldevice.EnvelopeNodeSpec;
 import org.jsynthlib.xmldevice.EnvelopeSpec;
+import org.jsynthlib.xmldevice.HandlerReferenceBase.PropertyValue;
 import org.jsynthlib.xmldevice.IntParamSpec;
-import org.jsynthlib.xmldevice.MidiSender;
 import org.jsynthlib.xmldevice.PatchParamSpec;
 import org.jsynthlib.xmldevice.PatchParamValues;
-import org.jsynthlib.xmldevice.PropertySpec;
-import org.jsynthlib.xmldevice.StringModelSpec;
+import org.jsynthlib.xmldevice.StringModelReference;
 import org.jsynthlib.xmldevice.StringParamSpec;
-import org.jsynthlib.xmldevice.StringSenderSpec;
+import org.jsynthlib.xmldevice.StringSenderReference;
 import org.jsynthlib.xmldevice.UuidPatchParamSpec;
 import org.jsynthlib.xmldevice.XEnvelopeParamSpec;
-import org.jsynthlib.xmldevice.XmlDriverSpec;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
 import org.jsynthlib.xmldevice.YEnvelopeParamSpec;
 
 import com.dreamfabric.DKnob;
@@ -92,12 +93,19 @@ public abstract class AbstractDriverEditor extends JPanel {
 
     protected final Patch patch;
 
-    public AbstractDriverEditor(IDriver driver, Patch patch) {
+    private final ParamModelFactory paramModelFactory;
+
+    private final MidiSenderFactory senderFactory;
+
+    public AbstractDriverEditor(IDriver driver, Patch patch,
+            ParamModelFactory paramModelFactory, MidiSenderFactory senderFactory) {
         this.driver = driver;
         this.patch = patch;
+        this.paramModelFactory = paramModelFactory;
+        this.senderFactory = senderFactory;
     }
 
-    public final void initializePatchParams(XmlDriverSpec xmlDriverSpec) {
+    public final void initializePatchParams(XmlDriverDefinition xmlDriverSpec) {
         try {
             for (Field f : getClass().getDeclaredFields()) {
                 try {
@@ -164,9 +172,11 @@ public abstract class AbstractDriverEditor extends JPanel {
                                 xParamSpec.getInvert());
                 if (xParam.isVariable()) {
                     final ISender sender =
-                            newSender(xParamSpec.getMidiSender());
+                            senderFactory.newSender(xParamSpec.getMidiSender(),
+                                    patch);
                     final IParamModel paramModel =
-                            newParamModel(xParamSpec.getParamModel());
+                            paramModelFactory.newParamModel(
+                                    xParamSpec.getParamModel(), patch);
                     xParam.addChangeListener(new ChangeListener<AbstractEnvelopeParam>() {
 
                         @Override
@@ -189,9 +199,11 @@ public abstract class AbstractDriverEditor extends JPanel {
                                 yParamSpec.getBase());
                 if (yParam.isVariable()) {
                     final ISender sender =
-                            newSender(yParamSpec.getMidiSender());
+                            senderFactory.newSender(yParamSpec.getMidiSender(),
+                                    patch);
                     final IParamModel paramModel =
-                            newParamModel(yParamSpec.getParamModel());
+                            paramModelFactory.newParamModel(
+                                    yParamSpec.getParamModel(), patch);
                     yParam.addChangeListener(new ChangeListener<AbstractEnvelopeParam>() {
 
                         @Override
@@ -218,8 +230,11 @@ public abstract class AbstractDriverEditor extends JPanel {
         final int min = paramSpec.getMin();
         final int range = paramSpec.getMax() - paramSpec.getMin();
 
-        final ISender sender = newSender(paramSpec.getMidiSender());
-        final IParamModel paramModel = newParamModel(paramSpec.getParamModel());
+        final ISender sender =
+                senderFactory.newSender(paramSpec.getMidiSender(), patch);
+        final IParamModel paramModel =
+                paramModelFactory.newParamModel(paramSpec.getParamModel(),
+                        patch);
 
         knob.setDragType(DKnob.SIMPLE_MOUSE_DIRECTION);
 
@@ -254,41 +269,14 @@ public abstract class AbstractDriverEditor extends JPanel {
         });
     }
 
-    protected ISender newSender(MidiSender midiSender) {
-        String className = midiSender.getSenderClass();
-        PropertySpec[] properties = midiSender.getPropertyArray();
-        return newPropertyBean(className, ISender.class, properties, true);
-    }
-
-    protected IParamModel newParamModel(
-            org.jsynthlib.xmldevice.ParamModel paramModel) {
-        String className = paramModel.getModelClass();
-        PropertySpec[] properties = paramModel.getPropertyArray();
-        return newPropertyBean(className, IParamModel.class, properties, true);
-    }
-
-    protected IPatchStringSender newStringSender(
-            StringSenderSpec stringSenderSpec) {
-        String className = stringSenderSpec.getStringSenderClass();
-        PropertySpec[] properties = stringSenderSpec.getPropertyArray();
-        return newPropertyBean(className, IPatchStringSender.class, properties, true);
-    }
-
-    protected PatchStringModel newPatchStringModel(
-            StringModelSpec stringModelSpec) {
-        String className = stringModelSpec.getStringModelClass();
-        PropertySpec[] properties = stringModelSpec.getPropertyArray();
-        return newPropertyBean(className, PatchStringModel.class, properties, true);
-    }
-
     @SuppressWarnings("unchecked")
     <T> T newPropertyBean(String className, Class<T> returnClass,
-            PropertySpec[] properties, boolean setPatch) {
+            PropertyValue[] properties, boolean setPatch) {
         try {
             Class<T> klass = (Class<T>) Class.forName(className);
             T instance = klass.newInstance();
-            for (PropertySpec property : properties) {
-                BeanUtils.setProperty(instance, property.getName(),
+            for (PropertyValue property : properties) {
+                BeanUtils.setProperty(instance, property.getKey(),
                         property.getValue());
             }
             if (setPatch) {
@@ -312,8 +300,11 @@ public abstract class AbstractDriverEditor extends JPanel {
                 new DefaultComboBoxModel(
                         patchParamValues.getPatchParamValueArray());
         js.setModel(model);
-        final ISender sender = newSender(paramSpec.getMidiSender());
-        final IParamModel paramModel = newParamModel(paramSpec.getParamModel());
+        final ISender sender =
+                senderFactory.newSender(paramSpec.getMidiSender(), patch);
+        final IParamModel paramModel =
+                paramModelFactory.newParamModel(paramSpec.getParamModel(),
+                        patch);
         js.addItemListener(new ItemListener() {
 
             @Override
@@ -333,8 +324,11 @@ public abstract class AbstractDriverEditor extends JPanel {
      */
     void handleJCheckBox(JCheckBox js, final IntParamSpec paramSpec) {
         ToggleButtonModel model = new ToggleButtonModel();
-        final ISender sender = newSender(paramSpec.getMidiSender());
-        final IParamModel paramModel = newParamModel(paramSpec.getParamModel());
+        final ISender sender =
+                senderFactory.newSender(paramSpec.getMidiSender(), patch);
+        final IParamModel paramModel =
+                paramModelFactory.newParamModel(paramSpec.getParamModel(),
+                        patch);
         model.addItemListener(new ItemListener() {
 
             @Override
@@ -360,8 +354,11 @@ public abstract class AbstractDriverEditor extends JPanel {
         BoundedRangeModel model =
                 new DefaultBoundedRangeModel(0, 0, paramSpec.getMin(),
                         paramSpec.getMax());
-        final ISender sender = newSender(paramSpec.getMidiSender());
-        final IParamModel paramModel = newParamModel(paramSpec.getParamModel());
+        final ISender sender =
+                senderFactory.newSender(paramSpec.getMidiSender(), patch);
+        final IParamModel paramModel =
+                paramModelFactory.newParamModel(paramSpec.getParamModel(),
+                        patch);
         model.addChangeListener(new javax.swing.event.ChangeListener() {
 
             @Override
@@ -374,8 +371,8 @@ public abstract class AbstractDriverEditor extends JPanel {
         js.setModel(model);
     }
 
-    protected UuidPatchParamSpec getPatchParamSpec(XmlDriverSpec xmlDriverSpec,
-            String uuid) {
+    protected UuidPatchParamSpec getPatchParamSpec(
+            XmlDriverDefinition xmlDriverSpec, String uuid) {
         String queryExpressionStub =
                 "declare namespace jsl='http://www.jsynthlib.org/xmldevice';"
                         + "//*[jsl:uuid='%s']";
@@ -389,15 +386,17 @@ public abstract class AbstractDriverEditor extends JPanel {
     }
 
     void handleJTextField(JTextField jtf, StringParamSpec paramSpec) {
-        StringSenderSpec senderSpec = paramSpec.getStringSender();
+        StringSenderReference senderSpec = paramSpec.getStringSender();
         IPatchStringSender sender = null;
         if (senderSpec != null) {
-            sender = newStringSender(senderSpec);
+            sender = senderFactory.newStringSender(senderSpec, patch);
         }
-        StringModelSpec stringModelSpec = paramSpec.getStringModel();
+        StringModelReference stringModelSpec = paramSpec.getStringModel();
         PatchStringModel model = null;
         if (senderSpec != null) {
-            model = newPatchStringModel(stringModelSpec);
+            model =
+                    paramModelFactory.newPatchStringModel(stringModelSpec,
+                            patch);
         }
 
         jtf.addFocusListener(new PatchNameFocusListener(sender, model));
@@ -408,11 +407,20 @@ public abstract class AbstractDriverEditor extends JPanel {
         }
     }
 
+    protected ParamModelFactory getParamModelFactory() {
+        return paramModelFactory;
+    }
+
+    protected MidiSenderFactory getSenderFactory() {
+        return senderFactory;
+    }
+
     class PatchNameFocusListener implements FocusListener {
         private final IPatchStringSender sender;
         private final PatchStringModel model;
 
-        public PatchNameFocusListener(IPatchStringSender sender, PatchStringModel model) {
+        public PatchNameFocusListener(IPatchStringSender sender,
+                PatchStringModel model) {
             this.sender = sender;
             this.model = model;
         }

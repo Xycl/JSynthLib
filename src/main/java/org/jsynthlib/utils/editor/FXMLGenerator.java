@@ -41,8 +41,8 @@ import org.jsynthlib.xmldevice.PatchParamValues;
 import org.jsynthlib.xmldevice.PatchParams;
 import org.jsynthlib.xmldevice.StringParamSpec;
 import org.jsynthlib.xmldevice.XEnvelopeParamSpec;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 import org.jsynthlib.xmldevice.YEnvelopeParamSpec;
 
 public class FXMLGenerator {
@@ -153,9 +153,9 @@ public class FXMLGenerator {
                 getClass().getClassLoader().getResourceAsStream(
                         packageName.replace('.', '/') + "/" + fileNamePrefix
                                 + ".xml");
-        XmlPatchDriverSpecDocument document =
-                XmlPatchDriverSpecDocument.Factory.parse(stream);
-        XmlPatchDriverSpec driverSpec = document.getXmlPatchDriverSpec();
+        XmlSingleDriverDefinitionDocument document =
+                XmlSingleDriverDefinitionDocument.Factory.parse(stream);
+        XmlSingleDriverDefinition driverSpec = document.getXmlSingleDriverDefinition();
         PatchParams patchParams = driverSpec.getPatchParams();
 
         paneDocument = AnchorPaneDocument.Factory.newInstance();

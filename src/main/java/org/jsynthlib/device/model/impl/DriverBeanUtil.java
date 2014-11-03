@@ -16,8 +16,8 @@ import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.utils.SysexUtils;
 import org.jsynthlib.xmldevice.Property;
 import org.jsynthlib.xmldevice.StringArray;
-import org.jsynthlib.xmldevice.XmlDriverSpec;
-import org.jsynthlib.xmldevice.XmlDriverSpec.CustomProperties;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
+import org.jsynthlib.xmldevice.XmlDriverDefinition.CustomProperties;
 
 public final class DriverBeanUtil {
 
@@ -85,7 +85,7 @@ public final class DriverBeanUtil {
         }, byteArrayClass);
     }
 
-    public static void copyXmlProperties(IDriver dest, XmlDriverSpec orig)
+    public static void copyXmlProperties(IDriver dest, XmlDriverDefinition orig)
             throws IllegalAccessException, InvocationTargetException {
         INSTANCE.beanUtilsBean.copyProperties(dest, orig);
         CustomProperties customProperties = orig.getCustomProperties();

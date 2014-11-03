@@ -26,7 +26,7 @@ import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 /**
  * @author peter
@@ -57,6 +57,7 @@ public class SPD11PadInstSender extends SysexSender {
 
     }
 
+    @Override
     public byte[] generate(int value) {
         byte[] syse = super.generate(value / 16);
         syse[6] = (byte) patch;
@@ -79,8 +80,9 @@ public class SPD11PadInstSender extends SysexSender {
         return syse;
     }
 
+    @Override
     public void send(IDriver driver, int value) {
-        channel = (byte) driver.getDevice().getDeviceID();
+        setChannel((byte) driver.getDevice().getDeviceID());
         // generate the message to set the first offset and use value/16
         byte[] sysex = generate(value);
         // send the first message m

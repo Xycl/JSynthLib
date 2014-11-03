@@ -8,7 +8,7 @@ package org.jsynthlib.synthdrivers.RolandSPD11;
 import java.awt.GridBagConstraints;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.KnobLookupWidget;

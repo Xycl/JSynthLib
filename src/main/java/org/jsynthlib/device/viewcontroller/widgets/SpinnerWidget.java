@@ -9,8 +9,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.jsynthlib.device.model.IParamModel;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.IParamModel;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**

@@ -28,7 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.KnobWidget;
 import org.jsynthlib.patch.model.impl.Patch;

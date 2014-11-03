@@ -11,15 +11,15 @@ import javafx.util.Callback;
 
 import org.jsynthlib.device.view.Envelope;
 import org.jsynthlib.device.view.Knob;
-import org.jsynthlib.xmldevice.XmlDriverSpec;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
 public class AbstractControllerFactory implements Callback<Class<?>, Object> {
 
-    private final XmlDriverSpec driverSpec;
+    private final XmlDriverDefinition driverSpec;
 
     private final Map<Class<?>, ConcreteControllerFactory> factoryMap;
 
-    public AbstractControllerFactory(XmlDriverSpec driverSpec) {
+    public AbstractControllerFactory(XmlDriverDefinition driverSpec) {
         this.driverSpec = driverSpec;
         factoryMap = new HashMap<Class<?>, AbstractControllerFactory.ConcreteControllerFactory>();
         factoryMap.put(Envelope.class, new EnvelopeControllerFactory());

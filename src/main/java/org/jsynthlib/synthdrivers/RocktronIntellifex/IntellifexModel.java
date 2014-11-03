@@ -1,6 +1,6 @@
 package org.jsynthlib.synthdrivers.RocktronIntellifex;
 
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**

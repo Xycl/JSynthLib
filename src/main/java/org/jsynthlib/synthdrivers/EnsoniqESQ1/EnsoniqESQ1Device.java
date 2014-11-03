@@ -7,7 +7,7 @@
 package org.jsynthlib.synthdrivers.EnsoniqESQ1;
 
 import org.jsynthlib.device.model.XMLDevice;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument.XmlDeviceSpec;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 
 /**
  * @author Gerrit Gehnen
@@ -21,7 +21,7 @@ public class EnsoniqESQ1Device extends XMLDevice {
                     + "knows a way around this let me know. The other ESQ librarians I checked out had the same problem, so "
                     + "it may be impossible";
 
-    public EnsoniqESQ1Device(XmlDeviceSpec xmlDeviceSpec) {
+    public EnsoniqESQ1Device(XmlDeviceDefinition xmlDeviceSpec) {
         super(xmlDeviceSpec);
     }
 

@@ -12,8 +12,8 @@ import javax.swing.SwingUtilities;
 import org.apache.xmlbeans.XmlException;
 import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.PatchParamSpec;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class AbstractDriverEditorTest {
 
             @Override
             public void run() {
-                tested = new AbstractDriverEditor(null, null) {
+                tested = new AbstractDriverEditor(null, null, null, null) {
                 };
             }
         });
@@ -46,9 +46,9 @@ public class AbstractDriverEditorTest {
                         .getClassLoader()
                         .getResourceAsStream(
                                 "org/jsynthlib/synthdrivers/RolandD50/D50SingleDriver.xml");
-        XmlPatchDriverSpecDocument document =
-                XmlPatchDriverSpecDocument.Factory.parse(inputStream);
-        XmlPatchDriverSpec xmlDriverSpec = document.getXmlPatchDriverSpec();
+        XmlSingleDriverDefinitionDocument document =
+                XmlSingleDriverDefinitionDocument.Factory.parse(inputStream);
+        XmlSingleDriverDefinition xmlDriverSpec = document.getXmlSingleDriverDefinition();
         PatchParamSpec patchParamSpec =
                 tested.getPatchParamSpec(xmlDriverSpec,
                         "b49d914c57e0497faa1421c4e1016887");

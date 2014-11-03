@@ -2,7 +2,7 @@ package org.jsynthlib.synthdrivers.RolandD50;
 
 import static org.junit.Assert.assertEquals;
 
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class D50SingleDriverTest {
 
     @Test
     public void testCalculateChecksum() {
-        XmlPatchDriverSpec xmlDriverSpec = XmlPatchDriverSpec.Factory.newInstance();
+        XmlSingleDriverDefinition xmlDriverSpec = XmlSingleDriverDefinition.Factory.newInstance();
         D50SingleDriver tested = new D50SingleDriver(xmlDriverSpec);
 
         byte[] sysex =

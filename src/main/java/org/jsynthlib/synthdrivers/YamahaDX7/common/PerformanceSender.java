@@ -1,6 +1,6 @@
 package org.jsynthlib.synthdrivers.YamahaDX7.common;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /*
@@ -18,8 +18,8 @@ public class PerformanceSender extends SysexSender {
     // translation table TX7->DX7 for Sensitivity parameters
     // (ModulationWheel, FootCtrl, BreathCtrl, AfterTouch)
     private static final byte[] TX2DX_SENSITIVITY = new byte[] {
-            0x00, 0x06, 0x0d, 0x13, 0x1A, 0x21, 0x27, 0x2E, 0x35, 0x3B, 0x42,
-            0x48, 0x4F, 0x56, 0x5C, 0x63 };
+        0x00, 0x06, 0x0d, 0x13, 0x1A, 0x21, 0x27, 0x2E, 0x35, 0x3B, 0x42,
+        0x48, 0x4F, 0x56, 0x5C, 0x63 };
 
     public PerformanceSender() {
         b[0] = (byte) 0xF0;
@@ -29,7 +29,7 @@ public class PerformanceSender extends SysexSender {
 
     @Override
     public byte[] generate(int value) {
-        b[2] = (byte) (0x10 + channel - 1);
+        b[2] = (byte) (0x10 + getChannel() - 1);
         b[5] = (byte) value;
 
         if (isDX7(patch)) {

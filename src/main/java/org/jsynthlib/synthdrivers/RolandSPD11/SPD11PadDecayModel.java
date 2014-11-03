@@ -5,7 +5,7 @@
 
 package org.jsynthlib.synthdrivers.RolandSPD11;
 
-import org.jsynthlib.device.model.IParamModel;
+import org.jsynthlib.device.model.handler.IParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**

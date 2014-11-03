@@ -4,7 +4,7 @@
  * @author  Thorsten Klose
  * @version $Id: MIDIboxFMSender.java 1035 2006-01-28 13:26:37Z tklose $
  *
- * Copyright (C) 2005  Thorsten.Klose@gmx.de   
+ * Copyright (C) 2005  Thorsten.Klose@gmx.de
  *                     http://www.uCApps.de
  *
  * This program is free software; you can redistribute it and/or
@@ -24,7 +24,7 @@
 
 package org.jsynthlib.synthdrivers.MIDIboxFM;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.patch.model.impl.Patch;
 
 class MIDIboxFMSender extends SysexSender {
@@ -80,16 +80,18 @@ class MIDIboxFMSender extends SysexSender {
         MIDIboxFMSender_Hlp(_patch, type, parameter);
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[5] = (byte) (channel - 1);
+        b[5] = (byte) (getChannel() - 1);
 
         if (flag == -1) {
             b[10] = (byte) value;
         } else {
             b[10] = (byte) (patch.sysex[10 + parameter] & (~bitmask));
 
-            if (mapped_values.length > 0)
+            if (mapped_values.length > 0) {
                 value = mapped_values[value];
+            }
 
             b[10] |= (byte) value << flag;
         }

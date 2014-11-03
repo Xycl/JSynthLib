@@ -8,7 +8,7 @@ import org.jsynthlib.core.TitleFinder.FrameWrapper;
 import org.jsynthlib.core.valuesetter.IValueSetter;
 import org.jsynthlib.device.model.EnvelopeModel;
 import org.jsynthlib.device.model.EnvelopeNode;
-import org.jsynthlib.device.model.IParamModel;
+import org.jsynthlib.device.model.handler.IParamModel;
 import org.jsynthlib.device.view.Envelope;
 import org.jsynthlib.device.viewcontroller.widgets.AbstractEnvelopeWidgetAdapter;
 import org.jsynthlib.test.adapter.AbstractJFXWidgetAdapter.ControlDisplayer;

@@ -5,7 +5,7 @@ import javax.sound.midi.ShortMessage;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.ISender;
 
 public class EnsoniqESQ1NrpnSender implements ISender {
 

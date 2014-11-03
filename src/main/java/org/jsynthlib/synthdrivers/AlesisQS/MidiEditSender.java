@@ -1,6 +1,6 @@
 package org.jsynthlib.synthdrivers.AlesisQS;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 /**
  * Sender for AlesisQS keyboards. Uses Midi function 0x10 - "MIDI Editing" - to

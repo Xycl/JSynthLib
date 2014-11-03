@@ -20,7 +20,7 @@
  */
 package org.jsynthlib.synthdrivers.RolandD50;
 
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
 
 public class D50PartialMuteDataModel extends ParamModel {

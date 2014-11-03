@@ -6,17 +6,17 @@ import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.utils.SysexUtils;
 import org.jsynthlib.xmldevice.Property;
-import org.jsynthlib.xmldevice.XmlBankDriverSpecDocument.XmlBankDriverSpec;
-import org.jsynthlib.xmldevice.XmlDriverDefs.XmlDriverDef.DriverType;
-import org.jsynthlib.xmldevice.XmlDriverSpec.CustomProperties;
+import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument.XmlBankDriverDefinition;
+import org.jsynthlib.xmldevice.XmlDriverDefinition.CustomProperties;
+import org.jsynthlib.xmldevice.XmlDriverReferences.XmlDriverReference.DriverType;
 
 public class XMLBankDriver extends AbstractBankDriver implements IBankDriver {
 
-    private final XmlBankDriverSpec driverSpec;
+    private final XmlBankDriverDefinition driverSpec;
     private byte[] initPatch;
     private PatchHandlerStrategy patchHandlerStrategy;
 
-    public XMLBankDriver(XmlBankDriverSpec driverSpec) {
+    public XMLBankDriver(XmlBankDriverDefinition driverSpec) {
         super(driverSpec.getPatchType(), driverSpec.getAuthors(), driverSpec
                 .getNumPatches(), driverSpec.getNumColumns());
         this.driverSpec = driverSpec;

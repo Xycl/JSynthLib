@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
@@ -51,11 +51,11 @@ class MKS50ToneSingleEditor extends PatchEditorFrame {
         oscPane.setLayout(new GridBagLayout());
         addWidget(oscPane, new ComboBoxWidget("Range", patch, new ParamModel(
                 patch, 13), new MKSToneSender(6), new String[] {
-                "4'", "8'", "16'", "32'" }), 0, 0, 1, 1, 1);
+            "4'", "8'", "16'", "32'" }), 0, 0, 1, 1, 1);
         addWidget(oscPane, new ComboBoxWidget("ENV Mode", patch,
                 new ParamModel(patch, 7), new MKSToneSender(0), new String[] {
-                        "Normal", "Inverted", "Norm-Dyn", "Inv-Dyn" }), 1, 0,
-                1, 1, 2);
+            "Normal", "Inverted", "Norm-Dyn", "Inv-Dyn" }), 1, 0,
+            1, 1, 2);
         addWidget(oscPane, new ScrollBarWidget("Saw Wave", patch, 0, 5, 0,
                 new ParamModel(patch, 11), new MKSToneSender(4)), 0, 1, 3, 1, 3);
         addWidget(oscPane, new ScrollBarWidget("Pulse Wave", patch, 0, 3, 0,
@@ -94,8 +94,8 @@ class MKS50ToneSingleEditor extends PatchEditorFrame {
                 1, 12);
         addWidget(vcfPane, new ComboBoxWidget("VCF ENV Mode", patch,
                 new ParamModel(patch, 8), new MKSToneSender(1), new String[] {
-                        "Normal", "Inverted", "Norm-Dyn", "Inv-Dyn" }), 0, 3,
-                1, 1, 13);
+            "Normal", "Inverted", "Norm-Dyn", "Inv-Dyn" }), 0, 3,
+            1, 1, 13);
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
@@ -131,26 +131,24 @@ class MKS50ToneSingleEditor extends PatchEditorFrame {
 
         JPanel envPane = new JPanel();
         envPane.setLayout(new GridBagLayout());
-        addWidget(envPane, new EnvelopeWidget(" ", patch,
-                new Node[] {
-                        new Node(0, 0, null, 0, 0, null, 0,
-                                false, null, null, null, null),
-                        new Node(0, 127, new ParamModel(patch,
-                                33), 0, 127, new ParamModel(patch, 34), 10,
-                                false, new MKSToneSender(26),
-                                new MKSToneSender(27), " T1", " L1"),
-                        new Node(0, 127, new ParamModel(patch,
-                                35), 0, 127, new ParamModel(patch, 36), 10,
-                                false, new MKSToneSender(28),
-                                new MKSToneSender(29), " T2", " L2"),
-                        new Node(0, 127, new ParamModel(patch,
-                                37), 0, 127, new ParamModel(patch, 38), 10,
-                                false, new MKSToneSender(30),
-                                new MKSToneSender(31), " T3", " L3"),
-                        new Node(0, 127, new ParamModel(patch,
-                                39), 0, 0, null, 0, false,
-                                new MKSToneSender(32), null, " T4", null), }),
-                3, 0, 3, 5, 18);
+        addWidget(envPane, new EnvelopeWidget(" ", patch, new Node[] {
+                new Node(0, 0, null, 0, 0, null, 0, false, null, null, null,
+                        null),
+                new Node(0, 127, new ParamModel(patch, 33), 0, 127,
+                        new ParamModel(patch, 34), 10, false,
+                        new MKSToneSender(26), new MKSToneSender(27), " T1",
+                        " L1"),
+                new Node(0, 127, new ParamModel(patch, 35), 0, 127,
+                        new ParamModel(patch, 36), 10, false,
+                        new MKSToneSender(28), new MKSToneSender(29), " T2",
+                        " L2"),
+                new Node(0, 127, new ParamModel(patch, 37), 0, 127,
+                        new ParamModel(patch, 38), 10, false,
+                        new MKSToneSender(30), new MKSToneSender(31), " T3",
+                        " L3"),
+                new Node(0, 127, new ParamModel(patch, 39), 0, 0, null, 0,
+                        false, new MKSToneSender(32), null, " T4", null), }),
+                                                        3, 0, 3, 5, 18);
         addWidget(envPane, new ScrollBarWidget("Key Follow", patch, 0, 15, 0,
                 new MKSShiftModel(patch, 40), new MKSShiftSender(33)), 3, 6, 3,
                 1, 25);
@@ -177,17 +175,17 @@ class MKS50ToneSingleEditor extends PatchEditorFrame {
         addWidget(cmnPane,
                 new ScrollBarWidget("VCF Aftertouch Depth", patch, 0, 15, 0,
                         new MKSShiftModel(patch, 28), new MKSShiftSender(21)),
-                0, 1, 3, 1, 29);
+                        0, 1, 3, 1, 29);
         addWidget(cmnPane,
                 new ScrollBarWidget("VCA Aftertouch Depth", patch, 0, 15, 0,
                         new MKSShiftModel(patch, 30), new MKSShiftSender(23)),
-                0, 2, 3, 1, 30);
+                        0, 2, 3, 1, 30);
         addWidget(cmnPane, new ScrollBarWidget("VCA Level", patch, 0, 127, 0,
                 new ParamModel(patch, 29), new MKSToneSender(22)), 0, 3, 3, 1,
                 31);
         addWidget(cmnPane, new ComboBoxWidget("VCA ENV Mode", patch,
                 new ParamModel(patch, 9), new MKSToneSender(2), new String[] {
-                        "Env", "Gate", "Env-Dyn", "Gate-Dyn" }), 0, 4, 1, 1, 32);
+            "Env", "Gate", "Env-Dyn", "Gate-Dyn" }), 0, 4, 1, 1, 32);
         addWidget(cmnPane, new CheckBoxWidget("Chorus", patch, new ParamModel(
                 patch, 17), new MKSToneSender(10)), 1, 4, 1, 1, -1);
         addWidget(cmnPane, new ScrollBarWidget("Chorus Rate", patch, 0, 127, 0,
@@ -221,8 +219,9 @@ class MKSToneSender extends SysexSender {
         b[7] = (byte) param;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         b[8] = (byte) value;
         return b;
     }
@@ -235,10 +234,12 @@ class MKSShiftModel extends ParamModel {
         super(p, o);
     }
 
+    @Override
     public void set(int i) {
         patch.sysex[offset] = (byte) (i << 3);
     }
 
+    @Override
     public int get() {
         return patch.sysex[offset] >> 3;
     }
@@ -253,8 +254,9 @@ class MKSShiftSender extends SysexSender {
         b[7] = (byte) param;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         b[8] = (byte) (value << 3);
         return b;
     }

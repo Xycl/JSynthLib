@@ -21,7 +21,7 @@
 
 package org.jsynthlib.synthdrivers.YamahaUB99;
 
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
 
 class YamahaUB99Model extends ParamModel {

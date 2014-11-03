@@ -23,11 +23,11 @@ package org.jsynthlib.synthdrivers.EmuProteus2;
 import java.util.prefs.Preferences;
 
 import org.jsynthlib.device.model.XMLDevice;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument.XmlDeviceSpec;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 
 public class EmuProteus2Device extends XMLDevice {
 
-    public EmuProteus2Device(XmlDeviceSpec xmlDeviceSpec) {
+    public EmuProteus2Device(XmlDeviceDefinition xmlDeviceSpec) {
         super(xmlDeviceSpec);
     }
 

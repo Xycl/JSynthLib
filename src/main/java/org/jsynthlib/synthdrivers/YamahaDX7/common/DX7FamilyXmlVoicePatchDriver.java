@@ -3,17 +3,17 @@ package org.jsynthlib.synthdrivers.YamahaDX7.common;
 import java.io.UnsupportedEncodingException;
 
 import org.jsynthlib.core.ErrorMsg;
-import org.jsynthlib.device.model.XMLPatchDriver;
+import org.jsynthlib.device.model.XMLSingleDriver;
 import org.jsynthlib.patch.model.impl.Patch;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 
-public abstract class DX7FamilyXmlVoicePatchDriver extends XMLPatchDriver {
+public abstract class DX7FamilyXmlVoicePatchDriver extends XMLSingleDriver {
 
     private boolean spbp;
     private boolean swOffMemProt;
     private boolean tipsMsg;
 
-    public DX7FamilyXmlVoicePatchDriver(XmlPatchDriverSpec driverSpec) {
+    public DX7FamilyXmlVoicePatchDriver(XmlSingleDriverDefinition driverSpec) {
         super(driverSpec);
     }
 

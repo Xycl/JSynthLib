@@ -14,7 +14,7 @@ import org.jsynthlib.core.GuiHandler;
 import org.jsynthlib.core.SysexWidgetFinder;
 import org.jsynthlib.core.TitleFinder.FrameWrapper;
 import org.jsynthlib.core.guiaction.AbstractGuiAction.IPopupListener;
-import org.jsynthlib.device.model.IParamModel;
+import org.jsynthlib.device.model.handler.IParamModel;
 import org.jsynthlib.device.viewcontroller.widgets.EnvelopeWidget.Node;
 import org.jsynthlib.patchtest.LoadedBank;
 import org.jsynthlib.patchtest.PatchFile;

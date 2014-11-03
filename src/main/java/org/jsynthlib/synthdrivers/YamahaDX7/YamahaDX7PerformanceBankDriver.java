@@ -31,7 +31,7 @@ import org.jsynthlib.device.model.XMLBankDriver;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.synthdrivers.YamahaDX7.common.DX7FamilyStrings;
-import org.jsynthlib.xmldevice.XmlBankDriverSpecDocument.XmlBankDriverSpec;
+import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument.XmlBankDriverDefinition;
 
 public class YamahaDX7PerformanceBankDriver extends XMLBankDriver {
 
@@ -43,7 +43,7 @@ public class YamahaDX7PerformanceBankDriver extends XMLBankDriver {
     private int dxPatchNameOffset;
     private int dxSinglePackedSize;
 
-    public YamahaDX7PerformanceBankDriver(XmlBankDriverSpec driverSpec) {
+    public YamahaDX7PerformanceBankDriver(XmlBankDriverDefinition driverSpec) {
         super(driverSpec);
     }
 

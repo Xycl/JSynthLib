@@ -5,9 +5,9 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.IPatchDriver;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.IParamModel;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.patch.model.impl.Patch;
 

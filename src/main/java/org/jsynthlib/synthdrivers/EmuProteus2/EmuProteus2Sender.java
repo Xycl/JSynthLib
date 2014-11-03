@@ -1,6 +1,6 @@
 package org.jsynthlib.synthdrivers.EmuProteus2;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.synthdrivers.RolandD50.D50Constants;
 
 public class EmuProteus2Sender extends SysexSender {

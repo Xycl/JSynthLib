@@ -3,8 +3,8 @@ package org.jsynthlib.synthdrivers.YamahaFS1R;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.patch.model.impl.Patch;
 

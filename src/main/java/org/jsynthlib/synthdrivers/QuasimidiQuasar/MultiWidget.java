@@ -32,8 +32,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.device.model.IParamModel;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.IParamModel;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.SysexWidget;
 import org.jsynthlib.patch.model.impl.Patch;
 

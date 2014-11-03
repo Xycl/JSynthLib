@@ -1,5 +1,4 @@
 /*
- * JSynthlib -	generic Additional "Voice" Editor for Yamaha DX7 Family
  *		(used by DX7-II, DX7s, TX802)
  * ====================================================================
  * @version $Id: DX7FamilyAdditionalVoiceEditor.java 1106 2011-09-03 17:04:25Z frankster $
@@ -30,8 +29,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ScrollBarWidget;
@@ -39,69 +38,69 @@ import org.jsynthlib.patch.model.impl.Patch;
 
 public class DX7FamilyAdditionalVoiceEditor extends PatchEditorFrame {
     static final String[] OnOffName = new String[] {
-            "Off", "On" };
+        "Off", "On" };
 
     static final String[] OpScaleModeName = new String[] {
-            "normal", "fractional" };
+        "normal", "fractional" };
 
     static final String[] OpAmpModSensName = new String[] {
-            "0", "1", "2", "3", "4", "5", "6", "7" };
+        "0", "1", "2", "3", "4", "5", "6", "7" };
 
     static final String[] LfoKeyTriggerName = new String[] {
-            "single", "multi" };
+        "single", "multi" };
 
     static final String[] PitchEgRangeName = new String[] {
-            "8 octave", "4 octave", "1 octave", "1/2 octave" };
+        "8 octave", "4 octave", "1 octave", "1/2 octave" };
 
     static final String[] KeyModeName = new String[] {
-            "Polyphonic", "Monophonic", "Unison poly", "Unison Mono" };
+        "Polyphonic", "Monophonic", "Unison poly", "Unison Mono" };
 
     static final String[] PitchBendRangeName = new String[] {
-            "Off", //
-            "perfect First (Unison)", // Prime
-            "minor Second", // kleine Sekunde
-            "major Second", // grosse Sekunde
-            "minor Third", // kleine Terz
-            "major Third", // grosse Terz
-            "perfect Fourth", // Quarte
-            "perfect Fifth", // Quinte bzw. Tritonus
-            "minor Sixth", // kleine Sexte
-            "major Sixth", // grosse Sexte
-            "minor Seventh", // kleine Septine
-            "major Seventh", // grosse Septine
-            "Octave" // Oktave
+        "Off", //
+        "perfect First (Unison)", // Prime
+        "minor Second", // kleine Sekunde
+        "major Second", // grosse Sekunde
+        "minor Third", // kleine Terz
+        "major Third", // grosse Terz
+        "perfect Fourth", // Quarte
+        "perfect Fifth", // Quinte bzw. Tritonus
+        "minor Sixth", // kleine Sexte
+        "major Sixth", // grosse Sexte
+        "minor Seventh", // kleine Septine
+        "major Seventh", // grosse Septine
+        "Octave" // Oktave
     };
 
     static final String[] PitchBendStepName = new String[] {
-            "Continuous",
-            "\u00B11 Octave	- 12 Steps",// 00B1 is the plus/minus symbol
-            "\u00B11 Octave	-  6 Steps", "\u00B11 Octave	-  4 Steps",
-            "\u00B11 Octave	-  3 Steps", "\u00B11 minor Seventh -  2 Steps",
-            "\u00B11 Octave	-  2 Steps", "\u00B11 Fifth		-  1 Step ",
-            "\u00B11 major Fifth	-  1 Step ", "\u00B11 Sixth		-  1 Step ",
-            "\u00B11 minor Seventh -  1 Step ",
-            "\u00B11 major Seventh -  1 Step ", "\u00B11 Octave	-  1 Step " };
+        "Continuous",
+        "\u00B11 Octave	- 12 Steps",// 00B1 is the plus/minus symbol
+        "\u00B11 Octave	-  6 Steps", "\u00B11 Octave	-  4 Steps",
+        "\u00B11 Octave	-  3 Steps", "\u00B11 minor Seventh -  2 Steps",
+        "\u00B11 Octave	-  2 Steps", "\u00B11 Fifth		-  1 Step ",
+        "\u00B11 major Fifth	-  1 Step ", "\u00B11 Sixth		-  1 Step ",
+        "\u00B11 minor Seventh -  1 Step ",
+        "\u00B11 major Seventh -  1 Step ", "\u00B11 Octave	-  1 Step " };
 
     static final String[] PitchBendModeName = new String[] {
-            "normal", "low", "high", "key on" };
+        "normal", "low", "high", "key on" };
 
     static final String[] PortamentoModeName = new String[] {
-            "Retain/Fingered", "Follow/Full Time" };
+        "Retain/Fingered", "Follow/Full Time" };
 
     static final String[] PortamentoStepName = new String[] {
-            "smooth", //
-            "perfect First (Unison)", // Prime
-            "minor Second", // kleine Sekunde
-            "major Second", // grosse Sekunde
-            "minor Third", // kleine Terz
-            "major Third", // grosse Terz
-            "perfect Fourth", // Quarte
-            "perfect Fifth", // Quinte bzw. Tritonus
-            "minor Sixth", // kleine Sexte
-            "major Sixth", // grosse Sexte
-            "minor Seventh", // kleine Septine
-            "major Seventh", // grosse Septine
-            "Octave" // Oktave
+        "smooth", //
+        "perfect First (Unison)", // Prime
+        "minor Second", // kleine Sekunde
+        "major Second", // grosse Sekunde
+        "minor Third", // kleine Terz
+        "major Third", // grosse Terz
+        "perfect Fourth", // Quarte
+        "perfect Fifth", // Quinte bzw. Tritonus
+        "minor Sixth", // kleine Sexte
+        "major Sixth", // grosse Sexte
+        "minor Seventh", // kleine Septine
+        "major Seventh", // grosse Septine
+        "Octave" // Oktave
     };
 
     public DX7FamilyAdditionalVoiceEditor(String name, Patch patch) {
@@ -158,11 +157,11 @@ public class DX7FamilyAdditionalVoiceEditor extends PatchEditorFrame {
         addWidget(opPane,
                 new ComboBoxWidget("OP1", patch, new ParamModel(patch, 6 + 11),
                         new AdditionalVoiceSender(11), OpAmpModSensName), 0, 6,
-                2, 1, 7);
+                        2, 1, 7);
         addWidget(opPane,
                 new ComboBoxWidget("OP2", patch, new ParamModel(patch, 6 + 10),
                         new AdditionalVoiceSender(10), OpAmpModSensName), 2, 6,
-                2, 1, 8);
+                        2, 1, 8);
         addWidget(opPane, new ComboBoxWidget("OP3", patch, new ParamModel(
                 patch, 6 + 9), new AdditionalVoiceSender(9), OpAmpModSensName),
                 4, 6, 2, 1, 9);
@@ -521,8 +520,9 @@ public class DX7FamilyAdditionalVoiceEditor extends PatchEditorFrame {
             b[6] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
-            b[2] = (byte) (0x10 + channel - 1);
+            b[2] = (byte) (0x10 + getChannel() - 1);
             b[5] = (byte) value;
 
             return b;

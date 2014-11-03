@@ -27,7 +27,7 @@ package org.jsynthlib.synthdrivers.YamahaTG100;
  * @version $Id: TG100Sender.java 843 2005-01-24 07:24:21Z jbackhaus $
  */
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 public class TG100Sender extends SysexSender {
 

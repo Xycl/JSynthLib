@@ -30,7 +30,7 @@ import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.midi.service.MidiMessageFormatter;
 
 /**

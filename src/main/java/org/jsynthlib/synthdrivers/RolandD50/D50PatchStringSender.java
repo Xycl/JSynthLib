@@ -1,6 +1,6 @@
 package org.jsynthlib.synthdrivers.RolandD50;
 
-import org.jsynthlib.device.model.IPatchStringSender;
+import org.jsynthlib.device.model.handler.IPatchStringSender;
 import org.jsynthlib.patch.model.impl.Patch;
 
 public class D50PatchStringSender implements IPatchStringSender {

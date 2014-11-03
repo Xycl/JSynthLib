@@ -1,7 +1,7 @@
 package org.jsynthlib.synthdrivers.AlesisQS;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.device.model.IParamModel;
+import org.jsynthlib.device.model.handler.IParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**

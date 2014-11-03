@@ -5,7 +5,7 @@
 
 package org.jsynthlib.synthdrivers.RolandSPD11;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -44,8 +44,9 @@ public class SPD11Sender extends SysexSender {
 
     }
 
+    @Override
     public byte[] generate(int value) {
-        sysex[3] = (byte) (channel - 1);
+        sysex[3] = (byte) (getChannel() - 1);
         sysex[9] = (byte) value;
         int remainder =
                 (sysex[5] + sysex[6] + sysex[7] + sysex[8] + sysex[9]) % 0x80;

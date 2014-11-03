@@ -27,8 +27,8 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.jsynthlib.device.model.IParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -37,11 +37,11 @@ import org.jsynthlib.patch.model.impl.Patch;
  * @author peter
  */
 public class SPD11ChainEditor extends PatchEditorFrame {
-    private String[] banks = {
+    private final String[] banks = {
             "A", "B", "C", "D" };
     private String[] steps;
-    private int header = 9;
-    private String[] spd11Patches;
+    private final int header = 9;
+    private final String[] spd11Patches;
 
     public SPD11ChainEditor(Patch p, String[] steps, String[] spd11Patches) {
         super("Roland SPD11 Chain Setup Editor", p);
@@ -65,31 +65,11 @@ public class SPD11ChainEditor extends PatchEditorFrame {
         chainPane.add(new JLabel("Patch Chain " + banks[bank]));
         for (int i = 0; i < 16; i++) {
             addWidget(chainPane, new ComboBoxWidget(steps[i], p,
-                    new ChainModel(p, header + (bank * 16) + i),
-                    new ChainSender(p, (bank * 16) + i), spd11Patches),
-                    i + 1, 0, 1, 1, 0);
+                    new ParamModel(p, header + (bank * 16) + i),
+                    new ChainSender(p, (bank * 16) + i), spd11Patches), i + 1,
+                    0, 1, 1, 0);
         }
         scrollPane.add(chainPane);
-    }
-}
-
-class ChainModel implements IParamModel {
-    /** <code>Patch</code> data. */
-    protected Patch patch;
-    /** Offset of the data for which this model is. */
-    protected int ofs;
-
-    public ChainModel(Patch p, int ofs) {
-        this.patch = p;
-        this.ofs = ofs;
-    }
-
-    public void set(int value) {
-        patch.sysex[ofs] = (byte) value;
-    }
-
-    public int get() {
-        return patch.sysex[ofs];
     }
 }
 
@@ -115,6 +95,7 @@ class ChainSender extends SysexSender {
         return 128 - (sum % 128);
     }
 
+    @Override
     public byte[] generate(int value) {
         sysx[ofset] = (byte) value;
         sysx[sysx.length - 2] = (byte) calcChecksum(sysx);

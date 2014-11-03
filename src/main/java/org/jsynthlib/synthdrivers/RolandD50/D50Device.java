@@ -23,14 +23,14 @@ package org.jsynthlib.synthdrivers.RolandD50;
 import java.util.prefs.Preferences;
 
 import org.jsynthlib.device.model.XMLDevice;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument.XmlDeviceSpec;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 
 public class D50Device extends XMLDevice {
 
     /**
      * @param xmlDeviceSpec
      */
-    public D50Device(XmlDeviceSpec xmlDeviceSpec) {
+    public D50Device(XmlDeviceDefinition xmlDeviceSpec) {
         super(xmlDeviceSpec);
         // super("Roland", "D-50", null, "Pelle plutt", "Pascal Collberg");
 

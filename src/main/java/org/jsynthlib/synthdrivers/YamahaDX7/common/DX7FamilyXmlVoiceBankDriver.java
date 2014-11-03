@@ -6,7 +6,7 @@ import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.device.model.XMLBankDriver;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
-import org.jsynthlib.xmldevice.XmlBankDriverSpecDocument.XmlBankDriverSpec;
+import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument.XmlBankDriverDefinition;
 
 public class DX7FamilyXmlVoiceBankDriver extends XMLBankDriver {
 
@@ -18,7 +18,7 @@ public class DX7FamilyXmlVoiceBankDriver extends XMLBankDriver {
     private int dxPatchNameOffset;
     private int dxSinglePackedSize;
 
-    public DX7FamilyXmlVoiceBankDriver(XmlBankDriverSpec driverSpec) {
+    public DX7FamilyXmlVoiceBankDriver(XmlBankDriverDefinition driverSpec) {
         super(driverSpec);
     }
 

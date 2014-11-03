@@ -26,7 +26,7 @@ import javax.sound.midi.ShortMessage;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.ISender;
 
 /**
  * The NRPNSender class is used to send NRPNs to the DM5. The parameters handled

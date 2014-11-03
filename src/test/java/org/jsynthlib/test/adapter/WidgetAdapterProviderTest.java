@@ -22,10 +22,12 @@ package org.jsynthlib.test.adapter;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+
 import java.io.InputStream;
+
 import org.apache.xmlbeans.XmlObject;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 import org.junit.Test;
 
 /**
@@ -40,9 +42,9 @@ public class WidgetAdapterProviderTest {
                         .getClassLoader()
                         .getResourceAsStream(
                                 "org/jsynthlib/synthdrivers/RolandD50/D50SingleDriver.xml");
-        XmlPatchDriverSpecDocument document =
-                XmlPatchDriverSpecDocument.Factory.parse(stream);
-        XmlPatchDriverSpec xmlDriverSpec = document.getXmlPatchDriverSpec();
+        XmlSingleDriverDefinitionDocument document =
+                XmlSingleDriverDefinitionDocument.Factory.parse(stream);
+        XmlSingleDriverDefinition xmlDriverSpec = document.getXmlSingleDriverDefinition();
         WidgetAdapterProvider tested = new WidgetAdapterProvider();
         XmlObject result =
                 tested.getXmlObjectById(xmlDriverSpec,

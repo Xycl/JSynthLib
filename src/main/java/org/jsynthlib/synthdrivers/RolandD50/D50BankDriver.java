@@ -26,7 +26,7 @@ import org.jsynthlib.device.model.XMLBankDriver;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchEdit;
-import org.jsynthlib.xmldevice.XmlBankDriverSpecDocument.XmlBankDriverSpec;
+import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument.XmlBankDriverDefinition;
 
 public class D50BankDriver extends XMLBankDriver {
 
@@ -34,7 +34,7 @@ public class D50BankDriver extends XMLBankDriver {
     private int d50ReverbDataOffset;
     private byte[] d50ReverbData;
 
-    public D50BankDriver(XmlBankDriverSpec driverSpec) {
+    public D50BankDriver(XmlBankDriverDefinition driverSpec) {
         super(driverSpec);
     }
 

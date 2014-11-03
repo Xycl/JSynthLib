@@ -133,7 +133,7 @@
                             <target>
                                 <property name="compile_classpath" refid="maven.compile.classpath" />
                                 <delete file="${project.sourcedir}/resources/synthdrivers.properties" />
-                                <java classname="org.jsynthlib.utils.DeviceListWriter" fork="true">
+                                <java classname="org.jsynthlib.utils.DeviceListWriter" fork="true" failonerror="true">
                                     <!-- <arg value="${project.build.outputDirectory}" /> -->
                                     <arg value="${project.sourcedir}/resources" />
                                     <classpath>
@@ -469,11 +469,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <version>2.1.8</version>
-        </dependency>
-        <dependency>
             <groupId>org.easytesting</groupId>
             <artifactId>fest-swing</artifactId>
             <version>1.2.1</version>
@@ -584,6 +579,11 @@
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
             <version>3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.3.7</version>
         </dependency>
     </dependencies>
 </project>

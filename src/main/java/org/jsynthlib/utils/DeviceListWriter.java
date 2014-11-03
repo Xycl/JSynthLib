@@ -39,9 +39,9 @@ public class DeviceListWriter {
             List<DeviceDescriptor> descriptorList = writer.getDescriptorList(devices);
             writer.writeProps(
                     new File(outdir, Constants.DEV_CONFIG_FILE_NAME), descriptorList);
-        } catch (Exception exception) {
+        } catch (Exception e) {
             LOG.info("Failed to write device list");
-            LOG.warn(exception.getMessage(), exception);
+            LOG.warn(e.getMessage(), e);
             System.exit(1);
         }
 

@@ -29,8 +29,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.PatchNameWidget;
@@ -38,153 +38,153 @@ import org.jsynthlib.patch.model.impl.Patch;
 
 public class DX7FamilyPerformanceIIIEditor extends PatchEditorFrame {
     static final String[] OnOffName = new String[] {
-            "Off", "On" };
+        "Off", "On" };
 
     static final String[] VoiChOfsName = new String[] {
-            "0", "1", "2", "3", "4", "5", "6", "7" };
+        "0", "1", "2", "3", "4", "5", "6", "7" };
 
     static final String[] MIDIRcvChName = new String[] {
-            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-            "13", "14", "15", "16", "OMNI on" };
+        "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+        "13", "14", "15", "16", "OMNI on" };
 
     static final String[] VoiceNoName = new String[] {
-            "Internal  0", "Internal  1", "Internal  2", "Internal  3",
-            "Internal  4", "Internal  5", "Internal  6", "Internal  7",
-            "Internal  8", "Internal  9", "Internal 10", "Internal 11",
-            "Internal 12", "Internal 13", "Internal 14", "Internal 15",
-            "Internal 16", "Internal 17", "Internal 18", "Internal 19",
-            "Internal 20", "Internal 21", "Internal 22", "Internal 23",
-            "Internal 24", "Internal 25", "Internal 26", "Internal 27",
-            "Internal 28", "Internal 29", "Internal 30", "Internal 31",
-            "Internal 32", "Internal 33", "Internal 34", "Internal 35",
-            "Internal 36", "Internal 37", "Internal 38", "Internal 39",
-            "Internal 40", "Internal 41", "Internal 42", "Internal 43",
-            "Internal 44", "Internal 45", "Internal 46", "Internal 47",
-            "Internal 48", "Internal 49", "Internal 50", "Internal 51",
-            "Internal 52", "Internal 53", "Internal 54", "Internal 55",
-            "Internal 56", "Internal 57", "Internal 58", "Internal 59",
-            "Internal 60", "Internal 61", "Internal 62", "Internal 63",
-            "Cartridge  0", "Cartridge  1", "Cartridge  2", "Cartridge  3",
-            "Cartridge  4", "Cartridge  5", "Cartridge  6", "Cartridge  7",
-            "Cartridge  8", "Cartridge  9", "Cartridge 10", "Cartridge 11",
-            "Cartridge 12", "Cartridge 13", "Cartridge 14", "Cartridge 15",
-            "Cartridge 16", "Cartridge 17", "Cartridge 18", "Cartridge 19",
-            "Cartridge 20", "Cartridge 21", "Cartridge 22", "Cartridge 23",
-            "Cartridge 24", "Cartridge 25", "Cartridge 26", "Cartridge 27",
-            "Cartridge 28", "Cartridge 29", "Cartridge 30", "Cartridge 31",
-            "Cartridge 32", "Cartridge 33", "Cartridge 34", "Cartridge 35",
-            "Cartridge 36", "Cartridge 37", "Cartridge 38", "Cartridge 39",
-            "Cartridge 40", "Cartridge 41", "Cartridge 42", "Cartridge 43",
-            "Cartridge 44", "Cartridge 45", "Cartridge 46", "Cartridge 47",
-            "Cartridge 48", "Cartridge 49", "Cartridge 50", "Cartridge 51",
-            "Cartridge 52", "Cartridge 53", "Cartridge 54", "Cartridge 55",
-            "Cartridge 56", "Cartridge 57", "Cartridge 58", "Cartridge 59",
-            "Cartridge 60", "Cartridge 61", "Cartridge 62", "Cartridge 63",
-            "Preset A  0", "Preset A  1", "Preset A  2", "Preset A  3",
-            "Preset A  4", "Preset A  5", "Preset A  6", "Preset A  7",
-            "Preset A  8", "Preset A  9", "Preset A 10", "Preset A 11",
-            "Preset A 12", "Preset A 13", "Preset A 14", "Preset A 15",
-            "Preset A 16", "Preset A 17", "Preset A 18", "Preset A 19",
-            "Preset A 20", "Preset A 21", "Preset A 22", "Preset A 23",
-            "Preset A 24", "Preset A 25", "Preset A 26", "Preset A 27",
-            "Preset A 28", "Preset A 29", "Preset A 30", "Preset A 31",
-            "Preset A 32", "Preset A 33", "Preset A 34", "Preset A 35",
-            "Preset A 36", "Preset A 37", "Preset A 38", "Preset A 39",
-            "Preset A 40", "Preset A 41", "Preset A 42", "Preset A 43",
-            "Preset A 44", "Preset A 45", "Preset A 46", "Preset A 47",
-            "Preset A 48", "Preset A 49", "Preset A 50", "Preset A 51",
-            "Preset A 52", "Preset A 53", "Preset A 54", "Preset A 55",
-            "Preset A 56", "Preset A 57", "Preset A 58", "Preset A 59",
-            "Preset A 60", "Preset A 61", "Preset A 62", "Preset A 63",
-            "Preset B  0", "Preset B  1", "Preset B  2", "Preset B  3",
-            "Preset B  4", "Preset B  5", "Preset B  6", "Preset B  7",
-            "Preset B  8", "Preset B  9", "Preset B 10", "Preset B 11",
-            "Preset B 12", "Preset B 13", "Preset B 14", "Preset B 15",
-            "Preset B 16", "Preset B 17", "Preset B 18", "Preset B 19",
-            "Preset B 20", "Preset B 21", "Preset B 22", "Preset B 23",
-            "Preset B 24", "Preset B 25", "Preset B 26", "Preset B 27",
-            "Preset B 28", "Preset B 29", "Preset B 30", "Preset B 31",
-            "Preset B 32", "Preset B 33", "Preset B 34", "Preset B 35",
-            "Preset B 36", "Preset B 37", "Preset B 38", "Preset B 39",
-            "Preset B 40", "Preset B 41", "Preset B 42", "Preset B 43",
-            "Preset B 44", "Preset B 45", "Preset B 46", "Preset B 47",
-            "Preset B 48", "Preset B 49", "Preset B 50", "Preset B 51",
-            "Preset B 52", "Preset B 53", "Preset B 54", "Preset B 55",
-            "Preset B 56", "Preset B 57", "Preset B 58", "Preset B 59",
-            "Preset B 60", "Preset B 61", "Preset B 62", "Preset B 63" };
+        "Internal  0", "Internal  1", "Internal  2", "Internal  3",
+        "Internal  4", "Internal  5", "Internal  6", "Internal  7",
+        "Internal  8", "Internal  9", "Internal 10", "Internal 11",
+        "Internal 12", "Internal 13", "Internal 14", "Internal 15",
+        "Internal 16", "Internal 17", "Internal 18", "Internal 19",
+        "Internal 20", "Internal 21", "Internal 22", "Internal 23",
+        "Internal 24", "Internal 25", "Internal 26", "Internal 27",
+        "Internal 28", "Internal 29", "Internal 30", "Internal 31",
+        "Internal 32", "Internal 33", "Internal 34", "Internal 35",
+        "Internal 36", "Internal 37", "Internal 38", "Internal 39",
+        "Internal 40", "Internal 41", "Internal 42", "Internal 43",
+        "Internal 44", "Internal 45", "Internal 46", "Internal 47",
+        "Internal 48", "Internal 49", "Internal 50", "Internal 51",
+        "Internal 52", "Internal 53", "Internal 54", "Internal 55",
+        "Internal 56", "Internal 57", "Internal 58", "Internal 59",
+        "Internal 60", "Internal 61", "Internal 62", "Internal 63",
+        "Cartridge  0", "Cartridge  1", "Cartridge  2", "Cartridge  3",
+        "Cartridge  4", "Cartridge  5", "Cartridge  6", "Cartridge  7",
+        "Cartridge  8", "Cartridge  9", "Cartridge 10", "Cartridge 11",
+        "Cartridge 12", "Cartridge 13", "Cartridge 14", "Cartridge 15",
+        "Cartridge 16", "Cartridge 17", "Cartridge 18", "Cartridge 19",
+        "Cartridge 20", "Cartridge 21", "Cartridge 22", "Cartridge 23",
+        "Cartridge 24", "Cartridge 25", "Cartridge 26", "Cartridge 27",
+        "Cartridge 28", "Cartridge 29", "Cartridge 30", "Cartridge 31",
+        "Cartridge 32", "Cartridge 33", "Cartridge 34", "Cartridge 35",
+        "Cartridge 36", "Cartridge 37", "Cartridge 38", "Cartridge 39",
+        "Cartridge 40", "Cartridge 41", "Cartridge 42", "Cartridge 43",
+        "Cartridge 44", "Cartridge 45", "Cartridge 46", "Cartridge 47",
+        "Cartridge 48", "Cartridge 49", "Cartridge 50", "Cartridge 51",
+        "Cartridge 52", "Cartridge 53", "Cartridge 54", "Cartridge 55",
+        "Cartridge 56", "Cartridge 57", "Cartridge 58", "Cartridge 59",
+        "Cartridge 60", "Cartridge 61", "Cartridge 62", "Cartridge 63",
+        "Preset A  0", "Preset A  1", "Preset A  2", "Preset A  3",
+        "Preset A  4", "Preset A  5", "Preset A  6", "Preset A  7",
+        "Preset A  8", "Preset A  9", "Preset A 10", "Preset A 11",
+        "Preset A 12", "Preset A 13", "Preset A 14", "Preset A 15",
+        "Preset A 16", "Preset A 17", "Preset A 18", "Preset A 19",
+        "Preset A 20", "Preset A 21", "Preset A 22", "Preset A 23",
+        "Preset A 24", "Preset A 25", "Preset A 26", "Preset A 27",
+        "Preset A 28", "Preset A 29", "Preset A 30", "Preset A 31",
+        "Preset A 32", "Preset A 33", "Preset A 34", "Preset A 35",
+        "Preset A 36", "Preset A 37", "Preset A 38", "Preset A 39",
+        "Preset A 40", "Preset A 41", "Preset A 42", "Preset A 43",
+        "Preset A 44", "Preset A 45", "Preset A 46", "Preset A 47",
+        "Preset A 48", "Preset A 49", "Preset A 50", "Preset A 51",
+        "Preset A 52", "Preset A 53", "Preset A 54", "Preset A 55",
+        "Preset A 56", "Preset A 57", "Preset A 58", "Preset A 59",
+        "Preset A 60", "Preset A 61", "Preset A 62", "Preset A 63",
+        "Preset B  0", "Preset B  1", "Preset B  2", "Preset B  3",
+        "Preset B  4", "Preset B  5", "Preset B  6", "Preset B  7",
+        "Preset B  8", "Preset B  9", "Preset B 10", "Preset B 11",
+        "Preset B 12", "Preset B 13", "Preset B 14", "Preset B 15",
+        "Preset B 16", "Preset B 17", "Preset B 18", "Preset B 19",
+        "Preset B 20", "Preset B 21", "Preset B 22", "Preset B 23",
+        "Preset B 24", "Preset B 25", "Preset B 26", "Preset B 27",
+        "Preset B 28", "Preset B 29", "Preset B 30", "Preset B 31",
+        "Preset B 32", "Preset B 33", "Preset B 34", "Preset B 35",
+        "Preset B 36", "Preset B 37", "Preset B 38", "Preset B 39",
+        "Preset B 40", "Preset B 41", "Preset B 42", "Preset B 43",
+        "Preset B 44", "Preset B 45", "Preset B 46", "Preset B 47",
+        "Preset B 48", "Preset B 49", "Preset B 50", "Preset B 51",
+        "Preset B 52", "Preset B 53", "Preset B 54", "Preset B 55",
+        "Preset B 56", "Preset B 57", "Preset B 58", "Preset B 59",
+        "Preset B 60", "Preset B 61", "Preset B 62", "Preset B 63" };
 
     static final String[] DetuneName = new String[] {
-            "-7", "-6", "-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4",
-            "5", "6", "7" };
+        "-7", "-6", "-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4",
+        "5", "6", "7" };
 
     static final String[] OutVolName = new String[] {
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-            "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
-            "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34",
-            "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45",
-            "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56",
-            "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67",
-            "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78",
-            "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89",
-            "90", "91", "92", "93", "94", "95", "96", "97", "98", "99" };
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+        "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
+        "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34",
+        "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45",
+        "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56",
+        "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67",
+        "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78",
+        "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89",
+        "90", "91", "92", "93", "94", "95", "96", "97", "98", "99" };
 
     static final String[] OutAssignName = new String[] {
-            "off", "I", "II", "I+II" };
+        "off", "I", "II", "I+II" };
 
     static final String[] NoteLimitName = new String[] {
-            "C-2", "C#-2", "D-2", "D#-2", "E-2", "F-2", "F#-2", "G-2", "G#-2",
-            "A-2", "A#-2", "B-2", "C-1", "C#-1", "D-1", "D#-1", "E-1", "F-1",
-            "F#-1", "G-1", "G#-1", "A-1", "A#-1", "B-1", "C0", "C#0", "D0",
-            "D#0", "E0", "F0", "F#0", "G0", "G#0", "A0", "A#0", "B0", "C1",
-            "C#1", "D1", "D#1", "E1", "F1", "F#1", "G1", "G#1", "A1", "A#1",
-            "B1", "C2", "C#2", "D2", "D#2", "E2", "F2", "F#2", "G2", "G#2",
-            "A2", "A#2", "B2", "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3",
-            "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4", "E4",
-            "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5", "D5",
-            "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "A#5", "B5", "C6",
-            "C#6", "D6", "D#6", "E6", "F6", "F#6", "G6", "G#6", "A6", "A#6",
-            "B6", "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7", "G7", "G#7",
-            "A7", "A#7", "B7", "C8", "C#8", "D8", "D#8", "E8", "F8", "F#8",
-            "G8" };
+        "C-2", "C#-2", "D-2", "D#-2", "E-2", "F-2", "F#-2", "G-2", "G#-2",
+        "A-2", "A#-2", "B-2", "C-1", "C#-1", "D-1", "D#-1", "E-1", "F-1",
+        "F#-1", "G-1", "G#-1", "A-1", "A#-1", "B-1", "C0", "C#0", "D0",
+        "D#0", "E0", "F0", "F#0", "G0", "G#0", "A0", "A#0", "B0", "C1",
+        "C#1", "D1", "D#1", "E1", "F1", "F#1", "G1", "G#1", "A1", "A#1",
+        "B1", "C2", "C#2", "D2", "D#2", "E2", "F2", "F#2", "G2", "G#2",
+        "A2", "A#2", "B2", "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3",
+        "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4", "E4",
+        "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5", "D5",
+        "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "A#5", "B5", "C6",
+        "C#6", "D6", "D#6", "E6", "F6", "F#6", "G6", "G#6", "A6", "A#6",
+        "B6", "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7", "G7", "G#7",
+        "A7", "A#7", "B7", "C8", "C#8", "D8", "D#8", "E8", "F8", "F#8",
+    "G8" };
 
     static final String[] NoteShiftName = new String[] {
-            "-24", "-23", "-22", "-21", "-20", "-19", "-18", "-17", "-16",
-            "-15", "-14", "-13", "-12", "-11", "-10", "-9", "-8", "-7", "-6",
-            "-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4", "5", "6",
-            "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
-            "18", "19", "20", "21", "22", "23", "24" };
+        "-24", "-23", "-22", "-21", "-20", "-19", "-18", "-17", "-16",
+        "-15", "-14", "-13", "-12", "-11", "-10", "-9", "-8", "-7", "-6",
+        "-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4", "5", "6",
+        "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
+        "18", "19", "20", "21", "22", "23", "24" };
 
     static final String[] AlternateAssignName = new String[] {
-            "norm", "alternate" };
+        "norm", "alternate" };
 
     // Micro Tuning assignment probably faulty!
     static final String[] MicroTuningName =
             new String[] {
-                    "Equal", "Pure major", "Pure minor", "Mean tone",
-                    "Pythagorean", "Werckmeister", "Kirnberger",
-                    "Vallotti&Young", "1/4 shifted equal", "1/4 tone",
-                    "1/8 tone", "Internal 01", "Internal 02", "Cartridge C 1",
-                    "Cartridge C 2", "Cartridge C 3", "Cartridge C 4",
-                    "Cartridge C 5", "Cartridge C 6", "Cartridge C 7",
-                    "Cartridge C 8", "Cartridge C 9", "Cartridge C10",
-                    "Cartridge C11", "Cartridge C12", "Cartridge C13",
-                    "Cartridge C14", "Cartridge C15", "Cartridge C16",
-                    "Cartridge C17", "Cartridge C18", "Cartridge C19",
-                    "Cartridge C20", "Cartridge C21", "Cartridge C22",
-                    "Cartridge C23", "Cartridge C24", "Cartridge C25",
-                    "Cartridge C26", "Cartridge C27", "Cartridge C28",
-                    "Cartridge C29", "Cartridge C30", "Cartridge C31",
-                    "Cartridge C32", "Cartridge C33", "Cartridge C34",
-                    "Cartridge C35", "Cartridge C36", "Cartridge C37",
-                    "Cartridge C38", "Cartridge C39", "Cartridge C40",
-                    "Cartridge C41", "Cartridge C42", "Cartridge C43",
-                    "Cartridge C44", "Cartridge C45", "Cartridge C46",
-                    "Cartridge C47", "Cartridge C48", "Cartridge C49",
-                    "Cartridge C50", "Cartridge C51", "Cartridge C52",
-                    "Cartridge C53", "Cartridge C54", "Cartridge C55",
-                    "Cartridge C56", "Cartridge C57", "Cartridge C58",
-                    "Cartridge C59", "Cartridge C60", "Cartridge C61",
-                    "Cartridge C62", "Cartridge C63" };
+        "Equal", "Pure major", "Pure minor", "Mean tone",
+        "Pythagorean", "Werckmeister", "Kirnberger",
+        "Vallotti&Young", "1/4 shifted equal", "1/4 tone",
+        "1/8 tone", "Internal 01", "Internal 02", "Cartridge C 1",
+        "Cartridge C 2", "Cartridge C 3", "Cartridge C 4",
+        "Cartridge C 5", "Cartridge C 6", "Cartridge C 7",
+        "Cartridge C 8", "Cartridge C 9", "Cartridge C10",
+        "Cartridge C11", "Cartridge C12", "Cartridge C13",
+        "Cartridge C14", "Cartridge C15", "Cartridge C16",
+        "Cartridge C17", "Cartridge C18", "Cartridge C19",
+        "Cartridge C20", "Cartridge C21", "Cartridge C22",
+        "Cartridge C23", "Cartridge C24", "Cartridge C25",
+        "Cartridge C26", "Cartridge C27", "Cartridge C28",
+        "Cartridge C29", "Cartridge C30", "Cartridge C31",
+        "Cartridge C32", "Cartridge C33", "Cartridge C34",
+        "Cartridge C35", "Cartridge C36", "Cartridge C37",
+        "Cartridge C38", "Cartridge C39", "Cartridge C40",
+        "Cartridge C41", "Cartridge C42", "Cartridge C43",
+        "Cartridge C44", "Cartridge C45", "Cartridge C46",
+        "Cartridge C47", "Cartridge C48", "Cartridge C49",
+        "Cartridge C50", "Cartridge C51", "Cartridge C52",
+        "Cartridge C53", "Cartridge C54", "Cartridge C55",
+        "Cartridge C56", "Cartridge C57", "Cartridge C58",
+        "Cartridge C59", "Cartridge C60", "Cartridge C61",
+        "Cartridge C62", "Cartridge C63" };
 
     public DX7FamilyPerformanceIIIEditor(String name, Patch patch) {
         super(name, patch);
@@ -656,6 +656,7 @@ public class DX7FamilyPerformanceIIIEditor extends PatchEditorFrame {
             super(p, 16 + 2 * o);
         }
 
+        @Override
         public void set(int i) {
             patch.sysex[offset] =
                     (byte) (DX7FamilyByteEncoding.Value2AsciiHexHigh(i));
@@ -663,6 +664,7 @@ public class DX7FamilyPerformanceIIIEditor extends PatchEditorFrame {
                     (byte) (DX7FamilyByteEncoding.Value2AsciiHexLow(i));
         }
 
+        @Override
         public int get() {
             return ((byte) (DX7FamilyByteEncoding
                     .AsciiHex2Value(patch.sysex[offset]) * 16 + DX7FamilyByteEncoding
@@ -687,8 +689,9 @@ public class DX7FamilyPerformanceIIIEditor extends PatchEditorFrame {
             b[6] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
-            b[2] = (byte) (0x10 + channel - 1);
+            b[2] = (byte) (0x10 + getChannel() - 1);
             b[5] = (byte) value;
 
             return b;
@@ -712,8 +715,9 @@ public class DX7FamilyPerformanceIIIEditor extends PatchEditorFrame {
             b[7] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
-            b[2] = (byte) (0x10 + channel - 1);
+            b[2] = (byte) (0x10 + getChannel() - 1);
             b[5] = (byte) (value >> 7);
             b[6] = (byte) (value & 0x7f);
 

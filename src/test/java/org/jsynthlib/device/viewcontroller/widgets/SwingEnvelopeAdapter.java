@@ -8,8 +8,8 @@ import org.jsynthlib.core.valuesetter.IValueSetter;
 import org.jsynthlib.device.model.EnvelopeNode;
 import org.jsynthlib.device.model.EnvelopeXParam;
 import org.jsynthlib.device.model.EnvelopeYParam;
-import org.jsynthlib.device.model.IParamModel;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.IParamModel;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.EnvelopeWidget.Node;
 import org.jsynthlib.device.viewcontroller.widgets.EnvelopeWidget.Param;
 

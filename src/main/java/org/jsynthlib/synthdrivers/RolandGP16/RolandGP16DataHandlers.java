@@ -12,8 +12,8 @@ import javax.swing.event.ChangeEvent;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.AbstractPatchDriver;
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.PatchNameWidget;
@@ -46,7 +46,7 @@ class VSender extends SysexSender {
     @Override
     public byte[] generate(int value) {
         b[8] = (byte) value;
-        b[2] = (byte) (channel - 1);
+        b[2] = (byte) (getChannel() - 1);
         return b;
     }
 }
@@ -70,7 +70,7 @@ class BBSender extends SysexSender {
     @Override
     public byte[] generate(int value) {
         b[8] = (byte) (value + 6);
-        b[2] = (byte) (channel - 1);
+        b[2] = (byte) (getChannel() - 1);
         return b;
     }
 }
@@ -99,7 +99,7 @@ class ESender extends SysexSender {
             b[8] = (byte) (value - 1);
         }
 
-        b[2] = (byte) (channel - 1);
+        b[2] = (byte) (getChannel() - 1);
         return b;
     }
 }
@@ -124,7 +124,7 @@ class BigValSender extends SysexSender {
     public byte[] generate(int value) {
         b[8] = (byte) (value / 128);
         b[9] = (byte) (value % 128);
-        b[2] = (byte) (channel - 1);
+        b[2] = (byte) (getChannel() - 1);
         return b;
     }
 }
@@ -144,9 +144,9 @@ class GP16BitSender extends SysexSender {
         bit = bt;
         b =
                 new byte[] {
-                        (byte) 0xF0, (byte) 0x41, (byte) 0x00, (byte) 0x2A,
-                        (byte) 0x12, (byte) 0x08, (byte) 0x00, (byte) ofs,
-                        (byte) 0x00, (byte) 0x00, (byte) 0xF7 };
+                (byte) 0xF0, (byte) 0x41, (byte) 0x00, (byte) 0x2A,
+                (byte) 0x12, (byte) 0x08, (byte) 0x00, (byte) ofs,
+                (byte) 0x00, (byte) 0x00, (byte) 0xF7 };
     }
 
     @Override
@@ -158,7 +158,7 @@ class GP16BitSender extends SysexSender {
         if (value == 1) {
             bitfield |= (1 << bit);
         }
-        b[2] = (byte) (channel - 1);
+        b[2] = (byte) (getChannel() - 1);
         b[8] = (byte) bitfield;
         log.info("GP16BitSender: sending data " + (byte) bitfield);
         return b;
@@ -362,7 +362,7 @@ class ExpLevScrollBarWidget extends ScrollBarWidget implements ItemListener {
         subDiv = initSubDiv;
         thisPatch = patch;
         text.setText(new Double((double) (getValue() + base) / subDiv)
-                .toString());
+        .toString());
     }
 
     public ExpLevScrollBarWidget(String label, Patch patch, int min, int max,
@@ -383,8 +383,9 @@ class ExpLevScrollBarWidget extends ScrollBarWidget implements ItemListener {
             Thread.sleep(100);
         } catch (Exception ex) {
         }
-        ((AbstractPatchDriver) thisPatch.getDriver()).send(sndChange(((AbstractPatchDriver) thisPatch
-                .getDriver()).getChannel()));
+        ((AbstractPatchDriver) thisPatch.getDriver())
+                .send(sndChange(((AbstractPatchDriver) thisPatch.getDriver())
+                        .getChannel()));
     }
 
     /** Generate the sound change request on correct channel. */
@@ -534,13 +535,13 @@ class GP16ComboBoxWidget extends ComboBoxWidget {
         updater = upd;
     }
 
-    public GP16ComboBoxWidget(String l, Patch p, ParamModel ofs,
-            SysexSender s, Object[] o, boolean a, GP16JointPolice upd) {
+    public GP16ComboBoxWidget(String l, Patch p, ParamModel ofs, SysexSender s,
+            Object[] o, boolean a, GP16JointPolice upd) {
         this(l, p, 0, ofs, s, o, a, upd);
     }
 
-    public GP16ComboBoxWidget(String l, Patch p, ParamModel ofs,
-            SysexSender s, Object[] o, boolean a) {
+    public GP16ComboBoxWidget(String l, Patch p, ParamModel ofs, SysexSender s,
+            Object[] o, boolean a) {
         this(l, p, 0, ofs, s, o, a, null);
     }
 
@@ -555,8 +556,8 @@ class GP16ComboBoxWidget extends ComboBoxWidget {
                 } catch (Exception ex) {
                 }
                 ((AbstractPatchDriver) thisPatch.getDriver())
-                        .send(sndChange(((AbstractPatchDriver) thisPatch.getDriver())
-                                .getChannel()));
+                .send(sndChange(((AbstractPatchDriver) thisPatch
+                                .getDriver()).getChannel()));
             } else {
                 updater.itemStateChanged();
             }
@@ -597,8 +598,9 @@ class GP16CheckBoxWidget extends CheckBoxWidget {
             Thread.sleep(100);
         } catch (Exception ex) {
         }
-        ((AbstractPatchDriver) thisPatch.getDriver()).send(sndChange(((AbstractPatchDriver) thisPatch
-                .getDriver()).getChannel()));
+        ((AbstractPatchDriver) thisPatch.getDriver())
+                .send(sndChange(((AbstractPatchDriver) thisPatch.getDriver())
+                        .getChannel()));
     }
 
     /** Generate the sound change request on correct channel. */
@@ -634,8 +636,9 @@ class GP16JointPolice {
     public void itemStateChanged() {
         log.info("GP16JointPolice: Got event, checking says " + sendOk());
         if (sendOk()) {
-            ((AbstractPatchDriver) thisPatch.getDriver()).send(sndChange(((AbstractPatchDriver) thisPatch
-                    .getDriver()).getChannel()));
+            ((AbstractPatchDriver) thisPatch.getDriver())
+                    .send(sndChange(((AbstractPatchDriver) thisPatch
+                            .getDriver()).getChannel()));
         }
     }
 

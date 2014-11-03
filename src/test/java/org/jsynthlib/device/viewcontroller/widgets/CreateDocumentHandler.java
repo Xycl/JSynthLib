@@ -32,7 +32,7 @@ import org.fest.swing.fixture.JTreeFixture;
 import org.jsynthlib.core.PopupContainer;
 import org.jsynthlib.core.valuesetter.IPatchNameValueSetter;
 import org.jsynthlib.device.model.EnvelopeNode;
-import org.jsynthlib.device.model.IParamModel;
+import org.jsynthlib.device.model.handler.IParamModel;
 import org.jsynthlib.driver.XmlPopup;
 import org.jsynthlib.driver.XmlPopups;
 import org.jsynthlib.driver.XmldeviceDocument;

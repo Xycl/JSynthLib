@@ -26,7 +26,7 @@ package org.jsynthlib.synthdrivers.YamahaDX7;
 import java.util.prefs.Preferences;
 
 import org.jsynthlib.device.model.XMLDevice;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument.XmlDeviceSpec;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 
 public class YamahaDX7Device extends XMLDevice { // DX7FamilyDevice
 
@@ -38,7 +38,7 @@ public class YamahaDX7Device extends XMLDevice { // DX7FamilyDevice
 //                0x02, 0x03);
 //    }
 
-    public YamahaDX7Device(XmlDeviceSpec xmlDeviceSpec) {
+    public YamahaDX7Device(XmlDeviceDefinition xmlDeviceSpec) {
         super(xmlDeviceSpec);
     }
 

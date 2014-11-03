@@ -21,7 +21,7 @@
 package org.jsynthlib.synthdrivers.RolandD10;
 
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.ISender;
 
 /**
  * This class is used for sending a Tones partitial mute setting. Since there

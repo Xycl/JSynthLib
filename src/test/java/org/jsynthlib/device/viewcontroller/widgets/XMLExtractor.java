@@ -10,15 +10,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.swing.ImageIcon;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.log4j.Logger;
+import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlString;
 import org.fest.swing.fixture.FrameFixture;
 import org.fest.swing.fixture.JTableFixture;
@@ -33,40 +33,51 @@ import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.core.viewcontroller.desktop.mdi.MDIFrameProxy;
 import org.jsynthlib.device.model.AbstractBankDriver;
 import org.jsynthlib.device.model.AbstractDriver;
-import org.jsynthlib.device.model.AbstractSender;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.IBankDriver;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.IParamModel;
 import org.jsynthlib.device.model.IPatchDriver;
-import org.jsynthlib.device.model.IPatchStringSender;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.AbstractSender;
+import org.jsynthlib.device.model.handler.IParamModel;
+import org.jsynthlib.device.model.handler.IPatchStringSender;
+import org.jsynthlib.device.model.handler.ISender;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.device.viewcontroller.BankEditorFrame;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.EnvelopeWidget.Node;
 import org.jsynthlib.patch.model.impl.PatchEdit;
+import org.jsynthlib.xmldevice.DeviceConfiguration;
+import org.jsynthlib.xmldevice.DeviceConfiguration.MidiSenderDefinitions;
+import org.jsynthlib.xmldevice.DeviceConfiguration.ParamModelDefinitions;
 import org.jsynthlib.xmldevice.EnvelopeNodeSpec;
 import org.jsynthlib.xmldevice.EnvelopeSpec;
+import org.jsynthlib.xmldevice.HandlerDefinitionBase;
+import org.jsynthlib.xmldevice.HandlerDefinitionBase.Property;
+import org.jsynthlib.xmldevice.HandlerReferenceBase;
+import org.jsynthlib.xmldevice.HandlerReferenceBase.PropertyValue;
 import org.jsynthlib.xmldevice.IntParamSpec;
-import org.jsynthlib.xmldevice.MidiSender;
-import org.jsynthlib.xmldevice.ParamModel;
+import org.jsynthlib.xmldevice.MidiSenderDefinition;
+import org.jsynthlib.xmldevice.MidiSenderReference;
+import org.jsynthlib.xmldevice.ParamModelDefinition;
+import org.jsynthlib.xmldevice.ParamModelReference;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 import org.jsynthlib.xmldevice.PatchParamValues;
 import org.jsynthlib.xmldevice.PatchParams;
-import org.jsynthlib.xmldevice.PropertySpec;
+import org.jsynthlib.xmldevice.SingleParamSpec;
 import org.jsynthlib.xmldevice.StringArray;
 import org.jsynthlib.xmldevice.StringParamSpec;
-import org.jsynthlib.xmldevice.StringSenderSpec;
+import org.jsynthlib.xmldevice.StringSenderReference;
+import org.jsynthlib.xmldevice.UuidSingleParamSpec;
 import org.jsynthlib.xmldevice.XEnvelopeParamSpec;
-import org.jsynthlib.xmldevice.XmlBankDriverSpecDocument;
-import org.jsynthlib.xmldevice.XmlBankDriverSpecDocument.XmlBankDriverSpec;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument.XmlDeviceSpec;
-import org.jsynthlib.xmldevice.XmlDriverDefs;
-import org.jsynthlib.xmldevice.XmlDriverDefs.XmlDriverDef;
-import org.jsynthlib.xmldevice.XmlDriverSpec;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument;
+import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument.XmlBankDriverDefinition;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
+import org.jsynthlib.xmldevice.XmlDriverReferences;
+import org.jsynthlib.xmldevice.XmlDriverReferences.XmlDriverReference;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 import org.jsynthlib.xmldevice.YEnvelopeParamSpec;
 
 public class XMLExtractor {
@@ -108,22 +119,19 @@ public class XMLExtractor {
     private FrameFixture testFrame;
     private GuiHandler guiHandler;
 
-    private final HashMap<String, PatchParams> groupMap;
-
     private final String manufacturer;
 
     private final String deviceName;
 
-    private XmlDeviceSpecDocument deviceSpecDocument;
+    private XmlDeviceDefinitionDocument deviceSpecDocument;
 
-    private XmlDeviceSpec deviceSpec;
+    private XmlDeviceDefinition deviceSpec;
 
     private final File outDir;
     private final Properties properties;
     private int driverIndex = 0;
 
     XMLExtractor(String manufacturer, String device, File outDir) {
-        groupMap = new HashMap<String, PatchParams>();
         this.manufacturer = manufacturer;
         this.deviceName = device;
         this.outDir = outDir;
@@ -200,8 +208,10 @@ public class XMLExtractor {
                                 createDevice(device, infoText);
                                 deviceCreated = true;
                             }
-                            createPatchDriver(patchEditor, infoText,
-                                    (IPatchDriver) driver);
+                            SingleDriverGenerator generator =
+                                    new SingleDriverGenerator(
+                                            (IPatchDriver) driver);
+                            generator.createPatchDriver(patchEditor, infoText);
                         } else if (jslFrame instanceof BankEditorFrame) {
                             BankEditorFrame frame = (BankEditorFrame) jslFrame;
                             IDriver driver = frame.getBankData().getDriver();
@@ -210,8 +220,10 @@ public class XMLExtractor {
                                 createDevice(device, infoText);
                                 deviceCreated = true;
                             }
-                            createBankDriver(infoText, patchEditor,
-                                    (IBankDriver) driver);
+                            BankDriverGenerator generator =
+                                    new BankDriverGenerator(
+                                            (IBankDriver) driver);
+                            generator.createBankDriver(infoText, patchEditor);
                         }
                     }
 
@@ -248,112 +260,532 @@ public class XMLExtractor {
         }
     }
 
-    void createBankDriver(String infoText, FrameWrapper patchEditor,
-            IBankDriver driver) throws IllegalAccessException,
-            NoSuchFieldException, IOException {
-        XmlBankDriverSpecDocument document =
-                XmlBankDriverSpecDocument.Factory.newInstance();
-        XmlBankDriverSpec driverSpec = document.addNewXmlBankDriverSpec();
+    abstract class DriverGenerator {
 
-        XmlDriverDefs drivers = deviceSpec.getDrivers();
-        XmlDriverDef driverDef = drivers.addNewXmlDriverDef();
-        driverDef.setDriverClass(driver.getClass().getName());
-        driverDef.setDriverType(XmlDriverDef.DriverType.BANK);
-
-        addGenericFields(driver, driverSpec, infoText);
-
-        if (driver instanceof AbstractBankDriver) {
-            AbstractBankDriver bankDriver = (AbstractBankDriver) driver;
-            driverSpec.setNumPatches(getField("numPatches", int.class,
-                    bankDriver, AbstractBankDriver.class));
-            driverSpec.setNumColumns(getField("numColumns", int.class,
-                    bankDriver, AbstractBankDriver.class));
-            driverSpec.setSingleSysexID(getField("singleSysexID", String.class,
-                    bankDriver, AbstractBankDriver.class));
-            driverSpec.setSingleSize(getField("singleSize", int.class,
-                    bankDriver, AbstractBankDriver.class));
+        protected DriverGenerator() {
         }
 
-        properties.put(newDriverKey(), driver.getClass().getSimpleName());
-        document.save(new File(outDir, driver.getClass().getSimpleName()
-                + ".xml"));
-    }
+        String newDriverKey() {
+            return "driver" + driverIndex++;
+        }
 
-    String newDriverKey() {
-        return "driver" + driverIndex++;
-    }
+        protected void addGenericFields(IDriver driver,
+                XmlDriverDefinition driverSpec, String infoText)
+                        throws IllegalAccessException, NoSuchFieldException {
+            driverSpec.setInfoText(infoText);
+            driverSpec.setName(deviceName + " " + driver.getPatchType());
+            driverSpec.setAuthors(driver.getAuthors());
 
-    void createPatchDriver(FrameWrapper patchEditor, String infoText,
-            IPatchDriver driver) throws IllegalAccessException,
-            NoSuchFieldException, IOException {
-        XmlPatchDriverSpecDocument document =
-                XmlPatchDriverSpecDocument.Factory.newInstance();
-        XmlPatchDriverSpec driverSpec = document.addNewXmlPatchDriverSpec();
-
-        XmlDriverDefs drivers = deviceSpec.getDrivers();
-        XmlDriverDef deviceDriverSpec = drivers.addNewXmlDriverDef();
-        deviceDriverSpec.setDriverClass(driver.getClass().getName());
-        deviceDriverSpec.setDriverType(XmlDriverDef.DriverType.PATCH);
-
-        addGenericFields(driver, driverSpec, infoText);
-
-        PatchParams patchParams = driverSpec.addNewPatchParams();
-        groupMap.put("", patchParams);
-
-        List<SysexWidget> sysexWidgets =
-                SysexWidgetFinder.findSysexWidgets(patchEditor);
-        if (sysexWidgets.size() > 0) {
-            for (SysexWidget sysexWidget : sysexWidgets) {
-                handleSysexWidget(patchEditor, sysexWidget);
+            String[] origBankNumbers = driver.getBankNumbers();
+            if (origBankNumbers != null) {
+                StringArray bankNumbers = driverSpec.addNewBankNumbers();
+                for (String bankNumber : origBankNumbers) {
+                    bankNumbers.addString(bankNumber);
+                }
             }
-            properties.put(newDriverKey(), driver.getClass().getSimpleName());
-            document.save(new File(outDir, driver.getClass().getSimpleName()
-                    + ".xml"));
-        }
-    }
 
-    void addGenericFields(IDriver driver, XmlDriverSpec driverSpec,
-            String infoText) throws IllegalAccessException,
-            NoSuchFieldException {
-        driverSpec.setInfoText(infoText);
-        driverSpec.setName(deviceName + " " + driver.getPatchType());
-        driverSpec.setAuthors(driver.getAuthors());
+            String[] origPatchNumbers = driver.getPatchNumbers();
+            if (origPatchNumbers != null) {
+                StringArray patchNumbers = driverSpec.addNewPatchNumbers();
+                for (String patchNumber : origPatchNumbers) {
+                    patchNumbers.addString(patchNumber);
+                }
+            }
 
-        String[] origBankNumbers = driver.getBankNumbers();
-        if (origBankNumbers != null) {
-            StringArray bankNumbers = driverSpec.addNewBankNumbers();
-            for (String bankNumber : origBankNumbers) {
-                bankNumbers.addString(bankNumber);
+            driverSpec.setPatchNameSize(driver.getPatchNameSize());
+            driverSpec.setPatchSize(driver.getPatchSize());
+
+            if (driver instanceof AbstractDriver) {
+                AbstractDriver d2 = (AbstractDriver) driver;
+                driverSpec.setChecksumEnd(getField("checksumEnd", int.class,
+                        d2, AbstractDriver.class));
+                driverSpec.setChecksumStart(getField("checksumStart",
+                        int.class, d2, AbstractDriver.class));
+                driverSpec.setChecksumOffset(getField("checksumOffset",
+                        int.class, d2, AbstractDriver.class));
+                driverSpec.setSysexID(getField("sysexID", String.class, d2,
+                        AbstractDriver.class));
+                driverSpec.setDeviceIDoffset(getField("deviceIDoffset",
+                        int.class, d2, AbstractDriver.class));
+                driverSpec.setPatchNameStart(getField("patchNameStart",
+                        int.class, d2, AbstractDriver.class));
             }
         }
 
-        String[] origPatchNumbers = driver.getPatchNumbers();
-        if (origPatchNumbers != null) {
-            StringArray patchNumbers = driverSpec.addNewPatchNumbers();
-            for (String patchNumber : origPatchNumbers) {
-                patchNumbers.addString(patchNumber);
+        @SuppressWarnings("unchecked")
+        protected <T> T getField(String fieldName, Class<T> fieldClass,
+                Object object, Class<?> objectClass)
+                        throws IllegalAccessException, NoSuchFieldException {
+            Class<?> tmpClass = object.getClass();
+            while (!tmpClass.equals(objectClass)) {
+                tmpClass = tmpClass.getSuperclass();
+            }
+            Field f = tmpClass.getDeclaredField(fieldName);
+            f.setAccessible(true);
+            return (T) f.get(object);
+        }
+
+        public void save() throws IOException {
+            properties.put(newDriverKey(), getDriver().getClass()
+                    .getSimpleName());
+            getDocument().save(
+                    new File(outDir, getDriver().getClass().getSimpleName()
+                            + ".xml"));
+        }
+
+        protected abstract XmlObject getDocument();
+
+        protected abstract IDriver getDriver();
+    }
+
+    class BankDriverGenerator extends DriverGenerator {
+
+        private final XmlBankDriverDefinitionDocument document;
+        private final IBankDriver driver;
+
+        protected BankDriverGenerator(IBankDriver driver) {
+            super();
+            this.driver = driver;
+            document = XmlBankDriverDefinitionDocument.Factory.newInstance();
+        }
+
+        void createBankDriver(String infoText, FrameWrapper patchEditor)
+                throws IllegalAccessException, NoSuchFieldException,
+                IOException {
+            XmlBankDriverDefinition driverSpec =
+                    document.addNewXmlBankDriverDefinition();
+
+            XmlDriverReferences drivers = deviceSpec.getDrivers();
+            XmlDriverReference driverDef = drivers.addNewXmlDriverReference();
+            driverDef.setDriverClass(driver.getClass().getName());
+            driverDef.setDriverType(XmlDriverReference.DriverType.BANK);
+
+            addGenericFields(driver, driverSpec, infoText);
+
+            if (driver instanceof AbstractBankDriver) {
+                AbstractBankDriver bankDriver = (AbstractBankDriver) driver;
+                driverSpec.setNumPatches(getField("numPatches", int.class,
+                        bankDriver, AbstractBankDriver.class));
+                driverSpec.setNumColumns(getField("numColumns", int.class,
+                        bankDriver, AbstractBankDriver.class));
+                driverSpec.setSingleSysexID(getField("singleSysexID",
+                        String.class, bankDriver, AbstractBankDriver.class));
+                driverSpec.setSingleSize(getField("singleSize", int.class,
+                        bankDriver, AbstractBankDriver.class));
+            }
+
+        }
+
+        @Override
+        protected XmlObject getDocument() {
+            return document;
+        }
+
+        @Override
+        protected IDriver getDriver() {
+            return driver;
+        }
+    }
+
+    class SingleDriverGenerator extends DriverGenerator {
+
+        private final XmlSingleDriverDefinitionDocument document;
+        private final IPatchDriver driver;
+        private final HashMap<String, PatchParams> groupMap;
+        private final XmlSingleDriverDefinition driverSpec;
+        private final Map<String, HandlerDefinitionBase> handlerDefinitionMap;
+
+        public SingleDriverGenerator(IPatchDriver driver) {
+            super();
+            groupMap = new HashMap<String, PatchParams>();
+            handlerDefinitionMap = new HashMap<String, HandlerDefinitionBase>();
+            this.driver = driver;
+            document = XmlSingleDriverDefinitionDocument.Factory.newInstance();
+            driverSpec = document.addNewXmlSingleDriverDefinition();
+        }
+
+        void createPatchDriver(FrameWrapper patchEditor, String infoText)
+                throws IllegalAccessException, NoSuchFieldException,
+                IOException {
+            XmlDriverReferences drivers = deviceSpec.getDrivers();
+            XmlDriverReference deviceDriverDef =
+                    drivers.addNewXmlDriverReference();
+            deviceDriverDef.setDriverClass(driver.getClass().getName());
+            deviceDriverDef.setDriverType(XmlDriverReference.DriverType.PATCH);
+
+            addGenericFields(driver, driverSpec, infoText);
+
+            PatchParams patchParams = driverSpec.addNewPatchParams();
+            groupMap.put("", patchParams);
+
+            List<SysexWidget> sysexWidgets =
+                    SysexWidgetFinder.findSysexWidgets(patchEditor);
+            if (sysexWidgets.size() > 0) {
+                for (SysexWidget sysexWidget : sysexWidgets) {
+                    handleSysexWidget(patchEditor, sysexWidget);
+                }
             }
         }
 
-        driverSpec.setPatchNameSize(driver.getPatchNameSize());
-        driverSpec.setPatchSize(driver.getPatchSize());
+        void handleSysexWidget(FrameWrapper patchEditor, SysexWidget sysexWidget)
+                throws IllegalAccessException, NoSuchFieldException {
+            if (sysexWidget instanceof LabelWidget) {
+                // Skip...
+                return;
+            }
 
-        if (driver instanceof AbstractDriver) {
-            AbstractDriver d2 = (AbstractDriver) driver;
-            driverSpec.setChecksumEnd(getField("checksumEnd", int.class, d2,
-                    AbstractDriver.class));
-            driverSpec.setChecksumStart(getField("checksumStart", int.class,
-                    d2, AbstractDriver.class));
-            driverSpec.setChecksumOffset(getField("checksumOffset", int.class,
-                    d2, AbstractDriver.class));
-            driverSpec.setSysexID(getField("sysexID", String.class, d2,
-                    AbstractDriver.class));
-            driverSpec.setDeviceIDoffset(getField("deviceIDoffset", int.class,
-                    d2, AbstractDriver.class));
-            driverSpec.setPatchNameStart(getField("patchNameStart", int.class,
-                    d2, AbstractDriver.class));
+            String path =
+                    ContainerDisplayer.showContainerAndGetNameRecursive(
+                            patchEditor, sysexWidget);
+            if (path.endsWith("/")) {
+                path = path.substring(0, path.length() - 1);
+            }
+            PatchParams patchParams = null;
+            LOG.info("Looking for group " + path);
+            if (groupMap.containsKey(path)) {
+                patchParams = groupMap.get(path);
+                LOG.info("Found group " + path);
+            } else {
+                patchParams = createNewGroup(path);
+            }
+
+            int valueMax = sysexWidget.getValueMax();
+            int valueMin = sysexWidget.getValueMin();
+            String name = sysexWidget.getLabel();
+            ISender sender =
+                    getField("sender", ISender.class, sysexWidget,
+                            SysexWidget.class);
+            IParamModel paramModel =
+                    getField("paramModel", IParamModel.class, sysexWidget,
+                            SysexWidget.class);
+
+            if (sysexWidget instanceof CheckBoxWidget) {
+                // CheckBoxWidget widget = (CheckBoxWidget) sysexWidget;
+                handleDefaultIntParam(patchParams, valueMax, valueMin, name,
+                        sender, paramModel, 0);
+            } else if (sysexWidget instanceof ComboBoxWidget) {
+                ComboBoxWidget widget = (ComboBoxWidget) sysexWidget;
+                int itemCount = widget.cb.getItemCount();
+                String[] values = new String[itemCount];
+
+                for (int i = 0; i < itemCount; i++) {
+                    String item = null;
+                    try {
+                        item = (String) widget.cb.getItemAt(i);
+                    } catch (ClassCastException e) {
+                        ImageIcon icon = (ImageIcon) widget.cb.getItemAt(i);
+                        item = icon.getAccessibleContext().getAccessibleName();
+                    }
+                    values[i] = item;
+                }
+                handleIntParamWValues(values, patchParams, valueMax, valueMin,
+                        name, sender, paramModel);
+            } else if (sysexWidget instanceof KnobWidget) {
+                KnobWidget widget = (KnobWidget) sysexWidget;
+                int base =
+                        getField("mBase", int.class, widget, KnobWidget.class);
+                handleDefaultIntParam(patchParams, valueMax, valueMin, name,
+                        sender, paramModel, base);
+            } else if (sysexWidget instanceof PatchNameWidget) {
+                PatchNameWidget widget = (PatchNameWidget) sysexWidget;
+                handlePatchName(widget, patchParams, name, sender, paramModel);
+            } else if (sysexWidget instanceof ScrollBarWidget) {
+                ScrollBarWidget widget = (ScrollBarWidget) sysexWidget;
+                int base =
+                        getField("base", int.class, widget,
+                                ScrollBarWidget.class);
+                handleDefaultIntParam(patchParams, valueMax, valueMin, name,
+                        sender, paramModel, base);
+            } else if (sysexWidget instanceof SpinnerWidget) {
+                SpinnerWidget widget = (SpinnerWidget) sysexWidget;
+                int base =
+                        getField("base", int.class, widget, SpinnerWidget.class);
+                handleDefaultIntParam(patchParams, valueMax, valueMin, name,
+                        sender, paramModel, base);
+            } else if (sysexWidget instanceof ScrollBarLookupWidget) {
+                ScrollBarLookupWidget widget =
+                        (ScrollBarLookupWidget) sysexWidget;
+                String[] strings =
+                        getField("options", String[].class, widget,
+                                ScrollBarLookupWidget.class);
+
+                handleIntParamWValues(strings, patchParams, valueMax, valueMin,
+                        name, sender, paramModel);
+            } else if (sysexWidget instanceof EnvelopeWidget) {
+                EnvelopeWidget envWidget = (EnvelopeWidget) sysexWidget;
+                handleEnvelope(patchParams, envWidget);
+            } else {
+                LOG.warn("Could not handle widget "
+                        + sysexWidget.getClass().getName());
+            }
         }
 
+        private PatchParams createNewGroup(String path) {
+            LOG.info("Creating group " + path);
+            String[] split = path.split("/");
+            String tempPath = null;
+            PatchParams parentGroup = null;
+
+            for (int i = 0; i < split.length - 1; i++) {
+                String groupName = split[i];
+                if (tempPath == null) {
+                    tempPath = groupName;
+                } else {
+                    tempPath = tempPath + "/" + groupName;
+                }
+
+                if (groupMap.containsKey(tempPath)) {
+                    parentGroup = groupMap.get(tempPath);
+                } else {
+                    parentGroup = createNewGroup(tempPath);
+                }
+            }
+
+            PatchParamGroup paramGroup = parentGroup.addNewPatchParamGroup();
+            paramGroup.setName(split[split.length - 1]);
+            groupMap.put(path, paramGroup);
+            return paramGroup;
+        }
+
+        void addSender(Object handler, HandlerReferenceBase midiSender) {
+            if (handler == null) {
+                LOG.warn("Found param w/o sender");
+                org.w3c.dom.Node parentNode =
+                        midiSender.getDomNode().getParentNode();
+                if (parentNode instanceof SingleParamSpec) {
+                    SingleParamSpec singleParamSpec =
+                            (SingleParamSpec) parentNode;
+                    singleParamSpec.unsetMidiSender();
+                } else if (parentNode instanceof UuidSingleParamSpec) {
+                    UuidSingleParamSpec singleParamSpec =
+                            (UuidSingleParamSpec) parentNode;
+                    singleParamSpec.unsetMidiSender();
+                }
+                return;
+            }
+            Class<? extends Object> handlerClass = handler.getClass();
+            String simpleName = handlerClass.getSimpleName();
+            DeviceConfiguration config = deviceSpec.getConfiguration();
+
+            if (!handlerDefinitionMap.containsKey(simpleName)) {
+                MidiSenderDefinitions midiSenderDefinitions =
+                        config.getMidiSenderDefinitions();
+                if (midiSenderDefinitions == null) {
+                    midiSenderDefinitions =
+                            config.addNewMidiSenderDefinitions();
+                }
+                MidiSenderDefinition midiSenderDefinition =
+                        midiSenderDefinitions.addNewMidiSenderDefinition();
+                midiSenderDefinition.setHandlerClass(handlerClass.getName());
+                copyProperties(handler, midiSenderDefinition);
+
+                if (handler instanceof AbstractSender) {
+                    Property property = midiSenderDefinition.addNewProperty();
+                    property.setKey("offset");
+                }
+            }
+
+            midiSender.setName(simpleName);
+            copyPropertyValues(handler, midiSender);
+
+            if (handler instanceof AbstractSender) {
+                AbstractSender aSender = (AbstractSender) handler;
+                PropertyValue property = midiSender.addNewPropertyValue();
+                property.setKey("offset");
+                property.setValue(Integer.toString(aSender.getOffset()));
+            }
+        }
+
+        void addParamModel(Object handler, ParamModelReference paramModel) {
+            Class<? extends Object> handlerClass = handler.getClass();
+            String simpleName = handlerClass.getSimpleName();
+            DeviceConfiguration config = deviceSpec.getConfiguration();
+
+            if (!handlerDefinitionMap.containsKey(simpleName)) {
+                ParamModelDefinitions paramModelDefinitions =
+                        config.getParamModelDefinitions();
+                if (paramModelDefinitions == null) {
+                    paramModelDefinitions =
+                            config.addNewParamModelDefinitions();
+                }
+                ParamModelDefinition paramModelDefinition =
+                        paramModelDefinitions.addNewParamModelDefinition();
+                paramModelDefinition.setHandlerClass(handlerClass.getName());
+                copyProperties(handler, paramModelDefinition);
+
+                if (paramModel instanceof ParamModel) {
+                    Property property = paramModelDefinition.addNewProperty();
+                    property.setKey("offset");
+                }
+            }
+
+            paramModel.setName(simpleName);
+            copyPropertyValues(handler, paramModel);
+
+            if (paramModel instanceof ParamModel) {
+                ParamModel concreteParamModel = (ParamModel) handler;
+                PropertyValue property = paramModel.addNewPropertyValue();
+                property.setKey("offset");
+                property.setValue(Integer.toString(concreteParamModel
+                        .getOffset()));
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        void copyProperties(Object handler, HandlerDefinitionBase definition) {
+            try {
+                Map<String, String> description = BeanUtils.describe(handler);
+                Iterator<Entry<String, String>> iterator =
+                        description.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Entry<String, String> entry = iterator.next();
+                    Property property = definition.addNewProperty();
+                    property.setKey(entry.getKey());
+                }
+            } catch (InvocationTargetException e) {
+                LOG.warn(e.getMessage(), e);
+            } catch (NoSuchMethodException e) {
+                LOG.warn(e.getMessage(), e);
+            } catch (IllegalAccessException e) {
+                LOG.warn(e.getMessage(), e);
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        void copyPropertyValues(Object handler, HandlerReferenceBase reference) {
+            try {
+                Map<String, String> description = BeanUtils.describe(handler);
+                Iterator<Entry<String, String>> iterator =
+                        description.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Entry<String, String> entry = iterator.next();
+                    PropertyValue property = reference.addNewPropertyValue();
+                    property.setKey(entry.getKey());
+                    property.setValue(entry.getValue());
+                }
+            } catch (InvocationTargetException e) {
+                LOG.warn(e.getMessage(), e);
+            } catch (NoSuchMethodException e) {
+                LOG.warn(e.getMessage(), e);
+            } catch (IllegalAccessException e) {
+                LOG.warn(e.getMessage(), e);
+            }
+        }
+
+        private void handlePatchName(PatchNameWidget widget,
+                PatchParams patchParams, String name, ISender sender,
+                IParamModel paramModel) throws IllegalAccessException,
+                NoSuchFieldException {
+            StringParamSpec paramSpec = patchParams.addNewStringParamSpec();
+            paramSpec.setName(name);
+            Integer field =
+                    getField("patchNameSize", int.class, widget,
+                            PatchNameWidget.class);
+            IPatchStringSender patchNameSender =
+                    getField("sender", IPatchStringSender.class, widget,
+                            PatchNameWidget.class);
+            paramSpec.setLength(field.intValue());
+            paramSpec.setUuid(generateUuid());
+            StringSenderReference xmlSender = paramSpec.addNewStringSender();
+            addSender(patchNameSender, xmlSender);
+        }
+
+        void handleEnvelope(PatchParams patchParams, EnvelopeWidget envWidget)
+                throws IllegalAccessException, NoSuchFieldException {
+            EnvelopeSpec envelopeSpec = patchParams.addNewEnvelopeSpec();
+            envelopeSpec.setName(envWidget.getLabel());
+            envelopeSpec.setUuid(generateUuid());
+
+            Node[] nodes = envWidget.getNodes();
+            for (Node node : nodes) {
+                EnvelopeNodeSpec nodeSpec =
+                        envelopeSpec.addNewEnvelopeNodeSpec();
+                XEnvelopeParamSpec xParam = nodeSpec.addNewXParam();
+                YEnvelopeParamSpec yParam = nodeSpec.addNewYParam();
+                xParam.setInvert(node.isInvertX());
+                xParam.setMax(node.getMaxX());
+                if (node.getSenderX() != null) {
+                    MidiSenderReference midiSenderX = xParam.addNewMidiSender();
+                    addSender(node.getSenderX(), midiSenderX);
+                }
+                xParam.setMin(node.getMinX());
+                xParam.setName(node.getNameX());
+                if (node.getPmodelX() != null) {
+                    ParamModelReference paramModelX = xParam.addNewParamModel();
+                    addParamModel(node.getPmodelX(), paramModelX);
+                }
+                xParam.setUuid(generateUuid());
+
+                yParam.setBase(node.getBaseY());
+                yParam.setMax(node.getMaxY());
+                if (node.getSenderY() != null) {
+                    MidiSenderReference midiSenderY = yParam.addNewMidiSender();
+                    addSender(node.getSenderY(), midiSenderY);
+                }
+                yParam.setMin(node.getMinY());
+                yParam.setName(node.getNameY());
+                if (node.getPmodelY() != null) {
+                    ParamModelReference paramModelY = yParam.addNewParamModel();
+                    addParamModel(node.getPmodelY(), paramModelY);
+                }
+                yParam.setUuid(generateUuid());
+            }
+        }
+
+        void handleDefaultIntParam(PatchParams patchParams, int valueMax,
+                int valueMin, String name, ISender sender,
+                IParamModel paramModel, int base)
+                        throws IllegalAccessException, NoSuchFieldException {
+            IntParamSpec intParamSpec = patchParams.addNewIntParamSpec();
+            intParamSpec.setMax(valueMax);
+            intParamSpec.setMin(valueMin);
+            intParamSpec.setName(name);
+            intParamSpec.setUuid(generateUuid());
+            if (base != 0) {
+                intParamSpec.setBase(base);
+            }
+            MidiSenderReference midiSender = intParamSpec.addNewMidiSender();
+            addSender(sender, midiSender);
+            ParamModelReference newParamModel = intParamSpec.addNewParamModel();
+            addParamModel(paramModel, newParamModel);
+        }
+
+        void handleIntParamWValues(String[] values, PatchParams patchParams,
+                int valueMax, int valueMin, String name, ISender sender,
+                IParamModel paramModel) throws IllegalAccessException,
+                NoSuchFieldException {
+
+            IntParamSpec intParamSpec = patchParams.addNewIntParamSpec();
+            intParamSpec.setMax(valueMax);
+            intParamSpec.setMin(valueMin);
+            intParamSpec.setName(name);
+            intParamSpec.setUuid(generateUuid());
+            MidiSenderReference midiSender = intParamSpec.addNewMidiSender();
+            addSender(sender, midiSender);
+            ParamModelReference newParamModel = intParamSpec.addNewParamModel();
+            addParamModel(paramModel, newParamModel);
+            PatchParamValues paramValues =
+                    intParamSpec.addNewPatchParamValues();
+            for (String string : values) {
+                XmlString paramValue = paramValues.addNewPatchParamValue();
+                paramValue.setStringValue(string);
+            }
+        }
+
+        String generateUuid() {
+            UUID uuid = UUID.randomUUID();
+            return uuid.toString().replaceAll("\\-", "");
+        }
+
+        @Override
+        protected XmlObject getDocument() {
+            return document;
+        }
+
+        @Override
+        protected IDriver getDriver() {
+            return driver;
+        }
     }
 
     /**
@@ -361,316 +793,18 @@ public class XMLExtractor {
      * @param infoText
      */
     void createDevice(Device device, String infoText) {
-        deviceSpecDocument = XmlDeviceSpecDocument.Factory.newInstance();
+        deviceSpecDocument = XmlDeviceDefinitionDocument.Factory.newInstance();
 
-        deviceSpec = deviceSpecDocument.addNewXmlDeviceSpec();
+        deviceSpec = deviceSpecDocument.addNewXmlDeviceDefinition();
         deviceSpec.setAuthors(device.getAuthors());
         deviceSpec.addNewDrivers();
         deviceSpec.setInfoText(infoText);
         deviceSpec.setManufacturer(device.getManufacturerName());
         deviceSpec.setModelName(device.getModelName());
         deviceSpec.setInquiryId(device.getInquiryID());
+        deviceSpec.addNewConfiguration();
 
         properties.put("packageName", device.getClass().getPackage().getName());
     }
 
-    void handleSysexWidget(FrameWrapper patchEditor, SysexWidget sysexWidget)
-            throws IllegalAccessException, NoSuchFieldException {
-        if (sysexWidget instanceof LabelWidget) {
-            // Skip...
-            return;
-        }
-
-        String path =
-                ContainerDisplayer.showContainerAndGetNameRecursive(
-                        patchEditor, sysexWidget);
-        if (path.endsWith("/")) {
-            path = path.substring(0, path.length() - 1);
-        }
-        PatchParams patchParams = null;
-        LOG.info("Looking for group " + path);
-        if (groupMap.containsKey(path)) {
-            patchParams = groupMap.get(path);
-            LOG.info("Found group " + path);
-        } else {
-            patchParams = createNewGroup(path);
-        }
-
-        int valueMax = sysexWidget.getValueMax();
-        int valueMin = sysexWidget.getValueMin();
-        String name = sysexWidget.getLabel();
-        ISender sender =
-                getField("sender", ISender.class, sysexWidget,
-                        SysexWidget.class);
-        IParamModel paramModel =
-                getField("paramModel", IParamModel.class, sysexWidget,
-                        SysexWidget.class);
-
-        if (sysexWidget instanceof CheckBoxWidget) {
-//            CheckBoxWidget widget = (CheckBoxWidget) sysexWidget;
-            handleDefaultIntParam(patchParams, valueMax, valueMin, name,
-                    sender, paramModel, 0);
-        } else if (sysexWidget instanceof ComboBoxWidget) {
-            ComboBoxWidget widget = (ComboBoxWidget) sysexWidget;
-            int itemCount = widget.cb.getItemCount();
-            String[] values = new String[itemCount];
-
-            for (int i = 0; i < itemCount; i++) {
-                String item = null;
-                try {
-                    item = (String) widget.cb.getItemAt(i);
-                } catch (ClassCastException e) {
-                    ImageIcon icon = (ImageIcon) widget.cb.getItemAt(i);
-                    item = icon.getAccessibleContext().getAccessibleName();
-                }
-                values[i] = item;
-            }
-            handleIntParamWValues(values, patchParams, valueMax, valueMin,
-                    name, sender, paramModel);
-        } else if (sysexWidget instanceof KnobWidget) {
-            KnobWidget widget = (KnobWidget) sysexWidget;
-            int base = getField("mBase", int.class, widget, KnobWidget.class);
-            handleDefaultIntParam(patchParams, valueMax, valueMin, name,
-                    sender, paramModel, base);
-        } else if (sysexWidget instanceof PatchNameWidget) {
-            PatchNameWidget widget = (PatchNameWidget) sysexWidget;
-            handlePatchName(widget, patchParams, name, sender, paramModel);
-        } else if (sysexWidget instanceof ScrollBarWidget) {
-            ScrollBarWidget widget = (ScrollBarWidget) sysexWidget;
-            int base =
-                    getField("base", int.class, widget, ScrollBarWidget.class);
-            handleDefaultIntParam(patchParams, valueMax, valueMin, name,
-                    sender, paramModel, base);
-        } else if (sysexWidget instanceof SpinnerWidget) {
-            SpinnerWidget widget = (SpinnerWidget) sysexWidget;
-            int base = getField("base", int.class, widget, SpinnerWidget.class);
-            handleDefaultIntParam(patchParams, valueMax, valueMin, name,
-                    sender, paramModel, base);
-        } else if (sysexWidget instanceof ScrollBarLookupWidget) {
-            ScrollBarLookupWidget widget = (ScrollBarLookupWidget) sysexWidget;
-            String[] strings =
-                    getField("options", String[].class, widget,
-                            ScrollBarLookupWidget.class);
-
-            handleIntParamWValues(strings, patchParams, valueMax, valueMin,
-                    name, sender, paramModel);
-        } else if (sysexWidget instanceof EnvelopeWidget) {
-            EnvelopeWidget envWidget = (EnvelopeWidget) sysexWidget;
-            handleEnvelope(patchParams, envWidget);
-        } else {
-            LOG.warn("Could not handle widget "
-                    + sysexWidget.getClass().getName());
-        }
-    }
-
-    private PatchParams createNewGroup(String path) {
-        LOG.info("Creating group " + path);
-        String[] split = path.split("/");
-        String tempPath = null;
-        PatchParams parentGroup = null;
-
-        for (int i = 0; i < split.length - 1; i++) {
-            String groupName = split[i];
-            if (tempPath == null) {
-                tempPath = groupName;
-            } else {
-                tempPath = tempPath + "/" + groupName;
-            }
-
-            if (groupMap.containsKey(tempPath)) {
-                parentGroup = groupMap.get(tempPath);
-            } else {
-                parentGroup = createNewGroup(tempPath);
-            }
-        }
-
-        PatchParamGroup paramGroup = parentGroup.addNewPatchParamGroup();
-        paramGroup.setName(split[split.length - 1]);
-        groupMap.put(path, paramGroup);
-        return paramGroup;
-    }
-
-    @SuppressWarnings("unchecked")
-    private void handlePatchName(PatchNameWidget widget,
-            PatchParams patchParams, String name, ISender sender,
-            IParamModel paramModel) throws IllegalAccessException,
-            NoSuchFieldException {
-        StringParamSpec stringParamSpec = patchParams.addNewStringParamSpec();
-        stringParamSpec.setName(name);
-        Integer field =
-                getField("patchNameSize", int.class, widget,
-                        PatchNameWidget.class);
-        IPatchStringSender patchNameSender =
-                getField("sender", IPatchStringSender.class, widget,
-                        PatchNameWidget.class);
-        stringParamSpec.setLength(field.intValue());
-        stringParamSpec.setUuid(generateUuid());
-        if (sender != null) {
-            StringSenderSpec xmlSender = stringParamSpec.addNewStringSender();
-            xmlSender
-                    .setStringSenderClass(patchNameSender.getClass().getName());
-            try {
-                Map<String, String> description =
-                        BeanUtils.describe(patchNameSender);
-                Iterator<Entry<String, String>> iterator =
-                        description.entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Entry<String, String> entry = iterator.next();
-                    PropertySpec property = xmlSender.addNewProperty();
-                    property.setName(entry.getKey());
-                    property.setValue(entry.getValue());
-                }
-            } catch (InvocationTargetException e) {
-                LOG.warn(e.getMessage(), e);
-            } catch (NoSuchMethodException e) {
-                LOG.warn(e.getMessage(), e);
-            }
-        }
-    }
-
-    void handleEnvelope(PatchParams patchParams, EnvelopeWidget envWidget)
-            throws IllegalAccessException, NoSuchFieldException {
-        EnvelopeSpec envelopeSpec = patchParams.addNewEnvelopeSpec();
-        envelopeSpec.setName(envWidget.getLabel());
-        envelopeSpec.setUuid(generateUuid());
-
-        Node[] nodes = envWidget.getNodes();
-        for (Node node : nodes) {
-            EnvelopeNodeSpec nodeSpec = envelopeSpec.addNewEnvelopeNodeSpec();
-            XEnvelopeParamSpec xParam = nodeSpec.addNewXParam();
-            YEnvelopeParamSpec yParam = nodeSpec.addNewYParam();
-            xParam.setInvert(node.isInvertX());
-            xParam.setMax(node.getMaxX());
-            if (node.getSenderX() != null) {
-                MidiSender midiSenderX = xParam.addNewMidiSender();
-                setSender(midiSenderX, node.getSenderX());
-            }
-            xParam.setMin(node.getMinX());
-            xParam.setName(node.getNameX());
-            if (node.getPmodelX() != null) {
-                ParamModel paramModelX = xParam.addNewParamModel();
-                setParamModel(paramModelX, node.getPmodelX());
-            }
-            xParam.setUuid(generateUuid());
-
-            yParam.setBase(node.getBaseY());
-            yParam.setMax(node.getMaxY());
-            if (node.getSenderY() != null) {
-                MidiSender midiSenderY = yParam.addNewMidiSender();
-                setSender(midiSenderY, node.getSenderY());
-            }
-            yParam.setMin(node.getMinY());
-            yParam.setName(node.getNameY());
-            if (node.getPmodelY() != null) {
-                ParamModel paramModelY = yParam.addNewParamModel();
-                setParamModel(paramModelY, node.getPmodelY());
-            }
-            yParam.setUuid(generateUuid());
-        }
-    }
-
-    void handleDefaultIntParam(PatchParams patchParams, int valueMax,
-            int valueMin, String name, ISender sender, IParamModel paramModel,
-            int base) throws IllegalAccessException, NoSuchFieldException {
-        IntParamSpec intParamSpec = patchParams.addNewIntParamSpec();
-        intParamSpec.setMax(valueMax);
-        intParamSpec.setMin(valueMin);
-        intParamSpec.setName(name);
-        intParamSpec.setUuid(generateUuid());
-        if (base != 0) {
-            intParamSpec.setBase(base);
-        }
-        MidiSender midiSender = intParamSpec.addNewMidiSender();
-        setSender(midiSender, sender);
-        ParamModel newParamModel = intParamSpec.addNewParamModel();
-        setParamModel(newParamModel, paramModel);
-    }
-
-    void handleIntParamWValues(String[] values, PatchParams patchParams,
-            int valueMax, int valueMin, String name, ISender sender,
-            IParamModel paramModel) throws IllegalAccessException,
-            NoSuchFieldException {
-
-        IntParamSpec intParamSpec = patchParams.addNewIntParamSpec();
-        intParamSpec.setMax(valueMax);
-        intParamSpec.setMin(valueMin);
-        intParamSpec.setName(name);
-        intParamSpec.setUuid(generateUuid());
-        MidiSender midiSender = intParamSpec.addNewMidiSender();
-        if (sender == null) {
-            LOG.warn("Found param w/o sender " + name);
-        } else {
-            setSender(midiSender, sender);
-        }
-        ParamModel newParamModel = intParamSpec.addNewParamModel();
-        setParamModel(newParamModel, paramModel);
-        PatchParamValues paramValues = intParamSpec.addNewPatchParamValues();
-        for (String string : values) {
-            XmlString paramValue = paramValues.addNewPatchParamValue();
-            paramValue.setStringValue(string);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    void setSender(MidiSender midiSenderSpec, ISender sender) {
-        midiSenderSpec.setSenderClass(sender.getClass().getName());
-        if (sender instanceof AbstractSender) {
-            AbstractSender aSender = (AbstractSender) sender;
-            PropertySpec property = midiSenderSpec.addNewProperty();
-            property.setName("offset");
-            property.setValue(Integer.toString(aSender.getOffset()));
-        } else {
-            try {
-                Map<String, String> map =
-                        BeanUtilsBean.getInstance().describe(sender);
-                Iterator<Entry<String, String>> iterator =
-                        map.entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Entry<String, String> entry = iterator.next();
-                    if (entry.getKey().equals("class")) {
-                        continue;
-                    }
-                    PropertySpec propertySpec = midiSenderSpec.addNewProperty();
-                    propertySpec.setName(entry.getKey());
-                    propertySpec.setValue(entry.getValue());
-                }
-            } catch (IllegalAccessException e) {
-                LOG.warn(e.getMessage(), e);
-            } catch (InvocationTargetException e) {
-                LOG.warn(e.getMessage(), e);
-            } catch (NoSuchMethodException e) {
-                LOG.warn(e.getMessage(), e);
-            }
-        }
-    }
-
-    void setParamModel(ParamModel paramModelSpec, IParamModel paramModel) {
-        Class<? extends IParamModel> class1 = paramModel.getClass();
-        paramModelSpec.setModelClass(class1.getName());
-        if (paramModel instanceof org.jsynthlib.device.model.ParamModel) {
-            org.jsynthlib.device.model.ParamModel concreteParamModel =
-                    (org.jsynthlib.device.model.ParamModel) paramModel;
-            PropertySpec property = paramModelSpec.addNewProperty();
-            property.setName("offset");
-            property.setValue(Integer.toString(concreteParamModel.getOffset()));
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    protected <T> T getField(String fieldName, Class<T> fieldClass,
-            Object object, Class<?> objectClass) throws IllegalAccessException,
-            NoSuchFieldException {
-        Class<?> tmpClass = object.getClass();
-        while (!tmpClass.equals(objectClass)) {
-            tmpClass = tmpClass.getSuperclass();
-        }
-        Field f = tmpClass.getDeclaredField(fieldName);
-        f.setAccessible(true);
-        return (T) f.get(object);
-    }
-
-    String generateUuid() {
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString().replaceAll("\\-", "");
-    }
 }

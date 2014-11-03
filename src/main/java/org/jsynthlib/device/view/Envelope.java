@@ -25,7 +25,7 @@ import org.jsynthlib.device.model.EnvelopeNode;
 import org.jsynthlib.device.model.EnvelopeXParam;
 import org.jsynthlib.device.model.EnvelopeYParam;
 import org.jsynthlib.device.model.IPatchDriver;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.device.viewcontroller.WidgetDataFormat;
 
 public class Envelope extends VBox {

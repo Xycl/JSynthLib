@@ -26,8 +26,8 @@ import org.jsynthlib.xmldevice.PatchParamGroup;
 import org.jsynthlib.xmldevice.PatchParamValues;
 import org.jsynthlib.xmldevice.PatchParams;
 import org.jsynthlib.xmldevice.StringParamSpec;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 
 import com.dreamfabric.DKnob;
 import com.sun.codemodel.JAnnotationUse;
@@ -81,9 +81,9 @@ public class EditorGenerator {
                 getClass().getClassLoader().getResourceAsStream(
                         packageName.replace('.', '/') + "/" + fileNamePrefix
                                 + ".xml");
-        XmlPatchDriverSpecDocument document =
-                XmlPatchDriverSpecDocument.Factory.parse(stream);
-        XmlPatchDriverSpec driverSpec = document.getXmlPatchDriverSpec();
+        XmlSingleDriverDefinitionDocument document =
+                XmlSingleDriverDefinitionDocument.Factory.parse(stream);
+        XmlSingleDriverDefinition driverSpec = document.getXmlSingleDriverDefinition();
         PatchParams patchParams = driverSpec.getPatchParams();
 
         PanelContainer editorClass = containerFactory.createEditorClass();

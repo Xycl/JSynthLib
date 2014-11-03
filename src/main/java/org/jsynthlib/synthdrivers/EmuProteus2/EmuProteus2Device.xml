@@ -1,4 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xd:xmlDeviceSpec xmlns:xd="http://www.jsynthlib.org/xmldevice"><xd:manufacturer>Emu</xd:manufacturer><xd:modelName>Proteus 2</xd:modelName><xd:inquiryId>NONE</xd:inquiryId><xd:infoText>E-mu Proteus/2. 
-Single and bank drivers work together with editor.
-Saving patches onto the Proteus from jSynthlib is not implemented yet. This has to be done manually.</xd:infoText><xd:authors>Pascal Collberg</xd:authors><xd:drivers><xd:xmlDriverDef><xd:driverClass>org.jsynthlib.synthdrivers.EmuProteus2.EmuProteus2SingleDriver</xd:driverClass><xd:driverType>Patch</xd:driverType></xd:xmlDriverDef></xd:drivers></xd:xmlDeviceSpec>
+<xmlDeviceDefinition xmlns="http://www.jsynthlib.org/xmldevice"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jsynthlib.org/xmldevice ../../../../../xsd/xmldevice.xsd">
+	<manufacturer>Emu</manufacturer>
+	<modelName>Proteus 2</modelName>
+	<inquiryId>NONE</inquiryId>
+	<infoText>E-mu Proteus/2. Single and bank drivers work together with
+		editor. Saving patches onto the Proteus from jSynthlib is not
+		implemented yet. This has to be done manually.
+	</infoText>
+	<authors>Pascal Collberg</authors>
+	<drivers>
+		<xmlDriverReference>
+			<driverClass>org.jsynthlib.synthdrivers.EmuProteus2.EmuProteus2SingleDriver
+			</driverClass>
+			<driverType>Patch</driverType>
+		</xmlDriverReference>
+	</drivers>
+	<configuration>
+		<paramModelDefinitions>
+			<paramModelDefinition name="EmuParamModel">
+				<property key="offset" />
+				<handlerClass>org.jsynthlib.synthdrivers.EmuProteus2.EmuParamModel</handlerClass>
+			</paramModelDefinition>
+			<paramModelDefinition name="EmuInstrumentParamModel">
+				<property key="offset" />
+				<handlerClass>org.jsynthlib.synthdrivers.EmuProteus2.EmuInstrumentParamModel</handlerClass>
+			</paramModelDefinition>
+		</paramModelDefinitions>
+		<midiSenderDefinitions>
+			<midiSenderDefinition name="EmuProteus2Sender">
+				<property key="offset" />
+				<handlerClass>org.jsynthlib.synthdrivers.EmuProteus2.EmuProteus2Sender</handlerClass>
+			</midiSenderDefinition>
+			<midiSenderDefinition name="EmuProteus2InstrumentSender">
+				<property key="offset" />
+				<handlerClass>org.jsynthlib.synthdrivers.EmuProteus2.EmuProteus2InstrumentSender</handlerClass>
+			</midiSenderDefinition>
+		</midiSenderDefinitions>
+	</configuration>
+</xmlDeviceDefinition>

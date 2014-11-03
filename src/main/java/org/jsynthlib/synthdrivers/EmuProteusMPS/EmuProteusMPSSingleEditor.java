@@ -14,8 +14,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
@@ -38,7 +38,7 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
             "Release", "Primary Release", "Secondary Release", "Crossfade",
             "LFO 1 Amount", "LFO 1 Rate", "LFO 2 Amount", "LFO 2 Rate",
             "Aux Envelope Amount", "Aux Envelope Attack", "Aux Envelope Decay",
-            "Aux Envelope Release" };
+    "Aux Envelope Release" };
     final String[] keyModDest = new String[] {
             "Off", "Pitch", "Primary Pitch", "Secondary Pitch", "Volume",
             "Primary Volume", "Secondary Volume", "Attack", "Primary Attack",
@@ -64,7 +64,7 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
             "C#6", "D6", "D#6", "E6", "F6", "F#6", "G6", "G#6", "A6", "A#6",
             "B6", "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7", "G7", "G#7",
             "A7", "A#7", "B7", "C8", "C#8", "D8", "D#8", "E8", "F8", "F#8",
-            "G8" };
+    "G8" };
     final String[] waveName = new String[] {
             "0   None", "1   Piano", "2   Piano Pad", "3    Loose Piano",
             "4    Tight Piano", "5    Strings", "6    Long Strings",
@@ -142,200 +142,200 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
     String[][] effectAParams = new String[][] {
             {},
             {
-                "Decay Time" },
+            "Decay Time" },
             {
-                "Decay Time" },
+            "Decay Time" },
             {
-                "Decay Time" },
+            "Decay Time" },
             {
-                "Decay Time" },
+            "Decay Time" },
             {
-                "Decay Time" },
+            "Decay Time" },
             {
-                "Decay Time" },
+            "Decay Time" },
             {
-                "Decay Time" },
+            "Decay Time" },
             {
-                "Decay Time" },
+            "Decay Time" },
             {
-                    "Left Delay Time", "Left Tap Level", "Right Delay Time",
-                    "Right Tap Level", "Feedback" },
-            {
+                "Left Delay Time", "Left Tap Level", "Right Delay Time",
+                "Right Tap Level", "Feedback" },
+                {
                     "Right Delay Time", "Right Tap Level", "Left Delay Time",
                     "Left Tap Level", "Feedback" },
-            {
-                    "LFO Rate", "LFO Depth", "Min Delay", "Feedback" },
-            {
-                    "LFO Rate", "LFO Depth", "Min Delay", "Feedback" },
-            {
-                    "LFO Rate", "LFO Depth", "Min Delay", "Feedback", "Mix" },
-            {
-                    "Right Delay Time", "Right Tap Level", "Left Delay Time",
-                    "Left Tap Level", "Feedback" },
-            {
-                    "Frequency 1", "Bandwith 1", "Boost/Cut 1", "Frequency 2",
-                    "Bandwith 2", "Boost/Cut 2" }, {
-                "Decay Time" }, {
-                "Decay Time" }, {
-                "Decay Time" }, {
-                "Decay Time" }, {
-                "Decay Time" }, {
-                "Decay Time" }, {
-                "Decay Time" }, {
-                "Decay Time" } };
+                    {
+                        "LFO Rate", "LFO Depth", "Min Delay", "Feedback" },
+                        {
+                            "LFO Rate", "LFO Depth", "Min Delay", "Feedback" },
+                            {
+                                "LFO Rate", "LFO Depth", "Min Delay", "Feedback", "Mix" },
+                                {
+                                    "Right Delay Time", "Right Tap Level", "Left Delay Time",
+                                    "Left Tap Level", "Feedback" },
+                                    {
+                                        "Frequency 1", "Bandwith 1", "Boost/Cut 1", "Frequency 2",
+                                        "Bandwith 2", "Boost/Cut 2" }, {
+                                        "Decay Time" }, {
+                                        "Decay Time" }, {
+                                        "Decay Time" }, {
+                                        "Decay Time" }, {
+                                        "Decay Time" }, {
+                                        "Decay Time" }, {
+                                        "Decay Time" }, {
+                                        "Decay Time" } };
     int[][][] effectARanges = new int[][][] {
             {}, {
                 {
-                        100, 255 } }, {
-                {
-                        100, 255 } }, {
-                {
-                        100, 255 } }, {
-                {
-                        0, 127 } }, {
-                {
-                        100, 255 } }, {
-                {
-                        100, 255 } }, {
-                {
-                        100, 255 } }, {
-                {
-                        100, 255 } }, {
-                    {
-                            1, 255 }, {
-                            0, 127 }, {
-                            1, 255 }, {
-                            0, 127 }, {
-                            0, 255 } }, {
-                    {
-                            1, 255 }, {
-                            0, 127 }, {
-                            1, 255 }, {
-                            0, 127 }, {
-                            0, 255 } }, {
-                    {
-                            0, 255 }, {
-                            0, 255 }, {
-                            1, 255 }, {
-                            0, 127 } }, // phaser
-            {
-                    {
-                            0, 255 }, {
-                            0, 255 }, {
-                            1, 255 }, {
-                            -127, 127 } }, // flanger
-            {
-                    {
-                            0, 255 }, {
-                            0, 255 }, {
-                            1, 255 }, {
-                            -127, 127 }, {
-                            0, 100 } }, // chorus
-            {
-                    {
-                            1, 255 }, {
-                            0, 127 }, {
-                            1, 255 }, {
-                            0, 127 }, {
-                            0, 255 } }, // echo
-            {
-                    {
-                            0, 127 }, {
-                            1, 127 }, {
-                            -18, 18 }, {
-                            0, 127 }, {
-                            1, 127 }, {
-                            -18, 18 } }, // eq
-            {
-                {
-                        100, 255 } }, {
-                {
-                        100, 255 } }, {
-                {
-                        100, 255 } }, {
-                {
-                        0, 255 } }, {
-                {
-                        0, 255 } }, {
-                {
-                        0, 255 } }, {
-                {
-                        0, 255 } }, {
-                {
-                        100, 255 } } };
+                    100, 255 } }, {
+                        {
+                            100, 255 } }, {
+                                {
+                                    100, 255 } }, {
+                                        {
+                                            0, 127 } }, {
+                                                {
+                                                    100, 255 } }, {
+                                                        {
+                                                            100, 255 } }, {
+                                                                {
+                                                                    100, 255 } }, {
+                                                                        {
+                                                                            100, 255 } }, {
+                                                                                {
+                                                                                    1, 255 }, {
+                                                                                        0, 127 }, {
+                                                                                            1, 255 }, {
+                                                                                                0, 127 }, {
+                                                                                                    0, 255 } }, {
+                                                                                                        {
+                                                                                                            1, 255 }, {
+                                                                                                                0, 127 }, {
+                                                                                                                    1, 255 }, {
+                                                                                                                        0, 127 }, {
+                                                                                                                            0, 255 } }, {
+                                                                                                                                {
+                                                                                                                                    0, 255 }, {
+                                                                                                                                        0, 255 }, {
+                                                                                                                                            1, 255 }, {
+                                                                                                                                                0, 127 } }, // phaser
+                                                                                                                                                {
+                                                                                                                                                    {
+                                                                                                                                                        0, 255 }, {
+                                                                                                                                                            0, 255 }, {
+                                                                                                                                                                1, 255 }, {
+                                                                                                                                                                    -127, 127 } }, // flanger
+                                                                                                                                                                    {
+                                                                                                                                                                        {
+                                                                                                                                                                            0, 255 }, {
+                                                                                                                                                                                0, 255 }, {
+                                                                                                                                                                                    1, 255 }, {
+                                                                                                                                                                                        -127, 127 }, {
+                                                                                                                                                                                            0, 100 } }, // chorus
+                                                                                                                                                                                            {
+                                                                                                                                                                                                {
+                                                                                                                                                                                                    1, 255 }, {
+                                                                                                                                                                                                        0, 127 }, {
+                                                                                                                                                                                                            1, 255 }, {
+                                                                                                                                                                                                                0, 127 }, {
+                                                                                                                                                                                                                    0, 255 } }, // echo
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                            0, 127 }, {
+                                                                                                                                                                                                                                1, 127 }, {
+                                                                                                                                                                                                                                    -18, 18 }, {
+                                                                                                                                                                                                                                        0, 127 }, {
+                                                                                                                                                                                                                                            1, 127 }, {
+                                                                                                                                                                                                                                                -18, 18 } }, // eq
+                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                        100, 255 } }, {
+                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                100, 255 } }, {
+                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                        100, 255 } }, {
+                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                0, 255 } }, {
+                                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                                        0, 255 } }, {
+                                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                                0, 255 } }, {
+                                                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                                                        0, 255 } }, {
+                                                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                                                100, 255 } } };
     String[][] effectBParams = new String[][] {
             {},
             {
-                    "LFO Rate", "LFO Depth", "Min Delay", "Feedback" },
-            {
+                "LFO Rate", "LFO Depth", "Min Delay", "Feedback" },
+                {
                     "LFO Rate", "LFO Depth", "Min Delay", "Feedback", "Mix" },
-            {
-                    "LFO Rate", "LFO Depth", "Min Delay", "Feedback" },
-            {
-                    "Input Filter", "Output Filter", "Output Volume" },
-            {},
-            {
-                    "Left Delay Time", "Left Tap Level", "Right Delay Time",
-                    "Right Tap Level", "Feedback" },
-            {
-                    "Right Delay Time", "Right Tap Level", "Left Delay Time",
-                    "Left Tap Level", "Feedback" },
-            {
-                    "Frequency L", "Bandwith L", "Boost/Cut L", "Frequency R",
-                    "Bandwith R", "Boost/Cut R" }, {
-                    "Input Filter", "Output Filter" } };
+                    {
+                        "LFO Rate", "LFO Depth", "Min Delay", "Feedback" },
+                        {
+                            "Input Filter", "Output Filter", "Output Volume" },
+                            {},
+                            {
+                                "Left Delay Time", "Left Tap Level", "Right Delay Time",
+                                "Right Tap Level", "Feedback" },
+                                {
+                                    "Right Delay Time", "Right Tap Level", "Left Delay Time",
+                                    "Left Tap Level", "Feedback" },
+                                    {
+                                        "Frequency L", "Bandwith L", "Boost/Cut L", "Frequency R",
+                                        "Bandwith R", "Boost/Cut R" }, {
+                                            "Input Filter", "Output Filter" } };
     int[][][] effectBRanges = new int[][][] {
             {}, {
-                    {
-                            0, 255 }, {
-                            0, 255 }, {
+                {
+                    0, 255 }, {
+                        0, 255 }, {
                             1, 255 }, {
-                            -127, 127 } }, // flanger
-            {
-                    {
-                            0, 255 }, {
-                            0, 255 }, {
-                            1, 255 }, {
-                            -127, 127 }, {
-                            0, 100 } }, // chorus
-            {
-                    {
-                            0, 255 }, {
-                            0, 255 }, {
-                            1, 255 }, {
-                            0, 127 } }, // phaser
-            {
-                    {
-                            0, 255 }, {
-                            0, 255 }, {
-                            0, 127 } }, // fuzz
-            {}, // Ringmod
-            {
-                    {
-                            1, 255 }, {
-                            0, 127 }, {
-                            1, 255 }, {
-                            0, 127 }, {
-                            0, 255 } }, // delay
-            {
-                    {
-                            1, 255 }, {
-                            0, 127 }, {
-                            1, 255 }, {
-                            0, 127 }, {
-                            0, 255 } }, // crossdelay
-            {
-                    {
-                            0, 127 }, {
-                            1, 127 }, {
-                            -18, 18 }, {
-                            0, 127 }, {
-                            1, 127 }, {
-                            -18, 18 } }, // eq
-            {
-                    {
-                            0, 255 }, {
-                            0, 255 } } }; // fuzzlite
+                                -127, 127 } }, // flanger
+                                {
+                                    {
+                                        0, 255 }, {
+                                            0, 255 }, {
+                                                1, 255 }, {
+                                                    -127, 127 }, {
+                                                        0, 100 } }, // chorus
+                                                        {
+                                                            {
+                                                                0, 255 }, {
+                                                                    0, 255 }, {
+                                                                        1, 255 }, {
+                                                                            0, 127 } }, // phaser
+                                                                            {
+                                                                                {
+                                                                                    0, 255 }, {
+                                                                                        0, 255 }, {
+                                                                                            0, 127 } }, // fuzz
+                                                                                            {}, // Ringmod
+                                                                                            {
+                                                                                                {
+                                                                                                    1, 255 }, {
+                                                                                                        0, 127 }, {
+                                                                                                            1, 255 }, {
+                                                                                                                0, 127 }, {
+                                                                                                                    0, 255 } }, // delay
+                                                                                                                    {
+                                                                                                                        {
+                                                                                                                            1, 255 }, {
+                                                                                                                                0, 127 }, {
+                                                                                                                                    1, 255 }, {
+                                                                                                                                        0, 127 }, {
+                                                                                                                                            0, 255 } }, // crossdelay
+                                                                                                                                            {
+                                                                                                                                                {
+                                                                                                                                                    0, 127 }, {
+                                                                                                                                                        1, 127 }, {
+                                                                                                                                                            -18, 18 }, {
+                                                                                                                                                                0, 127 }, {
+                                                                                                                                                                    1, 127 }, {
+                                                                                                                                                                        -18, 18 } }, // eq
+                                                                                                                                                                        {
+                                                                                                                                                                            {
+                                                                                                                                                                                0, 255 }, {
+                                                                                                                                                                                    0, 255 } } }; // fuzzlite
 
     public EmuProteusMPSSingleEditor(Patch patch) {
         super("Emu ProteusMPS Single Editor", patch);
@@ -362,9 +362,9 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         addWidget(cmnPane, new ScrollBarLookupWidget("Pitch Bend Range", patch,
                 0, 13, new MPSModel(patch, 0x7B), new MPSSender(123),
                 new String[] {
-                        "None", "+/-1", "+/-2", "+/-3", "+/-4", "+/-5", "+/-6",
-                        "+/-7", "+/-8", "+/-9", "+/-10", "+/-11", "+/-12",
-                        "Global" }), 0, 1, 5, 1, 1);
+            "None", "+/-1", "+/-2", "+/-3", "+/-4", "+/-5", "+/-6",
+            "+/-7", "+/-8", "+/-9", "+/-10", "+/-11", "+/-12",
+        "Global" }), 0, 1, 5, 1, 1);
         addWidget(cmnPane, new ScrollBarWidget("Pressure Amount", patch, -128,
                 127, 0, new MPSModel(patch, 0x7A), new MPSSender(122)), 0, 2,
                 5, 1, 2);
@@ -372,15 +372,15 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
                 cmnPane,
                 new ScrollBarLookupWidget("Keyboard Center", patch, 0, 127,
                         new MPSModel(patch, 0x7D), new MPSSender(125), noteName),
-                0, 3, 5, 1, 3);
+                        0, 3, 5, 1, 3);
         addWidget(cmnPane, new ComboBoxWidget("Vel Curve", patch, new MPSModel(
                 patch, 0x7C), new MPSSender(124), new String[] {
-                "Off", "1", "2", "3", "4", "5", "6", "7", "8", "Global" }), 0,
-                4, 2, 1, 4);
+            "Off", "1", "2", "3", "4", "5", "6", "7", "8", "Global" }), 0,
+            4, 2, 1, 4);
         addWidget(cmnPane, new ComboBoxWidget("Tuning", patch, new MPSModel(
                 patch, 0x7F), new MPSSender(127), new String[] {
-                "Equal", "Just C", "Vallotti", "19 Tone", "Gamelon", "User 1",
-                "User 2", "User 3", "User 4" }), 2, 4, 2, 1, 5);
+            "Equal", "Just C", "Vallotti", "19 Tone", "Gamelon", "User 1",
+            "User 2", "User 3", "User 4" }), 2, 4, 2, 1, 5);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -401,13 +401,13 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         gbc.weightx = 0;
         addWidget(crxPane, new ComboBoxWidget("XFade Mode", patch,
                 new MPSModel(patch, 0x3B), new MPSSender(59), new String[] {
-                        "Off", "XFade", "XSwitch" }), 0, 1, 2, 1, 6);
+            "Off", "XFade", "XSwitch" }), 0, 1, 2, 1, 6);
         addWidget(crxPane, new ComboBoxWidget("Key Switch Point", patch,
                 new MPSModel(patch, 0x3F), new MPSSender(63), noteName), 2, 1,
                 2, 1, 7);
         addWidget(crxPane, new ComboBoxWidget("Direction", patch, new MPSModel(
                 patch, 0x3C), new MPSSender(60), new String[] {
-                "Primary->Secondary", "Secondary->Primary" }), 0, 2, 5, 1, 8);
+            "Primary->Secondary", "Secondary->Primary" }), 0, 2, 5, 1, 8);
         addWidget(crxPane, new ScrollBarWidget("Balance", patch, 0, 127, 0,
                 new MPSModel(patch, 0x3D), new MPSSender(61)), 0, 3, 5, 1, 9);
         addWidget(crxPane, new ScrollBarWidget("Amount", patch, 0, 255, 0,
@@ -431,8 +431,8 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         gbc.weightx = 0;
         addWidget(lfo1Pane, new ComboBoxWidget("Waveform", patch, new MPSModel(
                 patch, 0x40), new MPSSender(64), new String[] {
-                "Random", "Triangle", "Sine", "Saw", "Square" }), 0, 0, 1, 1,
-                11);
+            "Random", "Triangle", "Sine", "Saw", "Square" }), 0, 0, 1, 1,
+            11);
         addWidget(lfo1Pane, new ScrollBarWidget("LFO Frequency", patch, 0, 127,
                 0, new MPSModel(patch, 0x41), new MPSSender(65)), 0, 1, 5, 1,
                 12);
@@ -461,8 +461,8 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         gbc.weightx = 0;
         addWidget(lfo2Pane, new ComboBoxWidget("Waveform", patch, new MPSModel(
                 patch, 0x45), new MPSSender(69), new String[] {
-                "Random", "Triangle", "Sine", "Saw", "Square" }), 0, 0, 1, 1,
-                17);
+            "Random", "Triangle", "Sine", "Saw", "Square" }), 0, 0, 1, 1,
+            17);
         addWidget(lfo2Pane, new ScrollBarWidget("LFO Frequency", patch, 0, 127,
                 0, new MPSModel(patch, 0x46), new MPSSender(70)), 0, 1, 5, 1,
                 18);
@@ -497,47 +497,35 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         for (int i = 0; i < 2; i++) {
             JPanel panel = new JPanel();
             panel.setLayout(new GridBagLayout());
-            if (i == 0)
+            if (i == 0) {
                 oscPane.addTab("Primary Source", panel);
-            else
+            } else {
                 oscPane.addTab("Secondary Source", panel);
+            }
             gbc.weightx = 0;
-            addWidget(panel,
-                    new EnvelopeWidget("Alternate Envelope", patch,
-                            new Node[] {
-                                    new Node(0, 0, null, 0, 0,
-                                            null, 0, false, null, null, null,
-                                            null),
-                                    new Node(0, 99,
-                                            new MPSModel(patch, 0x1D + i * 18),
-                                            0, 0, null, 0, false,
-                                            new MPSSender(29 + i * 18), null,
-                                            "Dly", null),
-                                    new Node(0, 99,
-                                            new MPSModel(patch, 0x20 + i * 18),
-                                            100, 100, null, 25, false,
-                                            new MPSSender(32 + i * 18), null,
-                                            "A", null),
-                                    new Node(0, 99,
-                                            new MPSModel(patch, 0x21 + i * 18),
-                                            5000, 5000, null, 0, false,
-                                            new MPSSender(33 + i * 18), null,
-                                            "Hld", null),
-                                    new Node(0, 99,
-                                            new MPSModel(patch, 0x22 + i * 18),
-                                            0, 99, new MPSModel(patch,
-                                                    0x23 + i * 18), 25, false,
-                                            new MPSSender(34 + i * 18),
-                                            new MPSSender(35 + i * 18), "D",
-                                            "S"),
-                                    new Node(100, 100, null,
-                                            5000, 5000, null, 0, false, null,
-                                            null, null, null),
-                                    new Node(0, 100,
-                                            new MPSModel(patch, 0x24 + i * 18),
-                                            0, 0, null, 0, false,
-                                            new MPSSender(36 + i * 18), null,
-                                            "R", null), }), 0, 0, 3, 5, 33);
+            addWidget(panel, new EnvelopeWidget("Alternate Envelope", patch,
+                    new Node[] {
+                            new Node(0, 0, null, 0, 0, null, 0, false, null,
+                                    null, null, null),
+                            new Node(0, 99, new MPSModel(patch, 0x1D + i * 18),
+                                    0, 0, null, 0, false, new MPSSender(
+                                            29 + i * 18), null, "Dly", null),
+                            new Node(0, 99, new MPSModel(patch, 0x20 + i * 18),
+                                    100, 100, null, 25, false, new MPSSender(
+                                            32 + i * 18), null, "A", null),
+                            new Node(0, 99, new MPSModel(patch, 0x21 + i * 18),
+                                    5000, 5000, null, 0, false, new MPSSender(
+                                            33 + i * 18), null, "Hld", null),
+                            new Node(0, 99, new MPSModel(patch, 0x22 + i * 18),
+                                    0, 99, new MPSModel(patch, 0x23 + i * 18),
+                                    25, false, new MPSSender(34 + i * 18),
+                                    new MPSSender(35 + i * 18), "D", "S"),
+                            new Node(100, 100, null, 5000, 5000, null, 0,
+                                    false, null, null, null, null),
+                            new Node(0, 100,
+                                    new MPSModel(patch, 0x24 + i * 18), 0, 0,
+                                    null, 0, false, new MPSSender(36 + i * 18),
+                                    null, "R", null), }), 0, 0, 3, 5, 33);
             addWidget(panel, new CheckBoxWidget("Alternate Envelope Enable",
                     patch, new MPSModel(patch, 0x25 + i * 18), new MPSSender(
                             37 + i * 18)), 0, 5, 2, 1, -33);
@@ -588,29 +576,30 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         JPanel auxPane = new JPanel();
         auxPane.setLayout(new GridBagLayout());
         gbc.weightx = 0;
-        addWidget(auxPane, new EnvelopeWidget(
-                "Auxilery Envelope                             ", patch,
-                new Node[] {
-                        new Node(0, 0, null, 0, 0, null, 0,
-                                false, null, null, null, null),
-                        new Node(0, 99,
-                                new MPSModel(patch, 0x4A), 0, 0, null, 0,
-                                false, new MPSSender(74), null, "Dly", null),
-                        new Node(0, 99,
-                                new MPSModel(patch, 0x4B), 100, 100, null, 25,
-                                false, new MPSSender(75), null, "A", null),
-                        new Node(0, 99,
-                                new MPSModel(patch, 0x4C), 5000, 5000, null, 0,
-                                false, new MPSSender(76), null, "Hld", null),
-                        new Node(0, 99,
-                                new MPSModel(patch, 0x4D), 0, 99, new MPSModel(
-                                        patch, 0x4E), 25, false, new MPSSender(
-                                        77), new MPSSender(78), "D", "S"),
-                        new Node(100, 100, null, 5000, 5000,
-                                null, 0, false, null, null, null, null),
-                        new Node(0, 100, new MPSModel(patch,
-                                0x4F), 0, 0, null, 0, false, new MPSSender(79),
-                                null, "R", null), }), 0, 0, 3, 5, 49);
+        addWidget(auxPane,
+                new EnvelopeWidget(
+                        "Auxilery Envelope                             ",
+                        patch, new Node[] {
+                                new Node(0, 0, null, 0, 0, null, 0, false,
+                                        null, null, null, null),
+                                new Node(0, 99, new MPSModel(patch, 0x4A), 0,
+                                        0, null, 0, false, new MPSSender(74),
+                                        null, "Dly", null),
+                                new Node(0, 99, new MPSModel(patch, 0x4B), 100,
+                                        100, null, 25, false,
+                                        new MPSSender(75), null, "A", null),
+                                new Node(0, 99, new MPSModel(patch, 0x4C),
+                                        5000, 5000, null, 0, false,
+                                        new MPSSender(76), null, "Hld", null),
+                                new Node(0, 99, new MPSModel(patch, 0x4D), 0,
+                                        99, new MPSModel(patch, 0x4E), 25,
+                                        false, new MPSSender(77),
+                                        new MPSSender(78), "D", "S"),
+                                new Node(100, 100, null, 5000, 5000, null, 0,
+                                        false, null, null, null, null),
+                                new Node(0, 100, new MPSModel(patch, 0x4F), 0,
+                                        0, null, 0, false, new MPSSender(79),
+                                        null, "R", null), }), 0, 0, 3, 5, 49);
         addWidget(auxPane, new ScrollBarWidget("Amount", patch, -128, 127, 0,
                 new MPSModel(patch, 0x50), new MPSSender(80)), 0, 7, 3, 1, 55);
 
@@ -659,19 +648,19 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         gbc.weightx = 0;
         addWidget(fswPane, new ComboBoxWidget("FSW 1", patch, new MPSModel(
                 patch, 0x73), new MPSSender(115), new String[] {
-                "Off", "Sustain", "Sustain Pri", "Sustain Sec", "Alt Env",
-                "Alt Env Pri", "Alt Env Sec", "Alt Rel", "Alt Rel Pri",
-                "Alt Rel Sec", "XSwitch" }), 0, 0, 1, 1, 60);
+            "Off", "Sustain", "Sustain Pri", "Sustain Sec", "Alt Env",
+            "Alt Env Pri", "Alt Env Sec", "Alt Rel", "Alt Rel Pri",
+            "Alt Rel Sec", "XSwitch" }), 0, 0, 1, 1, 60);
         addWidget(fswPane, new ComboBoxWidget("FSW 2", patch, new MPSModel(
                 patch, 0x74), new MPSSender(116), new String[] {
-                "Off", "Sustain", "Sustain Pri", "Sustain Sec", "Alt Env",
-                "Alt Env Pri", "Alt Env Sec", "Alt Rel", "Alt Rel Pri",
-                "Alt Rel Sec", "XSwitch" }), 0, 1, 1, 1, 61);
+            "Off", "Sustain", "Sustain Pri", "Sustain Sec", "Alt Env",
+            "Alt Env Pri", "Alt Env Sec", "Alt Rel", "Alt Rel Pri",
+            "Alt Rel Sec", "XSwitch" }), 0, 1, 1, 1, 61);
         addWidget(fswPane, new ComboBoxWidget("FSW 3", patch, new MPSModel(
                 patch, 0x75), new MPSSender(117), new String[] {
-                "Off", "Sustain", "Sustain Pri", "Sustain Sec", "Alt Env",
-                "Alt Env Pri", "Alt Env Sec", "Alt Rel", "Alt Rel Pri",
-                "Alt Rel Sec", "XSwitch" }), 2, 1, 1, 1, 62);
+            "Off", "Sustain", "Sustain Pri", "Sustain Sec", "Alt Env",
+            "Alt Env Pri", "Alt Env Sec", "Alt Rel", "Alt Rel Pri",
+            "Alt Rel Sec", "XSwitch" }), 2, 1, 1, 1, 62);
 
         gbc.gridx = 10;
         gbc.gridy = 6;
@@ -743,7 +732,7 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
                     new ComboBoxWidget("", patch,
                             new MPSModel(patch, 0x63 + i),
                             new MPSSender(99 + i), realtimeModSource), 0, i, 1,
-                    1, 1 + i * 2);
+                            1, 1 + i * 2);
             addWidget(realPane, new ComboBoxWidget(" to ", patch, new MPSModel(
                     patch, 0x6B + i), new MPSSender(107 + i), realtimeModDest),
                     1, i, 1, 1, 2 + i * 2);
@@ -765,7 +754,7 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         for (int i = 0; i < 6; i++) {
             addWidget(keyPane, new ComboBoxWidget("", patch, new MPSModel(
                     patch, 0x51 + i), new MPSSender(81 + i), new String[] {
-                    "Key Number", "Velocity" }), 0, i, 1, 1, 17 + i * 3);
+                "Key Number", "Velocity" }), 0, i, 1, 1, 17 + i * 3);
             addWidget(keyPane, new ComboBoxWidget(" to ", patch, new MPSModel(
                     patch, 0x57 + i), new MPSSender(87 + i), keyModDest), 1, i,
                     1, 1, 18 + i * 3);
@@ -808,16 +797,17 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         final ComboBoxWidget fxTypeBox =
                 new ComboBoxWidget("Effect Type", patch, new MPSModel(patch,
                         0x82), new MPSSender(130), new String[] {
-                        "No Effect", "Room", "Warm Room", "Plate 1", "Plate 2",
-                        "Chamber 1", "Chamber 2", "Hall 1", "Hall 2", "Delay",
-                        "Cross Delay", "Phaser", "Stereo Flange",
-                        "Stereo Chorus", "Echo", "Stereo EQ", "Small Room 1",
-                        "Small Room 2", "Hall 3", "Early Reflections 1",
-                        "Early Reflections 2", "Early Reflections 3",
-                        "Early Reflections 4", "Rain" });
+                    "No Effect", "Room", "Warm Room", "Plate 1", "Plate 2",
+                    "Chamber 1", "Chamber 2", "Hall 1", "Hall 2", "Delay",
+                    "Cross Delay", "Phaser", "Stereo Flange",
+                    "Stereo Chorus", "Echo", "Stereo EQ", "Small Room 1",
+                    "Small Room 2", "Hall 3", "Early Reflections 1",
+                    "Early Reflections 2", "Early Reflections 3",
+                    "Early Reflections 4", "Rain" });
         addWidget(aPane, fxTypeBox, 0, 0, 1, 1, 49);
         final ScrollBarWidget effectASliders[] = new ScrollBarWidget[10];
         fxTypeBox.addEventListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < 6; i++) {
                     try {
@@ -868,12 +858,13 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         final ComboBoxWidget fxbTypeBox =
                 new ComboBoxWidget("Effect Type", patch, new MPSModel(patch,
                         0x8E), new MPSSender(142), new String[] {
-                        "Off", "Stereo Flange", "Stereo Chorus", "Phaser",
-                        "Fuzz 1", "Ring Modulator", "Delay", "Cross Delay",
-                        "Stereo EQ", "Fuzz Lite" });
+                    "Off", "Stereo Flange", "Stereo Chorus", "Phaser",
+                    "Fuzz 1", "Ring Modulator", "Delay", "Cross Delay",
+                    "Stereo EQ", "Fuzz Lite" });
         addWidget(bPane, fxbTypeBox, 0, 0, 1, 1, 57);
         final ScrollBarWidget effectBSliders[] = new ScrollBarWidget[10];
         fxbTypeBox.addEventListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < 6; i++) {
                     try {
@@ -925,11 +916,11 @@ class EmuProteusMPSSingleEditor extends PatchEditorFrame {
         addWidget(cPane, new ComboBoxWidget("Primary Source Effects Bus",
                 patch, new MPSModel(patch, 0x80), new MPSSender(128),
                 new String[] {
-                        "A", "B", "Dry", "Sub" }), 0, 0, 1, 1, 35);
+            "A", "B", "Dry", "Sub" }), 0, 0, 1, 1, 35);
         addWidget(cPane, new ComboBoxWidget("Secondary Source Effects Bus",
                 patch, new MPSModel(patch, 0x81), new MPSSender(129),
                 new String[] {
-                        "A", "B", "Dry", "Sub" }), 0, 1, 1, 1, 36);
+            "A", "B", "Dry", "Sub" }), 0, 1, 1, 1, 36);
         addWidget(cPane, new ScrollBarWidget("B to A", patch, 0, 100, 0,
                 new MPSModel(patch, 0x9A), new MPSSender(154)), 0, 2, 1, 1, 37);
 
@@ -973,11 +964,12 @@ class MPSSender extends SysexSender {
         b[9] = (byte) 0xF7;
     }
 
+    @Override
     public byte[] generate(int value) {
         if (value >= 0) {
             b[8] = (byte) (value / 128);
             b[7] = (byte) (value & 127);
-            b[3] = (byte) (channel - 1);
+            b[3] = (byte) (getChannel() - 1);
             return b;
         }
         // otherwise we need to handle the negative case
@@ -987,7 +979,7 @@ class MPSSender extends SysexSender {
         value++;
         b[8] = (byte) (value / 128);
         b[7] = (byte) (value & 127);
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         return b;
 
     }
@@ -1010,6 +1002,7 @@ class InstSender extends SysexSender {
         b[9] = (byte) 0xF7;
     }
 
+    @Override
     public byte[] generate(int value) {
         if (value > 125) {
             value -= 125;
@@ -1017,7 +1010,7 @@ class InstSender extends SysexSender {
         }
         b[8] = (byte) (value / 128);
         b[7] = (byte) (value & 127);
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         return b;
 
     }
@@ -1029,6 +1022,7 @@ class MPSModel extends ParamModel {
         super(p, o * 2 + 7);
     }
 
+    @Override
     public void set(int i) {
         if (i < 0) {
             i = -i;
@@ -1042,6 +1036,7 @@ class MPSModel extends ParamModel {
         patch.sysex[offset] = (byte) (i % 128);
     }
 
+    @Override
     public int get() {
         int i = (((patch.sysex[offset + 1] * 128) + (patch.sysex[offset])));
         if (i > 8000) {
@@ -1058,6 +1053,7 @@ class InstModel extends ParamModel {
         super(p, o * 2 + 7);
     }
 
+    @Override
     public void set(int i) {
         if (i > 125) {
             i -= 125;
@@ -1067,6 +1063,7 @@ class InstModel extends ParamModel {
         patch.sysex[offset] = (byte) (i % 128);
     }
 
+    @Override
     public int get() {
         int i = (((patch.sysex[offset + 1] * 128) + (patch.sysex[offset])));
         if (i > 512) {

@@ -24,13 +24,13 @@ import java.io.UnsupportedEncodingException;
 
 import javax.swing.JOptionPane;
 
-import org.jsynthlib.device.model.XMLPatchDriver;
+import org.jsynthlib.device.model.XMLSingleDriver;
 import org.jsynthlib.patch.model.impl.Patch;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 
-public class EmuProteus2SingleDriver extends XMLPatchDriver {
+public class EmuProteus2SingleDriver extends XMLSingleDriver {
 
-    public EmuProteus2SingleDriver(XmlPatchDriverSpec driverSpec) {
+    public EmuProteus2SingleDriver(XmlSingleDriverDefinition driverSpec) {
         super(driverSpec);
     }
 

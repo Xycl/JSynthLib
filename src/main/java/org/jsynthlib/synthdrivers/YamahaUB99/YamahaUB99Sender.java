@@ -21,7 +21,7 @@
 
 package org.jsynthlib.synthdrivers.YamahaUB99;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 class YamahaUB99Sender extends SysexSender {
     byte[] sysex;

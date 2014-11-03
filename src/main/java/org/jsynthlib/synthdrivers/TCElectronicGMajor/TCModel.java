@@ -21,7 +21,7 @@
 
 package org.jsynthlib.synthdrivers.TCElectronicGMajor;
 
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
 
 class TCModel extends ParamModel {

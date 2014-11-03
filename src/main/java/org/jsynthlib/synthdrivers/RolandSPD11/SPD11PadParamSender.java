@@ -6,7 +6,7 @@
 package org.jsynthlib.synthdrivers.RolandSPD11;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 /**
  * @author peter to set a parameter, use this sysex message: F0 41 09 60 12 00

@@ -1,0 +1,12 @@
+<xmlDeviceFamilyDefinition xmlns="http://www.jsynthlib.org/xmldevice"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jsynthlib.org/xmldevice ../../../../../../../main/xsd/xmldevice.xsd">
+	<name>deviceFamily</name>
+	<configuration>
+		<stringModelDefinitions>
+			<stringModelDefinition name="familyStringModel">
+				<handlerClass>this.is.also.a.Class</handlerClass>
+			</stringModelDefinition>
+		</stringModelDefinitions>
+	</configuration>
+</xmlDeviceFamilyDefinition>

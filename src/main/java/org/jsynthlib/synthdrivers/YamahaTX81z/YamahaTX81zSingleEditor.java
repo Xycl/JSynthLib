@@ -14,8 +14,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
@@ -79,14 +79,14 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame {
         addWidget(lfoPane,
                 new ScrollBarWidget("Amplitude Mod Sensitivity", patch, 0, 3,
                         0, new ParamModel(patch, 108), new VcedSender(61)), 0,
-                5, 7, 1, 25);
+                        5, 7, 1, 25);
         addWidget(lfoPane, new CheckBoxWidget("LFO Sync", patch,
                 new ParamModel(patch, 105), new VcedSender(58)), 1, 6, 1, 1,
                 -18);
         addWidget(lfoPane, new ComboBoxWidget("LFO Wave", patch,
                 new ParamModel(patch, 106), new VcedSender(59), new String[] {
-                        "Saw Up", "Square", "Triangle", "S/Hold" }), 0, 6, 1,
-                1, 26);
+            "Saw Up", "Square", "Triangle", "S/Hold" }), 0, 6, 1,
+            1, 26);
         gbc.gridx = 2;
         gbc.gridy = 6;
         gbc.gridwidth = 1;
@@ -117,6 +117,7 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame {
         addWidget(cmnPane, algo, 1, 0, 3, 1, 17);
 
         algo.addEventListener(new ChangeListener() {
+            @Override
             public void stateChanged(ChangeEvent e) {
                 l.setIcon(algoIcon[algo.getValue()]);
             }
@@ -190,15 +191,15 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame {
         addWidget(effectPane, new ScrollBarLookupWidget("Reverb Rate", patch,
                 0, 7, new ParamModel(patch, 36), new AcedSender(20),
                 new String[] {
-                        "Off", "1", "2", "3", "4", "5", "6", "7" }), 0, 0, 3,
-                1, 27);
+            "Off", "1", "2", "3", "4", "5", "6", "7" }), 0, 0, 3,
+            1, 27);
         addWidget(effectPane, new ScrollBarWidget("Portamento Time", patch, 0,
                 12, 0, new ParamModel(patch, 113), new VcedSender(66)), 0, 1,
                 3, 1, 28);
         ComboBoxWidget portaMode =
                 new ComboBoxWidget("Portamento Mode", patch, new ParamModel(
                         patch, 112), new VcedSender(65), new String[] {
-                        "Full Time", "Fingered" });
+                    "Full Time", "Fingered" });
         addWidget(effectPane, portaMode, 0, 2, 1, 1, 29);
 
         gbc.gridx = 3;
@@ -228,6 +229,7 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame {
                             patch, 19 + (i * 5)), new AcedSender(i * 5 + 3));
 
             waveform.addEventListener(new ChangeListener() {
+                @Override
                 public void stateChanged(ChangeEvent e) {
                     waves.setIcon(waveformIcon[waveform.getValue()]);
                 }
@@ -252,8 +254,8 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame {
             addWidget(panel, new ComboBoxWidget("Fix Range", patch,
                     new ParamModel(patch, 17 + (i * 5)), new AcedSender(
                             i * 5 + 1), new String[] {
-                            "255Hz", "510Hz", "1Khz", "2Khz", "4Khz", "8Khz",
-                            "16Khz", "32Khz" }), 1, 4, 1, 1, 6);
+                "255Hz", "510Hz", "1Khz", "2Khz", "4Khz", "8Khz",
+                "16Khz", "32Khz" }), 1, 4, 1, 1, 6);
             addWidget(panel, new CheckBoxWidget("Fix Freq", patch,
                     new ParamModel(patch, 16 + (i * 5)), new AcedSender(
                             i * 5 + 0)), 2, 4, 1, 1, -1);
@@ -275,40 +277,38 @@ class YamahaTX81zSingleEditor extends PatchEditorFrame {
             addWidget(panel, new ComboBoxWidget("EG Shift", patch,
                     new ParamModel(patch, 20 + (i * 5)), new AcedSender(
                             i * 5 + 4), new String[] {
-                            "96db", "48db", "24db", "12db" }), 0, 4, 1, 1, 5);
+                "96db", "48db", "24db", "12db" }), 0, 4, 1, 1, 5);
 
             addWidget(panel, new EnvelopeWidget("  Envelope", patch,
                     new Node[] {
-                            new Node(0, 0, null, 0, 0, null, 0,
-                                    false, null, null, null, null),
-                            new Node(0, 31, new ParamModel(
-                                    patch, i * 13 + 47), 0, 0, null, 15, true,
+                    new Node(0, 0, null, 0, 0, null, 0, false, null,
+                                    null, null, null),
+                            new Node(0, 31, new ParamModel(patch, i * 13 + 47),
+                                    0, 0, null, 15, true,
                                     new VcedSender(i * 13), null, " AR", null),
-                            new Node(0, 31, new ParamModel(
-                                    patch, i * 13 + 48), 0, 15, new ParamModel(
-                                    patch, i * 13 + 51), 0, true,
-                                    new VcedSender(i * 13 + 1), new VcedSender(
-                                            i * 13 + 4), "D1R", "D1L"),
-                            new Node(0, 31, new ParamModel(
-                                    patch, i * 13 + 49),
-                                    Node.SAME, 15, null, 0,
-                                    true, new VcedSender(i * 13 + 2), null,
-                                    "D2R", null),
-                            new Node(1, 15, new ParamModel(
-                                    patch, i * 13 + 50), 0, 0, null, 0, true,
-                                    new VcedSender(i * 13 + 3), null, "RR",
+                                    new Node(0, 31, new ParamModel(patch, i * 13 + 48),
+                                    0, 15, new ParamModel(patch, i * 13 + 51),
+                                    0, true, new VcedSender(i * 13 + 1),
+                                    new VcedSender(i * 13 + 4), "D1R", "D1L"),
+                                                            new Node(0, 31, new ParamModel(patch, i * 13 + 49),
+                                                                    Node.SAME, 15, null, 0, true,
+                                    new VcedSender(i * 13 + 2), null, "D2R",
                                     null),
+                                                                    new Node(1, 15, new ParamModel(patch, i * 13 + 50),
+                                    0, 0, null, 0, true, new VcedSender(
+                                            i * 13 + 3), null, "RR", null),
 
-                    }), 3, 0, 3, 5, 10);
+            }), 3, 0, 3, 5, 10);
 
-            if (i == 3)
+            if (i == 3) {
                 i = 1;
-            else if (i == 1)
+            } else if (i == 1) {
                 i = 2;
-            else if (i == 2)
+            } else if (i == 2) {
                 i = 0;
-            else if (i == 0)
+            } else if (i == 0) {
                 i = 5;
+            }
             j++;
         }
         gbc.gridx = 0;
@@ -333,9 +333,10 @@ class VcedSender extends SysexSender {
         b[6] = (byte) 0xF7;
     }
 
+    @Override
     public byte[] generate(int value) {
         b[5] = (byte) value;
-        b[2] = (byte) (16 + channel - 1);
+        b[2] = (byte) (16 + getChannel() - 1);
         return b;
     }
 
@@ -354,9 +355,10 @@ class AcedSender extends SysexSender {
         b[6] = (byte) 0xF7;
     }
 
+    @Override
     public byte[] generate(int value) {
         b[5] = (byte) value;
-        b[2] = (byte) (16 + channel - 1);
+        b[2] = (byte) (16 + getChannel() - 1);
         return b;
     }
 

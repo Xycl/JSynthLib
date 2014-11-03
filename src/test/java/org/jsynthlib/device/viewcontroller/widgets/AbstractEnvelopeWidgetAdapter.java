@@ -1,7 +1,7 @@
 package org.jsynthlib.device.viewcontroller.widgets;
 
 import org.jsynthlib.device.model.EnvelopeNode;
-import org.jsynthlib.device.model.IParamModel;
+import org.jsynthlib.device.model.handler.IParamModel;
 import org.jsynthlib.test.adapter.WidgetAdapter;
 
 public abstract class AbstractEnvelopeWidgetAdapter extends WidgetAdapter {

@@ -6,8 +6,8 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
 
-import org.jsynthlib.device.model.IPatchStringSender;
-import org.jsynthlib.device.model.PatchNameSender;
+import org.jsynthlib.device.model.handler.IPatchStringSender;
+import org.jsynthlib.device.model.handler.LegacyPatchNameSender;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**
@@ -28,7 +28,7 @@ public class PatchNameWidget extends SysexWidget {
      *            a <code>Patch</code>, which is edited.
      */
     public PatchNameWidget(String label, Patch patch) {
-        this(label, patch, patch.getNameSize(), new PatchNameSender(patch));
+        this(label, patch, patch.getNameSize(), new LegacyPatchNameSender(patch));
     }
 
     /**

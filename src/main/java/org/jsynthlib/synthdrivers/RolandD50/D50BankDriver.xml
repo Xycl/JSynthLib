@@ -1,4 +1,4 @@
-<xmlBankDriverSpec xmlns="http://www.jsynthlib.org/xmldevice"
+<xmlBankDriverDefinition xmlns="http://www.jsynthlib.org/xmldevice"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://www.jsynthlib.org/xmldevice ../../../../../xsd/xmldevice.xsd">
   <name>Roland D50 Bank</name>
@@ -93,4 +93,4 @@
   <numColumns>8</numColumns>
   <singleSize>458</singleSize>
   <singleSysexID>F041**1412</singleSysexID>
-</xmlBankDriverSpec>
+</xmlBankDriverDefinition>

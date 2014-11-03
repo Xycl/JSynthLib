@@ -29,8 +29,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.EnvelopeWidget;
@@ -69,28 +69,28 @@ class MKS7ToneSingleEditor extends PatchEditorFrame {
         addWidget(oscPane, new ComboBoxWidget("Range", patch,
                 new ParamModelBitExp(patch, 21, 0x07), new MKSToneSenderDirect(
                         16, patch, 21), new String[] {
-                        "4'", "8'", "16'" }), 0, 0, 1, 1, 1);
+            "4'", "8'", "16'" }), 0, 0, 1, 1, 1);
         addWidget(oscPane, new ComboBoxWidget("Dynamic Affects", patch,
                 new ParamModelBit(patch, 9, 0x60), new MKSToneSenderDirect(4,
                         patch, 9), new String[] {
-                        "None", "VCA", "VCF", "VCA & VCF" }), 1, 0, 1, 1, 2);
+            "None", "VCA", "VCF", "VCA & VCF" }), 1, 0, 1, 1, 2);
 
         addWidget(oscPane, new ComboBoxWidget("Waveform", patch,
                 new ParamModelBit(patch, 21, 24), new MKSToneSenderDirect(16,
                         patch, 21), new String[] {
-                        "OFF", "PULSE", "SAW", "PULSE+SAW" }), 0, 1, 1, 1, 3);
+            "OFF", "PULSE", "SAW", "PULSE+SAW" }), 0, 1, 1, 1, 3);
         addWidget(oscPane, new ComboBoxWidget("Chorus", patch,
                 new ParamModelBit(patch, 21, 0x20), new MKSToneSenderDirect(16,
                         patch, 21), new String[] {
-                        "ON", "OFF" }), 1, 1, 1, 1, 4);
+            "ON", "OFF" }), 1, 1, 1, 1, 4);
         addWidget(oscPane, new ComboBoxWidget("Noise (only for MELODY part)",
                 patch, new ParamModelBit(patch, 22, 0x20),
                 new MKSToneSenderDirect(17, patch, 22), new String[] {
-                        "ON", "OFF" }), 0, 2, 2, 1, 5);
+            "ON", "OFF" }), 0, 2, 2, 1, 5);
         addWidget(oscPane, new ComboBoxWidget("PW Mod:", patch,
                 new ParamModelBit(patch, 22, 0x01), new MKSToneSenderDirect(17,
                         patch, 22), new String[] {
-                        "LFO", "Manual" }), 1, 3, 1, 1, 7);
+            "LFO", "Manual" }), 1, 3, 1, 1, 7);
         addWidget(oscPane, new ScrollBarWidget("Sub Level", patch, 0, 3, 0,
                 new ParamModel(patch, 20), new MKSToneSender(15)), 0, 6, 3, 1,
                 8);
@@ -119,7 +119,7 @@ class MKS7ToneSingleEditor extends PatchEditorFrame {
         addWidget(vcfPane, new ComboBoxWidget("Hi-pass", patch,
                 new ParamModelBit(patch, 22, 0x10), new MKSToneSenderDirect(17,
                         patch, 22), new String[] {
-                        "ON", "OFF" }), 1, 4, 1, 1, 13);
+            "ON", "OFF" }), 1, 4, 1, 1, 13);
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
@@ -156,32 +156,28 @@ class MKS7ToneSingleEditor extends PatchEditorFrame {
 
         JPanel envPane = new JPanel();
         envPane.setLayout(new GridBagLayout());
-        addWidget(envPane, new EnvelopeWidget(" ", patch,
-                new Node[] {
-                        new Node(0, 0, null, 0, 0, null, 0,
-                                false, null, null, null, null),
-                        new Node(0, 127, new ParamModel(patch,
-                                16), 127, 127, null, 10, false,
-                                new MKSToneSender(11), null, "ATK", null),
-                        new Node(0, 127, new ParamModel(patch,
-                                17), 0, 127, new ParamModel(patch, 18), 10,
-                                false, new MKSToneSender(12),
-                                new MKSToneSender(13), "DEC", "SUS"),
-                        new Node(127, 127, null,
-                                Node.SAME, 0, null, 0, false,
-                                null, null, null, null),
-                        new Node(0, 127, new ParamModel(patch,
-                                19), 0, 0, null, 0, false,
-                                new MKSToneSender(14), null, "REL", null), }),
-                0, 0, 3, 5, 19);
+        addWidget(envPane, new EnvelopeWidget(" ", patch, new Node[] {
+                new Node(0, 0, null, 0, 0, null, 0, false, null, null, null,
+                        null),
+                new Node(0, 127, new ParamModel(patch, 16), 127, 127, null, 10,
+                        false, new MKSToneSender(11), null, "ATK", null),
+                new Node(0, 127, new ParamModel(patch, 17), 0, 127,
+                        new ParamModel(patch, 18), 10, false,
+                        new MKSToneSender(12), new MKSToneSender(13), "DEC",
+                        "SUS"),
+                new Node(127, 127, null, Node.SAME, 0, null, 0, false, null,
+                        null, null, null),
+                new Node(0, 127, new ParamModel(patch, 19), 0, 0, null, 0,
+                        false, new MKSToneSender(14), null, "REL", null), }),
+                                                        0, 0, 3, 5, 19);
         addWidget(envPane, new ComboBoxWidget("VCA:", patch, new ParamModelBit(
                 patch, 22, 0x04), new MKSToneSenderDirect(17, patch, 22),
                 new String[] {
-                        "ENV", "Gate" }), 0, 6, 1, 1, 20);
+            "ENV", "Gate" }), 0, 6, 1, 1, 20);
         addWidget(envPane, new ComboBoxWidget("ENV:", patch, new ParamModelBit(
                 patch, 22, 0x02), new MKSToneSenderDirect(17, patch, 22),
                 new String[] {
-                        "+", "-" }), 2, 6, 1, 1, 21);
+            "+", "-" }), 2, 6, 1, 1, 21);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -219,8 +215,9 @@ class MKSToneSender extends SysexSender {
         b[4] = (byte) param;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         b[5] = (byte) value;
         return b;
     }
@@ -242,8 +239,9 @@ class MKSToneSenderDirect extends SysexSender {
         b[4] = (byte) param;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         b[5] = patch.sysex[patch_off];
         return b;
     }
@@ -267,11 +265,13 @@ class ParamModelBit extends ParamModel {
         power -= 1;
     }
 
+    @Override
     public void set(int i) {
         patch.sysex[offset] =
                 (byte) ((patch.sysex[offset] & (~mask)) | ((i << power) & mask));
     }
 
+    @Override
     public int get() {
         return ((patch.sysex[offset] & mask) >> power);
     }
@@ -296,11 +296,13 @@ class ParamModelBitExp extends ParamModel {
         power -= 1;
     }
 
+    @Override
     public void set(int i) {
         patch.sysex[offset] =
                 (byte) ((patch.sysex[offset] & (~mask)) | (((1 << i) << power) & mask));
     }
 
+    @Override
     public int get() {
         int r = ((patch.sysex[offset] & mask) >> power);
         return ((r <= 1) ? 0 : (r <= 2) ? 1 : (r <= 4) ? 2 : (r <= 8) ? 3

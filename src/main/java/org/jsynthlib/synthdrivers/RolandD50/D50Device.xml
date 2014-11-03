@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmlDeviceSpec xmlns="http://www.jsynthlib.org/xmldevice"
+<xmlDeviceDefinition xmlns="http://www.jsynthlib.org/xmldevice"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.jsynthlib.org/xmldevice ../../../../../xsd/xmldevice.xsd">
 	<manufacturer>Roland</manufacturer>
@@ -9,14 +9,35 @@
 Single and bank drivers work together with editor.
 Saving patches onto the D50 does not work though as this must be done by manually pressing buttons on the D50.</infoText>
 	<authors>Pascal Collberg</authors>
-    <drivers>
-        <xmlDriverDef>
-            <driverClass>org.jsynthlib.synthdrivers.RolandD50.D50SingleDriver</driverClass>
-            <driverType>Patch</driverType>
-        </xmlDriverDef>
-        <xmlDriverDef>
-            <driverClass>org.jsynthlib.synthdrivers.RolandD50.D50BankDriver</driverClass>
-            <driverType>Bank</driverType>
-        </xmlDriverDef>
-    </drivers>
-</xmlDeviceSpec>
+	<drivers>
+		<xmlDriverReference>
+			<driverClass>org.jsynthlib.synthdrivers.RolandD50.D50SingleDriver</driverClass>
+			<driverType>Patch</driverType>
+		</xmlDriverReference>
+		<xmlDriverReference>
+			<driverClass>org.jsynthlib.synthdrivers.RolandD50.D50BankDriver</driverClass>
+			<driverType>Bank</driverType>
+		</xmlDriverReference>
+	</drivers>
+	<configuration>
+		<midiSenderDefinitions>
+			<midiSenderDefinition name="D50Sender">
+				<property key="offset" />
+				<handlerClass>org.jsynthlib.synthdrivers.RolandD50.D50Sender</handlerClass>
+			</midiSenderDefinition>
+		</midiSenderDefinitions>
+		<stringSenderDefinitions>
+			<stringSenderDefinition name="D50PatchStringSender">
+				<property key="base" />
+				<handlerClass>org.jsynthlib.synthdrivers.RolandD50.D50PatchStringSender</handlerClass>
+			</stringSenderDefinition>
+		</stringSenderDefinitions>
+		<stringModelDefinitions>
+			<stringModelDefinition name="D50PatchStringModel">
+				<property key="offset" />
+				<property key="length" />
+				<handlerClass>org.jsynthlib.synthdrivers.RolandD50.D50PatchStringModel</handlerClass>
+			</stringModelDefinition>
+		</stringModelDefinitions>
+	</configuration>
+</xmlDeviceDefinition>

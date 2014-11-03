@@ -16,8 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.event.MouseInputAdapter;
 
 import org.jsynthlib.core.ErrorMsg;
-import org.jsynthlib.device.model.IParamModel;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.IParamModel;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**

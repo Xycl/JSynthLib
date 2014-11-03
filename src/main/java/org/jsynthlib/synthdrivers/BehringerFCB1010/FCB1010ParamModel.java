@@ -22,7 +22,7 @@
 package org.jsynthlib.synthdrivers.BehringerFCB1010;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.midi.service.MidiMessageFormatter;
 import org.jsynthlib.patch.model.impl.Patch;
 

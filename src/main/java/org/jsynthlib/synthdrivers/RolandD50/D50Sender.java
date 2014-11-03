@@ -26,8 +26,8 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.device.model.AbstractSender;
 import org.jsynthlib.device.model.IDriver;
+import org.jsynthlib.device.model.handler.AbstractSender;
 
 public class D50Sender extends AbstractSender {
 

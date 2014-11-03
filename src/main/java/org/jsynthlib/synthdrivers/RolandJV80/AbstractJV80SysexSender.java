@@ -25,7 +25,7 @@ import javax.sound.midi.SysexMessage;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 /**
  * @author Pascal Collberg
@@ -33,28 +33,28 @@ import org.jsynthlib.device.model.SysexSender;
 public abstract class AbstractJV80SysexSender extends SysexSender {
 
     private final transient Logger log = Logger.getLogger(getClass());
-    private int datalen;
-    
+    private final int datalen;
+
     protected AbstractJV80SysexSender(String sysex, int datalen) {
         super(sysex);
         this.datalen = datalen;
     }
-    
-    void calculateChecksum(IDriver driver, byte sysex[]) {
+
+    void calculateChecksum(IDriver driver, byte[] sysex) {
         calculateChecksum(driver, sysex, 0);
     }
 
     // offset points to the start of the message, not CHECKSUM_START!
-    void calculateChecksum(IDriver driver, byte sysex[], int offset) {
-        driver.calculateChecksum(sysex, offset + JV80Constants.CHECKSUM_START, offset
-                + JV80Constants.CHECKSUM_START + datalen + 3, offset
-                + JV80Constants.CHECKSUM_START + datalen + 4);
+    void calculateChecksum(IDriver driver, byte[] sysex, int offset) {
+        driver.calculateChecksum(sysex, offset + JV80Constants.CHECKSUM_START,
+                offset + JV80Constants.CHECKSUM_START + datalen + 3, offset
+                        + JV80Constants.CHECKSUM_START + datalen + 4);
     }
 
-
     // SysexWidget.ISender method
+    @Override
     public void send(IDriver driver, int value) {
-        channel = (byte) driver.getDevice().getDeviceID();
+        setChannel((byte) driver.getDevice().getDeviceID());
         byte[] sysex = generate(value);
         calculateChecksum(driver, sysex);
         SysexMessage m = new SysexMessage();

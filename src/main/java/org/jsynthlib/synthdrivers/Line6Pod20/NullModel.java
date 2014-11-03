@@ -21,7 +21,7 @@
 
 package org.jsynthlib.synthdrivers.Line6Pod20;
 
-import org.jsynthlib.device.model.IParamModel;
+import org.jsynthlib.device.model.handler.IParamModel;
 
 /**
  * Dummy do-nothing model. This model is used for the Global Wah on/off setting.

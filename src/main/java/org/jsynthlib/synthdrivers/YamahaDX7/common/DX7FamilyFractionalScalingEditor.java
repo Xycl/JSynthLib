@@ -31,8 +31,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.SpinnerWidget;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -52,7 +52,7 @@ public class DX7FamilyFractionalScalingEditor extends PatchEditorFrame {
             "A#4  - C5", "C#5  - D#5", "E5  - F#5", "G5	- A5", "A#5  - C6",
             "C#6  - D#6", "E6  - F#6", "G6	- A6", "A#6  - C7", "C#7  - D#7",
             "E7  - F#7", "G7	- A7", "A#7  - C8", "C#8  - D#8", "E8  - F#8",
-            "G8" };
+    "G8" };
 
     final String[] offSetName = new String[] {
             " -127", " -126", " -125", " -124", " -123", " -122", " -121",
@@ -131,7 +131,7 @@ public class DX7FamilyFractionalScalingEditor extends PatchEditorFrame {
 
     protected void buildEditor(Patch patch) {
         PatchEdit.showWaitDialog(); // Because it needs some time to build up
-                                    // the editor frame
+        // the editor frame
 
         int OpNum, KeyNum;
 
@@ -162,15 +162,15 @@ public class DX7FamilyFractionalScalingEditor extends PatchEditorFrame {
                     addWidget(microPane, new SpinnerWidget("", patch, 0, 254,
                             -127, new FractionalScalingModel(patch, KeyNum
                                     + OpNum * KeyGrpName.length),
-                            new FractionalScalingSender(patch, OpNum, KeyNum)),
-                            6 + 3 * OpNum, 10 + 2 * KeyNum, 1, 1, KeyNum
+                                    new FractionalScalingSender(patch, OpNum, KeyNum)),
+                                    6 + 3 * OpNum, 10 + 2 * KeyNum, 1, 1, KeyNum
                                     + OpNum * KeyGrpName.length);
                 } else {
                     addWidget(microPane, new SpinnerWidget("", patch, 0, 255,
                             0, new FractionalScalingModel(patch, KeyNum + OpNum
                                     * KeyGrpName.length),
-                            new FractionalScalingSender(patch, OpNum, KeyNum)),
-                            6 + 3 * OpNum, 10 + 2 * KeyNum, 1, 1, KeyNum
+                                    new FractionalScalingSender(patch, OpNum, KeyNum)),
+                                    6 + 3 * OpNum, 10 + 2 * KeyNum, 1, 1, KeyNum
                                     + OpNum * KeyGrpName.length);
                 }
 
@@ -198,11 +198,13 @@ public class DX7FamilyFractionalScalingEditor extends PatchEditorFrame {
             super(p, 16 + 2 * o);
         }
 
+        @Override
         public void set(int i) {
             patch.sysex[offset] = (byte) ((i / 16) + 0x30);
             patch.sysex[offset + 1] = (byte) ((i & 0x0f) + 0x30);
         }
 
+        @Override
         public int get() {
             return (((patch.sysex[offset] - 0x30) * 16 + (patch.sysex[offset + 1] - 0x30)) & 0xff);
         }
@@ -230,8 +232,9 @@ public class DX7FamilyFractionalScalingEditor extends PatchEditorFrame {
             b[9] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
-            b[2] = (byte) (0x10 + channel - 1);
+            b[2] = (byte) (0x10 + getChannel() - 1);
             b[7] = (byte) ((value / 16) + 0x30);
             b[8] = (byte) ((value & 0x0f) + 0x30);
 

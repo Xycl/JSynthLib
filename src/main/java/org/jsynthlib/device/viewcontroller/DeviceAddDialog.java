@@ -1,4 +1,3 @@
-
 package org.jsynthlib.device.viewcontroller;
 
 import java.awt.BorderLayout;
@@ -19,9 +18,12 @@ import javax.swing.JTextArea;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import org.apache.log4j.Logger;
+import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.Utility;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceDescriptor;
+import org.jsynthlib.device.model.DeviceException;
 import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.device.model.DeviceSelectionTree;
 import org.jsynthlib.inject.JSynthLibInjector;
@@ -29,6 +31,7 @@ import org.jsynthlib.inject.JSynthLibInjector;
 public class DeviceAddDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
+    private final Logger log = Logger.getLogger(getClass());
     private final DeviceSelectionTree availableDeviceList;
 
     // DevicesConfig devConf = null;
@@ -60,7 +63,7 @@ public class DeviceAddDialog extends JDialog {
                         // User double-clicked. What did they click on?
                         DefaultMutableTreeNode o =
                                 (DefaultMutableTreeNode) tp
-                                        .getLastPathComponent();
+                                .getLastPathComponent();
                         if (o.isLeaf()) {
                             // User double-clicked on a leaf. Treat it like "OK"
                             okPressed();
@@ -105,9 +108,18 @@ public class DeviceAddDialog extends JDialog {
             return;
         }
 
-        DeviceManager deviceManager = JSynthLibInjector.getInstance(DeviceManager.class);
-        DeviceDescriptor descriptor = deviceManager.getDescriptorForDeviceName(s);
-        Device device = deviceManager.addDevice(descriptor);
+        DeviceManager deviceManager =
+                JSynthLibInjector.getInstance(DeviceManager.class);
+        DeviceDescriptor descriptor =
+                deviceManager.getDescriptorForDeviceName(s);
+        Device device = null;
+        try {
+            device = deviceManager.addDevice(descriptor);
+        } catch (DeviceException e) {
+            ErrorMsg.reportError("Device Creation Failed", e.getMessage());
+            log.warn(e.getMessage(), e);
+            return;
+        }
         if (device == null) {
             return;
         }

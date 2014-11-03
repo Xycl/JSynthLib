@@ -28,7 +28,7 @@
 package org.jsynthlib.synthdrivers.RolandMT32;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
 
 class MT32Model extends ParamModel {

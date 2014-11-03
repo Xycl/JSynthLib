@@ -49,8 +49,8 @@ import javax.swing.table.TableColumn;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.AbstractPatchDriver;
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
@@ -177,13 +177,13 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
         addWidget(cmnPane, new ComboBoxWidget("Play Mode", patch, new SIDModel(
                 patch, 0x11, 0, 0x7f, new int[] {
                         0x0, 0x01, 0x3, 0x7f }), new SIDSender(patch, 0x11, 0,
-                0x7f, new int[] {
-                        0x0, 0x1, 0x3, 0x7f }), new String[] {
-                "MONO", "LEGATO", "WT Seq only", "POLY" }), 0, 1, 3, 1, 1);
+                                0x7f, new int[] {
+                                0x0, 0x1, 0x3, 0x7f }), new String[] {
+            "MONO", "LEGATO", "WT Seq only", "POLY" }), 0, 1, 3, 1, 1);
         addWidget(cmnPane, new ComboBoxWidget("Portam. Mode", patch,
                 new SIDModel(patch, 0x12), new SIDSender(patch, 0x12),
                 new String[] {
-                        "Full Time", "Fingered (SusKey)" }), 0, 2, 3, 1, 2);
+            "Full Time", "Fingered (SusKey)" }), 0, 2, 3, 1, 2);
         addWidget(cmnPane, new KnobWidget("Volume", patch, 0, 127, 0,
                 new SIDModel(patch, 0x10), new SIDSender(patch, 0x10)), 3, 1,
                 2, 3, 3);
@@ -241,25 +241,26 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
             ENVPane.addTab("Envelope" + (i + 1), panel);
             gbc.weightx = 0;
 
-            addWidget(panel, new EnvelopeWidget("SW Envelope", patch,
-                    new Node[] {
-                            new Node(0, 0, null, 0, 0, null, 0,
+            addWidget(
+                    panel,
+                    new EnvelopeWidget("SW Envelope", patch, new Node[] {
+                    new Node(0, 0, null, 0, 0, null, 0, false, null,
+                                    null, null, null),
+                            new Node(0, 127, new SIDModel(patch, 0x73 + i * 5),
+                                    127, 127, null, 25, false, new SIDSender(
+                                            patch, 0x73 + i * 5), null, "A",
+                                    null),
+                                    new Node(0, 127, new SIDModel(patch, 0x74 + i * 5),
+                                    0, 127, new SIDModel(patch, 0x75 + i * 5),
+                                    25, false, new SIDSender(patch,
+                                            0x74 + i * 5), new SIDSender(patch,
+                                            0x75 + i * 5), "D", "S"),
+                                                                    new Node(127, 127, null, 5000, 5000, null, 0,
                                     false, null, null, null, null),
-                            new Node(0, 127, new SIDModel(patch,
-                                    0x73 + i * 5), 127, 127, null, 25, false,
-                                    new SIDSender(patch, 0x73 + i * 5), null,
-                                    "A", null),
-                            new Node(0, 127, new SIDModel(patch,
-                                    0x74 + i * 5), 0, 127, new SIDModel(patch,
-                                    0x75 + i * 5), 25, false, new SIDSender(
-                                    patch, 0x74 + i * 5), new SIDSender(patch,
-                                    0x75 + i * 5), "D", "S"),
-                            new Node(127, 127, null, 5000, 5000,
-                                    null, 0, false, null, null, null, null),
-                            new Node(0, 127, new SIDModel(patch,
-                                    0x76 + i * 5), 0, 0, null, 0, false,
-                                    new SIDSender(patch, 0x76 + i * 5), null,
-                                    "R", null), }), 0, 0, 10, 3, 50);
+                                                                            new Node(0, 127, new SIDModel(patch, 0x76 + i * 5),
+                                    0, 0, null, 0, false, new SIDSender(patch,
+                                            0x76 + i * 5), null, "R", null), }),
+                    0, 0, 10, 3, 50);
             addWidget(panel, new KnobWidget("Depth", patch, 0, 127, -64,
                     new SIDModel(patch, 0x72 + i * 5), new SIDSender(patch,
                             0x72 + i * 5)), 0, 5, 1, 3, 51);
@@ -273,13 +274,13 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
             panel.add(new JLabel("Curve used on"), gbc);
             addWidget(panel, new CheckBoxWidget("Attack", patch, new SIDModel(
                     patch, 0x15, 0 + i * 4), new SIDSender(patch, 0x15,
-                    0 + i * 4)), 5, 5, 1, 1, -100);
+                            0 + i * 4)), 5, 5, 1, 1, -100);
             addWidget(panel, new CheckBoxWidget("Decay", patch, new SIDModel(
                     patch, 0x15, 1 + i * 4), new SIDSender(patch, 0x15,
-                    1 + i * 4)), 5, 6, 1, 1, -101);
+                            1 + i * 4)), 5, 6, 1, 1, -101);
             addWidget(panel, new CheckBoxWidget("Release", patch, new SIDModel(
                     patch, 0x15, 2 + i * 4), new SIDSender(patch, 0x15,
-                    2 + i * 4)), 5, 7, 1, 1, -102);
+                            2 + i * 4)), 5, 7, 1, 1, -102);
         }
         gbc.gridx = 0;
         gbc.gridy = GridBagConstraints.RELATIVE;
@@ -306,17 +307,17 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
             addWidget(panel, new ComboBoxWidget("Mode", patch, new SIDModel(
                     patch, 0x60 + i * 3, 0, 0x7, new int[] {
                             0x0, 0x01, 0x3, 0x7 }), new SIDSender(patch,
-                    0x60 + i * 3, 0, 0x7, new int[] {
-                            0x0, 0x01, 0x3, 0x7 }), new String[] {
-                    "off", "unsynced", "Sync w/ assigned notes",
-                    "Sync w/ all notes" }), 2, 0, 5, 1, 42);
+                                    0x60 + i * 3, 0, 0x7, new int[] {
+                                    0x0, 0x01, 0x3, 0x7 }), new String[] {
+                "off", "unsynced", "Sync w/ assigned notes",
+            "Sync w/ all notes" }), 2, 0, 5, 1, 42);
             addWidget(panel,
                     new ComboBoxWidget("Waveform", patch, new SIDModel(patch,
                             0x60 + i * 3, 4, 0x7), new SIDSender(patch,
-                            0x60 + i * 3, 4, 0x7),
-                            new String[] {
-                                    "SINE", "TRIANGLE", "SAW", "PULSE",
-                                    "RANDOM", "AIN" }), 3, 1, 5, 1, 43);
+                                    0x60 + i * 3, 4, 0x7),
+                                    new String[] {
+                        "SINE", "TRIANGLE", "SAW", "PULSE",
+                        "RANDOM", "AIN" }), 3, 1, 5, 1, 43);
         }
         gbc.gridx = 0;
         gbc.gridy = GridBagConstraints.RELATIVE;
@@ -390,29 +391,32 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
             panel.setLayout(new GridBagLayout());
             oscPane.addTab("OSC" + (i + 1), panel);
             gbc.weightx = 0;
-            addWidget(panel, new EnvelopeWidget("VCA Envelope", patch,
-                    new Node[] {
-                            new Node(0, 0, null, 0, 0, null, 0,
+            addWidget(
+                    panel,
+                    new EnvelopeWidget("VCA Envelope", patch, new Node[] {
+                    new Node(0, 0, null, 0, 0, null, 0, false, null,
+                                    null, null, null),
+                            new Node(0, 127,
+                                    new SIDModel(patch, 0x27 + i * 16), 0, 0,
+                                    null, 0, false, new SIDSender(patch,
+                                            0x27 + i * 16), null, "Dly", null),
+                                    new Node(0, 127,
+                                    new SIDModel(patch, 0x28 + i * 16), 127,
+                                    127, null, 25, false, new SIDSender(patch,
+                                            0x28 + i * 16), null, "A", null),
+                                            new Node(0, 127,
+                                    new SIDModel(patch, 0x29 + i * 16), 0, 127,
+                                    new SIDModel(patch, 0x2a + i * 16), 25,
+                                    false, new SIDSender(patch, 0x29 + i * 16),
+                                    new SIDSender(patch, 0x2a + i * 16), "D",
+                                    "S"),
+                                                                            new Node(127, 127, null, 5000, 5000, null, 0,
                                     false, null, null, null, null),
-                            new Node(0, 127, new SIDModel(patch,
-                                    0x27 + i * 16), 0, 0, null, 0, false,
-                                    new SIDSender(patch, 0x27 + i * 16), null,
-                                    "Dly", null),
-                            new Node(0, 127, new SIDModel(patch,
-                                    0x28 + i * 16), 127, 127, null, 25, false,
-                                    new SIDSender(patch, 0x28 + i * 16), null,
-                                    "A", null),
-                            new Node(0, 127, new SIDModel(patch,
-                                    0x29 + i * 16), 0, 127, new SIDModel(patch,
-                                    0x2a + i * 16), 25, false, new SIDSender(
-                                    patch, 0x29 + i * 16), new SIDSender(patch,
-                                    0x2a + i * 16), "D", "S"),
-                            new Node(127, 127, null, 5000, 5000,
-                                    null, 0, false, null, null, null, null),
-                            new Node(0, 127, new SIDModel(patch,
-                                    0x2b + i * 16), 0, 0, null, 0, false,
-                                    new SIDSender(patch, 0x2b + i * 16), null,
-                                    "R", null), }), 0, 0, 5, 5, 33);
+                                                                                    new Node(0, 127,
+                                    new SIDModel(patch, 0x2b + i * 16), 0, 0,
+                                    null, 0, false, new SIDSender(patch,
+                                            0x2b + i * 16), null, "R", null), }),
+                    0, 0, 5, 5, 33);
             addWidget(panel, new KnobWidget(" Transpose ", patch, 0, 127, -64,
                     new SIDModel(patch, 0x20 + i * 16), new SIDSender(patch,
                             0x20 + i * 16)), 0, 6, 1, 3, 20);
@@ -434,26 +438,26 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
 
             addWidget(panel, new CheckBoxWidget("Tri", patch, new SIDModel(
                     patch, 0x24 + i * 16, 0), new SIDSender(patch,
-                    0x24 + i * 16, 0)), 3, 7, 1, 1, -20);
+                            0x24 + i * 16, 0)), 3, 7, 1, 1, -20);
             addWidget(panel, new CheckBoxWidget("Saw", patch, new SIDModel(
                     patch, 0x24 + i * 16, 1), new SIDSender(patch,
-                    0x24 + i * 16, 1)), 3, 8, 1, 1, -21);
+                            0x24 + i * 16, 1)), 3, 8, 1, 1, -21);
             addWidget(panel, new CheckBoxWidget("Rec", patch, new SIDModel(
                     patch, 0x24 + i * 16, 2), new SIDSender(patch,
-                    0x24 + i * 16, 2)), 4, 7, 1, 1, -22);
+                            0x24 + i * 16, 2)), 4, 7, 1, 1, -22);
             addWidget(panel, new CheckBoxWidget("Noise", patch, new SIDModel(
                     patch, 0x24 + i * 16, 3), new SIDSender(patch,
-                    0x24 + i * 16, 3)), 4, 8, 1, 1, -23);
+                            0x24 + i * 16, 3)), 4, 8, 1, 1, -23);
 
             addWidget(panel, new CheckBoxWidget("Sync", patch, new SIDModel(
                     patch, 0x24 + i * 16, 5), new SIDSender(patch,
-                    0x24 + i * 16, 5)), 3, 9, 1, 1, -24);
+                            0x24 + i * 16, 5)), 3, 9, 1, 1, -24);
             addWidget(panel, new CheckBoxWidget("Ring", patch, new SIDModel(
                     patch, 0x24 + i * 16, 6), new SIDSender(patch,
-                    0x24 + i * 16, 6)), 3, 10, 1, 1, -25);
+                            0x24 + i * 16, 6)), 3, 10, 1, 1, -25);
             addWidget(panel, new CheckBoxWidget("Off", patch, new SIDModel(
                     patch, 0x24 + i * 16, 4), new SIDSender(patch,
-                    0x24 + i * 16, 4)), 4, 9, 1, 1, -26);
+                            0x24 + i * 16, 4)), 4, 9, 1, 1, -26);
             addWidget(panel, new CheckBoxWidget("Phase", patch, new SIDModel(
                     patch, 0x14, i), new SIDSender(patch, 0x14, i)), 4, 10, 1,
                     1, -27);
@@ -479,33 +483,36 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
         ComboBoxWidget WT1CCBox =
                 new ComboBoxWidget("Parameter #1", patch, new SIDModel(patch,
                         0x5a), new SIDSender(patch, 0x5a), ccName);
-        dataModel.setColumnCC(0, (byte) ((Patch) p).sysex[8 + 0x5a]);
+        dataModel.setColumnCC(0, p.sysex[8 + 0x5a]);
         ComboBoxWidget WT2CCBox =
                 new ComboBoxWidget("Parameter #2", patch, new SIDModel(patch,
                         0x5b), new SIDSender(patch, 0x5b), ccName);
-        dataModel.setColumnCC(1, (byte) ((Patch) p).sysex[8 + 0x5b]);
+        dataModel.setColumnCC(1, p.sysex[8 + 0x5b]);
         ComboBoxWidget WT3CCBox =
                 new ComboBoxWidget("Parameter #3", patch, new SIDModel(patch,
                         0x5c), new SIDSender(patch, 0x5c), ccName);
-        dataModel.setColumnCC(2, (byte) ((Patch) p).sysex[8 + 0x5c]);
+        dataModel.setColumnCC(2, p.sysex[8 + 0x5c]);
 
         table.repaint();
 
         WT1CCBox.addEventListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                dataModel.setColumnCC(0, (byte) ((Patch) p).sysex[8 + 0x5a]);
+                dataModel.setColumnCC(0, p.sysex[8 + 0x5a]);
                 table.repaint();
             }
         });
         WT2CCBox.addEventListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                dataModel.setColumnCC(1, (byte) ((Patch) p).sysex[8 + 0x5b]);
+                dataModel.setColumnCC(1, p.sysex[8 + 0x5b]);
                 table.repaint();
             }
         });
         WT3CCBox.addEventListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                dataModel.setColumnCC(2, (byte) ((Patch) p).sysex[8 + 0x5c]);
+                dataModel.setColumnCC(2, p.sysex[8 + 0x5c]);
                 table.repaint();
             }
         });
@@ -541,13 +548,15 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
         column = table.getColumnModel().getColumn(4);
 
         byte[] cooked_dump = dataModel.getCookedDump();
-        for (int i = 0; i < cooked_dump.length; ++i)
-            cooked_dump[i] = ((Patch) p).sysex[8 + 0x80 + i];
+        for (int i = 0; i < cooked_dump.length; ++i) {
+            cooked_dump[i] = p.sysex[8 + 0x80 + i];
+        }
         dataModel.setCookedDump(cooked_dump);
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListSelectionModel tableSM = table.getSelectionModel();
         tableSM.addListSelectionListener(new ListSelectionListener() {
+            @Override
             public void valueChanged(ListSelectionEvent e) {
                 sendDumpChanges();
             }
@@ -557,6 +566,7 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
         // "Switch to Dec" : "Switch to Hex");
         // (defined as global button)
         switchViewButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 viewPressed();
             }
@@ -570,6 +580,7 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
         // JButton updateWavetableButton = new JButton("Update Wavetable");
         // (defined as global button)
         updateWavetableButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 sendDumpChanges();
             }
@@ -721,55 +732,55 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
         for (int i = 0; i < 3; i++) {
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2e + i * 16, 0), new SIDSender(patch,
-                    0x2e + i * 16, 0)), 1, 1 + i, 1, 1, -40);
+                            0x2e + i * 16, 0)), 1, 1 + i, 1, 1, -40);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2e + i * 16, 1), new SIDSender(patch,
-                    0x2e + i * 16, 1)), 2, 1 + i, 1, 1, -41);
+                            0x2e + i * 16, 1)), 2, 1 + i, 1, 1, -41);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2c + i * 16, 0), new SIDSender(patch,
-                    0x2c + i * 16, 0)), 3, 1 + i, 1, 1, -42);
+                            0x2c + i * 16, 0)), 3, 1 + i, 1, 1, -42);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2c + i * 16, 1), new SIDSender(patch,
-                    0x2c + i * 16, 1)), 4, 1 + i, 1, 1, -43);
+                            0x2c + i * 16, 1)), 4, 1 + i, 1, 1, -43);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2c + i * 16, 2), new SIDSender(patch,
-                    0x2c + i * 16, 2)), 5, 1 + i, 1, 1, -44);
+                            0x2c + i * 16, 2)), 5, 1 + i, 1, 1, -44);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2c + i * 16, 3), new SIDSender(patch,
-                    0x2c + i * 16, 3)), 6, 1 + i, 1, 1, -45);
+                            0x2c + i * 16, 3)), 6, 1 + i, 1, 1, -45);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2c + i * 16, 4), new SIDSender(patch,
-                    0x2c + i * 16, 4)), 7, 1 + i, 1, 1, -46);
+                            0x2c + i * 16, 4)), 7, 1 + i, 1, 1, -46);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2c + i * 16, 5), new SIDSender(patch,
-                    0x2c + i * 16, 5)), 8, 1 + i, 1, 1, -47);
+                            0x2c + i * 16, 5)), 8, 1 + i, 1, 1, -47);
         }
         for (int i = 0; i < 3; i++) {
 
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2e + i * 16, 4), new SIDSender(patch,
-                    0x2e + i * 16, 4)), 1, 4 + i, 1, 1, -48);
+                            0x2e + i * 16, 4)), 1, 4 + i, 1, 1, -48);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2e + i * 16, 5), new SIDSender(patch,
-                    0x2e + i * 16, 5)), 2, 4 + i, 1, 1, -49);
+                            0x2e + i * 16, 5)), 2, 4 + i, 1, 1, -49);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2d + i * 16, 0), new SIDSender(patch,
-                    0x2d + i * 16, 0)), 3, 4 + i, 1, 1, -50);
+                            0x2d + i * 16, 0)), 3, 4 + i, 1, 1, -50);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2d + i * 16, 1), new SIDSender(patch,
-                    0x2d + i * 16, 1)), 4, 4 + i, 1, 1, -51);
+                            0x2d + i * 16, 1)), 4, 4 + i, 1, 1, -51);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2d + i * 16, 2), new SIDSender(patch,
-                    0x2d + i * 16, 2)), 5, 4 + i, 1, 1, -52);
+                            0x2d + i * 16, 2)), 5, 4 + i, 1, 1, -52);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2d + i * 16, 3), new SIDSender(patch,
-                    0x2d + i * 16, 3)), 6, 4 + i, 1, 1, -53);
+                            0x2d + i * 16, 3)), 6, 4 + i, 1, 1, -53);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2d + i * 16, 4), new SIDSender(patch,
-                    0x2d + i * 16, 4)), 7, 4 + i, 1, 1, -54);
+                            0x2d + i * 16, 4)), 7, 4 + i, 1, 1, -54);
             addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(
                     patch, 0x2d + i * 16, 5), new SIDSender(patch,
-                    0x2d + i * 16, 5)), 8, 4 + i, 1, 1, -55);
+                            0x2d + i * 16, 5)), 8, 4 + i, 1, 1, -55);
         }
         addWidget(MODMPane, new CheckBoxWidget("", patch, new SIDModel(patch,
                 0x1d, 0), new SIDSender(patch, 0x1d, 0)), 1, 7, 1, 1, -56);
@@ -835,11 +846,11 @@ class MIDIboxSIDSingleEditor extends PatchEditorFrame {
         byte[] cooked_dump = dataModel.getCookedDump();
 
         for (int i = 0; i < 4 * 32; ++i) {
-            byte stored_value = ((Patch) p).sysex[8 + 0x80 + i];
+            byte stored_value = p.sysex[8 + 0x80 + i];
             if (stored_value != cooked_dump[i]) {
                 log.info("Wavetable Field changed: " + i);
-                ((Patch) p).sysex[8 + 0x80 + i] = cooked_dump[i];
-                SlowSender.sendParameter((AbstractPatchDriver) ((Patch) p).getDriver(),
+                p.sysex[8 + 0x80 + i] = cooked_dump[i];
+                SlowSender.sendParameter((AbstractPatchDriver) p.getDriver(),
                         0x80 + i, cooked_dump[i], 10);
             }
         }
@@ -909,16 +920,18 @@ class SIDSender extends SysexSender {
         SIDSender_Hlp(_patch, parameter);
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[5] = (byte) (channel - 1);
+        b[5] = (byte) (getChannel() - 1);
 
         if (flag == -1) {
             b[9] = (byte) value;
         } else {
             b[9] = (byte) (patch.sysex[8 + parameter] & (~bitmask));
 
-            if (mapped_values.length > 0)
+            if (mapped_values.length > 0) {
                 value = mapped_values[value];
+            }
 
             b[9] |= (byte) value << flag;
         }
@@ -959,32 +972,38 @@ class SIDModel extends ParamModel {
         mapped_values = _mapped_values;
     }
 
+    @Override
     public void set(int i) {
         if (flag == -1) {
             patch.sysex[offset] = (byte) i;
         } else {
             patch.sysex[offset] = (byte) (patch.sysex[offset] & (~bitmask));
-            if (mapped_values.length > 0)
+            if (mapped_values.length > 0) {
                 patch.sysex[offset] |= (byte) mapped_values[i];
-            else
+            } else {
                 patch.sysex[offset] |= (byte) i << flag;
+            }
         }
     }
 
+    @Override
     public int get() {
-        if (flag == -1)
+        if (flag == -1) {
             return patch.sysex[offset];
-        else {
+        } else {
             if (mapped_values.length > 0) {
                 int value;
 
                 value = (patch.sysex[offset] & bitmask) >> flag;
-                for (int i = 0; i < mapped_values.length; ++i)
-                    if (mapped_values[i] == value)
+                for (int i = 0; i < mapped_values.length; ++i) {
+                    if (mapped_values[i] == value) {
                         return i;
+                    }
+                }
                 return 0;
-            } else
+            } else {
                 return (patch.sysex[offset] & bitmask) >> flag;
+            }
         }
     }
 

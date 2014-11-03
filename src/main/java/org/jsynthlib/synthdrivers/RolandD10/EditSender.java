@@ -28,7 +28,7 @@ import static org.jsynthlib.synthdrivers.RolandD10.D10Constants.BASE_TONE_TEMP_A
 
 import java.util.HashMap;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.synthdrivers.RolandD10.message.D10DataSetMessage;
 
 /**

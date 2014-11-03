@@ -1,6 +1,6 @@
 package org.jsynthlib.synthdrivers.EmuProteus2;
 
-import org.jsynthlib.device.model.ParamModel;
+import org.jsynthlib.device.model.handler.ParamModel;
 
 public class EmuParamModel extends ParamModel {
 

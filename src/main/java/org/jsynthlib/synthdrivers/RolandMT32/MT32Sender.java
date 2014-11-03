@@ -27,7 +27,7 @@
 
 package org.jsynthlib.synthdrivers.RolandMT32;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 class MT32Sender extends SysexSender {
     /*

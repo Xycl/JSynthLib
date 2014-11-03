@@ -1,2458 +1,2327 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xd:xmlPatchDriverSpec xmlns:xd="http://www.jsynthlib.org/xmldevice">
-  <xd:name>Ensoniq ESQ-1 Single</xd:name>
-  <xd:infoText>Whenever JSynthLib sends a Patch to the ESQ, the synthesizer will go to a screen where you must hit &#39;exit&#39; on the front panel before you can send another patch. This is kind of annoying, so if anyone knows a way around this let me know. The other ESQ librarians I checked out had the same problem, so it may be impossible</xd:infoText>
-  <xd:authors>Brian Klock, Pascal Collberg</xd:authors>
-  <xd:patchType>Voice</xd:patchType>
-  <xd:patchSize>0</xd:patchSize>
-  <xd:sysexID>F00F02**01</xd:sysexID>
-  <xd:patchNumbers>
-    <xd:string>01</xd:string>
-    <xd:string>02</xd:string>
-    <xd:string>03</xd:string>
-    <xd:string>04</xd:string>
-    <xd:string>05</xd:string>
-    <xd:string>06</xd:string>
-    <xd:string>07</xd:string>
-    <xd:string>08</xd:string>
-    <xd:string>09</xd:string>
-    <xd:string>10</xd:string>
-    <xd:string>11</xd:string>
-    <xd:string>12</xd:string>
-    <xd:string>13</xd:string>
-    <xd:string>14</xd:string>
-    <xd:string>15</xd:string>
-    <xd:string>16</xd:string>
-    <xd:string>17</xd:string>
-    <xd:string>18</xd:string>
-    <xd:string>19</xd:string>
-    <xd:string>20</xd:string>
-    <xd:string>21</xd:string>
-    <xd:string>22</xd:string>
-    <xd:string>23</xd:string>
-    <xd:string>24</xd:string>
-    <xd:string>25</xd:string>
-    <xd:string>26</xd:string>
-    <xd:string>27</xd:string>
-    <xd:string>28</xd:string>
-    <xd:string>29</xd:string>
-    <xd:string>30</xd:string>
-    <xd:string>31</xd:string>
-    <xd:string>32</xd:string>
-    <xd:string>33</xd:string>
-    <xd:string>34</xd:string>
-    <xd:string>35</xd:string>
-    <xd:string>36</xd:string>
-    <xd:string>37</xd:string>
-    <xd:string>38</xd:string>
-    <xd:string>39</xd:string>
-    <xd:string>40</xd:string>
-  </xd:patchNumbers>
-  <xd:bankNumbers>
-    <xd:string>0-Internal</xd:string>
-  </xd:bankNumbers>
-  <xd:deviceIDoffset>3</xd:deviceIDoffset>
-  <xd:checksumOffset>0</xd:checksumOffset>
-  <xd:checksumStart>0</xd:checksumStart>
-  <xd:checksumEnd>0</xd:checksumEnd>
-  <xd:patchNameStart>0</xd:patchNameStart>
-  <xd:patchNameSize>10</xd:patchNameSize>
-  <xd:patchParams>
-    <xd:patchParamGroup name="ENV1">
-      <xd:envelopeSpec name="">
-        <xd:uuid>5dad0580f40546848b8d375fc5752f5f</xd:uuid>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T1">
-            <xd:uuid>bb53b0594db94a71980efe5a273c3c78</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="5" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="5" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L1">
-            <xd:uuid>acdfaea93f904bd0b0308002db0e0d2a</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="0" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="0" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T2">
-            <xd:uuid>d08376fd227f4681bc0d50711aadc42e</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="6" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="6" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L2">
-            <xd:uuid>27ed187ca4ef4dd3862c0d001a0cca00</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="1" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="1" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T3">
-            <xd:uuid>5cfcc365cb60462488209f810e55f2c8</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="7" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="7" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L3">
-            <xd:uuid>d1dc10f3f6044c1b97fb7d17adfebc0e</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="2" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="2" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T4">
-            <xd:uuid>d1339ef83f8d4b11850017d6e549e0b4</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="8" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="8" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L4">
-            <xd:uuid>cbd9988b941945238246fae51b93fbd9</xd:uuid>
-            <xd:min>0</xd:min>
-            <xd:max>0</xd:max>
-            <xd:base>0</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-      </xd:envelopeSpec>
-      <xd:intParamSpec name="LV">
-        <xd:uuid>fc7250c8dceb4cafa586d06b90f51f05</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="3" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="3" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="T1V">
-        <xd:uuid>7b9e0c910e0f4f07acdcc7ebf4d8b03d</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="4" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="4" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="TK">
-        <xd:uuid>2ee78fa5a4af4c748fc1bf1b247fbc50</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="9" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="9" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="ENV2">
-      <xd:envelopeSpec name="">
-        <xd:uuid>38f7f279591348119aecf5206a614aae</xd:uuid>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T1">
-            <xd:uuid>e36ab20176aa4d4986312458897a8c1a</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="15" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="15" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L1">
-            <xd:uuid>536d4e967d624bdba33ad19744c810d8</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="10" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="10" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T2">
-            <xd:uuid>5ea21196aa2e4aa8b81c2d7124513808</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="16" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="16" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L2">
-            <xd:uuid>9880930947f24e8fa6bdaf473ddc95d2</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="11" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="11" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T3">
-            <xd:uuid>5e4f6120410042dea81d4ba1a6aaf2c1</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="17" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="17" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L3">
-            <xd:uuid>23fdb21ce2c043098f272c96c183b2dc</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="12" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="12" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T4">
-            <xd:uuid>2787764e6a504ef89416d6c03bedc75d</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="18" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="18" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L4">
-            <xd:uuid>fe016c21d69a4a94b2326751a206a2f1</xd:uuid>
-            <xd:min>0</xd:min>
-            <xd:max>0</xd:max>
-            <xd:base>0</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-      </xd:envelopeSpec>
-      <xd:intParamSpec name="LV">
-        <xd:uuid>817c7cb8a7a847f4b4ec6294183e3106</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="13" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="13" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="T1V">
-        <xd:uuid>0e3daf10827b484a8edb5fe0dbd22d03</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="14" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="14" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="TK">
-        <xd:uuid>bda74507906b4065a9c3cc9b81e59e67</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="19" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="19" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="ENV3">
-      <xd:envelopeSpec name="">
-        <xd:uuid>8f803333ae8848ae99f377f2ae78904d</xd:uuid>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T1">
-            <xd:uuid>352d75d78e4b458e8d5b110e0dca8d1d</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="25" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="25" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L1">
-            <xd:uuid>cea3ccfb0bc84116bf2814a57b441918</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="20" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="20" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T2">
-            <xd:uuid>8e56425e801d4a2aaad80faab0297097</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="26" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="26" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L2">
-            <xd:uuid>835d5d16488849728dc537b4b7d0ad1b</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="21" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="21" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T3">
-            <xd:uuid>06ecc7dee4654676b1f2a48a12703b2d</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="27" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="27" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L3">
-            <xd:uuid>cb304336dd434617bda1ce8e1c816e2c</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="22" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="22" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T4">
-            <xd:uuid>27555c47fa7f4ed499f8c806c46ae797</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="28" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="28" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L4">
-            <xd:uuid>0bfd16a5c3d14e45b6f497855c5910e6</xd:uuid>
-            <xd:min>0</xd:min>
-            <xd:max>0</xd:max>
-            <xd:base>0</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-      </xd:envelopeSpec>
-      <xd:intParamSpec name="LV">
-        <xd:uuid>0f5469996d05400599bb2d058506672e</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="23" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="23" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="T1V">
-        <xd:uuid>4cec899482224767b562e073e15aa1d5</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="24" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="24" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="TK">
-        <xd:uuid>b15a5b8ac3214d9ab2e65dbc08ce46d6</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="29" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="29" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="ENV4">
-      <xd:envelopeSpec name="">
-        <xd:uuid>5ad2180325364ceb93a1697b641b3766</xd:uuid>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T1">
-            <xd:uuid>8d59de7b08f44b16ace1b12dcb723aed</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="35" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="35" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L1">
-            <xd:uuid>ad2cea7f5d57406fafedb81c421d95b8</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="30" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="30" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T2">
-            <xd:uuid>159e827ef0534581a69e0bb4b95c377b</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="36" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="36" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L2">
-            <xd:uuid>19e063eac43c467a95c1aab352cceb70</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="31" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="31" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T3">
-            <xd:uuid>27224edf19a14392adf29b035b34993b</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="37" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="37" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L3">
-            <xd:uuid>7b17c935c8334076891ba947fe5a15e0</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="32" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="32" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>127</xd:max>
-            <xd:base>-63</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-        <xd:envelopeNodeSpec>
-          <xd:xParam name="T4">
-            <xd:uuid>2dfb5741008b43d98407ebf58e9e1d73</xd:uuid>
-            <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-              <xd:property name="nrpn"
-                           value="38" />
-            </xd:midiSender>
-            <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-              <xd:property name="offset"
-                           value="38" />
-            </xd:paramModel>
-            <xd:min>0</xd:min>
-            <xd:max>63</xd:max>
-            <xd:invert>false</xd:invert>
-          </xd:xParam>
-          <xd:yParam name="L4">
-            <xd:uuid>4ea60ed8142443499695b1c28c8c40d0</xd:uuid>
-            <xd:min>0</xd:min>
-            <xd:max>0</xd:max>
-            <xd:base>0</xd:base>
-          </xd:yParam>
-        </xd:envelopeNodeSpec>
-      </xd:envelopeSpec>
-      <xd:intParamSpec name="LV">
-        <xd:uuid>cf29c999e876453c89a66f026df0df4a</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="33" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="33" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="T1V">
-        <xd:uuid>08cb69ca7d074835930852619b7f7dcd</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="34" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="34" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="TK">
-        <xd:uuid>3d5fa1453f86432ba308cab279193942</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="39" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="39" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="LFO1">
-      <xd:intParamSpec name="Frequency">
-        <xd:uuid>bc611a9100574d47b3d625a4fa266eee</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="40" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="40" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Reset">
-        <xd:uuid>6e7600d1f25b4ba28702e7991801d213</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="41" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="41" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Humanize">
-        <xd:uuid>627bbf92a80249d3afd7898a3d55bb71</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="42" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="42" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Waveform">
-        <xd:uuid>f020259242e447dda588b69eea1ce913</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="43" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="43" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>4</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>TRI</xd:patchParamValue>
-          <xd:patchParamValue>SAW</xd:patchParamValue>
-          <xd:patchParamValue>SQR</xd:patchParamValue>
-          <xd:patchParamValue>NOISE</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="L1">
-        <xd:uuid>2a34fa6c5f5248c5a71c9821e6327541</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="44" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="44" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Delay">
-        <xd:uuid>9983f09479554038b64d568ef01b8743</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="45" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="45" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="L2">
-        <xd:uuid>5be9c581dec1439a96376f5891466d2b</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="46" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="46" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source">
-        <xd:uuid>dfff6c6048094c6d81f1d14dadc724a1</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="47" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="47" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="LFO2">
-      <xd:intParamSpec name="Frequency">
-        <xd:uuid>ecfd413265a446758234a56dba07f747</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="48" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="48" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Reset">
-        <xd:uuid>f0b7eaa31ed044f59bd19f48b3c85299</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="49" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="49" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Humanize">
-        <xd:uuid>b44c255376bc4cd68c63484ad48c30c4</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="50" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="50" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Waveform">
-        <xd:uuid>de3896b4b8c04368a694d6c449fca72b</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="51" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="51" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>4</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>TRI</xd:patchParamValue>
-          <xd:patchParamValue>SAW</xd:patchParamValue>
-          <xd:patchParamValue>SQR</xd:patchParamValue>
-          <xd:patchParamValue>NOISE</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="L1">
-        <xd:uuid>4a823f100687435ba3f459e66bbcaa20</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="52" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="52" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Delay">
-        <xd:uuid>c139fdd516084d76b6fde82dcc53c9bb</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="53" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="53" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="L2">
-        <xd:uuid>6c2d90f6a4414d7eb1750be6162afb3a</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="54" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="54" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source">
-        <xd:uuid>f3cd9e28712243ed8d641b4e5d4622ca</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="55" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="55" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="LFO3">
-      <xd:intParamSpec name="Frequency">
-        <xd:uuid>0bd10419e5604a3bb09085be54113cbb</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="56" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="56" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Reset">
-        <xd:uuid>733cb91cbe314ac8adee92cd4701386e</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="57" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="57" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Humanize">
-        <xd:uuid>1c5d0011f1e84c5383f2940d4d756d0e</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="58" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="58" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Waveform">
-        <xd:uuid>b1775577cae94cccbb4e32942cb1db23</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="59" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="59" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>4</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>TRI</xd:patchParamValue>
-          <xd:patchParamValue>SAW</xd:patchParamValue>
-          <xd:patchParamValue>SQR</xd:patchParamValue>
-          <xd:patchParamValue>NOISE</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="L1">
-        <xd:uuid>9a06666ebeb94a7785fbfb1464b50cfd</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="60" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="60" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Delay">
-        <xd:uuid>a57b0908ebde4f4aa8f4f3d2ce28a4de</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="61" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="61" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="L2">
-        <xd:uuid>2f7869b88d44412a877a4f4cf852d9bd</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="62" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="62" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source">
-        <xd:uuid>53b0ea1bc0c84c10bb5c3081e75c9b4c</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="63" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="63" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="OSC1">
-      <xd:intParamSpec name="Octave">
-        <xd:uuid>a6245814c22e41608d93a1549ce22e8a</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="64" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="64" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>6</xd:max>
-        <xd:base>-3</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Semitone">
-        <xd:uuid>18e5d19684c942c8ba79f11546c96fed</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="65" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="65" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>11</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Finetune">
-        <xd:uuid>c0da07e5be024d8d999d71e0571b7761</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="66" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="66" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>31</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Waveform">
-        <xd:uuid>7a10a8b1d7ac43e7af5dc3f495d92f7b</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="67" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="67" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>30</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>SAW</xd:patchParamValue>
-          <xd:patchParamValue>BELL</xd:patchParamValue>
-          <xd:patchParamValue>SINE</xd:patchParamValue>
-          <xd:patchParamValue>SQUARE</xd:patchParamValue>
-          <xd:patchParamValue>PULSE</xd:patchParamValue>
-          <xd:patchParamValue>NOISE1</xd:patchParamValue>
-          <xd:patchParamValue>NOISE2</xd:patchParamValue>
-          <xd:patchParamValue>NOISE3</xd:patchParamValue>
-          <xd:patchParamValue>BASS</xd:patchParamValue>
-          <xd:patchParamValue>PIANO</xd:patchParamValue>
-          <xd:patchParamValue>EL-PNO</xd:patchParamValue>
-          <xd:patchParamValue>VOICE1</xd:patchParamValue>
-          <xd:patchParamValue>VOICE2</xd:patchParamValue>
-          <xd:patchParamValue>KICK</xd:patchParamValue>
-          <xd:patchParamValue>REED</xd:patchParamValue>
-          <xd:patchParamValue>ORGAN</xd:patchParamValue>
-          <xd:patchParamValue>SYNTH1</xd:patchParamValue>
-          <xd:patchParamValue>SYNTH2</xd:patchParamValue>
-          <xd:patchParamValue>SYNTH3</xd:patchParamValue>
-          <xd:patchParamValue>FORMT1</xd:patchParamValue>
-          <xd:patchParamValue>FORMT2</xd:patchParamValue>
-          <xd:patchParamValue>FORMT3</xd:patchParamValue>
-          <xd:patchParamValue>FORMT4</xd:patchParamValue>
-          <xd:patchParamValue>FORMT5</xd:patchParamValue>
-          <xd:patchParamValue>PULSE2</xd:patchParamValue>
-          <xd:patchParamValue>SQR2</xd:patchParamValue>
-          <xd:patchParamValue>4-OCTS</xd:patchParamValue>
-          <xd:patchParamValue>PRIME</xd:patchParamValue>
-          <xd:patchParamValue>BASS2</xd:patchParamValue>
-          <xd:patchParamValue>E-PNO2</xd:patchParamValue>
-          <xd:patchParamValue>OCTAVE</xd:patchParamValue>
-          <xd:patchParamValue>OCT+5</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 1">
-        <xd:uuid>dd09a4bf111746acb5cefeb92a6103d5</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="68" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="68" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 1">
-        <xd:uuid>65c8a540625648a08574958667f72e1f</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="69" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="69" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 2">
-        <xd:uuid>c6de00d084624b26a84a029eb4ad55a9</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="70" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="70" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 2">
-        <xd:uuid>37cff72c92aa4b0cb7bbc1d55f67b4bf</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="71" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="71" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="OSC2">
-      <xd:intParamSpec name="Octave">
-        <xd:uuid>2df86cfdcda14ffcbe060889a680d0fe</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="72" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="72" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>6</xd:max>
-        <xd:base>-3</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Semitone">
-        <xd:uuid>d04e76e562d547d9a91d44d908c8188f</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="73" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="73" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>11</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Finetune">
-        <xd:uuid>9231b55afa7d491a8863ca9f70221fa0</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="74" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="74" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>31</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Waveform">
-        <xd:uuid>2f9ba4061c4243a5bb95dc7a106e636a</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="75" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="75" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>30</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>SAW</xd:patchParamValue>
-          <xd:patchParamValue>BELL</xd:patchParamValue>
-          <xd:patchParamValue>SINE</xd:patchParamValue>
-          <xd:patchParamValue>SQUARE</xd:patchParamValue>
-          <xd:patchParamValue>PULSE</xd:patchParamValue>
-          <xd:patchParamValue>NOISE1</xd:patchParamValue>
-          <xd:patchParamValue>NOISE2</xd:patchParamValue>
-          <xd:patchParamValue>NOISE3</xd:patchParamValue>
-          <xd:patchParamValue>BASS</xd:patchParamValue>
-          <xd:patchParamValue>PIANO</xd:patchParamValue>
-          <xd:patchParamValue>EL-PNO</xd:patchParamValue>
-          <xd:patchParamValue>VOICE1</xd:patchParamValue>
-          <xd:patchParamValue>VOICE2</xd:patchParamValue>
-          <xd:patchParamValue>KICK</xd:patchParamValue>
-          <xd:patchParamValue>REED</xd:patchParamValue>
-          <xd:patchParamValue>ORGAN</xd:patchParamValue>
-          <xd:patchParamValue>SYNTH1</xd:patchParamValue>
-          <xd:patchParamValue>SYNTH2</xd:patchParamValue>
-          <xd:patchParamValue>SYNTH3</xd:patchParamValue>
-          <xd:patchParamValue>FORMT1</xd:patchParamValue>
-          <xd:patchParamValue>FORMT2</xd:patchParamValue>
-          <xd:patchParamValue>FORMT3</xd:patchParamValue>
-          <xd:patchParamValue>FORMT4</xd:patchParamValue>
-          <xd:patchParamValue>FORMT5</xd:patchParamValue>
-          <xd:patchParamValue>PULSE2</xd:patchParamValue>
-          <xd:patchParamValue>SQR2</xd:patchParamValue>
-          <xd:patchParamValue>4-OCTS</xd:patchParamValue>
-          <xd:patchParamValue>PRIME</xd:patchParamValue>
-          <xd:patchParamValue>BASS2</xd:patchParamValue>
-          <xd:patchParamValue>E-PNO2</xd:patchParamValue>
-          <xd:patchParamValue>OCTAVE</xd:patchParamValue>
-          <xd:patchParamValue>OCT+5</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 1">
-        <xd:uuid>be8a55279c0440c48b74421b29b6d608</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="76" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="76" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 1">
-        <xd:uuid>0a445139752b44388f7a5daefe94c732</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="77" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="77" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 2">
-        <xd:uuid>42a3e07ef2cd4f3e91af687a40254fbb</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="78" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="78" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 2">
-        <xd:uuid>c17374775ebf44b2a69eb0c4f5a91017</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="79" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="79" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="OSC3">
-      <xd:intParamSpec name="Octave">
-        <xd:uuid>d15ab9223f594267b96c5f3f54cfa33d</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="80" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="80" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>6</xd:max>
-        <xd:base>-3</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Semitone">
-        <xd:uuid>47cea773cbd74d0382fa7b057a997e7d</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="81" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="81" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>11</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Finetune">
-        <xd:uuid>d76467f9ae1d485f854bbbade3b64b50</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="82" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="82" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>31</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Waveform">
-        <xd:uuid>43e385c76a3740f7959a3a8ea88ebc41</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="83" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="83" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>30</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>SAW</xd:patchParamValue>
-          <xd:patchParamValue>BELL</xd:patchParamValue>
-          <xd:patchParamValue>SINE</xd:patchParamValue>
-          <xd:patchParamValue>SQUARE</xd:patchParamValue>
-          <xd:patchParamValue>PULSE</xd:patchParamValue>
-          <xd:patchParamValue>NOISE1</xd:patchParamValue>
-          <xd:patchParamValue>NOISE2</xd:patchParamValue>
-          <xd:patchParamValue>NOISE3</xd:patchParamValue>
-          <xd:patchParamValue>BASS</xd:patchParamValue>
-          <xd:patchParamValue>PIANO</xd:patchParamValue>
-          <xd:patchParamValue>EL-PNO</xd:patchParamValue>
-          <xd:patchParamValue>VOICE1</xd:patchParamValue>
-          <xd:patchParamValue>VOICE2</xd:patchParamValue>
-          <xd:patchParamValue>KICK</xd:patchParamValue>
-          <xd:patchParamValue>REED</xd:patchParamValue>
-          <xd:patchParamValue>ORGAN</xd:patchParamValue>
-          <xd:patchParamValue>SYNTH1</xd:patchParamValue>
-          <xd:patchParamValue>SYNTH2</xd:patchParamValue>
-          <xd:patchParamValue>SYNTH3</xd:patchParamValue>
-          <xd:patchParamValue>FORMT1</xd:patchParamValue>
-          <xd:patchParamValue>FORMT2</xd:patchParamValue>
-          <xd:patchParamValue>FORMT3</xd:patchParamValue>
-          <xd:patchParamValue>FORMT4</xd:patchParamValue>
-          <xd:patchParamValue>FORMT5</xd:patchParamValue>
-          <xd:patchParamValue>PULSE2</xd:patchParamValue>
-          <xd:patchParamValue>SQR2</xd:patchParamValue>
-          <xd:patchParamValue>4-OCTS</xd:patchParamValue>
-          <xd:patchParamValue>PRIME</xd:patchParamValue>
-          <xd:patchParamValue>BASS2</xd:patchParamValue>
-          <xd:patchParamValue>E-PNO2</xd:patchParamValue>
-          <xd:patchParamValue>OCTAVE</xd:patchParamValue>
-          <xd:patchParamValue>OCT+5</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 1">
-        <xd:uuid>a01a89f6435b494fbb992b0e91078668</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="84" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="84" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 1">
-        <xd:uuid>0a6ff682b3104e0a908472c49a5b8d92</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="85" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="85" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 2">
-        <xd:uuid>145ecde24a484125baf407daa25aa609</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="86" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="86" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 2">
-        <xd:uuid>f5e0b875b1f744a9954d88f7bda490d2</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="87" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="87" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="DCA1">
-      <xd:intParamSpec name="Level">
-        <xd:uuid>d0f44724313242e3a860edeeae80f9aa</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="88" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="88" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Output Enable">
-        <xd:uuid>85fe08bcc3654e98b2b26c58b0bdb0b7</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="89" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="89" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 1">
-        <xd:uuid>746f1ad542fd466e8f45ca4468d8f8ab</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="90" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="90" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 1">
-        <xd:uuid>b3bd9a1bc90645c4bd7e22c3ead30f98</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="91" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="91" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 2">
-        <xd:uuid>313341d5ca4c410ea82fca0c79b5b98a</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="92" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="92" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 2">
-        <xd:uuid>a317f57ecdb945a2a32a1998d573eb66</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="93" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="93" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="DCA2">
-      <xd:intParamSpec name="Level">
-        <xd:uuid>a895f216270b4a819e8b1d4fb420f897</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="94" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="94" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Output Enable">
-        <xd:uuid>9fa673a737b8469db33692a83efc6a2e</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="95" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="95" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 1">
-        <xd:uuid>d70d7c7c550541f59554c6974c19c3fe</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="96" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="96" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 1">
-        <xd:uuid>03deb0af458340369094d6754bf6f6b8</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="97" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="97" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 2">
-        <xd:uuid>becf4444b21f4ef3a7ddc230692e4b41</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="98" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="98" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 2">
-        <xd:uuid>20989e8649224c3f9959f38646774d26</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="99" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="99" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="DCA3">
-      <xd:intParamSpec name="Level">
-        <xd:uuid>62415c59a95543a9af752755abe8ca52</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="100" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="100" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Output Enable">
-        <xd:uuid>9ffc69c235fc427ba1c12f7d516a6112</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="101" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="101" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 1">
-        <xd:uuid>47fb925ef30a475ebe0f496eab47c9f6</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="102" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="102" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 1">
-        <xd:uuid>404943e009424db6b8907809a26ff62c</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="103" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="103" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 2">
-        <xd:uuid>846f1e827e954506964c8d44d0c710c6</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="104" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="104" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 2">
-        <xd:uuid>60b8320060f34cc6bc6df8863805c953</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="105" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="105" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="DCA4">
-      <xd:intParamSpec name="Modulation Amount">
-        <xd:uuid>714c8eeb020b44de831677172f4e2829</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="106" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="106" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="PAN">
-        <xd:uuid>db03ad1c514849458d8fb32d744e465a</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="107" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="107" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Pan Modulation Source">
-        <xd:uuid>0ed021e7590640b9be30fedd4e2f1386</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="108" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="108" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Pan Modulation Amount">
-        <xd:uuid>0ffaab35f94b4a5488edc2d8e663ad12</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="109" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="109" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="FILTER">
-      <xd:intParamSpec name="Cutoff">
-        <xd:uuid>c4634c50297348ce94e7b553cb7f5453</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="110" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="110" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Resonance">
-        <xd:uuid>8b25a2e0016c4debb1562055fa9fe58d</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="111" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="111" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>31</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 3">
-        <xd:uuid>39922e42e51d413383b356ef8089dfd5</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="112" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="112" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 1">
-        <xd:uuid>ebdeeb85de99446e80ea5e909dedbc0c</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="113" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="113" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 1">
-        <xd:uuid>74e33ba6eb644e4684460aff339ab488</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="114" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="114" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Source 2">
-        <xd:uuid>d02b4f5c604b491880725b48b9abb6bd</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="115" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="115" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>15</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>LFO1</xd:patchParamValue>
-          <xd:patchParamValue>LFO2</xd:patchParamValue>
-          <xd:patchParamValue>LFO3</xd:patchParamValue>
-          <xd:patchParamValue>ENV1</xd:patchParamValue>
-          <xd:patchParamValue>ENV2</xd:patchParamValue>
-          <xd:patchParamValue>ENV3</xd:patchParamValue>
-          <xd:patchParamValue>ENV4</xd:patchParamValue>
-          <xd:patchParamValue>VEL</xd:patchParamValue>
-          <xd:patchParamValue>VEL2</xd:patchParamValue>
-          <xd:patchParamValue>KBD</xd:patchParamValue>
-          <xd:patchParamValue>KBD2</xd:patchParamValue>
-          <xd:patchParamValue>WHEEL</xd:patchParamValue>
-          <xd:patchParamValue>PEDAL</xd:patchParamValue>
-          <xd:patchParamValue>XCTRL</xd:patchParamValue>
-          <xd:patchParamValue>PRESS</xd:patchParamValue>
-          <xd:patchParamValue>*OFF*</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Modulation Amount 2">
-        <xd:uuid>5947644b09514937b0c160dddc98348f</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="116" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="116" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>127</xd:max>
-        <xd:base>-63</xd:base>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="MODES">
-      <xd:intParamSpec name="AM">
-        <xd:uuid>45bd7c0b8bea412a8e8e61f77ea5111d</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="117" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="117" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Glide">
-        <xd:uuid>df6fec30d36349f8bb40934697e09b80</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="118" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="118" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Mono">
-        <xd:uuid>3cf712a633594269acf352b03d85c954</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="119" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="119" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Sync">
-        <xd:uuid>aaa361e79b5343418b5eba16734690b6</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="120" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="120" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Rotate">
-        <xd:uuid>3a854113fc9d4053a671b53c7f803467</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="121" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="121" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Envelope Reset">
-        <xd:uuid>ee5355d8b8bb4e93ba07810ba1a6b792</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="122" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="122" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Wave Reset">
-        <xd:uuid>031b6c18a6294b649b7e7200e15a36e8</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="123" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="123" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Cycle">
-        <xd:uuid>e0c54c49eb9e4777bb01846993f34065</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="124" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="124" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="SPLIT/LAYER">
-      <xd:intParamSpec name="S/L Layer">
-        <xd:uuid>d6f44802eed64c7e9a16640ee5b191c2</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="125" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="125" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="S/L Layer Program">
-        <xd:uuid>0855b552e5fa46ecb09fc7baa0e4f9ad</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="126" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="126" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>29</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="S/L Split Layer">
-        <xd:uuid>d1017d0526954f02b0de486da6fd1bad</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="127" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="127" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="S/L Split Layer Program">
-        <xd:uuid>a798e918cf674a2c889715b6ef2df96e</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="128" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="128" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>29</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="S/L Split Direction">
-        <xd:uuid>68b84b97570840d9a34fd5420bb70d61</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="129" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="129" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>2</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>OFF</xd:patchParamValue>
-          <xd:patchParamValue>UPPER</xd:patchParamValue>
-          <xd:patchParamValue>LOWER</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="S/L Split Program">
-        <xd:uuid>547b7da5b6cd4d8d82d3807099026a4b</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="130" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="130" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>29</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="S/L Split Point">
-        <xd:uuid>c0925b98c72044f6a381599058718e4e</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="131" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="131" />
-        </xd:paramModel>
-        <xd:min>21</xd:min>
-        <xd:max>108</xd:max>
-        <xd:base>15</xd:base>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-    <xd:patchParamGroup name="MASTER">
-      <xd:stringParamSpec name="Name">
-        <xd:uuid>8a832385b01d4efda79a09f811a1fcf6</xd:uuid>
-        <xd:length>12</xd:length>
-      </xd:stringParamSpec>
-      <xd:intParamSpec name="Tuning">
-        <xd:uuid>0e035ba3405d4abc8f1c63ef09a91793</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="132" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="132" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>63</xd:max>
-        <xd:base>-31</xd:base>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Velocity">
-        <xd:uuid>026d8677c6cc413990efb89c5fdc80d3</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="133" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="133" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>2</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>SOFT</xd:patchParamValue>
-          <xd:patchParamValue>MEDIUM</xd:patchParamValue>
-          <xd:patchParamValue>HARD</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Chorus">
-        <xd:uuid>71b98f69503e4e3487869906fae59f5e</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="134" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="134" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Pitch Bend Range">
-        <xd:uuid>b589329afb1d403baee36cc23b711c00</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="135" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="135" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>12</xd:max>
-      </xd:intParamSpec>
-      <xd:intParamSpec name="Pitch Bend Mode">
-        <xd:uuid>fe2edd7132ca4fb1b1b1ed998ba3d38f</xd:uuid>
-        <xd:midiSender senderClass="org.jsynthlib.synthdrivers.EnsoniqESQ1.EnsoniqESQ1NrpnSender">
-          <xd:property name="nrpn"
-                       value="136" />
-        </xd:midiSender>
-        <xd:paramModel modelClass="org.jsynthlib.device.model.ParamModel">
-          <xd:property name="offset"
-                       value="136" />
-        </xd:paramModel>
-        <xd:min>0</xd:min>
-        <xd:max>1</xd:max>
-        <xd:patchParamValues>
-          <xd:patchParamValue>ALL</xd:patchParamValue>
-          <xd:patchParamValue>HELD</xd:patchParamValue>
-        </xd:patchParamValues>
-      </xd:intParamSpec>
-    </xd:patchParamGroup>
-  </xd:patchParams>
-</xd:xmlPatchDriverSpec>
+<xmlSingleDriverDefinition xmlns="http://www.jsynthlib.org/xmldevice"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jsynthlib.org/xmldevice ../../../../../xsd/xmldevice.xsd">
+	<name>Ensoniq ESQ-1 Single</name>
+	<infoText>Whenever JSynthLib sends a Patch to the ESQ, the
+		synthesizer will go to a screen where you must hit &#39;exit&#39; on
+		the front panel before you can send another patch. This is kind of
+		annoying, so if anyone knows a way around this let me know. The other
+		ESQ librarians I checked out had the same problem, so it may be
+		impossible</infoText>
+	<authors>Brian Klock, Pascal Collberg</authors>
+	<patchType>Voice</patchType>
+	<patchSize>0</patchSize>
+	<sysexID>F00F02**01</sysexID>
+	<patchNumbers>
+		<string>01</string>
+		<string>02</string>
+		<string>03</string>
+		<string>04</string>
+		<string>05</string>
+		<string>06</string>
+		<string>07</string>
+		<string>08</string>
+		<string>09</string>
+		<string>10</string>
+		<string>11</string>
+		<string>12</string>
+		<string>13</string>
+		<string>14</string>
+		<string>15</string>
+		<string>16</string>
+		<string>17</string>
+		<string>18</string>
+		<string>19</string>
+		<string>20</string>
+		<string>21</string>
+		<string>22</string>
+		<string>23</string>
+		<string>24</string>
+		<string>25</string>
+		<string>26</string>
+		<string>27</string>
+		<string>28</string>
+		<string>29</string>
+		<string>30</string>
+		<string>31</string>
+		<string>32</string>
+		<string>33</string>
+		<string>34</string>
+		<string>35</string>
+		<string>36</string>
+		<string>37</string>
+		<string>38</string>
+		<string>39</string>
+		<string>40</string>
+	</patchNumbers>
+	<bankNumbers>
+		<string>0-Internal</string>
+	</bankNumbers>
+	<deviceIDoffset>3</deviceIDoffset>
+	<checksumOffset>0</checksumOffset>
+	<checksumStart>0</checksumStart>
+	<checksumEnd>0</checksumEnd>
+	<patchNameStart>0</patchNameStart>
+	<patchNameSize>10</patchNameSize>
+	<patchParams>
+		<patchParamGroup name="ENV1">
+			<envelopeSpec name="">
+				<uuid>5dad0580f40546848b8d375fc5752f5f</uuid>
+				<envelopeNodeSpec>
+					<xParam name="T1">
+						<uuid>bb53b0594db94a71980efe5a273c3c78</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="5" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="5" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L1">
+						<uuid>acdfaea93f904bd0b0308002db0e0d2a</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="0" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="0" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T2">
+						<uuid>d08376fd227f4681bc0d50711aadc42e</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="6" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="6" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L2">
+						<uuid>27ed187ca4ef4dd3862c0d001a0cca00</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="1" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="1" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T3">
+						<uuid>5cfcc365cb60462488209f810e55f2c8</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="7" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="7" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L3">
+						<uuid>d1dc10f3f6044c1b97fb7d17adfebc0e</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="2" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="2" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T4">
+						<uuid>d1339ef83f8d4b11850017d6e549e0b4</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="8" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="8" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L4">
+						<uuid>cbd9988b941945238246fae51b93fbd9</uuid>
+						<min>0</min>
+						<max>0</max>
+						<base>0</base>
+					</yParam>
+				</envelopeNodeSpec>
+			</envelopeSpec>
+			<intParamSpec name="LV">
+				<uuid>fc7250c8dceb4cafa586d06b90f51f05</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="3" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="3" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="T1V">
+				<uuid>7b9e0c910e0f4f07acdcc7ebf4d8b03d</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="4" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="4" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="TK">
+				<uuid>2ee78fa5a4af4c748fc1bf1b247fbc50</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="9" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="9" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="ENV2">
+			<envelopeSpec name="">
+				<uuid>38f7f279591348119aecf5206a614aae</uuid>
+				<envelopeNodeSpec>
+					<xParam name="T1">
+						<uuid>e36ab20176aa4d4986312458897a8c1a</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="15" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="15" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L1">
+						<uuid>536d4e967d624bdba33ad19744c810d8</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="10" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="10" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T2">
+						<uuid>5ea21196aa2e4aa8b81c2d7124513808</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="16" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="16" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L2">
+						<uuid>9880930947f24e8fa6bdaf473ddc95d2</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="11" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="11" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T3">
+						<uuid>5e4f6120410042dea81d4ba1a6aaf2c1</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="17" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="17" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L3">
+						<uuid>23fdb21ce2c043098f272c96c183b2dc</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="12" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="12" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T4">
+						<uuid>2787764e6a504ef89416d6c03bedc75d</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="18" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="18" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L4">
+						<uuid>fe016c21d69a4a94b2326751a206a2f1</uuid>
+						<min>0</min>
+						<max>0</max>
+						<base>0</base>
+					</yParam>
+				</envelopeNodeSpec>
+			</envelopeSpec>
+			<intParamSpec name="LV">
+				<uuid>817c7cb8a7a847f4b4ec6294183e3106</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="13" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="13" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="T1V">
+				<uuid>0e3daf10827b484a8edb5fe0dbd22d03</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="14" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="14" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="TK">
+				<uuid>bda74507906b4065a9c3cc9b81e59e67</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="19" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="19" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="ENV3">
+			<envelopeSpec name="">
+				<uuid>8f803333ae8848ae99f377f2ae78904d</uuid>
+				<envelopeNodeSpec>
+					<xParam name="T1">
+						<uuid>352d75d78e4b458e8d5b110e0dca8d1d</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="25" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="25" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L1">
+						<uuid>cea3ccfb0bc84116bf2814a57b441918</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="20" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="20" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T2">
+						<uuid>8e56425e801d4a2aaad80faab0297097</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="26" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="26" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L2">
+						<uuid>835d5d16488849728dc537b4b7d0ad1b</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="21" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="21" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T3">
+						<uuid>06ecc7dee4654676b1f2a48a12703b2d</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="27" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="27" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L3">
+						<uuid>cb304336dd434617bda1ce8e1c816e2c</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="22" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="22" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T4">
+						<uuid>27555c47fa7f4ed499f8c806c46ae797</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="28" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="28" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L4">
+						<uuid>0bfd16a5c3d14e45b6f497855c5910e6</uuid>
+						<min>0</min>
+						<max>0</max>
+						<base>0</base>
+					</yParam>
+				</envelopeNodeSpec>
+			</envelopeSpec>
+			<intParamSpec name="LV">
+				<uuid>0f5469996d05400599bb2d058506672e</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="23" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="23" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="T1V">
+				<uuid>4cec899482224767b562e073e15aa1d5</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="24" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="24" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="TK">
+				<uuid>b15a5b8ac3214d9ab2e65dbc08ce46d6</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="29" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="29" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="ENV4">
+			<envelopeSpec name="">
+				<uuid>5ad2180325364ceb93a1697b641b3766</uuid>
+				<envelopeNodeSpec>
+					<xParam name="T1">
+						<uuid>8d59de7b08f44b16ace1b12dcb723aed</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="35" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="35" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L1">
+						<uuid>ad2cea7f5d57406fafedb81c421d95b8</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="30" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="30" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T2">
+						<uuid>159e827ef0534581a69e0bb4b95c377b</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="36" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="36" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L2">
+						<uuid>19e063eac43c467a95c1aab352cceb70</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="31" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="31" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T3">
+						<uuid>27224edf19a14392adf29b035b34993b</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="37" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="37" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L3">
+						<uuid>7b17c935c8334076891ba947fe5a15e0</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="32" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="32" />
+						</paramModel>
+						<min>0</min>
+						<max>127</max>
+						<base>-63</base>
+					</yParam>
+				</envelopeNodeSpec>
+				<envelopeNodeSpec>
+					<xParam name="T4">
+						<uuid>2dfb5741008b43d98407ebf58e9e1d73</uuid>
+						<midiSender
+							name="EnsoniqESQ1NrpnSender">
+							<propertyValue key="nrpn" value="38" />
+						</midiSender>
+						<paramModel name="defaultParamModel">
+							<propertyValue key="offset" value="38" />
+						</paramModel>
+						<min>0</min>
+						<max>63</max>
+						<invert>false</invert>
+					</xParam>
+					<yParam name="L4">
+						<uuid>4ea60ed8142443499695b1c28c8c40d0</uuid>
+						<min>0</min>
+						<max>0</max>
+						<base>0</base>
+					</yParam>
+				</envelopeNodeSpec>
+			</envelopeSpec>
+			<intParamSpec name="LV">
+				<uuid>cf29c999e876453c89a66f026df0df4a</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="33" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="33" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="T1V">
+				<uuid>08cb69ca7d074835930852619b7f7dcd</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="34" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="34" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="TK">
+				<uuid>3d5fa1453f86432ba308cab279193942</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="39" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="39" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="LFO1">
+			<intParamSpec name="Frequency">
+				<uuid>bc611a9100574d47b3d625a4fa266eee</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="40" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="40" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Reset">
+				<uuid>6e7600d1f25b4ba28702e7991801d213</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="41" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="41" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Humanize">
+				<uuid>627bbf92a80249d3afd7898a3d55bb71</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="42" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="42" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Waveform">
+				<uuid>f020259242e447dda588b69eea1ce913</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="43" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="43" />
+				</paramModel>
+				<min>0</min>
+				<max>4</max>
+				<patchParamValues>
+					<patchParamValue>TRI</patchParamValue>
+					<patchParamValue>SAW</patchParamValue>
+					<patchParamValue>SQR</patchParamValue>
+					<patchParamValue>NOISE</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="L1">
+				<uuid>2a34fa6c5f5248c5a71c9821e6327541</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="44" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="44" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Delay">
+				<uuid>9983f09479554038b64d568ef01b8743</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="45" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="45" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="L2">
+				<uuid>5be9c581dec1439a96376f5891466d2b</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="46" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="46" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source">
+				<uuid>dfff6c6048094c6d81f1d14dadc724a1</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="47" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="47" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="LFO2">
+			<intParamSpec name="Frequency">
+				<uuid>ecfd413265a446758234a56dba07f747</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="48" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="48" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Reset">
+				<uuid>f0b7eaa31ed044f59bd19f48b3c85299</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="49" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="49" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Humanize">
+				<uuid>b44c255376bc4cd68c63484ad48c30c4</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="50" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="50" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Waveform">
+				<uuid>de3896b4b8c04368a694d6c449fca72b</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="51" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="51" />
+				</paramModel>
+				<min>0</min>
+				<max>4</max>
+				<patchParamValues>
+					<patchParamValue>TRI</patchParamValue>
+					<patchParamValue>SAW</patchParamValue>
+					<patchParamValue>SQR</patchParamValue>
+					<patchParamValue>NOISE</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="L1">
+				<uuid>4a823f100687435ba3f459e66bbcaa20</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="52" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="52" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Delay">
+				<uuid>c139fdd516084d76b6fde82dcc53c9bb</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="53" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="53" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="L2">
+				<uuid>6c2d90f6a4414d7eb1750be6162afb3a</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="54" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="54" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source">
+				<uuid>f3cd9e28712243ed8d641b4e5d4622ca</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="55" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="55" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="LFO3">
+			<intParamSpec name="Frequency">
+				<uuid>0bd10419e5604a3bb09085be54113cbb</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="56" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="56" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Reset">
+				<uuid>733cb91cbe314ac8adee92cd4701386e</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="57" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="57" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Humanize">
+				<uuid>1c5d0011f1e84c5383f2940d4d756d0e</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="58" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="58" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Waveform">
+				<uuid>b1775577cae94cccbb4e32942cb1db23</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="59" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="59" />
+				</paramModel>
+				<min>0</min>
+				<max>4</max>
+				<patchParamValues>
+					<patchParamValue>TRI</patchParamValue>
+					<patchParamValue>SAW</patchParamValue>
+					<patchParamValue>SQR</patchParamValue>
+					<patchParamValue>NOISE</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="L1">
+				<uuid>9a06666ebeb94a7785fbfb1464b50cfd</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="60" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="60" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Delay">
+				<uuid>a57b0908ebde4f4aa8f4f3d2ce28a4de</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="61" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="61" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="L2">
+				<uuid>2f7869b88d44412a877a4f4cf852d9bd</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="62" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="62" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source">
+				<uuid>53b0ea1bc0c84c10bb5c3081e75c9b4c</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="63" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="63" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="OSC1">
+			<intParamSpec name="Octave">
+				<uuid>a6245814c22e41608d93a1549ce22e8a</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="64" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="64" />
+				</paramModel>
+				<min>0</min>
+				<max>6</max>
+				<base>-3</base>
+			</intParamSpec>
+			<intParamSpec name="Semitone">
+				<uuid>18e5d19684c942c8ba79f11546c96fed</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="65" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="65" />
+				</paramModel>
+				<min>0</min>
+				<max>11</max>
+			</intParamSpec>
+			<intParamSpec name="Finetune">
+				<uuid>c0da07e5be024d8d999d71e0571b7761</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="66" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="66" />
+				</paramModel>
+				<min>0</min>
+				<max>31</max>
+			</intParamSpec>
+			<intParamSpec name="Waveform">
+				<uuid>7a10a8b1d7ac43e7af5dc3f495d92f7b</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="67" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="67" />
+				</paramModel>
+				<min>0</min>
+				<max>30</max>
+				<patchParamValues>
+					<patchParamValue>SAW</patchParamValue>
+					<patchParamValue>BELL</patchParamValue>
+					<patchParamValue>SINE</patchParamValue>
+					<patchParamValue>SQUARE</patchParamValue>
+					<patchParamValue>PULSE</patchParamValue>
+					<patchParamValue>NOISE1</patchParamValue>
+					<patchParamValue>NOISE2</patchParamValue>
+					<patchParamValue>NOISE3</patchParamValue>
+					<patchParamValue>BASS</patchParamValue>
+					<patchParamValue>PIANO</patchParamValue>
+					<patchParamValue>EL-PNO</patchParamValue>
+					<patchParamValue>VOICE1</patchParamValue>
+					<patchParamValue>VOICE2</patchParamValue>
+					<patchParamValue>KICK</patchParamValue>
+					<patchParamValue>REED</patchParamValue>
+					<patchParamValue>ORGAN</patchParamValue>
+					<patchParamValue>SYNTH1</patchParamValue>
+					<patchParamValue>SYNTH2</patchParamValue>
+					<patchParamValue>SYNTH3</patchParamValue>
+					<patchParamValue>FORMT1</patchParamValue>
+					<patchParamValue>FORMT2</patchParamValue>
+					<patchParamValue>FORMT3</patchParamValue>
+					<patchParamValue>FORMT4</patchParamValue>
+					<patchParamValue>FORMT5</patchParamValue>
+					<patchParamValue>PULSE2</patchParamValue>
+					<patchParamValue>SQR2</patchParamValue>
+					<patchParamValue>4-OCTS</patchParamValue>
+					<patchParamValue>PRIME</patchParamValue>
+					<patchParamValue>BASS2</patchParamValue>
+					<patchParamValue>E-PNO2</patchParamValue>
+					<patchParamValue>OCTAVE</patchParamValue>
+					<patchParamValue>OCT+5</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 1">
+				<uuid>dd09a4bf111746acb5cefeb92a6103d5</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="68" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="68" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 1">
+				<uuid>65c8a540625648a08574958667f72e1f</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="69" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="69" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 2">
+				<uuid>c6de00d084624b26a84a029eb4ad55a9</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="70" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="70" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 2">
+				<uuid>37cff72c92aa4b0cb7bbc1d55f67b4bf</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="71" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="71" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="OSC2">
+			<intParamSpec name="Octave">
+				<uuid>2df86cfdcda14ffcbe060889a680d0fe</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="72" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="72" />
+				</paramModel>
+				<min>0</min>
+				<max>6</max>
+				<base>-3</base>
+			</intParamSpec>
+			<intParamSpec name="Semitone">
+				<uuid>d04e76e562d547d9a91d44d908c8188f</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="73" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="73" />
+				</paramModel>
+				<min>0</min>
+				<max>11</max>
+			</intParamSpec>
+			<intParamSpec name="Finetune">
+				<uuid>9231b55afa7d491a8863ca9f70221fa0</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="74" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="74" />
+				</paramModel>
+				<min>0</min>
+				<max>31</max>
+			</intParamSpec>
+			<intParamSpec name="Waveform">
+				<uuid>2f9ba4061c4243a5bb95dc7a106e636a</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="75" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="75" />
+				</paramModel>
+				<min>0</min>
+				<max>30</max>
+				<patchParamValues>
+					<patchParamValue>SAW</patchParamValue>
+					<patchParamValue>BELL</patchParamValue>
+					<patchParamValue>SINE</patchParamValue>
+					<patchParamValue>SQUARE</patchParamValue>
+					<patchParamValue>PULSE</patchParamValue>
+					<patchParamValue>NOISE1</patchParamValue>
+					<patchParamValue>NOISE2</patchParamValue>
+					<patchParamValue>NOISE3</patchParamValue>
+					<patchParamValue>BASS</patchParamValue>
+					<patchParamValue>PIANO</patchParamValue>
+					<patchParamValue>EL-PNO</patchParamValue>
+					<patchParamValue>VOICE1</patchParamValue>
+					<patchParamValue>VOICE2</patchParamValue>
+					<patchParamValue>KICK</patchParamValue>
+					<patchParamValue>REED</patchParamValue>
+					<patchParamValue>ORGAN</patchParamValue>
+					<patchParamValue>SYNTH1</patchParamValue>
+					<patchParamValue>SYNTH2</patchParamValue>
+					<patchParamValue>SYNTH3</patchParamValue>
+					<patchParamValue>FORMT1</patchParamValue>
+					<patchParamValue>FORMT2</patchParamValue>
+					<patchParamValue>FORMT3</patchParamValue>
+					<patchParamValue>FORMT4</patchParamValue>
+					<patchParamValue>FORMT5</patchParamValue>
+					<patchParamValue>PULSE2</patchParamValue>
+					<patchParamValue>SQR2</patchParamValue>
+					<patchParamValue>4-OCTS</patchParamValue>
+					<patchParamValue>PRIME</patchParamValue>
+					<patchParamValue>BASS2</patchParamValue>
+					<patchParamValue>E-PNO2</patchParamValue>
+					<patchParamValue>OCTAVE</patchParamValue>
+					<patchParamValue>OCT+5</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 1">
+				<uuid>be8a55279c0440c48b74421b29b6d608</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="76" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="76" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 1">
+				<uuid>0a445139752b44388f7a5daefe94c732</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="77" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="77" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 2">
+				<uuid>42a3e07ef2cd4f3e91af687a40254fbb</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="78" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="78" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 2">
+				<uuid>c17374775ebf44b2a69eb0c4f5a91017</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="79" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="79" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="OSC3">
+			<intParamSpec name="Octave">
+				<uuid>d15ab9223f594267b96c5f3f54cfa33d</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="80" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="80" />
+				</paramModel>
+				<min>0</min>
+				<max>6</max>
+				<base>-3</base>
+			</intParamSpec>
+			<intParamSpec name="Semitone">
+				<uuid>47cea773cbd74d0382fa7b057a997e7d</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="81" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="81" />
+				</paramModel>
+				<min>0</min>
+				<max>11</max>
+			</intParamSpec>
+			<intParamSpec name="Finetune">
+				<uuid>d76467f9ae1d485f854bbbade3b64b50</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="82" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="82" />
+				</paramModel>
+				<min>0</min>
+				<max>31</max>
+			</intParamSpec>
+			<intParamSpec name="Waveform">
+				<uuid>43e385c76a3740f7959a3a8ea88ebc41</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="83" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="83" />
+				</paramModel>
+				<min>0</min>
+				<max>30</max>
+				<patchParamValues>
+					<patchParamValue>SAW</patchParamValue>
+					<patchParamValue>BELL</patchParamValue>
+					<patchParamValue>SINE</patchParamValue>
+					<patchParamValue>SQUARE</patchParamValue>
+					<patchParamValue>PULSE</patchParamValue>
+					<patchParamValue>NOISE1</patchParamValue>
+					<patchParamValue>NOISE2</patchParamValue>
+					<patchParamValue>NOISE3</patchParamValue>
+					<patchParamValue>BASS</patchParamValue>
+					<patchParamValue>PIANO</patchParamValue>
+					<patchParamValue>EL-PNO</patchParamValue>
+					<patchParamValue>VOICE1</patchParamValue>
+					<patchParamValue>VOICE2</patchParamValue>
+					<patchParamValue>KICK</patchParamValue>
+					<patchParamValue>REED</patchParamValue>
+					<patchParamValue>ORGAN</patchParamValue>
+					<patchParamValue>SYNTH1</patchParamValue>
+					<patchParamValue>SYNTH2</patchParamValue>
+					<patchParamValue>SYNTH3</patchParamValue>
+					<patchParamValue>FORMT1</patchParamValue>
+					<patchParamValue>FORMT2</patchParamValue>
+					<patchParamValue>FORMT3</patchParamValue>
+					<patchParamValue>FORMT4</patchParamValue>
+					<patchParamValue>FORMT5</patchParamValue>
+					<patchParamValue>PULSE2</patchParamValue>
+					<patchParamValue>SQR2</patchParamValue>
+					<patchParamValue>4-OCTS</patchParamValue>
+					<patchParamValue>PRIME</patchParamValue>
+					<patchParamValue>BASS2</patchParamValue>
+					<patchParamValue>E-PNO2</patchParamValue>
+					<patchParamValue>OCTAVE</patchParamValue>
+					<patchParamValue>OCT+5</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 1">
+				<uuid>a01a89f6435b494fbb992b0e91078668</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="84" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="84" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 1">
+				<uuid>0a6ff682b3104e0a908472c49a5b8d92</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="85" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="85" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 2">
+				<uuid>145ecde24a484125baf407daa25aa609</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="86" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="86" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 2">
+				<uuid>f5e0b875b1f744a9954d88f7bda490d2</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="87" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="87" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="DCA1">
+			<intParamSpec name="Level">
+				<uuid>d0f44724313242e3a860edeeae80f9aa</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="88" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="88" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Output Enable">
+				<uuid>85fe08bcc3654e98b2b26c58b0bdb0b7</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="89" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="89" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 1">
+				<uuid>746f1ad542fd466e8f45ca4468d8f8ab</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="90" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="90" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 1">
+				<uuid>b3bd9a1bc90645c4bd7e22c3ead30f98</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="91" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="91" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 2">
+				<uuid>313341d5ca4c410ea82fca0c79b5b98a</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="92" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="92" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 2">
+				<uuid>a317f57ecdb945a2a32a1998d573eb66</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="93" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="93" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="DCA2">
+			<intParamSpec name="Level">
+				<uuid>a895f216270b4a819e8b1d4fb420f897</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="94" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="94" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Output Enable">
+				<uuid>9fa673a737b8469db33692a83efc6a2e</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="95" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="95" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 1">
+				<uuid>d70d7c7c550541f59554c6974c19c3fe</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="96" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="96" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 1">
+				<uuid>03deb0af458340369094d6754bf6f6b8</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="97" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="97" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 2">
+				<uuid>becf4444b21f4ef3a7ddc230692e4b41</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="98" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="98" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 2">
+				<uuid>20989e8649224c3f9959f38646774d26</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="99" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="99" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="DCA3">
+			<intParamSpec name="Level">
+				<uuid>62415c59a95543a9af752755abe8ca52</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="100" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="100" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Output Enable">
+				<uuid>9ffc69c235fc427ba1c12f7d516a6112</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="101" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="101" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 1">
+				<uuid>47fb925ef30a475ebe0f496eab47c9f6</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="102" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="102" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 1">
+				<uuid>404943e009424db6b8907809a26ff62c</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="103" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="103" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 2">
+				<uuid>846f1e827e954506964c8d44d0c710c6</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="104" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="104" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 2">
+				<uuid>60b8320060f34cc6bc6df8863805c953</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="105" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="105" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="DCA4">
+			<intParamSpec name="Modulation Amount">
+				<uuid>714c8eeb020b44de831677172f4e2829</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="106" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="106" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="PAN">
+				<uuid>db03ad1c514849458d8fb32d744e465a</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="107" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="107" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+			</intParamSpec>
+			<intParamSpec name="Pan Modulation Source">
+				<uuid>0ed021e7590640b9be30fedd4e2f1386</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="108" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="108" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Pan Modulation Amount">
+				<uuid>0ffaab35f94b4a5488edc2d8e663ad12</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="109" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="109" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="FILTER">
+			<intParamSpec name="Cutoff">
+				<uuid>c4634c50297348ce94e7b553cb7f5453</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="110" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="110" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+			</intParamSpec>
+			<intParamSpec name="Resonance">
+				<uuid>8b25a2e0016c4debb1562055fa9fe58d</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="111" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="111" />
+				</paramModel>
+				<min>0</min>
+				<max>31</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 3">
+				<uuid>39922e42e51d413383b356ef8089dfd5</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="112" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="112" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 1">
+				<uuid>ebdeeb85de99446e80ea5e909dedbc0c</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="113" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="113" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 1">
+				<uuid>74e33ba6eb644e4684460aff339ab488</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="114" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="114" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+			<intParamSpec name="Modulation Source 2">
+				<uuid>d02b4f5c604b491880725b48b9abb6bd</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="115" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="115" />
+				</paramModel>
+				<min>0</min>
+				<max>15</max>
+				<patchParamValues>
+					<patchParamValue>LFO1</patchParamValue>
+					<patchParamValue>LFO2</patchParamValue>
+					<patchParamValue>LFO3</patchParamValue>
+					<patchParamValue>ENV1</patchParamValue>
+					<patchParamValue>ENV2</patchParamValue>
+					<patchParamValue>ENV3</patchParamValue>
+					<patchParamValue>ENV4</patchParamValue>
+					<patchParamValue>VEL</patchParamValue>
+					<patchParamValue>VEL2</patchParamValue>
+					<patchParamValue>KBD</patchParamValue>
+					<patchParamValue>KBD2</patchParamValue>
+					<patchParamValue>WHEEL</patchParamValue>
+					<patchParamValue>PEDAL</patchParamValue>
+					<patchParamValue>XCTRL</patchParamValue>
+					<patchParamValue>PRESS</patchParamValue>
+					<patchParamValue>*OFF*</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Modulation Amount 2">
+				<uuid>5947644b09514937b0c160dddc98348f</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="116" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="116" />
+				</paramModel>
+				<min>0</min>
+				<max>127</max>
+				<base>-63</base>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="MODES">
+			<intParamSpec name="AM">
+				<uuid>45bd7c0b8bea412a8e8e61f77ea5111d</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="117" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="117" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Glide">
+				<uuid>df6fec30d36349f8bb40934697e09b80</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="118" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="118" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+			</intParamSpec>
+			<intParamSpec name="Mono">
+				<uuid>3cf712a633594269acf352b03d85c954</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="119" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="119" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Sync">
+				<uuid>aaa361e79b5343418b5eba16734690b6</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="120" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="120" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Rotate">
+				<uuid>3a854113fc9d4053a671b53c7f803467</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="121" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="121" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Envelope Reset">
+				<uuid>ee5355d8b8bb4e93ba07810ba1a6b792</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="122" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="122" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Wave Reset">
+				<uuid>031b6c18a6294b649b7e7200e15a36e8</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="123" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="123" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Cycle">
+				<uuid>e0c54c49eb9e4777bb01846993f34065</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="124" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="124" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="SPLIT/LAYER">
+			<intParamSpec name="S/L Layer">
+				<uuid>d6f44802eed64c7e9a16640ee5b191c2</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="125" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="125" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="S/L Layer Program">
+				<uuid>0855b552e5fa46ecb09fc7baa0e4f9ad</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="126" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="126" />
+				</paramModel>
+				<min>0</min>
+				<max>29</max>
+			</intParamSpec>
+			<intParamSpec name="S/L Split Layer">
+				<uuid>d1017d0526954f02b0de486da6fd1bad</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="127" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="127" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="S/L Split Layer Program">
+				<uuid>a798e918cf674a2c889715b6ef2df96e</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="128" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="128" />
+				</paramModel>
+				<min>0</min>
+				<max>29</max>
+			</intParamSpec>
+			<intParamSpec name="S/L Split Direction">
+				<uuid>68b84b97570840d9a34fd5420bb70d61</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="129" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="129" />
+				</paramModel>
+				<min>0</min>
+				<max>2</max>
+				<patchParamValues>
+					<patchParamValue>OFF</patchParamValue>
+					<patchParamValue>UPPER</patchParamValue>
+					<patchParamValue>LOWER</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="S/L Split Program">
+				<uuid>547b7da5b6cd4d8d82d3807099026a4b</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="130" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="130" />
+				</paramModel>
+				<min>0</min>
+				<max>29</max>
+			</intParamSpec>
+			<intParamSpec name="S/L Split Point">
+				<uuid>c0925b98c72044f6a381599058718e4e</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="131" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="131" />
+				</paramModel>
+				<min>21</min>
+				<max>108</max>
+				<base>15</base>
+			</intParamSpec>
+		</patchParamGroup>
+		<patchParamGroup name="MASTER">
+			<stringParamSpec name="Name">
+				<uuid>8a832385b01d4efda79a09f811a1fcf6</uuid>
+				<length>12</length>
+			</stringParamSpec>
+			<intParamSpec name="Tuning">
+				<uuid>0e035ba3405d4abc8f1c63ef09a91793</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="132" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="132" />
+				</paramModel>
+				<min>0</min>
+				<max>63</max>
+				<base>-31</base>
+			</intParamSpec>
+			<intParamSpec name="Velocity">
+				<uuid>026d8677c6cc413990efb89c5fdc80d3</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="133" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="133" />
+				</paramModel>
+				<min>0</min>
+				<max>2</max>
+				<patchParamValues>
+					<patchParamValue>SOFT</patchParamValue>
+					<patchParamValue>MEDIUM</patchParamValue>
+					<patchParamValue>HARD</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+			<intParamSpec name="Chorus">
+				<uuid>71b98f69503e4e3487869906fae59f5e</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="134" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="134" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+			</intParamSpec>
+			<intParamSpec name="Pitch Bend Range">
+				<uuid>b589329afb1d403baee36cc23b711c00</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="135" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="135" />
+				</paramModel>
+				<min>0</min>
+				<max>12</max>
+			</intParamSpec>
+			<intParamSpec name="Pitch Bend Mode">
+				<uuid>fe2edd7132ca4fb1b1b1ed998ba3d38f</uuid>
+				<midiSender
+					name="EnsoniqESQ1NrpnSender">
+					<propertyValue key="nrpn" value="136" />
+				</midiSender>
+				<paramModel name="defaultParamModel">
+					<propertyValue key="offset" value="136" />
+				</paramModel>
+				<min>0</min>
+				<max>1</max>
+				<patchParamValues>
+					<patchParamValue>ALL</patchParamValue>
+					<patchParamValue>HELD</patchParamValue>
+				</patchParamValues>
+			</intParamSpec>
+		</patchParamGroup>
+	</patchParams>
+</xmlSingleDriverDefinition>

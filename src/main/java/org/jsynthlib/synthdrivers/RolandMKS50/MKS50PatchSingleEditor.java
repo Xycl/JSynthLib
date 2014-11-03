@@ -7,8 +7,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
@@ -123,7 +123,7 @@ class MKS50PatchSingleEditor extends PatchEditorFrame {
 }
 
 class MKSPatchSender extends SysexSender {
-    byte b[] = {
+    byte[] b = {
             (byte) 0xF0, (byte) 0x41, (byte) 0x36, (byte) 0x00, (byte) 0x23,
             (byte) 0x30, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0xF7 };
 
@@ -131,8 +131,9 @@ class MKSPatchSender extends SysexSender {
         b[7] = (byte) param;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         b[8] = (byte) value;
         return b;
     }
@@ -148,16 +149,19 @@ class MKSOfsModel extends ParamModel {
         pofs = po;
     }
 
+    @Override
     public void set(int i) {
         patch.sysex[offset] = (byte) (i + pofs);
     }
 
+    @Override
     public int get() {
         int i = patch.sysex[offset] - pofs;
-        if (i >= 0)
+        if (i >= 0) {
             return i;
-        else
+        } else {
             return 0;
+        }
     }
 }
 
@@ -172,8 +176,9 @@ class MKSOfsSender extends SysexSender {
         b[7] = (byte) param;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         b[8] = (byte) (value + offset);
         return b;
     }
@@ -190,20 +195,24 @@ class MKSBitModel extends ParamModel {
         bit = b;
     }
 
+    @Override
     public void set(int i) {
         int mask = ~(1 << bit);
         int value = patch.sysex[offset] & mask;
-        if (i == 0)
+        if (i == 0) {
             value |= (1 << bit);
+        }
         patch.sysex[offset] = (byte) value;
     }
 
+    @Override
     public int get() {
         int mask = 1 << bit;
-        if ((patch.sysex[offset] & mask) > 0)
+        if ((patch.sysex[offset] & mask) > 0) {
             return 0;
-        else
+        } else {
             return 1;
+        }
     }
 }
 
@@ -222,12 +231,14 @@ class MKSBitSender extends SysexSender {
         b[7] = (byte) param;
     }
 
+    @Override
     public byte[] generate(int value) {
         int mask = ~(1 << bit);
         int bitfield = patch.sysex[ofs] & mask;
-        if (value == 0)
+        if (value == 0) {
             bitfield |= (1 << bit);
-        b[3] = (byte) (channel - 1);
+        }
+        b[3] = (byte) (getChannel() - 1);
         b[8] = (byte) bitfield;
         return b;
     }
@@ -244,10 +255,12 @@ class MKS2sCompModel extends ParamModel {
         max = m;
     }
 
+    @Override
     public void set(int i) {
         patch.sysex[offset] = (byte) ((i - max) & 0x7F);
     }
 
+    @Override
     public int get() {
         return (patch.sysex[offset] + max) & 0x7F;
     }
@@ -264,8 +277,9 @@ class MKS2sCompSender extends SysexSender {
         b[7] = (byte) param;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         b[8] = (byte) ((value - max) & 0x7F);
         return b;
     }
@@ -283,8 +297,9 @@ class MKSListSender extends SysexSender {
         valueList = v;
     }
 
+    @Override
     public byte[] generate(int value) {
-        b[3] = (byte) (channel - 1);
+        b[3] = (byte) (getChannel() - 1);
         b[8] = (byte) valueList[value];
         return b;
     }

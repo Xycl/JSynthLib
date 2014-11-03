@@ -22,8 +22,6 @@ package org.jsynthlib.device.model.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Properties;
@@ -36,28 +34,16 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.apache.log4j.Logger;
-import org.apache.xmlbeans.XmlException;
 import org.jsynthlib.core.Constants;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.JSynthLib;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceDescriptor;
+import org.jsynthlib.device.model.DeviceException;
+import org.jsynthlib.device.model.DeviceFactory;
 import org.jsynthlib.device.model.DeviceList;
 import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.XMLDevice;
-import org.jsynthlib.device.model.XMLPatchDriver;
-import org.jsynthlib.inject.JSynthLibInjector;
-import org.jsynthlib.xmldevice.XmlBankDriverSpecDocument;
-import org.jsynthlib.xmldevice.XmlBankDriverSpecDocument.XmlBankDriverSpec;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument.XmlDeviceSpec;
-import org.jsynthlib.xmldevice.XmlDriverDefs;
-import org.jsynthlib.xmldevice.XmlDriverDefs.XmlDriverDef;
-import org.jsynthlib.xmldevice.XmlDriverDefs.XmlDriverDef.DriverType.Enum;
-import org.jsynthlib.xmldevice.XmlDriverSpec;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
 
 /**
  * @author Pascal Collberg
@@ -70,11 +56,26 @@ public class DeviceManagerImpl implements DeviceManager {
     private final DeviceList deviceList;
     private Preferences devicePreferences;
 
+    /**
+     * The available device descriptors.
+     */
+    private final Set<DeviceDescriptor> descriptors;
+
+    /**
+     * The available device identifiers.
+     */
+    private final Set<String> deviceIds;
+
+    private final DeviceFactory deviceFactory;
+
     @Inject
-    public DeviceManagerImpl(DeviceList deviceList) {
+    public DeviceManagerImpl(DeviceList deviceList, DeviceFactory deviceFactory) {
+        this.deviceList = deviceList;
+        this.deviceFactory = deviceFactory;
+        descriptors = new TreeSet<DeviceDescriptor>();
+        deviceIds = new TreeSet<String>();
         readDevicesFromPropertiesFile();
 
-        this.deviceList = deviceList;
         try {
             Preferences preferences =
                     Preferences.userNodeForPackage(JSynthLib.class);
@@ -89,7 +90,7 @@ public class DeviceManagerImpl implements DeviceManager {
             // Some classes assume that the 1st driver is a Generic Driver.
             DeviceDescriptor defaultDescriptor = new DeviceDescriptor();
             defaultDescriptor
-                    .setDeviceClass("org.jsynthlib.synthdrivers.Generic.GenericDevice");
+            .setDeviceClass("org.jsynthlib.synthdrivers.Generic.GenericDevice");
             if (deviceList.isEmpty()) {
                 if (devicePreferences.nodeExists("Generic#0")) {
                     addDevice(defaultDescriptor,
@@ -109,8 +110,7 @@ public class DeviceManagerImpl implements DeviceManager {
                 // get class name from preferences node name
                 log.debug("loadDevices: \"" + devs[i] + "\"");
                 String s = devs[i].substring(0, devs[i].indexOf('#'));
-                DeviceDescriptor descriptor =
-                        getDescriptorForShortName(s);
+                DeviceDescriptor descriptor = getDescriptorForShortName(s);
 
                 log.info("loadDevices: -> " + s);
                 addDevice(descriptor, devicePreferences.node(devs[i]));
@@ -120,58 +120,18 @@ public class DeviceManagerImpl implements DeviceManager {
             log.debug("deviceList: " + deviceList);
         } catch (BackingStoreException e) {
             log.warn(e.getMessage(), e);
-        } catch (Exception e) {
+        } catch (DeviceException e) {
             log.warn(e.getMessage(), e);
         }
-
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.jsynthlib.device.model.DeviceFactory#newDevice()
-     */
-    @Override
-    public Device addDevice(DeviceDescriptor descriptor, Preferences preferences) {
-        Device device = null;
-        try {
-            String deviceClass = descriptor.getDeviceClass();
-            device = createDevice(deviceClass);
-            if (!deviceList.contains(device)) {
-                device.setup(preferences);
-                deviceList.add(device); // always returns true
-                int driverCount = device.driverCount();
-                for (int i = 0; i < driverCount; i++) {
-                    IDriver driver = device.getDriver(i);
-                    DriverBeanUtil.copyPreferences(driver);
-                }
-            }
-        } catch (SecurityException e) {
-            log.warn(e.getMessage(), e);
-        } catch (ClassNotFoundException e) {
-            log.warn(e.getMessage(), e);
-        } catch (NoSuchMethodException e) {
-            log.warn(e.getMessage(), e);
-        } catch (InstantiationException e) {
-            log.warn(e.getMessage(), e);
-        } catch (IllegalAccessException e) {
-            log.warn(e.getMessage(), e);
-        } catch (InvocationTargetException e) {
-            log.warn(e.getMessage(), e);
-        } catch (XmlException e) {
-            log.warn(e.getMessage(), e);
-        } catch (IOException e) {
-            log.warn(e.getMessage(), e);
-        }
-
-        if (device == null) {
-            ErrorMsg.reportError("Device Create Failure",
-                    "Failed to create device of class '" + descriptor + "'");
-        }
-        return device;
+    Device addDevice(DeviceDescriptor descriptor, Preferences prefs)
+            throws DeviceException {
+        return deviceFactory.newDevice(descriptor, prefs);
     }
 
     @Override
-    public Device addDevice(DeviceDescriptor descriptor) {
+    public Device addDevice(DeviceDescriptor descriptor) throws DeviceException {
         return addDevice(descriptor, getDeviceNode(descriptor.getDeviceClass()));
     }
 
@@ -244,118 +204,8 @@ public class DeviceManagerImpl implements DeviceManager {
         return getDevice(0).getDriver(0);
     }
 
-    @SuppressWarnings("unchecked")
-    Device createDevice(String resource) throws XmlException, IOException,
-            ClassNotFoundException, NoSuchMethodException,
-            InstantiationException, IllegalAccessException,
-            InvocationTargetException {
-        InputStream xmlStream =
-                getClass().getClassLoader().getResourceAsStream(
-                        resource.replace('.', '/') + ".xml");
-        if (xmlStream == null) {
-            // Oldstyle device
-            Class<Device> c = (Class<Device>) Class.forName(resource);
-            return JSynthLibInjector.getInstance(c);
-        } else {
-            // XML device
-            XmlDeviceSpecDocument deviceSpecDocument =
-                    XmlDeviceSpecDocument.Factory.parse(xmlStream);
-            XmlDeviceSpec deviceSpec = deviceSpecDocument.getXmlDeviceSpec();
-
-            Class<? extends XMLDevice> c = null;
-            try {
-                c = (Class<XMLDevice>) Class.forName(resource);
-            } catch (ClassNotFoundException e) {
-                c = XMLDevice.class;
-            }
-            Class<?>[] args = {
-                XmlDeviceSpec.class };
-            Constructor<? extends XMLDevice> con = c.getConstructor(args);
-            XMLDevice device = con.newInstance(new Object[] {
-                deviceSpec });
-            JSynthLibInjector.getInjector().injectMembers(device);
-            XmlDriverDefs drivers = deviceSpec.getDrivers();
-
-            XmlDriverDef[] driverArray = drivers.getXmlDriverDefArray();
-            for (XmlDriverDef xmlDriver : driverArray) {
-                IDriver driver = createDriver(xmlDriver);
-                device.addDriver(driver);
-            }
-
-            return device;
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    IDriver createDriver(XmlDriverDef xmlDriver) throws XmlException,
-            IOException, InstantiationException, IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException,
-            ClassNotFoundException {
-        String driverClass = xmlDriver.getDriverClass();
-        InputStream xmlStream =
-                getClass().getClassLoader().getResourceAsStream(
-                        driverClass.replace('.', '/') + ".xml");
-
-        if (xmlStream == null) {
-            // Oldstyle device
-            Class<IDriver> c = (Class<IDriver>) Class.forName(driverClass);
-            return JSynthLibInjector.getInstance(c);
-        } else {
-            // XML driver
-            Enum driverType = xmlDriver.getDriverType();
-            XmlDriverSpec driverSpec = null;
-
-            Class<? extends IDriver> c = null;
-            try {
-                c = (Class<? extends IDriver>) Class.forName(driverClass);
-            } catch (ClassNotFoundException e) {
-                c = XMLPatchDriver.class;
-            }
-
-            Constructor<? extends IDriver> con = null;
-            switch (driverType.intValue()) {
-            case XmlDriverDef.DriverType.INT_BANK:
-                XmlBankDriverSpecDocument document =
-                        XmlBankDriverSpecDocument.Factory.parse(xmlStream);
-                driverSpec = document.getXmlBankDriverSpec();
-                Class<?>[] args = {
-                    XmlBankDriverSpec.class };
-                con = c.getConstructor(args);
-                break;
-            case XmlDriverDef.DriverType.INT_CONVERTER:
-                // TODO
-                break;
-            case XmlDriverDef.DriverType.INT_PATCH:
-                XmlPatchDriverSpecDocument patchDriverDocument =
-                        XmlPatchDriverSpecDocument.Factory.parse(xmlStream);
-                driverSpec = patchDriverDocument.getXmlPatchDriverSpec();
-                Class<?>[] args2 = {
-                    XmlPatchDriverSpec.class };
-                con = c.getConstructor(args2);
-                break;
-            default:
-                throw new IllegalArgumentException("Bad patch type: "
-                        + driverType.intValue());
-            }
-
-            IDriver driver = con.newInstance(new Object[] {
-                driverSpec });
-            DriverBeanUtil.copyXmlProperties(driver, driverSpec);
-            return driver;
-        }
-    }
-
-    /**
-     * The available device descriptors.
-     */
-    private final Set<DeviceDescriptor> descriptors =
-            new TreeSet<DeviceDescriptor>();
-    /**
-     * The available device identifiers.
-     */
-    private final Set<String> deviceIds = new TreeSet<String>();
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.DeviceManager#getDeviceDescriptors()
      */
     @Override
@@ -363,7 +213,8 @@ public class DeviceManagerImpl implements DeviceManager {
         return Collections.unmodifiableSet(descriptors);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.DeviceManager#getDeviceIds()
      */
     @Override
@@ -371,8 +222,11 @@ public class DeviceManagerImpl implements DeviceManager {
         return Collections.unmodifiableSet(deviceIds);
     }
 
-    /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.DeviceManager#getDescriptorForIDString(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jsynthlib.device.model.DeviceManager#getDescriptorForIDString(java
+     * .lang.String)
      */
     @Override
     public DeviceDescriptor getDescriptorForIDString(final String deviceId) {
@@ -384,8 +238,11 @@ public class DeviceManagerImpl implements DeviceManager {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.DeviceManager#getDescriptorForShortName(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jsynthlib.device.model.DeviceManager#getDescriptorForShortName(java
+     * .lang.String)
      */
     @Override
     public DeviceDescriptor getDescriptorForShortName(final String shortName) {
@@ -397,8 +254,11 @@ public class DeviceManagerImpl implements DeviceManager {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.DeviceManager#getDescriptorForDeviceName(java.lang.String)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jsynthlib.device.model.DeviceManager#getDescriptorForDeviceName(java
+     * .lang.String)
      */
     @Override
     public DeviceDescriptor getDescriptorForDeviceName(final String deviceName) {
@@ -410,7 +270,8 @@ public class DeviceManagerImpl implements DeviceManager {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.DeviceManager#printAll()
      */
     @Override
@@ -475,12 +336,12 @@ public class DeviceManagerImpl implements DeviceManager {
                 String type = manufacturer.substring(0, 1);
 
                 if (deviceClass != null && idString != null) {
-                    addDevice(deviceName, shortName, deviceClass, idString,
+                    installDevice(deviceName, shortName, deviceClass, idString,
                             manufacturer, type);
                 } else {
                     ErrorMsg.reportError("Configuration Error",
                             "Invalid device configuration for " + shortName
-                                    + ".");
+                            + ".");
                 }
             }
         }
@@ -497,7 +358,8 @@ public class DeviceManagerImpl implements DeviceManager {
      * @param deviceId
      *            the id of the device
      */
-    void addDevice(String deviceName, String shortName,
+    @Override
+    public void installDevice(String deviceName, String shortName,
             String deviceClass, String deviceId, String manufacturer,
             String type) {
         DeviceDescriptor descriptor = new DeviceDescriptor();
@@ -513,4 +375,9 @@ public class DeviceManagerImpl implements DeviceManager {
         deviceIds.add(deviceId);
     }
 
+    @Override
+    public void uninstallDevice(DeviceDescriptor deviceDescriptor) {
+        descriptors.remove(deviceDescriptor);
+        deviceIds.remove(deviceDescriptor.getDeviceId());
+    }
 }

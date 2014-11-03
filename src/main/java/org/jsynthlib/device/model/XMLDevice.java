@@ -28,9 +28,9 @@ import javax.swing.JPanel;
 import org.jsynthlib.device.viewcontroller.XMLDeviceDetailsPanel;
 import org.jsynthlib.xmldevice.PreferenceDefs;
 import org.jsynthlib.xmldevice.PreferenceDefs.PreferenceDef;
-import org.jsynthlib.xmldevice.XmlDeviceSpecDocument.XmlDeviceSpec;
-import org.jsynthlib.xmldevice.XmlDriverDefs;
-import org.jsynthlib.xmldevice.XmlDriverDefs.XmlDriverDef;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
+import org.jsynthlib.xmldevice.XmlDriverReferences;
+import org.jsynthlib.xmldevice.XmlDriverReferences.XmlDriverReference;
 
 import com.google.inject.assistedinject.Assisted;
 
@@ -39,22 +39,23 @@ import com.google.inject.assistedinject.Assisted;
  */
 public class XMLDevice extends Device {
 
-    private final XmlDeviceSpec xmlDeviceSpec;
+    private final XmlDeviceDefinition xmlDeviceSpec;
     private final PreferenceDefs preferencesDefs;
 
-    public XMLDevice(@Assisted XmlDeviceSpec xmlDeviceSpec) {
+    public XMLDevice(@Assisted XmlDeviceDefinition xmlDeviceSpec) {
         super(xmlDeviceSpec.getManufacturer(), xmlDeviceSpec.getModelName(),
                 xmlDeviceSpec.getInquiryId(), xmlDeviceSpec.getInfoText(),
                 xmlDeviceSpec.getAuthors());
         this.xmlDeviceSpec = xmlDeviceSpec;
-        preferencesDefs = xmlDeviceSpec.getPreferenceDefs();
+        preferencesDefs = xmlDeviceSpec.getConfiguration().getPreferenceDefs();
     }
 
-    public IDriver getDriver(XmlDriverDef.DriverType.Enum driverType,
+    public IDriver getDriver(XmlDriverReference.DriverType.Enum driverType,
             String patchType) {
         List<IDriver> drivers = getDriverList();
         for (IDriver driver : drivers) {
-            XmlDriverDef driverDef = getDriverDef(driver.getClass().getName());
+            XmlDriverReference driverDef =
+                    getDriverDef(driver.getClass().getName());
             if (driverDef != null && driver.getPatchType().equals(patchType)
                     && driverDef.getDriverType().equals(driverType)) {
                 return driver;
@@ -63,10 +64,11 @@ public class XMLDevice extends Device {
         return null;
     }
 
-    XmlDriverDef getDriverDef(String driverClass) {
-        XmlDriverDefs drivers = xmlDeviceSpec.getDrivers();
-        XmlDriverDef[] xmlDriverDefs = drivers.getXmlDriverDefArray();
-        for (XmlDriverDef xmlDriverDef : xmlDriverDefs) {
+    XmlDriverReference getDriverDef(String driverClass) {
+        XmlDriverReferences drivers = xmlDeviceSpec.getDrivers();
+        XmlDriverReference[] xmlDriverDefs =
+                drivers.getXmlDriverReferenceArray();
+        for (XmlDriverReference xmlDriverDef : xmlDriverDefs) {
             if (xmlDriverDef.getDriverClass().equals(driverClass)) {
                 return xmlDriverDef;
             }

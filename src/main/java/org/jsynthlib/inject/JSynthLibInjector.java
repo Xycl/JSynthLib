@@ -22,8 +22,10 @@ package org.jsynthlib.inject;
 
 import org.jsynthlib.core.AppConfig;
 import org.jsynthlib.core.impl.AppConfigImpl;
+import org.jsynthlib.device.model.DeviceFactory;
 import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.device.model.DriverIdentifier;
+import org.jsynthlib.device.model.impl.DeviceFactoryImpl;
 import org.jsynthlib.device.model.impl.DeviceManagerImpl;
 import org.jsynthlib.device.model.impl.DriverIdentifierImpl;
 import org.jsynthlib.midi.service.MasterKeyboardService;
@@ -81,6 +83,7 @@ public class JSynthLibInjector extends AbstractModule {
         install(new FactoryModuleBuilder().implement(PatchEdit.class,
                 PatchEdit.class).build(PatchEditFactory.class));
         bind(DeviceManager.class).to(DeviceManagerImpl.class);
+        bind(DeviceFactory.class).to(DeviceFactoryImpl.class);
     }
 
 }

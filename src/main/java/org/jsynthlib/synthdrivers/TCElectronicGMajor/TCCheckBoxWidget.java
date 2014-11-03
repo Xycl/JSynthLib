@@ -26,8 +26,8 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JCheckBox;
 
-import org.jsynthlib.device.model.IParamModel;
-import org.jsynthlib.device.model.ISender;
+import org.jsynthlib.device.model.handler.IParamModel;
+import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.patch.model.impl.Patch;
 

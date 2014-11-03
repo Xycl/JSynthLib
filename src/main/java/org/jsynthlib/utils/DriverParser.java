@@ -22,10 +22,12 @@ package org.jsynthlib.utils;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.xmlbeans.XmlException;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.IDriver;
 
@@ -34,23 +36,27 @@ import org.jsynthlib.device.model.IDriver;
  */
 public class DriverParser {
 
-    private final transient Logger log = Logger.getLogger(getClass());
+    private static final Logger LOG = Logger.getLogger(DriverParser.class);
 
     /**
      * @param args
      */
     public static void main(String[] args) {
         DriverParser driverParser = new DriverParser();
+        int exitCode = 0;
         try {
             DeviceParser deviceParser = new DeviceParser();
             List<Device> devices = deviceParser.getAllDevices();
             driverParser.parseDrivers(devices);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | InstantiationException
+                | IllegalAccessException | NoSuchMethodException
+                | InvocationTargetException | IOException | URISyntaxException
+                | XmlException e) {
+            LOG.warn(e.getMessage(), e);
+            exitCode = -1;
         }
-        System.exit(0);
+
+        System.exit(exitCode);
     }
 
     public void parseDrivers(List<Device> devices) throws IOException,
@@ -68,17 +74,17 @@ public class DriverParser {
                         Class<?> type = field.getType();
                         if (type.isArray()) {
                             Class<?> componentType = type.getComponentType();
-                            log.info("Array," + name + ","
+                            LOG.info("Array," + name + ","
                                     + componentType.getName());
                         } else {
-                            log.info(name + "," + type.getName());
+                            LOG.info(name + "," + type.getName());
                         }
 
                     }
                 }
                 break;
             } catch (Exception e) {
-                log.warn(e.getMessage(), e);
+                LOG.warn(e.getMessage(), e);
             }
         }
     }

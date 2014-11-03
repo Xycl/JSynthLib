@@ -27,7 +27,7 @@
 
 package org.jsynthlib.synthdrivers.RolandMT32;
 
-import org.jsynthlib.device.model.IParamModel;
+import org.jsynthlib.device.model.handler.IParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
 
 class WaveModel implements IParamModel {

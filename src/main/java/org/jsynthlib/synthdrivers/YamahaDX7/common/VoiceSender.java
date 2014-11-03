@@ -1,6 +1,6 @@
 package org.jsynthlib.synthdrivers.YamahaDX7.common;
 
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 /*
  * SysexSender - Voice Parameter (g=0; h=0 & g=0; h=1)
@@ -42,7 +42,7 @@ public class VoiceSender extends SysexSender {
 
     @Override
     public byte[] generate(int value) {
-        buf[2] = (byte) (0x10 + channel - 1);
+        buf[2] = (byte) (0x10 + getChannel() - 1);
         buf[5] = (byte) value;
 
         return buf;

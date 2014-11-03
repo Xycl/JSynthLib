@@ -25,11 +25,11 @@ package org.jsynthlib.synthdrivers.YamahaDX7;
 
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.synthdrivers.YamahaDX7.common.DX7FamilyXmlVoicePatchDriver;
-import org.jsynthlib.xmldevice.XmlPatchDriverSpecDocument.XmlPatchDriverSpec;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 
 public class YamahaDX7PerformanceSingleDriver extends DX7FamilyXmlVoicePatchDriver {
 
-    public YamahaDX7PerformanceSingleDriver(XmlPatchDriverSpec driverSpec) {
+    public YamahaDX7PerformanceSingleDriver(XmlSingleDriverDefinition driverSpec) {
         super(driverSpec);
     }
 

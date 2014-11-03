@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import org.jsynthlib.device.model.ParamModel;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
@@ -127,7 +127,7 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             "B12", "B13", "B14", "B15", "B16", "-01", "-02", "-03", "-04",
             "-05", "-06", "-07", "-08", "-09", "-10", "-11", "-12", "-13",
             "-14", "-15", "-16", "-17", "-18", "-19", "-20", "-21", "-22",
-            "-23" };
+    "-23" };
 
     int drum = 0;
 
@@ -139,12 +139,12 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
         addWidget(kitPane, new PatchNameWidget(" Name", patch), 1, 1, 2, 1, 0);
         addWidget(kitPane, new ComboBoxWidget("Sense Curve A", patch,
                 new ParamModel(patch, 0x554), new BankSender(0), new String[] {
-                        "Exp1", "Lin1", "Exp2", "Lin2", "XfdO", "XfdI", "Fix1",
-                        "Fix2" }), 1, 2, 1, 1, 1);
+            "Exp1", "Lin1", "Exp2", "Lin2", "XfdO", "XfdI", "Fix1",
+        "Fix2" }), 1, 2, 1, 1, 1);
         addWidget(kitPane, new ComboBoxWidget("Sense Curve B", patch,
                 new ParamModel(patch, 0x555), new BankSender(1), new String[] {
-                        "Exp1", "Lin1", "Exp2", "Lin2", "XfdO", "XfdI", "Fix1",
-                        "Fix2" }), 1, 3, 1, 1, 2);
+            "Exp1", "Lin1", "Exp2", "Lin2", "XfdO", "XfdI", "Fix1",
+        "Fix2" }), 1, 3, 1, 1, 2);
         addWidget(kitPane, new CheckBoxWidget("Bank Layer", patch,
                 new ParamModel(patch, 0x556), new BankSender(2)), 1, 4, 1, 1,
                 -1);
@@ -178,6 +178,7 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
         final JComboBox cb = new JComboBox(padList);
         padPane.add(cb);
         cb.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 drum = cb.getSelectedIndex();
                 SysexWidget w;
@@ -226,16 +227,16 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
                 new DrumModel(patch, 15), new DrumSender(6)), 1, 5, 3, 1, 7);
         addWidget(drumPane, new ScrollBarLookupWidget("Pan", patch, 0, 15,
                 new DrumModel(patch, 16), new DrumSender(7), new String[] {
-                        "L7", "L6", "L5", "L4", "L3", "L2", "L1", "C", "R1",
-                        "R2", "R3", "R4", "R5", "R6", "R7", "Indiv" }), 1, 6,
-                3, 1, 8);
+            "L7", "L6", "L5", "L4", "L3", "L2", "L1", "C", "R1",
+            "R2", "R3", "R4", "R5", "R6", "R7", "Indiv" }), 1, 6,
+            3, 1, 8);
         addWidget(drumPane, new CheckBoxWidget("Poly Mode", patch,
                 new DrumModel(patch, 17 + drum * 24), new DrumSender(8)), 1, 7,
                 1, 1, -2);
         addWidget(drumPane, new ComboBoxWidget("Assign Group", patch,
                 new DrumModel(patch, 18), new DrumSender(9), new String[] {
-                        "Off", "Exc1", "Exc2", "Exc3", "Exc4", "Exc5", "Exc6",
-                        "Exc7" }), 2, 7, 2, 1, 9);
+            "Off", "Exc1", "Exc2", "Exc3", "Exc4", "Exc5", "Exc6",
+        "Exc7" }), 2, 7, 2, 1, 9);
         addWidget(drumPane, new ScrollBarWidget("Reverb Send", patch, 0, 15, 0,
                 new DrumModel(patch, 19), new DrumSender(10)), 1, 8, 3, 1, 10);
         addWidget(drumPane, new ScrollBarWidget("Chorus Send", patch, 0, 15, 0,
@@ -271,12 +272,14 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             b[11] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
             b[9] = (byte) value;
-            b[2] = (byte) (channel - 1);
+            b[2] = (byte) (getChannel() - 1);
             int sum = 0;
-            for (int i = 5; i <= 9; i++)
+            for (int i = 5; i <= 9; i++) {
                 sum += b[i];
+            }
             sum = (byte) (sum % 128);
             sum = (byte) (sum ^ 127);
             sum = (byte) (sum + 1);
@@ -304,12 +307,14 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             b[11] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
             b[9] = (byte) value;
-            b[2] = (byte) (channel - 1);
+            b[2] = (byte) (getChannel() - 1);
             int sum = 0;
-            for (int i = 5; i <= 9; i++)
+            for (int i = 5; i <= 9; i++) {
                 sum += b[i];
+            }
             sum = (byte) (sum % 128);
             sum = (byte) (sum ^ 127);
             sum = (byte) (sum + 1);
@@ -337,13 +342,15 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             b[11] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
             b[7] = (byte) drum;
             b[9] = (byte) value;
-            b[2] = (byte) (channel - 1);
+            b[2] = (byte) (getChannel() - 1);
             int sum = 0;
-            for (int i = 5; i <= 9; i++)
+            for (int i = 5; i <= 9; i++) {
                 sum += b[i];
+            }
             sum = (byte) (sum % 128);
             sum = (byte) (sum ^ 127);
             sum = (byte) (sum + 1);
@@ -368,13 +375,15 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             b[11] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
             b[8] = (byte) drum;
             b[9] = (byte) value;
-            b[2] = (byte) (channel - 1);
+            b[2] = (byte) (getChannel() - 1);
             int sum = 0;
-            for (int i = 5; i <= 9; i++)
+            for (int i = 5; i <= 9; i++) {
                 sum += b[i];
+            }
             sum = (byte) (sum % 128);
             sum = (byte) (sum ^ 127);
             sum = (byte) (sum + 1);
@@ -400,14 +409,16 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             b[12] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
             b[7] = (byte) drum;
             b[9] = (byte) (value / 128);
             b[10] = (byte) (value % 128);
-            b[2] = (byte) (channel - 1);
+            b[2] = (byte) (getChannel() - 1);
             int sum = 0;
-            for (int i = 5; i <= 10; i++)
+            for (int i = 5; i <= 10; i++) {
                 sum += b[i];
+            }
             sum = (byte) (sum % 128);
             sum = (byte) (sum ^ 127);
             sum = (byte) (sum + 1);
@@ -434,14 +445,16 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             b[12] = (byte) 0xF7;
         }
 
+        @Override
         public byte[] generate(int value) {
             b[7] = (byte) drum;
             b[9] = (byte) (value / 16);
             b[10] = (byte) (value % 16);
-            b[2] = (byte) (channel - 1);
+            b[2] = (byte) (getChannel() - 1);
             int sum = 0;
-            for (int i = 5; i <= 10; i++)
+            for (int i = 5; i <= 10; i++) {
                 sum += b[i];
+            }
             sum = (byte) (sum % 128);
             sum = (byte) (sum ^ 127);
             sum = (byte) (sum + 1);
@@ -458,10 +471,12 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             super(p, o);
         }
 
+        @Override
         public void set(int i) {
             patch.sysex[offset + drum * 23] = (byte) (i);
         }
 
+        @Override
         public int get() {
             return ((patch.sysex[offset + drum * 23]));
         }
@@ -474,10 +489,12 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             super(p, o);
         }
 
+        @Override
         public void set(int i) {
             patch.sysex[offset + drum] = (byte) (i);
         }
 
+        @Override
         public int get() {
             return ((patch.sysex[offset + drum]));
         }
@@ -490,14 +507,16 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             super(p, o);
         }
 
+        @Override
         public void set(int i) {
             patch.sysex[offset + drum * 23] = (byte) (i / 128);
             patch.sysex[offset + drum * 23 + 1] = (byte) (i % 128);
         }
 
+        @Override
         public int get() {
-            return ((patch.sysex[offset + drum * 23] * 128 + patch.sysex[offset + 1
-                    + drum * 23]));
+            return ((patch.sysex[offset + drum * 23] * 128 + patch.sysex[offset
+                    + 1 + drum * 23]));
         }
 
     }
@@ -508,14 +527,16 @@ class BossDR660DrumkitEditor extends PatchEditorFrame {
             super(p, o);
         }
 
+        @Override
         public void set(int i) {
             patch.sysex[offset + drum * 23] = (byte) (i / 16);
             patch.sysex[offset + drum * 23 + 1] = (byte) (i % 16);
         }
 
+        @Override
         public int get() {
-            return ((patch.sysex[offset + drum * 23] * 16 + patch.sysex[offset + 1
-                    + drum * 23]));
+            return ((patch.sysex[offset + drum * 23] * 16 + patch.sysex[offset
+                    + 1 + drum * 23]));
         }
 
     }

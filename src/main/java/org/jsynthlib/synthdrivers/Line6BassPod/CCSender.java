@@ -26,8 +26,8 @@ import javax.sound.midi.ShortMessage;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.ISender;
-import org.jsynthlib.device.model.SysexSender;
+import org.jsynthlib.device.model.handler.ISender;
+import org.jsynthlib.device.model.handler.SysexSender;
 
 /**
  * POD generic Continuous Controller message sender class.
