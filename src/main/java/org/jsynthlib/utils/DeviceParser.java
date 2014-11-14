@@ -45,6 +45,7 @@ public class DeviceParser {
                 Matcher classMatcher = classPattern.matcher(externalForm);
                 if (classMatcher.find()) {
                     String group = classMatcher.group(1);
+                    log.info("Found device " + group);
                     Class<? extends Device> deviceclass =
                             (Class<? extends Device>) classLoader
                             .loadClass(group.replace('/', '.'));
@@ -74,6 +75,11 @@ public class DeviceParser {
                 if (xmlMatcher.find()) {
                     String deviceClassName =
                             xmlMatcher.group(1).replace('/', '.');
+                    log.info("Found XML device " + deviceClassName);
+                    if (!deviceClassName.toLowerCase().contains("device")) {
+                        // Skip other XML files
+                        continue;
+                    }
 
                     Class<? extends XMLDevice> deviceclass = null;
                     try {
