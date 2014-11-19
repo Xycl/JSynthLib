@@ -56,12 +56,12 @@ public class NewPatchDialog extends JDialog {
         // First Populate the Device/Driver List with
         // Device/Driver. which supports the "createNewPatch" method
         // Skipping the generic device (i == 0)
-        DeviceManager deviceManager = JSynthLibInjector.getInstance(DeviceManager.class);
+        DeviceManager deviceManager =
+                JSynthLibInjector.getInstance(DeviceManager.class);
         for (int i = 1; i < deviceManager.deviceCount(); i++) {
             Device device = deviceManager.getDevice(i);
-            for (int j = 0; j < device.driverCount(); j++) {
-                IDriver driver = device.getDriver(j);
-             // Skipping a converter
+            for (IDriver driver : device) {
+                // Skipping a converter
                 if ((driver.isSingleDriver() || driver.isBankDriver())
                         && driver.canCreatePatch()) {
                     deviceComboBox.addItem(device);
@@ -94,8 +94,7 @@ public class NewPatchDialog extends JDialog {
         create.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                IDriver driver =
-                        (IDriver) driverComboBox.getSelectedItem();
+                IDriver driver = (IDriver) driverComboBox.getSelectedItem();
 
                 p = driver.createPatch();
                 if (p != null) {
@@ -148,8 +147,7 @@ public class NewPatchDialog extends JDialog {
             driverComboBox.removeAllItems();
 
             Device device = (Device) deviceComboBox.getSelectedItem();
-            for (int i = 0; i < device.driverCount(); i++) {
-                IDriver driver = device.getDriver(i);
+            for (IDriver driver : device) {
                 if ((driver.isSingleDriver() || driver.isBankDriver())
                         && driver.canCreatePatch()) {
                     driverComboBox.addItem(driver);

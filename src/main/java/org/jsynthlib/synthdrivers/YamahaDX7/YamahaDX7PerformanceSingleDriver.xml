@@ -106,8 +106,7 @@
 		<patchParamGroup name="Voice A">
 			<intParamSpec name="Key Mode Assign">
 				<uuid>8017fe45f2de4041bb44ce3ce3541883</uuid>
-				<midiSender
-					name="PerformanceSender">
+				<midiSender name="PerformanceSender">
 					<propertyValue key="parameter" value="64" />
 				</midiSender>
 				<paramModel name="defaultParamModel">
@@ -120,240 +119,239 @@
 					<patchParamValue>Mono</patchParamValue>
 				</patchParamValues>
 			</intParamSpec>
-			<intParamSpec name="Range">
-				<uuid>8ff925da0b4e43279fce50b59ef63114</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="65" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="9" />
-				</paramModel>
-				<min>0</min>
-				<max>12</max>
-				<patchParamValues>
-					<patchParamValue>Off</patchParamValue>
-					<patchParamValue>perfect First (Unison)</patchParamValue>
-					<patchParamValue>minor Second</patchParamValue>
-					<patchParamValue>major Second</patchParamValue>
-					<patchParamValue>minor Third</patchParamValue>
-					<patchParamValue>major Third</patchParamValue>
-					<patchParamValue>perfect Fourth</patchParamValue>
-					<patchParamValue>perfect Fifth</patchParamValue>
-					<patchParamValue>minor Sixth</patchParamValue>
-					<patchParamValue>major Sixth</patchParamValue>
-					<patchParamValue>minor Seventh</patchParamValue>
-					<patchParamValue>major Seventh</patchParamValue>
-					<patchParamValue>Octave</patchParamValue>
-				</patchParamValues>
-			</intParamSpec>
-			<intParamSpec name="Step">
-				<uuid>72bf04b762534c96b78cab1eb9f58037</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="66" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="10" />
-				</paramModel>
-				<min>0</min>
-				<max>12</max>
-				<patchParamValues>
-					<patchParamValue>Continuous</patchParamValue>
-					<patchParamValue>±1 Octave - 12 Steps</patchParamValue>
-					<patchParamValue>±1 Octave - 6 Steps</patchParamValue>
-					<patchParamValue>±1 Octave - 4 Steps</patchParamValue>
-					<patchParamValue>±1 Octave - 3 Steps</patchParamValue>
-					<patchParamValue>±1 minor Seventh - 2 Steps</patchParamValue>
-					<patchParamValue>±1 Octave - 2 Steps</patchParamValue>
-					<patchParamValue>±1 Fifth - 1 Step</patchParamValue>
-					<patchParamValue>±1 major Fifth - 1 Step</patchParamValue>
-					<patchParamValue>±1 Sixth - 1 Step</patchParamValue>
-					<patchParamValue>±1 minor Seventh - 1 Step</patchParamValue>
-					<patchParamValue>±1 major Seventh - 1 Step</patchParamValue>
-					<patchParamValue>±1 Octave - 1 Step</patchParamValue>
-				</patchParamValues>
-			</intParamSpec>
-			<intParamSpec name="Portamento/Glissando">
-				<uuid>09a30322c4d64eb3885855b897aaabec</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="68" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="12" />
-				</paramModel>
-				<min>0</min>
-				<max>1</max>
-				<patchParamValues>
-					<patchParamValue>Portamento</patchParamValue>
-					<patchParamValue>Glissando</patchParamValue>
-				</patchParamValues>
-			</intParamSpec>
-			<intParamSpec name="Mode (Poly/Mono)">
-				<uuid>28b365dea2f54aa9889191695c5d452b</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="67" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="13" />
-				</paramModel>
-				<min>0</min>
-				<max>1</max>
-				<patchParamValues>
-					<patchParamValue>Retain/Fingered</patchParamValue>
-					<patchParamValue>Follow/Full Time</patchParamValue>
-				</patchParamValues>
-			</intParamSpec>
-			<intParamSpec name="Time">
-				<uuid>d4c77f3098ec4ee5892b18c57a6231c4</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="69" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="11" />
-				</paramModel>
-				<min>0</min>
-				<max>99</max>
-			</intParamSpec>
-			<intParamSpec name="Assign">
-				<uuid>958c44bb4fb245ffa1cb1ef273e1be7d</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="71" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="16" />
-				</paramModel>
-				<min>0</min>
-				<max>7</max>
-				<patchParamValues>
-					<patchParamValue>Off</patchParamValue>
-					<patchParamValue>Pitch</patchParamValue>
-					<patchParamValue>Amplitude</patchParamValue>
-					<patchParamValue>Pitch + Amplitude</patchParamValue>
-					<patchParamValue>EG Bias</patchParamValue>
-					<patchParamValue>Pitch + EG Bias</patchParamValue>
-					<patchParamValue>Pitch + Amplitude</patchParamValue>
-					<patchParamValue>Pitch + Amplitude + EG Bias</patchParamValue>
-				</patchParamValues>
-			</intParamSpec>
-			<intParamSpec name="Sensitivity">
-				<uuid>d3872949c23b49fb82ef22dda00c9971</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="70" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="15" />
-				</paramModel>
-				<min>0</min>
-				<max>15</max>
-			</intParamSpec>
-			<intParamSpec name="Assign">
-				<uuid>d75628e1032b4967842f9906b6827813</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="73" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="18" />
-				</paramModel>
-				<min>0</min>
-				<max>7</max>
-				<patchParamValues>
-					<patchParamValue>Off</patchParamValue>
-					<patchParamValue>Pitch</patchParamValue>
-					<patchParamValue>Amplitude</patchParamValue>
-					<patchParamValue>Pitch + Amplitude</patchParamValue>
-					<patchParamValue>EG Bias</patchParamValue>
-					<patchParamValue>Pitch + EG Bias</patchParamValue>
-					<patchParamValue>Pitch + Amplitude</patchParamValue>
-					<patchParamValue>Pitch + Amplitude + EG Bias</patchParamValue>
-				</patchParamValues>
-			</intParamSpec>
-			<intParamSpec name="Sensitivity">
-				<uuid>d4012fa5fda14488a83f5e862658b96c</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="72" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="17" />
-				</paramModel>
-				<min>0</min>
-				<max>15</max>
-			</intParamSpec>
-			<intParamSpec name="Assign">
-				<uuid>07fd875080c340228ae2e3b7881774e6</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="77" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="20" />
-				</paramModel>
-				<min>0</min>
-				<max>7</max>
-				<patchParamValues>
-					<patchParamValue>Off</patchParamValue>
-					<patchParamValue>Pitch</patchParamValue>
-					<patchParamValue>Amplitude</patchParamValue>
-					<patchParamValue>Pitch + Amplitude</patchParamValue>
-					<patchParamValue>EG Bias</patchParamValue>
-					<patchParamValue>Pitch + EG Bias</patchParamValue>
-					<patchParamValue>Pitch + Amplitude</patchParamValue>
-					<patchParamValue>Pitch + Amplitude + EG Bias</patchParamValue>
-				</patchParamValues>
-			</intParamSpec>
-			<intParamSpec name="Sensitivity">
-				<uuid>72709a99d5b94ae08d445fd104647847</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="76" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="19" />
-				</paramModel>
-				<min>0</min>
-				<max>15</max>
-			</intParamSpec>
-			<intParamSpec name="Assign">
-				<uuid>7dee3ae3117149499dc4ca580f96c2b6</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="75" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="22" />
-				</paramModel>
-				<min>0</min>
-				<max>7</max>
-				<patchParamValues>
-					<patchParamValue>Off</patchParamValue>
-					<patchParamValue>Pitch</patchParamValue>
-					<patchParamValue>Amplitude</patchParamValue>
-					<patchParamValue>Pitch + Amplitude</patchParamValue>
-					<patchParamValue>EG Bias</patchParamValue>
-					<patchParamValue>Pitch + EG Bias</patchParamValue>
-					<patchParamValue>Pitch + Amplitude</patchParamValue>
-					<patchParamValue>Pitch + Amplitude + EG Bias</patchParamValue>
-				</patchParamValues>
-			</intParamSpec>
-			<intParamSpec name="Sensitivity">
-				<uuid>a347a4fd17174174aeee2ad0ee0b168e</uuid>
-				<midiSender
-					name="PerformanceSender">
-					<propertyValue key="parameter" value="74" />
-				</midiSender>
-				<paramModel name="defaultParamModel">
-					<propertyValue key="offset" value="21" />
-				</paramModel>
-				<min>0</min>
-				<max>15</max>
-			</intParamSpec>
+			<patchParamGroup name="Pitch Bend">
+				<intParamSpec name="Range">
+					<uuid>8ff925da0b4e43279fce50b59ef63114</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="65" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="9" />
+					</paramModel>
+					<min>0</min>
+					<max>12</max>
+					<patchParamValues>
+						<patchParamValue>Off</patchParamValue>
+						<patchParamValue>perfect First (Unison)</patchParamValue>
+						<patchParamValue>minor Second</patchParamValue>
+						<patchParamValue>major Second</patchParamValue>
+						<patchParamValue>minor Third</patchParamValue>
+						<patchParamValue>major Third</patchParamValue>
+						<patchParamValue>perfect Fourth</patchParamValue>
+						<patchParamValue>perfect Fifth</patchParamValue>
+						<patchParamValue>minor Sixth</patchParamValue>
+						<patchParamValue>major Sixth</patchParamValue>
+						<patchParamValue>minor Seventh</patchParamValue>
+						<patchParamValue>major Seventh</patchParamValue>
+						<patchParamValue>Octave</patchParamValue>
+					</patchParamValues>
+				</intParamSpec>
+				<intParamSpec name="Step">
+					<uuid>72bf04b762534c96b78cab1eb9f58037</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="66" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="10" />
+					</paramModel>
+					<min>0</min>
+					<max>12</max>
+					<patchParamValues>
+						<patchParamValue>Continuous</patchParamValue>
+						<patchParamValue>±1 Octave - 12 Steps</patchParamValue>
+						<patchParamValue>±1 Octave - 6 Steps</patchParamValue>
+						<patchParamValue>±1 Octave - 4 Steps</patchParamValue>
+						<patchParamValue>±1 Octave - 3 Steps</patchParamValue>
+						<patchParamValue>±1 minor Seventh - 2 Steps</patchParamValue>
+						<patchParamValue>±1 Octave - 2 Steps</patchParamValue>
+						<patchParamValue>±1 Fifth - 1 Step</patchParamValue>
+						<patchParamValue>±1 major Fifth - 1 Step</patchParamValue>
+						<patchParamValue>±1 Sixth - 1 Step</patchParamValue>
+						<patchParamValue>±1 minor Seventh - 1 Step</patchParamValue>
+						<patchParamValue>±1 major Seventh - 1 Step</patchParamValue>
+						<patchParamValue>±1 Octave - 1 Step</patchParamValue>
+					</patchParamValues>
+				</intParamSpec>
+			</patchParamGroup>
+			<patchParamGroup name="Portamento">
+				<intParamSpec name="Portamento/Glissando">
+					<uuid>09a30322c4d64eb3885855b897aaabec</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="68" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="12" />
+					</paramModel>
+					<min>0</min>
+					<max>1</max>
+					<patchParamValues>
+						<patchParamValue>Portamento</patchParamValue>
+						<patchParamValue>Glissando</patchParamValue>
+					</patchParamValues>
+				</intParamSpec>
+				<intParamSpec name="Mode (Poly/Mono)">
+					<uuid>28b365dea2f54aa9889191695c5d452b</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="67" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="13" />
+					</paramModel>
+					<min>0</min>
+					<max>1</max>
+					<patchParamValues>
+						<patchParamValue>Retain/Fingered</patchParamValue>
+						<patchParamValue>Follow/Full Time</patchParamValue>
+					</patchParamValues>
+				</intParamSpec>
+				<intParamSpec name="Time">
+					<uuid>d4c77f3098ec4ee5892b18c57a6231c4</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="69" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="11" />
+					</paramModel>
+					<min>0</min>
+					<max>99</max>
+				</intParamSpec>
+			</patchParamGroup>
+			<patchParamGroup name="Modulation Wheel">
+				<intParamSpec name="Assign">
+					<uuid>958c44bb4fb245ffa1cb1ef273e1be7d</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="71" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="16" />
+					</paramModel>
+					<min>0</min>
+					<max>7</max>
+					<patchParamValues>
+						<patchParamValue>Off</patchParamValue>
+						<patchParamValue>Pitch</patchParamValue>
+						<patchParamValue>Amplitude</patchParamValue>
+						<patchParamValue>Pitch + Amplitude</patchParamValue>
+						<patchParamValue>EG Bias</patchParamValue>
+						<patchParamValue>Pitch + EG Bias</patchParamValue>
+						<patchParamValue>Pitch + Amplitude</patchParamValue>
+						<patchParamValue>Pitch + Amplitude + EG Bias</patchParamValue>
+					</patchParamValues>
+				</intParamSpec>
+				<intParamSpec name="Sensitivity">
+					<uuid>d3872949c23b49fb82ef22dda00c9971</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="70" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="15" />
+					</paramModel>
+					<min>0</min>
+					<max>15</max>
+				</intParamSpec>
+			</patchParamGroup>
+			<patchParamGroup name="Foot Controller">
+				<intParamSpec name="Assign">
+					<uuid>d75628e1032b4967842f9906b6827813</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="73" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="18" />
+					</paramModel>
+					<min>0</min>
+					<max>7</max>
+					<patchParamValues>
+						<patchParamValue>Off</patchParamValue>
+						<patchParamValue>Pitch</patchParamValue>
+						<patchParamValue>Amplitude</patchParamValue>
+						<patchParamValue>Pitch + Amplitude</patchParamValue>
+						<patchParamValue>EG Bias</patchParamValue>
+						<patchParamValue>Pitch + EG Bias</patchParamValue>
+						<patchParamValue>Pitch + Amplitude</patchParamValue>
+						<patchParamValue>Pitch + Amplitude + EG Bias</patchParamValue>
+					</patchParamValues>
+				</intParamSpec>
+				<intParamSpec name="Sensitivity">
+					<uuid>d4012fa5fda14488a83f5e862658b96c</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="72" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="17" />
+					</paramModel>
+					<min>0</min>
+					<max>15</max>
+				</intParamSpec>
+			</patchParamGroup>
+			<patchParamGroup name="After Touch">
+				<intParamSpec name="Assign">
+					<uuid>07fd875080c340228ae2e3b7881774e6</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="77" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="20" />
+					</paramModel>
+					<min>0</min>
+					<max>7</max>
+					<patchParamValues>
+						<patchParamValue>Off</patchParamValue>
+						<patchParamValue>Pitch</patchParamValue>
+						<patchParamValue>Amplitude</patchParamValue>
+						<patchParamValue>Pitch + Amplitude</patchParamValue>
+						<patchParamValue>EG Bias</patchParamValue>
+						<patchParamValue>Pitch + EG Bias</patchParamValue>
+						<patchParamValue>Pitch + Amplitude</patchParamValue>
+						<patchParamValue>Pitch + Amplitude + EG Bias</patchParamValue>
+					</patchParamValues>
+				</intParamSpec>
+				<intParamSpec name="Sensitivity">
+					<uuid>72709a99d5b94ae08d445fd104647847</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="76" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="19" />
+					</paramModel>
+					<min>0</min>
+					<max>15</max>
+				</intParamSpec>
+			</patchParamGroup>
+			<patchParamGroup name="Breath Controller">
+				<intParamSpec name="Assign">
+					<uuid>7dee3ae3117149499dc4ca580f96c2b6</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="75" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="22" />
+					</paramModel>
+					<min>0</min>
+					<max>7</max>
+					<patchParamValues>
+						<patchParamValue>Off</patchParamValue>
+						<patchParamValue>Pitch</patchParamValue>
+						<patchParamValue>Amplitude</patchParamValue>
+						<patchParamValue>Pitch + Amplitude</patchParamValue>
+						<patchParamValue>EG Bias</patchParamValue>
+						<patchParamValue>Pitch + EG Bias</patchParamValue>
+						<patchParamValue>Pitch + Amplitude</patchParamValue>
+						<patchParamValue>Pitch + Amplitude + EG Bias</patchParamValue>
+					</patchParamValues>
+				</intParamSpec>
+				<intParamSpec name="Sensitivity">
+					<uuid>a347a4fd17174174aeee2ad0ee0b168e</uuid>
+					<midiSender name="PerformanceSender">
+						<propertyValue key="parameter" value="74" />
+					</midiSender>
+					<paramModel name="defaultParamModel">
+						<propertyValue key="offset" value="21" />
+					</paramModel>
+					<min>0</min>
+					<max>15</max>
+				</intParamSpec>
+			</patchParamGroup>
 		</patchParamGroup>
 	</patchParams>
 </xmlSingleDriverDefinition>

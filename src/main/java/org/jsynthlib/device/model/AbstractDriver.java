@@ -343,9 +343,9 @@ public abstract class AbstractDriver implements IDriver {
         }
     }
 
-    // MIDI in/out mothods to encapsulate lower MIDI layer
+    // MIDI in/out methods to encapsulate lower MIDI layer
     @Override
-    public final void send(MidiMessage msg) {
+    public void send(MidiMessage msg) {
         getDevice().send(msg);
     }
 
@@ -394,8 +394,7 @@ public abstract class AbstractDriver implements IDriver {
                 fixPatchDevice = deviceManager.getDevice(i);
             }
 
-            for (int j = 0; j < fixPatchDevice.driverCount(); j++) {
-                IDriver d = fixPatchDevice.getDriver(j);
+            for (IDriver d : fixPatchDevice) {
                 if (d instanceof AbstractPatchDriver
                         && d.supportsPatch(patchString, sysex)) {
                     // driver found
@@ -403,11 +402,11 @@ public abstract class AbstractDriver implements IDriver {
                     pk.setDriver(driver);
                     driver.trimSysex(pk);
                     JOptionPane
-                            .showMessageDialog(null, "You requested a "
-                                    + driver.toString() + " patch!"
-                                    + "\nBut you got a "
-                                    + pk.getDriver().toString() + " patch.",
-                                    "Warning", JOptionPane.WARNING_MESSAGE);
+                    .showMessageDialog(null, "You requested a "
+                            + driver.toString() + " patch!"
+                            + "\nBut you got a "
+                            + pk.getDriver().toString() + " patch.",
+                            "Warning", JOptionPane.WARNING_MESSAGE);
                     return pk;
                 }
             } // end of driver (j) loop
@@ -422,7 +421,7 @@ public abstract class AbstractDriver implements IDriver {
                 "You requested a " + this.toString() + " patch!"
                         + "\nBut you got a not supported patch!\n"
                         + pk.getComment(), "Warning",
-                JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE);
         return pk;
     }
 
@@ -444,7 +443,8 @@ public abstract class AbstractDriver implements IDriver {
         return getDevice().getSynthName();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#getDeviceID()
      */
     @Override
@@ -501,7 +501,8 @@ public abstract class AbstractDriver implements IDriver {
      *            offset of the checksum data
      * @see #calculateChecksum(Patch)
      */
-    protected final void calculateChecksum(Patch patch, int start, int end, int offset) {
+    protected final void calculateChecksum(Patch patch, int start, int end,
+            int offset) {
         calculateChecksum(patch.sysex, start, end, offset);
     }
 
@@ -535,13 +536,13 @@ public abstract class AbstractDriver implements IDriver {
         try {
             ShortMessage msg = new ShortMessage();
             msg.setMessage(ShortMessage.CONTROL_CHANGE, getChannel() - 1, 0x00, // Bank
-                                                                                // Select
-                                                                                // (MSB)
+                    // Select
+                    // (MSB)
                     bankNum / 128); // Bank Number (MSB)
             send(msg);
             msg.setMessage(ShortMessage.CONTROL_CHANGE, getChannel() - 1, 0x20, // Bank
-                                                                                // Select
-                                                                                // (LSB)
+                    // Select
+                    // (LSB)
                     bankNum % 128); // Bank Number (MSB)
             send(msg);
         } catch (InvalidMidiDataException e) {
@@ -700,7 +701,8 @@ public abstract class AbstractDriver implements IDriver {
          */
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#getSysexID()
      */
     @Override
@@ -708,7 +710,8 @@ public abstract class AbstractDriver implements IDriver {
         return sysexID;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#setSysexID(java.lang.String)
      */
     @Override
@@ -716,7 +719,8 @@ public abstract class AbstractDriver implements IDriver {
         this.sysexID = sysexID;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#getDeviceIDoffset()
      */
     @Override
@@ -724,7 +728,8 @@ public abstract class AbstractDriver implements IDriver {
         return deviceIDoffset;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#setDeviceIDoffset(int)
      */
     @Override
@@ -732,7 +737,8 @@ public abstract class AbstractDriver implements IDriver {
         this.deviceIDoffset = deviceIDoffset;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#getSysexRequestDump()
      */
     @Override
@@ -740,15 +746,19 @@ public abstract class AbstractDriver implements IDriver {
         return sysexRequestDump;
     }
 
-    /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.IDriver#setSysexRequestDump(org.jsynthlib.device.model.SysexHandler)
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jsynthlib.device.model.IDriver#setSysexRequestDump(org.jsynthlib.
+     * device.model.SysexHandler)
      */
     @Override
     public void setSysexRequestDump(SysexHandler sysexRequestDump) {
         this.sysexRequestDump = sysexRequestDump;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#getChecksumOffset()
      */
     @Override
@@ -756,7 +766,8 @@ public abstract class AbstractDriver implements IDriver {
         return checksumOffset;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#setChecksumOffset(int)
      */
     @Override
@@ -764,7 +775,8 @@ public abstract class AbstractDriver implements IDriver {
         this.checksumOffset = checksumOffset;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#getChecksumStart()
      */
     @Override
@@ -772,7 +784,8 @@ public abstract class AbstractDriver implements IDriver {
         return checksumStart;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#setChecksumStart(int)
      */
     @Override
@@ -780,7 +793,8 @@ public abstract class AbstractDriver implements IDriver {
         this.checksumStart = checksumStart;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#getChecksumEnd()
      */
     @Override
@@ -788,7 +802,8 @@ public abstract class AbstractDriver implements IDriver {
         return checksumEnd;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#setChecksumEnd(int)
      */
     @Override
@@ -796,7 +811,8 @@ public abstract class AbstractDriver implements IDriver {
         this.checksumEnd = checksumEnd;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#getPatchNameStart()
      */
     @Override
@@ -804,7 +820,8 @@ public abstract class AbstractDriver implements IDriver {
         return patchNameStart;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#setPatchNameStart(int)
      */
     @Override
@@ -812,7 +829,8 @@ public abstract class AbstractDriver implements IDriver {
         this.patchNameStart = patchNameStart;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#getTrimSize()
      */
     @Override
@@ -820,7 +838,8 @@ public abstract class AbstractDriver implements IDriver {
         return trimSize;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#setTrimSize(int)
      */
     @Override
@@ -828,7 +847,8 @@ public abstract class AbstractDriver implements IDriver {
         this.trimSize = trimSize;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#setPatchSize(int)
      */
     @Override
@@ -836,23 +856,28 @@ public abstract class AbstractDriver implements IDriver {
         this.patchSize = patchSize;
     }
 
-    /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.IDriver#setPatchNumbers(java.lang.String[])
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jsynthlib.device.model.IDriver#setPatchNumbers(java.lang.String[])
      */
     @Override
     public void setPatchNumbers(String[] patchNumbers) {
         this.patchNumbers = patchNumbers;
     }
 
-    /* (non-Javadoc)
-     * @see org.jsynthlib.device.model.IDriver#setBankNumbers(java.lang.String[])
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jsynthlib.device.model.IDriver#setBankNumbers(java.lang.String[])
      */
     @Override
     public void setBankNumbers(String[] bankNumbers) {
         this.bankNumbers = bankNumbers;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.jsynthlib.device.model.IDriver#setPatchNameSize(int)
      */
     @Override

@@ -2,6 +2,7 @@ package org.jsynthlib.device.model;
 
 import java.awt.Frame;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.prefs.Preferences;
 
@@ -57,7 +58,7 @@ import org.jsynthlib.midi.service.MidiService;
  * @version $Id: Device.java 1162 2011-09-24 16:02:04Z frankster $
  * @see IDriver
  */
-public abstract class Device /* implements Serializable, Storable */{
+public abstract class Device implements Iterable<IDriver> {
 
     private final transient Logger log = Logger.getLogger(getClass());
 
@@ -89,7 +90,7 @@ public abstract class Device /* implements Serializable, Storable */{
     /** set to true when initialization of MIDI output is done. */
     private boolean initPort = false;
     /** MIDI output Receiver */
-//    private Receiver rcvr;
+    // private Receiver rcvr;
     /** set to true when initialization of MIDI input is done. */
     private boolean initInPort = false;
     /**
@@ -384,6 +385,11 @@ public abstract class Device /* implements Serializable, Storable */{
         driverList.add(driver);
     }
 
+    @Override
+    public final Iterator<IDriver> iterator() {
+        return driverList.iterator();
+    }
+
     /** Size query for driverList. */
     public final int driverCount() {
         return this.driverList.size();
@@ -392,16 +398,6 @@ public abstract class Device /* implements Serializable, Storable */{
     /** Indexed getter for driverList elements. */
     public final IDriver getDriver(int i) {
         return this.driverList.get(i);
-    }
-
-    /** Returns the index of a Driver */
-    final int getDriverNum(IDriver drv) {
-        return driverList.indexOf(drv);
-    }
-
-    /** Remover for driverList elements. */
-    final IDriver removeDriver(int i) {
-        return this.driverList.remove(i);
     }
 
     /** getter for device number. */
@@ -418,7 +414,7 @@ public abstract class Device /* implements Serializable, Storable */{
         di = getOutPortName();
         StringBuilder sb = new StringBuilder();
         sb.append(getManufacturerName()).append(" ").append(getModelName())
-                .append(" <");
+        .append(" <");
         sb.append(getSynthName()).append(">  -  MIDI Out Port: ");
         if (di.isEmpty()) {
             sb.append("None");

@@ -85,10 +85,10 @@ public class DeviceFactoryImpl implements DeviceFactory {
                     c = XMLDevice.class;
                 }
                 Class<?>[] args = {
-                    XmlDeviceDefinition.class };
+                        XmlDeviceDefinition.class };
                 Constructor<? extends XMLDevice> con = c.getConstructor(args);
                 device = con.newInstance(new Object[] {
-                    deviceDefinition });
+                        deviceDefinition });
                 JSynthLibInjector.getInjector().injectMembers(device);
                 XmlDriverReferences drivers = deviceDefinition.getDrivers();
 
@@ -120,9 +120,7 @@ public class DeviceFactoryImpl implements DeviceFactory {
             if (!deviceList.contains(device)) {
                 device.setup(preferences);
                 deviceList.add(device); // always returns true
-                int driverCount = device.driverCount();
-                for (int i = 0; i < driverCount; i++) {
-                    IDriver driver = device.getDriver(i);
+                for (IDriver driver : device) {
                     DriverBeanUtil.copyPreferences(driver);
                 }
             }

@@ -32,7 +32,7 @@ import org.jsynthlib.device.model.IDriver;
  */
 public class DriverIdentifierImpl implements DriverIdentifier {
 
-    private DeviceManager deviceManager;
+    private final DeviceManager deviceManager;
 
     @Inject
     public DriverIdentifierImpl(DeviceManager deviceManager) {
@@ -46,14 +46,14 @@ public class DriverIdentifierImpl implements DriverIdentifier {
      * @return Driver object chosen
      * @see IDriver#supportsPatch
      */
+    @Override
     public IDriver chooseDriver(byte[] sysex) {
         String patchString = getPatchHeader(sysex);
 
         for (int idev = 0; idev < deviceManager.deviceCount(); idev++) {
             // Outer Loop, iterating over all installed devices
             Device dev = deviceManager.getDevice(idev);
-            for (int idrv = 0; idrv < dev.driverCount(); idrv++) {
-                IDriver drv = dev.getDriver(idrv);
+            for (IDriver drv : dev) {
                 // Inner Loop, iterating over all Drivers of a device
                 if (drv.supportsPatch(patchString, sysex)) {
                     return drv;
@@ -73,10 +73,10 @@ public class DriverIdentifierImpl implements DriverIdentifier {
      * @return Driver object chosen
      * @see IDriver#supportsPatch
      */
+    @Override
     public IDriver chooseDriver(byte[] sysex, Device dev) {
         String patchString = getPatchHeader(sysex);
-        for (int idrv = 0; idrv < dev.driverCount(); idrv++) {
-            IDriver drv = dev.getDriver(idrv);
+        for (IDriver drv : dev) {
             // Inner Loop, iterating over all Drivers of a device
             if (drv.supportsPatch(patchString, sysex)) {
                 return drv;
@@ -90,6 +90,7 @@ public class DriverIdentifierImpl implements DriverIdentifier {
      * IDriver.suppportsPatch} at most 16 byte sysex data.
      * @see IDriver#supportsPatch
      */
+    @Override
     public String getPatchHeader(byte[] sysex) {
         StringBuffer patchstring = new StringBuffer("F0");
 

@@ -124,25 +124,26 @@ public class DevDrvPatchSelector extends JDialog {
         // ----- Populate the combo boxes only with devices, which supports the
         // patch
         int nDriver = 0;
-        DeviceManager deviceManager = JSynthLibInjector.getInstance(DeviceManager.class);
+        DeviceManager deviceManager =
+                JSynthLibInjector.getInstance(DeviceManager.class);
         for (int i = 0; i < deviceManager.deviceCount(); i++) {
             Device device = deviceManager.getDevice(i);
             boolean newDevice = true;
-            for (int j = 0, m = 0; j < device.driverCount(); j++) {
-                IDriver driver = device.getDriver(j);
+            int m = 0;
+            for (IDriver driver : device) {
                 if ((driver.isSingleDriver() || driver.isBankDriver())
                         && (driver.supportsPatch(patchString, sysex))) {
                     if (newDevice) { // only one entry for each supporting
-                                     // device
+                        // device
                         deviceComboBox.addItem(device);
                         newDevice = false;
                     }
                     if (p.getDriver() == driver) { // default is the driver
-                                                   // associated with patch
+                        // associated with patch
                         driverNum = m;
                         deviceComboBox.setSelectedIndex(deviceComboBox
                                 .getItemCount() - 1); // invoke
-                                                      // DeviceActionListener
+                        // DeviceActionListener
                     }
                     nDriver++;
                     m++;
@@ -239,8 +240,7 @@ public class DevDrvPatchSelector extends JDialog {
 
             Device device = (Device) deviceComboBox.getSelectedItem();
             int nDriver = 0;
-            for (int i = 0; i < device.driverCount(); i++) {
-                IDriver driver = device.getDriver(i);
+            for (IDriver driver : device) {
                 if ((driver.isSingleDriver() || driver.isBankDriver())
                         && driver.supportsPatch(patchString, sysex)) {
                     driverComboBox.addItem(driver);
@@ -263,8 +263,7 @@ public class DevDrvPatchSelector extends JDialog {
         @Override
         public void actionPerformed(ActionEvent evt) {
 
-            IDriver driver =
-                    (IDriver) driverComboBox.getSelectedItem();
+            IDriver driver = (IDriver) driverComboBox.getSelectedItem();
             bankComboBox.removeAllItems();
             patchNumComboBox.removeAllItems();
 

@@ -1,4 +1,4 @@
-package org.jsynthlib.utils.ctrlr.factory;
+package org.jsynthlib.utils.ctrlr.builder;
 
 import java.awt.Rectangle;
 
@@ -8,9 +8,9 @@ import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiTabsTabType;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 
-public class UiTabFactory extends CtrlrComponentFactory<PatchParamGroup[]> {
+public class UiTabBuilder extends CtrlrComponentBuilder<PatchParamGroup[]> {
 
-    public UiTabFactory(PatchParamGroup[] object) {
+    public UiTabBuilder(PatchParamGroup[] object) {
         super(object);
     }
 
@@ -19,6 +19,8 @@ public class UiTabFactory extends CtrlrComponentFactory<PatchParamGroup[]> {
             int vstIndex, Rectangle rect) {
         ModulatorType modulator = createModulator(panel, "tabs");
         ComponentType component = modulator.addNewComponent();
+        setLabelVisible(false);
+        setDefaultComponentFields(component, group, "", panel);
         component.setUiTabsCurrentTabChanged("tabChanged");
         component.setUiTabsDepth(24);
         component.setUiTabsOutlineThickness(2);

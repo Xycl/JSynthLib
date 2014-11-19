@@ -66,7 +66,7 @@ public class SysexGetDialog extends JDialog {
     // --------------------------------------------------------------------------
 
     public SysexGetDialog(JFrame parent) { // , Driver driver, int bankNum, int
-                                           // patchNum) {
+        // patchNum) {
         super(parent, "Get Sysex Data", true);
 
         JPanel dialogPanel = new JPanel(new BorderLayout(5, 5));
@@ -92,16 +92,15 @@ public class SysexGetDialog extends JDialog {
         // First Populate the Device/Driver List with all Device/Driver
         // combinations except converters
         // skip 0 (Generic Device)
-        DeviceManager deviceManager = JSynthLibInjector.getInstance(DeviceManager.class);
+        DeviceManager deviceManager =
+                JSynthLibInjector.getInstance(DeviceManager.class);
         for (int i = 1; i < deviceManager.deviceCount(); i++) {
             Device device = deviceManager.getDevice(i);
-            for (int j = 0; j < device.driverCount(); j++) {
-                IDriver driver = device.getDriver(j);
-                if (driver.isSingleDriver() || driver.isBankDriver()) { // Skipping
-                                                                        // a
-                                                                        // converter
+            for (IDriver driver : device) {
+                // Skipping converters
+                if (driver.isSingleDriver() || driver.isBankDriver()) {
                     deviceComboBox.addItem(device);
-                    break;
+                break;
                 }
             }
         }
@@ -227,8 +226,7 @@ public class SysexGetDialog extends JDialog {
             driverComboBox.removeAllItems();
 
             Device device = (Device) deviceComboBox.getSelectedItem();
-            for (int i = 0; i < device.driverCount(); i++) {
-                IDriver driver = device.getDriver(i);
+            for (IDriver driver : device) {
                 if (driver.isSingleDriver() || driver.isBankDriver()) {
                     driverComboBox.addItem(driver);
                 }
@@ -244,8 +242,7 @@ public class SysexGetDialog extends JDialog {
     public class DriverActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            IDriver driver =
-                    (IDriver) driverComboBox.getSelectedItem();
+            IDriver driver = (IDriver) driverComboBox.getSelectedItem();
             // log.info("DriverActionListener->actionPerformed:" +
             // driver);
             if (driver == null) {
@@ -296,8 +293,7 @@ public class SysexGetDialog extends JDialog {
     public class GetActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            IDriver driver =
-                    (IDriver) driverComboBox.getSelectedItem();
+            IDriver driver = (IDriver) driverComboBox.getSelectedItem();
             int bankNum = bankNumComboBox.getSelectedIndex();
             int patchNum = patchNumComboBox.getSelectedIndex();
             inPort = driver.getDevice().getInPort();

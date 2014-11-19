@@ -1,4 +1,4 @@
-package org.jsynthlib.utils.ctrlr;
+package org.jsynthlib.utils.ctrlr.impl;
 
 import java.awt.Rectangle;
 

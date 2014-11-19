@@ -1,23 +1,33 @@
-package org.jsynthlib.utils.ctrlr.factory;
+package org.jsynthlib.utils.ctrlr.builder;
 
+import java.io.File;
+import java.util.Base64;
+import java.util.Random;
+
+import org.apache.log4j.Logger;
 import org.ctrlr.panel.PanelDocument;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiPanelCanvasLayerType;
 import org.ctrlr.panel.UiPanelEditorType;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 
-public class CtrlrPanelFactory {
+public class CtrlrPanelBuilder {
+
+    private final transient Logger log = Logger.getLogger(getClass());
 
     public PanelType newPanel(PanelDocument panelDocument,
             XmlDeviceDefinition xmldevice) {
         PanelType panel = panelDocument.addNewPanel();
-        panel.setName("Oberheim - Matrix 1000");
+        StringBuilder nameBuilder = new StringBuilder();
+        nameBuilder.append(xmldevice.getManufacturer()).append(" - ")
+                .append(xmldevice.getModelName());
+        panel.setName(nameBuilder.toString());
         panel.setPanelShowDialogs(1);
         panel.setPanelMessageTime(10000);
-        panel.setPanelAuthorName("Roman Kubiak");
+        panel.setPanelAuthorName(xmldevice.getAuthors());
         panel.setPanelAuthorEmail("kubiak.roman@gmail.com");
         panel.setPanelAuthorUrl("http://ctrlr.org");
-        panel.setPanelAuthorDesc("Skeleton panel for Oberheim Matrix 1000");
+        panel.setPanelAuthorDesc(xmldevice.getInfoText());
         panel.setPanelVersionMajor(1);
         panel.setPanelVersionMinor(0);
         panel.setPanelVersionName("Hell-O-Kitty");
@@ -64,7 +74,10 @@ public class CtrlrPanelFactory {
         panel.setLuaPanelMessageHandler("-- None");
         panel.setLuaPanelModulatorValueChanged("-- None");
         panel.setPanelFilePath("/home/r.kubiak/devel/ctrlr/panels/Oberheim - Matrix 1000.z");
-        panel.setPanelUID("8.I4U4PO.mNLH");
+        String panelUid = generateRandomUnique(nameBuilder.toString());
+        panel.setPanelUID(panelUid);
+        createPanelDir(panelUid);
+
         panel.setPanelInstanceUID("HryD");
         panel.setPanelInstanceManufacturerID("sbza");
         panel.setPanelModulatorListColumns("<TABLELAYOUT sortedCol=\"560\" sortForwards=\"1\"><COLUMN id=\"560\" visible=\"1\" width=\"330\"/><COLUMN id=\"1\" visible=\"1\" width=\"290\"/><COLUMN id=\"559\" visible=\"1\" width=\"290\"/><COLUMN id=\"561\" visible=\"1\" width=\"157\"/><COLUMN id=\"507\" visible=\"1\" width=\"504\"/></TABLELAYOUT>");
@@ -73,7 +86,6 @@ public class CtrlrPanelFactory {
         panel.setPanelModulatorListXmlModulator("ctrlrModulator");
         panel.setPanelModulatorListSortOption(1);
         panel.setPanelGlobalVariables("0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:2:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0");
-        panel.setPanelResources("");
         panel.setPanelPropertyDisplayIDs(0);
         panel.setCtrlrMenuItemBackgroundColour("ffffffff");
         panel.setCtrlrMenuItemTextColour("ff000000");
@@ -101,6 +113,34 @@ public class CtrlrPanelFactory {
         return panel;
     }
 
+    void createPanelDir(String panelUid) {
+        String appDataPath = System.getenv("APPDATA");
+        File appData = new File(appDataPath);
+        File ctrlr = new File(appData, "Ctrlr");
+        File panelFolder = new File(ctrlr, panelUid);
+        if (panelFolder.exists()) {
+            if (panelFolder.isDirectory()) {
+                log.debug("Found existing panel folder: "
+                        + panelFolder.getAbsolutePath());
+                return;
+            } else {
+                panelFolder.delete();
+            }
+        }
+
+        log.info("Creating panel folder " + panelFolder.getAbsolutePath());
+        panelFolder.mkdir();
+    }
+
+    String generateRandomUnique(String randomData) {
+        // long t = System.currentTimeMillis();
+        Random random = new Random(randomData.hashCode());
+
+        long nextLong = random.nextLong();
+        byte[] bytes = Long.toString(nextLong).getBytes();
+        return new String(Base64.getEncoder().encode(bytes));
+    }
+
     // TODO: add libraries and midi handling
     void addWindowManager(PanelType panel) {
         panel.addNewUiWindowManager(); // UiWindowManagerType windowManager = a
@@ -116,7 +156,7 @@ public class CtrlrPanelFactory {
     }
 
     void addPanelResources(PanelType panel) {
-        // panel.add
+        panel.addNewPanelResources();
     }
 
     void addUiPanelEditor(PanelType panel) {

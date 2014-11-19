@@ -1,6 +1,5 @@
 package org.jsynthlib.utils.ctrlr;
 
-import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,20 +8,20 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
-import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
-import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelDocument;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.factory.CtrlrComponentFactory;
-import org.jsynthlib.utils.ctrlr.factory.CtrlrComponentFactoryFactory;
-import org.jsynthlib.utils.ctrlr.factory.CtrlrPanelFactory;
-import org.jsynthlib.xmldevice.PatchParamGroup;
-import org.jsynthlib.xmldevice.PatchParams;
+import org.jsynthlib.device.model.DeviceException;
+import org.jsynthlib.inject.JSynthLibInjector;
+import org.jsynthlib.utils.ctrlr.builder.CtrlrPanelBuilder;
+import org.jsynthlib.utils.ctrlr.impl.SysexFormulaParserImpl;
+import org.jsynthlib.utils.ctrlr.impl.XmlDriverEditorParser;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 import org.jsynthlib.xmldevice.XmlDriverReferences;
 import org.jsynthlib.xmldevice.XmlDriverReferences.XmlDriverReference;
+
+import com.google.inject.Injector;
 
 public class CtrlrPanelGenerator {
 
@@ -70,52 +69,60 @@ public class CtrlrPanelGenerator {
     private final String packageName;
     private final String fileNamePrefix;
     private final File outDir;
-    private int vstIndex;
     private final ClassLoader classLoader;
     private final PanelDocument panelDocument;
     private PanelType panel;
-    private final GroupPositionHandler positionHandler;
-    private final CtrlrComponentFactoryFactory componentFactoryFactory;
+    private final Injector injector;
+    private final XmlDriverEditorParserFactory parserFactory;
+    private final SysexFormulaParser sysexParser;
 
     CtrlrPanelGenerator(String packageName, String fileNamePrefix, File outDir) {
         this.packageName = packageName;
         this.fileNamePrefix = fileNamePrefix;
         this.outDir = outDir;
-        this.vstIndex = 0;
         classLoader = getClass().getClassLoader();
         panelDocument = PanelDocument.Factory.newInstance();
-        positionHandler = new GroupPositionHandler(1000);
-        componentFactoryFactory = new CtrlrComponentFactoryFactory();
+        injector =
+                JSynthLibInjector.getInjector().createChildInjector(
+                        new CtrlrGeneratorModule());
+        parserFactory =
+                injector.getInstance(XmlDriverEditorParserFactory.class);
+        sysexParser = injector.getInstance(SysexFormulaParserImpl.class);
     }
 
-    String getXmlfilePath(String className) {
-        return className.replace('.', '/') + ".xml";
-    }
-
-    void generatePanel() throws XmlException, IOException {
+    void generatePanel() throws XmlException, IOException, DeviceException {
+        String className = packageName + "." + fileNamePrefix;
+        XmlOptions xmlOptions = new XmlOptions();
+        xmlOptions.setLoadStripWhitespace();
         InputStream stream =
-                classLoader.getResourceAsStream(getXmlfilePath(packageName
-                        + "." + fileNamePrefix));
+                classLoader.getResourceAsStream(className.replace('.', '/')
+                        + ".xml");
         XmlDeviceDefinitionDocument document =
-                XmlDeviceDefinitionDocument.Factory.parse(stream);
+                XmlDeviceDefinitionDocument.Factory.parse(stream, xmlOptions);
         XmlDeviceDefinition xmldevice = document.getXmlDeviceDefinition();
-        CtrlrPanelFactory panelFactory = new CtrlrPanelFactory();
+        sysexParser.setDeviceDefinition(xmldevice);
+        CtrlrPanelBuilder panelFactory = new CtrlrPanelBuilder();
         panel = panelFactory.newPanel(panelDocument, xmldevice);
 
         XmlDriverReferences xmldrivers = xmldevice.getDrivers();
         XmlDriverReference[] xmldriverArray =
                 xmldrivers.getXmlDriverReferenceArray();
+        boolean foundEditor = false;
         for (XmlDriverReference xmldriver : xmldriverArray) {
             switch (xmldriver.getDriverType().intValue()) {
             case XmlDriverReference.DriverType.INT_PATCH:
                 String driverClass = xmldriver.getDriverClass();
                 XmlDriverEditorParser editorParser =
-                        new XmlDriverEditorParser(driverClass, panel);
+                        parserFactory.create(driverClass, panel);
                 editorParser.parseJFX();
+                foundEditor = true;
                 break;
             default:
                 LOG.warn("Unsupported driver type: "
                         + xmldriver.getDriverType().toString());
+                break;
+            }
+            if (foundEditor) {
                 break;
             }
         }
@@ -133,39 +140,8 @@ public class CtrlrPanelGenerator {
 
         options.setSaveNamespacesFirst();
         options.setSavePrettyPrint();
-        File outFile = new File(outDir, "panel.panel");
+        File outFile = new File(outDir, fileNamePrefix + ".panel");
         LOG.info("Saving document to " + outFile.getAbsolutePath());
         panelDocument.save(outFile, options);
-    }
-
-    void generateModulatorsRecursive(PatchParams patchParams,
-            ModulatorType group) throws XmlException, IOException {
-        String query =
-                "declare namespace jsl='http://www.jsynthlib.org/xmldevice';"
-                        + "$this/*";
-        XmlObject[] xmlObjects = patchParams.selectPath(query);
-
-        for (XmlObject xmlObject : xmlObjects) {
-            CtrlrComponentFactory<? extends Object> factory =
-                    componentFactoryFactory.newFactory(xmlObject);
-            if (factory == null) {
-                // LOG.debug("Could not find factory for object type "
-                // + xmlObject.getClass().getName());
-            } else {
-                if (xmlObject instanceof PatchParamGroup) {
-                    generateModulatorsRecursive((PatchParamGroup) xmlObject,
-                            group);
-                } else {
-                    Rectangle bounds = positionHandler.getNextRectangle();
-                    ModulatorType modulator =
-                            factory.createComponent(panel, group, vstIndex++,
-                                    bounds);
-                    // LOG.debug("Added " + modulator.getClass().getName()
-                    // + " at " + bounds.toString());
-
-                    positionHandler.addNewModulator(modulator);
-                }
-            }
-        }
     }
 }

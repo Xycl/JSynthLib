@@ -67,38 +67,38 @@
 				<min>0</min>
 				<max>31</max>
 				<patchParamResources>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo01.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo02.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo03.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo04.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo05.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo06.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo07.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo08.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo09.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo10.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo11.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo12.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo13.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo14.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo15.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo16.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo17.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo18.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo19.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo20.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo21.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo22.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo23.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo24.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo25.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo26.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo27.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo28.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo29.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo30.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo31.gif</patchParamResource>
-					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo32.gif</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo01.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo02.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo03.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo04.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo05.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo06.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo07.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo08.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo09.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo10.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo11.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo12.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo13.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo14.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo15.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo16.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo17.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo18.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo19.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo20.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo21.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo22.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo23.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo24.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo25.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo26.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo27.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo28.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo29.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo30.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo31.png</patchParamResource>
+					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo32.png</patchParamResource>
 				</patchParamResources>
 			</intParamSpec>
 			<combinedgroup>

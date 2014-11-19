@@ -1,4 +1,4 @@
-package org.jsynthlib.utils.ctrlr.factory;
+package org.jsynthlib.utils.ctrlr.builder;
 
 import java.awt.Rectangle;
 import java.util.HashSet;
@@ -6,20 +6,27 @@ import java.util.Set;
 
 import javafx.geometry.Bounds;
 
+import org.ctrlr.panel.ComponentLabelPositionType;
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.MidiType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiTabsTabType;
 
-public abstract class CtrlrComponentFactory<T extends Object> {
+public abstract class CtrlrComponentBuilder<T extends Object> {
     private static final Set<String> NAME_CACHE = new HashSet<String>();
 
     protected final T object;
     private Bounds parentAbsoluteBounds;
+    private ComponentLabelPositionType.Enum labelPosition;
+    private String valueExpression;
+    private boolean labelVisible;
 
-    protected CtrlrComponentFactory(T object) {
+    protected CtrlrComponentBuilder(T object) {
         this.object = object;
+        labelPosition = ComponentLabelPositionType.TOP;
+        valueExpression = "modulatorValue";
+        labelVisible = true;
     }
 
     public abstract ModulatorType createComponent(PanelType panel,
@@ -66,7 +73,7 @@ public abstract class CtrlrComponentFactory<T extends Object> {
         modulator.setModulatorGlobalVariable(-1);
         modulator.setModulatorMuteOnStart(0);
         modulator.setModulatorExcludeFromSnapshot(0);
-        modulator.setModulatorValueExpression("setModulatorValue");
+        modulator.setModulatorValueExpression(valueExpression);
         modulator.setModulatorValueExpressionReverse("midiValue");
         modulator.setLuaModulatorGetValueForMIDI("-- None");
         modulator.setLuaModulatorGetValueFromMIDI("-- None");
@@ -84,7 +91,8 @@ public abstract class CtrlrComponentFactory<T extends Object> {
         return modulator;
     }
 
-    protected void createMidiElement(ModulatorType modulator) {
+    protected void createMidiElement(ModulatorType modulator,
+            String sysexFormula) {
         MidiType midiType = modulator.addNewMidi();
         midiType.setMidiMessageType(5);
         midiType.setMidiMessageChannelOverride(0);
@@ -92,7 +100,7 @@ public abstract class CtrlrComponentFactory<T extends Object> {
         midiType.setMidiMessageCtrlrNumber(1);
         midiType.setMidiMessageCtrlrValue(0);
         midiType.setMidiMessageMultiList("");
-        midiType.setMidiMessageSysExFormula("F0 10 06 06 00 xx F7");
+        midiType.setMidiMessageSysExFormula(sysexFormula);
     }
 
     protected String getUniqueName(String paramName) {
@@ -110,13 +118,13 @@ public abstract class CtrlrComponentFactory<T extends Object> {
         }
     }
 
-    protected void setDefaultModulatorFields(ComponentType component,
+    protected void setDefaultComponentFields(ComponentType component,
             ModulatorType group, String name, PanelType panel) {
-        component.setComponentLabelPosition("top");
+        component.setComponentLabelPosition(labelPosition);
         component.setComponentLabelJustification("center");
         component.setComponentLabelHeight(14);
         component.setComponentLabelWidth(0);
-        component.setComponentLabelVisible(1);
+        component.setComponentLabelVisible(labelVisible ? 1 : 0);
         component.setComponentLabelAlwaysOnTop(1);
         component.setComponentSentBack(0);
         component.setComponentLabelColour("0xff000000");
@@ -184,5 +192,30 @@ public abstract class CtrlrComponentFactory<T extends Object> {
 
     public void setParentAbsoluteBounds(Bounds parentAbsoluteBounds) {
         this.parentAbsoluteBounds = parentAbsoluteBounds;
+    }
+
+    protected ComponentLabelPositionType.Enum getLabelPosition() {
+        return labelPosition;
+    }
+
+    protected void setLabelPosition(
+            ComponentLabelPositionType.Enum labelPosition) {
+        this.labelPosition = labelPosition;
+    }
+
+    protected String getValueExpression() {
+        return valueExpression;
+    }
+
+    protected void setValueExpression(String valueExpression) {
+        this.valueExpression = valueExpression;
+    }
+
+    protected boolean isLabelVisible() {
+        return labelVisible;
+    }
+
+    protected void setLabelVisible(boolean labelVisible) {
+        this.labelVisible = labelVisible;
     }
 }

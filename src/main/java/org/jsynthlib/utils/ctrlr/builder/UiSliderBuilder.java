@@ -1,25 +1,31 @@
-package org.jsynthlib.utils.ctrlr.factory;
+package org.jsynthlib.utils.ctrlr.builder;
 
 import java.awt.Rectangle;
 
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
+import org.jsynthlib.utils.ctrlr.SliderSpecWrapper;
+import org.jsynthlib.utils.ctrlr.SysexFormulaParser;
 import org.jsynthlib.xmldevice.IntParamSpec;
 
-public class UiSliderFactory extends CtrlrComponentFactory<IntParamSpec> {
+public class UiSliderBuilder extends CtrlrMidiComponentBuilder {
 
     private final int width;
     private final int height;
+    private int sliderValuePosition;
 
-    public UiSliderFactory(IntParamSpec object) {
-        this(object, 31, 73);
+    public UiSliderBuilder(IntParamSpec object, SysexFormulaParser formulaParser) {
+        this(SliderSpecWrapper.Factory.newWrapper(object), 31, 73,
+                formulaParser);
     }
 
-    protected UiSliderFactory(IntParamSpec object, int width, int height) {
-        super(object);
+    protected UiSliderBuilder(SliderSpecWrapper object, int width, int height,
+            SysexFormulaParser formulaParser) {
+        super(object, formulaParser);
         this.width = width;
         this.height = height;
+        this.sliderValuePosition = 4;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class UiSliderFactory extends CtrlrComponentFactory<IntParamSpec> {
 
         createMidiElement(modulator);
         ComponentType component = modulator.addNewComponent();
-        setDefaultModulatorFields(component, group, object.getName(), panel);
+        setDefaultComponentFields(component, group, object.getName(), panel);
 
         component.setUiSliderStyle(getUiSliderStyle());
         component.setUiSliderMin(object.getMin());
@@ -40,7 +46,7 @@ public class UiSliderFactory extends CtrlrComponentFactory<IntParamSpec> {
         component.setUiSliderInterval(1);
         component.setUiSliderDoubleClickEnabled(1);
         component.setUiSliderDoubleClickValue(0);
-        component.setUiSliderValuePosition(4);
+        component.setUiSliderValuePosition(sliderValuePosition);
         component.setUiSliderValueHeight(12);
         component.setUiSliderValueWidth(64);
         component.setUiSliderTrackCornerSize(5);
@@ -81,5 +87,13 @@ public class UiSliderFactory extends CtrlrComponentFactory<IntParamSpec> {
 
     protected String getUiSliderStyle() {
         return "LinearVertical";
+    }
+
+    protected int getSliderValuePosition() {
+        return sliderValuePosition;
+    }
+
+    protected void setSliderValuePosition(int sliderValuePosition) {
+        this.sliderValuePosition = sliderValuePosition;
     }
 }

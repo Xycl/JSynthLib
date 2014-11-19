@@ -1,16 +1,18 @@
-package org.jsynthlib.utils.ctrlr.factory;
+package org.jsynthlib.utils.ctrlr.builder;
 
 import java.awt.Rectangle;
 
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
+import org.jsynthlib.utils.ctrlr.SliderSpecWrapper;
+import org.jsynthlib.utils.ctrlr.SysexFormulaParser;
 import org.jsynthlib.xmldevice.IntParamSpec;
 
-public class UiComboFactory extends CtrlrComponentFactory<IntParamSpec> {
+public class UiComboBuilder extends CtrlrMidiComponentBuilder {
 
-    protected UiComboFactory(IntParamSpec object) {
-        super(object);
+    public UiComboBuilder(IntParamSpec object, SysexFormulaParser formulaParser) {
+        super(SliderSpecWrapper.Factory.newWrapper(object), formulaParser);
     }
 
     @Override
@@ -23,7 +25,7 @@ public class UiComboFactory extends CtrlrComponentFactory<IntParamSpec> {
 
         createMidiElement(modulator);
         ComponentType component = modulator.addNewComponent();
-        setDefaultModulatorFields(component, group, object.getName(), panel);
+        setDefaultComponentFields(component, group, object.getName(), panel);
 
         component.setUiComboArrowColour("ffffffff");
         component.setUiComboOutlineColour("8f000000");

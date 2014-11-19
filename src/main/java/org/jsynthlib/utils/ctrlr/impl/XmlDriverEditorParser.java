@@ -1,4 +1,4 @@
-package org.jsynthlib.utils.ctrlr;
+package org.jsynthlib.utils.ctrlr.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,14 +22,18 @@ import javax.swing.JFrame;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
+import org.apache.xmlbeans.XmlOptions;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiPanelEditorType;
-import org.jsynthlib.utils.ctrlr.factory.CtrlrComponentFactory;
-import org.jsynthlib.utils.ctrlr.factory.CtrlrComponentFactoryFactory;
+import org.jsynthlib.utils.ctrlr.CtrlrComponentBuilderFactory;
+import org.jsynthlib.utils.ctrlr.builder.CtrlrComponentBuilder;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument;
 import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
+
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 
 public class XmlDriverEditorParser extends JFrame {
 
@@ -51,23 +55,29 @@ public class XmlDriverEditorParser extends JFrame {
 
     private final PanelType panel;
 
-    private final CtrlrComponentFactoryFactory componentFactoryFactory;
+    private final CtrlrComponentBuilderFactory componentFactoryFactory;
 
-    public XmlDriverEditorParser(String className, PanelType panel) {
+    @Inject
+    public XmlDriverEditorParser(
+            CtrlrComponentBuilderFactory componentFactoryFactory,
+            @Assisted String className, @Assisted PanelType panel) {
         this.className = className;
         this.vstIndex = 0;
         this.panel = panel;
         jfxPanel = new JFXPanel();
-        componentFactoryFactory = new CtrlrComponentFactoryFactory();
+        this.componentFactoryFactory = componentFactoryFactory;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void parseJFX() throws XmlException, IOException {
+        XmlOptions xmlOptions = new XmlOptions();
+        xmlOptions.setLoadStripWhitespace();
         InputStream stream =
                 getClass().getClassLoader().getResourceAsStream(
                         getXmlfilePath(className.trim()));
         XmlSingleDriverDefinitionDocument driverDocument =
-                XmlSingleDriverDefinitionDocument.Factory.parse(stream);
+                XmlSingleDriverDefinitionDocument.Factory.parse(stream,
+                        xmlOptions);
         xmlDriverDef = driverDocument.getXmlSingleDriverDefinition();
 
         final Semaphore semaphore = new Semaphore(0);
@@ -190,7 +200,7 @@ public class XmlDriverEditorParser extends JFrame {
 
     ModulatorType addComponent(Object xmlObject, Node node,
             ModulatorType group, Bounds groupAbsBounds) {
-        CtrlrComponentFactory<? extends Object> factory =
+        CtrlrComponentBuilder<? extends Object> factory =
                 componentFactoryFactory.newFactory(xmlObject);
         if (factory == null) {
             log.debug("Could not find factory for object type "
