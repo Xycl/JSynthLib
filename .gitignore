@@ -2,3 +2,4 @@ target/
 log.log
 testSaveAndOpenLibrary.patchlib
 testSaveAndOpenLibrary.patchlib.xml
+src/main/resources/synthdrivers.properties
