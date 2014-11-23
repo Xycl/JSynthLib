@@ -25,9 +25,20 @@ public final class XmlUtils {
         return doc.getXmlSingleDriverDefinition();
     }
 
-    public static XmlDeviceDefinition getD50DeviceDef() throws XmlException,
-    IOException {
+    public static XmlDeviceDefinition getRolandD50DeviceDef() throws XmlException,
+            IOException {
         String resName = "org/jsynthlib/synthdrivers/RolandD50/D50Device.xml";
+        InputStream stream =
+                XmlUtils.class.getClassLoader().getResourceAsStream(resName);
+        XmlDeviceDefinitionDocument doc =
+                XmlDeviceDefinitionDocument.Factory.parse(stream);
+        return doc.getXmlDeviceDefinition();
+    }
+
+    public static XmlDeviceDefinition getEmuProteus2DeviceDef()
+            throws XmlException, IOException {
+        String resName =
+                "org/jsynthlib/synthdrivers/EmuProteus2/EmuProteus2Device.xml";
         InputStream stream =
                 XmlUtils.class.getClassLoader().getResourceAsStream(resName);
         XmlDeviceDefinitionDocument doc =

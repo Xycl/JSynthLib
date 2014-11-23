@@ -1,21 +1,28 @@
-package org.jsynthlib.utils.ctrlr.builder;
+package org.jsynthlib.utils.ctrlr.builder.component;
 
 import java.awt.Rectangle;
 
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 
-public class UiLabelBuilder extends CtrlrComponentBuilder<String> {
+import com.google.inject.Inject;
 
-    public UiLabelBuilder(String object) {
-        super(object);
+public class UiLabelBuilder extends CtrlrComponentBuilderBase<String> {
+
+    private int length;
+
+    @Inject
+    public UiLabelBuilder(DriverContext context) {
+        super(context);
+        this.length = 1024;
     }
 
     @Override
     public ModulatorType createComponent(PanelType panel, ModulatorType group,
             int vstIndex, Rectangle rect) {
-        ModulatorType modulator = createModulator(panel, getUniqueName(object));
+        ModulatorType modulator = createModulator(panel);
         ComponentType component = modulator.addNewComponent();
         setDefaultComponentFields(component, group, "", panel);
 
@@ -27,7 +34,7 @@ public class UiLabelBuilder extends CtrlrComponentBuilder<String> {
         component.setUiLabelJustification("centred");
         component.setUiLabelFitFont(0);
         component.setUiLabelFont("Arial;11;0;0;0;0;1");
-        component.setUiLabelText(object);
+        component.setUiLabelText(getObject());
         component.setUiLabelDisplaysAllValues(0);
         component.setUiLabelDisplayFormat("%n(%N) ( %v(%h)");
         component.setUiLabelInputHighlightTextColour("0xffffffff");
@@ -36,11 +43,24 @@ public class UiLabelBuilder extends CtrlrComponentBuilder<String> {
         component.setUiLabelEditOnDoubleClick(0);
         component.setUiLabelEditFocusDiscardsChanges(1);
         component.setUiLabelInputAllowedChars("");
-        component.setUiLabelInputMaxLength(1024);
+        component.setUiLabelInputMaxLength(length);
         component.setUiLabelChangedCbk("-- None");
         component.setUiType("uiLabel");
         setComponentRectangle(component, rect);
         return modulator;
+    }
+
+    @Override
+    protected String getModulatorName() {
+        return getContext().getDriverPrefix() + getUniqueName(getObject());
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getLength() {
+        return length;
     }
 
 }

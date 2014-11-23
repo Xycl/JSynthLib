@@ -1,28 +1,18 @@
 package org.jsynthlib.utils.ctrlr.impl;
 
-import java.util.Map;
-
 import javax.sound.midi.MidiMessage;
 
 import org.jsynthlib.device.model.AbstractPatchDriver;
-import org.jsynthlib.device.model.Device;
-import org.jsynthlib.device.model.DeviceDescriptor;
 import org.jsynthlib.device.model.DeviceException;
-import org.jsynthlib.device.model.DeviceManager;
-import org.jsynthlib.device.model.MidiSenderFactory;
 import org.jsynthlib.device.model.handler.ISender;
-import org.jsynthlib.device.model.impl.DeviceModule;
-import org.jsynthlib.device.model.impl.HandlerBindingMap;
-import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.utils.SysexUtils;
-import org.jsynthlib.utils.ctrlr.SysexFormulaParser;
-import org.jsynthlib.xmldevice.HandlerDefinitionBase;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
+import org.jsynthlib.utils.ctrlr.driverContext.HandlerReferenceFactory;
+import org.jsynthlib.utils.ctrlr.driverContext.SysexFormulaParser;
 import org.jsynthlib.xmldevice.MidiSenderReference;
-import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 @Singleton
@@ -30,28 +20,22 @@ public class SysexFormulaParserImpl implements SysexFormulaParser {
 
     private static final byte CS_HOLDER = (byte) 0xFF;
     private static final byte VALUE_HOLDER = (byte) 0xFE;
-
-    private Injector driverInjector;
-    private Device device;
-    private XmlDeviceDefinition deviceDefinition;
-    private final DeviceManager deviceManager;
+    private final HandlerReferenceFactory factory;
 
     @Inject
-    public SysexFormulaParserImpl(DeviceManager deviceManager) {
-        this.deviceManager = deviceManager;
+    public SysexFormulaParserImpl(HandlerReferenceFactory factory,
+            DriverContext context) throws DeviceException {
+        this.factory = factory;
     }
 
     @Override
     public String parseSysexFormula(MidiSenderReference ref, int min, int max) {
-        MidiSenderFactory senderFactory =
-                driverInjector.getInstance(MidiSenderFactory.class);
-
         DriverMock driverMock = new DriverMock();
-        driverMock.setDevice(device);
+        driverMock.setDevice(factory.getDevice());
         Patch patch = new Patch();
         patch.setDriver(driverMock);
 
-        ISender sender = senderFactory.newSender(ref, patch);
+        ISender sender = factory.newSender(ref, patch);
 
         sender.send(driverMock, min);
         byte[] minBytes = driverMock.getSentBytes();
@@ -124,35 +108,5 @@ public class SysexFormulaParserImpl implements SysexFormulaParser {
         public int getCsEnd() {
             return csEnd;
         }
-    }
-
-    @Override
-    public XmlDeviceDefinition getDeviceDefinition() {
-        return deviceDefinition;
-    }
-
-    @Override
-    public void setDeviceDefinition(XmlDeviceDefinition deviceDefinition)
-            throws DeviceException {
-        this.deviceDefinition = deviceDefinition;
-        HandlerBindingMap bindingMap = new HandlerBindingMap();
-        String devicePath = bindingMap.addDevice(deviceDefinition);
-        Map<String, HandlerDefinitionBase> deviceBindingsMap =
-                bindingMap.getDeviceBindings(devicePath);
-        DeviceModule deviceModule = new DeviceModule(deviceBindingsMap);
-        driverInjector =
-                JSynthLibInjector.getInjector().createChildInjector(
-                        deviceModule);
-        StringBuilder devNameBuilder = new StringBuilder();
-        devNameBuilder.append(deviceDefinition.getManufacturer()).append(" ")
-        .append(deviceDefinition.getModelName()).append(" Driver");
-        DeviceDescriptor deviceDescriptor =
-                deviceManager.getDescriptorForDeviceName(devNameBuilder
-                        .toString());
-        for (int i = 0; i < deviceManager.deviceCount(); i++) {
-            deviceManager.removeDevice(i);
-        }
-        device = deviceManager.addDevice(deviceDescriptor);
-
     }
 }

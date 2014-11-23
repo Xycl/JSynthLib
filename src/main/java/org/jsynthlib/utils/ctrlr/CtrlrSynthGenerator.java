@@ -1,6 +1,7 @@
 package org.jsynthlib.utils.ctrlr;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -12,10 +13,11 @@ import org.apache.xmlbeans.XmlOptions;
 import org.ctrlr.panel.PanelDocument;
 import org.ctrlr.panel.PanelType;
 import org.jsynthlib.device.model.DeviceException;
-import org.jsynthlib.inject.JSynthLibInjector;
+import org.jsynthlib.utils.ctrlr.builder.CtrlrLuaManagerBuilder;
 import org.jsynthlib.utils.ctrlr.builder.CtrlrPanelBuilder;
-import org.jsynthlib.utils.ctrlr.impl.SysexFormulaParserImpl;
-import org.jsynthlib.utils.ctrlr.impl.XmlDriverEditorParser;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContextFactory;
+import org.jsynthlib.utils.ctrlr.driverContext.XmlDriverParser;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 import org.jsynthlib.xmldevice.XmlDriverReferences;
@@ -23,10 +25,10 @@ import org.jsynthlib.xmldevice.XmlDriverReferences.XmlDriverReference;
 
 import com.google.inject.Injector;
 
-public class CtrlrPanelGenerator {
+public class CtrlrSynthGenerator {
 
     private static final Logger LOG = Logger
-            .getLogger(CtrlrPanelGenerator.class);
+            .getLogger(CtrlrSynthGenerator.class);
 
     static File createOutDir(String name) throws IOException {
         File outDir = new File(name);
@@ -57,8 +59,8 @@ public class CtrlrPanelGenerator {
                     + " into " + output);
             File outDir = createOutDir(output);
 
-            CtrlrPanelGenerator editorGenerator =
-                    new CtrlrPanelGenerator(packageName, fileNamePrefix, outDir);
+            CtrlrSynthGenerator editorGenerator =
+                    new CtrlrSynthGenerator(packageName, fileNamePrefix, outDir);
             editorGenerator.generatePanel();
         } catch (Exception e) {
             LOG.warn(e.getMessage(), e);
@@ -71,23 +73,16 @@ public class CtrlrPanelGenerator {
     private final File outDir;
     private final ClassLoader classLoader;
     private final PanelDocument panelDocument;
-    private PanelType panel;
     private final Injector injector;
-    private final XmlDriverEditorParserFactory parserFactory;
-    private final SysexFormulaParser sysexParser;
 
-    CtrlrPanelGenerator(String packageName, String fileNamePrefix, File outDir) {
+    CtrlrSynthGenerator(String packageName, String fileNamePrefix, File outDir) {
         this.packageName = packageName;
         this.fileNamePrefix = fileNamePrefix;
         this.outDir = outDir;
         classLoader = getClass().getClassLoader();
         panelDocument = PanelDocument.Factory.newInstance();
-        injector =
-                JSynthLibInjector.getInjector().createChildInjector(
-                        new CtrlrGeneratorModule());
-        parserFactory =
-                injector.getInstance(XmlDriverEditorParserFactory.class);
-        sysexParser = injector.getInstance(SysexFormulaParserImpl.class);
+        injector = CtrlrGeneratorModule.getInjector();
+
     }
 
     void generatePanel() throws XmlException, IOException, DeviceException {
@@ -100,37 +95,33 @@ public class CtrlrPanelGenerator {
         XmlDeviceDefinitionDocument document =
                 XmlDeviceDefinitionDocument.Factory.parse(stream, xmlOptions);
         XmlDeviceDefinition xmldevice = document.getXmlDeviceDefinition();
-        sysexParser.setDeviceDefinition(xmldevice);
-        CtrlrPanelBuilder panelFactory = new CtrlrPanelBuilder();
-        panel = panelFactory.newPanel(panelDocument, xmldevice);
+        CtrlrPanelBuilder panelBuilder =
+                injector.getInstance(CtrlrPanelBuilder.class);
+        PanelType panel = panelBuilder.newPanel(panelDocument, xmldevice);
 
         XmlDriverReferences xmldrivers = xmldevice.getDrivers();
         XmlDriverReference[] xmldriverArray =
                 xmldrivers.getXmlDriverReferenceArray();
-        boolean foundEditor = false;
+        DriverContextFactory driverContextFactory =
+                injector.getInstance(DriverContextFactory.class);
+
         for (XmlDriverReference xmldriver : xmldriverArray) {
-            switch (xmldriver.getDriverType().intValue()) {
-            case XmlDriverReference.DriverType.INT_PATCH:
-                String driverClass = xmldriver.getDriverClass();
-                XmlDriverEditorParser editorParser =
-                        parserFactory.create(driverClass, panel);
-                editorParser.parseJFX();
-                foundEditor = true;
-                break;
-            default:
-                LOG.warn("Unsupported driver type: "
-                        + xmldriver.getDriverType().toString());
-                break;
-            }
-            if (foundEditor) {
-                break;
-            }
+            DriverContext driverContext =
+                    driverContextFactory.newDriverContext(xmldevice, xmldriver,
+                            panel);
+            XmlDriverParser driverParser = driverContext.getDriverParser();
+            driverParser.extractDriverToPanel();
+            break;
         }
+
+        CtrlrLuaManagerBuilder luaManagerBuilder =
+                injector.getInstance(CtrlrLuaManagerBuilder.class);
+        luaManagerBuilder.createLuaManager(panel);
 
         saveFile();
     }
 
-    void saveFile() throws IOException {
+    void saveFile() throws IOException, XmlException {
         XmlOptions options = new XmlOptions();
         options.setUseDefaultNamespace();
 
@@ -140,8 +131,17 @@ public class CtrlrPanelGenerator {
 
         options.setSaveNamespacesFirst();
         options.setSavePrettyPrint();
+        String xmlText = panelDocument.xmlText(options);
+        xmlText = xmlText.replaceAll("&amp;#13;", "&#13;");
+        xmlText = xmlText.replaceAll("&amp;#10;", "&#10;");
+        xmlText = xmlText.replaceAll("&amp;#9;", "&#9;");
+        xmlText = xmlText.replaceAll("&amp;quot;", "&quot;");
         File outFile = new File(outDir, fileNamePrefix + ".panel");
         LOG.info("Saving document to " + outFile.getAbsolutePath());
-        panelDocument.save(outFile, options);
+        FileOutputStream fos = new FileOutputStream(outFile);
+        fos.write(xmlText.getBytes());
+        fos.flush();
+        fos.close();
+
     }
 }

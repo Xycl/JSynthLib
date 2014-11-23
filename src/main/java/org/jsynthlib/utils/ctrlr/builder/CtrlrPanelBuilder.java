@@ -15,6 +15,9 @@ public class CtrlrPanelBuilder {
 
     private final transient Logger log = Logger.getLogger(getClass());
 
+    public CtrlrPanelBuilder() {
+    }
+
     public PanelType newPanel(PanelDocument panelDocument,
             XmlDeviceDefinition xmldevice) {
         PanelType panel = panelDocument.addNewPanel();
@@ -106,7 +109,6 @@ public class CtrlrPanelBuilder {
 
         addWindowManager(panel);
         addMidiLibrary(panel);
-        addLuaManager(panel);
         addPanelResources(panel);
         addUiPanelEditor(panel);
 
@@ -149,10 +151,6 @@ public class CtrlrPanelBuilder {
 
     void addMidiLibrary(PanelType panel) {
         panel.addNewMidiLibrary();
-    }
-
-    void addLuaManager(PanelType panel) {
-        panel.addNewLuaManager();
     }
 
     void addPanelResources(PanelType panel) {

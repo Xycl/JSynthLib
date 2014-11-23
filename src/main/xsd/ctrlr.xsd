@@ -1,1267 +1,763 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://www.ctrlr.org/panel"
-           xmlns="http://www.ctrlr.org/panel"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           attributeFormDefault="unqualified"
-           elementFormDefault="qualified">
-  <xs:element name="panel"
-              type="panelType" />
-  <xs:complexType name="uiChildWindowContentStateType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:string"
-                      name="luaMethodEditor"
-                      use="optional" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="uiChildWindowType">
-    <xs:sequence>
-      <xs:element type="uiChildWindowContentStateType"
-                  name="uiChildWindowContentState" />
-    </xs:sequence>
-    <xs:attribute type="xs:string"
-                  name="uiChildWindowName"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiChildWindowState"
-                  use="optional" />
-  </xs:complexType>
-  <xs:complexType name="uiWindowManagerType">
-    <xs:sequence>
-      <xs:element type="uiChildWindowType"
-                  name="uiChildWindow"
-                  maxOccurs="unbounded"
-                  minOccurs="0" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="midiLibrarySnapshotsType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:string"
-                      name="name" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="midiLibraryFirmwareType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:int"
-                      name="midiLibraryCanGetItem" />
-        <xs:attribute type="xs:int"
-                      name="midiLibraryCanSendItem" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="midiLibraryEditBufferType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:int"
-                      name="midiLibraryCanGetItem" />
-        <xs:attribute type="xs:int"
-                      name="midiLibraryCanSendItem" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="valueType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:string"
-                      name="name"
-                      use="optional" />
-        <xs:attribute type="xs:int"
-                      name="value"
-                      use="optional" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="panelStateType">
-    <xs:sequence>
-      <xs:element type="valueType"
-                  name="value"
-                  maxOccurs="unbounded"
-                  minOccurs="0" />
-    </xs:sequence>
-    <xs:attribute type="xs:int"
-                  name="panelVersionMajor"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="panelVersionMinor"
-                  use="optional" />
-    <xs:attribute type="xs:long"
-                  name="time"
-                  use="optional" />
-  </xs:complexType>
-  <xs:complexType name="midiLibraryProgramType">
-    <xs:sequence>
-      <xs:element type="panelStateType"
-                  name="panelState" />
-    </xs:sequence>
-    <xs:attribute type="xs:string"
-                  name="name"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="description"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="number"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="midiLibraryCanGetItem"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="midiLibraryCanSendItem"
-                  use="optional" />
-  </xs:complexType>
-  <xs:complexType name="midiLibraryBankType">
-    <xs:sequence>
-      <xs:element type="midiLibraryProgramType"
-                  name="midiLibraryProgram"
-                  maxOccurs="unbounded"
-                  minOccurs="0" />
-    </xs:sequence>
-    <xs:attribute type="xs:string"
-                  name="name"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="description"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="lsb"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="msb"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="number"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="midiLibraryCanGetItem"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="midiLibraryCanSendItem"
-                  use="optional" />
-  </xs:complexType>
-  <xs:complexType name="midiLibraryType">
-    <xs:sequence>
-      <xs:element type="midiLibrarySnapshotsType"
-                  name="midiLibrarySnapshots" />
-      <xs:element type="midiLibraryFirmwareType"
-                  name="midiLibraryFirmware" />
-      <xs:element type="midiLibraryEditBufferType"
-                  name="midiLibraryEditBuffer" />
-      <xs:element type="midiLibraryBankType"
-                  name="midiLibraryBank"
-                  maxOccurs="unbounded"
-                  minOccurs="0" />
-    </xs:sequence>
-    <xs:attribute type="xs:string"
-                  name="uuid" />
-    <xs:attribute type="xs:string"
-                  name="luaTransInfo" />
-    <xs:attribute type="xs:string"
-                  name="midiLibraryParameterIndexProperty" />
-    <xs:attribute type="xs:int"
-                  name="midiLibraryMidiProgramChangeControl" />
-    <xs:attribute type="xs:int"
-                  name="midiLibrarySendSnapAfterPChg" />
-    <xs:attribute type="xs:string"
-                  name="midiLibraryDefaultBankName" />
-    <xs:attribute type="xs:string"
-                  name="midiLibraryDefaultProgramName" />
-    <xs:attribute type="xs:string"
-                  name="midiLibraryDefaultSnapshotName" />
-    <xs:attribute type="xs:string"
-                  name="midiLibraryCustomRequests" />
-    <xs:attribute type="xs:string"
-                  name="luaMidiLibrarySend" />
-    <xs:attribute type="xs:string"
-                  name="luaMidiLibraryRequest" />
-    <xs:attribute type="xs:string"
-                  name="luaMidiLibraryProcess" />
-    <xs:attribute type="xs:string"
-                  name="luaMidiLibraryConfirm" />
-    <xs:attribute type="xs:string"
-                  name="luaMidiLibraryUndefined" />
-    <xs:attribute type="xs:string"
-                  name="midiLibraryTreeState" />
-  </xs:complexType>
-  <xs:complexType name="luaMethodType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:string"
-                      name="luaMethodName"
-                      use="optional" />
-        <xs:attribute type="xs:string"
-                      name="luaMethodCode"
-                      use="optional" />
-        <xs:attribute type="xs:string"
-                      name="luaMethodLinkedProperty"
-                      use="optional" />
-        <xs:attribute type="xs:int"
-                      name="luaMethodSource"
-                      use="optional" />
-        <xs:attribute type="xs:string"
-                      name="uuid"
-                      use="optional" />
-        <xs:attribute type="xs:int"
-                      name="luaMethodValid"
-                      use="optional" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="luaMethodGroupType">
-    <xs:sequence>
-      <xs:element type="luaMethodType"
-                  name="luaMethod"
-                  maxOccurs="unbounded"
-                  minOccurs="0" />
-    </xs:sequence>
-    <xs:attribute type="xs:string"
-                  name="name" />
-    <xs:attribute type="xs:string"
-                  name="uuid" />
-  </xs:complexType>
-  <xs:complexType name="luaManagerMethodsType">
-    <xs:sequence>
-      <xs:element type="luaMethodType"
-                  name="luaMethod" />
-      <xs:element type="luaMethodGroupType"
-                  name="luaMethodGroup" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="luaManagerType">
-    <xs:sequence>
-      <xs:element type="luaManagerMethodsType"
-                  name="luaManagerMethods" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="resourceType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:long"
-                      name="resourceHash"
-                      use="optional" />
-        <xs:attribute type="xs:long"
-                      name="resourceLoadedTime"
-                      use="optional" />
-        <xs:attribute type="xs:long"
-                      name="resourceSize"
-                      use="optional" />
-        <xs:attribute type="xs:string"
-                      name="resourceFile"
-                      use="optional" />
-        <xs:attribute type="xs:string"
-                      name="resourceSourceFile"
-                      use="optional" />
-        <xs:attribute type="xs:string"
-                      name="resourceName"
-                      use="optional" />
-        <xs:attribute type="xs:string"
-                      name="resourceType"
-                      use="optional" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="panelResourcesType">
-    <xs:sequence>
-      <xs:element type="resourceType"
-                  name="resource"
-                  maxOccurs="unbounded"
-                  minOccurs="0" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="uiPanelCanvasLayerType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:string"
-                      name="uiPanelCanvasLayerName" />
-        <xs:attribute type="xs:string"
-                      name="uiPanelCanvasLayerUid" />
-        <xs:attribute type="xs:string"
-                      name="uiPanelCanvasLayerColour" />
-        <xs:attribute type="xs:int"
-                      name="uiPanelCanvasLayerVisibility" />
-        <xs:attribute type="xs:int"
-                      name="uiPanelCanvasLayerIndex" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="uiPanelEditorType">
-    <xs:sequence>
-      <xs:element type="uiPanelCanvasLayerType"
-                  name="uiPanelCanvasLayer" />
-    </xs:sequence>
-    <xs:attribute type="xs:string"
-                  name="uiPanelCanvasRectangle" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelSnapSize" />
-    <xs:attribute type="xs:string"
-                  name="uiPanelBackgroundColour" />
-    <xs:attribute type="xs:string"
-                  name="uiPanelBackgroundColour1" />
-    <xs:attribute type="xs:string"
-                  name="uiPanelBackgroundColour2" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelBackgroundGradientType" />
-    <xs:attribute type="xs:string"
-                  name="uiPanelImageResource" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelEditMode" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelViewPortSize" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelPropertiesSize" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelLock" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelDisabledOnEdit" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelWidth" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelHeight" />
-    <xs:attribute type="xs:string"
-                  name="name" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelImageAlpha" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelImageLayout" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelSnapActive" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelPropertiesOnRight" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelPaintBackground" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelResized" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelFileDragDropHandler" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelFileDragEnterHandler" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelFileDragExitHandler" />
-    <xs:attribute type="xs:float"
-                  name="uiPanelInvisibleComponentAlpha" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelMidiToolbarVisible" />
-    <xs:attribute type="xs:string"
-                  name="uiPanelTooltipBackgroundColour" />
-    <xs:attribute type="xs:string"
-                  name="uiPanelTooltipOutlineColour" />
-    <xs:attribute type="xs:string"
-                  name="uiPanelTooltipColour" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelTooltipCornerRound" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelTooltipPlacement" />
-    <xs:attribute type="xs:string"
-                  name="uiPanelTooltipFont" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelZoom" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelDisableCombosOnEdit" />
-  </xs:complexType>
-  <xs:simpleType name="componentLabelPositionType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="top" />
-      <xs:enumeration value="middle" />
-      <xs:enumeration value="bottom" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:complexType name="componentType"
-                  mixed="true">
-    <xs:sequence>
-      <xs:element type="uiTabsTabType"
-                  name="uiTabsTab"
-                  minOccurs="0"
-                  maxOccurs="unbounded" />
-    </xs:sequence>
-    <xs:attribute type="componentLabelPositionType"
-                  name="componentLabelPosition"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentLabelJustification"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentLabelHeight"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentLabelWidth"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentLabelVisible"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentLabelAlwaysOnTop"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentSentBack"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentLabelColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentLabelFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentVisibleName"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentMouseCursor"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentGroupName"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentGroupped"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentSnapSize"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentIsLocked"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentDisabled"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentRadioGroupId"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentRadioGroupNotifyMidi"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentVisibility"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentEffect"
-                  use="optional" />
-    <xs:attribute type="xs:float"
-                  name="componentEffectRadius"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentEffectColour"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentEffectOffsetX"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentEffectOffsetY"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentExcludedFromLabelDisplay"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentBubbleRoundAngle"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentBubbleBackgroundColour1"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentBubbleBackgroundColour2"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentBubbleBackgroundGradientType"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentBubbleValueColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentBubbleValueFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentBubbleValueJustification"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentBubbleNameColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentBubbleNameFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentBubbleNameJustification"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentValueDecimalPlaces"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentLuaMouseMoved"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentEffectAlpha"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiGroupText"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiGroupTextColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiGroupOutlineColour1"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiGroupOutlineColour2"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiGroupBackgroundColour1"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiGroupBackgroundColour2"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiGroupOutlineGradientType"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiGroupBackgroundGradientType"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiGroupBackgroundImage"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentRectangle"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiGroupBackgroundImageLayout"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiGroupBackgroundImageAlpha"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiGroupTextPlacement"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiGroupTextFont"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiGroupOutlineThickness"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiGroupOutlineRoundAngle"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiGroupTextMargin"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiType"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentLayerUid"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="componentTabName"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="componentTabId"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiImageSliderResource"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="resourceImageWidth"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="resourceImageHeight"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="resourceImagePaintMode"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="resourceImageOrientation"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderStyle"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderMin"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderMax"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderInterval"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderDoubleClickEnabled"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderDoubleClickValue"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderValuePosition"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderValueHeight"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderValueWidth"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderTrackCornerSize"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderThumbCornerSize"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderThumbWidth"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderThumbHeight"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderThumbFlatOnLeft"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderThumbFlatOnRight"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderThumbFlatOnTop"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderThumbFlatOnBottom"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderValueTextColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderValueBgColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderRotaryOutlineColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderRotaryFillColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderThumbColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderValueHighlightColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderValueOutlineColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderTrackColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderIncDecButtonColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderIncDecTextColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderValueFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiSliderValueTextJustification"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderVelocitySensitivity"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderVelocityThreshold"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderVelocityOffset"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderVelocityMode"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderVelocityModeKeyTrigger"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderSpringMode"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderSpringValue"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderMouseWheelInterval"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiSliderPopupBubble"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiToggleButtonText"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiImageButtonMode"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiImageButtonResource"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiImageButtonTextColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiImageButtonContent"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiImageButtonTextPosition"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiImageButtonTextWidth"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiImageButtonTextHeight"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiButtonColourOn"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonTrueValue"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonFalseValue"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonIsToggle"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiButtonColourOff"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiButtonTextColourOn"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiButtonTextColourOff"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiButtonTextFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiButtonTextJustification"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiButtonContent"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonConnectedLeft"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonConnectedRight"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonConnectedTop"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonConnectedBottom"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonRepeat"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonRepeatRate"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiButtonTriggerOnMouseDown"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboArrowColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboOutlineColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboTextColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboTextJustification"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboMenuFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboButtonColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboBgColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboMenuBackgroundColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboMenuFontColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboMenuHighlightColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboMenuFontHighlightedColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboContent"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiComboMenuBackgroundRibbed"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiComboButtonGradient"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboButtonGradientColour1"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiComboButtonGradientColour2"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiComboButtonWidthOverride"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiComboButtonWidth"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiComboDynamicContent"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiComboSelectedId"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiComboSelectedIndex"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiTabsCurrentTabChanged"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiTabsDepth"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiTabsOutlineThickness"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiTabsFrontTabOutline"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiTabsTabOutline"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiTabsIndentThickness"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiTabsOrientation"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiTabsFrontTabFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiTabsTabFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiTabsOutlineGlobalColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiTabsOutlineGlobalBackgroundColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiTabsOutlineTabColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiTabsTextTabColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiTabsFrontTabOutlineColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiTabsFrontTabTextColour"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiTabsAddTab"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiTabsRemoveTab"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiTabsCurrentTab"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelBgColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelTextColour"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiLabelOutline"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelOutlineColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelJustification"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiLabelFitFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelFont"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelText"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiLabelDisplaysAllValues"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelDisplayFormat"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelInputHighlightTextColour"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelInputHighlightColour"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiLabelEditOnSingleClick"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiLabelEditOnDoubleClick"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiLabelEditFocusDiscardsChanges"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelInputAllowedChars"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="uiLabelInputMaxLength"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="uiLabelChangedCbk"
-                  use="optional" />
-  </xs:complexType>
-  <xs:complexType name="modulatorType">
-    <xs:sequence>
-      <xs:element type="midiType"
-                  name="midi"
-                  minOccurs="0" />
-      <xs:element type="componentType"
-                  name="component" />
-    </xs:sequence>
-    <xs:attribute type="xs:int"
-                  name="modulatorCustomIndex"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorCustomIndexGroup"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorIsStatic"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="name"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorVstExported"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorValue"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorMax"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="vstIndex"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorGlobalVariable"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorMuteOnStart"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorExcludeFromSnapshot"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="modulatorValueExpression"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="modulatorValueExpressionReverse"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="luaModulatorGetValueForMIDI"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="luaModulatorGetValueFromMIDI"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="modulatorLinkedToPanelProperty"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="modulatorLinkedToModulatorProperty"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="modulatorLinkedToModulator"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorLinkedToModulatorSource"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorLinkedToComponent"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorBaseValue"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="modulatorCustomName"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="modulatorCustomNameGroup"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="modulatorVstNameFormat"
-                  use="optional" />
-    <xs:attribute type="xs:string"
-                  name="luaModulatorValueChange"
-                  use="optional" />
-    <xs:attribute type="xs:int"
-                  name="modulatorMin"
-                  use="optional" />
-  </xs:complexType>
-  <xs:complexType name="midiType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:int"
-                      name="midiMessageType"
-                      use="optional" />
-        <xs:attribute type="xs:int"
-                      name="midiMessageChannelOverride"
-                      use="optional" />
-        <xs:attribute type="xs:int"
-                      name="midiMessageChannel"
-                      use="optional" />
-        <xs:attribute type="xs:int"
-                      name="midiMessageCtrlrNumber"
-                      use="optional" />
-        <xs:attribute type="xs:int"
-                      name="midiMessageCtrlrValue"
-                      use="optional" />
-        <xs:attribute type="xs:string"
-                      name="midiMessageMultiList"
-                      use="optional" />
-        <xs:attribute type="xs:string"
-                      name="midiMessageSysExFormula"
-                      use="optional" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="uiTabsTabType">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute type="xs:int"
-                      name="uiTabsTabIndex" />
-        <xs:attribute type="xs:string"
-                      name="uiTabsTabName" />
-        <xs:attribute type="xs:string"
-                      name="uiTabsTabContentBackgroundColour" />
-        <xs:attribute type="xs:string"
-                      name="uiTabsTabBackgroundColour" />
-        <xs:attribute type="xs:string"
-                      name="uiTabsTabBackgroundImage" />
-        <xs:attribute type="xs:int"
-                      name="uiTabsTabBackgroundImageLayout" />
-        <xs:attribute type="xs:int"
-                      name="uiTabsTabBackgroundImageAlpha" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="panelType">
-    <xs:sequence>
-      <xs:element type="uiWindowManagerType"
-                  name="uiWindowManager" />
-      <xs:element type="midiLibraryType"
-                  name="midiLibrary" />
-      <xs:element type="luaManagerType"
-                  name="luaManager" />
-      <xs:element type="panelResourcesType"
-                  name="panelResources" />
-      <xs:element type="uiPanelEditorType"
-                  name="uiPanelEditor" />
-      <xs:element type="modulatorType"
-                  name="modulator"
-                  maxOccurs="unbounded"
-                  minOccurs="0" />
-    </xs:sequence>
-    <xs:attribute type="xs:string"
-                  name="name" />
-    <xs:attribute type="xs:int"
-                  name="panelShowDialogs" />
-    <xs:attribute type="xs:int"
-                  name="panelMessageTime" />
-    <xs:attribute type="xs:string"
-                  name="panelAuthorName" />
-    <xs:attribute type="xs:string"
-                  name="panelAuthorEmail" />
-    <xs:attribute type="xs:anyURI"
-                  name="panelAuthorUrl" />
-    <xs:attribute type="xs:string"
-                  name="panelAuthorDesc" />
-    <xs:attribute type="xs:int"
-                  name="panelVersionMajor" />
-    <xs:attribute type="xs:int"
-                  name="panelVersionMinor" />
-    <xs:attribute type="xs:string"
-                  name="panelVersionName" />
-    <xs:attribute type="xs:string"
-                  name="panelVendor" />
-    <xs:attribute type="xs:string"
-                  name="panelDevice" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiSnapshotAfterLoad" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiSnapshotAfterProgramChange" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiSnapshotDelay" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiInputChannelDevice" />
-    <xs:attribute type="xs:string"
-                  name="panelMidiInputDevice" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiControllerChannelDevice" />
-    <xs:attribute type="xs:string"
-                  name="panelMidiControllerDevice" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiOutputChannelDevice" />
-    <xs:attribute type="xs:string"
-                  name="panelMidiOutputDevice" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiInputFromHost" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiInputChannelHost" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiOutputToHost" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiOutputChannelHost" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiThruH2H" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiThruH2HChannelize" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiThruH2D" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiThruH2DChannelize" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiThruD2D" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiThruD2DChannelize" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiThruD2H" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiThruD2HChannelize" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiRealtimeIgnore" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiInputThreadPriority" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiProgram" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiBankLsb" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiBankMsb" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiSendProgramChangeOnLoad" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiProgramCalloutOnprogramChange" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiMatchCacheSize" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiGlobalDelay" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelMidiChannelChanged" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelMidiReceived" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelLoaded" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelBeforeLoad" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelSaved" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelResourcesLoaded" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelProgramChanged" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelGlobalChanged" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelMessageHandler" />
-    <xs:attribute type="xs:string"
-                  name="luaPanelModulatorValueChanged" />
-    <xs:attribute type="xs:string"
-                  name="panelFilePath" />
-    <xs:attribute type="xs:string"
-                  name="panelUID" />
-    <xs:attribute type="xs:string"
-                  name="panelInstanceUID" />
-    <xs:attribute type="xs:string"
-                  name="panelInstanceManufacturerID" />
-    <xs:attribute type="xs:string"
-                  name="panelModulatorListColumns" />
-    <xs:attribute type="xs:string"
-                  name="panelModulatorListCsvDelimiter" />
-    <xs:attribute type="xs:string"
-                  name="panelModulatorListXmlRoot" />
-    <xs:attribute type="xs:string"
-                  name="panelModulatorListXmlModulator" />
-    <xs:attribute type="xs:int"
-                  name="panelModulatorListSortOption" />
-    <xs:attribute type="xs:string"
-                  name="panelGlobalVariables" />
-    <xs:attribute type="xs:string"
-                  name="panelResources" />
-    <xs:attribute type="xs:int"
-                  name="panelPropertyDisplayIDs" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuItemBackgroundColour" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuItemTextColour" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuItemHighlightedTextColour" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuItemHighlightColour" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuItemFont" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuItemSeparatorColour" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuItemHeaderColour" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuBarBackgroundColour1" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuBarBackgroundColour2" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuBarTextColour" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuBarHighlightedTextColour" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuBarHighlightColour" />
-    <xs:attribute type="xs:string"
-                  name="ctrlrMenuBarFont" />
-    <xs:attribute type="xs:int"
-                  name="ctrlrUseEditorWrapper" />
-    <xs:attribute type="xs:int"
-                  name="panelMidiControllerChannel" />
-    <xs:attribute type="xs:int"
-                  name="deviceCapIdentity" />
-    <xs:attribute type="xs:int"
-                  name="deviceCapFirmware" />
-    <xs:attribute type="xs:int"
-                  name="deviceCapEditBuffer" />
-    <xs:attribute type="xs:int"
-                  name="deviceCapBank" />
-    <xs:attribute type="xs:int"
-                  name="deviceCapProgram" />
-    <xs:attribute type="xs:int"
-                  name="deviceCapAbout" />
-    <xs:attribute type="xs:int"
-                  name="panelIndex" />
-    <xs:attribute type="xs:string"
-                  name="uiPanelToolbarState" />
-    <xs:attribute type="xs:int"
-                  name="panelCtrlrRevision" />
-    <xs:attribute type="xs:string"
-                  name="uiLuaConsoleSnips" />
-    <xs:attribute type="xs:int"
-                  name="uiPanelModulatorListViewTree" />
-  </xs:complexType>
+<xs:schema targetNamespace="http://www.ctrlr.org/panel" xmlns="http://www.ctrlr.org/panel"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+	elementFormDefault="qualified">
+	<xs:element name="panel" type="panelType" />
+	<xs:complexType name="uiChildWindowContentStateType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="luaMethodEditor"
+					use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="uiChildWindowType">
+		<xs:sequence>
+			<xs:element type="uiChildWindowContentStateType" name="uiChildWindowContentState" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="uiChildWindowName"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiChildWindowState"
+			use="optional" />
+	</xs:complexType>
+	<xs:complexType name="uiWindowManagerType">
+		<xs:sequence>
+			<xs:element type="uiChildWindowType" name="uiChildWindow"
+				maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="midiLibrarySnapshotsType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="name" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="midiLibraryFirmwareType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:int" name="midiLibraryCanGetItem" />
+				<xs:attribute type="xs:int" name="midiLibraryCanSendItem" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="midiLibraryEditBufferType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:int" name="midiLibraryCanGetItem" />
+				<xs:attribute type="xs:int" name="midiLibraryCanSendItem" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="valueType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="name" use="optional" />
+				<xs:attribute type="xs:int" name="value" use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="panelStateType">
+		<xs:sequence>
+			<xs:element type="valueType" name="value" maxOccurs="unbounded"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute type="xs:int" name="panelVersionMajor" use="optional" />
+		<xs:attribute type="xs:int" name="panelVersionMinor" use="optional" />
+		<xs:attribute type="xs:long" name="time" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="midiLibraryProgramType">
+		<xs:sequence>
+			<xs:element type="panelStateType" name="panelState" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" use="optional" />
+		<xs:attribute type="xs:string" name="description" use="optional" />
+		<xs:attribute type="xs:int" name="number" use="optional" />
+		<xs:attribute type="xs:int" name="midiLibraryCanGetItem"
+			use="optional" />
+		<xs:attribute type="xs:int" name="midiLibraryCanSendItem"
+			use="optional" />
+	</xs:complexType>
+	<xs:complexType name="midiLibraryBankType">
+		<xs:sequence>
+			<xs:element type="midiLibraryProgramType" name="midiLibraryProgram"
+				maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" use="optional" />
+		<xs:attribute type="xs:string" name="description" use="optional" />
+		<xs:attribute type="xs:int" name="lsb" use="optional" />
+		<xs:attribute type="xs:int" name="msb" use="optional" />
+		<xs:attribute type="xs:int" name="number" use="optional" />
+		<xs:attribute type="xs:int" name="midiLibraryCanGetItem"
+			use="optional" />
+		<xs:attribute type="xs:int" name="midiLibraryCanSendItem"
+			use="optional" />
+	</xs:complexType>
+	<xs:complexType name="midiLibraryType">
+		<xs:sequence>
+			<xs:element type="midiLibrarySnapshotsType" name="midiLibrarySnapshots" />
+			<xs:element type="midiLibraryFirmwareType" name="midiLibraryFirmware" />
+			<xs:element type="midiLibraryEditBufferType" name="midiLibraryEditBuffer" />
+			<xs:element type="midiLibraryBankType" name="midiLibraryBank"
+				maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="uuid" />
+		<xs:attribute type="xs:string" name="luaTransInfo" />
+		<xs:attribute type="xs:string" name="midiLibraryParameterIndexProperty" />
+		<xs:attribute type="xs:int" name="midiLibraryMidiProgramChangeControl" />
+		<xs:attribute type="xs:int" name="midiLibrarySendSnapAfterPChg" />
+		<xs:attribute type="xs:string" name="midiLibraryDefaultBankName" />
+		<xs:attribute type="xs:string" name="midiLibraryDefaultProgramName" />
+		<xs:attribute type="xs:string" name="midiLibraryDefaultSnapshotName" />
+		<xs:attribute type="xs:string" name="midiLibraryCustomRequests" />
+		<xs:attribute type="xs:string" name="luaMidiLibrarySend" />
+		<xs:attribute type="xs:string" name="luaMidiLibraryRequest" />
+		<xs:attribute type="xs:string" name="luaMidiLibraryProcess" />
+		<xs:attribute type="xs:string" name="luaMidiLibraryConfirm" />
+		<xs:attribute type="xs:string" name="luaMidiLibraryUndefined" />
+		<xs:attribute type="xs:string" name="midiLibraryTreeState" />
+	</xs:complexType>
+	<xs:complexType name="luaMethodType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="luaMethodName"
+					use="optional" />
+				<xs:attribute type="xs:string" name="luaMethodCode"
+					use="optional" />
+				<xs:attribute type="xs:string" name="luaMethodLinkedProperty"
+					use="optional" />
+				<xs:attribute type="xs:int" name="luaMethodSource" use="optional" />
+				<xs:attribute type="xs:string" name="uuid" use="optional" />
+				<xs:attribute type="xs:int" name="luaMethodValid" use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="luaMethodGroupType">
+		<xs:sequence>
+			<xs:element type="luaMethodType" name="luaMethod"
+				maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" />
+		<xs:attribute type="xs:string" name="uuid" />
+	</xs:complexType>
+	<xs:complexType name="luaManagerMethodsType">
+		<xs:sequence>
+			<xs:element type="luaMethodType" name="luaMethod" />
+			<xs:element type="luaMethodGroupType" name="luaMethodGroup" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="luaManagerType">
+		<xs:sequence>
+			<xs:element type="luaManagerMethodsType" name="luaManagerMethods" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="resourceType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:long" name="resourceHash" use="optional" />
+				<xs:attribute type="xs:long" name="resourceLoadedTime"
+					use="optional" />
+				<xs:attribute type="xs:long" name="resourceSize" use="optional" />
+				<xs:attribute type="xs:string" name="resourceFile" use="optional" />
+				<xs:attribute type="xs:string" name="resourceSourceFile"
+					use="optional" />
+				<xs:attribute type="xs:string" name="resourceName" use="optional" />
+				<xs:attribute type="xs:string" name="resourceType" use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="panelResourcesType">
+		<xs:sequence>
+			<xs:element type="resourceType" name="resource" maxOccurs="unbounded"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="uiPanelCanvasLayerType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="uiPanelCanvasLayerName" />
+				<xs:attribute type="xs:string" name="uiPanelCanvasLayerUid" />
+				<xs:attribute type="xs:string" name="uiPanelCanvasLayerColour" />
+				<xs:attribute type="xs:int" name="uiPanelCanvasLayerVisibility" />
+				<xs:attribute type="xs:int" name="uiPanelCanvasLayerIndex" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="uiPanelEditorType">
+		<xs:sequence>
+			<xs:element type="uiPanelCanvasLayerType" name="uiPanelCanvasLayer" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="uiPanelCanvasRectangle" />
+		<xs:attribute type="xs:int" name="uiPanelSnapSize" />
+		<xs:attribute type="xs:string" name="uiPanelBackgroundColour" />
+		<xs:attribute type="xs:string" name="uiPanelBackgroundColour1" />
+		<xs:attribute type="xs:string" name="uiPanelBackgroundColour2" />
+		<xs:attribute type="xs:int" name="uiPanelBackgroundGradientType" />
+		<xs:attribute type="xs:string" name="uiPanelImageResource" />
+		<xs:attribute type="xs:int" name="uiPanelEditMode" />
+		<xs:attribute type="xs:int" name="uiPanelViewPortSize" />
+		<xs:attribute type="xs:int" name="uiPanelPropertiesSize" />
+		<xs:attribute type="xs:int" name="uiPanelLock" />
+		<xs:attribute type="xs:int" name="uiPanelDisabledOnEdit" />
+		<xs:attribute type="xs:int" name="uiPanelWidth" />
+		<xs:attribute type="xs:int" name="uiPanelHeight" />
+		<xs:attribute type="xs:string" name="name" />
+		<xs:attribute type="xs:int" name="uiPanelImageAlpha" />
+		<xs:attribute type="xs:int" name="uiPanelImageLayout" />
+		<xs:attribute type="xs:int" name="uiPanelSnapActive" />
+		<xs:attribute type="xs:int" name="uiPanelPropertiesOnRight" />
+		<xs:attribute type="xs:string" name="luaPanelPaintBackground" />
+		<xs:attribute type="xs:string" name="luaPanelResized" />
+		<xs:attribute type="xs:string" name="luaPanelFileDragDropHandler" />
+		<xs:attribute type="xs:string" name="luaPanelFileDragEnterHandler" />
+		<xs:attribute type="xs:string" name="luaPanelFileDragExitHandler" />
+		<xs:attribute type="xs:float" name="uiPanelInvisibleComponentAlpha" />
+		<xs:attribute type="xs:int" name="uiPanelMidiToolbarVisible" />
+		<xs:attribute type="xs:string" name="uiPanelTooltipBackgroundColour" />
+		<xs:attribute type="xs:string" name="uiPanelTooltipOutlineColour" />
+		<xs:attribute type="xs:string" name="uiPanelTooltipColour" />
+		<xs:attribute type="xs:int" name="uiPanelTooltipCornerRound" />
+		<xs:attribute type="xs:int" name="uiPanelTooltipPlacement" />
+		<xs:attribute type="xs:string" name="uiPanelTooltipFont" />
+		<xs:attribute type="xs:int" name="uiPanelZoom" />
+		<xs:attribute type="xs:int" name="uiPanelDisableCombosOnEdit" />
+	</xs:complexType>
+	<xs:simpleType name="componentLabelPositionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="top" />
+			<xs:enumeration value="middle" />
+			<xs:enumeration value="bottom" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="componentType" mixed="true">
+		<xs:sequence>
+			<xs:element type="uiTabsTabType" name="uiTabsTab"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute type="componentLabelPositionType" name="componentLabelPosition"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentLabelJustification"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentLabelHeight"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentLabelWidth"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentLabelVisible"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentLabelAlwaysOnTop"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentSentBack" use="optional" />
+		<xs:attribute type="xs:string" name="componentLabelColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentLabelFont"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentVisibleName"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentMouseCursor"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentGroupName"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentGroupped" use="optional" />
+		<xs:attribute type="xs:int" name="componentSnapSize" use="optional" />
+		<xs:attribute type="xs:int" name="componentIsLocked" use="optional" />
+		<xs:attribute type="xs:int" name="componentDisabled" use="optional" />
+		<xs:attribute type="xs:int" name="componentRadioGroupId"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentRadioGroupNotifyMidi"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentVisibility"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentEffect"
+			use="optional" />
+		<xs:attribute type="xs:float" name="componentEffectRadius"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentEffectColour"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentEffectOffsetX"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentEffectOffsetY"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentExcludedFromLabelDisplay"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentBubbleRoundAngle"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentBubbleBackgroundColour1"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentBubbleBackgroundColour2"
+			use="optional" />
+		<xs:attribute type="xs:int"
+			name="componentBubbleBackgroundGradientType" use="optional" />
+		<xs:attribute type="xs:string" name="componentBubbleValueColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentBubbleValueFont"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentBubbleValueJustification"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentBubbleNameColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentBubbleNameFont"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentBubbleNameJustification"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentValueDecimalPlaces"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentLuaMouseMoved"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentEffectAlpha"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiGroupText" use="optional" />
+		<xs:attribute type="xs:string" name="uiGroupTextColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiGroupOutlineColour1"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiGroupOutlineColour2"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiGroupBackgroundColour1"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiGroupBackgroundColour2"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiGroupOutlineGradientType"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiGroupBackgroundGradientType"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiGroupBackgroundImage"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentRectangle"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiGroupBackgroundImageLayout"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiGroupBackgroundImageAlpha"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiGroupTextPlacement"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiGroupTextFont"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiGroupOutlineThickness"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiGroupOutlineRoundAngle"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiGroupTextMargin" use="optional" />
+		<xs:attribute type="xs:string" name="uiType" use="optional" />
+		<xs:attribute type="xs:string" name="componentLayerUid"
+			use="optional" />
+		<xs:attribute type="xs:string" name="componentTabName"
+			use="optional" />
+		<xs:attribute type="xs:int" name="componentTabId" use="optional" />
+		<xs:attribute type="xs:string" name="uiImageSliderResource"
+			use="optional" />
+		<xs:attribute type="xs:int" name="resourceImageWidth"
+			use="optional" />
+		<xs:attribute type="xs:int" name="resourceImageHeight"
+			use="optional" />
+		<xs:attribute type="xs:int" name="resourceImagePaintMode"
+			use="optional" />
+		<xs:attribute type="xs:int" name="resourceImageOrientation"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderStyle" use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderMin" use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderMax" use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderInterval" use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderDoubleClickEnabled"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderDoubleClickValue"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderValuePosition"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderValueHeight"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderValueWidth"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderTrackCornerSize"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderThumbCornerSize"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderThumbWidth"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderThumbHeight"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderThumbFlatOnLeft"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderThumbFlatOnRight"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderThumbFlatOnTop"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderThumbFlatOnBottom"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderValueTextColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderValueBgColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderRotaryOutlineColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderRotaryFillColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderThumbColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderValueHighlightColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderValueOutlineColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderTrackColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderIncDecButtonColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderIncDecTextColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderValueFont"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiSliderValueTextJustification"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderVelocitySensitivity"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderVelocityThreshold"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderVelocityOffset"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderVelocityMode"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderVelocityModeKeyTrigger"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderSpringMode"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderSpringValue"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderMouseWheelInterval"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiSliderPopupBubble"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiToggleButtonText"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiImageButtonMode" use="optional" />
+		<xs:attribute type="xs:string" name="uiImageButtonResource"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiImageButtonTextColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiImageButtonContent"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiImageButtonTextPosition"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiImageButtonTextWidth"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiImageButtonTextHeight"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiButtonColourOn"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonTrueValue" use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonFalseValue"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonIsToggle" use="optional" />
+		<xs:attribute type="xs:string" name="uiButtonColourOff"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiButtonTextColourOn"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiButtonTextColourOff"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiButtonTextFont"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiButtonTextJustification"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiButtonContent"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonConnectedLeft"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonConnectedRight"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonConnectedTop"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonConnectedBottom"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonRepeat" use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonRepeatRate"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiButtonTriggerOnMouseDown"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboArrowColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboOutlineColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboTextColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboTextJustification"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboFont" use="optional" />
+		<xs:attribute type="xs:string" name="uiComboMenuFont"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboButtonColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboBgColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboMenuBackgroundColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboMenuFontColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboMenuHighlightColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboMenuFontHighlightedColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboContent" use="optional" />
+		<xs:attribute type="xs:int" name="uiComboMenuBackgroundRibbed"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiComboButtonGradient"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboButtonGradientColour1"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiComboButtonGradientColour2"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiComboButtonWidthOverride"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiComboButtonWidth"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiComboDynamicContent"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiComboSelectedId" use="optional" />
+		<xs:attribute type="xs:int" name="uiComboSelectedIndex"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiTabsCurrentTabChanged"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiTabsDepth" use="optional" />
+		<xs:attribute type="xs:int" name="uiTabsOutlineThickness"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiTabsFrontTabOutline"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiTabsTabOutline" use="optional" />
+		<xs:attribute type="xs:int" name="uiTabsIndentThickness"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiTabsOrientation" use="optional" />
+		<xs:attribute type="xs:string" name="uiTabsFrontTabFont"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiTabsTabFont" use="optional" />
+		<xs:attribute type="xs:string" name="uiTabsOutlineGlobalColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiTabsOutlineGlobalBackgroundColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiTabsOutlineTabColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiTabsTextTabColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiTabsFrontTabOutlineColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiTabsFrontTabTextColour"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiTabsAddTab" use="optional" />
+		<xs:attribute type="xs:int" name="uiTabsRemoveTab" use="optional" />
+		<xs:attribute type="xs:int" name="uiTabsCurrentTab" use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelBgColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelTextColour"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiLabelOutline" use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelOutlineColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelJustification"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiLabelFitFont" use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelFont" use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelText" use="optional" />
+		<xs:attribute type="xs:int" name="uiLabelDisplaysAllValues"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelDisplayFormat"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelInputHighlightTextColour"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelInputHighlightColour"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiLabelEditOnSingleClick"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiLabelEditOnDoubleClick"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiLabelEditFocusDiscardsChanges"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelInputAllowedChars"
+			use="optional" />
+		<xs:attribute type="xs:int" name="uiLabelInputMaxLength"
+			use="optional" />
+		<xs:attribute type="xs:string" name="uiLabelChangedCbk"
+			use="optional" />
+	</xs:complexType>
+	<xs:complexType name="modulatorType">
+		<xs:sequence>
+			<xs:element type="midiType" name="midi" minOccurs="0" />
+			<xs:element type="componentType" name="component" />
+		</xs:sequence>
+		<xs:attribute type="xs:int" name="modulatorCustomIndex"
+			use="optional" />
+		<xs:attribute type="xs:int" name="modulatorCustomIndexGroup"
+			use="optional" />
+		<xs:attribute type="xs:int" name="modulatorIsStatic" use="optional" />
+		<xs:attribute type="xs:string" name="name" use="optional" />
+		<xs:attribute type="xs:int" name="modulatorVstExported"
+			use="optional" />
+		<xs:attribute type="xs:int" name="modulatorValue" use="optional" />
+		<xs:attribute type="xs:int" name="modulatorMax" use="optional" />
+		<xs:attribute type="xs:int" name="vstIndex" use="optional" />
+		<xs:attribute type="xs:int" name="modulatorGlobalVariable"
+			use="optional" />
+		<xs:attribute type="xs:int" name="modulatorMuteOnStart"
+			use="optional" />
+		<xs:attribute type="xs:int" name="modulatorExcludeFromSnapshot"
+			use="optional" />
+		<xs:attribute type="xs:string" name="modulatorValueExpression"
+			use="optional" />
+		<xs:attribute type="xs:string" name="modulatorValueExpressionReverse"
+			use="optional" />
+		<xs:attribute type="xs:string" name="luaModulatorGetValueForMIDI"
+			use="optional" />
+		<xs:attribute type="xs:string" name="luaModulatorGetValueFromMIDI"
+			use="optional" />
+		<xs:attribute type="xs:string" name="modulatorLinkedToPanelProperty"
+			use="optional" />
+		<xs:attribute type="xs:string" name="modulatorLinkedToModulatorProperty"
+			use="optional" />
+		<xs:attribute type="xs:string" name="modulatorLinkedToModulator"
+			use="optional" />
+		<xs:attribute type="xs:int" name="modulatorLinkedToModulatorSource"
+			use="optional" />
+		<xs:attribute type="xs:int" name="modulatorLinkedToComponent"
+			use="optional" />
+		<xs:attribute type="xs:int" name="modulatorBaseValue"
+			use="optional" />
+		<xs:attribute type="xs:string" name="modulatorCustomName"
+			use="optional" />
+		<xs:attribute type="xs:string" name="modulatorCustomNameGroup"
+			use="optional" />
+		<xs:attribute type="xs:string" name="modulatorVstNameFormat"
+			use="optional" />
+		<xs:attribute type="xs:string" name="luaModulatorValueChange"
+			use="optional" />
+		<xs:attribute type="xs:int" name="modulatorMin" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="midiType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:int" name="midiMessageType" use="optional" />
+				<xs:attribute type="xs:int" name="midiMessageChannelOverride"
+					use="optional" />
+				<xs:attribute type="xs:int" name="midiMessageChannel"
+					use="optional" />
+				<xs:attribute type="xs:int" name="midiMessageCtrlrNumber"
+					use="optional" />
+				<xs:attribute type="xs:int" name="midiMessageCtrlrValue"
+					use="optional" />
+				<xs:attribute type="xs:string" name="midiMessageMultiList"
+					use="optional" />
+				<xs:attribute type="xs:string" name="midiMessageSysExFormula"
+					use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="uiTabsTabType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:int" name="uiTabsTabIndex" />
+				<xs:attribute type="xs:string" name="uiTabsTabName" />
+				<xs:attribute type="xs:string" name="uiTabsTabContentBackgroundColour" />
+				<xs:attribute type="xs:string" name="uiTabsTabBackgroundColour" />
+				<xs:attribute type="xs:string" name="uiTabsTabBackgroundImage" />
+				<xs:attribute type="xs:int" name="uiTabsTabBackgroundImageLayout" />
+				<xs:attribute type="xs:int" name="uiTabsTabBackgroundImageAlpha" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="panelType">
+		<xs:sequence>
+			<xs:element type="uiWindowManagerType" name="uiWindowManager" />
+			<xs:element type="midiLibraryType" name="midiLibrary" />
+			<xs:element type="luaManagerType" name="luaManager" />
+			<xs:element type="panelResourcesType" name="panelResources" />
+			<xs:element type="uiPanelEditorType" name="uiPanelEditor" />
+			<xs:element type="modulatorType" name="modulator"
+				maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" />
+		<xs:attribute type="xs:int" name="panelShowDialogs" />
+		<xs:attribute type="xs:int" name="panelMessageTime" />
+		<xs:attribute type="xs:string" name="panelAuthorName" />
+		<xs:attribute type="xs:string" name="panelAuthorEmail" />
+		<xs:attribute type="xs:anyURI" name="panelAuthorUrl" />
+		<xs:attribute type="xs:string" name="panelAuthorDesc" />
+		<xs:attribute type="xs:int" name="panelVersionMajor" />
+		<xs:attribute type="xs:int" name="panelVersionMinor" />
+		<xs:attribute type="xs:string" name="panelVersionName" />
+		<xs:attribute type="xs:string" name="panelVendor" />
+		<xs:attribute type="xs:string" name="panelDevice" />
+		<xs:attribute type="xs:int" name="panelMidiSnapshotAfterLoad" />
+		<xs:attribute type="xs:int" name="panelMidiSnapshotAfterProgramChange" />
+		<xs:attribute type="xs:int" name="panelMidiSnapshotDelay" />
+		<xs:attribute type="xs:int" name="panelMidiInputChannelDevice" />
+		<xs:attribute type="xs:string" name="panelMidiInputDevice" />
+		<xs:attribute type="xs:int" name="panelMidiControllerChannelDevice" />
+		<xs:attribute type="xs:string" name="panelMidiControllerDevice" />
+		<xs:attribute type="xs:int" name="panelMidiOutputChannelDevice" />
+		<xs:attribute type="xs:string" name="panelMidiOutputDevice" />
+		<xs:attribute type="xs:int" name="panelMidiInputFromHost" />
+		<xs:attribute type="xs:int" name="panelMidiInputChannelHost" />
+		<xs:attribute type="xs:int" name="panelMidiOutputToHost" />
+		<xs:attribute type="xs:int" name="panelMidiOutputChannelHost" />
+		<xs:attribute type="xs:int" name="panelMidiThruH2H" />
+		<xs:attribute type="xs:int" name="panelMidiThruH2HChannelize" />
+		<xs:attribute type="xs:int" name="panelMidiThruH2D" />
+		<xs:attribute type="xs:int" name="panelMidiThruH2DChannelize" />
+		<xs:attribute type="xs:int" name="panelMidiThruD2D" />
+		<xs:attribute type="xs:int" name="panelMidiThruD2DChannelize" />
+		<xs:attribute type="xs:int" name="panelMidiThruD2H" />
+		<xs:attribute type="xs:int" name="panelMidiThruD2HChannelize" />
+		<xs:attribute type="xs:int" name="panelMidiRealtimeIgnore" />
+		<xs:attribute type="xs:int" name="panelMidiInputThreadPriority" />
+		<xs:attribute type="xs:int" name="panelMidiProgram" />
+		<xs:attribute type="xs:int" name="panelMidiBankLsb" />
+		<xs:attribute type="xs:int" name="panelMidiBankMsb" />
+		<xs:attribute type="xs:int" name="panelMidiSendProgramChangeOnLoad" />
+		<xs:attribute type="xs:int"
+			name="panelMidiProgramCalloutOnprogramChange" />
+		<xs:attribute type="xs:int" name="panelMidiMatchCacheSize" />
+		<xs:attribute type="xs:int" name="panelMidiGlobalDelay" />
+		<xs:attribute type="xs:string" name="luaPanelMidiChannelChanged" />
+		<xs:attribute type="xs:string" name="luaPanelMidiReceived" />
+		<xs:attribute type="xs:string" name="luaPanelLoaded" />
+		<xs:attribute type="xs:string" name="luaPanelBeforeLoad" />
+		<xs:attribute type="xs:string" name="luaPanelSaved" />
+		<xs:attribute type="xs:string" name="luaPanelResourcesLoaded" />
+		<xs:attribute type="xs:string" name="luaPanelProgramChanged" />
+		<xs:attribute type="xs:string" name="luaPanelGlobalChanged" />
+		<xs:attribute type="xs:string" name="luaPanelMessageHandler" />
+		<xs:attribute type="xs:string" name="luaPanelModulatorValueChanged" />
+		<xs:attribute type="xs:string" name="panelFilePath" />
+		<xs:attribute type="xs:string" name="panelUID" />
+		<xs:attribute type="xs:string" name="panelInstanceUID" />
+		<xs:attribute type="xs:string" name="panelInstanceManufacturerID" />
+		<xs:attribute type="xs:string" name="panelModulatorListColumns" />
+		<xs:attribute type="xs:string" name="panelModulatorListCsvDelimiter" />
+		<xs:attribute type="xs:string" name="panelModulatorListXmlRoot" />
+		<xs:attribute type="xs:string" name="panelModulatorListXmlModulator" />
+		<xs:attribute type="xs:int" name="panelModulatorListSortOption" />
+		<xs:attribute type="xs:string" name="panelGlobalVariables" />
+		<xs:attribute type="xs:string" name="panelResources" />
+		<xs:attribute type="xs:int" name="panelPropertyDisplayIDs" />
+		<xs:attribute type="xs:string" name="ctrlrMenuItemBackgroundColour" />
+		<xs:attribute type="xs:string" name="ctrlrMenuItemTextColour" />
+		<xs:attribute type="xs:string" name="ctrlrMenuItemHighlightedTextColour" />
+		<xs:attribute type="xs:string" name="ctrlrMenuItemHighlightColour" />
+		<xs:attribute type="xs:string" name="ctrlrMenuItemFont" />
+		<xs:attribute type="xs:string" name="ctrlrMenuItemSeparatorColour" />
+		<xs:attribute type="xs:string" name="ctrlrMenuItemHeaderColour" />
+		<xs:attribute type="xs:string" name="ctrlrMenuBarBackgroundColour1" />
+		<xs:attribute type="xs:string" name="ctrlrMenuBarBackgroundColour2" />
+		<xs:attribute type="xs:string" name="ctrlrMenuBarTextColour" />
+		<xs:attribute type="xs:string" name="ctrlrMenuBarHighlightedTextColour" />
+		<xs:attribute type="xs:string" name="ctrlrMenuBarHighlightColour" />
+		<xs:attribute type="xs:string" name="ctrlrMenuBarFont" />
+		<xs:attribute type="xs:int" name="ctrlrUseEditorWrapper" />
+		<xs:attribute type="xs:int" name="panelMidiControllerChannel" />
+		<xs:attribute type="xs:int" name="deviceCapIdentity" />
+		<xs:attribute type="xs:int" name="deviceCapFirmware" />
+		<xs:attribute type="xs:int" name="deviceCapEditBuffer" />
+		<xs:attribute type="xs:int" name="deviceCapBank" />
+		<xs:attribute type="xs:int" name="deviceCapProgram" />
+		<xs:attribute type="xs:int" name="deviceCapAbout" />
+		<xs:attribute type="xs:int" name="panelIndex" />
+		<xs:attribute type="xs:string" name="uiPanelToolbarState" />
+		<xs:attribute type="xs:int" name="panelCtrlrRevision" />
+		<xs:attribute type="xs:string" name="uiLuaConsoleSnips" />
+		<xs:attribute type="xs:int" name="uiPanelModulatorListViewTree" />
+	</xs:complexType>
 </xs:schema>

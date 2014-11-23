@@ -1,31 +1,30 @@
-package org.jsynthlib.utils.ctrlr.builder;
+package org.jsynthlib.utils.ctrlr.builder.component;
 
 import java.awt.Rectangle;
 
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.SliderSpecWrapper;
-import org.jsynthlib.utils.ctrlr.SysexFormulaParser;
-import org.jsynthlib.xmldevice.IntParamSpec;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
+
+import com.google.inject.Inject;
 
 public class UiComboBuilder extends CtrlrMidiComponentBuilder {
 
-    public UiComboBuilder(IntParamSpec object, SysexFormulaParser formulaParser) {
-        super(SliderSpecWrapper.Factory.newWrapper(object), formulaParser);
+    @Inject
+    public UiComboBuilder(DriverContext context) {
+        super(context);
     }
 
     @Override
     public ModulatorType createComponent(PanelType panel, ModulatorType group,
             int vstIndex, Rectangle rect) {
-        ModulatorType modulator =
-                createModulator(panel, vstIndex,
-                        getUniqueName(object.getName()), object.getMin(),
-                        object.getMax());
+        ModulatorType modulator = createModulator(panel, vstIndex);
 
         createMidiElement(modulator);
         ComponentType component = modulator.addNewComponent();
-        setDefaultComponentFields(component, group, object.getName(), panel);
+        setDefaultComponentFields(component, group, getObject().getName(),
+                panel);
 
         component.setUiComboArrowColour("ffffffff");
         component.setUiComboOutlineColour("8f000000");

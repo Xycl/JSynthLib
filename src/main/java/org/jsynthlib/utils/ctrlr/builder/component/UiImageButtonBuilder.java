@@ -1,4 +1,4 @@
-package org.jsynthlib.utils.ctrlr.builder;
+package org.jsynthlib.utils.ctrlr.builder.component;
 
 import java.awt.Rectangle;
 import java.io.IOException;
@@ -10,11 +10,13 @@ import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.jsynthlib.utils.ctrlr.PanelResourceManager;
 import org.jsynthlib.utils.ctrlr.ResourceContainer;
-import org.jsynthlib.utils.ctrlr.SliderSpecWrapper;
-import org.jsynthlib.utils.ctrlr.SysexFormulaParser;
+import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.PatchParamResources;
 import org.jsynthlib.xmldevice.PatchParamValues;
+
+import com.google.inject.Inject;
 
 public class UiImageButtonBuilder extends CtrlrMidiComponentBuilder {
 
@@ -23,30 +25,33 @@ public class UiImageButtonBuilder extends CtrlrMidiComponentBuilder {
     private PatchParamValues paramValues;
     private final PanelResourceManager resourceManager;
 
-    public UiImageButtonBuilder(IntParamSpec object,
-            SysexFormulaParser formulaParser,
+    @Inject
+    public UiImageButtonBuilder(DriverContext context,
             PanelResourceManager resourceManager) {
-        super(SliderSpecWrapper.Factory.newWrapper(object), formulaParser);
+        super(context);
         this.resourceManager = resourceManager;
+    }
+
+    public void setIntParamSpec(IntParamSpec object) {
+        setObject(SliderSpecWrapper.Factory.newWrapper(object));
         if (object.isSetPatchParamResources()) {
             this.paramSpec = object;
         }
         if (object.isSetPatchParamValues()) {
             this.paramValues = object.getPatchParamValues();
         }
+
     }
 
     @Override
     public ModulatorType createComponent(PanelType panel, ModulatorType group,
             int vstIndex, Rectangle rect) {
-        ModulatorType modulator =
-                createModulator(panel, vstIndex,
-                        getUniqueName(object.getName()), object.getMin(),
-                        object.getMax());
+        ModulatorType modulator = createModulator(panel, vstIndex);
 
         createMidiElement(modulator);
         ComponentType component = modulator.addNewComponent();
-        setDefaultComponentFields(component, group, object.getName(), panel);
+        setDefaultComponentFields(component, group, getObject().getName(),
+                panel);
 
         int width = 57;
         int height = 44;

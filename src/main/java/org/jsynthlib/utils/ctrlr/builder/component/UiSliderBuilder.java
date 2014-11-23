@@ -1,48 +1,47 @@
-package org.jsynthlib.utils.ctrlr.builder;
+package org.jsynthlib.utils.ctrlr.builder.component;
 
 import java.awt.Rectangle;
 
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.SliderSpecWrapper;
-import org.jsynthlib.utils.ctrlr.SysexFormulaParser;
+import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.IntParamSpec;
+
+import com.google.inject.Inject;
 
 public class UiSliderBuilder extends CtrlrMidiComponentBuilder {
 
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
     private int sliderValuePosition;
 
-    public UiSliderBuilder(IntParamSpec object, SysexFormulaParser formulaParser) {
-        this(SliderSpecWrapper.Factory.newWrapper(object), 31, 73,
-                formulaParser);
+    @Inject
+    public UiSliderBuilder(DriverContext context) {
+        super(context);
+        this.width = 31;
+        this.height = 73;
+        this.sliderValuePosition = 4;
     }
 
-    protected UiSliderBuilder(SliderSpecWrapper object, int width, int height,
-            SysexFormulaParser formulaParser) {
-        super(object, formulaParser);
-        this.width = width;
-        this.height = height;
-        this.sliderValuePosition = 4;
+    public void setIntParamSpec(IntParamSpec paramSpec) {
+        super.setObject(SliderSpecWrapper.Factory.newWrapper(paramSpec));
     }
 
     @Override
     public ModulatorType createComponent(PanelType panel, ModulatorType group,
             int vstIndex, Rectangle rect) {
-        ModulatorType modulator =
-                createModulator(panel, vstIndex,
-                        getUniqueName(object.getName()), object.getMin(),
-                        object.getMax());
+        ModulatorType modulator = createModulator(panel, vstIndex);
 
         createMidiElement(modulator);
         ComponentType component = modulator.addNewComponent();
-        setDefaultComponentFields(component, group, object.getName(), panel);
+        setDefaultComponentFields(component, group, getObject().getName(),
+                panel);
 
         component.setUiSliderStyle(getUiSliderStyle());
-        component.setUiSliderMin(object.getMin());
-        component.setUiSliderMax(object.getMax());
+        component.setUiSliderMin(getObject().getMin());
+        component.setUiSliderMax(getObject().getMax());
         component.setUiSliderInterval(1);
         component.setUiSliderDoubleClickEnabled(1);
         component.setUiSliderDoubleClickValue(0);
@@ -95,5 +94,21 @@ public class UiSliderBuilder extends CtrlrMidiComponentBuilder {
 
     protected void setSliderValuePosition(int sliderValuePosition) {
         this.sliderValuePosition = sliderValuePosition;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

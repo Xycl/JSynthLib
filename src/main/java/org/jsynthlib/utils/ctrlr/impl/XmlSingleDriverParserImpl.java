@@ -1,7 +1,6 @@
 package org.jsynthlib.utils.ctrlr.impl;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.concurrent.Semaphore;
 
 import javafx.application.Platform;
@@ -20,34 +19,33 @@ import javafx.scene.control.TitledPane;
 import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
-import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
-import org.apache.xmlbeans.XmlOptions;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiPanelEditorType;
-import org.jsynthlib.utils.ctrlr.CtrlrComponentBuilderFactory;
-import org.jsynthlib.utils.ctrlr.builder.CtrlrComponentBuilder;
+import org.jsynthlib.utils.ctrlr.builder.CtrlrComponentBuilderFactory;
+import org.jsynthlib.utils.ctrlr.builder.CtrlrLuaManagerBuilder;
+import org.jsynthlib.utils.ctrlr.builder.component.CtrlrComponentBuilderBase;
+import org.jsynthlib.utils.ctrlr.builder.method.MidiReceivedMethodBuilder;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
+import org.jsynthlib.utils.ctrlr.driverContext.XmlDriverParser;
 import org.jsynthlib.xmldevice.PatchParamGroup;
-import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument;
 import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 
 import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
 
-public class XmlDriverEditorParser extends JFrame {
+public class XmlSingleDriverParserImpl extends JFrame implements
+XmlDriverParser {
 
     private static final long serialVersionUID = 1L;
 
     private final transient Logger log = Logger.getLogger(getClass());
 
-    private XmlSingleDriverDefinition xmlDriverDef;
+    private final XmlSingleDriverDefinition xmlDriverDef;
 
     private Scene scene;
 
     private ObservableMap<String, Object> namespace;
-
-    private final String className;
 
     private final JFXPanel jfxPanel;
 
@@ -55,30 +53,28 @@ public class XmlDriverEditorParser extends JFrame {
 
     private final PanelType panel;
 
-    private final CtrlrComponentBuilderFactory componentFactoryFactory;
+    private final DriverContext context;
 
     @Inject
-    public XmlDriverEditorParser(
-            CtrlrComponentBuilderFactory componentFactoryFactory,
-            @Assisted String className, @Assisted PanelType panel) {
-        this.className = className;
+    public XmlSingleDriverParserImpl(DriverContext context) {
+        xmlDriverDef =
+                (XmlSingleDriverDefinition) context.getDriverDefinition();
+        this.context = context;
+        this.panel = context.getPanel();
         this.vstIndex = 0;
-        this.panel = panel;
         jfxPanel = new JFXPanel();
-        this.componentFactoryFactory = componentFactoryFactory;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void parseJFX() throws XmlException, IOException {
-        XmlOptions xmlOptions = new XmlOptions();
-        xmlOptions.setLoadStripWhitespace();
-        InputStream stream =
-                getClass().getClassLoader().getResourceAsStream(
-                        getXmlfilePath(className.trim()));
-        XmlSingleDriverDefinitionDocument driverDocument =
-                XmlSingleDriverDefinitionDocument.Factory.parse(stream,
-                        xmlOptions);
-        xmlDriverDef = driverDocument.getXmlSingleDriverDefinition();
+    @Override
+    public void extractDriverToPanel() {
+        CtrlrLuaManagerBuilder luaManagerBuilder =
+                context.getInstance(CtrlrLuaManagerBuilder.class);
+        luaManagerBuilder.addMethodGroup(context.getDriverPrefix());
+        MidiReceivedMethodBuilder midiReceivedBuilder =
+                luaManagerBuilder.getMidiReceivedBuilder();
+
+        midiReceivedBuilder.addNewDriver(xmlDriverDef);
 
         final Semaphore semaphore = new Semaphore(0);
 
@@ -131,7 +127,9 @@ public class XmlDriverEditorParser extends JFrame {
     void initFX() {
         // This method is invoked on JavaFX thread
         try {
-            String fxmlName = className.replace('.', '/') + "Editor.fxml";
+            String fxmlName =
+                    context.getDriverClassName().replace('.', '/')
+                    + "Editor.fxml";
             log.info("Loading fxml: " + fxmlName);
             FXMLLoader fxmlLoader =
                     new FXMLLoader(getClass().getClassLoader().getResource(
@@ -200,16 +198,17 @@ public class XmlDriverEditorParser extends JFrame {
 
     ModulatorType addComponent(Object xmlObject, Node node,
             ModulatorType group, Bounds groupAbsBounds) {
-        CtrlrComponentBuilder<? extends Object> factory =
-                componentFactoryFactory.newFactory(xmlObject);
-        if (factory == null) {
+        CtrlrComponentBuilderBase<? extends Object> builder =
+                context.getInstance(CtrlrComponentBuilderFactory.class)
+                        .newFactory(xmlObject);
+        if (builder == null) {
             log.debug("Could not find factory for object type "
                     + xmlObject.getClass().getName());
             return null;
         } else {
-            factory.setParentAbsoluteBounds(groupAbsBounds);
+            builder.setParentAbsoluteBounds(groupAbsBounds);
             Bounds bounds = getAbsoluteBounds(node);
-            return factory.createComponent(panel, group, vstIndex++, bounds);
+            return builder.createModulator(panel, group, vstIndex++, bounds);
             // LOG.debug("Added " + modulator.getClass().getName()
             // + " at " + bounds.toString());
         }
@@ -239,9 +238,5 @@ public class XmlDriverEditorParser extends JFrame {
             throw new IllegalStateException("Could not find title " + title);
         }
         return xmlObjects[0];
-    }
-
-    protected void setXmlDriverDef(XmlSingleDriverDefinition xmlDriverDef) {
-        this.xmlDriverDef = xmlDriverDef;
     }
 }

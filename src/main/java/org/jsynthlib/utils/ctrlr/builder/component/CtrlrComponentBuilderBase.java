@@ -1,4 +1,4 @@
-package org.jsynthlib.utils.ctrlr.builder;
+package org.jsynthlib.utils.ctrlr.builder.component;
 
 import java.awt.Rectangle;
 import java.util.HashSet;
@@ -12,27 +12,34 @@ import org.ctrlr.panel.MidiType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiTabsTabType;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 
-public abstract class CtrlrComponentBuilder<T extends Object> {
+public abstract class CtrlrComponentBuilderBase<T extends Object> {
     private static final Set<String> NAME_CACHE = new HashSet<String>();
 
-    protected final T object;
+    private T object;
     private Bounds parentAbsoluteBounds;
     private ComponentLabelPositionType.Enum labelPosition;
     private String valueExpression;
     private boolean labelVisible;
+    private int max;
+    private int min;
+    private String luaModulatorValueChange;
 
-    protected CtrlrComponentBuilder(T object) {
-        this.object = object;
+    private final DriverContext context;
+
+    protected CtrlrComponentBuilderBase(DriverContext context) {
+        this.context = context;
         labelPosition = ComponentLabelPositionType.TOP;
         valueExpression = "modulatorValue";
         labelVisible = true;
+        luaModulatorValueChange = "-- None";
     }
 
     public abstract ModulatorType createComponent(PanelType panel,
             ModulatorType group, int vstIndex, Rectangle rect);
 
-    public ModulatorType createComponent(PanelType panel, ModulatorType group,
+    public ModulatorType createModulator(PanelType panel, ModulatorType group,
             int vstIndex, Bounds bounds) {
         int x = (int) bounds.getMinX();
         int y = (int) bounds.getMinY();
@@ -47,25 +54,26 @@ public abstract class CtrlrComponentBuilder<T extends Object> {
         return createComponent(panel, group, vstIndex, rect);
     }
 
-    ModulatorType createModulatorBase(PanelType panel, String modName) {
+    ModulatorType createModulatorBase(PanelType panel) {
         ModulatorType modulator = panel.addNewModulator();
         modulator.setModulatorCustomIndex(0);
         modulator.setModulatorCustomIndexGroup(0);
-        modulator.setName(getUniqueName(modName));
+        modulator.setName(getModulatorName());
         modulator.setModulatorValue(0);
         return modulator;
     }
 
-    protected ModulatorType createModulator(PanelType panel, String modName) {
-        ModulatorType modulator = createModulatorBase(panel, modName);
+    protected ModulatorType createModulator(PanelType panel) {
+        ModulatorType modulator = createModulatorBase(panel);
         modulator.setModulatorVstExported(0);
         modulator.setModulatorIsStatic(1);
         return modulator;
     }
 
-    protected ModulatorType createModulator(PanelType panel, int vstIndex,
-            String modName, int min, int max) {
-        ModulatorType modulator = createModulatorBase(panel, modName);
+    protected abstract String getModulatorName();
+
+    protected ModulatorType createModulator(PanelType panel, int vstIndex) {
+        ModulatorType modulator = createModulatorBase(panel);
         modulator.setModulatorVstExported(1);
         modulator.setModulatorMax(max);
         modulator.setVstIndex(vstIndex);
@@ -84,7 +92,7 @@ public abstract class CtrlrComponentBuilder<T extends Object> {
         modulator.setModulatorLinkedToComponent(0);
         modulator.setModulatorBaseValue(0);
         modulator.setModulatorVstNameFormat("%n");
-        modulator.setLuaModulatorValueChange("-- None");
+        modulator.setLuaModulatorValueChange(luaModulatorValueChange);
         modulator.setModulatorMin(min);
         modulator.setModulatorCustomName("");
         modulator.setModulatorCustomNameGroup("");
@@ -207,7 +215,7 @@ public abstract class CtrlrComponentBuilder<T extends Object> {
         return valueExpression;
     }
 
-    protected void setValueExpression(String valueExpression) {
+    public void setValueExpression(String valueExpression) {
         this.valueExpression = valueExpression;
     }
 
@@ -217,5 +225,41 @@ public abstract class CtrlrComponentBuilder<T extends Object> {
 
     protected void setLabelVisible(boolean labelVisible) {
         this.labelVisible = labelVisible;
+    }
+
+    public T getObject() {
+        return object;
+    }
+
+    public void setObject(T object) {
+        this.object = object;
+    }
+
+    public DriverContext getContext() {
+        return context;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public String getLuaModulatorValueChange() {
+        return luaModulatorValueChange;
+    }
+
+    public void setLuaModulatorValueChange(String luaModulatorValueChange) {
+        this.luaModulatorValueChange = luaModulatorValueChange;
     }
 }

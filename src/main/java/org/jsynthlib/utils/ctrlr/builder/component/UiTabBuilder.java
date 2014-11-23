@@ -1,4 +1,4 @@
-package org.jsynthlib.utils.ctrlr.builder;
+package org.jsynthlib.utils.ctrlr.builder.component;
 
 import java.awt.Rectangle;
 
@@ -6,18 +6,22 @@ import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiTabsTabType;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 
-public class UiTabBuilder extends CtrlrComponentBuilder<PatchParamGroup[]> {
+import com.google.inject.Inject;
 
-    public UiTabBuilder(PatchParamGroup[] object) {
-        super(object);
+public class UiTabBuilder extends CtrlrComponentBuilderBase<PatchParamGroup[]> {
+
+    @Inject
+    public UiTabBuilder(DriverContext context) {
+        super(context);
     }
 
     @Override
     public ModulatorType createComponent(PanelType panel, ModulatorType group,
             int vstIndex, Rectangle rect) {
-        ModulatorType modulator = createModulator(panel, "tabs");
+        ModulatorType modulator = createModulator(panel);
         ComponentType component = modulator.addNewComponent();
         setLabelVisible(false);
         setDefaultComponentFields(component, group, "", panel);
@@ -42,7 +46,7 @@ public class UiTabBuilder extends CtrlrComponentBuilder<PatchParamGroup[]> {
         component.setUiTabsCurrentTab(0);
         setComponentRectangle(component, rect);
 
-        for (PatchParamGroup patchParamGroup : object) {
+        for (PatchParamGroup patchParamGroup : getObject()) {
             newUiTabsTab(modulator, patchParamGroup.getName());
         }
         return modulator;
@@ -61,5 +65,10 @@ public class UiTabBuilder extends CtrlrComponentBuilder<PatchParamGroup[]> {
         uiTabsTab.setUiTabsTabBackgroundImageAlpha(255);
         component.setUiTabsCurrentTab(index);
         return tabType;
+    }
+
+    @Override
+    protected String getModulatorName() {
+        return getUniqueName("tabs");
     }
 }

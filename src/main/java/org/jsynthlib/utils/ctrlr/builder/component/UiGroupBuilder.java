@@ -1,29 +1,38 @@
-package org.jsynthlib.utils.ctrlr.builder;
+package org.jsynthlib.utils.ctrlr.builder.component;
 
 import java.awt.Rectangle;
 
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 
-public class UiGroupBuilder extends CtrlrComponentBuilder<String> {
+import com.google.inject.Inject;
+
+public class UiGroupBuilder extends CtrlrComponentBuilderBase<String> {
 
     private String uiGroupText;
 
-    public UiGroupBuilder(PatchParamGroup object) {
-        this(object.getName());
+    @Inject
+    public UiGroupBuilder(DriverContext context) {
+        super(context);
     }
 
-    public UiGroupBuilder(String object) {
-        super(object);
+    public void setPatchParamGroup(PatchParamGroup group) {
+        setObject(group.getName());
+    }
+
+    @Override
+    public void setObject(String object) {
+        super.setObject(object);
         uiGroupText = object;
     }
 
     @Override
     public ModulatorType createComponent(PanelType panel, ModulatorType group,
             int vstIndex, Rectangle rect) {
-        ModulatorType modulator = createModulator(panel, object);
+        ModulatorType modulator = createModulator(panel);
         ComponentType component = modulator.addNewComponent();
         component.setUiGroupText(uiGroupText);
         component.setUiGroupTextColour("6c000000");
@@ -55,6 +64,11 @@ public class UiGroupBuilder extends CtrlrComponentBuilder<String> {
 
     public void setUiGroupText(String uiGroupText) {
         this.uiGroupText = uiGroupText;
+    }
+
+    @Override
+    protected String getModulatorName() {
+        return getUniqueName(getObject());
     }
 
 }

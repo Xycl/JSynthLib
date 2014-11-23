@@ -1,9 +1,11 @@
-package org.jsynthlib.utils.ctrlr;
+package org.jsynthlib.utils.ctrlr.builder;
 
+import org.jsynthlib.xmldevice.CombinedGroup;
 import org.jsynthlib.xmldevice.CombinedIntPatchParam;
 import org.jsynthlib.xmldevice.EnvelopeParamSpec;
 import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.MidiSenderReference;
+import org.jsynthlib.xmldevice.ParamModelReference;
 
 public interface SliderSpecWrapper {
 
@@ -13,13 +15,13 @@ public interface SliderSpecWrapper {
         }
 
         public static SliderSpecWrapper newWrapper(
-                CombinedIntPatchParam paramSpec,
-                MidiSenderReference midiSenderReference) {
+                CombinedIntPatchParam paramSpec, CombinedGroup cg) {
             SliderSpecWrapperImpl wrapper = new SliderSpecWrapperImpl();
             wrapper.max = paramSpec.getMax();
             wrapper.min = paramSpec.getMin();
             wrapper.name = paramSpec.getName();
-            wrapper.ref = midiSenderReference;
+            wrapper.msRef = cg.getMidiSender();
+            wrapper.pmRef = cg.getParamModel();
             return wrapper;
         }
 
@@ -33,7 +35,8 @@ public interface SliderSpecWrapper {
             } else {
                 wrapper.name = Integer.toString(index);
             }
-            wrapper.ref = paramSpec.getMidiSender();
+            wrapper.msRef = paramSpec.getMidiSender();
+            wrapper.pmRef = paramSpec.getParamModel();
             return wrapper;
         }
 
@@ -42,7 +45,8 @@ public interface SliderSpecWrapper {
             wrapper.max = paramSpec.getMax();
             wrapper.min = paramSpec.getMin();
             wrapper.name = paramSpec.getName();
-            wrapper.ref = paramSpec.getMidiSender();
+            wrapper.msRef = paramSpec.getMidiSender();
+            wrapper.pmRef = paramSpec.getParamModel();
             return wrapper;
         }
 
@@ -51,7 +55,8 @@ public interface SliderSpecWrapper {
             private String name;
             private int min;
             private int max;
-            private MidiSenderReference ref;
+            private MidiSenderReference msRef;
+            private ParamModelReference pmRef;
 
             @Override
             public String getName() {
@@ -70,14 +75,23 @@ public interface SliderSpecWrapper {
 
             @Override
             public MidiSenderReference getMidiSender() {
-                return ref;
+                return msRef;
             }
 
             @Override
             public boolean isSetMidiSender() {
-                return ref != null;
+                return msRef != null;
             }
 
+            @Override
+            public boolean isSetParamModel() {
+                return pmRef != null;
+            }
+
+            @Override
+            public ParamModelReference getParamModel() {
+                return pmRef;
+            }
         }
     }
 
@@ -90,4 +104,8 @@ public interface SliderSpecWrapper {
     MidiSenderReference getMidiSender();
 
     boolean isSetMidiSender();
+
+    boolean isSetParamModel();
+
+    ParamModelReference getParamModel();
 }
