@@ -24,6 +24,8 @@ import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiDevice.Info;
 import javax.sound.midi.spi.MidiDeviceProvider;
 
+import org.jsynthlib.utils.SingletonMidiDeviceProvider;
+
 public class TestMidiDeviceProvider extends MidiDeviceProvider {
 
     private SingletonMidiDeviceProvider delegate;

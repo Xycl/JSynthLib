@@ -6,6 +6,7 @@ import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceDescriptor;
 import org.jsynthlib.device.model.DeviceException;
 import org.jsynthlib.device.model.DeviceManager;
+import org.jsynthlib.device.model.DriverFactory;
 import org.jsynthlib.device.model.MidiSenderFactory;
 import org.jsynthlib.device.model.ParamModelFactory;
 import org.jsynthlib.device.model.handler.IParamModel;
@@ -14,8 +15,8 @@ import org.jsynthlib.device.model.impl.DeviceModule;
 import org.jsynthlib.device.model.impl.HandlerBindingMap;
 import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.patch.model.impl.Patch;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
-import org.jsynthlib.utils.ctrlr.driverContext.HandlerReferenceFactory;
+import org.jsynthlib.utils.ctrlr.CtrlrMidiService;
+import org.jsynthlib.utils.ctrlr.driverContext.CtrlrConverterDeviceFactory;
 import org.jsynthlib.xmldevice.HandlerDefinitionBase;
 import org.jsynthlib.xmldevice.MidiSenderReference;
 import org.jsynthlib.xmldevice.ParamModelReference;
@@ -24,17 +25,19 @@ import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class HandlerReferenceFactoryImpl implements HandlerReferenceFactory {
+public class CtrlrConverterDeviceFactoryImpl implements
+        CtrlrConverterDeviceFactory {
 
-    private final XmlDeviceDefinition deviceDefinition;
+    @Inject
+    private CtrlrMidiService midiService;
     private final Device device;
     private final ParamModelFactory modelFactory;
     private final MidiSenderFactory senderFactory;
+    private final DriverFactory driverFactory;
 
     @Inject
-    public HandlerReferenceFactoryImpl(DeviceManager deviceManager,
-            DriverContext context) throws DeviceException {
-        this.deviceDefinition = context.getDeviceDefinition();
+    public CtrlrConverterDeviceFactoryImpl(DeviceManager deviceManager,
+            XmlDeviceDefinition deviceDefinition) throws DeviceException {
         HandlerBindingMap bindingMap = new HandlerBindingMap();
         String devicePath = bindingMap.addDevice(deviceDefinition);
         Map<String, HandlerDefinitionBase> deviceBindingsMap =
@@ -45,17 +48,35 @@ public class HandlerReferenceFactoryImpl implements HandlerReferenceFactory {
                         deviceModule);
         modelFactory = driverInjector.getInstance(ParamModelFactory.class);
         senderFactory = driverInjector.getInstance(MidiSenderFactory.class);
+        driverFactory = driverInjector.getInstance(DriverFactory.class);
 
         StringBuilder devNameBuilder = new StringBuilder();
         devNameBuilder.append(deviceDefinition.getManufacturer()).append(" ")
-        .append(deviceDefinition.getModelName()).append(" Driver");
+                .append(deviceDefinition.getModelName()).append(" Driver");
         DeviceDescriptor deviceDescriptor =
                 deviceManager.getDescriptorForDeviceName(devNameBuilder
                         .toString());
+        Device tempDevice = null;
         for (int i = 0; i < deviceManager.deviceCount(); i++) {
-            deviceManager.removeDevice(i);
+            Device d = deviceManager.getDevice(i);
+            if (deviceMatch(d, deviceDescriptor)) {
+                tempDevice = d;
+                break;
+            }
         }
-        device = deviceManager.addDevice(deviceDescriptor);
+
+        if (tempDevice == null) {
+            device = deviceManager.addDevice(deviceDescriptor);
+        } else {
+            device = tempDevice;
+        }
+        device.setMidiService(midiService);
+    }
+
+    boolean deviceMatch(Device d, DeviceDescriptor dd) {
+        return d.getManufacturerName().equals(dd.getManufacturer())
+                && d.getInquiryID().equals(dd.getDeviceId())
+                && d.getClass().getName().equals(dd.getDeviceClass());
     }
 
     @Override
@@ -71,6 +92,11 @@ public class HandlerReferenceFactoryImpl implements HandlerReferenceFactory {
     @Override
     public Device getDevice() {
         return device;
+    }
+
+    @Override
+    public DriverFactory getDriverFactory() {
+        return driverFactory;
     }
 
 }

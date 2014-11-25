@@ -55,10 +55,10 @@ import org.jsynthlib.driver.Xmlparam;
 import org.jsynthlib.driver.Xmlparams;
 import org.jsynthlib.driver.Xmlpatches;
 import org.jsynthlib.driver.Xmlstores;
-import org.jsynthlib.midi.SingletonMidiDeviceProvider;
-import org.jsynthlib.midi.SingletonMidiDeviceProvider.MidiRecordSession;
 import org.jsynthlib.test.adapter.WidgetAdapter;
 import org.jsynthlib.test.adapter.WidgetAdapter.Type;
+import org.jsynthlib.utils.SingletonMidiDeviceProvider;
+import org.jsynthlib.utils.SingletonMidiDeviceProvider.MidiRecordSession;
 
 public abstract class AbstractDocumentHandler {
 

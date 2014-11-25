@@ -8,13 +8,19 @@ import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.PatchParamValues;
 
-import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
 public class UiButtonBuilder extends CtrlrMidiComponentBuilder {
+
+    public interface Factory {
+        UiButtonBuilder newUiButtonBuilder(IntParamSpec paramSpec);
+
+        UiButtonBuilder newUiButtonBuilder(SliderSpecWrapper wrapper);
+    }
 
     private List<String> contents;
     private boolean toggle;
@@ -23,9 +29,9 @@ public class UiButtonBuilder extends CtrlrMidiComponentBuilder {
     private int height;
     private int width;
 
-    @Inject
-    public UiButtonBuilder(DriverContext context) {
-        super(context);
+    @AssistedInject
+    public UiButtonBuilder(@Assisted SliderSpecWrapper wrapper) {
+        setObject(wrapper);
         contents = new ArrayList<String>();
         contents.add("OFF");
         contents.add("ON");
@@ -36,8 +42,9 @@ public class UiButtonBuilder extends CtrlrMidiComponentBuilder {
         height = 44;
     }
 
-    public void setIntParamSpec(IntParamSpec object) {
-        setObject(SliderSpecWrapper.Factory.newWrapper(object));
+    @AssistedInject
+    public UiButtonBuilder(@Assisted IntParamSpec object) {
+        this(SliderSpecWrapper.Factory.newWrapper(object));
         if (object.isSetPatchParamValues()) {
             contents.clear();
             PatchParamValues paramValues = object.getPatchParamValues();

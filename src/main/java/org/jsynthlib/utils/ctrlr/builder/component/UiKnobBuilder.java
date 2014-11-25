@@ -1,14 +1,19 @@
 package org.jsynthlib.utils.ctrlr.builder.component;
 
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
+import org.jsynthlib.xmldevice.IntParamSpec;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 
 public class UiKnobBuilder extends UiSliderBuilder {
 
+    public interface Factory {
+        UiKnobBuilder newUiKnobBuilder(IntParamSpec paramSpec);
+    }
+
     @Inject
-    public UiKnobBuilder(DriverContext context) {
-        super(context);
+    public UiKnobBuilder(@Assisted IntParamSpec paramSpec) {
+        super(paramSpec);
         setWidth(92);
         setHeight(73);
     }

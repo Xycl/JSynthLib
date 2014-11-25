@@ -4,23 +4,29 @@ import java.awt.Rectangle;
 
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.builder.CtrlrComponentBuilderFactory;
 import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.CombinedGroup;
 import org.jsynthlib.xmldevice.CombinedIntPatchParam;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 
 public class UiCombinedGroupBuilder extends
 CtrlrComponentBuilderBase<CombinedGroup> {
 
-    private final CtrlrComponentBuilderFactory factory;
+    public interface Factory {
+        UiCombinedGroupBuilder newUiCombinedGroupBuilder(CombinedGroup combGroup);
+    }
 
     @Inject
-    public UiCombinedGroupBuilder(DriverContext context) {
-        super(context);
-        this.factory = context.getInstance(CtrlrComponentBuilderFactory.class);
+    private UiGroupBuilder.Factory groupFactory;
+
+    @Inject
+    private UiButtonBuilder.Factory buttonFactory;
+
+    @Inject
+    public UiCombinedGroupBuilder(@Assisted CombinedGroup combGroup) {
+        setObject(combGroup);
     }
 
     @Override
@@ -30,11 +36,11 @@ CtrlrComponentBuilderBase<CombinedGroup> {
         Rectangle rectangle =
                 new Rectangle((int) rect.getX(), (int) rect.getY() + 20,
                         24 + paramArray.length * 60, 73);
-        UiGroupBuilder groupFactory =
-                factory.newUiGroupBuilder("combinedGroup");
-        groupFactory.setUiGroupText("");
+        UiGroupBuilder groupBuilder =
+                groupFactory.newUiGroupBuilder("combinedGroup");
+        groupBuilder.setUiGroupText("");
         ModulatorType modulator =
-                groupFactory.createComponent(panel, group, vstIndex, rectangle);
+                groupBuilder.createComponent(panel, group, vstIndex, rectangle);
 
         String valueExpression =
                 "setGlobal (0, setBit (global.k0, __BIT__, modulatorValue))";
@@ -42,7 +48,7 @@ CtrlrComponentBuilderBase<CombinedGroup> {
             CombinedIntPatchParam param = paramArray[i];
             Rectangle paramRect = new Rectangle(12 + (60 * i), 19, 33, 47);
             UiButtonBuilder builder =
-                    factory.newUiButtonBuilder(SliderSpecWrapper.Factory
+                    buttonFactory.newUiButtonBuilder(SliderSpecWrapper.Factory
                             .newWrapper(param, getObject()));
             builder.setValueExpression(valueExpression.replace("__BIT__",
                     Integer.toString(param.getLeftShift())));

@@ -2,22 +2,24 @@ package org.jsynthlib.utils.ctrlr.builder.component;
 
 import org.ctrlr.panel.ModulatorType;
 import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.utils.ctrlr.driverContext.ParameterOffsetParser;
 import org.jsynthlib.utils.ctrlr.driverContext.SysexFormulaParser;
 import org.jsynthlib.xmldevice.MidiSenderReference;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 public abstract class CtrlrMidiComponentBuilder extends
         CtrlrComponentBuilderBase<SliderSpecWrapper> {
 
-    private final SysexFormulaParser formulaParser;
-    private final ParameterOffsetParser offsetParser;
+    @Inject
+    private SysexFormulaParser formulaParser;
+    @Inject
+    private ParameterOffsetParser offsetParser;
 
-    public CtrlrMidiComponentBuilder(DriverContext context) {
-        super(context);
-        this.formulaParser = context.getInstance(SysexFormulaParser.class);
-        this.offsetParser = context.getInstance(ParameterOffsetParser.class);
-    }
+    @Inject
+    @Named("prefix")
+    private String prefix;
 
     protected void createMidiElement(ModulatorType modulator) {
         if (getObject().isSetMidiSender()) {
@@ -36,11 +38,10 @@ public abstract class CtrlrMidiComponentBuilder extends
                     offsetParser.parseParameterOffset(getObject()
                             .getParamModel());
             if (parameterOffset != null && parameterOffset.length > 0) {
-                return getContext().getDriverPrefix()
-                        + Integer.toString(parameterOffset[0]);
+                return prefix + Integer.toString(parameterOffset[0]);
             }
         }
-        return getContext().getDriverPrefix() + getObject().getName();
+        return prefix + getObject().getName();
     }
 
     @Override

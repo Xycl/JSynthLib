@@ -5,16 +5,8 @@ import java.awt.Rectangle;
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
-
-import com.google.inject.Inject;
 
 public class UiComboBuilder extends CtrlrMidiComponentBuilder {
-
-    @Inject
-    public UiComboBuilder(DriverContext context) {
-        super(context);
-    }
 
     @Override
     public ModulatorType createComponent(PanelType panel, ModulatorType group,

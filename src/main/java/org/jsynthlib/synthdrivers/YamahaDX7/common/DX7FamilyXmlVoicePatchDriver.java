@@ -9,7 +9,7 @@ import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriver
 
 public abstract class DX7FamilyXmlVoicePatchDriver extends XMLSingleDriver {
 
-    private boolean spbp;
+    private boolean sbpb;
     private boolean swOffMemProt;
     private boolean tipsMsg;
 
@@ -41,15 +41,15 @@ public abstract class DX7FamilyXmlVoicePatchDriver extends XMLSingleDriver {
         }
     }
 
-    public boolean isSpbp() {
-        return spbp;
+    public boolean getSbpb() {
+        return sbpb;
     }
 
-    public void setSpbp(boolean spbp) {
-        this.spbp = spbp;
+    public void setSbpb(boolean sbpb) {
+        this.sbpb = sbpb;
     }
 
-    public boolean isSwOffMemProt() {
+    public boolean getSwOffMemProt() {
         return swOffMemProt;
     }
 
@@ -57,7 +57,7 @@ public abstract class DX7FamilyXmlVoicePatchDriver extends XMLSingleDriver {
         this.swOffMemProt = swOffMemProt;
     }
 
-    public boolean isTipsMsg() {
+    public boolean getTipsMsg() {
         return tipsMsg;
     }
 

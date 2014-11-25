@@ -11,10 +11,10 @@ import java.util.Map.Entry;
 import org.jsynthlib.device.model.DeviceException;
 import org.jsynthlib.device.model.handler.IParamModel;
 import org.jsynthlib.patch.model.impl.Patch;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
-import org.jsynthlib.utils.ctrlr.driverContext.HandlerReferenceFactory;
+import org.jsynthlib.utils.ctrlr.driverContext.CtrlrConverterDeviceFactory;
 import org.jsynthlib.utils.ctrlr.driverContext.ParameterOffsetParser;
 import org.jsynthlib.xmldevice.ParamModelReference;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -23,13 +23,13 @@ import com.google.inject.Singleton;
 public class ParameterOffsetParserImpl implements ParameterOffsetParser {
 
     private final int patchSize;
-    private final HandlerReferenceFactory factory;
+    private final CtrlrConverterDeviceFactory factory;
 
     @Inject
-    public ParameterOffsetParserImpl(HandlerReferenceFactory factory,
-            DriverContext context) throws DeviceException {
+    public ParameterOffsetParserImpl(CtrlrConverterDeviceFactory factory,
+            XmlDriverDefinition driverDef) throws DeviceException {
         this.factory = factory;
-        patchSize = context.getDriverDefinition().getPatchSize();
+        patchSize = driverDef.getPatchSize();
     }
 
     @Override

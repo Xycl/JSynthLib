@@ -1,6 +1,8 @@
 package org.jsynthlib.utils.ctrlr.impl;
 
+import java.awt.Rectangle;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.concurrent.Semaphore;
 
 import javafx.application.Platform;
@@ -19,23 +21,36 @@ import javafx.scene.control.TitledPane;
 import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
+import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlObject;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiPanelEditorType;
-import org.jsynthlib.utils.ctrlr.builder.CtrlrComponentBuilderFactory;
+import org.jsynthlib.utils.ctrlr.builder.BuilderFactoryFacade;
 import org.jsynthlib.utils.ctrlr.builder.CtrlrLuaManagerBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.CtrlrComponentBuilderBase;
+import org.jsynthlib.utils.ctrlr.builder.component.GlobalGroupBuilder;
 import org.jsynthlib.utils.ctrlr.builder.method.MidiReceivedMethodBuilder;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.utils.ctrlr.driverContext.XmlDriverParser;
+import org.jsynthlib.xmldevice.CombinedGroup;
+import org.jsynthlib.xmldevice.CombinedIntPatchParam;
+import org.jsynthlib.xmldevice.EnvelopeSpec;
+import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.PatchParamGroup;
+import org.jsynthlib.xmldevice.StringParamSpec;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
 import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 
+@Singleton
 public class XmlSingleDriverParserImpl extends JFrame implements
 XmlDriverParser {
+
+    private static final int DRIVER_GLOBAL_CONTROLS = 40;
 
     private static final long serialVersionUID = 1L;
 
@@ -51,26 +66,43 @@ XmlDriverParser {
 
     private int vstIndex;
 
-    private final PanelType panel;
-
-    private final DriverContext context;
+    @Inject
+    private PanelType panel;
 
     @Inject
-    public XmlSingleDriverParserImpl(DriverContext context) {
-        xmlDriverDef =
-                (XmlSingleDriverDefinition) context.getDriverDefinition();
-        this.context = context;
-        this.panel = context.getPanel();
+    @Named("prefix")
+    private String driverPrefix;
+
+    @Inject
+    @Named("className")
+    private String driverClassName;
+
+    @Inject
+    private GlobalGroupBuilder globalGroupBuilder;
+
+    @Inject
+    private BuilderFactoryFacade builderFacade;
+
+    private ModulatorType globalGroup;
+
+    @Inject
+    private CtrlrLuaManagerBuilder luaManagerBuilder;
+
+    private final HashSet<CombinedGroup> handledCombinedGroups;
+
+    @Inject
+    public XmlSingleDriverParserImpl(
+            Provider<XmlDriverDefinition> driverDefProvider) {
+        xmlDriverDef = (XmlSingleDriverDefinition) driverDefProvider.get();
         this.vstIndex = 0;
         jfxPanel = new JFXPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        handledCombinedGroups = new HashSet<CombinedGroup>();
     }
 
     @Override
     public void extractDriverToPanel() {
-        CtrlrLuaManagerBuilder luaManagerBuilder =
-                context.getInstance(CtrlrLuaManagerBuilder.class);
-        luaManagerBuilder.addMethodGroup(context.getDriverPrefix());
+        luaManagerBuilder.addMethodGroup(driverPrefix);
         MidiReceivedMethodBuilder midiReceivedBuilder =
                 luaManagerBuilder.getMidiReceivedBuilder();
 
@@ -107,17 +139,54 @@ XmlDriverParser {
         setPanelBounds();
         Parent root = scene.getRoot();
         Bounds bounds = root.getBoundsInParent();
+
         initNodeRecursive(root, null, bounds);
+        addDriverGlobalControls();
+    }
+
+    void addDriverGlobalControls() {
+        Rectangle rect =
+                new Rectangle(0, (int) scene.getHeight(),
+                        (int) scene.getWidth(), DRIVER_GLOBAL_CONTROLS);
+        globalGroup = globalGroupBuilder.createComponent(panel, null, 0, rect);
     }
 
     void setPanelBounds() {
         UiPanelEditorType editor = panel.getUiPanelEditor();
         StringBuilder sb = new StringBuilder();
 
+        int panelWidth = getPanelWidth();
+        int panelHeight = getPanelHeight();
         int width = (int) scene.getWidth();
-        int height = (int) scene.getHeight();
-        sb.append("0 0 ").append(width).append(" ").append(height);
+        int height = (int) scene.getHeight() + DRIVER_GLOBAL_CONTROLS;
+
+        sb.append("0 0 ");
+
+        if (width > panelWidth) {
+            sb.append(width);
+        } else {
+            sb.append(panelWidth);
+        }
+
+        sb.append(" ");
+
+        if (height > panelHeight) {
+            sb.append(height);
+        } else {
+            sb.append(panelHeight);
+        }
+
         editor.setUiPanelCanvasRectangle(sb.toString());
+    }
+
+    // TODO: Implement
+    int getPanelWidth() {
+        return 0;
+    }
+
+    // TODO: Implement
+    int getPanelHeight() {
+        return 0;
     }
 
     String getXmlfilePath(String name) {
@@ -127,9 +196,7 @@ XmlDriverParser {
     void initFX() {
         // This method is invoked on JavaFX thread
         try {
-            String fxmlName =
-                    context.getDriverClassName().replace('.', '/')
-                    + "Editor.fxml";
+            String fxmlName = driverClassName.replace('.', '/') + "Editor.fxml";
             log.info("Loading fxml: " + fxmlName);
             FXMLLoader fxmlLoader =
                     new FXMLLoader(getClass().getClassLoader().getResource(
@@ -199,8 +266,7 @@ XmlDriverParser {
     ModulatorType addComponent(Object xmlObject, Node node,
             ModulatorType group, Bounds groupAbsBounds) {
         CtrlrComponentBuilderBase<? extends Object> builder =
-                context.getInstance(CtrlrComponentBuilderFactory.class)
-                        .newFactory(xmlObject);
+                newBuilder(xmlObject);
         if (builder == null) {
             log.debug("Could not find factory for object type "
                     + xmlObject.getClass().getName());
@@ -209,9 +275,51 @@ XmlDriverParser {
             builder.setParentAbsoluteBounds(groupAbsBounds);
             Bounds bounds = getAbsoluteBounds(node);
             return builder.createModulator(panel, group, vstIndex++, bounds);
-            // LOG.debug("Added " + modulator.getClass().getName()
-            // + " at " + bounds.toString());
         }
+    }
+
+    public CtrlrComponentBuilderBase<? extends Object> newBuilder(Object object) {
+        if (object instanceof IntParamSpec) {
+            IntParamSpec paramSpec = (IntParamSpec) object;
+            if (paramSpec.isSetPatchParamResources()) {
+                return builderFacade.newUiImageButtonBuilder(paramSpec);
+            } else if (paramSpec.isSetPatchParamValues()) {
+                // Choose which factory to use.
+                // return newUiComboFactory(paramSpec);
+                return builderFacade.newUiButtonBuilder(paramSpec);
+            } else if (paramSpec.getMin() == 0 && paramSpec.getMax() == 1) {
+                return builderFacade.newUiButtonBuilder(paramSpec);
+            } else {
+                return builderFacade.newUiKnobBuilder(paramSpec);
+            }
+        } else if (object instanceof PatchParamGroup) {
+            PatchParamGroup group = (PatchParamGroup) object;
+            return builderFacade.newUiGroupBuilder(group);
+        } else if (object instanceof PatchParamGroup[]) {
+            PatchParamGroup[] groups = (PatchParamGroup[]) object;
+            return builderFacade.newUiTabBuilder(groups);
+        } else if (object instanceof StringParamSpec) {
+            StringParamSpec paramSpec = (StringParamSpec) object;
+            return builderFacade.newPatchNameBuilder(paramSpec);
+        } else if (object instanceof EnvelopeSpec) {
+            EnvelopeSpec envelopeSpec = (EnvelopeSpec) object;
+            return builderFacade.newUiEnvelopeBuilder(envelopeSpec);
+        } else if (object instanceof CombinedIntPatchParam) {
+            CombinedIntPatchParam param = (CombinedIntPatchParam) object;
+            XmlCursor cursor = param.newCursor();
+            cursor.toParent();
+            CombinedGroup combGroup = (CombinedGroup) cursor.getObject();
+            cursor.dispose();
+            if (handledCombinedGroups.contains(combGroup)) {
+                log.debug("Skipping handled combined group");
+            } else {
+                handledCombinedGroups.add(combGroup);
+                return builderFacade.newUiCombinedGroupBuilder(combGroup);
+            }
+        } else {
+            log.warn("Unsupported xml type: " + object.getClass().getName());
+        }
+        return null;
     }
 
     Bounds getAbsoluteBounds(Node node) {

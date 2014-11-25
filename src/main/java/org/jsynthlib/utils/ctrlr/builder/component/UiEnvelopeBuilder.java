@@ -4,8 +4,7 @@ import java.awt.Rectangle;
 
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.builder.CtrlrComponentBuilderFactory;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
+import org.jsynthlib.utils.ctrlr.builder.BuilderFactoryFacade;
 import org.jsynthlib.xmldevice.EnvelopeNodeSpec;
 import org.jsynthlib.xmldevice.EnvelopeParamSpec;
 import org.jsynthlib.xmldevice.EnvelopeSpec;
@@ -13,15 +12,20 @@ import org.jsynthlib.xmldevice.XEnvelopeParamSpec;
 import org.jsynthlib.xmldevice.YEnvelopeParamSpec;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 
 public class UiEnvelopeBuilder extends CtrlrComponentBuilderBase<EnvelopeSpec> {
 
-    private final CtrlrComponentBuilderFactory factory;
+    public interface Factory {
+        UiEnvelopeBuilder newUiEnvelopeBuilder(EnvelopeSpec envelopeSpec);
+    }
 
     @Inject
-    public UiEnvelopeBuilder(DriverContext context) {
-        super(context);
-        this.factory = context.getInstance(CtrlrComponentBuilderFactory.class);
+    private BuilderFactoryFacade factory;
+
+    @Inject
+    public UiEnvelopeBuilder(@Assisted EnvelopeSpec envelopeSpec) {
+        setObject(envelopeSpec);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class YamahaDX7PerformanceSingleDriver extends DX7FamilyXmlVoicePatchDriv
 
     @Override
     public void storePatch(Patch p, int bankNum, int patchNum) {
-        if (isTipsMsg()) {
+        if (getTipsMsg()) {
             // show Information
             YamahaDX7Strings.dxShowInformation(toString(),
                     YamahaDX7Strings.STORE_SINGLE_PERFORMANCE_STRING);
@@ -51,7 +51,7 @@ public class YamahaDX7PerformanceSingleDriver extends DX7FamilyXmlVoicePatchDriv
 
     @Override
     public void requestPatchDump(int bankNum, int patchNum) {
-        if (isTipsMsg()) {
+        if (getTipsMsg()) {
             // show Information
             YamahaDX7Strings.dxShowInformation(toString(),
                     YamahaDX7Strings.PERFORMANCE_STRING);

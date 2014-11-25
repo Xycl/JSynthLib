@@ -15,8 +15,8 @@ import org.ctrlr.panel.PanelType;
 import org.jsynthlib.device.model.DeviceException;
 import org.jsynthlib.utils.ctrlr.builder.CtrlrLuaManagerBuilder;
 import org.jsynthlib.utils.ctrlr.builder.CtrlrPanelBuilder;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContextFactory;
+import org.jsynthlib.utils.ctrlr.driverContext.CtrlrDriverModule;
+import org.jsynthlib.utils.ctrlr.driverContext.DriverModuleBuilder;
 import org.jsynthlib.utils.ctrlr.driverContext.XmlDriverParser;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
@@ -102,14 +102,14 @@ public class CtrlrSynthGenerator {
         XmlDriverReferences xmldrivers = xmldevice.getDrivers();
         XmlDriverReference[] xmldriverArray =
                 xmldrivers.getXmlDriverReferenceArray();
-        DriverContextFactory driverContextFactory =
-                injector.getInstance(DriverContextFactory.class);
 
         for (XmlDriverReference xmldriver : xmldriverArray) {
-            DriverContext driverContext =
-                    driverContextFactory.newDriverContext(xmldevice, xmldriver,
+            CtrlrDriverModule driverModule =
+                    DriverModuleBuilder.newDriverModule(xmldevice, xmldriver,
                             panel);
-            XmlDriverParser driverParser = driverContext.getDriverParser();
+            Injector childInjector = injector.createChildInjector(driverModule);
+            XmlDriverParser driverParser =
+                    childInjector.getInstance(XmlDriverParser.class);
             driverParser.extractDriverToPanel();
             break;
         }

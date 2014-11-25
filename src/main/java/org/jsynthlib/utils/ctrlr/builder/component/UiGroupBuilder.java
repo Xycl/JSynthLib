@@ -5,27 +5,29 @@ import java.awt.Rectangle;
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 
-import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
 public class UiGroupBuilder extends CtrlrComponentBuilderBase<String> {
 
-    private String uiGroupText;
+    public interface Factory {
+        UiGroupBuilder newUiGroupBuilder(PatchParamGroup group);
 
-    @Inject
-    public UiGroupBuilder(DriverContext context) {
-        super(context);
+        UiGroupBuilder newUiGroupBuilder(String name);
     }
 
-    public void setPatchParamGroup(PatchParamGroup group) {
+    private String uiGroupText;
+
+    @AssistedInject
+    public UiGroupBuilder(@Assisted PatchParamGroup group) {
         setObject(group.getName());
     }
 
-    @Override
-    public void setObject(String object) {
-        super.setObject(object);
+    @AssistedInject
+    public UiGroupBuilder(@Assisted String object) {
+        setObject(object);
         uiGroupText = object;
     }
 

@@ -85,10 +85,10 @@ public class DeviceFactoryImpl implements DeviceFactory {
                     c = XMLDevice.class;
                 }
                 Class<?>[] args = {
-                        XmlDeviceDefinition.class };
+                    XmlDeviceDefinition.class };
                 Constructor<? extends XMLDevice> con = c.getConstructor(args);
                 device = con.newInstance(new Object[] {
-                        deviceDefinition });
+                    deviceDefinition });
                 JSynthLibInjector.getInjector().injectMembers(device);
                 XmlDriverReferences drivers = deviceDefinition.getDrivers();
 

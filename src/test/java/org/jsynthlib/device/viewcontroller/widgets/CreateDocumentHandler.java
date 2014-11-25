@@ -50,8 +50,8 @@ import org.jsynthlib.driver.Xmlpatch;
 import org.jsynthlib.driver.Xmlpatches;
 import org.jsynthlib.driver.Xmlstore;
 import org.jsynthlib.driver.Xmlstores;
-import org.jsynthlib.midi.SingletonMidiDeviceProvider.MidiRecordSession;
 import org.jsynthlib.test.adapter.WidgetAdapter;
+import org.jsynthlib.utils.SingletonMidiDeviceProvider.MidiRecordSession;
 
 public class CreateDocumentHandler extends AbstractDocumentHandler {
 

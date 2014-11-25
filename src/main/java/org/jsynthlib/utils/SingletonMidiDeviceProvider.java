@@ -1,4 +1,4 @@
-package org.jsynthlib.midi;
+package org.jsynthlib.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -98,8 +98,8 @@
 	</drivers>
 	<configuration>
 		<preferenceDefs>
-			<preferenceDef name="sbpb" type="BOOLEAN">
-				<description>Enable Remote Control</description>
+			<preferenceDef name="spbp" type="BOOLEAN">
+				<description>Enable Remote Control (Simulate panel button pushes)</description>
 				<defaultValue>false</defaultValue>
 			</preferenceDef>
 			<preferenceDef name="swOffMemProt" type="BOOLEAN">

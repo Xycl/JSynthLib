@@ -6,16 +6,20 @@ import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiTabsTabType;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 
 public class UiTabBuilder extends CtrlrComponentBuilderBase<PatchParamGroup[]> {
 
+    public interface Factory {
+        UiTabBuilder newUiTabBuilder(PatchParamGroup[] groups);
+    }
+
     @Inject
-    public UiTabBuilder(DriverContext context) {
-        super(context);
+    public UiTabBuilder(@Assisted PatchParamGroup[] groups) {
+        setObject(groups);
     }
 
     @Override

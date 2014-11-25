@@ -5,18 +5,27 @@ import java.awt.Rectangle;
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.name.Named;
 
 public class UiLabelBuilder extends CtrlrComponentBuilderBase<String> {
+
+    public interface Factory {
+        UiLabelBuilder newUiLabelBuilder(String name);
+    }
+
+    @Inject
+    @Named("prefix")
+    private String prefix;
 
     private int length;
 
     @Inject
-    public UiLabelBuilder(DriverContext context) {
-        super(context);
+    public UiLabelBuilder(@Assisted String name) {
         this.length = 1024;
+        setObject(name);
     }
 
     @Override
@@ -52,7 +61,7 @@ public class UiLabelBuilder extends CtrlrComponentBuilderBase<String> {
 
     @Override
     protected String getModulatorName() {
-        return getContext().getDriverPrefix() + getUniqueName(getObject());
+        return prefix + getUniqueName(getObject());
     }
 
     public void setLength(int length) {

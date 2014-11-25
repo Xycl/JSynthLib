@@ -40,13 +40,13 @@ public class YamahaDX7VoiceSingleDriver extends DX7FamilyXmlVoicePatchDriver {
 
     @Override
     public void sendPatch(Patch p) {
-        if (isSwOffMemProt()) {
+        if (getSwOffMemProt()) {
             // switch off memory protection of internal voices
             YamahaDX7SysexHelper.swOffMemProt(this,
                     (byte) (getChannel() + 0x10), (byte) (0x21), (byte) (0x25));
         }
 
-        if (isSpbp()) {
+        if (getSbpb()) {
             // make Sys Info available
             YamahaDX7SysexHelper.mkSysInfoAvail(this,
                     (byte) (getChannel() + 0x10));
@@ -57,20 +57,20 @@ public class YamahaDX7VoiceSingleDriver extends DX7FamilyXmlVoicePatchDriver {
 
     @Override
     public void storePatch(Patch p, int bankNum, int patchNum) {
-        if (isSwOffMemProt()) {
+        if (getSwOffMemProt()) {
             // switch off memory protection of internal/cartridge voices
             YamahaDX7SysexHelper.swOffMemProt(this,
                     (byte) (getChannel() + 0x10), (byte) (bankNum + 0x21),
                     (byte) (bankNum + 0x25));
         } else {
-            if (isTipsMsg()) {
+            if (getTipsMsg()) {
                 // show Information
                 YamahaDX7Strings.dxShowInformation(toString(),
                         YamahaDX7Strings.MEMORY_PROTECTION_STRING);
             }
         }
 
-        if (isSpbp()) {
+        if (getSbpb()) {
             // make Sys Info available
             YamahaDX7SysexHelper.mkSysInfoAvail(this,
                     (byte) (getChannel() + 0x10));
@@ -90,7 +90,7 @@ public class YamahaDX7VoiceSingleDriver extends DX7FamilyXmlVoicePatchDriver {
             send(YamahaDX7SysexHelper.releaseStore
                     .toSysexMessage(getChannel() + 0x10));
         } else {
-            if (isTipsMsg()) {
+            if (getTipsMsg()) {
                 // show Information
                 YamahaDX7Strings.dxShowInformation(toString(),
                         YamahaDX7Strings.RECEIVE_STRING);
@@ -98,7 +98,7 @@ public class YamahaDX7VoiceSingleDriver extends DX7FamilyXmlVoicePatchDriver {
 
             sendPatchWorker(p);
 
-            if (isTipsMsg()) {
+            if (getTipsMsg()) {
                 // show Information
                 YamahaDX7Strings.dxShowInformation(toString(),
                         YamahaDX7Strings.STORE_SINGLE_VOICE_STRING);
@@ -108,7 +108,7 @@ public class YamahaDX7VoiceSingleDriver extends DX7FamilyXmlVoicePatchDriver {
 
     @Override
     public void requestPatchDump(int bankNum, int patchNum) {
-        if (isSpbp()) {
+        if (getSbpb()) {
             // make Sys Info available
             YamahaDX7SysexHelper.mkSysInfoAvail(this,
                     (byte) (getChannel() + 0x10));
@@ -119,7 +119,7 @@ public class YamahaDX7VoiceSingleDriver extends DX7FamilyXmlVoicePatchDriver {
             YamahaDX7SysexHelper.chPatch(this, (byte) (getChannel() + 0x10),
                     (byte) (patchNum));
         } else {
-            if (isTipsMsg()) {
+            if (getTipsMsg()) {
                 // show Information
                 YamahaDX7Strings.dxShowInformation(toString(),
                         YamahaDX7Strings.REQUEST_VOICE_STRING);

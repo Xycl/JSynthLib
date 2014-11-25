@@ -3,12 +3,10 @@ package org.jsynthlib.utils.ctrlr.impl;
 import javax.sound.midi.MidiMessage;
 
 import org.jsynthlib.device.model.AbstractPatchDriver;
-import org.jsynthlib.device.model.DeviceException;
 import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.utils.SysexUtils;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
-import org.jsynthlib.utils.ctrlr.driverContext.HandlerReferenceFactory;
+import org.jsynthlib.utils.ctrlr.driverContext.CtrlrConverterDeviceFactory;
 import org.jsynthlib.utils.ctrlr.driverContext.SysexFormulaParser;
 import org.jsynthlib.xmldevice.MidiSenderReference;
 
@@ -20,13 +18,9 @@ public class SysexFormulaParserImpl implements SysexFormulaParser {
 
     private static final byte CS_HOLDER = (byte) 0xFF;
     private static final byte VALUE_HOLDER = (byte) 0xFE;
-    private final HandlerReferenceFactory factory;
 
     @Inject
-    public SysexFormulaParserImpl(HandlerReferenceFactory factory,
-            DriverContext context) throws DeviceException {
-        this.factory = factory;
-    }
+    private CtrlrConverterDeviceFactory factory;
 
     @Override
     public String parseSysexFormula(MidiSenderReference ref, int min, int max) {

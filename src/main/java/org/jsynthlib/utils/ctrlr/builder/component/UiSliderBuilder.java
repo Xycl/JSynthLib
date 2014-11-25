@@ -6,27 +6,34 @@ import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.IntParamSpec;
 
-import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
 public class UiSliderBuilder extends CtrlrMidiComponentBuilder {
+
+    public interface Factory {
+        UiSliderBuilder newUiSliderBuilder(IntParamSpec paramSpec);
+
+        UiSliderBuilder newUiSliderBuilder(SliderSpecWrapper wrapper);
+    }
 
     private int width;
     private int height;
     private int sliderValuePosition;
 
-    @Inject
-    public UiSliderBuilder(DriverContext context) {
-        super(context);
+    @AssistedInject
+    public UiSliderBuilder(@Assisted SliderSpecWrapper wrapper) {
+        setObject(wrapper);
+    }
+
+    @AssistedInject
+    public UiSliderBuilder(@Assisted IntParamSpec paramSpec) {
+        this(SliderSpecWrapper.Factory.newWrapper(paramSpec));
         this.width = 31;
         this.height = 73;
         this.sliderValuePosition = 4;
-    }
-
-    public void setIntParamSpec(IntParamSpec paramSpec) {
-        super.setObject(SliderSpecWrapper.Factory.newWrapper(paramSpec));
     }
 
     @Override

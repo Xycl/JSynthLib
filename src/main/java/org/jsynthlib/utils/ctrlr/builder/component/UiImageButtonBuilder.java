@@ -11,34 +11,34 @@ import org.ctrlr.panel.PanelType;
 import org.jsynthlib.utils.ctrlr.PanelResourceManager;
 import org.jsynthlib.utils.ctrlr.ResourceContainer;
 import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.PatchParamResources;
 import org.jsynthlib.xmldevice.PatchParamValues;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 
 public class UiImageButtonBuilder extends CtrlrMidiComponentBuilder {
+
+    public interface Factory {
+        UiImageButtonBuilder newUiImageButtonBuilder(IntParamSpec paramSpec);
+    }
 
     private final transient Logger log = Logger.getLogger(getClass());
     private IntParamSpec paramSpec;
     private PatchParamValues paramValues;
-    private final PanelResourceManager resourceManager;
 
     @Inject
-    public UiImageButtonBuilder(DriverContext context,
-            PanelResourceManager resourceManager) {
-        super(context);
-        this.resourceManager = resourceManager;
-    }
+    private PanelResourceManager resourceManager;
 
-    public void setIntParamSpec(IntParamSpec object) {
-        setObject(SliderSpecWrapper.Factory.newWrapper(object));
-        if (object.isSetPatchParamResources()) {
-            this.paramSpec = object;
+    @Inject
+    public UiImageButtonBuilder(@Assisted IntParamSpec paramSpec) {
+        setObject(SliderSpecWrapper.Factory.newWrapper(paramSpec));
+        if (paramSpec.isSetPatchParamResources()) {
+            this.paramSpec = paramSpec;
         }
-        if (object.isSetPatchParamValues()) {
-            this.paramValues = object.getPatchParamValues();
+        if (paramSpec.isSetPatchParamValues()) {
+            this.paramValues = paramSpec.getPatchParamValues();
         }
 
     }

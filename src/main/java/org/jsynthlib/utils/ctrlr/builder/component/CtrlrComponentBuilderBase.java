@@ -12,7 +12,6 @@ import org.ctrlr.panel.MidiType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiTabsTabType;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 
 public abstract class CtrlrComponentBuilderBase<T extends Object> {
     private static final Set<String> NAME_CACHE = new HashSet<String>();
@@ -26,10 +25,7 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
     private int min;
     private String luaModulatorValueChange;
 
-    private final DriverContext context;
-
-    protected CtrlrComponentBuilderBase(DriverContext context) {
-        this.context = context;
+    protected CtrlrComponentBuilderBase() {
         labelPosition = ComponentLabelPositionType.TOP;
         valueExpression = "modulatorValue";
         labelVisible = true;
@@ -233,10 +229,6 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
 
     public void setObject(T object) {
         this.object = object;
-    }
-
-    public DriverContext getContext() {
-        return context;
     }
 
     public int getMax() {

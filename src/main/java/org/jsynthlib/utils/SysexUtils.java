@@ -28,4 +28,18 @@ public final class SysexUtils {
         }
         return buf;
     }
+
+    public static String byteToHexStringArray(byte[] sysex) {
+        StringBuilder sb = new StringBuilder();
+        for (int j = 0; j < sysex.length; j++) {
+            int v = sysex[j] & 0xFF;
+            if (j > 0) {
+                sb.append(", ");
+            }
+            sb.append("0x");
+            sb.append(HEX_ARRAY[v >>> 4]);
+            sb.append(HEX_ARRAY[v & 0x0F]);
+        }
+        return sb.toString();
+    }
 }

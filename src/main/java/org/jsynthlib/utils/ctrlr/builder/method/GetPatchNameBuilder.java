@@ -1,6 +1,5 @@
 package org.jsynthlib.utils.ctrlr.builder.method;
 
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
 import com.google.inject.Inject;
@@ -22,9 +21,8 @@ public class GetPatchNameBuilder extends MethodBuilder {
     private final int patchNameSize;
 
     @Inject
-    public GetPatchNameBuilder(DriverContext context) {
+    public GetPatchNameBuilder(XmlDriverDefinition driverDefinition) {
         super("getPatchName");
-        XmlDriverDefinition driverDefinition = context.getDriverDefinition();
         this.patchNameSize = driverDefinition.getPatchNameSize();
         this.patchNameStart = driverDefinition.getPatchNameStart();
 

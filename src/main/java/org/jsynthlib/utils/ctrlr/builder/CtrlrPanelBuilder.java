@@ -15,15 +15,12 @@ public class CtrlrPanelBuilder {
 
     private final transient Logger log = Logger.getLogger(getClass());
 
-    public CtrlrPanelBuilder() {
-    }
-
     public PanelType newPanel(PanelDocument panelDocument,
             XmlDeviceDefinition xmldevice) {
         PanelType panel = panelDocument.addNewPanel();
         StringBuilder nameBuilder = new StringBuilder();
         nameBuilder.append(xmldevice.getManufacturer()).append(" - ")
-                .append(xmldevice.getModelName());
+        .append(xmldevice.getModelName());
         panel.setName(nameBuilder.toString());
         panel.setPanelShowDialogs(1);
         panel.setPanelMessageTime(10000);

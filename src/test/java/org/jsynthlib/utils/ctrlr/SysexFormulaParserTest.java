@@ -1,15 +1,13 @@
 package org.jsynthlib.utils.ctrlr;
 
 import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
+//import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 
-import org.jsynthlib.utils.ctrlr.driverContext.DriverContext;
-import org.jsynthlib.utils.ctrlr.driverContext.HandlerReferenceFactory;
+import org.jsynthlib.utils.ctrlr.driverContext.CtrlrConverterDeviceFactory;
 import org.jsynthlib.utils.ctrlr.driverContext.SysexFormulaParser;
-import org.jsynthlib.utils.ctrlr.impl.SysexFormulaParserImpl;
 import org.jsynthlib.xmldevice.HandlerReferenceBase.PropertyValue;
 import org.jsynthlib.xmldevice.MidiSenderReference;
 import org.junit.Before;
@@ -18,22 +16,23 @@ import org.junit.Test;
 public class SysexFormulaParserTest {
 
     private SysexFormulaParser tested;
-    private DriverContext driverContextMock;
-    private HandlerReferenceFactory handlerReferenceFactoryMock;
+    // private DriverContext driverContextMock;
+    private CtrlrConverterDeviceFactory handlerReferenceFactoryMock;
 
     @Before
     public void setUp() throws Exception {
-        handlerReferenceFactoryMock = createMock(HandlerReferenceFactory.class);
-        driverContextMock = createMock(DriverContext.class);
+        handlerReferenceFactoryMock =
+                createMock(CtrlrConverterDeviceFactory.class);
+        // driverContextMock = createMock(DriverContext.class);
     }
 
     void replayAll() {
-        replay(driverContextMock);
+        // replay(driverContextMock);
         replay(handlerReferenceFactoryMock);
     }
 
     void verifyAll() {
-        verify(driverContextMock);
+        // verify(driverContextMock);
         verify(handlerReferenceFactoryMock);
     }
 
@@ -41,11 +40,11 @@ public class SysexFormulaParserTest {
     public void testParseSysexFormula() throws Exception {
 
         replayAll();
-        expect(driverContextMock.getDeviceDefinition()).andReturn(
-                XmlUtils.getRolandD50DeviceDef());
-        tested =
-                new SysexFormulaParserImpl(handlerReferenceFactoryMock,
-                        driverContextMock);
+        // expect(driverContextMock.getDeviceDefinition()).andReturn(
+        // XmlUtils.getRolandD50DeviceDef());
+        // tested =
+        // new SysexFormulaParserImpl(handlerReferenceFactoryMock,
+        // driverContextMock);
         MidiSenderReference ref = MidiSenderReference.Factory.newInstance();
         ref.setName("D50Sender");
         PropertyValue propertyValue = ref.addNewPropertyValue();
