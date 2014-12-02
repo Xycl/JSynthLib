@@ -1,14 +1,9 @@
 package org.jsynthlib.utils.ctrlr.builder.component;
 
-import java.awt.Rectangle;
-
-import javax.inject.Named;
-
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.builder.CtrlrLuaManagerBuilder;
-import org.jsynthlib.utils.ctrlr.builder.method.GetPatchNameBuilder;
-import org.jsynthlib.utils.ctrlr.builder.method.SetPatchNameBuilder;
+import org.jsynthlib.utils.ctrlr.builder.BuilderFactoryFacade;
+import org.jsynthlib.utils.ctrlr.lua.decorator.DriverLuaHandler;
 import org.jsynthlib.xmldevice.StringParamSpec;
 
 import com.google.inject.Inject;
@@ -21,33 +16,31 @@ public class PatchNameBuilder extends UiLabelBuilder {
     }
 
     @Inject
-    private CtrlrLuaManagerBuilder luaManagerBuilder;
-
-    @Inject
-    private SetPatchNameBuilder setPatchNameBuilder;
-
-    @Inject
-    private GetPatchNameBuilder getPatchNameBuilder;
-
-    @Inject
-    @Named("prefix")
-    private String prefix;
-
-    @Inject
-    public PatchNameBuilder(@Assisted StringParamSpec paramSpec) {
+    public PatchNameBuilder(@Assisted StringParamSpec paramSpec,
+            BuilderFactoryFacade factoryFacade,
+            GlobalGroupBuilder globalGroupBuilder,
+            DriverLuaHandler driverLuaHandler) {
         super("PatchName");
-        setLength(paramSpec.getLength());
+        UiLabelBuilder patchNameLabelBuilder =
+                factoryFacade.newUiLabelBuilder(driverLuaHandler
+                        .getNameModulator());
+
+        patchNameLabelBuilder.setEditOnSingleClick(true);
+        patchNameLabelBuilder.setExcludeFromSnapshot(true);
+        patchNameLabelBuilder.setLength(paramSpec.getLength());
+        patchNameLabelBuilder.setMuteOnStart(true);
+        patchNameLabelBuilder.setUiLabelChangedCbk(driverLuaHandler
+                .getSetNameMethod());
+        patchNameLabelBuilder.setModulatorName(driverLuaHandler
+                .getNameModulator());
+        patchNameLabelBuilder.setLength(paramSpec.getLength());
+
+        globalGroupBuilder.setPatchNameBuilder(patchNameLabelBuilder);
     }
 
     @Override
-    public ModulatorType createComponent(PanelType panel, ModulatorType group,
-            int vstIndex, Rectangle rect) {
-
-        ModulatorType modulator =
-                super.createComponent(panel, group, vstIndex, rect);
-        luaManagerBuilder.addMethod(prefix, setPatchNameBuilder);
-        luaManagerBuilder.addMethod(prefix, getPatchNameBuilder);
-
-        return modulator;
+    public ModulatorType createModulator(PanelType panel, ModulatorType group,
+            int vstIndex) {
+        return null;
     }
 }

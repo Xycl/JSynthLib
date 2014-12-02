@@ -21,6 +21,7 @@ import javax.swing.tree.TreePath;
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.Utility;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceDescriptor;
 import org.jsynthlib.device.model.DeviceException;
@@ -132,7 +133,7 @@ public class DeviceAddDialog extends JDialog {
             jta.setWrapStyleWord(true);
             jta.setCaretPosition(0);
             JScrollPane jasp = new JScrollPane(jta);
-            JOptionPane.showMessageDialog(null, jasp, "Device Information",
+            PopupHandlerProvider.get().showMessage(null, jasp, "Device Information",
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }

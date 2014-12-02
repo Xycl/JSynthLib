@@ -3,6 +3,7 @@ package org.jsynthlib.synthdrivers.AccessVirus;
 
 import javax.swing.JOptionPane;
 
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -134,7 +135,7 @@ public class VirusProgSingleDriver extends AbstractPatchDriver {
     @Override
     public void storePatch(Patch p, int bankNum, int patchNum) {
         if (bankNum > 1) {
-            JOptionPane.showMessageDialog(PatchEdit.getInstance(),
+            PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(),
                     "Cannot send to a preset bank", "Store Patch",
                     JOptionPane.WARNING_MESSAGE);
         } else {

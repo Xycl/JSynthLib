@@ -10,7 +10,6 @@ import java.net.UnknownHostException;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.HyperlinkEvent;
@@ -18,6 +17,7 @@ import javax.swing.event.HyperlinkListener;
 
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.Utility;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.core.viewcontroller.desktop.JSLDesktop;
 
 public class DocumentationWindow extends JDialog {
@@ -54,7 +54,7 @@ public class DocumentationWindow extends JDialog {
                         try {
                             jt.setPage(e.getURL());
                         } catch (UnknownHostException uhe) {
-                            JOptionPane.showMessageDialog(getContentPane(),
+                            PopupHandlerProvider.get().showMessage(getContentPane(),
                                     "Unknown Host \"" + e.getURL()
                                             + "\". Maybe you're not online.");
                         } catch (Exception e3) {

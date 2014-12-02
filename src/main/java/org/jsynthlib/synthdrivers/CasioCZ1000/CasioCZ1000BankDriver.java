@@ -30,6 +30,7 @@ package org.jsynthlib.synthdrivers.CasioCZ1000;
 import javax.swing.JOptionPane;
 
 import org.jsynthlib.core.ErrorMsg;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.AbstractBankDriver;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -78,7 +79,7 @@ public class CasioCZ1000BankDriver extends AbstractBankDriver {
         // itself
 
         if (!canHoldPatch(p)) {
-            JOptionPane.showMessageDialog(null,
+            PopupHandlerProvider.get().showMessage(null,
                     "This type of patch does not fit in to this type of bank.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;

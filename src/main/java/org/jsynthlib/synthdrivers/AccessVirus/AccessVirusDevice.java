@@ -39,7 +39,7 @@ public class AccessVirusDevice extends Device /* implements ItemListener */{
         // avConfig = new AccessVirusConfig();
         // Driver drv;
         /*
-         * JOptionPane.showMessageDialog(PatchEdit.getInstance(), DRIVER_INFO,
+         * PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), DRIVER_INFO,
          * "Access Virus Driver Release Notes", JOptionPane.WARNING_MESSAGE );
          */
         addDriver(new VirusProgBankDriver());

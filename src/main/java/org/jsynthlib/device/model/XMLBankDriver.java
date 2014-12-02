@@ -2,6 +2,7 @@ package org.jsynthlib.device.model;
 
 import javax.swing.JOptionPane;
 
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.utils.SysexUtils;
@@ -25,7 +26,7 @@ public class XMLBankDriver extends AbstractBankDriver implements IBankDriver {
     @Override
     public void putPatch(Patch bank, Patch single, int patchNum) {
         if (!canHoldPatch(single)) {
-            JOptionPane.showMessageDialog(null,
+            PopupHandlerProvider.get().showMessage(null,
                     "This type of patch does not fit in to this type of bank.",
                     toString() + "Driver Error", JOptionPane.ERROR_MESSAGE);
             return;

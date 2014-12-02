@@ -6,6 +6,7 @@ package org.jsynthlib.synthdrivers.EnsoniqESQ1;
 import javax.swing.JOptionPane;
 
 import org.jsynthlib.core.ErrorMsg;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.AbstractBankDriver;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -104,7 +105,7 @@ public class EnsoniqESQ1BankDriver extends AbstractBankDriver {
     @Override
     public void putPatch(Patch bank, Patch p, int patchNum) {
         if (!canHoldPatch(p)) {
-            JOptionPane.showMessageDialog(null,
+            PopupHandlerProvider.get().showMessage(null,
                     "This type of patch does not fit in to this type of bank.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;

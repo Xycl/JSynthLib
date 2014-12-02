@@ -4,6 +4,7 @@ import javax.sound.midi.MidiMessage;
 import javax.sound.midi.SysexMessage;
 
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
+import org.jsynthlib.device.viewcontroller.SysexGetDialog;
 import org.jsynthlib.patch.model.impl.Patch;
 
 /**

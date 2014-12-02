@@ -8,7 +8,6 @@ import javafx.geometry.Bounds;
 
 import org.ctrlr.panel.ComponentLabelPositionType;
 import org.ctrlr.panel.ComponentType;
-import org.ctrlr.panel.MidiType;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiTabsTabType;
@@ -18,65 +17,40 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
 
     private T object;
     private Bounds parentAbsoluteBounds;
-    private ComponentLabelPositionType.Enum labelPosition;
-    private String valueExpression;
-    private boolean labelVisible;
+    private ComponentLabelPositionType.Enum labelPosition =
+            ComponentLabelPositionType.TOP;
+    private String valueExpression = "modulatorValue";
+    private boolean labelVisible = true;
     private int max;
     private int min;
-    private String luaModulatorValueChange;
+    private String luaModulatorValueChange = "-- None";
+    private Rectangle rect;
+    private boolean muteOnStart = false;
 
-    protected CtrlrComponentBuilderBase() {
-        labelPosition = ComponentLabelPositionType.TOP;
-        valueExpression = "modulatorValue";
-        labelVisible = true;
-        luaModulatorValueChange = "-- None";
-    }
+    private boolean excludeFromSnapshot = false;
 
-    public abstract ModulatorType createComponent(PanelType panel,
-            ModulatorType group, int vstIndex, Rectangle rect);
+    private boolean componentVisible = true;
 
     public ModulatorType createModulator(PanelType panel, ModulatorType group,
-            int vstIndex, Bounds bounds) {
-        int x = (int) bounds.getMinX();
-        int y = (int) bounds.getMinY();
-        if (parentAbsoluteBounds != null) {
-            x = (int) (bounds.getMinX() - parentAbsoluteBounds.getMinX());
-            y = (int) (bounds.getMinY() - parentAbsoluteBounds.getMinY());
-
-        }
-        Rectangle rect =
-                new Rectangle(x, y, (int) bounds.getWidth(),
-                        (int) bounds.getHeight());
-        return createComponent(panel, group, vstIndex, rect);
-    }
-
-    ModulatorType createModulatorBase(PanelType panel) {
+            int vstIndex) {
         ModulatorType modulator = panel.addNewModulator();
         modulator.setModulatorCustomIndex(0);
         modulator.setModulatorCustomIndexGroup(0);
         modulator.setName(getModulatorName());
         modulator.setModulatorValue(0);
-        return modulator;
-    }
+        if (vstIndex < 0) {
+            modulator.setModulatorVstExported(0);
+            modulator.setModulatorIsStatic(1);
+        } else {
+            modulator.setModulatorVstExported(1);
+            modulator.setVstIndex(vstIndex++);
+            modulator.setModulatorIsStatic(0);
+        }
 
-    protected ModulatorType createModulator(PanelType panel) {
-        ModulatorType modulator = createModulatorBase(panel);
-        modulator.setModulatorVstExported(0);
-        modulator.setModulatorIsStatic(1);
-        return modulator;
-    }
-
-    protected abstract String getModulatorName();
-
-    protected ModulatorType createModulator(PanelType panel, int vstIndex) {
-        ModulatorType modulator = createModulatorBase(panel);
-        modulator.setModulatorVstExported(1);
         modulator.setModulatorMax(max);
-        modulator.setVstIndex(vstIndex);
-        modulator.setModulatorIsStatic(0);
         modulator.setModulatorGlobalVariable(-1);
-        modulator.setModulatorMuteOnStart(0);
-        modulator.setModulatorExcludeFromSnapshot(0);
+        modulator.setModulatorMuteOnStart(muteOnStart ? 1 : 0);
+        modulator.setModulatorExcludeFromSnapshot(excludeFromSnapshot ? 1 : 0);
         modulator.setModulatorValueExpression(valueExpression);
         modulator.setModulatorValueExpressionReverse("midiValue");
         modulator.setLuaModulatorGetValueForMIDI("-- None");
@@ -92,19 +66,20 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
         modulator.setModulatorMin(min);
         modulator.setModulatorCustomName("");
         modulator.setModulatorCustomNameGroup("");
+
+        createMidiElement(modulator);
+        createComponent(modulator, group, panel);
         return modulator;
+
     }
 
-    protected void createMidiElement(ModulatorType modulator,
-            String sysexFormula) {
-        MidiType midiType = modulator.addNewMidi();
-        midiType.setMidiMessageType(5);
-        midiType.setMidiMessageChannelOverride(0);
-        midiType.setMidiMessageChannel(1);
-        midiType.setMidiMessageCtrlrNumber(1);
-        midiType.setMidiMessageCtrlrValue(0);
-        midiType.setMidiMessageMultiList("");
-        midiType.setMidiMessageSysExFormula(sysexFormula);
+    protected abstract String getModulatorName();
+
+    protected void createMidiElement(ModulatorType modulator) {
+    }
+
+    protected void setComponentAttributes(ComponentType component) {
+
     }
 
     protected String getUniqueName(String paramName) {
@@ -122,8 +97,9 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
         }
     }
 
-    protected void setDefaultComponentFields(ComponentType component,
-            ModulatorType group, String name, PanelType panel) {
+    protected ComponentType createComponent(ModulatorType modulator,
+            ModulatorType group, PanelType panel) {
+        ComponentType component = modulator.addNewComponent();
         component.setComponentLabelPosition(labelPosition);
         component.setComponentLabelJustification("center");
         component.setComponentLabelHeight(14);
@@ -133,7 +109,7 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
         component.setComponentSentBack(0);
         component.setComponentLabelColour("0xff000000");
         component.setComponentLabelFont("<Sans-Serif>;12;0;0;0;0;1");
-        component.setComponentVisibleName(name);
+        component.setComponentVisibleName(getName());
         component.setComponentMouseCursor(2);
         setGroupAttributes(component, group);
         component.setComponentSnapSize(0);
@@ -141,7 +117,7 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
         component.setComponentDisabled(0);
         component.setComponentRadioGroupId(0);
         component.setComponentRadioGroupNotifyMidi(1);
-        component.setComponentVisibility(1);
+        component.setComponentVisibility(componentVisible ? 1 : 0);
         component.setComponentEffect("0");
         component.setComponentEffectRadius(1);
         component.setComponentEffectColour("0xff000000");
@@ -163,6 +139,15 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
 
         component.setComponentLayerUid(panel.getUiPanelEditor()
                 .getUiPanelCanvasLayer().getUiPanelCanvasLayerUid());
+
+        setComponentAttributes(component);
+
+        setComponentRectangle(component);
+        return component;
+    }
+
+    protected String getName() {
+        return "";
     }
 
     protected void setGroupAttributes(ComponentType component,
@@ -179,14 +164,13 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
             component.setComponentTabName(group.getName());
             component.setComponentTabId(tab.getUiTabsTabIndex());
         }
-
     }
 
-    protected void setComponentRectangle(ComponentType component, Rectangle rect) {
+    protected void setComponentRectangle(ComponentType component) {
         StringBuilder sb = new StringBuilder();
         sb.append((int) rect.getX()).append(" ").append((int) rect.getY())
-                .append(" ").append((int) rect.getWidth()).append(" ")
-                .append((int) rect.getHeight());
+        .append(" ").append((int) rect.getWidth()).append(" ")
+        .append((int) rect.getHeight());
         component.setComponentRectangle(sb.toString());
     }
 
@@ -253,5 +237,49 @@ public abstract class CtrlrComponentBuilderBase<T extends Object> {
 
     public void setLuaModulatorValueChange(String luaModulatorValueChange) {
         this.luaModulatorValueChange = luaModulatorValueChange;
+    }
+
+    public boolean isMuteOnStart() {
+        return muteOnStart;
+    }
+
+    public void setMuteOnStart(boolean muteOnStart) {
+        this.muteOnStart = muteOnStart;
+    }
+
+    public boolean isExcludeFromSnapshot() {
+        return excludeFromSnapshot;
+    }
+
+    public void setExcludeFromSnapshot(boolean excludeFromSnapshot) {
+        this.excludeFromSnapshot = excludeFromSnapshot;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    public final void setRect(Bounds bounds) {
+        int x = (int) bounds.getMinX();
+        int y = (int) bounds.getMinY();
+        if (parentAbsoluteBounds != null) {
+            x = (int) (bounds.getMinX() - parentAbsoluteBounds.getMinX());
+            y = (int) (bounds.getMinY() - parentAbsoluteBounds.getMinY());
+
+        }
+        setRect(new Rectangle(x, y, (int) bounds.getWidth(),
+                (int) bounds.getHeight()));
+    }
+
+    public boolean isComponentVisible() {
+        return componentVisible;
+    }
+
+    public void setComponentVisible(boolean componentVisible) {
+        this.componentVisible = componentVisible;
     }
 }

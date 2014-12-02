@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import org.jsynthlib.core.ColumnLayout;
 import org.jsynthlib.core.CrossBreeder;
 import org.jsynthlib.core.Utility;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.core.viewcontroller.desktop.JSLDesktop;
 import org.jsynthlib.patch.model.impl.Patch;
 
@@ -67,7 +68,7 @@ public class CrossBreedDialog extends JDialog {
                     Patch q = crossBreeder.getCurrentPatch();
                     library.pastePatch(q);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null,
+                    PopupHandlerProvider.get().showMessage(null,
                             "Destination Library Must be Focused", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }

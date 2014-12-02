@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xd:xmlBankDriverDefinition xmlns:xd="http://www.jsynthlib.org/xmldevice">
+  <xd:name>Yamaha DX100 Bank</xd:name>
+  <xd:infoText>The Yamaha synth is susceptable to internal midi buffer overflow if you send it a lot of Data quickly. With JSynthLib, this can happenif you are using a fader box and throwing the faders around rapidly. Otherwise, it should not be a problem JSynthLib supports the DX21/27/100 as both a Single and Bank Librarian and also supports Patch Editing.Note that though these three synths share one driver, some parameters may only effect the sound on certain models. Therefore, under &#39;configuration&#39; you can choose which of the three models you own.</xd:infoText>
+  <xd:authors>Brian Klock</xd:authors>
+  <xd:patchType>Bank</xd:patchType>
+  <xd:patchSize>0</xd:patchSize>
+  <xd:sysexID>F043**042000</xd:sysexID>
+  <xd:patchNumbers>
+    <xd:string>I01</xd:string>
+    <xd:string>I02</xd:string>
+    <xd:string>I03</xd:string>
+    <xd:string>I04</xd:string>
+    <xd:string>I05</xd:string>
+    <xd:string>I06</xd:string>
+    <xd:string>I07</xd:string>
+    <xd:string>I08</xd:string>
+    <xd:string>I09</xd:string>
+    <xd:string>I10</xd:string>
+    <xd:string>I11</xd:string>
+    <xd:string>I12</xd:string>
+    <xd:string>I13</xd:string>
+    <xd:string>I14</xd:string>
+    <xd:string>I15</xd:string>
+    <xd:string>I16</xd:string>
+    <xd:string>I17</xd:string>
+    <xd:string>I18</xd:string>
+    <xd:string>I19</xd:string>
+    <xd:string>I20</xd:string>
+    <xd:string>I21</xd:string>
+    <xd:string>I22</xd:string>
+    <xd:string>I23</xd:string>
+    <xd:string>I24</xd:string>
+    <xd:string>I25</xd:string>
+    <xd:string>I26</xd:string>
+    <xd:string>I27</xd:string>
+    <xd:string>I28</xd:string>
+    <xd:string>I29</xd:string>
+    <xd:string>I30</xd:string>
+    <xd:string>I31</xd:string>
+    <xd:string>I32</xd:string>
+  </xd:patchNumbers>
+  <xd:bankNumbers>
+    <xd:string>0-Internal</xd:string>
+  </xd:bankNumbers>
+  <xd:deviceIDoffset>2</xd:deviceIDoffset>
+  <xd:checksumOffset>0</xd:checksumOffset>
+  <xd:checksumStart>0</xd:checksumStart>
+  <xd:checksumEnd>0</xd:checksumEnd>
+  <xd:patchNameStart>4031</xd:patchNameStart>
+  <xd:patchNameSize>10</xd:patchNameSize>
+  <xd:numPatches>32</xd:numPatches>
+  <xd:numColumns>4</xd:numColumns>
+  <xd:singleSize>101</xd:singleSize>
+  <xd:singleSysexID>F043**03005D</xd:singleSysexID>
+</xd:xmlBankDriverDefinition>

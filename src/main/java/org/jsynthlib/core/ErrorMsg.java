@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.patch.model.impl.PatchEdit;
 
 /**
@@ -35,7 +36,7 @@ public class ErrorMsg extends JDialog {
      *            the error message
      */
     public static void reportError(final String title, final String msg) {
-        JOptionPane.showMessageDialog(PatchEdit.getInstance(), msg, title,
+        PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), msg, title,
                 JOptionPane.ERROR_MESSAGE);
     }
 

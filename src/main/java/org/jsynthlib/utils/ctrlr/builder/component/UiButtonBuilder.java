@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ctrlr.panel.ComponentType;
-import org.ctrlr.panel.ModulatorType;
-import org.ctrlr.panel.PanelType;
 import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
 import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.PatchParamValues;
@@ -57,15 +55,8 @@ public class UiButtonBuilder extends CtrlrMidiComponentBuilder {
     }
 
     @Override
-    public ModulatorType createComponent(PanelType panel, ModulatorType group,
-            int vstIndex, Rectangle rect) {
-        ModulatorType modulator = createModulator(panel, vstIndex);
-
-        createMidiElement(modulator);
-        ComponentType component = modulator.addNewComponent();
-        setDefaultComponentFields(component, group, getObject().getName(),
-                panel);
-
+    protected void setComponentAttributes(ComponentType component) {
+        super.setComponentAttributes(component);
         component.setUiButtonTrueValue(1);
         component.setUiButtonFalseValue(0);
         component.setUiButtonIsToggle(toggle ? 1 : 0);
@@ -93,10 +84,11 @@ public class UiButtonBuilder extends CtrlrMidiComponentBuilder {
         component.setUiButtonTriggerOnMouseDown(0);
 
         component.setUiType("uiButton");
-        rect.setSize(width, height);
-        setComponentRectangle(component, rect);
+    }
 
-        return modulator;
+    @Override
+    protected String getName() {
+        return getObject().getName();
     }
 
     public List<String> getContents() {
@@ -123,20 +115,18 @@ public class UiButtonBuilder extends CtrlrMidiComponentBuilder {
         this.buttonColorOff = buttonColorOff;
     }
 
-    public int getHeight() {
-        return height;
-    }
-
     public void setHeight(int height) {
         this.height = height;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
     public void setWidth(int width) {
         this.width = width;
+    }
+
+    @Override
+    public void setRect(Rectangle rect) {
+        rect.setSize(width, height);
+        super.setRect(rect);
     }
 
 }

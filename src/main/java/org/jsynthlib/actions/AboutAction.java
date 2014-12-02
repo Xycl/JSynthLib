@@ -7,6 +7,7 @@ import javax.swing.Action;
 import javax.swing.JOptionPane;
 
 import org.jsynthlib.core.AppConfig;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.inject.JSynthLibInjector;
 
 public class AboutAction extends JSLAbstractAction {
@@ -24,10 +25,10 @@ public class AboutAction extends JSLAbstractAction {
     public void actionPerformed(ActionEvent e) {
         StringBuilder text = new StringBuilder();
         text.append("JSynthLib Version ").append(appConfig.getJSLVersion())
-                .append("\nCopyright (C) 2000-2014 Brian Klock et al.\n")
-                .append("See 'Help -> License' for more info.");
-        JOptionPane.showMessageDialog(null, text.toString(), "About JSynthLib",
-                JOptionPane.INFORMATION_MESSAGE);
+        .append("\nCopyright (C) 2000-2014 Brian Klock et al.\n")
+        .append("See 'Help -> License' for more info.");
+        PopupHandlerProvider.get().showMessage(null, text.toString(),
+                "About JSynthLib", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

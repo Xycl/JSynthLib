@@ -26,6 +26,7 @@ package org.jsynthlib.synthdrivers.MIDIboxFM;
 
 import javax.swing.JOptionPane;
 
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -73,7 +74,7 @@ public class MIDIboxFMSingleDriver extends AbstractPatchDriver {
         // setBankNum(bankNum); // not for MBFM!
         // setPatchNum(patchNum); // not for MBFM!
         if (sysexRequestDump == null) {
-            JOptionPane.showMessageDialog(PatchEdit.getInstance(), "The "
+            PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), "The "
                     + toString()
                     + " driver does not support patch getting.\n\n"
                     + "Please start the patch dump manually...", "Get Patch",

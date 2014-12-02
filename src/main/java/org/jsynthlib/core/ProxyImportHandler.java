@@ -1,7 +1,10 @@
 package org.jsynthlib.core;
 
-import java.awt.datatransfer.*;
-import javax.swing.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+
+import javax.swing.JComponent;
+import javax.swing.TransferHandler;
 
 public class ProxyImportHandler extends TransferHandler {
     protected JComponent comp;

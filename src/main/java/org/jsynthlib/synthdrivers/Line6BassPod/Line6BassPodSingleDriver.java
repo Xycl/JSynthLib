@@ -24,9 +24,9 @@ package org.jsynthlib.synthdrivers.Line6BassPod;
 import java.io.UnsupportedEncodingException;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
@@ -190,7 +190,7 @@ public class Line6BassPodSingleDriver extends AbstractPatchDriver {
                 + MidiMessageFormatter.hexDump(p.sysex, Constants.PDMP_HDR_SIZE, -1, 16));
 
         JFrame frame = new JFrame();
-        JOptionPane.showMessageDialog(frame, Constants.PLAY_CMD_MSG);
+        PopupHandlerProvider.get().showMessage(frame, Constants.PLAY_CMD_MSG);
     }
 
     /**

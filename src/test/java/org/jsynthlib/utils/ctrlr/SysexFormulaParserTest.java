@@ -6,7 +6,7 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 
-import org.jsynthlib.utils.ctrlr.driverContext.CtrlrConverterDeviceFactory;
+import org.jsynthlib.utils.ctrlr.driverContext.ConverterDeviceFactory;
 import org.jsynthlib.utils.ctrlr.driverContext.SysexFormulaParser;
 import org.jsynthlib.xmldevice.HandlerReferenceBase.PropertyValue;
 import org.jsynthlib.xmldevice.MidiSenderReference;
@@ -17,12 +17,12 @@ public class SysexFormulaParserTest {
 
     private SysexFormulaParser tested;
     // private DriverContext driverContextMock;
-    private CtrlrConverterDeviceFactory handlerReferenceFactoryMock;
+    private ConverterDeviceFactory handlerReferenceFactoryMock;
 
     @Before
     public void setUp() throws Exception {
         handlerReferenceFactoryMock =
-                createMock(CtrlrConverterDeviceFactory.class);
+                createMock(ConverterDeviceFactory.class);
         // driverContextMock = createMock(DriverContext.class);
     }
 

@@ -48,7 +48,7 @@ public class MKS50ToneBankDriver extends AbstractBankDriver {
 
     /*
      * public void choosePatch (Patch p) {
-     * JOptionPane.showMessageDialog(PatchEdit.getInstance(),
+     * PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(),
      * "To send a Tone bank:\n" +"1. turn Memory Protect off\n"
      * +"2. make sure the MKS-50's midi channel matches JSynthLib\n"
      * +"3. press Data Transfer, select Bulk*Load and the bank (T-a or T-b)\n"

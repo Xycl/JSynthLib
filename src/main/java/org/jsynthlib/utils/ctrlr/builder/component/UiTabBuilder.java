@@ -1,6 +1,7 @@
 package org.jsynthlib.utils.ctrlr.builder.component;
 
-import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.ctrlr.panel.ComponentType;
 import org.ctrlr.panel.ModulatorType;
@@ -17,18 +18,36 @@ public class UiTabBuilder extends CtrlrComponentBuilderBase<PatchParamGroup[]> {
         UiTabBuilder newUiTabBuilder(PatchParamGroup[] groups);
     }
 
+    private final List<GroupBuilderBase<?>> tabGroups;
+
     @Inject
     public UiTabBuilder(@Assisted PatchParamGroup[] groups) {
         setObject(groups);
+        setLabelVisible(false);
+        tabGroups = new ArrayList<GroupBuilderBase<?>>();
+        for (PatchParamGroup patchParamGroup : groups) {
+            tabGroups.add(new GroupBuilderBase<Object>() {
+            });
+        }
     }
 
     @Override
-    public ModulatorType createComponent(PanelType panel, ModulatorType group,
-            int vstIndex, Rectangle rect) {
-        ModulatorType modulator = createModulator(panel);
-        ComponentType component = modulator.addNewComponent();
-        setLabelVisible(false);
-        setDefaultComponentFields(component, group, "", panel);
+    public ModulatorType createModulator(PanelType panel, ModulatorType group,
+            int vstIndex) {
+        ModulatorType modulator = super.createModulator(panel, group, -1);
+        for (int i = 0; i < tabGroups.size(); i++) {
+            GroupBuilderBase<?> tabGroup = tabGroups.get(i);
+            modulator.getComponent().setUiTabsCurrentTab(i);
+            for (CtrlrComponentBuilderBase<?> builder : tabGroup) {
+                builder.createModulator(panel, modulator, vstIndex);
+            }
+        }
+        return modulator;
+    }
+
+    @Override
+    protected void setComponentAttributes(ComponentType component) {
+        super.setComponentAttributes(component);
         component.setUiTabsCurrentTabChanged("tabChanged");
         component.setUiTabsDepth(24);
         component.setUiTabsOutlineThickness(2);
@@ -48,16 +67,17 @@ public class UiTabBuilder extends CtrlrComponentBuilderBase<PatchParamGroup[]> {
         component.setUiTabsRemoveTab(0);
         component.setUiType("uiTabs");
         component.setUiTabsCurrentTab(0);
-        setComponentRectangle(component, rect);
 
-        for (PatchParamGroup patchParamGroup : getObject()) {
-            newUiTabsTab(modulator, patchParamGroup.getName());
+        for (PatchParamGroup ppg : getObject()) {
+            newUiTabsTab(component, ppg.getName());
         }
-        return modulator;
     }
 
-    ModulatorType newUiTabsTab(ModulatorType tabType, String name) {
-        ComponentType component = tabType.getComponent();
+    public GroupBuilderBase<?> getTabGroup(int index) {
+        return tabGroups.get(index);
+    }
+
+    void newUiTabsTab(ComponentType component, String name) {
         UiTabsTabType uiTabsTab = component.addNewUiTabsTab();
         uiTabsTab.setUiTabsTabName(name);
         int index = component.getUiTabsTabArray().length - 1;
@@ -68,7 +88,6 @@ public class UiTabBuilder extends CtrlrComponentBuilderBase<PatchParamGroup[]> {
         uiTabsTab.setUiTabsTabBackgroundImageLayout(36);
         uiTabsTab.setUiTabsTabBackgroundImageAlpha(255);
         component.setUiTabsCurrentTab(index);
-        return tabType;
     }
 
     @Override

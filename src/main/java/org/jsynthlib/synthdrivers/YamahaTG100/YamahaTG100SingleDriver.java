@@ -110,7 +110,7 @@ public class YamahaTG100SingleDriver extends AbstractPatchDriver {
      * @param bankNum Ignored
      * @param patchNum The number of the Voice which is requested public void
      * requestPatchDump(int bankNum, int patchNum) { if (sysexRequestDump ==
-     * null) { JOptionPane.showMessageDialog (PatchEdit.getInstance(), "The " +
+     * null) { PopupHandlerProvider.get().showMessage (PatchEdit.getInstance(), "The " +
      * toString() + " driver does not support patch getting.\n\n" +
      * "Please start the patch dump manually...", "Get Patch",
      * JOptionPane.WARNING_MESSAGE); } else { int iTemp =

@@ -7,6 +7,7 @@ import javax.swing.Action;
 import javax.swing.JOptionPane;
 
 import org.jsynthlib.core.ErrorMsg;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.patch.model.impl.PatchEdit;
 import org.jsynthlib.patch.viewcontroller.LibraryFrame;
 
@@ -45,7 +46,7 @@ public class DeleteDuplicatesAction extends JSLAbstractAction {
         }
         PatchEdit.hideWaitDialog();
 
-        JOptionPane.showMessageDialog(null, numDeleted
+        PopupHandlerProvider.get().showMessage(null, numDeleted
                 + " Patches and Scenes were deleted", "Delete Duplicates",
                 JOptionPane.INFORMATION_MESSAGE);
     }

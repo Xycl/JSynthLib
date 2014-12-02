@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -212,6 +213,7 @@ public class XMLExtractor {
                                     new SingleDriverGenerator(
                                             (IPatchDriver) driver);
                             generator.createPatchDriver(patchEditor, infoText);
+                            generator.save();
                         } else if (jslFrame instanceof BankEditorFrame) {
                             BankEditorFrame frame = (BankEditorFrame) jslFrame;
                             IDriver driver = frame.getBankData().getDriver();
@@ -224,6 +226,7 @@ public class XMLExtractor {
                                     new BankDriverGenerator(
                                             (IBankDriver) driver);
                             generator.createBankDriver(infoText, patchEditor);
+                            generator.save();
                         }
                     }
 
@@ -271,10 +274,11 @@ public class XMLExtractor {
 
         protected void addGenericFields(IDriver driver,
                 XmlDriverDefinition driverSpec, String infoText)
-                        throws IllegalAccessException, NoSuchFieldException {
+                throws IllegalAccessException, NoSuchFieldException {
             driverSpec.setInfoText(infoText);
             driverSpec.setName(deviceName + " " + driver.getPatchType());
             driverSpec.setAuthors(driver.getAuthors());
+            driverSpec.setPatchType(driver.getPatchType());
 
             String[] origBankNumbers = driver.getBankNumbers();
             if (origBankNumbers != null) {
@@ -315,7 +319,7 @@ public class XMLExtractor {
         @SuppressWarnings("unchecked")
         protected <T> T getField(String fieldName, Class<T> fieldClass,
                 Object object, Class<?> objectClass)
-                        throws IllegalAccessException, NoSuchFieldException {
+                throws IllegalAccessException, NoSuchFieldException {
             Class<?> tmpClass = object.getClass();
             while (!tmpClass.equals(objectClass)) {
                 tmpClass = tmpClass.getSuperclass();
@@ -389,14 +393,20 @@ public class XMLExtractor {
 
     class SingleDriverGenerator extends DriverGenerator {
 
+        private final String[] IGNORED_PROPERTIES = {
+                "class", "patch", "channel" };
+
         private final XmlSingleDriverDefinitionDocument document;
         private final IPatchDriver driver;
         private final HashMap<String, PatchParams> groupMap;
         private final XmlSingleDriverDefinition driverSpec;
         private final Map<String, HandlerDefinitionBase> handlerDefinitionMap;
 
+        private final List<String> ignoredProperties;
+
         public SingleDriverGenerator(IPatchDriver driver) {
             super();
+            this.ignoredProperties = Arrays.asList(IGNORED_PROPERTIES);
             groupMap = new HashMap<String, PatchParams>();
             handlerDefinitionMap = new HashMap<String, HandlerDefinitionBase>();
             this.driver = driver;
@@ -583,6 +593,7 @@ public class XMLExtractor {
                     Property property = midiSenderDefinition.addNewProperty();
                     property.setKey("offset");
                 }
+                handlerDefinitionMap.put(simpleName, midiSenderDefinition);
             }
 
             midiSender.setName(simpleName);
@@ -617,6 +628,7 @@ public class XMLExtractor {
                     Property property = paramModelDefinition.addNewProperty();
                     property.setKey("offset");
                 }
+                handlerDefinitionMap.put(simpleName, paramModelDefinition);
             }
 
             paramModel.setName(simpleName);
@@ -639,6 +651,9 @@ public class XMLExtractor {
                         description.entrySet().iterator();
                 while (iterator.hasNext()) {
                     Entry<String, String> entry = iterator.next();
+                    if (ignoredProperties.contains(entry.getKey())) {
+                        continue;
+                    }
                     Property property = definition.addNewProperty();
                     property.setKey(entry.getKey());
                 }
@@ -659,6 +674,9 @@ public class XMLExtractor {
                         description.entrySet().iterator();
                 while (iterator.hasNext()) {
                     Entry<String, String> entry = iterator.next();
+                    if (ignoredProperties.contains(entry.getKey())) {
+                        continue;
+                    }
                     PropertyValue property = reference.addNewPropertyValue();
                     property.setKey(entry.getKey());
                     property.setValue(entry.getValue());
@@ -735,7 +753,7 @@ public class XMLExtractor {
         void handleDefaultIntParam(PatchParams patchParams, int valueMax,
                 int valueMin, String name, ISender sender,
                 IParamModel paramModel, int base)
-                        throws IllegalAccessException, NoSuchFieldException {
+                throws IllegalAccessException, NoSuchFieldException {
             IntParamSpec intParamSpec = patchParams.addNewIntParamSpec();
             intParamSpec.setMax(valueMax);
             intParamSpec.setMin(valueMin);

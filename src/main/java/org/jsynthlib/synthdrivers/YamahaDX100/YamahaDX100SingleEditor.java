@@ -17,7 +17,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.jsynthlib.device.model.handler.ParamModel;
-import org.jsynthlib.device.model.handler.SysexSender;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.CheckBoxWidget;
 import org.jsynthlib.device.viewcontroller.widgets.ComboBoxWidget;
@@ -32,14 +31,14 @@ class YamahaDX100SingleEditor extends PatchEditorFrame {
 
     public YamahaDX100SingleEditor(Patch patch) {
         super("Yamaha DX21/27/100 Single Editor", patch);
-        algoIcon[0] = new ImageIcon(getClass().getResource("1.gif"));
-        algoIcon[1] = new ImageIcon(getClass().getResource("2.gif"));
-        algoIcon[2] = new ImageIcon(getClass().getResource("3.gif"));
-        algoIcon[3] = new ImageIcon(getClass().getResource("4.gif"));
-        algoIcon[4] = new ImageIcon(getClass().getResource("5.gif"));
-        algoIcon[5] = new ImageIcon(getClass().getResource("6.gif"));
-        algoIcon[6] = new ImageIcon(getClass().getResource("7.gif"));
-        algoIcon[7] = new ImageIcon(getClass().getResource("8.gif"));
+        algoIcon[0] = new ImageIcon(getClass().getResource("1.png"));
+        algoIcon[1] = new ImageIcon(getClass().getResource("2.png"));
+        algoIcon[2] = new ImageIcon(getClass().getResource("3.png"));
+        algoIcon[3] = new ImageIcon(getClass().getResource("4.png"));
+        algoIcon[4] = new ImageIcon(getClass().getResource("5.png"));
+        algoIcon[5] = new ImageIcon(getClass().getResource("6.png"));
+        algoIcon[6] = new ImageIcon(getClass().getResource("7.png"));
+        algoIcon[7] = new ImageIcon(getClass().getResource("8.png"));
         final JLabel l = new JLabel(algoIcon[patch.sysex[99 - 41]]);
 
         JPanel lfoPane = new JPanel();
@@ -260,11 +259,11 @@ class YamahaDX100SingleEditor extends PatchEditorFrame {
                                     * 13 + 51), 0, true, new VcedSender(
                                     i * 13 + 1), new VcedSender(i * 13 + 4),
                                     "D1R", "D1L"),
-                                            new Node(0, 31, new ParamModel(patch, -41 + i * 13
+                                                            new Node(0, 31, new ParamModel(patch, -41 + i * 13
                                     + 49), Node.SAME, 15, null, 0, true,
                                     new VcedSender(i * 13 + 2), null, "D2R",
                                     null),
-                                                    new Node(1, 15, new ParamModel(patch, -41 + i * 13
+                                                                    new Node(1, 15, new ParamModel(patch, -41 + i * 13
                                     + 50), 0, 0, null, 0, true, new VcedSender(
                                     i * 13 + 3), null, "RR", null),
 
@@ -328,48 +327,4 @@ class YamahaDX100SingleEditor extends PatchEditorFrame {
         scrollPane.add(oscPane, gbc);
         pack();
     }
-}
-
-class VcedSender extends SysexSender {
-    int parameter;
-    byte[] b = new byte[7];
-
-    public VcedSender(int param) {
-        parameter = param;
-        b[0] = (byte) 0xF0;
-        b[1] = (byte) 0x43;
-        b[3] = (byte) 0x12;
-        b[4] = (byte) parameter;
-        b[6] = (byte) 0xF7;
-    }
-
-    @Override
-    public byte[] generate(int value) {
-        b[5] = (byte) value;
-        b[2] = (byte) (16 + getChannel() - 1);
-        return b;
-    }
-
-}
-
-class AcedSender extends SysexSender {
-    int parameter;
-    byte[] b = new byte[7];
-
-    public AcedSender(int param) {
-        parameter = param;
-        b[0] = (byte) 0xF0;
-        b[1] = (byte) 0x43;
-        b[3] = (byte) 0x13;
-        b[4] = (byte) parameter;
-        b[6] = (byte) 0xF7;
-    }
-
-    @Override
-    public byte[] generate(int value) {
-        b[5] = (byte) value;
-        b[2] = (byte) (16 + getChannel() - 1);
-        return b;
-    }
-
 }

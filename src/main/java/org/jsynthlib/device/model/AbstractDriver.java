@@ -32,6 +32,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.AppConfig;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.midi.service.MidiService;
 import org.jsynthlib.patch.model.MultiPatchImporter;
@@ -416,7 +417,7 @@ public abstract class AbstractDriver implements IDriver {
         pk.setDriver(null); // reset
         pk.setComment("Probably a " + pk.lookupManufacturer()
                 + " Patch, Size: " + pk.getByteArray().length);
-        JOptionPane.showMessageDialog(
+        PopupHandlerProvider.get().showMessage(
                 null,
                 "You requested a " + this.toString() + " patch!"
                         + "\nBut you got a not supported patch!\n"
@@ -563,7 +564,7 @@ public abstract class AbstractDriver implements IDriver {
         setBankNum(bankNum);
         setPatchNum(patchNum);
         if (sysexRequestDump == null) {
-            JOptionPane.showMessageDialog(PatchEdit.getInstance(), "The "
+            PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), "The "
                     + toString()
                     + " driver does not support patch getting.\n\n"
                     + "Please start the patch dump manually...", "Get Patch",

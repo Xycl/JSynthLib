@@ -100,8 +100,4 @@ public class SysexSender implements ISender {
     public final void setChannel(byte channel) {
         this.channel = channel;
     }
-
-    public final Logger getLog() {
-        return log;
-    }
 }

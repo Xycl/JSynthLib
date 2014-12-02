@@ -22,6 +22,7 @@ import javax.swing.Timer;
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.Utility;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.core.viewcontroller.desktop.JSLDesktop;
 import org.jsynthlib.device.model.Device;
 import org.jsynthlib.device.model.DeviceManager;
@@ -196,7 +197,7 @@ public class SysexGetDialog extends JDialog {
                         ((patchNum == -1) ? 0 : patchNum)); // wirski@op.pl
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,
+            PopupHandlerProvider.get().showMessage(null,
                     "Library to Receive into must be the focused Window.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }

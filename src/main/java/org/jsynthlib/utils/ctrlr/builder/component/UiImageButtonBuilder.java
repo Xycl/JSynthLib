@@ -1,6 +1,5 @@
 package org.jsynthlib.utils.ctrlr.builder.component;
 
-import java.awt.Rectangle;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
@@ -30,6 +29,7 @@ public class UiImageButtonBuilder extends CtrlrMidiComponentBuilder {
 
     @Inject
     private PanelResourceManager resourceManager;
+    private PanelType mPanel;
 
     @Inject
     public UiImageButtonBuilder(@Assisted IntParamSpec paramSpec) {
@@ -40,18 +40,18 @@ public class UiImageButtonBuilder extends CtrlrMidiComponentBuilder {
         if (paramSpec.isSetPatchParamValues()) {
             this.paramValues = paramSpec.getPatchParamValues();
         }
-
     }
 
     @Override
-    public ModulatorType createComponent(PanelType panel, ModulatorType group,
-            int vstIndex, Rectangle rect) {
-        ModulatorType modulator = createModulator(panel, vstIndex);
+    public ModulatorType createModulator(PanelType panel, ModulatorType group,
+            int vstIndex) {
+        this.mPanel = panel;
+        return super.createModulator(panel, group, vstIndex);
+    }
 
-        createMidiElement(modulator);
-        ComponentType component = modulator.addNewComponent();
-        setDefaultComponentFields(component, group, getObject().getName(),
-                panel);
+    @Override
+    protected void setComponentAttributes(ComponentType component) {
+        super.setComponentAttributes(component);
 
         int width = 57;
         int height = 44;
@@ -59,7 +59,7 @@ public class UiImageButtonBuilder extends CtrlrMidiComponentBuilder {
         if (paramSpec != null) {
             try {
                 ResourceContainer resource =
-                        resourceManager.addImageResource(panel, paramSpec);
+                        resourceManager.addImageResource(mPanel, paramSpec);
                 component.setUiImageButtonResource(resource.getName());
                 width = resource.getWidth();
                 height = resource.getHeight();
@@ -88,10 +88,12 @@ public class UiImageButtonBuilder extends CtrlrMidiComponentBuilder {
         component.setUiButtonRepeatRate(100);
         component.setComponentEffectAlpha(0);
         component.setUiType("uiImageButton");
-        rect.setSize(width, height);
-        setComponentRectangle(component, rect);
+        getRect().setSize(width, height);
+    }
 
-        return modulator;
+    @Override
+    protected String getName() {
+        return getObject().getName();
     }
 
     void setButtonText(ComponentType component, String[] array, boolean showText) {
@@ -119,7 +121,5 @@ public class UiImageButtonBuilder extends CtrlrMidiComponentBuilder {
         }
         component.setUiButtonTextFont("Arial;12;0;0;0;0;1");
         component.setUiButtonTextJustification("centred");
-
     }
-
 }

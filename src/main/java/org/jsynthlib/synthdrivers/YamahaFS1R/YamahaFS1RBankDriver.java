@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.model.AbstractBankDriver;
 import org.jsynthlib.patch.model.impl.BankPatch;
@@ -141,7 +142,7 @@ public class YamahaFS1RBankDriver extends AbstractBankDriver {
                 (patchNum > 127 ? YamahaFS1RVoiceDriver.PATCH_AND_HEADER_SIZE
                         : YamahaFS1RPerformanceDriver.PATCH_AND_HEADER_SIZE);
         if (oSize != p.sysex.length) {
-            JOptionPane.showMessageDialog(null,
+            PopupHandlerProvider.get().showMessage(null,
                     "Performances in P000-P127, Voices in V000-V127 ", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return;

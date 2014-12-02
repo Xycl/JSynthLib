@@ -12,18 +12,19 @@ import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 import org.ctrlr.panel.PanelDocument;
 import org.ctrlr.panel.PanelType;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.DeviceException;
-import org.jsynthlib.utils.ctrlr.builder.CtrlrLuaManagerBuilder;
 import org.jsynthlib.utils.ctrlr.builder.CtrlrPanelBuilder;
-import org.jsynthlib.utils.ctrlr.driverContext.CtrlrDriverModule;
-import org.jsynthlib.utils.ctrlr.driverContext.DriverModuleBuilder;
+import org.jsynthlib.utils.ctrlr.builder.PanelLuaManagerBuilder;
 import org.jsynthlib.utils.ctrlr.driverContext.XmlDriverParser;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 import org.jsynthlib.xmldevice.XmlDriverReferences;
 import org.jsynthlib.xmldevice.XmlDriverReferences.XmlDriverReference;
 
+import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.assistedinject.Assisted;
 
 public class CtrlrSynthGenerator {
 
@@ -59,8 +60,12 @@ public class CtrlrSynthGenerator {
                     + " into " + output);
             File outDir = createOutDir(output);
 
+            Injector injector = CtrlrGeneratorModule.getInjector();
+            CtrlrSynthGeneratorFactory factory =
+                    injector.getInstance(CtrlrSynthGeneratorFactory.class);
             CtrlrSynthGenerator editorGenerator =
-                    new CtrlrSynthGenerator(packageName, fileNamePrefix, outDir);
+                    factory.newPanelGenerator(packageName, fileNamePrefix,
+                            outDir);
             editorGenerator.generatePanel();
         } catch (Exception e) {
             LOG.warn(e.getMessage(), e);
@@ -73,15 +78,25 @@ public class CtrlrSynthGenerator {
     private final File outDir;
     private final ClassLoader classLoader;
     private final PanelDocument panelDocument;
-    private final Injector injector;
 
-    CtrlrSynthGenerator(String packageName, String fileNamePrefix, File outDir) {
+    @Inject
+    private PanelLuaManagerBuilder luaManagerBuilder;
+
+    @Inject
+    private CtrlrPanelBuilder panelBuilder;
+
+    @Inject
+    private DriverInjectorFactory driverInjectorFactory;
+
+    @Inject
+    public CtrlrSynthGenerator(@Assisted("packageName") String packageName,
+            @Assisted("fileNamePrefix") String fileNamePrefix,
+            @Assisted File outDir) {
         this.packageName = packageName;
         this.fileNamePrefix = fileNamePrefix;
         this.outDir = outDir;
         classLoader = getClass().getClassLoader();
         panelDocument = PanelDocument.Factory.newInstance();
-        injector = CtrlrGeneratorModule.getInjector();
 
     }
 
@@ -95,8 +110,6 @@ public class CtrlrSynthGenerator {
         XmlDeviceDefinitionDocument document =
                 XmlDeviceDefinitionDocument.Factory.parse(stream, xmlOptions);
         XmlDeviceDefinition xmldevice = document.getXmlDeviceDefinition();
-        CtrlrPanelBuilder panelBuilder =
-                injector.getInstance(CtrlrPanelBuilder.class);
         PanelType panel = panelBuilder.newPanel(panelDocument, xmldevice);
 
         XmlDriverReferences xmldrivers = xmldevice.getDrivers();
@@ -104,18 +117,17 @@ public class CtrlrSynthGenerator {
                 xmldrivers.getXmlDriverReferenceArray();
 
         for (XmlDriverReference xmldriver : xmldriverArray) {
-            CtrlrDriverModule driverModule =
-                    DriverModuleBuilder.newDriverModule(xmldevice, xmldriver,
-                            panel);
-            Injector childInjector = injector.createChildInjector(driverModule);
+            Injector childInjector =
+                    driverInjectorFactory.newDriverinjector(xmldevice,
+                            xmldriver, panel,
+                            CtrlrGeneratorModule.getInjector());
+            PopupHandlerProvider.setInjector(childInjector);
             XmlDriverParser driverParser =
                     childInjector.getInstance(XmlDriverParser.class);
-            driverParser.extractDriverToPanel();
+            driverParser.parseDriverAndGeneratePanel(panel);
             break;
         }
 
-        CtrlrLuaManagerBuilder luaManagerBuilder =
-                injector.getInstance(CtrlrLuaManagerBuilder.class);
         luaManagerBuilder.createLuaManager(panel);
 
         saveFile();

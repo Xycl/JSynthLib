@@ -26,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import javax.swing.JOptionPane;
 
 import org.jsynthlib.core.ErrorMsg;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.AbstractBankDriver;
 import org.jsynthlib.device.model.SysexHandler;
 import org.jsynthlib.patch.model.impl.BankPatch;
@@ -152,7 +153,7 @@ public class Line6Pod20BankDriver extends AbstractBankDriver {
                                                                // Core.*
     {
         if (!canHoldPatch(p)) {
-            JOptionPane.showMessageDialog(null,
+            PopupHandlerProvider.get().showMessage(null,
                     "This type of patch does not fit in to this type of bank.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;

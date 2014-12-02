@@ -22,6 +22,8 @@ package org.jsynthlib.inject;
 
 import org.jsynthlib.core.AppConfig;
 import org.jsynthlib.core.impl.AppConfigImpl;
+import org.jsynthlib.core.impl.PopupHandler;
+import org.jsynthlib.core.impl.PopupHandlerImpl;
 import org.jsynthlib.device.model.DeviceFactory;
 import org.jsynthlib.device.model.DeviceManager;
 import org.jsynthlib.device.model.DriverIdentifier;
@@ -84,6 +86,7 @@ public class JSynthLibInjector extends AbstractModule {
                 PatchEdit.class).build(PatchEditFactory.class));
         bind(DeviceManager.class).to(DeviceManagerImpl.class);
         bind(DeviceFactory.class).to(DeviceFactoryImpl.class);
+        bind(PopupHandler.class).to(PopupHandlerImpl.class);
     }
 
 }

@@ -6,7 +6,7 @@ package org.jsynthlib.utils.ctrlr;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.jsynthlib.utils.ctrlr.driverContext.CtrlrConverterDeviceFactory;
+import org.jsynthlib.utils.ctrlr.driverContext.ConverterDeviceFactory;
 import org.jsynthlib.utils.ctrlr.driverContext.ParameterOffsetParser;
 import org.jsynthlib.xmldevice.HandlerReferenceBase.PropertyValue;
 import org.jsynthlib.xmldevice.ParamModelReference;
@@ -17,7 +17,7 @@ public class ParameterOffsetParserTest {
 
     private ParameterOffsetParser tested;
     // private DriverContext driverContextMock;
-    private CtrlrConverterDeviceFactory handlerReferenceFactoryMock;
+    private ConverterDeviceFactory handlerReferenceFactoryMock;
 
     @Before
     public void setUp() throws Exception {

@@ -3,8 +3,6 @@ package org.jsynthlib.utils.ctrlr.builder.component;
 import java.awt.Rectangle;
 
 import org.ctrlr.panel.ComponentType;
-import org.ctrlr.panel.ModulatorType;
-import org.ctrlr.panel.PanelType;
 import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
 import org.jsynthlib.xmldevice.IntParamSpec;
 
@@ -26,29 +24,25 @@ public class UiSliderBuilder extends CtrlrMidiComponentBuilder {
     @AssistedInject
     public UiSliderBuilder(@Assisted SliderSpecWrapper wrapper) {
         setObject(wrapper);
-    }
-
-    @AssistedInject
-    public UiSliderBuilder(@Assisted IntParamSpec paramSpec) {
-        this(SliderSpecWrapper.Factory.newWrapper(paramSpec));
+        setMax(wrapper.getMax());
+        setMin(wrapper.getMin());
         this.width = 31;
         this.height = 73;
         this.sliderValuePosition = 4;
     }
 
-    @Override
-    public ModulatorType createComponent(PanelType panel, ModulatorType group,
-            int vstIndex, Rectangle rect) {
-        ModulatorType modulator = createModulator(panel, vstIndex);
+    @AssistedInject
+    public UiSliderBuilder(@Assisted IntParamSpec paramSpec) {
+        this(SliderSpecWrapper.Factory.newWrapper(paramSpec));
+    }
 
-        createMidiElement(modulator);
-        ComponentType component = modulator.addNewComponent();
-        setDefaultComponentFields(component, group, getObject().getName(),
-                panel);
+    @Override
+    protected void setComponentAttributes(ComponentType component) {
+        super.setComponentAttributes(component);
 
         component.setUiSliderStyle(getUiSliderStyle());
-        component.setUiSliderMin(getObject().getMin());
-        component.setUiSliderMax(getObject().getMax());
+        component.setUiSliderMin(getMin());
+        component.setUiSliderMax(getMax());
         component.setUiSliderInterval(1);
         component.setUiSliderDoubleClickEnabled(1);
         component.setUiSliderDoubleClickValue(0);
@@ -85,10 +79,11 @@ public class UiSliderBuilder extends CtrlrMidiComponentBuilder {
         component.setUiSliderMouseWheelInterval(1);
         component.setUiSliderPopupBubble(0);
         component.setUiType("uiSlider");
-        rect.setSize(width, height);
-        setComponentRectangle(component, rect);
+    }
 
-        return modulator;
+    @Override
+    protected String getName() {
+        return getObject().getName();
     }
 
     protected String getUiSliderStyle() {
@@ -117,5 +112,11 @@ public class UiSliderBuilder extends CtrlrMidiComponentBuilder {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    @Override
+    public void setRect(Rectangle rect) {
+        rect.setSize(width, height);
+        super.setRect(rect);
     }
 }

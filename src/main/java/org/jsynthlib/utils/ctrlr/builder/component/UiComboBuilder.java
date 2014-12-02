@@ -3,20 +3,12 @@ package org.jsynthlib.utils.ctrlr.builder.component;
 import java.awt.Rectangle;
 
 import org.ctrlr.panel.ComponentType;
-import org.ctrlr.panel.ModulatorType;
-import org.ctrlr.panel.PanelType;
 
 public class UiComboBuilder extends CtrlrMidiComponentBuilder {
 
     @Override
-    public ModulatorType createComponent(PanelType panel, ModulatorType group,
-            int vstIndex, Rectangle rect) {
-        ModulatorType modulator = createModulator(panel, vstIndex);
-
-        createMidiElement(modulator);
-        ComponentType component = modulator.addNewComponent();
-        setDefaultComponentFields(component, group, getObject().getName(),
-                panel);
+    protected void setComponentAttributes(ComponentType component) {
+        super.setComponentAttributes(component);
 
         component.setUiComboArrowColour("ffffffff");
         component.setUiComboOutlineColour("8f000000");
@@ -41,10 +33,16 @@ public class UiComboBuilder extends CtrlrMidiComponentBuilder {
         component.setUiComboSelectedId(-1);
         component.setUiComboSelectedIndex(-1);
         component.setUiType("uiCombo");
-        rect.setSize(64, 73);
-        setComponentRectangle(component, rect);
-
-        return modulator;
     }
 
+    @Override
+    protected String getName() {
+        return getObject().getName();
+    }
+
+    @Override
+    public void setRect(Rectangle rect) {
+        rect.setSize(64, 73);
+        super.setRect(rect);
+    }
 }

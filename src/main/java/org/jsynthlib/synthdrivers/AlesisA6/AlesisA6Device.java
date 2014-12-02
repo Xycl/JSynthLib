@@ -31,7 +31,7 @@ public class AlesisA6Device extends Device {
         addDriver(new AlesisA6MixBankDriver());
         addDriver(new AlesisA6MixSingleDriver());
         /*
-         * JOptionPane.showMessageDialog(PatchEdit.getInstance(), DRIVER_INFO,
+         * PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), DRIVER_INFO,
          * "A6 Driver Release Notes", JOptionPane.WARNING_MESSAGE );
          */
     }

@@ -1,23 +1,18 @@
 package org.jsynthlib.utils.ctrlr.builder.component;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.ctrlr.panel.ModulatorType;
-import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.builder.CtrlrLuaManagerBuilder;
-import org.jsynthlib.utils.ctrlr.builder.SliderSpecWrapper;
-import org.jsynthlib.utils.ctrlr.builder.method.MethodBuilder;
-import org.jsynthlib.utils.ctrlr.driverContext.GlobalPatchMethodParser;
-import org.jsynthlib.xmldevice.MidiSenderReference;
-import org.jsynthlib.xmldevice.ParamModelReference;
+import org.jsynthlib.utils.ctrlr.builder.BuilderFactoryFacade;
+import org.jsynthlib.utils.ctrlr.lua.decorator.DriverLuaHandler;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 
 @Singleton
-public class GlobalGroupBuilder extends CtrlrComponentBuilderBase<String> {
+public class GlobalGroupBuilder extends UiGroupBuilder {
 
     enum Globalbuttons {
 
@@ -30,152 +25,95 @@ public class GlobalGroupBuilder extends CtrlrComponentBuilderBase<String> {
         }
     }
 
-    @Inject
-    private CtrlrLuaManagerBuilder luaManagerBuilder;
+    private final Map<Globalbuttons, UiGlobalButtonBuilder> builderMap;
+
+    private int xOffset = 4;
+
+    private final DriverLuaHandler luaHandler;
 
     @Inject
-    private UiGroupBuilder.Factory uiGroupBuilderFactory;
+    private XmlDriverDefinition driverDef;
 
     @Inject
-    private UiLabelBuilder.Factory uiLabelBuilderFactory;
+    private BuilderFactoryFacade factoryFacade;
 
     @Inject
-    private GlobalPatchMethodParser methodParser;
-
-    @Inject
-    @Named("prefix")
-    private String prefix;
-
-    @Override
-    public ModulatorType createComponent(PanelType panel, ModulatorType group,
-            int vstIndex, Rectangle rect) {
-        UiGroupBuilder groupBuilder =
-                uiGroupBuilderFactory.newUiGroupBuilder("Global");
-        ModulatorType globalGroup =
-                groupBuilder.createComponent(panel, null, 0, rect);
+    public GlobalGroupBuilder(DriverLuaHandler luaHandler) {
+        super("Global");
+        this.luaHandler = luaHandler;
+        builderMap =
+                new HashMap<GlobalGroupBuilder.Globalbuttons, UiGlobalButtonBuilder>();
 
         for (Globalbuttons button : Globalbuttons.values()) {
-            addGlobalButton(rect, button, panel, globalGroup, vstIndex);
+            Rectangle rect = newRectangle(40, 20);
+            UiGlobalButtonBuilder builder =
+                    new UiGlobalButtonBuilder(button.name, rect);
+            switch (button) {
+            case GET:
+                builder.setMethodName(luaHandler.getGetMethod());
+                break;
+            case SEND:
+                builder.setMethodName(luaHandler.getSendMethod());
+                break;
+            case LOAD:
+                builder.setMethodName(luaHandler.getLoadMethod());
+                break;
+            case SAVE:
+                builder.setMethodName(luaHandler.getSaveMethod());
+                break;
+            default:
+                throw new IllegalStateException("Bad global button");
+            }
+            add(builder);
+            builderMap.put(button, builder);
+        }
 
-            // TODO: Remove
-            break;
+    }
+
+    public void setPatchNameBuilder(UiLabelBuilder patchNameBuilder) {
+        Rectangle pnRect =
+                newRectangle(patchNameBuilder.getLength() * 10 + 10, 20);
+        patchNameBuilder.setRect(pnRect);
+        patchNameBuilder.setModulatorName(luaHandler.getNameModulator());
+        patchNameBuilder.setUiLabelText("New Patch");
+        patchNameBuilder.setUiLabelChangedCbk(luaHandler.getSetNameMethod());
+        add(patchNameBuilder);
+
+        for (int i = driverDef.getPatchNameStart(); i < driverDef
+                .getPatchNameStart() + patchNameBuilder.getLength(); i++) {
+            GlobalSliderSpecWrapper wrapper =
+                    new GlobalSliderSpecWrapper(luaHandler.getDriverPrefix()
+                            + i);
+            wrapper.setOffset(i);
+            add(factoryFacade.newNameCharSliderBuilder(wrapper));
         }
 
         UiLabelBuilder labelBuilder =
-                uiLabelBuilderFactory.newUiLabelBuilder("driverStatus");
+                factoryFacade.newUiLabelBuilder("driverStatus");
         labelBuilder.setLabelVisible(false);
-        labelBuilder.createComponent(panel, globalGroup, 0, rect);
-
-        return globalGroup;
+        labelBuilder.setRect(newRectangle(100, 20));
+        add(labelBuilder);
     }
 
-    void addGlobalButton(Rectangle labelRect, Globalbuttons button,
-            PanelType panel, ModulatorType group, int vstIndex) {
-        MethodBuilder methodBuilder = null;
-        switch (button) {
-        case GET:
-            methodBuilder = methodParser.getPatchRequestBuilder();
-            break;
-        case SEND:
-            methodBuilder = methodParser.getPatchStoreBuilder();
-            break;
-        case LOAD:
-            methodBuilder = methodParser.getPatchLoadBuilder();
-            break;
-        case SAVE:
-            methodBuilder = methodParser.getPatchSaveBuilder();
-            break;
-        default:
-            throw new IllegalArgumentException("Invalid button " + button);
+    public void setPatchCharMax(int max) {
+        for (CtrlrComponentBuilderBase<?> builder : this) {
+            if (builder instanceof NameCharSliderBuilder) {
+                NameCharSliderBuilder sliderBuilder =
+                        (NameCharSliderBuilder) builder;
+                sliderBuilder.setPatchCharMax(max);
+            }
         }
-        int width = (int) (labelRect.getWidth() / 4) - 4;
-        int x =
-                (int) ((labelRect.getWidth() / 4) * button.ordinal() + labelRect
-                        .getX());
-        Rectangle rect = new Rectangle(x, 2, width, 20);
-        new UiGlobalButtonBuilder(button.name, methodBuilder, rect)
-                .createComponent(panel, group, vstIndex);
-        luaManagerBuilder.addMethod(prefix, methodBuilder);
+    }
+
+    Rectangle newRectangle(int width, int height) {
+        int x = xOffset;
+        int y = 4;
+        xOffset += width + 5;
+        return new Rectangle(x, y, width, height);
     }
 
     @Override
     protected String getModulatorName() {
         return "globalPatchControls";
-    }
-
-    static class UiGlobalButtonBuilder extends UiButtonBuilder {
-
-        private final Rectangle rect;
-
-        public UiGlobalButtonBuilder(String name, MethodBuilder methodbuilder,
-                Rectangle rect) {
-            super(new GlobalSliderSpec(name));
-            ArrayList<String> contents = new ArrayList<String>();
-            contents.add(name);
-            setContents(contents);
-            setButtonColorOff(getButtonColorOn());
-            this.rect = rect;
-            setWidth((int) rect.getWidth());
-            setHeight((int) rect.getHeight());
-            setLabelVisible(false);
-            setLuaModulatorValueChange(methodbuilder.getName());
-        }
-
-        @Override
-        protected void createMidiElement(ModulatorType modulator) {
-            createMidiElement(modulator, "");
-        }
-
-        public ModulatorType createComponent(PanelType panel,
-                ModulatorType group, int vstIndex) {
-            return super.createComponent(panel, group, vstIndex, rect);
-        }
-
-    }
-
-    static class GlobalSliderSpec implements SliderSpecWrapper {
-
-        private final String name;
-
-        public GlobalSliderSpec(String name) {
-            super();
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public int getMin() {
-            return 0;
-        }
-
-        @Override
-        public int getMax() {
-            return 1;
-        }
-
-        @Override
-        public MidiSenderReference getMidiSender() {
-            return null;
-        }
-
-        @Override
-        public boolean isSetMidiSender() {
-            return false;
-        }
-
-        @Override
-        public boolean isSetParamModel() {
-            return false;
-        }
-
-        @Override
-        public ParamModelReference getParamModel() {
-            return null;
-        }
-
     }
 }

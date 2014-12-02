@@ -48,7 +48,7 @@ public class NordLeadDevice extends Device implements ItemListener {
         // setSynthName("NL1-2");
         // Driver drv;
         /*
-         * JOptionPane.showMessageDialog(PatchEdit.getInstance(), DRIVER_INFO,
+         * PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), DRIVER_INFO,
          * "Nord Lead Driver Release Notes", JOptionPane.WARNING_MESSAGE );
          */
         addDriver(new NLPatchBankDriver());

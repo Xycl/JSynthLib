@@ -22,6 +22,7 @@ package org.jsynthlib.synthdrivers.RolandD50;
 
 import javax.swing.JOptionPane;
 
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.XMLSingleDriver;
 import org.jsynthlib.patch.model.impl.Patch;
 import org.jsynthlib.patch.model.impl.PatchEdit;
@@ -40,7 +41,7 @@ public class D50SingleDriver extends XMLSingleDriver {
     public void storePatch(Patch p, int bankNum, int patchNum) {
         StringBuilder sb = new StringBuilder();
         sb.append(Messages.getString("D50SingleDriver.0")); //$NON-NLS-1$
-        JOptionPane.showMessageDialog(PatchEdit.getInstance(), sb.toString(),
+        PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), sb.toString(),
                 Messages.getString("D50SingleDriver.1"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
     }
 
@@ -48,7 +49,7 @@ public class D50SingleDriver extends XMLSingleDriver {
     public void requestPatchDump(int bankNum, int patchNum) {
         StringBuilder sb = new StringBuilder();
         sb.append(Messages.getString("D50SingleDriver.2")); //$NON-NLS-1$
-        JOptionPane.showMessageDialog(PatchEdit.getInstance(), sb.toString(),
+        PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), sb.toString(),
                 Messages.getString("D50SingleDriver.3"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
     }
 

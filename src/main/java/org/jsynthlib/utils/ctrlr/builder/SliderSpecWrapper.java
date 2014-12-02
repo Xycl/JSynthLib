@@ -16,82 +16,38 @@ public interface SliderSpecWrapper {
 
         public static SliderSpecWrapper newWrapper(
                 CombinedIntPatchParam paramSpec, CombinedGroup cg) {
-            SliderSpecWrapperImpl wrapper = new SliderSpecWrapperImpl();
-            wrapper.max = paramSpec.getMax();
-            wrapper.min = paramSpec.getMin();
-            wrapper.name = paramSpec.getName();
-            wrapper.msRef = cg.getMidiSender();
-            wrapper.pmRef = cg.getParamModel();
+            DefaultSliderSpecWrapper wrapper = new DefaultSliderSpecWrapper();
+            wrapper.setMax(paramSpec.getMax());
+            wrapper.setMin(paramSpec.getMin());
+            wrapper.setName(paramSpec.getName());
+            wrapper.setMsRef(cg.getMidiSender());
+            wrapper.setPmRef(cg.getParamModel());
             return wrapper;
         }
 
         public static SliderSpecWrapper newWrapper(EnvelopeParamSpec paramSpec,
                 int index) {
-            SliderSpecWrapperImpl wrapper = new SliderSpecWrapperImpl();
-            wrapper.max = paramSpec.getMax();
-            wrapper.min = paramSpec.getMin();
+            DefaultSliderSpecWrapper wrapper = new DefaultSliderSpecWrapper();
+            wrapper.setMax(paramSpec.getMax());
+            wrapper.setMin(paramSpec.getMin());
             if (paramSpec.isSetName()) {
-                wrapper.name = paramSpec.getName();
+                wrapper.setName(paramSpec.getName());
             } else {
-                wrapper.name = Integer.toString(index);
+                wrapper.setName(Integer.toString(index));
             }
-            wrapper.msRef = paramSpec.getMidiSender();
-            wrapper.pmRef = paramSpec.getParamModel();
+            wrapper.setMsRef(paramSpec.getMidiSender());
+            wrapper.setPmRef(paramSpec.getParamModel());
             return wrapper;
         }
 
         public static SliderSpecWrapper newWrapper(IntParamSpec paramSpec) {
-            SliderSpecWrapperImpl wrapper = new SliderSpecWrapperImpl();
-            wrapper.max = paramSpec.getMax();
-            wrapper.min = paramSpec.getMin();
-            wrapper.name = paramSpec.getName();
-            wrapper.msRef = paramSpec.getMidiSender();
-            wrapper.pmRef = paramSpec.getParamModel();
+            DefaultSliderSpecWrapper wrapper = new DefaultSliderSpecWrapper();
+            wrapper.setMax(paramSpec.getMax());
+            wrapper.setMin(paramSpec.getMin());
+            wrapper.setName(paramSpec.getName());
+            wrapper.setMsRef(paramSpec.getMidiSender());
+            wrapper.setPmRef(paramSpec.getParamModel());
             return wrapper;
-        }
-
-        private static class SliderSpecWrapperImpl implements SliderSpecWrapper {
-
-            private String name;
-            private int min;
-            private int max;
-            private MidiSenderReference msRef;
-            private ParamModelReference pmRef;
-
-            @Override
-            public String getName() {
-                return name;
-            }
-
-            @Override
-            public int getMin() {
-                return min;
-            }
-
-            @Override
-            public int getMax() {
-                return max;
-            }
-
-            @Override
-            public MidiSenderReference getMidiSender() {
-                return msRef;
-            }
-
-            @Override
-            public boolean isSetMidiSender() {
-                return msRef != null;
-            }
-
-            @Override
-            public boolean isSetParamModel() {
-                return pmRef != null;
-            }
-
-            @Override
-            public ParamModelReference getParamModel() {
-                return pmRef;
-            }
         }
     }
 

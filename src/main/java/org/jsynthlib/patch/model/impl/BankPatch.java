@@ -28,6 +28,7 @@ import java.io.UnsupportedEncodingException;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.IBankDriver;
 import org.jsynthlib.device.model.IDriver;
 
@@ -125,7 +126,7 @@ public class BankPatch extends Patch {
             getDriver().putPatch(this, singlePatch,
                     patchNum);
         } else {
-            JOptionPane.showMessageDialog(null,
+            PopupHandlerProvider.get().showMessage(null,
                     "This type of patch does not fit in to this type of bank.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;

@@ -26,6 +26,7 @@ import javax.sound.midi.ShortMessage;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -206,7 +207,7 @@ public class WaldorfMW2SingleDriver extends AbstractPatchDriver {
     public void requestPatchDump(int bankNum, int patchNum) {
 
         if (sysexRequestDump == null) {
-            JOptionPane.showMessageDialog(PatchEdit.getInstance(), "The "
+            PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), "The "
                     + toString()
                     + " driver does not support patch getting.\n\n"
                     + "Please start the patch dump manually...", "Get Patch",

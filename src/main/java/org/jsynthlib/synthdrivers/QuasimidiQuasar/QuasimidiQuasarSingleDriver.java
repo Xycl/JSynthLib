@@ -26,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import javax.swing.JOptionPane;
 
 import org.jsynthlib.core.ErrorMsg;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.core.viewcontroller.desktop.JSLFrame;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
@@ -220,7 +221,7 @@ public class QuasimidiQuasarSingleDriver extends AbstractPatchDriver {
     public void requestPatchDump(int bankNum, int patchNum) {
 
         if (sysexRequestDump == null) {
-            JOptionPane.showMessageDialog(PatchEdit.getInstance(), "The "
+            PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), "The "
                     + toString()
                     + " driver does not support patch getting.\n\n"
                     + "Please start the patch dump manually...", "Get Patch",

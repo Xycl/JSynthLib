@@ -7,6 +7,7 @@ package org.jsynthlib.synthdrivers.AlesisA6;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.AbstractPatchDriver;
 import org.jsynthlib.device.model.SysexHandler;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -134,7 +135,7 @@ public class AlesisA6PgmSingleDriver extends AbstractPatchDriver {
     // Sends a patch to a set location in the user bank
     public void storePatch(Patch p, int bankNum, int patchNum) {
         if (bankNum == 1 || bankNum == 2)
-            JOptionPane.showMessageDialog(PatchEdit.getInstance(),
+            PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(),
                     "Cannot send to a preset bank", "Store Patch",
                     JOptionPane.WARNING_MESSAGE);
         else {

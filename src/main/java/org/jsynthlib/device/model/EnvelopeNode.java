@@ -2,6 +2,8 @@ package org.jsynthlib.device.model;
 
 import javafx.beans.value.ChangeListener;
 
+import org.jsynthlib.device.viewcontroller.widgets.EnvelopeWidget;
+
 /**
  * A data type used by EnvelopeWidget which stores information about a
  * single node (point) in the Widget.

@@ -1,5 +1,7 @@
 package org.jsynthlib.utils.ctrlr.builder;
 
+import org.jsynthlib.utils.ctrlr.builder.component.GlobalSliderSpecWrapper;
+import org.jsynthlib.utils.ctrlr.builder.component.NameCharSliderBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.PatchNameBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.UiButtonBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.UiCombinedGroupBuilder;
@@ -56,6 +58,9 @@ public class BuilderFactoryFacadeImpl implements BuilderFactoryFacade {
 
     @Inject
     private UiSliderBuilder.Factory uiSliderBuilderFactory;
+
+    @Inject
+    private NameCharSliderBuilder.Factory nameCharSliderBuilderFactory;
 
     @Override
     public PatchNameBuilder newPatchNameBuilder(StringParamSpec paramSpec) {
@@ -117,6 +122,11 @@ public class BuilderFactoryFacadeImpl implements BuilderFactoryFacade {
     }
 
     @Override
+    public UiLabelBuilder newUiLabelBuilder(StringParamSpec spec) {
+        return uiLabelBuilderFactory.newUiLabelBuilder(spec);
+    }
+
+    @Override
     public UiSliderBuilder newUiSliderBuilder(IntParamSpec paramSpec) {
         return uiSliderBuilderFactory.newUiSliderBuilder(paramSpec);
     }
@@ -131,4 +141,9 @@ public class BuilderFactoryFacadeImpl implements BuilderFactoryFacade {
         return uiTabBuilderFactory.newUiTabBuilder(groups);
     }
 
+    @Override
+    public NameCharSliderBuilder newNameCharSliderBuilder(
+            GlobalSliderSpecWrapper wrapper) {
+        return nameCharSliderBuilderFactory.newNameCharSliderBuilder(wrapper);
+    }
 }

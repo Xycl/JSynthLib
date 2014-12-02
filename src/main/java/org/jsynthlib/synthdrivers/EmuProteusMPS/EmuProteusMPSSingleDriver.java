@@ -87,10 +87,10 @@ public class EmuProteusMPSSingleDriver extends AbstractPatchDriver {
      * .showInputDialog(null,"Send to Which Patch Location (0-499)",
      * "Emu Proteus MPS",JOptionPane.QUESTION_MESSAGE); if (input==null) return;
      * try {patchNum=new Integer(input); if (patchNum.intValue()<0 ||
-     * patchNum.intValue()>499) {JOptionPane.showMessageDialog(null,
+     * patchNum.intValue()>499) {PopupHandlerProvider.get().showMessage(null,
      * "Invalid Patch Number Entered!","Error", JOptionPane.ERROR_MESSAGE);
      * return;} storePatch(p,patchNum.intValue()/100,patchNum.intValue()%100);
-     * }catch (Exception e) {JOptionPane.showMessageDialog(null,
+     * }catch (Exception e) {PopupHandlerProvider.get().showMessage(null,
      * "Invalid Patch Number Entered!","Error", JOptionPane.ERROR_MESSAGE);} }
      */
     public void sendPatch(Patch p) {

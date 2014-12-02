@@ -14,6 +14,7 @@ public interface BuilderFactoryFacade
         org.jsynthlib.utils.ctrlr.builder.component.UiKnobBuilder.Factory,
         org.jsynthlib.utils.ctrlr.builder.component.UiLabelBuilder.Factory,
         org.jsynthlib.utils.ctrlr.builder.component.UiSliderBuilder.Factory,
-        org.jsynthlib.utils.ctrlr.builder.component.UiTabBuilder.Factory {
+        org.jsynthlib.utils.ctrlr.builder.component.UiTabBuilder.Factory,
+        org.jsynthlib.utils.ctrlr.builder.component.NameCharSliderBuilder.Factory {
 
 }

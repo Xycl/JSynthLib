@@ -22,6 +22,7 @@ package org.jsynthlib.synthdrivers.RolandD50;
 
 import javax.swing.JOptionPane;
 
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.XMLBankDriver;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -44,7 +45,7 @@ public class D50BankDriver extends XMLBankDriver {
         sb.append("Perform a Bulk dump for the ");
         sb.append(toString());
         sb.append(" by pressing the \"B.Dump\" button whie holding down \"Data Transfer\".\n\nPress OK when D-50 says \"Complete.\"");
-        JOptionPane.showMessageDialog(PatchEdit.getInstance(), sb.toString(),
+        PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), sb.toString(),
                 "Get Patch", JOptionPane.WARNING_MESSAGE);
     }
 

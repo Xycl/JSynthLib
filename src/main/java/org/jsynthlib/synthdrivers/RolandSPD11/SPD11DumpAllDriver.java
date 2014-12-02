@@ -3,6 +3,7 @@ package org.jsynthlib.synthdrivers.RolandSPD11;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.AbstractBankDriver;
 import org.jsynthlib.patch.model.impl.Patch;
 
@@ -116,7 +117,7 @@ public class SPD11DumpAllDriver extends AbstractBankDriver {
     public void putPatch(Patch bank, Patch single, int patchNum) {
         // TODO Auto-generated method stub
         if (!canHoldPatch(bank)) {
-            JOptionPane.showMessageDialog(null,
+            PopupHandlerProvider.get().showMessage(null,
                     "This type of patch does not fit into this type of bank.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;

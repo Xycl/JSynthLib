@@ -6,7 +6,7 @@
 
 package org.jsynthlib.core;
 
-import java.io.*;
+import java.io.UnsupportedEncodingException;
 
 //======================================================================================================================
 // Class: NibbleSysex

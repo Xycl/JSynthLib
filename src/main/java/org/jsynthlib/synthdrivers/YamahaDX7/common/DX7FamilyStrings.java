@@ -25,17 +25,18 @@ package org.jsynthlib.synthdrivers.YamahaDX7.common;
 
 import javax.swing.JOptionPane;
 
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.patch.model.impl.PatchEdit;
 
 public class DX7FamilyStrings {
     public final static void dxShowInformation(String driver, String string) {
-        JOptionPane.showMessageDialog(PatchEdit.getInstance(), driver
+        PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), driver
                 + "Driver:" + string, driver + "Driver",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
     public final static void dxShowError(String driver, String string) {
-        JOptionPane.showMessageDialog(null, string, driver + "Driver Error",
+        PopupHandlerProvider.get().showMessage(null, string, driver + "Driver Error",
                 JOptionPane.ERROR_MESSAGE);
     }
 

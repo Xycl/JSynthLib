@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 import org.jsynthlib.core.ErrorMsg;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.device.model.AbstractBankDriver;
 import org.jsynthlib.device.model.SysexHandler;
 import org.jsynthlib.patch.model.impl.BankPatch;
@@ -55,7 +56,7 @@ public class VirusProgBankDriver extends AbstractBankDriver {
     @Override
     public void storePatch(Patch p, int bankNum, int patchNum) {
         if (bankNum > 1) {
-            JOptionPane.showMessageDialog(PatchEdit.getInstance(),
+            PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(),
                     "Cannot send to a preset bank", "Store Patch",
                     JOptionPane.WARNING_MESSAGE);
         } else {

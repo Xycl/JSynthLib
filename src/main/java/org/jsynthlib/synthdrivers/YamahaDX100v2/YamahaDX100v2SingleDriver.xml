@@ -1,0 +1,1393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xd:xmlSingleDriverDefinition xmlns:xd="http://www.jsynthlib.org/xmldevice">
+  <xd:name>Yamaha DX21 / DX27 / DX100 Single</xd:name>
+  <xd:infoText>The Yamaha synth is susceptable to internal midi buffer overflow if you send it a lot of Data quickly. With JSynthLib, this can happenif you are using a fader box and throwing the faders around rapidly. Otherwise, it should not be a problem JSynthLib supports the DX21/27/100 as both a Single and Bank Librarian and also supports Patch Editing.Note that though these three synths share one driver, some parameters may only effect the sound on certain models. Therefore, under &#39;configuration&#39; you can choose which of the three models you own.</xd:infoText>
+  <xd:authors>Brian Klock</xd:authors>
+  <xd:patchType>Single</xd:patchType>
+  <xd:patchSize>101</xd:patchSize>
+  <xd:sysexID>F043**03005D</xd:sysexID>
+  <xd:patchNumbers>
+    <xd:string>I01</xd:string>
+    <xd:string>I02</xd:string>
+    <xd:string>I03</xd:string>
+    <xd:string>I04</xd:string>
+    <xd:string>I05</xd:string>
+    <xd:string>I06</xd:string>
+    <xd:string>I07</xd:string>
+    <xd:string>I08</xd:string>
+    <xd:string>I09</xd:string>
+    <xd:string>I10</xd:string>
+    <xd:string>I11</xd:string>
+    <xd:string>I12</xd:string>
+    <xd:string>I13</xd:string>
+    <xd:string>I14</xd:string>
+    <xd:string>I15</xd:string>
+    <xd:string>I16</xd:string>
+    <xd:string>I17</xd:string>
+    <xd:string>I18</xd:string>
+    <xd:string>I19</xd:string>
+    <xd:string>I20</xd:string>
+    <xd:string>I21</xd:string>
+    <xd:string>I22</xd:string>
+    <xd:string>I23</xd:string>
+    <xd:string>I24</xd:string>
+  </xd:patchNumbers>
+  <xd:bankNumbers>
+    <xd:string>0-Internal</xd:string>
+  </xd:bankNumbers>
+  <xd:deviceIDoffset>2</xd:deviceIDoffset>
+  <xd:checksumOffset>0</xd:checksumOffset>
+  <xd:checksumStart>0</xd:checksumStart>
+  <xd:checksumEnd>0</xd:checksumEnd>
+  <xd:patchNameStart>83</xd:patchNameStart>
+  <xd:patchNameSize>10</xd:patchNameSize>
+  <xd:patchParams>
+    <xd:patchParamGroup name="LFO Settings">
+      <xd:intParamSpec name="LFO Speed">
+        <xd:uuid>8d862fdcde00483b87887b6e8ad3dbcf</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="54" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="60" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="LFO Delay">
+        <xd:uuid>316dc100c7ee48d88085ea39e45cc820</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="55" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="61" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Pitch Mod Depth">
+        <xd:uuid>2bc7df59d9794cd2b812432ad795d6f5</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="56" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="62" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Pitch Mod Sensitivity">
+        <xd:uuid>fd11c5d898274ba9b5c7f1a8154261bf</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="60" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="66" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Amplitude Mod Depth">
+        <xd:uuid>b8d7ab6f3ca94bfe95daad7fd038e0d0</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="57" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="63" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Amplitude Mod Sensitivity">
+        <xd:uuid>ac09e502f4f747adbbf069254e43f42c</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="61" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="67" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>3</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="LFO Sync">
+        <xd:uuid>7944bea23bdc4a6aaaf15012b18e047c</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="58" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="64" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="LFO Wave">
+        <xd:uuid>38d5c6f0c3a84827b355385bb658644b</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="59" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="65" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>3</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Saw Up</xd:patchParamValue>
+          <xd:patchParamValue>Square</xd:patchParamValue>
+          <xd:patchParamValue>Triangle</xd:patchParamValue>
+          <xd:patchParamValue>S/Hold</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="1">
+        <xd:uuid>ff2d6172c3914126afe97e78c86185f8</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="47" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="53" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="2">
+        <xd:uuid>2a031992e4544ce48cb4b176280dea3c</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="21" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="27" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="3">
+        <xd:uuid>43bcf796cd7140268ae6da0cbac6d044</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="34" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="40" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="4">
+        <xd:uuid>3cdbcf78f93e4222acf717c09374c065</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="8" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="14" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+      </xd:intParamSpec>
+    </xd:patchParamGroup>
+    <xd:patchParamGroup name="Common">
+      <xd:intParamSpec name="Algorithm">
+        <xd:uuid>50eb9085928d4b7cabe1a027e491419e</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="52" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="58" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+        <xd:base>1</xd:base>
+        <xd:patchParamResources>
+          <xd:patchParamResource>org/jsynthlib/synthdrivers/YamahaDX100/1.png</xd:patchParamResource>
+          <xd:patchParamResource>org/jsynthlib/synthdrivers/YamahaDX100/2.png</xd:patchParamResource>
+          <xd:patchParamResource>org/jsynthlib/synthdrivers/YamahaDX100/3.png</xd:patchParamResource>
+          <xd:patchParamResource>org/jsynthlib/synthdrivers/YamahaDX100/4.png</xd:patchParamResource>
+          <xd:patchParamResource>org/jsynthlib/synthdrivers/YamahaDX100/5.png</xd:patchParamResource>
+          <xd:patchParamResource>org/jsynthlib/synthdrivers/YamahaDX100/6.png</xd:patchParamResource>
+          <xd:patchParamResource>org/jsynthlib/synthdrivers/YamahaDX100/7.png</xd:patchParamResource>
+          <xd:patchParamResource>org/jsynthlib/synthdrivers/YamahaDX100/8.png</xd:patchParamResource>
+        </xd:patchParamResources>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Feedback">
+        <xd:uuid>312b589fda8d4e43abdff6d32fbbcfa2</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="53" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="59" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Transpose">
+        <xd:uuid>0ac98aa9614b4d40b17e73c286ae51e8</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="62" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="68" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>48</xd:max>
+        <xd:base>-24</xd:base>
+      </xd:intParamSpec>
+      <xd:stringParamSpec name="Name">
+        <xd:uuid>bffe572ca30d463abfc8dbd5d3124521</xd:uuid>
+        <xd:length>10</xd:length>
+        <xd:stringSender name="LegacyPatchNameSender" />
+      </xd:stringParamSpec>
+      <xd:intParamSpec name="Mono Mode">
+        <xd:uuid>872eb6ad364f4c38a4dc6bf2b55f55dc</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="63" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="69" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+      </xd:intParamSpec>
+    </xd:patchParamGroup>
+    <xd:patchParamGroup name="Modulation">
+      <xd:intParamSpec name="Wheel to Pitch">
+        <xd:uuid>4e6124dad96f4ffab0bfba2d76d5fbae</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="71" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="77" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Wheel to Amplitude">
+        <xd:uuid>cb4bc3cc5f7f43b4a345c0c4a5347b0c</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="72" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="78" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="B.C to Pitch ">
+        <xd:uuid>5cca17bef0ac4b9cb1a875b12b9634fa</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="73" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="79" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="B.C to Amplitude">
+        <xd:uuid>cfce643ddec6469b9027174172b15482</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="74" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="80" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="B.C Pitch Bias">
+        <xd:uuid>94c1a7db7fec4d98bf2396cc2f8ad361</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="75" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="81" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="B.C Envelope Bias">
+        <xd:uuid>5d0eda5feabb44809a4a6d7d4bfa0116</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="76" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="82" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="F.C to Volume">
+        <xd:uuid>0be7256e172b4cfcb3e0faad4869fcaf</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="67" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="73" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Pitch Bend Range">
+        <xd:uuid>daab2d343c464c36a0637b07ebe3af50</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="64" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="70" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>12</xd:max>
+      </xd:intParamSpec>
+    </xd:patchParamGroup>
+    <xd:patchParamGroup name="Effects">
+      <xd:intParamSpec name="Portamento Time">
+        <xd:uuid>8d921576fd324957b6d8128af7c6a873</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="66" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="72" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>12</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Portamento Mode">
+        <xd:uuid>dc0582fd6d544b45bd21c02bf723827c</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="65" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="71" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+        <xd:patchParamValues>
+          <xd:patchParamValue>Full Time</xd:patchParamValue>
+          <xd:patchParamValue>Fingered</xd:patchParamValue>
+        </xd:patchParamValues>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Chorus">
+        <xd:uuid>63a4a628a4ac44f2be0cb87e7f5416a3</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="70" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="76" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>1</xd:max>
+      </xd:intParamSpec>
+    </xd:patchParamGroup>
+    <xd:patchParamGroup name="Osc1">
+      <xd:intParamSpec name="Level">
+        <xd:uuid>0d9347cdae9447ed81484914d9a12152</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="49" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="55" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Frequency">
+        <xd:uuid>fcc5af90920c477a9f0c87f221212c71</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="50" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="56" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>63</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Detune">
+        <xd:uuid>e4d6ac64d24e42ed8b6277f72ba8e5d0</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="51" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="57" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>6</xd:max>
+        <xd:base>-3</xd:base>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Level Scaling">
+        <xd:uuid>7e8a3fd7e5544ea4a570bd29803f215b</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="44" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="50" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name=" Rate Scaling">
+        <xd:uuid>99b4555452774621b1752c89022227cb</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="45" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="51" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>3</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="EG Bias Sensitivity">
+        <xd:uuid>1490accae823489faee49fea86f5bbc9</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="46" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="52" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Key Velocity Sensitivity">
+        <xd:uuid>8d1c31cad5304e2ba5e8797bd470214a</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="48" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="52" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:envelopeSpec name=" Envelope">
+        <xd:uuid>982b18a0ca4640d2819af4b1fec3b962</xd:uuid>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="">
+            <xd:uuid>1e5aeebafa8a4122ac1912ac7a084e09</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:invert>false</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>8ba164bb2539496391d181f171f6144f</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="AR">
+            <xd:uuid>11c9d54d32964b75b977f5ca119272b3</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="39" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="45" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>e79e0fa753234bc9abed18e6b867b3c4</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>15</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="D1R">
+            <xd:uuid>78212d350348454b8f679c3d226eff29</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="40" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="46" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="D1L">
+            <xd:uuid>25822856c0524d7eac5129eb8e8bf854</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="43" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="49" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>15</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="D2R">
+            <xd:uuid>1da46f6b1820418cae36e4fa02317e11</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="41" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="47" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>bd2e1fcf6fea4d838e72ef6a8efc86f1</xd:uuid>
+            <xd:min>5000</xd:min>
+            <xd:max>5000</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="RR">
+            <xd:uuid>b1a590c55619475981d567080ec404a1</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="42" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="48" />
+            </xd:paramModel>
+            <xd:min>1</xd:min>
+            <xd:max>15</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>f25c444713434622b4be5b772acb9297</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+      </xd:envelopeSpec>
+    </xd:patchParamGroup>
+    <xd:patchParamGroup name="Osc2">
+      <xd:intParamSpec name="Level">
+        <xd:uuid>73b67b2ad9f0410e8862f8c38bd46f51</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="23" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="29" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Frequency">
+        <xd:uuid>4729aaa2634a4085b1c2e14701e7baeb</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="24" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="30" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>63</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Detune">
+        <xd:uuid>6232d1f4ecd8471ea9eab08d7ee6f844</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="25" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="31" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>6</xd:max>
+        <xd:base>-3</xd:base>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Level Scaling">
+        <xd:uuid>b46f45a0c0464da8ba092e5d35ca04f4</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="18" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="24" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name=" Rate Scaling">
+        <xd:uuid>eda904dcb7044aaaa6df34401818b772</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="19" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="25" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>3</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="EG Bias Sensitivity">
+        <xd:uuid>d18381af27d842ccaa44c4322ad90b07</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="20" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="26" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Key Velocity Sensitivity">
+        <xd:uuid>2b05303c1b864c01a4b0485d982edae2</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="22" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="26" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:envelopeSpec name=" Envelope">
+        <xd:uuid>e73ea3424b96465197e2f3245b02cd24</xd:uuid>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="">
+            <xd:uuid>f0e23d9ef8a746429128382304d33a50</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:invert>false</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>69b990814b774c0e8ebda649fd2689ea</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="AR">
+            <xd:uuid>20883b1eb2a0470a9653b93555a83f74</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="13" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="19" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>965276f2d7874f8eaeee43e50a808846</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>15</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="D1R">
+            <xd:uuid>e59e8b32434046f38c7912ac58e27c78</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="14" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="20" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="D1L">
+            <xd:uuid>df5470b0f34f413fac608d921b723eb2</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="17" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="23" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>15</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="D2R">
+            <xd:uuid>ed4543d16aed4827b067d74137e7711f</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="15" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="21" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>2d72c094674f4b95ad2337d6b82a5619</xd:uuid>
+            <xd:min>5000</xd:min>
+            <xd:max>5000</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="RR">
+            <xd:uuid>21df9ef76a7744059d5fe990b14b8f13</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="16" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="22" />
+            </xd:paramModel>
+            <xd:min>1</xd:min>
+            <xd:max>15</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>998aa6a441164e62af7c9ccf6ec38a74</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+      </xd:envelopeSpec>
+    </xd:patchParamGroup>
+    <xd:patchParamGroup name="Osc3">
+      <xd:intParamSpec name="Level">
+        <xd:uuid>8479947f5f17472c8a78f33781632af9</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="36" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="42" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Frequency">
+        <xd:uuid>6ed5960240fc4aeeb5ce6b24dd6983d9</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="37" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="43" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>63</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Detune">
+        <xd:uuid>b84c4ae84aa84cc7b4c35f0a56ff4a24</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="38" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="44" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>6</xd:max>
+        <xd:base>-3</xd:base>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Level Scaling">
+        <xd:uuid>aca06c200e964a49b0ce229650dc6156</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="31" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="37" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name=" Rate Scaling">
+        <xd:uuid>ea14c4fa014f464385639001079cc2b3</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="32" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="38" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>3</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="EG Bias Sensitivity">
+        <xd:uuid>2dd16e5e603645a7b2e35770669349c6</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="33" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="39" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Key Velocity Sensitivity">
+        <xd:uuid>965c0dd0052c4b20ad9166234e816275</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="35" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="39" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:envelopeSpec name=" Envelope">
+        <xd:uuid>2b890d0fb53b4230a747a2ad416eafd1</xd:uuid>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="">
+            <xd:uuid>457a37c70b074fef801a2999dc6c302c</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:invert>false</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>7f68cfe3012b4f458a592d66f1f85703</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="AR">
+            <xd:uuid>07956061ec38453e9faa4d3cd963d23b</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="26" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="32" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>ac3ef57eab7e4f47a040377f829a8d58</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>15</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="D1R">
+            <xd:uuid>7291f2f7d7dd4352a3b55ff13531b61f</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="27" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="33" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="D1L">
+            <xd:uuid>6a4232e1ec5d43c6a56dc2205182fbb2</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="30" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="36" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>15</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="D2R">
+            <xd:uuid>cd511a15d8de42ce809176d188dbbd3d</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="28" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="34" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>f8229132c51c4d17b0538c39ed6eac2c</xd:uuid>
+            <xd:min>5000</xd:min>
+            <xd:max>5000</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="RR">
+            <xd:uuid>1c59ca82515648c2a10525b624ba9086</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="29" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="35" />
+            </xd:paramModel>
+            <xd:min>1</xd:min>
+            <xd:max>15</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>bb91121a9d0e4251b01ed0ab7599ae1f</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+      </xd:envelopeSpec>
+    </xd:patchParamGroup>
+    <xd:patchParamGroup name="Osc4">
+      <xd:intParamSpec name="Level">
+        <xd:uuid>ae364dd2fe204cebafcfd2d1a0191268</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="10" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="16" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Frequency">
+        <xd:uuid>2a017725fd094050af9ec8629b135a1e</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="11" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="17" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>63</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Detune">
+        <xd:uuid>e1f7ab860ba74342bc8968fca13508fc</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="12" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="18" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>6</xd:max>
+        <xd:base>-3</xd:base>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Level Scaling">
+        <xd:uuid>77dc97e54f4c461e8b64643819ca80d9</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="5" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="11" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>99</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name=" Rate Scaling">
+        <xd:uuid>a6fed20c2cb5415db91ac1804219a606</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="6" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="12" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>3</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="EG Bias Sensitivity">
+        <xd:uuid>b3344ed8a05f45088f3a8f094fe3bedf</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="7" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="13" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:intParamSpec name="Key Velocity Sensitivity">
+        <xd:uuid>853eaea201034377a53000b3da53bae8</xd:uuid>
+        <xd:midiSender name="VcedSender">
+          <xd:propertyValue key="parameter"
+                            value="9" />
+        </xd:midiSender>
+        <xd:paramModel name="ParamModel">
+          <xd:propertyValue key="offset"
+                            value="13" />
+        </xd:paramModel>
+        <xd:min>0</xd:min>
+        <xd:max>7</xd:max>
+      </xd:intParamSpec>
+      <xd:envelopeSpec name=" Envelope">
+        <xd:uuid>a40da7c8cdc944188cc92c169d6d1bb9</xd:uuid>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="">
+            <xd:uuid>1d52d45795e14910b32e8c29f957a6ae</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:invert>false</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>776417e47a2c406eaaab694e62198b38</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="AR">
+            <xd:uuid>f87161b5d16a4814a78f2dfb3cd4c87d</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="0" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="6" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>c6b53fdbcc9f4e909c854550cc3db12d</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>15</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="D1R">
+            <xd:uuid>ba1c2967247b46f795215b0cd049bc57</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="1" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="7" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="D1L">
+            <xd:uuid>c00a232095ac4c06a69d60f557d99cc2</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="4" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="10" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>15</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="D2R">
+            <xd:uuid>9bc36dbd9f4a4639a0db9559edb9fbdd</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="2" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="8" />
+            </xd:paramModel>
+            <xd:min>0</xd:min>
+            <xd:max>31</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>8df155aad3194a9f851130fb2f1583e8</xd:uuid>
+            <xd:min>5000</xd:min>
+            <xd:max>5000</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+        <xd:envelopeNodeSpec>
+          <xd:xParam name="RR">
+            <xd:uuid>2280cd67c7cf4844859f158b31cc2ac2</xd:uuid>
+            <xd:midiSender name="VcedSender">
+              <xd:propertyValue key="parameter"
+                                value="3" />
+            </xd:midiSender>
+            <xd:paramModel name="ParamModel">
+              <xd:propertyValue key="offset"
+                                value="9" />
+            </xd:paramModel>
+            <xd:min>1</xd:min>
+            <xd:max>15</xd:max>
+            <xd:invert>true</xd:invert>
+          </xd:xParam>
+          <xd:yParam name="">
+            <xd:uuid>36f47c290b10466896691d1424ee5f4b</xd:uuid>
+            <xd:min>0</xd:min>
+            <xd:max>0</xd:max>
+            <xd:base>0</xd:base>
+          </xd:yParam>
+        </xd:envelopeNodeSpec>
+      </xd:envelopeSpec>
+    </xd:patchParamGroup>
+    <xd:patchParamGroup name="P.E.G.">
+      <xd:patchParamGroup name="P.E.G">
+        <xd:envelopeSpec name="Pitch Envelope">
+          <xd:uuid>1c1cdcb07758447d868e68f071ca04e0</xd:uuid>
+          <xd:envelopeNodeSpec>
+            <xd:xParam name="">
+              <xd:uuid>15acd73ba78c4c32a4666456c944765a</xd:uuid>
+              <xd:min>0</xd:min>
+              <xd:max>0</xd:max>
+              <xd:invert>true</xd:invert>
+            </xd:xParam>
+            <xd:yParam name="Pitch 3">
+              <xd:uuid>3270554142eb46488b27a6cd65b51c07</xd:uuid>
+              <xd:midiSender name="VcedSender">
+                <xd:propertyValue key="parameter"
+                                  value="92" />
+              </xd:midiSender>
+              <xd:paramModel name="ParamModel">
+                <xd:propertyValue key="offset"
+                                  value="98" />
+              </xd:paramModel>
+              <xd:min>0</xd:min>
+              <xd:max>99</xd:max>
+              <xd:base>0</xd:base>
+            </xd:yParam>
+          </xd:envelopeNodeSpec>
+          <xd:envelopeNodeSpec>
+            <xd:xParam name="Rate 1">
+              <xd:uuid>df001b2cd5f34cbe9075e9e4aa82e7f4</xd:uuid>
+              <xd:midiSender name="VcedSender">
+                <xd:propertyValue key="parameter"
+                                  value="87" />
+              </xd:midiSender>
+              <xd:paramModel name="ParamModel">
+                <xd:propertyValue key="offset"
+                                  value="93" />
+              </xd:paramModel>
+              <xd:min>0</xd:min>
+              <xd:max>99</xd:max>
+              <xd:invert>true</xd:invert>
+            </xd:xParam>
+            <xd:yParam name="Pitch 1">
+              <xd:uuid>ae325202acb64a42a50bb4729bcebb63</xd:uuid>
+              <xd:midiSender name="VcedSender">
+                <xd:propertyValue key="parameter"
+                                  value="90" />
+              </xd:midiSender>
+              <xd:paramModel name="ParamModel">
+                <xd:propertyValue key="offset"
+                                  value="96" />
+              </xd:paramModel>
+              <xd:min>0</xd:min>
+              <xd:max>99</xd:max>
+              <xd:base>0</xd:base>
+            </xd:yParam>
+          </xd:envelopeNodeSpec>
+          <xd:envelopeNodeSpec>
+            <xd:xParam name="Rate 2">
+              <xd:uuid>e0bf8f87a1ea415689a93ae7d149f304</xd:uuid>
+              <xd:midiSender name="VcedSender">
+                <xd:propertyValue key="parameter"
+                                  value="88" />
+              </xd:midiSender>
+              <xd:paramModel name="ParamModel">
+                <xd:propertyValue key="offset"
+                                  value="94" />
+              </xd:paramModel>
+              <xd:min>0</xd:min>
+              <xd:max>99</xd:max>
+              <xd:invert>true</xd:invert>
+            </xd:xParam>
+            <xd:yParam name="Pitch 2">
+              <xd:uuid>b0ba42a2253c43629c2b3aae97521b34</xd:uuid>
+              <xd:midiSender name="VcedSender">
+                <xd:propertyValue key="parameter"
+                                  value="91" />
+              </xd:midiSender>
+              <xd:paramModel name="ParamModel">
+                <xd:propertyValue key="offset"
+                                  value="97" />
+              </xd:paramModel>
+              <xd:min>0</xd:min>
+              <xd:max>99</xd:max>
+              <xd:base>0</xd:base>
+            </xd:yParam>
+          </xd:envelopeNodeSpec>
+          <xd:envelopeNodeSpec>
+            <xd:xParam name="">
+              <xd:uuid>0397244556af496b9e2a4b3eaa7cb180</xd:uuid>
+              <xd:min>100</xd:min>
+              <xd:max>100</xd:max>
+              <xd:invert>true</xd:invert>
+            </xd:xParam>
+            <xd:yParam name="">
+              <xd:uuid>e9055c0523c845deb0a7ec023465f358</xd:uuid>
+              <xd:min>5000</xd:min>
+              <xd:max>5000</xd:max>
+              <xd:base>0</xd:base>
+            </xd:yParam>
+          </xd:envelopeNodeSpec>
+          <xd:envelopeNodeSpec>
+            <xd:xParam name="Rate 3">
+              <xd:uuid>b198ebc61b68469db9b99e9c051cc751</xd:uuid>
+              <xd:midiSender name="VcedSender">
+                <xd:propertyValue key="parameter"
+                                  value="89" />
+              </xd:midiSender>
+              <xd:paramModel name="ParamModel">
+                <xd:propertyValue key="offset"
+                                  value="95" />
+              </xd:paramModel>
+              <xd:min>0</xd:min>
+              <xd:max>99</xd:max>
+              <xd:invert>true</xd:invert>
+            </xd:xParam>
+            <xd:yParam name="Pitch 3">
+              <xd:uuid>2660584e17ad45e2bc5a38a97176177f</xd:uuid>
+              <xd:midiSender name="VcedSender">
+                <xd:propertyValue key="parameter"
+                                  value="92" />
+              </xd:midiSender>
+              <xd:paramModel name="ParamModel">
+                <xd:propertyValue key="offset"
+                                  value="98" />
+              </xd:paramModel>
+              <xd:min>0</xd:min>
+              <xd:max>99</xd:max>
+              <xd:base>0</xd:base>
+            </xd:yParam>
+          </xd:envelopeNodeSpec>
+        </xd:envelopeSpec>
+      </xd:patchParamGroup>
+    </xd:patchParamGroup>
+  </xd:patchParams>
+</xd:xmlSingleDriverDefinition>

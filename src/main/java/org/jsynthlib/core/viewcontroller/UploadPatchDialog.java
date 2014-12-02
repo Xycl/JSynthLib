@@ -25,6 +25,7 @@ import org.jsynthlib.core.AppConfig;
 import org.jsynthlib.core.ColumnLayout;
 import org.jsynthlib.core.ErrorMsg;
 import org.jsynthlib.core.Utility;
+import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.core.viewcontroller.desktop.JSLDesktop;
 import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.patch.model.impl.Patch;
@@ -95,7 +96,7 @@ public class UploadPatchDialog extends JDialog {
                     Patch q = library.getSelectedPatch();
                     uploadPatch(q);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null,
+                    PopupHandlerProvider.get().showMessage(null,
                             "Patch Must be Focused", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
@@ -281,10 +282,10 @@ public class UploadPatchDialog extends JDialog {
                         .getSelectedFrame();
         Patch p = library.getSelectedPatch();
         if (p == null) {
-            JOptionPane.showMessageDialog(null, "Patch Must be Selected",
+            PopupHandlerProvider.get().showMessage(null, "Patch Must be Selected",
                     "Warning", JOptionPane.WARNING_MESSAGE);
         } else if (p.isBankPatch()) {
-            JOptionPane.showMessageDialog(null, "Cannot play a Bank Patch",
+            PopupHandlerProvider.get().showMessage(null, "Cannot play a Bank Patch",
                     "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             p.send();

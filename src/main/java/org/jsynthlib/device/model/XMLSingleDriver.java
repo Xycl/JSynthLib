@@ -27,7 +27,7 @@ import org.jsynthlib.device.viewcontroller.AbstractDriverEditor;
 import org.jsynthlib.device.viewcontroller.JSLDriverEditorFrame;
 import org.jsynthlib.patch.model.impl.BankPatch;
 import org.jsynthlib.patch.model.impl.Patch;
-import org.jsynthlib.synthdrivers.RolandD50.D50Constants;
+import org.jsynthlib.utils.SysexUtils;
 import org.jsynthlib.xmldevice.StringArray;
 import org.jsynthlib.xmldevice.StringArray.GeneratedBy;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
@@ -40,7 +40,7 @@ import com.google.inject.Inject;
  * @author Pascal Collberg
  */
 public class XMLSingleDriver extends AbstractPatchDriver implements
-IPatchDriver {
+        IPatchDriver {
 
     private final XmlDriverDefinition driverSpec;
     private XmlDriverEditorControllerFactory editorFactory;
@@ -60,8 +60,14 @@ IPatchDriver {
     public Patch createNewPatch() {
         byte[] sysex = new byte[getPatchSize()];
         if (initPatch == null || initPatch.length == 0) {
-            System.arraycopy(D50Constants.SYSEX_HEADER, 0, sysex, 0,
-                    D50Constants.SYSEX_HEADER_SIZE);
+            if (sysexID == null || sysexID.length() == 0) {
+                sysex[0] = (byte) 0xF0;
+            } else {
+                byte[] header =
+                        SysexUtils.stringToSysex(sysexID.replaceAll("\\*{2}",
+                                "00"));
+                System.arraycopy(header, 0, sysex, 0, header.length);
+            }
             sysex[sysex.length - 1] = (byte) 0xF7;
         } else {
             int len = initPatch.length;
