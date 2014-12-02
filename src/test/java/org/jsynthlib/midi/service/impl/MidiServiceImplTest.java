@@ -36,7 +36,7 @@ public class MidiServiceImplTest {
         midiSettingsMock = createMock(MidiSettings.class);
         midiMonitorServiceMock = createMock(MidiMonitorService.class);
         appConfigMock = createMock(AppConfig.class);
-        MockBuilder<MidiServiceImpl> mockBuilder = new MockBuilder<>(MidiServiceImpl.class);
+        MockBuilder<MidiServiceImpl> mockBuilder = new MockBuilder<MidiServiceImpl>(MidiServiceImpl.class);
         mockBuilder.addMockedMethod("getInputMidiDevice", int.class);
         mockBuilder.addMockedMethod("getOutputMidiDevice", int.class);
         mockBuilder.withConstructor(midiSettingsMock, midiMonitorServiceMock, appConfigMock);
