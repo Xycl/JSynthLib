@@ -50,11 +50,13 @@ public class HandlerBindingMap {
     private final Map<String, HandlerDefinitionBase> map;
     private final DeviceTree deviceTree;
 
+    private final HashMap<String, Class<?>> defaultHandlerMap;
+
     public HandlerBindingMap() {
         map = new HashMap<String, HandlerDefinitionBase>();
         deviceTree = new DeviceTree();
 
-        Map<String, Class<?>> defaultHandlerMap =
+        defaultHandlerMap =
                 new HashMap<String, Class<?>>();
         defaultHandlerMap.put("defaultParamModel", ParamModel.class);
         defaultHandlerMap.put("defaultNameSender", PatchNameSender.class);
@@ -473,5 +475,9 @@ public class HandlerBindingMap {
 
     DeviceTree getDeviceTree() {
         return deviceTree;
+    }
+
+    public HashMap<String, Class<?>> getDefaultHandlerMap() {
+        return defaultHandlerMap;
     }
 }

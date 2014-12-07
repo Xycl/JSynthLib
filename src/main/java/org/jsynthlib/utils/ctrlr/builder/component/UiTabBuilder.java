@@ -19,6 +19,7 @@ public class UiTabBuilder extends CtrlrComponentBuilderBase<PatchParamGroup[]> {
     }
 
     private final List<GroupBuilderBase<?>> tabGroups;
+    private int tabsOrientation = 0;
 
     @Inject
     public UiTabBuilder(@Assisted PatchParamGroup[] groups) {
@@ -48,13 +49,13 @@ public class UiTabBuilder extends CtrlrComponentBuilderBase<PatchParamGroup[]> {
     @Override
     protected void setComponentAttributes(ComponentType component) {
         super.setComponentAttributes(component);
-        component.setUiTabsCurrentTabChanged("tabChanged");
+        component.setUiTabsCurrentTabChanged("-- None");
         component.setUiTabsDepth(24);
         component.setUiTabsOutlineThickness(2);
         component.setUiTabsFrontTabOutline(1);
         component.setUiTabsTabOutline(1);
         component.setUiTabsIndentThickness(0);
-        component.setUiTabsOrientation(0);
+        component.setUiTabsOrientation(tabsOrientation);
         component.setUiTabsFrontTabFont("<Sans-Serif>;16;0;0;0;0;1");
         component.setUiTabsTabFont("<Sans-Serif>;16;0;0;0;0;1");
         component.setUiTabsOutlineGlobalColour("0x00000000");
@@ -93,5 +94,13 @@ public class UiTabBuilder extends CtrlrComponentBuilderBase<PatchParamGroup[]> {
     @Override
     protected String getModulatorName() {
         return getUniqueName("tabs");
+    }
+
+    public int getTabsOrientation() {
+        return tabsOrientation;
+    }
+
+    public void setTabsOrientation(int tabsOrientation) {
+        this.tabsOrientation = tabsOrientation;
     }
 }

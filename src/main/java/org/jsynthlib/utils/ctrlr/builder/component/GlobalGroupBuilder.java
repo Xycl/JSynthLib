@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jsynthlib.utils.ctrlr.builder.BuilderFactoryFacade;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DriverLuaHandler;
+import org.jsynthlib.utils.ctrlr.lua.DriverLuaBean;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
 import com.google.inject.Inject;
@@ -16,7 +16,7 @@ public class GlobalGroupBuilder extends UiGroupBuilder {
 
     enum Globalbuttons {
 
-        GET("Get"), SEND("Send"), LOAD("Load"), SAVE("Save");
+        RECEIVE("Reeive"), WRITE("Write"), LOAD("Load"), SAVE("Save");
 
         private final String name;
 
@@ -29,18 +29,19 @@ public class GlobalGroupBuilder extends UiGroupBuilder {
 
     private int xOffset = 4;
 
-    private final DriverLuaHandler luaHandler;
-
     @Inject
     private XmlDriverDefinition driverDef;
 
     @Inject
     private BuilderFactoryFacade factoryFacade;
 
+    private final DriverLuaBean luaBean;
+
     @Inject
-    public GlobalGroupBuilder(DriverLuaHandler luaHandler) {
+    public GlobalGroupBuilder(DriverLuaBean luaBean) {
         super("Global");
-        this.luaHandler = luaHandler;
+        this.luaBean = luaBean;
+
         builderMap =
                 new HashMap<GlobalGroupBuilder.Globalbuttons, UiGlobalButtonBuilder>();
 
@@ -49,17 +50,17 @@ public class GlobalGroupBuilder extends UiGroupBuilder {
             UiGlobalButtonBuilder builder =
                     new UiGlobalButtonBuilder(button.name, rect);
             switch (button) {
-            case GET:
-                builder.setMethodName(luaHandler.getGetMethod());
+            case RECEIVE:
+                builder.setMethodName(luaBean.getReceiveMethodName());
                 break;
-            case SEND:
-                builder.setMethodName(luaHandler.getSendMethod());
+            case WRITE:
+                builder.setMethodName(luaBean.getWriteMethodName());
                 break;
             case LOAD:
-                builder.setMethodName(luaHandler.getLoadMethod());
+                builder.setMethodName(luaBean.getLoadMethodName());
                 break;
             case SAVE:
-                builder.setMethodName(luaHandler.getSaveMethod());
+                builder.setMethodName(luaBean.getSaveMethodName());
                 break;
             default:
                 throw new IllegalStateException("Bad global button");
@@ -74,15 +75,19 @@ public class GlobalGroupBuilder extends UiGroupBuilder {
         Rectangle pnRect =
                 newRectangle(patchNameBuilder.getLength() * 10 + 10, 20);
         patchNameBuilder.setRect(pnRect);
-        patchNameBuilder.setModulatorName(luaHandler.getNameModulator());
+        patchNameBuilder
+        .setModulatorName(luaBean.getNameModulatorName());
         patchNameBuilder.setUiLabelText("New Patch");
-        patchNameBuilder.setUiLabelChangedCbk(luaHandler.getSetNameMethod());
+        patchNameBuilder
+        .setUiLabelChangedCbk(luaBean
+                .getSetNameMethodName());
         add(patchNameBuilder);
 
         for (int i = driverDef.getPatchNameStart(); i < driverDef
                 .getPatchNameStart() + patchNameBuilder.getLength(); i++) {
             GlobalSliderSpecWrapper wrapper =
-                    new GlobalSliderSpecWrapper(luaHandler.getDriverPrefix()
+                    new GlobalSliderSpecWrapper(
+                            luaBean.getDriverPrefix()
                             + i);
             wrapper.setOffset(i);
             add(factoryFacade.newNameCharSliderBuilder(wrapper));
@@ -90,8 +95,10 @@ public class GlobalGroupBuilder extends UiGroupBuilder {
 
         UiLabelBuilder labelBuilder =
                 factoryFacade.newUiLabelBuilder("driverStatus");
+        labelBuilder.setLabelBgColor("0xFF000000");
+        labelBuilder.setModulatorName(luaBean.getInfoLabelName());
         labelBuilder.setLabelVisible(false);
-        labelBuilder.setRect(newRectangle(100, 20));
+        labelBuilder.setRect(newRectangle(400, 40));
         add(labelBuilder);
     }
 
@@ -114,6 +121,6 @@ public class GlobalGroupBuilder extends UiGroupBuilder {
 
     @Override
     protected String getModulatorName() {
-        return "globalPatchControls";
+        return luaBean.getDriverPrefix() + "_globalPatchControls";
     }
 }

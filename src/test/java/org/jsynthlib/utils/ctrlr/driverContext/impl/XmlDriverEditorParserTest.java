@@ -8,7 +8,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.xmlbeans.XmlObject;
-import org.jsynthlib.utils.ctrlr.driverContext.impl.XmlSingleDriverParserImpl;
 import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
@@ -19,7 +18,7 @@ import com.google.inject.Provider;
 
 public class XmlDriverEditorParserTest {
 
-    private XmlSingleDriverParserImpl tested;
+    private XmlSingleDriverParser tested;
 
     @Before
     public void setUp() throws Exception {
@@ -33,7 +32,7 @@ public class XmlDriverEditorParserTest {
         // replay(driverContextMock);
 
         tested =
-                new XmlSingleDriverParserImpl(
+                new XmlSingleDriverParser(
                         new Provider<XmlDriverDefinition>() {
 
                             @Override
@@ -41,7 +40,7 @@ public class XmlDriverEditorParserTest {
                                 // TODO Auto-generated method stub
                                 return null;
                             }
-                        });
+        }, null);
         XmlObject result =
                 tested.getXmlobjectByUuid("b49d914c57e0497faa1421c4e1016887");
         assertNotNull(result);

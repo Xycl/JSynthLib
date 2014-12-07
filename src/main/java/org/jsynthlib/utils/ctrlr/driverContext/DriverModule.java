@@ -1,10 +1,14 @@
 package org.jsynthlib.utils.ctrlr.driverContext;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.XmlOptions;
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.core.impl.PopupHandler;
-import org.jsynthlib.utils.ctrlr.DriverModuleBuilder;
 import org.jsynthlib.utils.ctrlr.builder.BuilderFactoryFacade;
 import org.jsynthlib.utils.ctrlr.builder.BuilderFactoryFacadeImpl;
+import org.jsynthlib.utils.ctrlr.builder.PanelLuaManagerBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.NameCharSliderBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.PatchNameBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.UiButtonBuilder;
@@ -18,34 +22,125 @@ import org.jsynthlib.utils.ctrlr.builder.component.UiLabelBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.UiSliderBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.UiTabBuilder;
 import org.jsynthlib.utils.ctrlr.driverContext.impl.ConverterDeviceFactoryImpl;
-import org.jsynthlib.utils.ctrlr.driverContext.impl.DriverMethodParserImpl;
 import org.jsynthlib.utils.ctrlr.driverContext.impl.ParameterOffsetParserImpl;
 import org.jsynthlib.utils.ctrlr.driverContext.impl.PopupManagerImpl;
 import org.jsynthlib.utils.ctrlr.driverContext.impl.SysexFormulaParserImpl;
-import org.jsynthlib.utils.ctrlr.driverContext.impl.XmlSingleDriverParserImpl;
-import org.jsynthlib.utils.ctrlr.lua.DecoratorFactoryFacade;
-import org.jsynthlib.utils.ctrlr.lua.DecoratorFactoryFacadeImpl;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DefaultAssembleValuesDecorator;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DefaultAssignValuesDecorator;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DefaultGetMethodDecorator;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DefaultGetNameMethodDecorator;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DefaultLoadMethodDecorator;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DefaultMidiReceivedDecorator;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DefaultSaveMethodDecorator;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DefaultSendMethodDecorator;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DefaultSetNameMethodDecorator;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DriverLuaHandler;
-import org.jsynthlib.utils.ctrlr.lua.decorator.EmptyDriverLuaHandler;
+import org.jsynthlib.utils.ctrlr.driverContext.impl.XmlBankDriverParser;
+import org.jsynthlib.utils.ctrlr.driverContext.impl.XmlSingleDriverParser;
+import org.jsynthlib.utils.ctrlr.lua.DriverLuaBean;
+import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
 import org.jsynthlib.xmldevice.XmlDriverReferences.XmlDriverReference;
+import org.jsynthlib.xmldevice.XmlDriverReferences.XmlDriverReference.DriverType.Enum;
+import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.name.Named;
 
 public class DriverModule extends AbstractModule {
+
+    public static class Factory {
+        @Inject
+        private PanelLuaManagerBuilder luaManager;
+
+        public DriverModule newDriverModule(XmlDeviceDefinition deviceDef,
+                XmlDriverReference driverRef, PanelType panel) throws XmlException,
+                IOException {
+
+            Builder builder = new Builder();
+            builder.deviceDef = deviceDef;
+            builder.driverRef = driverRef;
+            builder.panel = panel;
+            builder.driverClassName = driverRef.getDriverClass();
+
+            XmlOptions xmlOptions = new XmlOptions();
+            xmlOptions.setLoadStripWhitespace();
+            Enum driverType = driverRef.getDriverType();
+            switch (driverType.intValue()) {
+            case XmlDriverReference.DriverType.INT_PATCH:
+                InputStream stream =
+                Builder.class.getClassLoader()
+                .getResourceAsStream(
+                        getXmlfilePath(driverRef.getDriverClass()
+                                .trim()));
+                XmlSingleDriverDefinitionDocument singleDocument =
+                        XmlSingleDriverDefinitionDocument.Factory.parse(stream,
+                                xmlOptions);
+                builder.driverDef = singleDocument.getXmlSingleDriverDefinition();
+                builder.driverPrefix =
+                        singleDocument.getXmlSingleDriverDefinition()
+                                .getPatchType();
+                break;
+            case XmlDriverReference.DriverType.INT_BANK:
+                stream =
+                Builder.class.getClassLoader()
+                .getResourceAsStream(
+                        getXmlfilePath(driverRef.getDriverClass()
+                                .trim()));
+                XmlBankDriverDefinitionDocument bankDocument =
+                        XmlBankDriverDefinitionDocument.Factory.parse(stream,
+                                xmlOptions);
+                builder.driverDef = bankDocument.getXmlBankDriverDefinition();
+                builder.driverPrefix =
+                        bankDocument.getXmlBankDriverDefinition()
+                                .getPatchType();
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported driver type");
+            }
+            builder.luaBean = luaManager.getDriverLuaBean(builder.driverPrefix);
+            builder.luaBean.setDriverPrefix(builder.driverPrefix);
+            return new DriverModule(builder);
+        }
+
+        String getXmlfilePath(String name) {
+            return name.replace('.', '/') + ".xml";
+        }
+    }
+
+    static class Builder {
+
+        private DriverLuaBean luaBean;
+        private String driverClassName;
+        private String driverPrefix;
+        private XmlDriverDefinition driverDef;
+        private XmlDeviceDefinition deviceDef;
+        private XmlDriverReference driverRef;
+        private PanelType panel;
+
+        public String getDriverClassName() {
+            return driverClassName;
+        }
+
+        public String getDriverPrefix() {
+            return driverPrefix;
+        }
+
+        public XmlDriverDefinition getDriverDef() {
+            return driverDef;
+        }
+
+        public XmlDeviceDefinition getDeviceDef() {
+            return deviceDef;
+        }
+
+        public XmlDriverReference getDriverRef() {
+            return driverRef;
+        }
+
+        public PanelType getPanel() {
+            return panel;
+        }
+
+        public DriverLuaBean getLuaBean() {
+            return luaBean;
+        }
+
+    }
 
     private final XmlDeviceDefinition deviceDef;
     private final String driverClassName;
@@ -53,14 +148,16 @@ public class DriverModule extends AbstractModule {
     private final String driverPrefix;
     private final XmlDriverReference driverRef;
     private final PanelType panel;
+    private final DriverLuaBean luaBean;
 
-    public DriverModule(DriverModuleBuilder builder) {
+    public DriverModule(Builder builder) {
         deviceDef = builder.getDeviceDef();
         driverClassName = builder.getDriverClassName();
         driverDef = builder.getDriverDef();
         driverPrefix = builder.getDriverPrefix();
         driverRef = builder.getDriverRef();
         panel = builder.getPanel();
+        this.luaBean = builder.getLuaBean();
     }
 
     @Override
@@ -69,15 +166,15 @@ public class DriverModule extends AbstractModule {
         bind(ParameterOffsetParser.class).to(ParameterOffsetParserImpl.class);
         bind(BuilderFactoryFacade.class).to(BuilderFactoryFacadeImpl.class);
         bind(ConverterDeviceFactory.class).to(ConverterDeviceFactoryImpl.class);
-        bind(DriverMethodParser.class).to(DriverMethodParserImpl.class);
-        bind(PopupHandler.class).to(PopupManagerImpl.class);
         bind(PopupManager.class).to(PopupManagerImpl.class);
-        bind(DriverLuaHandler.class).to(EmptyDriverLuaHandler.class);
-        bind(DecoratorFactoryFacade.class).to(DecoratorFactoryFacadeImpl.class);
+        bind(DriverLuaBean.class).toInstance(luaBean);
 
         switch (driverRef.getDriverType().intValue()) {
         case XmlDriverReference.DriverType.INT_PATCH:
-            bind(XmlDriverParser.class).to(XmlSingleDriverParserImpl.class);
+            bind(XmlDriverParser.class).to(XmlSingleDriverParser.class);
+            break;
+        case XmlDriverReference.DriverType.INT_BANK:
+            bind(XmlDriverParser.class).to(XmlBankDriverParser.class);
             break;
         default:
             break;
@@ -88,7 +185,7 @@ public class DriverModule extends AbstractModule {
                 PatchNameBuilder.class).build(PatchNameBuilder.Factory.class));
         install(new FactoryModuleBuilder().implement(
                 UiImageButtonBuilder.class, UiImageButtonBuilder.class).build(
-                UiImageButtonBuilder.Factory.class));
+                        UiImageButtonBuilder.Factory.class));
         install(new FactoryModuleBuilder().implement(UiButtonBuilder.class,
                 UiButtonBuilder.class).build(UiButtonBuilder.Factory.class));
         install(new FactoryModuleBuilder().implement(UiKnobBuilder.class,
@@ -112,45 +209,6 @@ public class DriverModule extends AbstractModule {
         install(new FactoryModuleBuilder().implement(
                 NameCharSliderBuilder.class, NameCharSliderBuilder.class)
                 .build(NameCharSliderBuilder.Factory.class));
-
-        // Decorator factories
-        install(new FactoryModuleBuilder().implement(
-                DefaultAssembleValuesDecorator.class,
-                DefaultAssembleValuesDecorator.class).build(
-                DefaultAssembleValuesDecorator.Factory.class));
-        install(new FactoryModuleBuilder().implement(
-                DefaultAssignValuesDecorator.class,
-                DefaultAssignValuesDecorator.class).build(
-                        DefaultAssignValuesDecorator.Factory.class));
-        install(new FactoryModuleBuilder().implement(
-                DefaultGetMethodDecorator.class,
-                DefaultGetMethodDecorator.class).build(
-                        DefaultGetMethodDecorator.Factory.class));
-        install(new FactoryModuleBuilder().implement(
-                DefaultGetNameMethodDecorator.class,
-                DefaultGetNameMethodDecorator.class).build(
-                        DefaultGetNameMethodDecorator.Factory.class));
-        install(new FactoryModuleBuilder().implement(
-                DefaultLoadMethodDecorator.class,
-                DefaultLoadMethodDecorator.class).build(
-                        DefaultLoadMethodDecorator.Factory.class));
-        install(new FactoryModuleBuilder().implement(
-                DefaultSendMethodDecorator.class,
-                DefaultSendMethodDecorator.class).build(
-                        DefaultSendMethodDecorator.Factory.class));
-        install(new FactoryModuleBuilder().implement(
-                DefaultSaveMethodDecorator.class,
-                DefaultSaveMethodDecorator.class).build(
-                        DefaultSaveMethodDecorator.Factory.class));
-        install(new FactoryModuleBuilder().implement(
-                DefaultMidiReceivedDecorator.class,
-                DefaultMidiReceivedDecorator.class).build(
-                        DefaultMidiReceivedDecorator.Factory.class));
-        install(new FactoryModuleBuilder().implement(
-                DefaultSetNameMethodDecorator.class,
-                DefaultSetNameMethodDecorator.class).build(
-                        DefaultSetNameMethodDecorator.Factory.class));
-
     }
 
     @Provides

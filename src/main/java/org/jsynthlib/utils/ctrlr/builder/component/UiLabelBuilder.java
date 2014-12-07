@@ -28,6 +28,8 @@ public class UiLabelBuilder extends CtrlrComponentBuilderBase<String> {
 
     private String uiLabelText;
 
+    private String labelBgColor = "0x00000000";
+
     private String modulatorName;
 
     @AssistedInject
@@ -47,10 +49,11 @@ public class UiLabelBuilder extends CtrlrComponentBuilderBase<String> {
         super.setComponentAttributes(component);
 
         component.setComponentLabelVisible(0);
-        component.setUiLabelBgColour("0x00000000");
+
+        component.setUiLabelBgColour(labelBgColor);
         component.setUiLabelTextColour("ffff8fd8");
         component.setUiLabelOutline(0);
-        component.setUiLabelOutlineColour("0x00000000");
+        component.setUiLabelOutlineColour(labelBgColor);
         component.setUiLabelJustification("centred");
         component.setUiLabelFitFont(0);
         component.setUiLabelFont("Arial;11;0;0;0;0;1");
@@ -111,5 +114,13 @@ public class UiLabelBuilder extends CtrlrComponentBuilderBase<String> {
 
     public void setUiLabelText(String uiLabelText) {
         this.uiLabelText = uiLabelText;
+    }
+
+    public String getLabelBgColor() {
+        return labelBgColor;
+    }
+
+    public void setLabelBgColor(String labelBgColor) {
+        this.labelBgColor = labelBgColor;
     }
 }

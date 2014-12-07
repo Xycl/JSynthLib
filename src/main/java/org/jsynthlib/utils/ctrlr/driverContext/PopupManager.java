@@ -2,7 +2,9 @@ package org.jsynthlib.utils.ctrlr.driverContext;
 
 import java.util.List;
 
-public interface PopupManager {
+import org.jsynthlib.core.impl.PopupHandler;
+
+public interface PopupManager extends PopupHandler {
 
     class PopupSession {
     }

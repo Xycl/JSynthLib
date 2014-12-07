@@ -42,7 +42,7 @@ public class UiEnvelopeBuilder extends UiGroupBuilder {
             EnvelopeNodeSpec envelopeNodeSpec = envelopeNodeSpecs[i];
             if (envelopeNodeSpec.isSetXParam()
                     && isVariable(envelopeNodeSpec.getXParam())) {
-                Rectangle xRect = new Rectangle(12 + (34 * i), 19, 33, 47);
+                Rectangle xRect = new Rectangle(12 + (34 * i), 67, 33, 47);
                 XEnvelopeParamSpec xParam = envelopeNodeSpec.getXParam();
                 UiIncDecButtonsBuilder builder =
                         factory.newUiIncDecButtonsBuilder(xParam, displayIndex);
@@ -51,7 +51,7 @@ public class UiEnvelopeBuilder extends UiGroupBuilder {
             }
             if (envelopeNodeSpec.isSetYParam()
                     && isVariable(envelopeNodeSpec.getYParam())) {
-                Rectangle yRect = new Rectangle(12 + (34 * i), 67, 33, 47);
+                Rectangle yRect = new Rectangle(12 + (34 * i), 19, 33, 47);
                 YEnvelopeParamSpec yParam = envelopeNodeSpec.getYParam();
                 UiIncDecButtonsBuilder builder =
                         factory.newUiIncDecButtonsBuilder(yParam, displayIndex);

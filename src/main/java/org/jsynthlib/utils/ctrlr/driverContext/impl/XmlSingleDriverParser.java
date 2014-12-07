@@ -3,13 +3,15 @@ package org.jsynthlib.utils.ctrlr.driverContext.impl;
 import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
@@ -22,17 +24,24 @@ import javafx.scene.control.TitledPane;
 
 import javax.swing.JFrame;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlObject;
-import org.ctrlr.panel.PanelType;
-import org.ctrlr.panel.UiPanelEditorType;
+import org.jsynthlib.device.model.IDriver;
+import org.jsynthlib.patch.model.impl.Patch;
+import org.jsynthlib.utils.SingletonMidiDeviceProvider.MidiRecordSession;
+import org.jsynthlib.utils.SysexUtils;
+import org.jsynthlib.utils.ctrlr.CtrlrMidiService;
 import org.jsynthlib.utils.ctrlr.builder.BuilderFactoryFacade;
 import org.jsynthlib.utils.ctrlr.builder.component.CtrlrComponentBuilderBase;
 import org.jsynthlib.utils.ctrlr.builder.component.GlobalGroupBuilder;
 import org.jsynthlib.utils.ctrlr.builder.component.GroupBuilderBase;
 import org.jsynthlib.utils.ctrlr.builder.component.UiTabBuilder;
+import org.jsynthlib.utils.ctrlr.driverContext.PopupManager.PopupSession;
 import org.jsynthlib.utils.ctrlr.driverContext.XmlDriverParser;
+import org.jsynthlib.utils.ctrlr.lua.DriverLuaBean;
+import org.jsynthlib.utils.ctrlr.lua.DriverLuaBean.WritePatchMessage;
 import org.jsynthlib.xmldevice.CombinedGroup;
 import org.jsynthlib.xmldevice.CombinedIntPatchParam;
 import org.jsynthlib.xmldevice.EnvelopeSpec;
@@ -48,7 +57,7 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
 @Singleton
-public class XmlSingleDriverParserImpl extends XmlDriverParser {
+public class XmlSingleDriverParser extends XmlDriverParser {
 
     private static final int DRIVER_GLOBAL_CONTROLS = 100;
 
@@ -57,9 +66,6 @@ public class XmlSingleDriverParserImpl extends XmlDriverParser {
     private final XmlSingleDriverDefinition xmlDriverDef;
 
     private int numStringParamSpecs;
-
-    @Inject
-    private PanelType panel;
 
     @Inject
     @Named("className")
@@ -76,11 +82,20 @@ public class XmlSingleDriverParserImpl extends XmlDriverParser {
     private final EditorParser editorFrame;
 
     @Inject
-    public XmlSingleDriverParserImpl(
-            Provider<XmlDriverDefinition> driverDefProvider) {
+    private CtrlrMidiService midiService;
+
+    @Inject
+    private final DriverLuaBean luaBean;
+
+    @Inject
+    public XmlSingleDriverParser(
+            Provider<XmlDriverDefinition> driverDefProvider,
+            DriverLuaBean luaBean) {
         xmlDriverDef = (XmlSingleDriverDefinition) driverDefProvider.get();
         handledCombinedGroups = new HashSet<CombinedGroup>();
         editorFrame = new EditorParser();
+        this.luaBean = luaBean;
+        luaBean.setSingleDriverDef(xmlDriverDef);
     }
 
     @Override
@@ -98,44 +113,6 @@ public class XmlSingleDriverParserImpl extends XmlDriverParser {
         list.addAll(editorFrame.list);
         list.add(globalGroupBuilder);
         return list;
-    }
-
-    void setPanelBounds() {
-        UiPanelEditorType editor = panel.getUiPanelEditor();
-        StringBuilder sb = new StringBuilder();
-
-        int panelWidth = getPanelWidth();
-        int panelHeight = getPanelHeight();
-        int width = editorFrame.width;
-        int height = editorFrame.height + DRIVER_GLOBAL_CONTROLS;
-
-        sb.append("0 0 ");
-
-        if (width > panelWidth) {
-            sb.append(width);
-        } else {
-            sb.append(panelWidth);
-        }
-
-        sb.append(" ");
-
-        if (height > panelHeight) {
-            sb.append(height);
-        } else {
-            sb.append(panelHeight);
-        }
-
-        editor.setUiPanelCanvasRectangle(sb.toString());
-    }
-
-    // TODO: Implement
-    int getPanelWidth() {
-        return 0;
-    }
-
-    // TODO: Implement
-    int getPanelHeight() {
-        return 0;
     }
 
     String getXmlfilePath(String name) {
@@ -222,8 +199,6 @@ public class XmlSingleDriverParserImpl extends XmlDriverParser {
 
         private Scene scene;
 
-        private ObservableMap<String, Object> namespace;
-
         private final JFXPanel jfxPanel;
 
         private Parent root;
@@ -252,8 +227,6 @@ public class XmlSingleDriverParserImpl extends XmlDriverParser {
                         new FXMLLoader(getClass().getClassLoader().getResource(
                                 fxmlName));
                 Parent r = (Parent) fxmlLoader.load();
-
-                namespace = fxmlLoader.getNamespace();
 
                 scene = new Scene(r);
                 scene.getStylesheets().add("application.css");
@@ -293,7 +266,8 @@ public class XmlSingleDriverParserImpl extends XmlDriverParser {
                 log.warn(e.getMessage(), e);
             }
 
-            setPanelBounds();
+            luaBean.setPanelHeight(height + DRIVER_GLOBAL_CONTROLS);
+            luaBean.setPanelWidth(width);
             root = scene.getRoot();
             bounds = root.getBoundsInParent();
         }
@@ -338,15 +312,16 @@ public class XmlSingleDriverParserImpl extends XmlDriverParser {
                         }
                     }
                 } else if (node.getId() != null && node.getId().length() == 32) {
-                    log.info("Node " + node.getClass().getName());
+                    log.debug("Node " + node.getClass().getName());
                     XmlObject xmlObject = getXmlobjectByUuid(node.getId());
                     addComponent(xmlObject, node, groupBuilder, groupAbsBounds);
                 } else if (node instanceof Parent) {
                     Parent p = (Parent) node;
-                    log.info("Parent " + p.getClass().getName());
+                    log.debug("Parent " + p.getClass().getName());
                     initNodeRecursive(p, groupBuilder, groupAbsBounds);
                 } else {
-                    log.info("Unsupported control " + node.getClass().getName());
+                    log.debug("Unsupported control "
+                            + node.getClass().getName());
                 }
             }
         }
@@ -372,5 +347,171 @@ public class XmlSingleDriverParserImpl extends XmlDriverParser {
             }
         }
 
+    }
+
+    @Override
+    protected void parseDriverMethods() {
+        parsePatchDumpMethod();
+        parseStorePatchMethod();
+        parseGetSetPatchNameMethods();
+    }
+
+    void parsePatchDumpMethod() {
+        MidiRecordSession midiRecordSession = midiService.openSession();
+        PopupSession popupSession = getPopupManager().openSession();
+        getDriver().requestPatchDump(0, 0);
+        String midiMessages = midiService.closeSession(midiRecordSession);
+        List<String> popups = getPopupManager().closeSession(popupSession);
+
+        String[] split = midiMessages.split(";");
+        if (split.length > 1) {
+            List<String> msgList = Arrays.asList(split);
+            msgList.remove("");
+            luaBean.getReceiveMidiMessages().addAll(msgList);
+        }
+
+        luaBean.getReceivePopupList().addAll(popups);
+    }
+
+    void parseStorePatchMethod() {
+        String sysexID = getDriver().getSysexID().replaceAll("\\*{2}", "FF");
+        byte[] sysexIdBytes = SysexUtils.stringToSysex(sysexID);
+
+        IDriver iDriver = getDriver();
+
+        ArrayList<WritePatchMessage> msgList =
+                new ArrayList<WritePatchMessage>();
+
+        Patch patch = iDriver.createPatch();
+        MidiRecordSession session = midiService.openSession();
+        iDriver.storePatch(patch, 0, 0);
+        String sentMessages = midiService.closeSession(session);
+        List<String> temp = Arrays.asList(sentMessages.split(";"));
+        ArrayList<String> sentMsgList = new ArrayList<String>();
+        sentMsgList.addAll(temp);
+        sentMsgList.remove("");
+
+        for (String sentMessage : sentMsgList) {
+            byte[] msgBytes = SysexUtils.stringToSysex(sentMessage);
+            boolean patchDataMsg = true;
+            for (int i = 0; i < sysexIdBytes.length; i++) {
+                byte b = sysexIdBytes[i];
+                if (b != 0xFF && b != msgBytes[i]) {
+                    log.info("Message did not match sysex id: " + sentMessage);
+                    patchDataMsg = false;
+                    break;
+                }
+            }
+            if (!patchDataMsg && msgBytes.length != iDriver.getPatchSize()) {
+                patchDataMsg = false;
+            }
+            msgList.add(new WritePatchMessage(sentMessage, patchDataMsg));
+        }
+
+        String[] bankNumbers = iDriver.getBankNumbers();
+
+        if (bankNumbers != null && bankNumbers.length > 1) {
+            parseWriteMsgDiffs(msgList, bankNumbers, true);
+            luaBean.setVariableBanks(true);
+        } else {
+            luaBean.setVariableBanks(false);
+        }
+
+        String[] patchNumbers = iDriver.getPatchNumbers();
+        if (patchNumbers != null && patchNumbers.length > 1) {
+            parseWriteMsgDiffs(msgList, patchNumbers, true);
+            luaBean.setVariablePatches(true);
+        } else {
+            luaBean.setVariablePatches(false);
+        }
+    }
+
+    void parseWriteMsgDiffs(List<WritePatchMessage> writeMsgList,
+            String[] numbers, boolean findBankDiff) {
+
+        IDriver iDriver = getDriver();
+        Patch patch = iDriver.createPatch();
+        MidiRecordSession session = midiService.openSession();
+        iDriver.storePatch(patch, 0, 0);
+        String sentMessages = midiService.closeSession(session);
+        List<String> temp = Arrays.asList(sentMessages.split(";"));
+        ArrayList<String> sentMsgList0 = new ArrayList<String>();
+        sentMsgList0.addAll(temp);
+        sentMsgList0.remove("");
+
+        patch = iDriver.createPatch();
+        session = midiService.openSession();
+        iDriver.storePatch(patch, numbers.length - 1, 0);
+        sentMessages = midiService.closeSession(session);
+        temp = Arrays.asList(sentMessages.split(";"));
+        ArrayList<String> sentMsgListLast = new ArrayList<String>();
+        sentMsgListLast.addAll(temp);
+        sentMsgListLast.remove("");
+
+        if (sentMsgList0.size() != sentMsgListLast.size()
+                || sentMsgList0.size() != writeMsgList.size()) {
+            throw new IllegalArgumentException("Lists didn't match!");
+        }
+
+        for (int i = 0; i < writeMsgList.size(); i++) {
+            String sent0 = sentMsgList0.get(i);
+            String sentLast = sentMsgListLast.get(i);
+            if (!sent0.equals(sentLast)) {
+                byte[] msg0Bytes = SysexUtils.stringToSysex(sent0);
+                byte[] msgLastBytes = SysexUtils.stringToSysex(sentLast);
+                for (int j = 0; j < msg0Bytes.length; j++) {
+                    if (msg0Bytes[j] != msgLastBytes[j]) {
+                        WritePatchMessage writePatchMessage =
+                                writeMsgList.get(i);
+                        if (findBankDiff) {
+                            writePatchMessage.setBankNbrOffset(j);
+                        } else {
+                            writePatchMessage.setPatchNbrOffset(j);
+                        }
+                        break;
+                    }
+                }
+                // TODO: improve to check if several differences occurred.
+                break;
+            }
+        }
+    }
+
+    private static final int CHAR_START = 32;
+    private static final int CHAR_END = 122;
+
+    void parseGetSetPatchNameMethods() {
+        Patch patch = new Patch();
+        HashMap<Integer, String> charMap = new HashMap<Integer, String>();
+        char[] c = new char[getDriver().getPatchNameSize()];
+        for (int i = CHAR_START; i <= CHAR_END; i++) {
+            Arrays.fill(c, (char) 32);
+            c[0] = (char) i;
+            patch.sysex = new byte[getDriver().getPatchSize()];
+            String string = new String(c);
+            getDriver().setPatchName(patch, string);
+            int key = patch.sysex[getDriver().getPatchNameStart()];
+            String value =
+                    StringEscapeUtils.escapeJava(Character.toString(c[0]));
+            if (!charMap.containsKey(key)) {
+                charMap.put(key, value);
+            }
+        }
+
+        ArrayList<Integer> keys = new ArrayList<Integer>(charMap.keySet());
+        if (keys.size() == 1 && keys.get(0) == 0) {
+            globalGroupBuilder.setPatchCharMax(127);
+        } else {
+            Collections.sort(keys);
+
+            globalGroupBuilder.setPatchCharMax(keys.get(keys.size() - 1));
+
+            String[] array = new String[keys.get(keys.size() - 1) + 1];
+            Arrays.fill(array, "|");
+            for (Integer key : keys) {
+                array[key] = charMap.get(key);
+            }
+            luaBean.setPatchNameChars(array);
+        }
     }
 }

@@ -27,13 +27,20 @@
 		</xd:xmlDriverReference>
 	</xd:drivers>
 	<xd:configuration>
+		<xd:paramModelDefinitions>
+			<xd:paramModelDefinition>
+				<xd:property key="offset" />
+				<xd:handlerClass>org.jsynthlib.device.model.handler.ParamModel
+				</xd:handlerClass>
+			</xd:paramModelDefinition>
+		</xd:paramModelDefinitions>
 		<xd:midiSenderDefinitions>
-			<xd:midiSenderDefinition name="VcedSender">
+			<xd:midiSenderDefinition>
 				<xd:property key="parameter" />
 				<xd:handlerClass>org.jsynthlib.synthdrivers.YamahaDX100.VcedSender
 				</xd:handlerClass>
 			</xd:midiSenderDefinition>
-			<xd:midiSenderDefinition name="LegacyPatchNameSender">
+			<xd:midiSenderDefinition>
 				<xd:handlerClass>org.jsynthlib.device.model.handler.LegacyPatchNameSender
 				</xd:handlerClass>
 			</xd:midiSenderDefinition>

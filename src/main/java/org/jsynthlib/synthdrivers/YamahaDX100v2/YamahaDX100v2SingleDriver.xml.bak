@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xd:xmlSingleDriverDefinition xmlns:xd="http://www.jsynthlib.org/xmldevice">
-  <xd:name>Yamaha DX100 Single</xd:name>
+  <xd:name>Yamaha DX21 / DX27 / DX100 Single</xd:name>
   <xd:infoText>The Yamaha synth is susceptable to internal midi buffer overflow if you send it a lot of Data quickly. With JSynthLib, this can happenif you are using a fader box and throwing the faders around rapidly. Otherwise, it should not be a problem JSynthLib supports the DX21/27/100 as both a Single and Bank Librarian and also supports Patch Editing.Note that though these three synths share one driver, some parameters may only effect the sound on certain models. Therefore, under &#39;configuration&#39; you can choose which of the three models you own.</xd:infoText>
   <xd:authors>Brian Klock</xd:authors>
   <xd:patchType>Single</xd:patchType>
@@ -49,7 +49,7 @@
           <xd:propertyValue key="parameter"
                             value="54" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="60" />
         </xd:paramModel>
@@ -62,7 +62,7 @@
           <xd:propertyValue key="parameter"
                             value="55" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="61" />
         </xd:paramModel>
@@ -75,7 +75,7 @@
           <xd:propertyValue key="parameter"
                             value="56" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="62" />
         </xd:paramModel>
@@ -88,7 +88,7 @@
           <xd:propertyValue key="parameter"
                             value="60" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="66" />
         </xd:paramModel>
@@ -101,7 +101,7 @@
           <xd:propertyValue key="parameter"
                             value="57" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="63" />
         </xd:paramModel>
@@ -114,7 +114,7 @@
           <xd:propertyValue key="parameter"
                             value="61" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="67" />
         </xd:paramModel>
@@ -127,7 +127,7 @@
           <xd:propertyValue key="parameter"
                             value="58" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="64" />
         </xd:paramModel>
@@ -140,7 +140,7 @@
           <xd:propertyValue key="parameter"
                             value="59" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="65" />
         </xd:paramModel>
@@ -159,7 +159,7 @@
           <xd:propertyValue key="parameter"
                             value="47" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="53" />
         </xd:paramModel>
@@ -172,7 +172,7 @@
           <xd:propertyValue key="parameter"
                             value="21" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="27" />
         </xd:paramModel>
@@ -185,7 +185,7 @@
           <xd:propertyValue key="parameter"
                             value="34" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="40" />
         </xd:paramModel>
@@ -198,7 +198,7 @@
           <xd:propertyValue key="parameter"
                             value="8" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="14" />
         </xd:paramModel>
@@ -213,7 +213,7 @@
           <xd:propertyValue key="parameter"
                             value="52" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="58" />
         </xd:paramModel>
@@ -237,7 +237,7 @@
           <xd:propertyValue key="parameter"
                             value="53" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="59" />
         </xd:paramModel>
@@ -250,7 +250,7 @@
           <xd:propertyValue key="parameter"
                             value="62" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="68" />
         </xd:paramModel>
@@ -269,7 +269,7 @@
           <xd:propertyValue key="parameter"
                             value="63" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="69" />
         </xd:paramModel>
@@ -284,7 +284,7 @@
           <xd:propertyValue key="parameter"
                             value="71" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="77" />
         </xd:paramModel>
@@ -297,7 +297,7 @@
           <xd:propertyValue key="parameter"
                             value="72" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="78" />
         </xd:paramModel>
@@ -310,7 +310,7 @@
           <xd:propertyValue key="parameter"
                             value="73" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="79" />
         </xd:paramModel>
@@ -323,7 +323,7 @@
           <xd:propertyValue key="parameter"
                             value="74" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="80" />
         </xd:paramModel>
@@ -336,7 +336,7 @@
           <xd:propertyValue key="parameter"
                             value="75" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="81" />
         </xd:paramModel>
@@ -349,7 +349,7 @@
           <xd:propertyValue key="parameter"
                             value="76" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="82" />
         </xd:paramModel>
@@ -362,7 +362,7 @@
           <xd:propertyValue key="parameter"
                             value="67" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="73" />
         </xd:paramModel>
@@ -375,7 +375,7 @@
           <xd:propertyValue key="parameter"
                             value="64" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="70" />
         </xd:paramModel>
@@ -390,7 +390,7 @@
           <xd:propertyValue key="parameter"
                             value="66" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="72" />
         </xd:paramModel>
@@ -403,7 +403,7 @@
           <xd:propertyValue key="parameter"
                             value="65" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="71" />
         </xd:paramModel>
@@ -420,7 +420,7 @@
           <xd:propertyValue key="parameter"
                             value="70" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="76" />
         </xd:paramModel>
@@ -435,7 +435,7 @@
           <xd:propertyValue key="parameter"
                             value="49" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="55" />
         </xd:paramModel>
@@ -448,7 +448,7 @@
           <xd:propertyValue key="parameter"
                             value="50" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="56" />
         </xd:paramModel>
@@ -461,7 +461,7 @@
           <xd:propertyValue key="parameter"
                             value="51" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="57" />
         </xd:paramModel>
@@ -475,7 +475,7 @@
           <xd:propertyValue key="parameter"
                             value="44" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="50" />
         </xd:paramModel>
@@ -488,7 +488,7 @@
           <xd:propertyValue key="parameter"
                             value="45" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="51" />
         </xd:paramModel>
@@ -501,7 +501,7 @@
           <xd:propertyValue key="parameter"
                             value="46" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="52" />
         </xd:paramModel>
@@ -514,7 +514,7 @@
           <xd:propertyValue key="parameter"
                             value="48" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="52" />
         </xd:paramModel>
@@ -544,7 +544,7 @@
               <xd:propertyValue key="parameter"
                                 value="39" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="45" />
             </xd:paramModel>
@@ -566,7 +566,7 @@
               <xd:propertyValue key="parameter"
                                 value="40" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="46" />
             </xd:paramModel>
@@ -580,7 +580,7 @@
               <xd:propertyValue key="parameter"
                                 value="43" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="49" />
             </xd:paramModel>
@@ -596,7 +596,7 @@
               <xd:propertyValue key="parameter"
                                 value="41" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="47" />
             </xd:paramModel>
@@ -618,7 +618,7 @@
               <xd:propertyValue key="parameter"
                                 value="42" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="48" />
             </xd:paramModel>
@@ -642,7 +642,7 @@
           <xd:propertyValue key="parameter"
                             value="23" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="29" />
         </xd:paramModel>
@@ -655,7 +655,7 @@
           <xd:propertyValue key="parameter"
                             value="24" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="30" />
         </xd:paramModel>
@@ -668,7 +668,7 @@
           <xd:propertyValue key="parameter"
                             value="25" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="31" />
         </xd:paramModel>
@@ -682,7 +682,7 @@
           <xd:propertyValue key="parameter"
                             value="18" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="24" />
         </xd:paramModel>
@@ -695,7 +695,7 @@
           <xd:propertyValue key="parameter"
                             value="19" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="25" />
         </xd:paramModel>
@@ -708,7 +708,7 @@
           <xd:propertyValue key="parameter"
                             value="20" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="26" />
         </xd:paramModel>
@@ -721,7 +721,7 @@
           <xd:propertyValue key="parameter"
                             value="22" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="26" />
         </xd:paramModel>
@@ -751,7 +751,7 @@
               <xd:propertyValue key="parameter"
                                 value="13" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="19" />
             </xd:paramModel>
@@ -773,7 +773,7 @@
               <xd:propertyValue key="parameter"
                                 value="14" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="20" />
             </xd:paramModel>
@@ -787,7 +787,7 @@
               <xd:propertyValue key="parameter"
                                 value="17" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="23" />
             </xd:paramModel>
@@ -803,7 +803,7 @@
               <xd:propertyValue key="parameter"
                                 value="15" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="21" />
             </xd:paramModel>
@@ -825,7 +825,7 @@
               <xd:propertyValue key="parameter"
                                 value="16" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="22" />
             </xd:paramModel>
@@ -849,7 +849,7 @@
           <xd:propertyValue key="parameter"
                             value="36" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="42" />
         </xd:paramModel>
@@ -862,7 +862,7 @@
           <xd:propertyValue key="parameter"
                             value="37" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="43" />
         </xd:paramModel>
@@ -875,7 +875,7 @@
           <xd:propertyValue key="parameter"
                             value="38" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="44" />
         </xd:paramModel>
@@ -889,7 +889,7 @@
           <xd:propertyValue key="parameter"
                             value="31" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="37" />
         </xd:paramModel>
@@ -902,7 +902,7 @@
           <xd:propertyValue key="parameter"
                             value="32" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="38" />
         </xd:paramModel>
@@ -915,7 +915,7 @@
           <xd:propertyValue key="parameter"
                             value="33" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="39" />
         </xd:paramModel>
@@ -928,7 +928,7 @@
           <xd:propertyValue key="parameter"
                             value="35" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="39" />
         </xd:paramModel>
@@ -958,7 +958,7 @@
               <xd:propertyValue key="parameter"
                                 value="26" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="32" />
             </xd:paramModel>
@@ -980,7 +980,7 @@
               <xd:propertyValue key="parameter"
                                 value="27" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="33" />
             </xd:paramModel>
@@ -994,7 +994,7 @@
               <xd:propertyValue key="parameter"
                                 value="30" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="36" />
             </xd:paramModel>
@@ -1010,7 +1010,7 @@
               <xd:propertyValue key="parameter"
                                 value="28" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="34" />
             </xd:paramModel>
@@ -1032,7 +1032,7 @@
               <xd:propertyValue key="parameter"
                                 value="29" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="35" />
             </xd:paramModel>
@@ -1056,7 +1056,7 @@
           <xd:propertyValue key="parameter"
                             value="10" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="16" />
         </xd:paramModel>
@@ -1069,7 +1069,7 @@
           <xd:propertyValue key="parameter"
                             value="11" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="17" />
         </xd:paramModel>
@@ -1082,7 +1082,7 @@
           <xd:propertyValue key="parameter"
                             value="12" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="18" />
         </xd:paramModel>
@@ -1096,7 +1096,7 @@
           <xd:propertyValue key="parameter"
                             value="5" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="11" />
         </xd:paramModel>
@@ -1109,7 +1109,7 @@
           <xd:propertyValue key="parameter"
                             value="6" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="12" />
         </xd:paramModel>
@@ -1122,7 +1122,7 @@
           <xd:propertyValue key="parameter"
                             value="7" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="13" />
         </xd:paramModel>
@@ -1135,7 +1135,7 @@
           <xd:propertyValue key="parameter"
                             value="9" />
         </xd:midiSender>
-        <xd:paramModel name="defaultParamModel">
+        <xd:paramModel name="ParamModel">
           <xd:propertyValue key="offset"
                             value="13" />
         </xd:paramModel>
@@ -1165,7 +1165,7 @@
               <xd:propertyValue key="parameter"
                                 value="0" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="6" />
             </xd:paramModel>
@@ -1187,7 +1187,7 @@
               <xd:propertyValue key="parameter"
                                 value="1" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="7" />
             </xd:paramModel>
@@ -1201,7 +1201,7 @@
               <xd:propertyValue key="parameter"
                                 value="4" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="10" />
             </xd:paramModel>
@@ -1217,7 +1217,7 @@
               <xd:propertyValue key="parameter"
                                 value="2" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="8" />
             </xd:paramModel>
@@ -1239,7 +1239,7 @@
               <xd:propertyValue key="parameter"
                                 value="3" />
             </xd:midiSender>
-            <xd:paramModel name="defaultParamModel">
+            <xd:paramModel name="ParamModel">
               <xd:propertyValue key="offset"
                                 value="9" />
             </xd:paramModel>
@@ -1273,7 +1273,7 @@
                 <xd:propertyValue key="parameter"
                                   value="92" />
               </xd:midiSender>
-              <xd:paramModel name="defaultParamModel">
+              <xd:paramModel name="ParamModel">
                 <xd:propertyValue key="offset"
                                   value="98" />
               </xd:paramModel>
@@ -1289,7 +1289,7 @@
                 <xd:propertyValue key="parameter"
                                   value="87" />
               </xd:midiSender>
-              <xd:paramModel name="defaultParamModel">
+              <xd:paramModel name="ParamModel">
                 <xd:propertyValue key="offset"
                                   value="93" />
               </xd:paramModel>
@@ -1303,7 +1303,7 @@
                 <xd:propertyValue key="parameter"
                                   value="90" />
               </xd:midiSender>
-              <xd:paramModel name="defaultParamModel">
+              <xd:paramModel name="ParamModel">
                 <xd:propertyValue key="offset"
                                   value="96" />
               </xd:paramModel>
@@ -1319,7 +1319,7 @@
                 <xd:propertyValue key="parameter"
                                   value="88" />
               </xd:midiSender>
-              <xd:paramModel name="defaultParamModel">
+              <xd:paramModel name="ParamModel">
                 <xd:propertyValue key="offset"
                                   value="94" />
               </xd:paramModel>
@@ -1333,7 +1333,7 @@
                 <xd:propertyValue key="parameter"
                                   value="91" />
               </xd:midiSender>
-              <xd:paramModel name="defaultParamModel">
+              <xd:paramModel name="ParamModel">
                 <xd:propertyValue key="offset"
                                   value="97" />
               </xd:paramModel>
@@ -1363,7 +1363,7 @@
                 <xd:propertyValue key="parameter"
                                   value="89" />
               </xd:midiSender>
-              <xd:paramModel name="defaultParamModel">
+              <xd:paramModel name="ParamModel">
                 <xd:propertyValue key="offset"
                                   value="95" />
               </xd:paramModel>
@@ -1377,7 +1377,7 @@
                 <xd:propertyValue key="parameter"
                                   value="92" />
               </xd:midiSender>
-              <xd:paramModel name="defaultParamModel">
+              <xd:paramModel name="ParamModel">
                 <xd:propertyValue key="offset"
                                   value="98" />
               </xd:paramModel>

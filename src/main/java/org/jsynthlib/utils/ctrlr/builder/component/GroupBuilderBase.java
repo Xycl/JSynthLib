@@ -1,6 +1,7 @@
 package org.jsynthlib.utils.ctrlr.builder.component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,6 +36,10 @@ Iterable<CtrlrComponentBuilderBase<?>> {
 
     public boolean add(CtrlrComponentBuilderBase<?> e) {
         return builderList.add(e);
+    }
+
+    public boolean addAll(Collection<? extends CtrlrComponentBuilderBase<?>> c) {
+        return builderList.addAll(c);
     }
 
     @Override

@@ -43,6 +43,7 @@ import org.jsynthlib.device.model.handler.IParamModel;
 import org.jsynthlib.device.model.handler.IPatchStringSender;
 import org.jsynthlib.device.model.handler.ISender;
 import org.jsynthlib.device.model.handler.ParamModel;
+import org.jsynthlib.device.model.impl.HandlerBindingMap;
 import org.jsynthlib.device.viewcontroller.BankEditorFrame;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.EnvelopeWidget.Node;
@@ -404,8 +405,12 @@ public class XMLExtractor {
 
         private final List<String> ignoredProperties;
 
+        private final HashMap<String,Class<?>> defaultHandlerMap;
+
         public SingleDriverGenerator(IPatchDriver driver) {
             super();
+            HandlerBindingMap bindingMap = new HandlerBindingMap();
+            defaultHandlerMap = bindingMap.getDefaultHandlerMap();
             this.ignoredProperties = Arrays.asList(IGNORED_PROPERTIES);
             groupMap = new HashMap<String, PatchParams>();
             handlerDefinitionMap = new HashMap<String, HandlerDefinitionBase>();
@@ -573,11 +578,10 @@ public class XMLExtractor {
                 }
                 return;
             }
-            Class<? extends Object> handlerClass = handler.getClass();
-            String simpleName = handlerClass.getSimpleName();
+            String simpleName = getHandlerName(handler);
             DeviceConfiguration config = deviceSpec.getConfiguration();
 
-            if (!handlerDefinitionMap.containsKey(simpleName)) {
+            if (!handlerDefinitionMap.containsKey(simpleName) && !defaultHandlerMap.containsKey(simpleName)) {
                 MidiSenderDefinitions midiSenderDefinitions =
                         config.getMidiSenderDefinitions();
                 if (midiSenderDefinitions == null) {
@@ -586,7 +590,8 @@ public class XMLExtractor {
                 }
                 MidiSenderDefinition midiSenderDefinition =
                         midiSenderDefinitions.addNewMidiSenderDefinition();
-                midiSenderDefinition.setHandlerClass(handlerClass.getName());
+                midiSenderDefinition.setName(simpleName);
+                midiSenderDefinition.setHandlerClass(handler.getClass().getName());
                 copyProperties(handler, midiSenderDefinition);
 
                 if (handler instanceof AbstractSender) {
@@ -606,13 +611,26 @@ public class XMLExtractor {
                 property.setValue(Integer.toString(aSender.getOffset()));
             }
         }
+        
+        String getHandlerName(Object handler) {
+            Class<? extends Object> handlerClass = handler.getClass();
+            if (defaultHandlerMap.values().contains(handlerClass)) {
+                for (Entry<String, Class<?>> entry : defaultHandlerMap.entrySet()) {
+                    if (entry.getValue().equals(handlerClass)) {
+                        return entry.getKey();
+                    }
+                }
+                return null;
+            } else {
+                return handlerClass.getSimpleName();
+            }
+        }
 
         void addParamModel(Object handler, ParamModelReference paramModel) {
-            Class<? extends Object> handlerClass = handler.getClass();
-            String simpleName = handlerClass.getSimpleName();
+            String simpleName = getHandlerName(handler);
             DeviceConfiguration config = deviceSpec.getConfiguration();
 
-            if (!handlerDefinitionMap.containsKey(simpleName)) {
+            if (!handlerDefinitionMap.containsKey(simpleName) && !defaultHandlerMap.containsKey(simpleName)) {
                 ParamModelDefinitions paramModelDefinitions =
                         config.getParamModelDefinitions();
                 if (paramModelDefinitions == null) {
@@ -621,7 +639,8 @@ public class XMLExtractor {
                 }
                 ParamModelDefinition paramModelDefinition =
                         paramModelDefinitions.addNewParamModelDefinition();
-                paramModelDefinition.setHandlerClass(handlerClass.getName());
+                paramModelDefinition.setName(simpleName);
+                paramModelDefinition.setHandlerClass(handler.getClass().getName());
                 copyProperties(handler, paramModelDefinition);
 
                 if (paramModel instanceof ParamModel) {

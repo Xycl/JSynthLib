@@ -3,7 +3,7 @@ package org.jsynthlib.utils.ctrlr.builder.component;
 import org.ctrlr.panel.ModulatorType;
 import org.ctrlr.panel.PanelType;
 import org.jsynthlib.utils.ctrlr.builder.BuilderFactoryFacade;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DriverLuaHandler;
+import org.jsynthlib.utils.ctrlr.lua.DriverLuaBean;
 import org.jsynthlib.xmldevice.StringParamSpec;
 
 import com.google.inject.Inject;
@@ -17,22 +17,22 @@ public class PatchNameBuilder extends UiLabelBuilder {
 
     @Inject
     public PatchNameBuilder(@Assisted StringParamSpec paramSpec,
+            DriverLuaBean luaBean,
             BuilderFactoryFacade factoryFacade,
-            GlobalGroupBuilder globalGroupBuilder,
-            DriverLuaHandler driverLuaHandler) {
+            GlobalGroupBuilder globalGroupBuilder) {
         super("PatchName");
         UiLabelBuilder patchNameLabelBuilder =
-                factoryFacade.newUiLabelBuilder(driverLuaHandler
-                        .getNameModulator());
+                factoryFacade.newUiLabelBuilder(luaBean
+                        .getNameModulatorName());
 
         patchNameLabelBuilder.setEditOnSingleClick(true);
         patchNameLabelBuilder.setExcludeFromSnapshot(true);
         patchNameLabelBuilder.setLength(paramSpec.getLength());
         patchNameLabelBuilder.setMuteOnStart(true);
-        patchNameLabelBuilder.setUiLabelChangedCbk(driverLuaHandler
-                .getSetNameMethod());
-        patchNameLabelBuilder.setModulatorName(driverLuaHandler
-                .getNameModulator());
+        patchNameLabelBuilder.setUiLabelChangedCbk(luaBean
+                .getSetNameMethodName());
+        patchNameLabelBuilder.setModulatorName(luaBean
+                .getNameModulatorName());
         patchNameLabelBuilder.setLength(paramSpec.getLength());
 
         globalGroupBuilder.setPatchNameBuilder(patchNameLabelBuilder);

@@ -18,9 +18,7 @@ public class UiGroupBuilder extends GroupBuilderBase<String> {
 
     @AssistedInject
     public UiGroupBuilder(@Assisted PatchParamGroup group) {
-        super();
-        setObject(group.getName());
-        uiGroupText = group.getName();
+        this(group.getName());
     }
 
     @AssistedInject
@@ -54,6 +52,15 @@ public class UiGroupBuilder extends GroupBuilderBase<String> {
 
     public String getUiGroupText() {
         return uiGroupText;
+    }
+    
+    @Override
+    protected String getName() {
+        if (uiGroupText == null) {
+            return super.getName();
+        } else {
+            return uiGroupText;
+        }
     }
 
     public void setUiGroupText(String uiGroupText) {

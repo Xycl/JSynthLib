@@ -2,26 +2,28 @@ package org.jsynthlib.utils.ctrlr.lua;
 
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.ctrlr.panel.LuaManagerMethodsType;
 import org.ctrlr.panel.LuaMethodGroupType;
 import org.ctrlr.panel.LuaMethodType;
 
-public final class LuaMethodUtils {
+import com.google.inject.Singleton;
 
-    private LuaMethodUtils() {
-    }
+@Singleton
+public class LuaMethodUtils {
 
-    public static String newUuid() {
+    public String newUuid() {
         return UUID.randomUUID().toString().replace("_", "");
     }
 
-    public static void fillMethodData(LuaMethodGroupType methodGroup,
+    public LuaMethodType fillMethodData(LuaMethodGroupType methodGroup,
             String name, String code) {
         LuaMethodType method = methodGroup.addNewLuaMethod();
         fillMethod(method, name, code);
+        return method;
     }
 
-    static void fillMethod(LuaMethodType method, String name, String code) {
+    public void fillMethod(LuaMethodType method, String name, String code) {
         method.setLuaMethodName(name);
         method.setLuaMethodCode(code);
         method.setUuid(newUuid());
@@ -31,13 +33,13 @@ public final class LuaMethodUtils {
 
     }
 
-    public static void fillMethodData(LuaManagerMethodsType methods,
+    public void fillMethodData(LuaManagerMethodsType methods,
             String name, String code) {
         LuaMethodType method = methods.addNewLuaMethod();
         fillMethod(method, name, code);
     }
 
-    public static LuaMethodGroupType newMethodGroup(
+    public LuaMethodGroupType newMethodGroup(
             LuaManagerMethodsType methods, String name) {
         LuaMethodGroupType methodGroup = methods.addNewLuaMethodGroup();
         methodGroup.setName(name);
@@ -45,10 +47,10 @@ public final class LuaMethodUtils {
         return methodGroup;
     }
 
-    public static String getMethodDecl(String name, String... args) {
+    public String getMethodDecl(String name, String... args) {
         StringBuilder sb =
                 new StringBuilder().append("function ").append(name)
-                        .append(" (");
+                .append(" (");
         boolean first = true;
         for (String arg : args) {
             if (first) {
@@ -62,7 +64,7 @@ public final class LuaMethodUtils {
         return sb.toString();
     }
 
-    public static String indent(int numTabs) {
+    public String indent(int numTabs) {
         StringBuilder tabBuilder = new StringBuilder();
         for (int i = 0; i < numTabs; i++) {
             tabBuilder.append("&#9;");
@@ -70,17 +72,38 @@ public final class LuaMethodUtils {
         return tabBuilder.toString();
     }
 
-    public static String newLine() {
+    public String newLine() {
         return "&#13;&#10;";
     }
 
-    public static void createMethod(LuaMethodGroupType methodGroup,
-            String methodName, String methodBody, String... methodArgs) {
-        StringBuilder codeBuilder = new StringBuilder();
-        codeBuilder.append(getMethodDecl(methodName, methodArgs));
-        codeBuilder.append(methodBody);
-        codeBuilder.append("end").append(newLine());
-        LuaMethodUtils.fillMethodData(methodGroup, methodName,
-                codeBuilder.toString());
+    public LuaMethodType createMethod(LuaMethodGroupType methodGroup,
+            String methodName, String methodCode) {
+        return fillMethodData(methodGroup, methodName,
+                methodCode);
     }
+
+    String getMessageCall(boolean warning, String title, String msg) {
+        StringBuilder codeBuilder = new StringBuilder();
+
+        String escapedMsg =
+                StringEscapeUtils.escapeJava(msg).replace("\n", "\\n");
+        codeBuilder.append("AlertWindow.showMessageBox(AlertWindow.");
+        if (warning) {
+            codeBuilder.append("WarningIcon");
+        } else {
+            codeBuilder.append("InfoIcon");
+        }
+        codeBuilder.append(", \"").append(title).append("\", \"")
+        .append(escapedMsg).append("\", \"OK\")");
+        return codeBuilder.toString();
+    }
+
+    public String getInfoMessageCall(String msg) {
+        return getMessageCall(false, "Information", msg);
+    }
+
+    public String getWarnMessageCall(String msg) {
+        return getMessageCall(true, "Warning", msg);
+    }
+
 }

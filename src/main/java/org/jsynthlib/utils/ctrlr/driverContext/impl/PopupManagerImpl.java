@@ -6,13 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jsynthlib.core.impl.PopupHandler;
 import org.jsynthlib.utils.ctrlr.driverContext.PopupManager;
 
 import com.google.inject.Singleton;
 
 @Singleton
-public class PopupManagerImpl implements PopupManager, PopupHandler {
+public class PopupManagerImpl implements PopupManager {
 
     private final Map<PopupSession, List<String>> sessionMap;
 

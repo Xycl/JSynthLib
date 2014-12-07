@@ -27,7 +27,6 @@ import java.util.List;
 
 import javafx.application.Platform;
 
-import org.jsynthlib.core.impl.PopupHandlerProvider;
 import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.patch.model.PatchEditFactory;
 import org.jsynthlib.patch.model.impl.PatchEdit;
@@ -66,7 +65,6 @@ public class JSynthLib {
             }
         }
 
-        PopupHandlerProvider.setInjector(JSynthLibInjector.getInjector());
         PatchEditFactory patchEditFactory =
                 JSynthLibInjector.getInstance(PatchEditFactory.class);
         PatchEdit frame = patchEditFactory.newPatchEdit(files, debugLevel);

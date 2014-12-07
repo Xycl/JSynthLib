@@ -1,19 +1,18 @@
 package org.jsynthlib.utils.ctrlr.lua;
 
-import static org.jsynthlib.utils.ctrlr.lua.LuaMethodUtils.fillMethodData;
-import static org.jsynthlib.utils.ctrlr.lua.LuaMethodUtils.indent;
-import static org.jsynthlib.utils.ctrlr.lua.LuaMethodUtils.newLine;
-import static org.jsynthlib.utils.ctrlr.lua.LuaMethodUtils.newMethodGroup;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.ctrlr.panel.LuaManagerMethodsType;
 import org.ctrlr.panel.LuaManagerType;
 import org.ctrlr.panel.LuaMethodGroupType;
 import org.ctrlr.panel.PanelType;
 import org.jsynthlib.utils.ctrlr.builder.PanelLuaManagerBuilder;
-import org.jsynthlib.utils.ctrlr.lua.decorator.DriverLuaHandler;
+import org.jsynthlib.utils.ctrlr.lua.generator.MethodGenerator;
+import org.jsynthlib.utils.ctrlr.lua.generator.MidiReceivedPartGenerator;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -26,10 +25,19 @@ public class PanelLuaManagerBuilderImpl implements PanelLuaManagerBuilder {
     @Named("midiReceivedMethodName")
     private String midiReceivedMethodName;
 
-    private final List<DriverLuaHandler> driverDecorators;
+    @Inject
+    private LuaMethodUtils utils;
+
+    private final List<MidiReceivedPartGenerator> midiReceivedList;
+
+    private final HashMap<String, DriverLuaBean> driverValuesMap;
+
+    @Inject
+    Set<MethodGenerator> methodGenerators;
 
     public PanelLuaManagerBuilderImpl() {
-        driverDecorators = new ArrayList<DriverLuaHandler>();
+        driverValuesMap = new HashMap<String, DriverLuaBean>();
+        midiReceivedList = new ArrayList<MidiReceivedPartGenerator>();
     }
 
     @Override
@@ -38,56 +46,79 @@ public class PanelLuaManagerBuilderImpl implements PanelLuaManagerBuilder {
         LuaManagerMethodsType methods = luaManager.addNewLuaManagerMethods();
         createMidiReceivedMethod(methods);
         createPanelCreated(panel, methods);
-        for (DriverLuaHandler handler : driverDecorators) {
-            handler.createDriverMethodGroup(methods);
+
+        for (Entry<String, DriverLuaBean> entry : driverValuesMap
+                .entrySet()) {
+            LuaMethodGroupType group =
+                    utils.newMethodGroup(methods, entry.getKey());
+            for (MethodGenerator generator : methodGenerators) {
+                generator.generateMethod(group, entry.getValue());
+            }
         }
     }
 
     void createPanelCreated(PanelType panel, LuaManagerMethodsType methods) {
         int indent = 0;
         String methodName = "panelCreated";
-        LuaMethodGroupType methodGroup = newMethodGroup(methods, "Panel");
+        LuaMethodGroupType methodGroup = utils.newMethodGroup(methods, "Panel");
         StringBuilder codeBuilder = new StringBuilder();
-        codeBuilder.append(indent(indent)).append("--").append(newLine());
-        codeBuilder.append(indent(indent))
-                .append("-- Called when a panel loaded ").append(newLine());
-        codeBuilder.append(indent(indent++)).append("function ")
-        .append(methodName).append("()").append(newLine());
-        codeBuilder.append(indent(indent)).append("panel_loaded = 1")
-        .append(newLine());
-        codeBuilder.append(indent(--indent)).append("end").append(newLine());
+        codeBuilder.append(utils.indent(indent)).append("--")
+        .append(utils.newLine());
+        codeBuilder.append(utils.indent(indent))
+        .append("-- Called when a panel loaded ")
+        .append(utils.newLine());
+        codeBuilder.append(utils.indent(indent++)).append("function ")
+        .append(methodName).append("()").append(utils.newLine());
+        codeBuilder.append(utils.indent(indent)).append("panel_loaded = 1")
+        .append(utils.newLine());
+        codeBuilder.append(utils.indent(--indent)).append("end")
+        .append(utils.newLine());
 
-        fillMethodData(methodGroup, methodName, codeBuilder.toString());
+        utils.fillMethodData(methodGroup, methodName, codeBuilder.toString());
         panel.setLuaPanelLoaded(methodName);
     }
 
     void createMidiReceivedMethod(LuaManagerMethodsType methods) {
         int indent = 0;
         StringBuilder codeBuilder = new StringBuilder();
-        codeBuilder.append(indent(indent)).append("--").append(newLine());
-        codeBuilder.append(indent(indent)).append(
+        codeBuilder.append(utils.indent(indent)).append("--")
+        .append(utils.newLine());
+        codeBuilder.append(utils.indent(indent)).append(
                 "-- Called when a panel receives a midi message ");
-        codeBuilder.append(indent(indent))
+        codeBuilder.append(utils.indent(indent))
         .append("(does not need to match any modulator mask)")
-        .append(newLine());
+        .append(utils.newLine());
         codeBuilder
-        .append(indent(indent))
+        .append(utils.indent(indent))
         .append("-- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html")
-        .append(newLine());
-        codeBuilder.append(indent(indent++))
-        .append("midiReceived = function(midi)").append(newLine());
-        codeBuilder.append(indent(indent))
+        .append(utils.newLine());
+        codeBuilder.append(utils.indent(indent++))
+        .append("midiReceived = function(midi)")
+        .append(utils.newLine());
+        codeBuilder.append(utils.indent(indent))
         .append("midiSize = midi:getData():getSize()")
-        .append(newLine());
-        for (DriverLuaHandler handler : driverDecorators) {
+        .append(utils.newLine());
+        for (MidiReceivedPartGenerator handler : midiReceivedList) {
             codeBuilder.append(handler.getMidiReceivedPart());
         }
-        codeBuilder.append(indent(--indent)).append("end").append(newLine());
-        fillMethodData(methods, "midiReceived", codeBuilder.toString());
+        codeBuilder.append(utils.indent(--indent)).append("end")
+        .append(utils.newLine());
+        utils.fillMethodData(methods, "midiReceived", codeBuilder.toString());
     }
 
     @Override
-    public void addDriverDecorator(DriverLuaHandler decorator) {
-        driverDecorators.add(decorator);
+    public void addMidiReceivedPartGenerator(MidiReceivedPartGenerator generator) {
+        midiReceivedList.add(generator);
+    }
+
+    @Override
+    public DriverLuaBean getDriverLuaBean(String prefix) {
+        if (driverValuesMap.containsKey(prefix)) {
+            return driverValuesMap.get(prefix);
+        } else {
+            DriverLuaBean luaBean = new DriverLuaBean();
+            driverValuesMap.put(prefix, luaBean);
+            return luaBean;
+        }
     }
 }

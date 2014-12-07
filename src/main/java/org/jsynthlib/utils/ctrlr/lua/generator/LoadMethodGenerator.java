@@ -1,30 +1,19 @@
-package org.jsynthlib.utils.ctrlr.lua.decorator;
+package org.jsynthlib.utils.ctrlr.lua.generator;
 
-import static org.jsynthlib.utils.ctrlr.lua.LuaMethodUtils.indent;
-import static org.jsynthlib.utils.ctrlr.lua.LuaMethodUtils.newLine;
+import org.ctrlr.panel.LuaMethodGroupType;
+import org.ctrlr.panel.LuaMethodType;
+import org.jsynthlib.utils.ctrlr.lua.DriverLuaBean;
 
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.name.Named;
-
-public class DefaultLoadMethodDecorator extends DriverLuaHandlerDecoratorBase {
-
-    public interface Factory {
-        DefaultLoadMethodDecorator newDefaultLoadMethodDecorator(
-                DriverLuaHandler decoratedHandler);
-    }
-
-    @Inject
-    public DefaultLoadMethodDecorator(@Named("prefix") String driverPrefix,
-            @Assisted DriverLuaHandler decoratedHandler) {
-        super(driverPrefix, decoratedHandler);
-    }
+public class LoadMethodGenerator extends MethodGenerator {
 
     @Override
-    protected String getLoadMethodBody() {
-        int indent = 1;
+    public LuaMethodType generateMethod(LuaMethodGroupType group,
+            DriverLuaBean values) {
+        int indent = 0;
         StringBuilder codeBuilder = new StringBuilder();
-        codeBuilder.append(super.getLoadMethodBody());
+        codeBuilder.append(indent(indent++)).append(
+                getMethodDecl(values.getLoadMethodName(), "modulator",
+                        "newValue"));
         codeBuilder.append(indent(indent++))
         .append("if panel_loaded == 1 then").append(newLine());
         // codeBuilder.append(indent(indent++)).append("if newValue == 1 then")
@@ -40,8 +29,8 @@ public class DefaultLoadMethodDecorator extends DriverLuaHandlerDecoratorBase {
         codeBuilder.append(indent(indent))
         .append("f:loadFileAsData(PatchDataLoaded)").append(newLine());
         codeBuilder.append(indent(indent))
-                .append(getAssignValuesCall("PatchDataLoaded", "true"))
-                .append(newLine());
+                .append(values.getAssignValuesCall("PatchDataLoaded", "true"))
+        .append(newLine());
         // Display Patch Loaded
         // codeBuilder.append(getInfoMessageCall("Patch Loaded", indent));
         codeBuilder.append(indent(--indent)).append("end").append(newLine());
@@ -49,6 +38,9 @@ public class DefaultLoadMethodDecorator extends DriverLuaHandlerDecoratorBase {
         // codeBuilder.append(indent(indent)).append("modulator:setValue(0,false)")
         // .append(newLine());
         codeBuilder.append(indent(--indent)).append("end").append(newLine());
-        return codeBuilder.toString();
+        codeBuilder.append(indent(--indent)).append("end").append(newLine());
+
+        return createMethod(group, values.getLoadMethodName(),
+                codeBuilder.toString());
     }
 }
