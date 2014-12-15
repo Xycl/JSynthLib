@@ -92,13 +92,9 @@ public class XMLBankDriver extends AbstractBankDriver implements IBankDriver {
         return null;
     }
 
-    protected IDriver getSingleDriver() {
+    public IDriver getSingleDriver() {
         XMLDevice xmlDevice = (XMLDevice) getDevice();
         IDriver driver = xmlDevice.getDriver(DriverType.PATCH, getPatchType());
-        if (driver == null) {
-            throw new IllegalStateException(
-                    "Has no Patch driver. Hence cannot create any single patches.");
-        }
         return driver;
     }
 
@@ -110,7 +106,7 @@ public class XMLBankDriver extends AbstractBankDriver implements IBankDriver {
         sysex[trimSize - 1] = (byte) 0xF7;
 
         IDriver driver = getSingleDriver();
-        Patch singlePatch = (Patch) driver.createPatch();
+        Patch singlePatch = driver.createPatch();
         // bank sysex
         BankPatch p = getPatchFactory().newBankPatch(sysex, this);
 

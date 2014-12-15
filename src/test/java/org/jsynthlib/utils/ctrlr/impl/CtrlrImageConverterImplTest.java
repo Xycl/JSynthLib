@@ -5,8 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.jsynthlib.utils.ctrlr.ResourceContainer;
 import org.jsynthlib.utils.ctrlr.XmlUtils;
+import org.jsynthlib.utils.ctrlr.service.ResourceContainer;
+import org.jsynthlib.utils.ctrlr.service.impl.CtrlrImageConverterImpl;
 import org.jsynthlib.xmldevice.IntParamSpec;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 import org.jsynthlib.xmldevice.PatchParams;

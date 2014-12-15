@@ -6,8 +6,8 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 
-import org.jsynthlib.utils.ctrlr.driverContext.ConverterDeviceFactory;
-import org.jsynthlib.utils.ctrlr.driverContext.SysexFormulaParser;
+import org.jsynthlib.utils.ctrlr.service.ConverterDeviceFactory;
+import org.jsynthlib.utils.ctrlr.service.SysexFormulaParser;
 import org.jsynthlib.xmldevice.HandlerReferenceBase.PropertyValue;
 import org.jsynthlib.xmldevice.MidiSenderReference;
 import org.junit.Before;

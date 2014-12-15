@@ -18,13 +18,16 @@ import org.ctrlr.panel.PanelDocument;
 import org.ctrlr.panel.PanelType;
 import org.ctrlr.panel.UiPanelEditorType;
 import org.jsynthlib.device.model.DeviceException;
-import org.jsynthlib.utils.ctrlr.builder.CtrlrPanelBuilder;
-import org.jsynthlib.utils.ctrlr.builder.PanelLuaManagerBuilder;
-import org.jsynthlib.utils.ctrlr.builder.component.CtrlrComponentBuilderBase;
-import org.jsynthlib.utils.ctrlr.builder.component.GroupBuilderBase;
-import org.jsynthlib.utils.ctrlr.builder.component.UiTabBuilder;
-import org.jsynthlib.utils.ctrlr.driverContext.XmlDriverParser;
-import org.jsynthlib.utils.ctrlr.lua.DriverLuaBean;
+import org.jsynthlib.utils.ctrlr.config.CtrlrGeneratorModule;
+import org.jsynthlib.utils.ctrlr.config.DriverInjectorFactory;
+import org.jsynthlib.utils.ctrlr.controller.GroupController;
+import org.jsynthlib.utils.ctrlr.controller.PanelController;
+import org.jsynthlib.utils.ctrlr.controller.PanelLuaManagerController;
+import org.jsynthlib.utils.ctrlr.controller.modulator.ModulatorControllerBase;
+import org.jsynthlib.utils.ctrlr.controller.modulator.UiTabController;
+import org.jsynthlib.utils.ctrlr.domain.CtrlrPanelModel;
+import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.service.XmlDriverParser;
 import org.jsynthlib.xmldevice.PatchParamGroup;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
@@ -89,13 +92,17 @@ public class CtrlrSynthGenerator {
     private final PanelDocument panelDocument;
 
     @Inject
-    private PanelLuaManagerBuilder luaManagerBuilder;
+    private PanelLuaManagerController.Factory luaManagerFactory;
 
     @Inject
-    private CtrlrPanelBuilder panelBuilder;
+    private PanelController.Factory panelControllerFactory;
 
     @Inject
     private DriverInjectorFactory driverInjectorFactory;
+
+    @Inject
+    private CtrlrPanelModel model;
+    private PanelController panelController;
 
     @Inject
     public CtrlrSynthGenerator(@Assisted("packageName") String packageName,
@@ -119,7 +126,14 @@ public class CtrlrSynthGenerator {
         XmlDeviceDefinitionDocument document =
                 XmlDeviceDefinitionDocument.Factory.parse(stream, xmlOptions);
         XmlDeviceDefinition xmldevice = document.getXmlDeviceDefinition();
-        PanelType panel = panelBuilder.newPanel(panelDocument, xmldevice);
+        panelController =
+                panelControllerFactory.newPanelController(panelDocument);
+        PanelType panel = panelController.getPanel();
+        PanelLuaManagerController luaManagerController =
+                luaManagerFactory.newPanelLuaManagerController(panel);
+        luaManagerController.init();
+        model.setPanel(panel);
+        model.setXmldevice(xmldevice);
 
         XmlDriverReferences xmldrivers = xmldevice.getDrivers();
         XmlDriverReference[] xmldriverArray =
@@ -127,71 +141,62 @@ public class CtrlrSynthGenerator {
 
         int width = 0;
         int height = 0;
-        HashMap<String, List<CtrlrComponentBuilderBase<?>>> modMap =
-                new HashMap<String, List<CtrlrComponentBuilderBase<?>>>();
+        HashMap<String, List<ModulatorControllerBase>> modMap =
+                new HashMap<String, List<ModulatorControllerBase>>();
         for (XmlDriverReference xmldriver : xmldriverArray) {
             try {
                 Injector childInjector =
                         driverInjectorFactory.newDriverinjector(xmldevice,
-                                xmldriver, panel,
-                                CtrlrGeneratorModule.getInjector());
+                                xmldriver, CtrlrGeneratorModule.getInjector());
                 XmlDriverParser driverParser =
                         childInjector.getInstance(XmlDriverParser.class);
-                List<CtrlrComponentBuilderBase<?>> modBuilders =
-                        driverParser.parseDriver();
-                DriverLuaBean luaBean = driverParser.getLuaBean();
-                if (modMap.containsKey(luaBean.getDriverPrefix())) {
-                    modMap.get(luaBean.getDriverPrefix()).addAll(modBuilders);
+                driverParser.parse();
+                DriverModel driverModel = driverParser.getModel();
+
+                if (driverModel.getEditorHeight() > height) {
+                    height = driverModel.getEditorHeight();
+                }
+
+                if (driverModel.getEditorWidth() > width) {
+                    width = driverModel.getEditorWidth();
+                }
+
+                if (modMap.containsKey(driverModel.getPrefix())) {
+                    modMap.get(driverModel.getPrefix()).addAll(
+                            driverModel.getRootModulators());
                 } else {
-                    modMap.put(luaBean.getDriverPrefix(), modBuilders);
+                    modMap.put(driverModel.getPrefix(),
+                            driverModel.getRootModulators());
                 }
-
-                if (luaBean.getPanelHeight() > height) {
-                    height = luaBean.getPanelHeight();
-                }
-
-                if (luaBean.getPanelWidth() > width) {
-                    width = luaBean.getPanelWidth();
-                }
-            } catch (IllegalArgumentException e) {
+            } catch (DriverParseException e) {
                 LOG.info("Skipping driver", e);
             }
         }
 
-        UiTabBuilder editorTabBuilder = newTabBuilder(modMap);
-        if (editorTabBuilder == null) {
-            int vstIndex = 0;
-            for (List<CtrlrComponentBuilderBase<?>> list : modMap.values()) {
-                for (CtrlrComponentBuilderBase<?> ctrlrComponentBuilderBase : list) {
-                    ctrlrComponentBuilderBase.createModulator(panel, null,
-                            vstIndex);
-                }
-            }
-        } else {
+        UiTabController editorTabBuilder = newTabBuilder(modMap, panel);
+        if (editorTabBuilder != null) {
             width += 10;
             height += 10;
             editorTabBuilder.setRect(new Rectangle(0, 0, width, height));
             editorTabBuilder.setTabsOrientation(1);
-            editorTabBuilder.createModulator(panel, null, 0);
         }
 
         setPanelBounds(panel, width + 5, height + 5);
 
-        luaManagerBuilder.createLuaManager(panel);
-
         saveFile();
     }
 
-    UiTabBuilder newTabBuilder(
-            HashMap<String, List<CtrlrComponentBuilderBase<?>>> modMap) {
+    UiTabController newTabBuilder(
+            HashMap<String, List<ModulatorControllerBase>> modMap,
+            PanelType panel) {
         if (modMap.size() < 2) {
             return null;
         }
         PatchParamGroup[] array = new PatchParamGroup[modMap.size()];
-        List<List<CtrlrComponentBuilderBase<?>>> compList =
-                new ArrayList<List<CtrlrComponentBuilderBase<?>>>();
+        List<List<ModulatorControllerBase>> compList =
+                new ArrayList<List<ModulatorControllerBase>>();
         int i = 0;
-        for (Entry<String, List<CtrlrComponentBuilderBase<?>>> entry : modMap
+        for (Entry<String, List<ModulatorControllerBase>> entry : modMap
                 .entrySet()) {
             PatchParamGroup group = PatchParamGroup.Factory.newInstance();
             group.setName(entry.getKey());
@@ -200,10 +205,12 @@ public class CtrlrSynthGenerator {
             i++;
         }
 
-        UiTabBuilder tabBuilder = new UiTabBuilder(array);
+        UiTabController tabBuilder = new UiTabController(array);
+        tabBuilder.setPanel(panel);
+        tabBuilder.init();
         for (int j = 0; j < compList.size(); j++) {
-            List<CtrlrComponentBuilderBase<?>> list = compList.get(j);
-            GroupBuilderBase<?> tabGroup = tabBuilder.getTabGroup(j);
+            List<ModulatorControllerBase> list = compList.get(j);
+            GroupController tabGroup = tabBuilder.getTabGroup(j);
             tabGroup.addAll(list);
         }
 

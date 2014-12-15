@@ -45,8 +45,8 @@ public class D50BankDriver extends XMLBankDriver {
         sb.append("Perform a Bulk dump for the ");
         sb.append(toString());
         sb.append(" by pressing the \"B.Dump\" button whie holding down \"Data Transfer\".\n\nPress OK when D-50 says \"Complete.\"");
-        PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(), sb.toString(),
-                "Get Patch", JOptionPane.WARNING_MESSAGE);
+        PopupHandlerProvider.get().showMessage(PatchEdit.getInstance(),
+                sb.toString(), "Get Patch", JOptionPane.WARNING_MESSAGE);
     }
 
     @Override
@@ -60,9 +60,37 @@ public class D50BankDriver extends XMLBankDriver {
 
     @Override
     public void storePatch(Patch bank, int bankNum, int patchNum) {
-        byte[] buf = {0x02, 0x00, 0x00};
+        byte[] buf = {
+                0x02, 0x00, 0x00 };
         System.arraycopy(buf, 0, bank.sysex, d50AddressOffset, buf.length);
         super.storePatch(bank, bankNum, patchNum);
+    }
+
+    @Override
+    public void putPatch(Patch bank, Patch single, int patchNum) {
+        // TODO Auto-generated method stub
+        super.putPatch(bank, single, patchNum);
+    }
+
+    @Override
+    public Patch getPatch(Patch bank, int patchNum) {
+        Patch patch = getSingleDriver().createPatch();
+        int bankHeaderSize = 8;
+        int bankFooterSize = 2;
+        int patchDataSize = 452;
+        int i = 0;
+        int j = 0;
+        while (j < patchDataSize) {
+            if (bank.sysex[i] == (byte) 0xF0) {
+                i += bankHeaderSize;
+            } else if (bank.sysex[i + bankFooterSize - 1] == (byte) 0xF7) {
+                i += bankFooterSize;
+            }
+            patch.sysex[j] = bank.sysex[i];
+            j++;
+            i++;
+        }
+        return patch;
     }
 
     public int getD50ReverbDataOffset() {

@@ -6,8 +6,8 @@ package org.jsynthlib.utils.ctrlr;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.jsynthlib.utils.ctrlr.driverContext.ConverterDeviceFactory;
-import org.jsynthlib.utils.ctrlr.driverContext.ParameterOffsetParser;
+import org.jsynthlib.utils.ctrlr.service.ConverterDeviceFactory;
+import org.jsynthlib.utils.ctrlr.service.ParameterOffsetParser;
 import org.jsynthlib.xmldevice.HandlerReferenceBase.PropertyValue;
 import org.jsynthlib.xmldevice.ParamModelReference;
 import org.junit.Before;
