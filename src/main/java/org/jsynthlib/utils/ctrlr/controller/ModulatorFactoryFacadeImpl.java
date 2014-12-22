@@ -4,6 +4,7 @@ import org.jsynthlib.utils.ctrlr.controller.modulator.NameCharSliderController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.PatchNameController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiButtonController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiCombinedGroupController;
+import org.jsynthlib.utils.ctrlr.controller.modulator.UiComboController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiEnvelopeController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiGlobalButtonController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiGlobalButtonController.Globalbuttons;
@@ -29,6 +30,8 @@ import com.google.inject.Singleton;
 @Singleton
 public class ModulatorFactoryFacadeImpl implements ModulatorFactoryFacade {
 
+    @Inject
+    private UiComboController.Factory uiComboFactory;
     @Inject
     private PatchNameController.Factory patchNameFactory;
 
@@ -206,6 +209,14 @@ public class ModulatorFactoryFacadeImpl implements ModulatorFactoryFacade {
             Globalbuttons button) {
         UiGlobalButtonController controller =
                 globalButtonFactory.newUiGlobalButtonController(button);
+        controller.init();
+        return controller;
+    }
+
+    @Override
+    public UiComboController newUiComboController(SliderSpecWrapper sliderSpec) {
+        UiComboController controller =
+                uiComboFactory.newUiComboController(sliderSpec);
         controller.init();
         return controller;
     }

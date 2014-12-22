@@ -38,6 +38,10 @@ public abstract class XmlDriverParser {
     private LuaFactoryFacade luaFacade;
 
     @Inject
+    @Named("editor")
+    private LuaMethodProvider luaMethodProvider;
+
+    @Inject
     @Named("prefix")
     protected String prefix;
 
@@ -65,6 +69,7 @@ public abstract class XmlDriverParser {
             luaFacade.newSaveMenuController();
             luaFacade.newWriteMenuController();
             model.driverParseComplete();
+            luaMethodProvider.driverParseComplete();
         }
     }
 

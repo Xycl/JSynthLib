@@ -46,9 +46,6 @@ implements Observer {
     private XmlDriverDefinition driverDef;
     private final String prefix;
 
-    private String getPatchNameMethodName;
-    private String assemblePatchFromBankMethodName;
-    private String assignValuesMethodName;
     private final DriverModel model;
     private final String bankDataVar;
     private int singlePatchSize = -1;
@@ -59,9 +56,7 @@ implements Observer {
         super(prefix + "_LoadBank");
         this.prefix = prefix;
         this.model = model;
-        bankDataVar = prefix + "BankData";
-        setBankDataVar(bankDataVar);
-        model.setBankDataVarName(bankDataVar);
+        bankDataVar = model.getBankDataVarName();
         panelModel.putGlobalVariable(bankDataVar, "nil");
 
         model.addObserver(this);
@@ -69,9 +64,7 @@ implements Observer {
 
     @Override
     protected void checkPreconditions() throws PreConditionsNotMetException {
-        if (assemblePatchFromBankMethodName == null
-                || getPatchNameMethodName == null
-                || assignValuesMethodName == null || singlePatchSize == -1) {
+        if (singlePatchSize == -1) {
             throw new PreConditionsNotMetException();
         }
         super.checkPreconditions();
@@ -81,9 +74,6 @@ implements Observer {
     protected void initialize() {
         super.initialize();
         model.deleteObserver(this);
-        if (model.getLoadMenuName() == null) {
-            model.setLoadMenuName(getMethodName());
-        }
     }
 
     @Override
@@ -125,24 +115,25 @@ implements Observer {
         .append(newLine());
 
         code.append(indent(indent)).append("local ").append(patchDataVar)
-                .append(" = MemoryBlock(").append(singlePatchSize)
-                .append(", false)")
+        .append(" = MemoryBlock(").append(singlePatchSize)
+        .append(", false)")
         .append(newLine());
 
         code.append(indent(indent))
-        .append(getMethodCall(assemblePatchFromBankMethodName,
+        .append(getMethodCall(
+                model.getAssembleValuesFromBankMethodName(),
                 patchDataVar, loopIndex)).append(newLine());
-
-        code.append(indent(indent)).append(patchNameTableVar).append("[i] = ")
-        .append(getMethodCall(getPatchNameMethodName, patchDataVar))
-        .append(newLine());
 
         code.append(indent(indent.getAndIncrement())).append("if ")
         .append(loopIndex).append(" == 1 then").append(newLine());
 
         code.append(indent(indent))
-        .append(getMethodCall(assignValuesMethodName, patchDataVar,
+        .append(getMethodCall(model.getAssignValuesMethodName(),
+                patchDataVar,
                 "true")).append(newLine());
+        code.append(indent(indent)).append("getModulatorByName(")
+                .append(model.getPatchSelectName()).append("):setValue(0)")
+                .append(newLine());
 
         code.append(indent(indent.decrementAndGet())).append("end")
         .append(newLine());
@@ -163,12 +154,7 @@ implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        assemblePatchFromBankMethodName =
-                model.getAssembleValuesFromBankMethodName();
-        getPatchNameMethodName = model.getGetNameMethodName();
-        assignValuesMethodName = model.getAssignValuesMethodName();
         singlePatchSize = model.getSinglePatchSize();
-        setBankDataVar(model.getBankDataVarName());
         init();
     }
 

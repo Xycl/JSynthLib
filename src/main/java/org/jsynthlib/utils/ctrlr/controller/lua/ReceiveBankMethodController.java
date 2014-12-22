@@ -21,11 +21,7 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.jsynthlib.utils.ctrlr.domain.DriverModel;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -35,7 +31,7 @@ import com.google.inject.name.Named;
  * @author Pascal Collberg
  */
 public class ReceiveBankMethodController extends ReceiveMethodControllerBase
-implements Observer {
+{
 
     public interface Factory {
         ReceiveBankMethodController newReceiveBankMethodController(
@@ -43,14 +39,9 @@ implements Observer {
                 @Assisted("popupList") List<String> popupList);
     }
 
-    private final DriverModel model;
-
     @Inject
-    public ReceiveBankMethodController(@Named("prefix") String prefix,
-            DriverModel model) {
+    public ReceiveBankMethodController(@Named("prefix") String prefix) {
         super(prefix + "_ReceiveBank");
-        model.addObserver(this);
-        this.model = model;
     }
 
     @Override
@@ -68,15 +59,6 @@ implements Observer {
     }
 
     @Override
-    protected void initialize() {
-        super.initialize();
-        model.deleteObserver(this);
-        if (model.getReceiveMenuName() == null) {
-            model.setReceiveMenuName(getMethodName());
-        }
-    }
-
-    @Override
     protected void writeLuaMethodCode() {
         AtomicInteger indent = new AtomicInteger(0);
         StringBuilder code = new StringBuilder();
@@ -89,11 +71,5 @@ implements Observer {
         code.append(getReceiveMethodBase(indent)).append(newLine());
 
         setLuaMethodCode(code.toString());
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        setBankDataVar(model.getBankDataVarName());
-        init();
     }
 }

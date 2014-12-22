@@ -44,7 +44,7 @@ Observer {
 
     public enum Globalbuttons {
 
-        RECEIVE("Reeive"), LOAD("Load"), SAVE("Save"), WRITE("Write");
+        RECEIVE("Receive"), LOAD("Load"), SAVE("Save"), WRITE("Write");
 
         private final String name;
 

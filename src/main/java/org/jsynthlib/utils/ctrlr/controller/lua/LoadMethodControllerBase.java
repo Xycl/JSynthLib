@@ -22,7 +22,9 @@ package org.jsynthlib.utils.ctrlr.controller.lua;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
+import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+
+import com.google.inject.Inject;
 
 /**
  * @author Pascal Collberg
@@ -30,19 +32,12 @@ import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 public abstract class LoadMethodControllerBase extends
 EditorLuaMethodControllerBase {
 
+    @Inject
+    private DriverModel model;
     protected static final String loadedDataVar = "loadedData";
-    private String bankDataVar;
 
     public LoadMethodControllerBase(String methodName) {
         super(methodName);
-    }
-
-    @Override
-    protected void checkPreconditions() throws PreConditionsNotMetException {
-        super.checkPreconditions();
-        if (bankDataVar == null) {
-            throw new PreConditionsNotMetException();
-        }
     }
 
     protected String getLoadMethodStart(AtomicInteger indent,
@@ -52,7 +47,9 @@ EditorLuaMethodControllerBase {
                 getMethodDecl("modulator", "newValue"));
         code.append(getPanelInitCheck(indent)).append(newLine());
 
-        code.append(getSaveCurrentWorkPrompt(bankDataVar, indent)).append(
+        code.append(
+                getSaveCurrentWorkPrompt(model.getBankDataVarName(), indent))
+                .append(
                 newLine());
 
         code.append(indent(indent)).append("f = utils.openFileWindow (\"")
@@ -61,17 +58,9 @@ EditorLuaMethodControllerBase {
         code.append(indent(indent.getAndIncrement()))
         .append("if f:existsAsFile() then").append(newLine());
         code.append(indent(indent)).append("local ").append(loadedDataVar)
-                .append(" = MemoryBlock(f:getSize(), false)").append(newLine());
+        .append(" = MemoryBlock(f:getSize(), false)").append(newLine());
         code.append(indent(indent)).append("f:loadFileAsData(")
         .append(loadedDataVar).append(")").append(newLine());
         return code.toString();
-    }
-
-    public void setBankDataVar(String bankDataVar) {
-        this.bankDataVar = bankDataVar;
-    }
-
-    protected String getBankDataVar() {
-        return bankDataVar;
     }
 }

@@ -41,6 +41,8 @@ org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesToBankController.Factory,
 org.jsynthlib.utils.ctrlr.controller.lua.LoadBankMethodController.Factory,
 org.jsynthlib.utils.ctrlr.controller.lua.AssembleValuesFromBankController.Factory,
 org.jsynthlib.utils.ctrlr.controller.lua.ReceiveBankMethodController.Factory,
-org.jsynthlib.utils.ctrlr.controller.lua.SaveBankMethodController.Factory {
+org.jsynthlib.utils.ctrlr.controller.lua.SaveBankMethodController.Factory,
+org.jsynthlib.utils.ctrlr.controller.lua.SelectPatchMethodController.Factory,
+org.jsynthlib.utils.ctrlr.controller.lua.JavaParsedMethodController.Factory {
 
 }

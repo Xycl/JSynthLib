@@ -24,25 +24,17 @@ public class GetNameMethodController extends EditorLuaMethodControllerBase {
     private XmlDriverDefinition driverDef;
     private final String[] chars;
 
-    @Inject
-    private DriverModel model;
-
     @AssistedInject
     public GetNameMethodController(@Assisted String[] chars,
-            @Named("prefix") String prefix) {
-        super(prefix + "_GetPatchName");
+            @Named("prefix") String prefix, DriverModel model) {
+        super(model.getGetNameMethodName());
         this.chars = chars;
     }
 
     @AssistedInject
-    public GetNameMethodController(@Named("prefix") String prefix) {
-        this(null, prefix);
-    }
-
-    @Override
-    protected void initialize() {
-        super.initialize();
-        model.setGetNameMethodName(getMethodName());
+    public GetNameMethodController(@Named("prefix") String prefix,
+            DriverModel model) {
+        this(null, prefix, model);
     }
 
     String getStringArray(List<String> array) {

@@ -1,20 +1,16 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import org.jsynthlib.utils.SysexUtils;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
-import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 import org.jsynthlib.utils.ctrlr.domain.WritePatchMessage;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 
-public class WritePatchMethodController extends EditorLuaMethodControllerBase
-implements Observer {
+public class WritePatchMethodController extends EditorLuaMethodControllerBase {
 
     public interface Factory {
         WritePatchMethodController newWriteMethodController(
@@ -29,7 +25,6 @@ implements Observer {
     private final boolean variableBanks;
     private final boolean variablePatches;
     private final List<WritePatchMessage> writeMsgList;
-    private String assembleValuesMethodName;
     private final List<String> popups;
 
     @Inject
@@ -45,28 +40,6 @@ implements Observer {
         this.variablePatches = variablePatches;
         this.writeMsgList = writeMsgList;
         this.popups = popups;
-        model.addObserver(this);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        assembleValuesMethodName = model.getAssembleValuesMethodName();
-        init();
-    }
-
-    @Override
-    protected void checkPreconditions() throws PreConditionsNotMetException {
-        if (assembleValuesMethodName == null) {
-            throw new PreConditionsNotMetException();
-        }
-        super.checkPreconditions();
-    }
-
-    @Override
-    protected void initialize() {
-        super.initialize();
-        model.deleteObserver(this);
-        model.setWriteMenuName(getMethodName());
     }
 
     @Override
@@ -100,7 +73,8 @@ implements Observer {
                 .append("PatchDataCurrent = MemoryBlock()")
                 .append(newLine());
                 code.append(indent(indent))
-                .append(getMethodCall(assembleValuesMethodName,
+                .append(getMethodCall(
+                        model.getAssembleValuesMethodName(),
                         "PatchDataCurrent")).append(newLine());
                 code.append(indent(indent))
                 .append("m = CtrlrMidiMessage(PatchDataCurrent)")

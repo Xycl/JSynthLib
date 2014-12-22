@@ -24,6 +24,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -40,25 +41,16 @@ Observer {
         WriteMenuController newWriteMenuController();
     }
 
-    private final DriverModel model;
-
     @Inject
-    public WriteMenuController(@Named("prefix") String prefix, DriverModel model) {
-        super(prefix + "_WriteMenu",
-                "Write Single Patch or Bank onto the synth");
-        this.model = model;
-        model.addObserver(this);
-    }
-
-    @Override
-    protected void notifyModel() {
-        model.deleteObserver(this);
-        model.setWriteMenuName(getMethodName());
+    public WriteMenuController(@Named("prefix") String prefix,
+            DriverModel model, @Named("editor") LuaMethodProvider luaProvider) {
+        super(model.getWriteMenuName(),
+                "Write Single Patch or Bank onto the synth", luaProvider);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        setList(model.getWriteMenuOptions());
-        initialize();
+        setList(getLuaProvider().getWriteMenuOptions());
+        init();
     }
 }

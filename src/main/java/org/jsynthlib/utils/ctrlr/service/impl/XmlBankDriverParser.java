@@ -20,9 +20,12 @@
  */
 package org.jsynthlib.utils.ctrlr.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Named;
 
 import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.device.model.XMLBankDriver;
@@ -35,10 +38,11 @@ import org.jsynthlib.utils.ctrlr.controller.lua.LoadBankMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.ReceiveBankMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SaveBankMethodController;
 import org.jsynthlib.utils.ctrlr.domain.BankToPatchRelationBean;
-import org.jsynthlib.utils.ctrlr.domain.DriverModel;
 import org.jsynthlib.utils.ctrlr.domain.MethodDescriptionPair;
+import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 import org.jsynthlib.utils.ctrlr.service.PopupManager.PopupSession;
 import org.jsynthlib.utils.ctrlr.service.XmlDriverParser;
+import org.jsynthlib.utils.ctrlr.service.codeparser.BankDriverAnalyzer;
 import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument.XmlBankDriverDefinition;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
@@ -54,13 +58,21 @@ public class XmlBankDriverParser extends XmlDriverParser {
     private final XmlBankDriverDefinition driverDef;
 
     @Inject
+    private BankDriverAnalyzer bankDriverAnalyzer;
+
+    @Inject
     private CtrlrMidiService midiService;
 
     @Inject
     private LuaFactoryFacade luaFacade;
 
     @Inject
-    private DriverModel model;
+    @Named("editor")
+    private LuaMethodProvider luaMethodProvider;
+
+    @Inject
+    @Named("className")
+    private String driverClassName;
 
     @Inject
     public XmlBankDriverParser(XmlDriverDefinition driverDef) {
@@ -75,17 +87,26 @@ public class XmlBankDriverParser extends XmlDriverParser {
                 new ArrayList<BankToPatchRelationBean>();
         luaFacade.newAssignValuesToBankController(putPatchData);
         luaFacade.newAssembleValuesFromBankController(putPatchData);
+
+        try {
+            Class<? extends XMLBankDriver> bankDriverClass =
+                    (Class<? extends XMLBankDriver>) Class.forName(driverClassName);
+            bankDriverAnalyzer.parseBankDriver(bankDriverClass);
+        } catch (ClassNotFoundException e) {
+            throw new DriverParseException(e);
+        } catch (IOException e) {
+        }
         LoadBankMethodController loadBankController =
                 luaFacade.newLoadBankMethodController();
-        model.addLoadMenuOption(new MethodDescriptionPair(loadBankController
-                .getMethodName(), description));
+        luaMethodProvider.addLoadMenuOption(new MethodDescriptionPair(
+                loadBankController.getMethodName(), description));
         SaveBankMethodController saveBankController =
                 luaFacade.newSaveBankMethodController();
-        model.addSaveMenuOption(new MethodDescriptionPair(saveBankController
-                .getMethodName(), description));
+        luaMethodProvider.addSaveMenuOption(new MethodDescriptionPair(
+                saveBankController.getMethodName(), description));
         ReceiveBankMethodController receiveBankController =
                 parseBankDumpMethod();
-        model.addReceiveMenuOption(new MethodDescriptionPair(
+        luaMethodProvider.addReceiveMenuOption(new MethodDescriptionPair(
                 receiveBankController.getMethodName(), "Bank"));
     }
 

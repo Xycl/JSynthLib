@@ -46,7 +46,7 @@ public abstract class LuaMethodControllerBase {
         method.setLuaMethodCode(luaMethodCode);
     }
 
-    protected String getPanelInitCheck(AtomicInteger indent) {
+    public String getPanelInitCheck(AtomicInteger indent) {
         StringBuilder codeBuilder = new StringBuilder();
         codeBuilder
         .append(indent(indent))
@@ -62,7 +62,7 @@ public abstract class LuaMethodControllerBase {
         return codeBuilder.toString();
     }
 
-    protected String getMethodCall(String methodName, String... args) {
+    public String getMethodCall(String methodName, String... args) {
         StringBuilder sb = new StringBuilder();
         sb.append(methodName).append("(");
         boolean first = true;
@@ -77,28 +77,30 @@ public abstract class LuaMethodControllerBase {
         return sb.append(")").toString();
     }
 
-    protected String getMethodDecl(String... args) {
+    public String getMethodDecl(String... args) {
         StringBuilder sb =
                 new StringBuilder().append("function ").append(methodName)
                 .append(" (");
-        boolean first = true;
-        for (String arg : args) {
-            if (first) {
-                first = false;
-            } else {
-                sb.append(", ");
+        if (args != null) {
+            boolean first = true;
+            for (String arg : args) {
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(", ");
+                }
+                sb.append(arg);
             }
-            sb.append(arg);
         }
         sb.append(")").append(newLine());
         return sb.toString();
     }
 
-    protected String indent(AtomicInteger numTabs) {
+    public String indent(AtomicInteger numTabs) {
         return indent(numTabs.get());
     }
 
-    protected String indent(int numTabs) {
+    public String indent(int numTabs) {
         StringBuilder tabBuilder = new StringBuilder();
         for (int i = 0; i < numTabs; i++) {
             tabBuilder.append("&#9;");
@@ -106,8 +108,8 @@ public abstract class LuaMethodControllerBase {
         return tabBuilder.toString();
     }
 
-    protected String newLine() {
-        return "&#13;&#10;";
+    public String newLine() {
+        return "&#10;";
     }
 
     String getMessageCall(boolean warning, String title, String msg) {
@@ -126,23 +128,23 @@ public abstract class LuaMethodControllerBase {
         return codeBuilder.toString();
     }
 
-    protected String getInfoOkCancelMessageCall(String title, String msg) {
+    public String getInfoOkCancelMessageCall(String title, String msg) {
         StringBuilder codeBuilder = new StringBuilder();
 
         String escapedMsg =
                 StringEscapeUtils.escapeJava(msg).replace("\n", "\\n");
         codeBuilder
-                .append("AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, \"")
+        .append("AlertWindow.showOkCancelBox(AlertWindow.InfoIcon, \"")
         .append(title).append("\", \"").append(escapedMsg)
-                .append("\", \"OK\", \"Cancel\")");
+        .append("\", \"OK\", \"Cancel\")");
         return codeBuilder.toString();
     }
 
-    protected String getInfoMessageCall(String msg) {
+    public String getInfoMessageCall(String msg) {
         return getMessageCall(false, "Information", msg);
     }
 
-    protected String getWarnMessageCall(String msg) {
+    public String getWarnMessageCall(String msg) {
         return getMessageCall(true, "Warning", msg);
     }
 

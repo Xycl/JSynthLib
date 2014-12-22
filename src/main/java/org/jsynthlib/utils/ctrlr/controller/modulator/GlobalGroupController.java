@@ -8,6 +8,10 @@ import org.jsynthlib.utils.ctrlr.controller.ModulatorFactoryFacade;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiGlobalButtonController.Globalbuttons;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
 import org.jsynthlib.utils.ctrlr.domain.GlobalSliderSpecWrapper;
+import org.jsynthlib.utils.ctrlr.domain.SliderSpecWrapper;
+import org.jsynthlib.xmldevice.MidiSenderReference;
+import org.jsynthlib.xmldevice.ParamModelReference;
+import org.jsynthlib.xmldevice.StringArray;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
 import com.google.inject.Inject;
@@ -15,7 +19,8 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
 @Singleton
-public class GlobalGroupController extends UiGroupController implements Observer {
+public class GlobalGroupController extends UiGroupController implements
+Observer {
 
     private int xOffset = 4;
 
@@ -27,9 +32,12 @@ public class GlobalGroupController extends UiGroupController implements Observer
     private String prefix;
 
     @Inject
+    private DriverModel model;
+
+    @Inject
     private ModulatorFactoryFacade factoryFacade;
 
-    private UiLabelController infoLabelBuilder;
+    // private UiLabelController infoLabelBuilder;
 
     @Inject
     public GlobalGroupController(DriverModel model) {
@@ -42,10 +50,10 @@ public class GlobalGroupController extends UiGroupController implements Observer
         super.init();
         setModulatorName(prefix + "_globalPatchControls");
         for (Globalbuttons button : Globalbuttons.values()) {
-            Rectangle rect = newRectangle(40, 20);
+            Rectangle rect = newRectangle(50, 20);
             UiGlobalButtonController controller =
                     factoryFacade.newUiGlobalButtonController(button);
-            controller.setWidth(40);
+            controller.setWidth(50);
             controller.setHeight(20);
             controller.setRect(rect);
             add(controller);
@@ -59,14 +67,28 @@ public class GlobalGroupController extends UiGroupController implements Observer
             add(factoryFacade.newNameCharSliderController(wrapper));
         }
 
-        infoLabelBuilder =
-                factoryFacade.newUiLabelController("driverStatus");
-        infoLabelBuilder.setLabelBgColor("0xFF000000");
-        infoLabelBuilder.setLabelVisible(false);
-        infoLabelBuilder.setRect(newRectangle(400, 40));
-        add(infoLabelBuilder);
-    }
+        PatchNumberSliderSpec sliderSpec = new PatchNumberSliderSpec();
+        if (sliderSpec.getMax() > 1) {
+            UiComboController patchSelectController =
+                    factoryFacade.newUiComboController(sliderSpec);
+            patchSelectController.setUiComboContent(sliderSpec
+                    .getComboContent());
+            patchSelectController.setComponentVisibleName("Patch");
+            patchSelectController.setWidth(100);
+            patchSelectController.setHeight(40);
+            patchSelectController.setRect(newRectangle(4, 100, 40));
+            patchSelectController.setLuaModulatorValueChange(model
+                    .getPatchSelectMethodName());
+            add(patchSelectController);
+        }
 
+        // infoLabelBuilder =
+        // factoryFacade.newUiLabelController("driverStatus");
+        // infoLabelBuilder.setLabelBgColor("0xFF000000");
+        // infoLabelBuilder.setLabelVisible(false);
+        // infoLabelBuilder.setRect(newRectangle(400, 40));
+        // add(infoLabelBuilder);
+    }
 
     @Override
     public boolean add(ModulatorControllerBase e) {
@@ -74,14 +96,20 @@ public class GlobalGroupController extends UiGroupController implements Observer
             PatchNameController pnc = (PatchNameController) e;
             Rectangle pnRect =
                     newRectangle(driverDef.getPatchNameSize() * 10 + 10, 20);
+            pnc.setUiLabelFontSize(16);
+            pnc.setUiLabelJustification("left");
             pnc.setRect(pnRect);
         }
         return super.add(e);
     }
 
     Rectangle newRectangle(int width, int height) {
+        int y = 20;
+        return newRectangle(y, width, height);
+    }
+
+    Rectangle newRectangle(int y, int width, int height) {
         int x = xOffset;
-        int y = 4;
         xOffset += width + 5;
         return new Rectangle(x, y, width, height);
     }
@@ -98,7 +126,67 @@ public class GlobalGroupController extends UiGroupController implements Observer
                     sliderBuilder.setPatchCharMax(model.getPatchNameCharMax());
                 }
             }
-            infoLabelBuilder.setModulatorName(model.getInfoLabelName());
+            // infoLabelBuilder.setModulatorName(model.getInfoLabelName());
         }
+    }
+
+    class PatchNumberSliderSpec implements SliderSpecWrapper {
+
+        private final String[] stringArray;
+        private final String comboContent;
+
+        public PatchNumberSliderSpec() {
+            StringArray patchNumbers = driverDef.getPatchNumbers();
+            stringArray = patchNumbers.getStringArray();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < stringArray.length; i++) {
+                String string = stringArray[i];
+                if (i > 0) {
+                    sb.append("\n");
+                }
+                sb.append(string).append("=").append(i);
+            }
+            this.comboContent = sb.toString();
+        }
+
+        @Override
+        public String getName() {
+            return model.getPatchSelectName();
+        }
+
+        @Override
+        public int getMin() {
+            return 0;
+        }
+
+        @Override
+        public int getMax() {
+            return stringArray.length;
+        }
+
+        @Override
+        public MidiSenderReference getMidiSender() {
+            return null;
+        }
+
+        @Override
+        public boolean isSetMidiSender() {
+            return false;
+        }
+
+        @Override
+        public boolean isSetParamModel() {
+            return false;
+        }
+
+        @Override
+        public ParamModelReference getParamModel() {
+            return null;
+        }
+
+        public String getComboContent() {
+            return comboContent;
+        }
+
     }
 }

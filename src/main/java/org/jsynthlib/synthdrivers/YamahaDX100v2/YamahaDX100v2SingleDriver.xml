@@ -3,7 +3,7 @@
   <xd:name>Yamaha DX100 Single</xd:name>
   <xd:infoText>The Yamaha synth is susceptable to internal midi buffer overflow if you send it a lot of Data quickly. With JSynthLib, this can happenif you are using a fader box and throwing the faders around rapidly. Otherwise, it should not be a problem JSynthLib supports the DX21/27/100 as both a Single and Bank Librarian and also supports Patch Editing.Note that though these three synths share one driver, some parameters may only effect the sound on certain models. Therefore, under &#39;configuration&#39; you can choose which of the three models you own.</xd:infoText>
   <xd:authors>Brian Klock</xd:authors>
-  <xd:patchType>Single</xd:patchType>
+  <xd:patchType>Voice</xd:patchType>
   <xd:patchSize>101</xd:patchSize>
   <xd:sysexID>F043**03005D</xd:sysexID>
   <xd:patchNumbers>

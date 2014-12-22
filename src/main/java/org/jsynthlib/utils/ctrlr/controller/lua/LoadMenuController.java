@@ -20,12 +20,10 @@
  */
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
-import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
-import org.jsynthlib.utils.ctrlr.domain.MethodDescriptionPair;
+import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -35,35 +33,21 @@ import com.google.inject.name.Named;
  * @author Pascal Collberg
  */
 @Singleton
-public class LoadMenuController extends MenuMethodControllerBase implements
-Observer {
+public class LoadMenuController extends MenuMethodControllerBase {
 
     public interface Factory {
         LoadMenuController newLoadMenuController();
     }
 
-    private final DriverModel model;
-
     @Inject
-    public LoadMenuController(@Named("prefix") String prefix, DriverModel model) {
-        super(prefix + "_LoadMenu", "Load data from file");
-        model.addObserver(this);
-        this.model = model;
+    public LoadMenuController(DriverModel model,
+            @Named("editor") LuaMethodProvider luaProvider) {
+        super(model.getLoadMenuName(), "Load data from file", luaProvider);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg instanceof List<?>) {
-            if (((List<?>) arg).get(0) instanceof MethodDescriptionPair) {
-                setList(model.getLoadMenuOptions());
-                init();
-            }
-        }
-    }
-
-    @Override
-    protected void notifyModel() {
-        model.deleteObserver(this);
-        model.setLoadMenuName(getMethodName());
+        setList(getLuaProvider().getLoadMenuOptions());
+        init();
     }
 }

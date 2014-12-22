@@ -24,7 +24,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jsynthlib.utils.SysexUtils;
-import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
+import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+
+import com.google.inject.Inject;
 
 /**
  * @author Pascal Collberg
@@ -32,10 +34,11 @@ import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 public abstract class ReceiveMethodControllerBase extends
 EditorLuaMethodControllerBase {
 
+    @Inject
+    private DriverModel model;
+
     private List<String> receiveMidiMessages;
     private List<String> receivePopupList;
-
-    private String bankDataVar;
 
     public ReceiveMethodControllerBase(String methodName) {
         super(methodName);
@@ -47,7 +50,9 @@ EditorLuaMethodControllerBase {
                 getMethodDecl("modulator", "newValue"));
 
         code.append(getPanelInitCheck(indent)).append(newLine());
-        code.append(getSaveCurrentWorkPrompt(bankDataVar, indent)).append(
+        code.append(
+                getSaveCurrentWorkPrompt(model.getBankDataVarName(), indent))
+                .append(
                 newLine());
 
         for (String msg : receiveMidiMessages) {
@@ -79,18 +84,4 @@ EditorLuaMethodControllerBase {
     public void setReceivePopupList(List<String> receivePopupList) {
         this.receivePopupList = receivePopupList;
     }
-
-    public void setBankDataVar(String bankDataVar) {
-        this.bankDataVar = bankDataVar;
-    }
-
-    @Override
-    protected void checkPreconditions() throws PreConditionsNotMetException {
-        super.checkPreconditions();
-        if (bankDataVar == null || receiveMidiMessages == null
-                && receivePopupList == null) {
-            throw new PreConditionsNotMetException();
-        }
-    }
-
 }

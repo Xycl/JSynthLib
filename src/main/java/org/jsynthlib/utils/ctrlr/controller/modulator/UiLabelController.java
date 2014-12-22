@@ -9,7 +9,6 @@ import com.google.inject.name.Named;
 
 public class UiLabelController extends ModulatorControllerBase {
 
-
     public interface Factory {
         UiLabelController newUiLabelController(String name);
 
@@ -17,7 +16,8 @@ public class UiLabelController extends ModulatorControllerBase {
     }
 
     @Inject
-    @Named("prefix") private String prefix;
+    @Named("prefix")
+    private String prefix;
     private final String name;
     private int length;
 
@@ -44,13 +44,12 @@ public class UiLabelController extends ModulatorControllerBase {
 
         setUiLabelText(name);
         getComponent().setComponentLabelVisible(0);
-
+        setUiLabelJustification("centred");
         getComponent().setUiLabelTextColour("ffff8fd8");
         getComponent().setUiLabelOutline(0);
-        getComponent().setUiLabelJustification("centred");
-        getComponent().setUiLabelFitFont(0);
-        getComponent().setUiLabelFont("Arial;11;0;0;0;0;1");
 
+        getComponent().setUiLabelFitFont(0);
+        setUiLabelFontSize(11);
         getComponent().setUiLabelDisplaysAllValues(0);
         getComponent().setUiLabelDisplayFormat("%n(%N) ( %v(%h)");
         getComponent().setUiLabelInputHighlightTextColour("0xffffffff");
@@ -59,6 +58,16 @@ public class UiLabelController extends ModulatorControllerBase {
         getComponent().setUiLabelEditFocusDiscardsChanges(1);
         getComponent().setUiLabelInputAllowedChars("");
         getComponent().setUiType("uiLabel");
+    }
+
+    public final void setUiLabelFontSize(int size) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Arial;").append(size).append(";0;0;0;0;1");
+        getComponent().setUiLabelFont(sb.toString());
+    }
+
+    public final void setUiLabelJustification(String justification) {
+        getComponent().setUiLabelJustification(justification);
     }
 
     public final void setLength(int length) {

@@ -20,40 +20,40 @@
  */
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jsynthlib.utils.ctrlr.domain.MethodDescriptionPair;
 import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
+import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 
 /**
  * @author Pascal Collberg
  */
 public abstract class MenuMethodControllerBase extends
-EditorLuaMethodControllerBase {
+EditorLuaMethodControllerBase implements Observer {
 
     private final String menuHeader;
     private List<MethodDescriptionPair> list;
+    private final LuaMethodProvider luaProvider;
 
-    public MenuMethodControllerBase(String methodName, String menuHeader) {
+    public MenuMethodControllerBase(String methodName, String menuHeader,
+            LuaMethodProvider luaProvider) {
         super(methodName);
+        luaProvider.addObserver(this);
+        this.luaProvider = luaProvider;
         this.menuHeader = menuHeader;
+        this.list = new ArrayList<MethodDescriptionPair>();
     }
-
-    protected abstract void notifyModel();
 
     @Override
     protected void checkPreconditions() throws PreConditionsNotMetException {
-        if (list == null || list.size() <= 1) {
+        if (list.size() <= 1) {
             throw new PreConditionsNotMetException();
         }
         super.checkPreconditions();
-    }
-
-    @Override
-    protected void initialize() {
-        super.initialize();
-        notifyModel();
     }
 
     @Override
@@ -101,11 +101,11 @@ EditorLuaMethodControllerBase {
         setLuaMethodCode(code.toString());
     }
 
-    public List<MethodDescriptionPair> getList() {
-        return list;
-    }
-
     public void setList(List<MethodDescriptionPair> list) {
         this.list = list;
+    }
+
+    protected LuaMethodProvider getLuaProvider() {
+        return luaProvider;
     }
 }

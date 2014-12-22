@@ -18,7 +18,6 @@ implements Observer {
 
     private final DriverModel model;
     private final String prefix;
-    private String getNameCall;
     private String patchNameModulatorId;
 
     /**
@@ -28,16 +27,15 @@ implements Observer {
     @Inject
     public AssignValuesController(DriverModel model,
             @Named("prefix") String prefix) {
-        super(prefix + "_AssignValues");
+        super(model.getAssignValuesMethodName());
         this.prefix = prefix;
         this.model = model;
         model.addObserver(this);
     }
 
-
     @Override
     protected void checkPreconditions() throws PreConditionsNotMetException {
-        if (getNameCall == null || patchNameModulatorId == null) {
+        if (patchNameModulatorId == null) {
             throw new PreConditionsNotMetException();
         }
         super.checkPreconditions();
@@ -47,15 +45,10 @@ implements Observer {
     protected void initialize() {
         super.initialize();
         model.deleteObserver(this);
-        model.setAssignValuesMethodName(getMethodName());
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        if (model.getGetNameMethodName() != null) {
-            getNameCall = getMethodCall(model.getGetNameMethodName(), "data");
-        }
-
         patchNameModulatorId = model.getNameModulatorName();
         init();
     }
@@ -93,7 +86,8 @@ implements Observer {
         code.append(indent(--indent)).append("end").append(newLine());
         code.append(indent(--indent)).append("end").append(newLine());
 
-        code.append(indent(indent)).append("v_char = ").append(getNameCall)
+        code.append(indent(indent)).append("v_char = ")
+        .append(getMethodCall(model.getGetNameMethodName(), "data"))
         .append(newLine());
 
         code.append(indent(indent)).append("panel:getModulatorByName(&quot;")

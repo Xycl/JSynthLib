@@ -21,9 +21,9 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
 import java.util.Observable;
-import java.util.Observer;
 
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -33,33 +33,23 @@ import com.google.inject.name.Named;
  * @author Pascal Collberg
  */
 @Singleton
-public class ReceiveMenuController extends MenuMethodControllerBase implements
-Observer {
+public class ReceiveMenuController extends MenuMethodControllerBase {
 
     public interface Factory {
         ReceiveMenuController newReceiveMenuController();
     }
 
-    private final DriverModel model;
 
     @Inject
-    public ReceiveMenuController(@Named("prefix") String prefix,
-            DriverModel model) {
-        super(prefix + "_ReceiveMenu",
-                "Receive Single Patch or Bank from synth");
-        this.model = model;
-        model.addObserver(this);
-    }
-
-    @Override
-    protected void notifyModel() {
-        model.deleteObserver(this);
-        model.setReceiveMenuName(getMethodName());
+    public ReceiveMenuController(DriverModel model,
+            @Named("editor") LuaMethodProvider luaProvider) {
+        super(model.getReceiveMenuName(),
+                "Receive Single Patch or Bank from synth", luaProvider);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        setList(model.getReceiveMenuOptions());
+        setList(getLuaProvider().getReceiveMenuOptions());
         init();
     }
 }

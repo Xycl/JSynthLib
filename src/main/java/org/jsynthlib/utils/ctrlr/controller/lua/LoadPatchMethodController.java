@@ -1,48 +1,26 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
-import java.util.Observable;
-import java.util.Observer;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
-import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 public class LoadPatchMethodController extends LoadMethodControllerBase
-implements Observer {
+{
 
     public interface Factory {
         LoadPatchMethodController newLoadPatchMethodController();
     }
 
     private final DriverModel model;
-    private String assignValuesMethodName;
 
     @Inject
     public LoadPatchMethodController(@Named("prefix") String prefix,
             DriverModel model) {
         super(prefix + "_LoadPatch");
         this.model = model;
-        model.addObserver(this);
-    }
-
-    @Override
-    protected void checkPreconditions() throws PreConditionsNotMetException {
-        super.checkPreconditions();
-        if (assignValuesMethodName == null) {
-            throw new PreConditionsNotMetException();
-        }
-    }
-
-    @Override
-    protected void initialize() {
-        super.initialize();
-        model.deleteObserver(this);
-        if (model.getLoadMenuName() == null) {
-            model.setLoadMenuName(getMethodName());
-        }
     }
 
     @Override
@@ -59,11 +37,13 @@ implements Observer {
         .append(newLine());
 
         code.append(indent(indent))
-        .append(getMethodCall(assignValuesMethodName, loadedDataVar,
+        .append(getMethodCall(model.getAssignValuesMethodName(),
+                loadedDataVar,
                 "true")).append(newLine());
 
-        code.append(indent(indent)).append(getBankDataVar()).append(" = nil")
-                .append(newLine());
+        code.append(indent(indent)).append(model.getBankDataVarName())
+                .append(" = nil")
+        .append(newLine());
 
         // Display Patch Loaded
         // codeBuilder.append(getInfoMessageCall("Patch Loaded", indent));
@@ -73,12 +53,5 @@ implements Observer {
         .append(newLine());
 
         setLuaMethodCode(code.toString());
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        assignValuesMethodName = model.getAssignValuesMethodName();
-        setBankDataVar(model.getBankDataVarName());
-        init();
     }
 }

@@ -1,10 +1,9 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
-import java.util.Observer;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class SaveMethodControllerBase extends
-EditorLuaMethodControllerBase implements Observer {
+        EditorLuaMethodControllerBase {
 
     private final String type;
     private String bankVarName;
@@ -24,8 +23,8 @@ EditorLuaMethodControllerBase implements Observer {
         if (checkBank) {
 
             code.append(indent(indent.getAndIncrement())).append("if ")
-                    .append(bankVarName).append(" == nil then")
-                    .append(newLine());
+            .append(bankVarName).append(" == nil then")
+            .append(newLine());
             code.append(indent(indent))
             .append("utils.warnWindow (\"No bank loaded\", \"You must load a bank in order to perform this action.\")")
             .append(newLine());

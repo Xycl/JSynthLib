@@ -1,18 +1,13 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.jsynthlib.utils.ctrlr.domain.DriverModel;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
 
-public class ReceivePatchMethodController extends ReceiveMethodControllerBase
-implements Observer {
+public class ReceivePatchMethodController extends ReceiveMethodControllerBase {
 
     public interface Factory {
         ReceivePatchMethodController newReceivePatchMethodController(
@@ -20,23 +15,9 @@ implements Observer {
                 @Assisted("popupList") List<String> popupList);
     }
 
-    private final DriverModel model;
-
     @Inject
-    public ReceivePatchMethodController(@Named("prefix") String prefix,
-            DriverModel model) {
+    public ReceivePatchMethodController(@Named("prefix") String prefix) {
         super(prefix + "_ReceivePatch");
-        model.addObserver(this);
-        this.model = model;
-    }
-
-    @Override
-    protected void initialize() {
-        super.initialize();
-        model.deleteObserver(this);
-        if (model.getReceiveMenuName() == null) {
-            model.setReceiveMenuName(getMethodName());
-        }
     }
 
     @Override
@@ -67,11 +48,4 @@ implements Observer {
 
         setLuaMethodCode(code.toString());
     }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        setBankDataVar(model.getBankDataVarName());
-        init();
-    }
-
 }

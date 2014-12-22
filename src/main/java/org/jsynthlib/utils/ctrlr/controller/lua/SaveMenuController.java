@@ -21,9 +21,9 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
 import java.util.Observable;
-import java.util.Observer;
 
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -33,32 +33,23 @@ import com.google.inject.name.Named;
  * @author Pascal Collberg
  */
 @Singleton
-public class SaveMenuController extends MenuMethodControllerBase implements
-Observer {
+public class SaveMenuController extends MenuMethodControllerBase {
 
     public interface Factory {
         SaveMenuController newSaveMenuController();
     }
 
-    private final DriverModel model;
-
     @Inject
-    public SaveMenuController(@Named("prefix") String prefix, DriverModel model) {
-        super(prefix + "_SaveMenu", "Save Single Patch or Bank(s) to file");
-        this.model = model;
-        model.addObserver(this);
-    }
-
-    @Override
-    protected void notifyModel() {
-        model.deleteObserver(this);
-        model.setSaveMenuName(getMethodName());
+    public SaveMenuController(DriverModel model,
+            @Named("editor") LuaMethodProvider luaProvider) {
+        super(model.getSaveMenuName(), "Save Single Patch or Bank(s) to file",
+                luaProvider);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        setList(model.getSaveMenuOptions());
-        initialize();
+        setList(getLuaMethodProvider().getSaveMenuOptions());
+        init();
     }
 
 }

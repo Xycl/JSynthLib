@@ -18,6 +18,7 @@ import org.jsynthlib.utils.ctrlr.controller.lua.AssembleValuesFromBankController
 import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesController;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesToBankController;
 import org.jsynthlib.utils.ctrlr.controller.lua.GetNameMethodController;
+import org.jsynthlib.utils.ctrlr.controller.lua.JavaParsedMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.LoadBankMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.LoadMenuController;
 import org.jsynthlib.utils.ctrlr.controller.lua.LoadPatchMethodController;
@@ -27,6 +28,7 @@ import org.jsynthlib.utils.ctrlr.controller.lua.ReceivePatchMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SaveBankMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SaveMenuController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SavePatchMethodController;
+import org.jsynthlib.utils.ctrlr.controller.lua.SelectPatchMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SetNameMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.WriteMenuController;
 import org.jsynthlib.utils.ctrlr.controller.lua.WritePatchMethodController;
@@ -34,6 +36,7 @@ import org.jsynthlib.utils.ctrlr.controller.modulator.NameCharSliderController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.PatchNameController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiButtonController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiCombinedGroupController;
+import org.jsynthlib.utils.ctrlr.controller.modulator.UiComboController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiEnvelopeController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiGlobalButtonController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiGroupController;
@@ -50,6 +53,11 @@ import org.jsynthlib.utils.ctrlr.service.ParameterOffsetParser;
 import org.jsynthlib.utils.ctrlr.service.PopupManager;
 import org.jsynthlib.utils.ctrlr.service.SysexFormulaParser;
 import org.jsynthlib.utils.ctrlr.service.XmlDriverParser;
+import org.jsynthlib.utils.ctrlr.service.codeparser.DefaultMethodVisitor;
+import org.jsynthlib.utils.ctrlr.service.codeparser.GetPatchMethodVisitor;
+import org.jsynthlib.utils.ctrlr.service.codeparser.PutPatchMethodVisitor;
+import org.jsynthlib.utils.ctrlr.service.codeparser.VisitorFactoryFacade;
+import org.jsynthlib.utils.ctrlr.service.codeparser.VisitorFactoryFacadeImpl;
 import org.jsynthlib.utils.ctrlr.service.impl.ConverterDeviceFactoryImpl;
 import org.jsynthlib.utils.ctrlr.service.impl.EditorLuaMethodProvider;
 import org.jsynthlib.utils.ctrlr.service.impl.ParameterOffsetParserImpl;
@@ -91,7 +99,7 @@ public class DriverModule extends AbstractModule {
         public DriverModule newDriverModule(XmlDeviceDefinition deviceDef,
                 XmlDriverReference driverRef) throws XmlException, IOException {
 
-            Builder builder = new Builder();
+            DriverModuleBuilder builder = new DriverModuleBuilder();
             builder.deviceDef = deviceDef;
             builder.driverRef = driverRef;
             builder.driverClassName = driverRef.getDriverClass();
@@ -103,9 +111,10 @@ public class DriverModule extends AbstractModule {
             switch (driverType.intValue()) {
             case XmlDriverReference.DriverType.INT_PATCH:
                 InputStream stream =
-                Builder.class.getClassLoader().getResourceAsStream(
-                        getXmlfilePath(driverRef.getDriverClass()
-                                .trim()));
+                DriverModuleBuilder.class.getClassLoader()
+                .getResourceAsStream(
+                        getXmlfilePath(driverRef
+                                .getDriverClass().trim()));
                 XmlSingleDriverDefinitionDocument singleDocument =
                         XmlSingleDriverDefinitionDocument.Factory.parse(stream,
                                 xmlOptions);
@@ -117,9 +126,10 @@ public class DriverModule extends AbstractModule {
                 break;
             case XmlDriverReference.DriverType.INT_BANK:
                 stream =
-                Builder.class.getClassLoader().getResourceAsStream(
-                        getXmlfilePath(driverRef.getDriverClass()
-                                .trim()));
+                DriverModuleBuilder.class.getClassLoader()
+                .getResourceAsStream(
+                        getXmlfilePath(driverRef
+                                .getDriverClass().trim()));
                 XmlBankDriverDefinitionDocument bankDocument =
                         XmlBankDriverDefinitionDocument.Factory.parse(stream,
                                 xmlOptions);
@@ -153,15 +163,15 @@ public class DriverModule extends AbstractModule {
         }
     }
 
-    public static class Builder {
+    public static class DriverModuleBuilder {
 
         public EditorLuaMethodProvider luaMethodProvider;
         public CtrlrPanelModel panelModel;
-        private String driverClassName;
-        private String driverPrefix;
-        private XmlDriverDefinition driverDef;
-        private XmlDeviceDefinition deviceDef;
-        private XmlDriverReference driverRef;
+        public String driverClassName;
+        public String driverPrefix;
+        public XmlDriverDefinition driverDef;
+        public XmlDeviceDefinition deviceDef;
+        public XmlDriverReference driverRef;
 
         public String getDriverClassName() {
             return driverClassName;
@@ -192,7 +202,7 @@ public class DriverModule extends AbstractModule {
     private final PanelType panel;
     private final EditorLuaMethodProvider luaMethodProvider;
 
-    public DriverModule(Builder builder) {
+    public DriverModule(DriverModuleBuilder builder) {
         deviceDef = builder.getDeviceDef();
         driverClassName = builder.getDriverClassName();
         driverDef = builder.getDriverDef();
@@ -214,6 +224,7 @@ public class DriverModule extends AbstractModule {
         bind(ParameterOffsetParser.class).to(ParameterOffsetParserImpl.class);
         bind(ModulatorFactoryFacade.class).to(ModulatorFactoryFacadeImpl.class);
         bind(LuaFactoryFacade.class).to(LuaFactoryFacadeImpl.class);
+        bind(VisitorFactoryFacade.class).to(VisitorFactoryFacadeImpl.class);
         bind(ConverterDeviceFactory.class).to(ConverterDeviceFactoryImpl.class);
         bind(PopupManager.class).to(PopupManagerImpl.class);
         bind(LuaMethodProvider.class).annotatedWith(Names.named("editor"))
@@ -234,12 +245,31 @@ public class DriverModule extends AbstractModule {
         installModulatorFactories();
 
         installLuaFactories();
+
+        installVisitorFactories();
+    }
+
+    void installVisitorFactories() {
+        install(new FactoryModuleBuilder().implement(
+                DefaultMethodVisitor.class, DefaultMethodVisitor.class).build(
+                        DefaultMethodVisitor.Factory.class));
+        install(new FactoryModuleBuilder().implement(
+                GetPatchMethodVisitor.class, GetPatchMethodVisitor.class)
+                .build(GetPatchMethodVisitor.Factory.class));
+        install(new FactoryModuleBuilder().implement(
+                PutPatchMethodVisitor.class, PutPatchMethodVisitor.class)
+                .build(PutPatchMethodVisitor.Factory.class));
+
     }
 
     void installLuaFactories() {
         install(new FactoryModuleBuilder().implement(
                 AssembleValuesController.class, AssembleValuesController.class)
                 .build(AssembleValuesController.Factory.class));
+        install(new FactoryModuleBuilder().implement(
+                SelectPatchMethodController.class,
+                SelectPatchMethodController.class).build(
+                        SelectPatchMethodController.Factory.class));
         install(new FactoryModuleBuilder().implement(
                 AssignValuesController.class, AssignValuesController.class)
                 .build(AssignValuesController.Factory.class));
@@ -295,9 +325,15 @@ public class DriverModule extends AbstractModule {
                 ReceiveBankMethodController.class,
                 ReceiveBankMethodController.class).build(
                         ReceiveBankMethodController.Factory.class));
+        install(new FactoryModuleBuilder().implement(
+                JavaParsedMethodController.class,
+                JavaParsedMethodController.class).build(
+                        JavaParsedMethodController.Factory.class));
     }
 
     void installModulatorFactories() {
+        install(new FactoryModuleBuilder().implement(UiComboController.class,
+                UiComboController.class).build(UiComboController.Factory.class));
         install(new FactoryModuleBuilder().implement(PatchNameController.class,
                 PatchNameController.class).build(
                         PatchNameController.Factory.class));

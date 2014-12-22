@@ -20,23 +20,35 @@
  */
 package org.jsynthlib.utils.ctrlr.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.UUID;
 
 import org.ctrlr.panel.LuaMethodGroupType;
 import org.ctrlr.panel.LuaMethodType;
+import org.jsynthlib.utils.ctrlr.domain.MethodDescriptionPair;
 
 /**
  * @author Pascal Collberg
- *
  */
-public abstract class LuaMethodProvider {
+public abstract class LuaMethodProvider extends Observable {
 
     private final Map<String, LuaMethodType> methodMap;
     private final Map<String, LuaMethodGroupType> groupMap;
 
+    private final List<MethodDescriptionPair> loadMenuOptions;
+    private final List<MethodDescriptionPair> receiveMenuOptions;
+    private final List<MethodDescriptionPair> saveMenuOptions;
+    private final List<MethodDescriptionPair> writeMenuOptions;
+
     public LuaMethodProvider() {
+        this.loadMenuOptions = new ArrayList<MethodDescriptionPair>();
+        this.receiveMenuOptions = new ArrayList<MethodDescriptionPair>();
+        this.saveMenuOptions = new ArrayList<MethodDescriptionPair>();
+        this.writeMenuOptions = new ArrayList<MethodDescriptionPair>();
         methodMap = new HashMap<String, LuaMethodType>();
         groupMap = new HashMap<String, LuaMethodGroupType>();
     }
@@ -80,5 +92,50 @@ public abstract class LuaMethodProvider {
 
     protected Map<String, LuaMethodGroupType> getGroupMap() {
         return groupMap;
+    }
+
+    public List<MethodDescriptionPair> getWriteMenuOptions() {
+        return writeMenuOptions;
+    }
+
+    public List<MethodDescriptionPair> getLoadMenuOptions() {
+        return loadMenuOptions;
+    }
+
+    public List<MethodDescriptionPair> getReceiveMenuOptions() {
+        return receiveMenuOptions;
+    }
+
+    public List<MethodDescriptionPair> getSaveMenuOptions() {
+        return saveMenuOptions;
+    }
+
+    public void addLoadMenuOption(MethodDescriptionPair loadMenuOption) {
+        this.loadMenuOptions.add(loadMenuOption);
+        setChanged();
+        notifyObservers(loadMenuOptions);
+    }
+
+    public void addReceiveMenuOption(MethodDescriptionPair receiveMenuOption) {
+        this.receiveMenuOptions.add(receiveMenuOption);
+        setChanged();
+        notifyObservers(receiveMenuOptions);
+    }
+
+    public void addSaveMenuOption(MethodDescriptionPair saveMenuOption) {
+        this.saveMenuOptions.add(saveMenuOption);
+        setChanged();
+        notifyObservers(saveMenuOptions);
+    }
+
+    public void addWriteMenuOption(MethodDescriptionPair writeMenuOption) {
+        this.writeMenuOptions.add(writeMenuOption);
+        setChanged();
+        notifyObservers(writeMenuOptions);
+    }
+
+    public void driverParseComplete() {
+        setChanged();
+        notifyObservers();
     }
 }

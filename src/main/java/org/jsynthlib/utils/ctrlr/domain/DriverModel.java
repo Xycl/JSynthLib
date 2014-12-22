@@ -37,43 +37,48 @@ import com.google.inject.name.Named;
 @Singleton
 public class DriverModel extends Observable {
 
-    @Inject
-    @Named("prefix")
-    private String prefix;
-
+    private final String patchSelectName;
     private String nameModulatorName;
-    private String receiveMenuName;
-    private String writeMenuName;
-    private String loadMenuName;
-    private String saveMenuName;
-    private String getNameMethodName;
-    private String setNameMethodName;
-    private String assignValuesMethodName;
-    private String assignValuesToBankMethodName;
-    private String assembleValuesMethodName;
-    private String assembleValuesFromBankMethodName;
-    private String infoLabelName;
+    private final String receiveMenuName;
+    private final String writeMenuName;
+    private final String loadMenuName;
+    private final String saveMenuName;
+    private final String getNameMethodName;
+    private final String setNameMethodName;
+    private final String assignValuesMethodName;
+    private final String assignValuesToBankMethodName;
+    private final String assembleValuesMethodName;
+    private final String assembleValuesFromBankMethodName;
+    // private String infoLabelName;
     private int editorWidth;
     private int editorHeight;
     private int patchNameCharMax;
-    private String bankDataVarName;
+    private final String bankDataVarName;
     private final AtomicInteger vstIndex;
     private int singlePatchSize;
 
     private final List<ModulatorControllerBase> rootModulators;
+    private final String prefix;
+    private final String patchSelectMethodName;
 
-    private final List<MethodDescriptionPair> loadMenuOptions;
-    private final List<MethodDescriptionPair> receiveMenuOptions;
-    private final List<MethodDescriptionPair> saveMenuOptions;
-    private final List<MethodDescriptionPair> writeMenuOptions;
-
-    public DriverModel() {
-        this.loadMenuOptions = new ArrayList<MethodDescriptionPair>();
-        this.receiveMenuOptions = new ArrayList<MethodDescriptionPair>();
-        this.saveMenuOptions = new ArrayList<MethodDescriptionPair>();
-        this.writeMenuOptions = new ArrayList<MethodDescriptionPair>();
+    @Inject
+    public DriverModel(@Named("prefix") String prefix) {
         this.vstIndex = new AtomicInteger(1);
         rootModulators = new ArrayList<ModulatorControllerBase>();
+        this.prefix = prefix;
+        this.patchSelectName = prefix + "_PatchSelectControl";
+        this.patchSelectMethodName = prefix + "_PatchSelect";
+        this.assembleValuesMethodName = prefix + "_AssembleValues";
+        this.assembleValuesFromBankMethodName = prefix + "_GetPatch";
+        this.assignValuesMethodName = prefix + "_AssignValues";
+        this.assignValuesToBankMethodName = prefix + "_PutPatch";
+        this.getNameMethodName = prefix + "_GetPatchName";
+        bankDataVarName = prefix + "BankData";
+        loadMenuName = prefix + "_LoadMenu";
+        receiveMenuName = prefix + "_ReceiveMenu";
+        saveMenuName = prefix + "_SaveMenu";
+        setNameMethodName = prefix + "_SetPatchName";
+        writeMenuName = prefix + "_WriteMenu";
     }
 
     public int getNextVstIndex() {
@@ -94,70 +99,24 @@ public class DriverModel extends Observable {
         return receiveMenuName;
     }
 
-    public void setReceiveMenuName(String receiveMenuName) {
-        this.receiveMenuName = receiveMenuName;
-        setChanged();
-        notifyObservers(receiveMenuName);
-    }
-
     public String getWriteMenuName() {
         return writeMenuName;
-    }
-
-    public void setWriteMenuName(String writeMenuName) {
-        this.writeMenuName = writeMenuName;
-        setChanged();
-        notifyObservers(writeMenuName);
     }
 
     public String getLoadMenuName() {
         return loadMenuName;
     }
 
-    public void setLoadMenuName(String loadMenuName) {
-        this.loadMenuName = loadMenuName;
-        setChanged();
-        notifyObservers(loadMenuName);
-    }
-
     public String getSaveMenuName() {
         return saveMenuName;
-    }
-
-    public void setSaveMenuName(String saveMenuName) {
-        this.saveMenuName = saveMenuName;
-        setChanged();
-        notifyObservers(saveMenuName);
     }
 
     public String getGetNameMethodName() {
         return getNameMethodName;
     }
 
-    public void setGetNameMethodName(String getNameMethodName) {
-        this.getNameMethodName = getNameMethodName;
-        setChanged();
-        notifyObservers(getNameMethodName);
-    }
-
     public String getSetNameMethodName() {
         return setNameMethodName;
-    }
-
-    public void setSetNameMethodName(String setNameMethodName) {
-        this.setNameMethodName = setNameMethodName;
-        setChanged();
-        notifyObservers(setNameMethodName);
-    }
-
-    public String getInfoLabelName() {
-        return infoLabelName;
-    }
-
-    public void setInfoLabelName(String infoLabelName) {
-        this.infoLabelName = infoLabelName;
-        setChanged();
-        notifyObservers(infoLabelName);
     }
 
     public int getPatchNameCharMax() {
@@ -167,7 +126,7 @@ public class DriverModel extends Observable {
     public void setPatchNameCharMax(int patchNameCharMax) {
         this.patchNameCharMax = patchNameCharMax;
         setChanged();
-        notifyObservers(infoLabelName);
+        notifyObservers(patchNameCharMax);
     }
 
     public int getEditorWidth() {
@@ -190,64 +149,12 @@ public class DriverModel extends Observable {
         notifyObservers(editorHeight);
     }
 
-    public List<MethodDescriptionPair> getWriteMenuOptions() {
-        return writeMenuOptions;
-    }
-
     public String getAssignValuesMethodName() {
         return assignValuesMethodName;
     }
 
     public String getAssembleValuesMethodName() {
         return assembleValuesMethodName;
-    }
-
-    public void setAssignValuesMethodName(String assignValuesMethodName) {
-        this.assignValuesMethodName = assignValuesMethodName;
-        setChanged();
-        notifyObservers(assignValuesMethodName);
-    }
-
-    public void setAssembleValuesMethodName(String assembleValuesMethodName) {
-        this.assembleValuesMethodName = assembleValuesMethodName;
-        setChanged();
-        notifyObservers(assembleValuesMethodName);
-    }
-
-    public List<MethodDescriptionPair> getLoadMenuOptions() {
-        return loadMenuOptions;
-    }
-
-    public List<MethodDescriptionPair> getReceiveMenuOptions() {
-        return receiveMenuOptions;
-    }
-
-    public List<MethodDescriptionPair> getSaveMenuOptions() {
-        return saveMenuOptions;
-    }
-
-    public void addLoadMenuOption(MethodDescriptionPair loadMenuOption) {
-        this.loadMenuOptions.add(loadMenuOption);
-        setChanged();
-        notifyObservers(loadMenuOptions);
-    }
-
-    public void addReceiveMenuOption(MethodDescriptionPair receiveMenuOption) {
-        this.receiveMenuOptions.add(receiveMenuOption);
-        setChanged();
-        notifyObservers(receiveMenuOptions);
-    }
-
-    public void addSaveMenuOption(MethodDescriptionPair saveMenuOption) {
-        this.saveMenuOptions.add(saveMenuOption);
-        setChanged();
-        notifyObservers(saveMenuOptions);
-    }
-
-    public void addWriteMenuOption(MethodDescriptionPair writeMenuOption) {
-        this.writeMenuOptions.add(writeMenuOption);
-        setChanged();
-        notifyObservers(writeMenuOptions);
     }
 
     public void driverParseComplete() {
@@ -263,29 +170,8 @@ public class DriverModel extends Observable {
         return assembleValuesFromBankMethodName;
     }
 
-    public void setAssignValuesToBankMethodName(
-            String assignValuesToBankMethodName) {
-        this.assignValuesToBankMethodName = assignValuesToBankMethodName;
-        setChanged();
-        notifyObservers(assignValuesToBankMethodName);
-    }
-
-    public void setAssembleValuesFromBankMethodName(
-            String assembleValuesFromBankMethodName) {
-        this.assembleValuesFromBankMethodName =
-                assembleValuesFromBankMethodName;
-        setChanged();
-        notifyObservers(assembleValuesFromBankMethodName);
-    }
-
     public String getBankDataVarName() {
         return bankDataVarName;
-    }
-
-    public void setBankDataVarName(String bankDataVarName) {
-        this.bankDataVarName = bankDataVarName;
-        setChanged();
-        notifyObservers(bankDataVarName);
     }
 
     public int getSinglePatchSize() {
@@ -309,4 +195,20 @@ public class DriverModel extends Observable {
     public String getPrefix() {
         return prefix;
     }
+
+    public String getPatchSelectName() {
+        return patchSelectName;
+    }
+
+    /**
+     * @return
+     */
+    public String getPatchSelectMethodName() {
+        return patchSelectMethodName;
+    }
+
+    // public String getInfoLabelName() {
+    // return infoLabelName;
+    // }
+
 }

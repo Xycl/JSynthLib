@@ -229,7 +229,7 @@ public class Patch implements Cloneable, Transferable, Serializable {
     @Override
     public DataFlavor[] getTransferDataFlavors() {
         return new DataFlavor[] {
-            PatchTransferHandler.PATCH_FLAVOR };
+                PatchTransferHandler.PATCH_FLAVOR };
     }
 
     // end of Transferable interface methods
@@ -252,7 +252,7 @@ public class Patch implements Cloneable, Transferable, Serializable {
     //
     // delegation methods
     //
-    public final void calculateChecksum() {
+    public void calculateChecksum() {
         driver.calculateChecksum(this);
     }
 

@@ -18,25 +18,16 @@ public class AssembleValuesController extends EditorLuaMethodControllerBase {
 
     private final String prefix;
 
-    @Inject
-    private DriverModel model;
-
     /**
      * @param group
      * @param methodName
      */
     @Inject
-    public AssembleValuesController(@Named("prefix") String prefix) {
-        super(prefix + "_AssembleValues");
+    public AssembleValuesController(@Named("prefix") String prefix,
+            DriverModel model) {
+        super(model.getAssembleValuesMethodName());
         this.prefix = prefix;
     }
-
-    @Override
-    protected void initialize() {
-        super.initialize();
-        model.setAssembleValuesMethodName(getMethodName());
-    }
-
 
     @Override
     protected void writeLuaMethodCode() {

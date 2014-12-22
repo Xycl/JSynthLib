@@ -67,12 +67,6 @@ public class D50BankDriver extends XMLBankDriver {
     }
 
     @Override
-    public void putPatch(Patch bank, Patch single, int patchNum) {
-        // TODO Auto-generated method stub
-        super.putPatch(bank, single, patchNum);
-    }
-
-    @Override
     public Patch getPatch(Patch bank, int patchNum) {
         Patch patch = getSingleDriver().createPatch();
         int bankHeaderSize = 8;

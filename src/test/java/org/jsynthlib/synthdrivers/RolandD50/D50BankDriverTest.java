@@ -31,11 +31,9 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.easymock.internal.MockBuilder;
 import org.jsynthlib.device.model.IDriver;
-import org.jsynthlib.device.model.impl.DriverBeanUtil;
 import org.jsynthlib.patch.model.impl.Patch;
+import org.jsynthlib.utils.DriverFactoryUtils;
 import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument.XmlBankDriverDefinition;
-import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument;
-import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,16 +63,8 @@ public class D50BankDriverTest {
 
         singleDriverMock = createMock(IDriver.class);
 
-        InputStream singleDriverAsStream =
-                getClass().getResourceAsStream("D50SingleDriver.xml");
-        XmlSingleDriverDefinitionDocument document =
-                XmlSingleDriverDefinitionDocument.Factory
-                .parse(singleDriverAsStream);
-        XmlSingleDriverDefinition singleDriverDefinition =
-                document.getXmlSingleDriverDefinition();
-        d50SingleDriver = new D50SingleDriver(singleDriverDefinition);
-        DriverBeanUtil.copyXmlProperties(d50SingleDriver,
-                singleDriverDefinition);
+        d50SingleDriver =
+                DriverFactoryUtils.newSingleDriver(D50SingleDriver.class);
     }
 
     /**

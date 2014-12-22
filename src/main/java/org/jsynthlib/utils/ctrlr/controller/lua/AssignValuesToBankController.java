@@ -21,13 +21,10 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jsynthlib.utils.ctrlr.domain.BankToPatchRelationBean;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
-import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -37,32 +34,21 @@ import com.google.inject.name.Named;
  * @author Pascal Collberg
  */
 public class AssignValuesToBankController extends BankPatchControllerBase
-implements Observer {
+ {
 
     public interface Factory {
         AssignValuesToBankController newAssignValuesToBankController(
                 List<BankToPatchRelationBean> putPatchData);
     }
 
-    private String bankDataVar;
     private final DriverModel model;
 
     @Inject
     public AssignValuesToBankController(
             @Assisted List<BankToPatchRelationBean> putPatchData,
             @Named("prefix") String prefix, DriverModel model) {
-        super(prefix + "_AssignValuesToBank", putPatchData);
-        model.setAssignValuesToBankMethodName(getMethodName());
+        super(model.getAssignValuesToBankMethodName(), putPatchData);
         this.model = model;
-        model.addObserver(this);
-    }
-
-    @Override
-    protected void checkPreconditions() throws PreConditionsNotMetException {
-        if (bankDataVar == null) {
-            throw new PreConditionsNotMetException();
-        }
-        super.checkPreconditions();
     }
 
     @Override
@@ -82,21 +68,13 @@ implements Observer {
         .append(":getRange(patchDataOffset, patchDataLength)")
         .append(newLine());
         code.append(indent(indent))
-                .append(bankDataVar)
-                .append(":copyFrom(trimmedPatchData, bankOffset, patchDataLength)")
+        .append(model.getBankDataVarName())
+        .append(":copyFrom(trimmedPatchData, bankOffset, patchDataLength)")
         .append(newLine());
 
         code.append(indent(indent.decrementAndGet())).append("end")
         .append(newLine());
 
         setLuaMethodCode(code.toString());
-        model.deleteObserver(this);
     }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        bankDataVar = model.getBankDataVarName();
-        init();
-    }
-
 }

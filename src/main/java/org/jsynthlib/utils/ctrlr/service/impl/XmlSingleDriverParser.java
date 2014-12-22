@@ -48,6 +48,7 @@ import org.jsynthlib.utils.ctrlr.controller.modulator.UiTabController;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
 import org.jsynthlib.utils.ctrlr.domain.MethodDescriptionPair;
 import org.jsynthlib.utils.ctrlr.domain.WritePatchMessage;
+import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 import org.jsynthlib.utils.ctrlr.service.PopupManager.PopupSession;
 import org.jsynthlib.utils.ctrlr.service.XmlDriverParser;
 import org.jsynthlib.xmldevice.CombinedGroup;
@@ -80,6 +81,10 @@ public class XmlSingleDriverParser extends XmlDriverParser {
     private final XmlSingleDriverDefinition xmlDriverDef;
 
     private int numStringParamSpecs;
+
+    @Inject
+    @Named("editor")
+    private LuaMethodProvider luaMethodProvider;
 
     @Inject
     @Named("className")
@@ -130,25 +135,26 @@ public class XmlSingleDriverParser extends XmlDriverParser {
 
         ReceivePatchMethodController receivePatchController =
                 parsePatchDumpMethod();
-        model.addReceiveMenuOption(new MethodDescriptionPair(
+        luaMethodProvider.addReceiveMenuOption(new MethodDescriptionPair(
                 receivePatchController.getMethodName(), description));
 
         WritePatchMethodController writePatchController =
                 parseStorePatchMethod();
-        model.addWriteMenuOption(new MethodDescriptionPair(writePatchController
-                .getMethodName(), description));
+        luaMethodProvider.addWriteMenuOption(new MethodDescriptionPair(
+                writePatchController.getMethodName(), description));
         parseGetSetPatchNameMethods();
         SavePatchMethodController savePatchController =
                 luaFacade.newSavePatchMethodController();
 
-        model.addSaveMenuOption(new MethodDescriptionPair(savePatchController
-                .getMethodName(), description));
+        luaMethodProvider.addSaveMenuOption(new MethodDescriptionPair(
+                savePatchController.getMethodName(), description));
         LoadPatchMethodController loadPatchController =
                 luaFacade.newLoadPatchMethodController();
-        model.addLoadMenuOption(new MethodDescriptionPair(loadPatchController
-                .getMethodName(), description));
+        luaMethodProvider.addLoadMenuOption(new MethodDescriptionPair(
+                loadPatchController.getMethodName(), description));
         luaFacade.newAssembleValuesController();
         luaFacade.newAssignValuesController();
+        luaFacade.newSelectPatchMethodController();
     }
 
     String getXmlfilePath(String name) {

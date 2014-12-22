@@ -27,6 +27,7 @@ import org.jsynthlib.utils.ctrlr.controller.lua.AssembleValuesFromBankController
 import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesController;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesToBankController;
 import org.jsynthlib.utils.ctrlr.controller.lua.GetNameMethodController;
+import org.jsynthlib.utils.ctrlr.controller.lua.JavaParsedMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.LoadBankMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.LoadMenuController;
 import org.jsynthlib.utils.ctrlr.controller.lua.LoadPatchMethodController;
@@ -36,6 +37,7 @@ import org.jsynthlib.utils.ctrlr.controller.lua.ReceivePatchMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SaveBankMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SaveMenuController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SavePatchMethodController;
+import org.jsynthlib.utils.ctrlr.controller.lua.SelectPatchMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SetNameMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.WriteMenuController;
 import org.jsynthlib.utils.ctrlr.controller.lua.WritePatchMethodController;
@@ -48,6 +50,9 @@ import com.google.inject.Inject;
  * @author Pascal Collberg
  */
 public class LuaFactoryFacadeImpl implements LuaFactoryFacade {
+
+    @Inject
+    private SelectPatchMethodController.Factory selectPatchFactory;
 
     @Inject
     private AssembleValuesController.Factory assembleValuesFactory;
@@ -100,6 +105,8 @@ public class LuaFactoryFacadeImpl implements LuaFactoryFacade {
     @Inject
     private SaveBankMethodController.Factory saveBankFactory;
 
+    @Inject
+    private JavaParsedMethodController.Factory javaParsedFactory;
     @Override
     public AssembleValuesController newAssembleValuesController() {
         AssembleValuesController controller =
@@ -258,6 +265,23 @@ public class LuaFactoryFacadeImpl implements LuaFactoryFacade {
     public SaveBankMethodController newSaveBankMethodController() {
         SaveBankMethodController controller =
                 saveBankFactory.newSaveBankMethodController();
+        controller.init();
+        return controller;
+    }
+
+    @Override
+    public SelectPatchMethodController newSelectPatchMethodController() {
+        SelectPatchMethodController controller =
+                selectPatchFactory.newSelectPatchMethodController();
+        controller.init();
+        return controller;
+    }
+
+    @Override
+    public JavaParsedMethodController newJavaParsedMethodController(
+            String methodName) {
+        JavaParsedMethodController controller =
+                javaParsedFactory.newJavaParsedMethodController(methodName);
         controller.init();
         return controller;
     }

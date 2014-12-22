@@ -16,6 +16,7 @@ org.jsynthlib.utils.ctrlr.controller.modulator.UiLabelController.Factory,
 org.jsynthlib.utils.ctrlr.controller.modulator.UiSliderController.Factory,
 org.jsynthlib.utils.ctrlr.controller.modulator.UiTabController.Factory,
 org.jsynthlib.utils.ctrlr.controller.modulator.NameCharSliderController.Factory,
-org.jsynthlib.utils.ctrlr.controller.modulator.UiGlobalButtonController.Factory {
+        org.jsynthlib.utils.ctrlr.controller.modulator.UiGlobalButtonController.Factory,
+        org.jsynthlib.utils.ctrlr.controller.modulator.UiComboController.Factory {
 
 }

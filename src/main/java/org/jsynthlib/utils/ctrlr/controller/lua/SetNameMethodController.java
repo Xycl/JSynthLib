@@ -37,7 +37,7 @@ implements Observer {
     @AssistedInject
     public SetNameMethodController(@Assisted String[] patchNameChars,
             @Named("prefix") String prefix, DriverModel model) {
-        super(prefix + "_SetPatchName");
+        super(model.getSetNameMethodName());
         this.model = model;
         this.prefix = prefix;
         if (patchNameChars != null) {
@@ -91,7 +91,6 @@ implements Observer {
     protected void initialize() {
         super.initialize();
         model.deleteObserver(this);
-        model.setSetNameMethodName(getMethodName());
     }
 
     @Override

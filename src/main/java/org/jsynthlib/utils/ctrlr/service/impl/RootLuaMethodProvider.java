@@ -36,7 +36,6 @@ public class RootLuaMethodProvider extends LuaMethodProvider {
 
     private LuaManagerMethodsType methods;
 
-
     public LuaManagerMethodsType getMethods() {
         return methods;
     }

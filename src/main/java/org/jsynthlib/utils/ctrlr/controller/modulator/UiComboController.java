@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import org.jsynthlib.utils.ctrlr.domain.SliderSpecWrapper;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 
 public class UiComboController extends MidiModulatorControllerBase {
 
@@ -12,16 +13,13 @@ public class UiComboController extends MidiModulatorControllerBase {
         UiComboController newUiComboController(SliderSpecWrapper sliderSpec);
     }
 
+    private int width = 64;
+    private int height = 73;
+
     @Inject
-    public UiComboController(SliderSpecWrapper sliderSpec) {
+    public UiComboController(@Assisted SliderSpecWrapper sliderSpec) {
         super(sliderSpec);
     }
-
-
-    // @Override
-    // protected String getName() {
-    // return getObject().getName();
-    // }
 
     @Override
     public void init() {
@@ -31,14 +29,13 @@ public class UiComboController extends MidiModulatorControllerBase {
         getComponent().setUiComboTextColour("0xff000000");
         getComponent().setUiComboTextJustification("centred");
         getComponent().setUiComboFont("<Sans-Serif>;14;0;0;0;0;1");
-        getComponent().setUiComboMenuFont("<Sans-Serif>;16;0;0;0;0;1");
+        getComponent().setUiComboMenuFont("<Sans-Serif>;14;0;0;0;0;1");
         getComponent().setUiComboButtonColour("ffb7b7b7");
         getComponent().setUiComboBgColour("0xffffffff");
         getComponent().setUiComboMenuBackgroundColour("0xfff0f0f0");
         getComponent().setUiComboMenuFontColour("0xff000000");
         getComponent().setUiComboMenuHighlightColour("ffadd8e6");
         getComponent().setUiComboMenuFontHighlightedColour("0xff232323");
-        getComponent().setUiComboContent("OFF(0\nPULSE(1\nWAVE(2\nBOTH(3");
         getComponent().setUiComboMenuBackgroundRibbed(1);
         getComponent().setUiComboButtonGradient(0);
         getComponent().setUiComboButtonGradientColour1("ff0000ff");
@@ -47,13 +44,37 @@ public class UiComboController extends MidiModulatorControllerBase {
         getComponent().setUiComboButtonWidth(16);
         getComponent().setUiComboDynamicContent(0);
         getComponent().setUiComboSelectedId(-1);
-        getComponent().setUiComboSelectedIndex(-1);
+        getComponent().setUiComboSelectedIndex(0);
         getComponent().setUiType("uiCombo");
+        setUiComboContent("OFF(0\nPULSE(1\nWAVE(2\nBOTH(3");
+
+        getComponent().setComponentBubbleValueFont("<Sans-Serif>;14;0;0;0;0;1");
+        getComponent().setComponentLabelFont("<Sans-Serif>;12;0;0;0;0;1");
+    }
+
+    public void setUiComboContent(String content) {
+        getComponent().setUiComboContent(content);
     }
 
     @Override
     public void setRect(Rectangle rect) {
-        rect.setSize(64, 73);
+        rect.setSize(width, height);
         super.setRect(rect);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
