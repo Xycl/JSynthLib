@@ -17,7 +17,7 @@ Observer {
     @Inject
     @Named("root")
     private LuaMethodProvider methodProvider;
-    private List<MidiReceivedDriverPart> midiReceivedParts;
+    private List<MidiReceivedDriverBean> midiReceivedParts;
     private final CtrlrPanelModel model;
 
     @Inject
@@ -29,23 +29,33 @@ Observer {
         this.model = model;
     }
 
-    String getMidiReceivedPart(int indent, MidiReceivedDriverPart part) {
-        StringBuilder codeBuilder = new StringBuilder();
-        codeBuilder.append(indent(indent++)).append("if midiSize == ")
+    String getMidiReceivedPart(int indent, MidiReceivedDriverBean part) {
+        StringBuilder code = new StringBuilder();
+        code.append(indent(indent++)).append("if midiSize == ")
         .append(part.getPatchSize()).append(" then").append(newLine());
-        codeBuilder.append("-------------------- process ")
-        .append(part.getDriverPrefix())
-        .append(" data ----------------------------------------")
-        .append(newLine());
-        codeBuilder
-        .append(indent(indent))
-        .append(getMethodCall(part.getAssignValuesMethodName(),
-                "midi:getData()", "false")).append(newLine());
-        codeBuilder.append(indent(--indent)).append("end").append(newLine());
-        codeBuilder.append("---------------------------------------------")
+        code.append("-------------------- process ").append(
+                part.getDriverPrefix());
+        if (part.isBankDriver()) {
+            code.append(" bank");
+        } else {
+            code.append(" patch");
+        }
+        code.append(" data ----------------------------------------").append(
+                newLine());
+        if (part.isBankDriver()) {
+            code.append(indent(indent))
+            .append(getMethodCall(part.getMethodName(),
+                    "midi:getData()")).append(newLine());
+        } else {
+            code.append(indent(indent))
+            .append(getMethodCall(part.getMethodName(),
+                    "midi:getData()", "false")).append(newLine());
+        }
+        code.append(indent(--indent)).append("end").append(newLine());
+        code.append("---------------------------------------------")
         .append("------------------------------------")
         .append(newLine());
-        return codeBuilder.toString();
+        return code.toString();
     }
 
     @Override
@@ -57,35 +67,28 @@ Observer {
     }
 
     @Override
-    protected void initialize() {
-        super.initialize();
-        model.deleteObserver(this);
-    }
-
-    @Override
     protected void writeLuaMethodCode() {
         int indent = 0;
-        StringBuilder codeBuilder = new StringBuilder();
-        codeBuilder.append(indent(indent)).append("--").append(newLine());
-        codeBuilder.append(indent(indent)).append(
+        StringBuilder code = new StringBuilder();
+        code.append(indent(indent)).append("--").append(newLine());
+        code.append(indent(indent)).append(
                 "-- Called when a panel receives a midi message ");
-        codeBuilder.append(indent(indent))
+        code.append(indent(indent))
         .append("(does not need to match any modulator mask)")
         .append(newLine());
-        codeBuilder
-        .append(indent(indent))
+        code.append(indent(indent))
         .append("-- @midi   http://ctrlr.org/api/class_ctrlr_midi_message.html")
         .append(newLine());
-        codeBuilder.append(indent(indent++))
-        .append("midiReceived = function(midi)").append(newLine());
-        codeBuilder.append(indent(indent))
+        code.append(indent(indent++)).append("midiReceived = function(midi)")
+        .append(newLine());
+        code.append(indent(indent))
         .append("midiSize = midi:getData():getSize()")
         .append(newLine());
-        for (MidiReceivedDriverPart part : midiReceivedParts) {
-            codeBuilder.append(getMidiReceivedPart(indent, part));
+        for (MidiReceivedDriverBean part : midiReceivedParts) {
+            code.append(getMidiReceivedPart(indent, part));
         }
-        codeBuilder.append(indent(--indent)).append("end").append(newLine());
-        setLuaMethodCode(codeBuilder.toString());
+        code.append(indent(--indent)).append("end").append(newLine());
+        setLuaMethodCode(code.toString());
     }
 
     @Override

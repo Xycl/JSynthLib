@@ -46,7 +46,7 @@ public class AssembleValuesFromBankController extends BankPatchControllerBase {
     public AssembleValuesFromBankController(
             @Assisted List<BankToPatchRelationBean> putPatchData,
             @Named("prefix") String prefix, DriverModel model) {
-        super(model.getAssembleValuesFromBankMethodName(), putPatchData);
+        super(model.getGetPatchMethodName());
         this.model = model;
     }
 

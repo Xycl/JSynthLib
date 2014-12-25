@@ -24,8 +24,8 @@ import java.util.List;
 
 import org.jsynthlib.utils.ctrlr.controller.lua.AssembleValuesController;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssembleValuesFromBankController;
+import org.jsynthlib.utils.ctrlr.controller.lua.AssignBankController;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesController;
-import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesToBankController;
 import org.jsynthlib.utils.ctrlr.controller.lua.GetNameMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.JavaParsedMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.LoadBankMethodController;
@@ -91,7 +91,7 @@ public class LuaFactoryFacadeImpl implements LuaFactoryFacade {
     private WritePatchMethodController.Factory writeMethodFactory;
 
     @Inject
-    private AssignValuesToBankController.Factory assignValuesToBankFactory;
+    private AssignBankController.Factory assignValuesToBankFactory;
 
     @Inject
     private LoadBankMethodController.Factory loadBankFactory;
@@ -107,6 +107,7 @@ public class LuaFactoryFacadeImpl implements LuaFactoryFacade {
 
     @Inject
     private JavaParsedMethodController.Factory javaParsedFactory;
+
     @Override
     public AssembleValuesController newAssembleValuesController() {
         AssembleValuesController controller =
@@ -135,6 +136,14 @@ public class LuaFactoryFacadeImpl implements LuaFactoryFacade {
     public GetNameMethodController newGetNameMethodController() {
         GetNameMethodController controller =
                 getNameMethodFactory.newGetNameMethodController();
+        controller.init();
+        return controller;
+    }
+
+    @Override
+    public GetNameMethodController newGetNameMethodController(String defaultName) {
+        GetNameMethodController controller =
+                getNameMethodFactory.newGetNameMethodController(defaultName);
         controller.init();
         return controller;
     }
@@ -224,11 +233,9 @@ public class LuaFactoryFacadeImpl implements LuaFactoryFacade {
     }
 
     @Override
-    public AssignValuesToBankController newAssignValuesToBankController(
-            List<BankToPatchRelationBean> putPatchData) {
-        AssignValuesToBankController controller =
-                assignValuesToBankFactory
-                .newAssignValuesToBankController(putPatchData);
+    public AssignBankController newAssignBankController() {
+        AssignBankController controller =
+                assignValuesToBankFactory.newAssignBankController();
         controller.init();
         return controller;
     }
@@ -285,5 +292,4 @@ public class LuaFactoryFacadeImpl implements LuaFactoryFacade {
         controller.init();
         return controller;
     }
-
 }

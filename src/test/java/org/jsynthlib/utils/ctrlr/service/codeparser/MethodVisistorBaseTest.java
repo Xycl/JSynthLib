@@ -35,7 +35,6 @@ import org.junit.Test;
 
 /**
  * @author Pascal Collberg
- *
  */
 public class MethodVisistorBaseTest {
 
@@ -55,7 +54,8 @@ public class MethodVisistorBaseTest {
 
     @Test
     public void testCompareClassArrays() {
-        MethodVisitorBase tested = new MethodVisitorBase("test") {
+        MethodWrapper wrapper = MethodWrapper.newWrapper("test", "pelle");
+        MethodVisitorBase tested = new MethodVisitorBase(wrapper, null) {
 
         };
         Class<?>[] cArr = {

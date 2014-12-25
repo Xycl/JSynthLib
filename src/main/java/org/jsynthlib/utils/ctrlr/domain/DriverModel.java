@@ -39,16 +39,17 @@ public class DriverModel extends Observable {
 
     private final String patchSelectName;
     private String nameModulatorName;
-    private final String receiveMenuName;
-    private final String writeMenuName;
-    private final String loadMenuName;
-    private final String saveMenuName;
+    private String receiveMenuName;
+    private String writeMenuName;
+    private String loadMenuName;
+    private String saveMenuName;
     private final String getNameMethodName;
     private final String setNameMethodName;
     private final String assignValuesMethodName;
-    private final String assignValuesToBankMethodName;
+    private final String assignBankMethodName;
+    private final String putPatchMethodName;
     private final String assembleValuesMethodName;
-    private final String assembleValuesFromBankMethodName;
+    private final String getPatchMethodName;
     // private String infoLabelName;
     private int editorWidth;
     private int editorHeight;
@@ -69,16 +70,13 @@ public class DriverModel extends Observable {
         this.patchSelectName = prefix + "_PatchSelectControl";
         this.patchSelectMethodName = prefix + "_PatchSelect";
         this.assembleValuesMethodName = prefix + "_AssembleValues";
-        this.assembleValuesFromBankMethodName = prefix + "_GetPatch";
+        this.getPatchMethodName = prefix + "_getPatch";
         this.assignValuesMethodName = prefix + "_AssignValues";
-        this.assignValuesToBankMethodName = prefix + "_PutPatch";
+        this.assignBankMethodName = prefix + "_AssignBank";
+        this.putPatchMethodName = prefix + "_putPatch";
         this.getNameMethodName = prefix + "_GetPatchName";
         bankDataVarName = prefix + "BankData";
-        loadMenuName = prefix + "_LoadMenu";
-        receiveMenuName = prefix + "_ReceiveMenu";
-        saveMenuName = prefix + "_SaveMenu";
         setNameMethodName = prefix + "_SetPatchName";
-        writeMenuName = prefix + "_WriteMenu";
     }
 
     public int getNextVstIndex() {
@@ -162,12 +160,12 @@ public class DriverModel extends Observable {
         notifyObservers();
     }
 
-    public String getAssignValuesToBankMethodName() {
-        return assignValuesToBankMethodName;
+    public String getPutPatchMethodName() {
+        return putPatchMethodName;
     }
 
-    public String getAssembleValuesFromBankMethodName() {
-        return assembleValuesFromBankMethodName;
+    public String getGetPatchMethodName() {
+        return getPatchMethodName;
     }
 
     public String getBankDataVarName() {
@@ -207,8 +205,32 @@ public class DriverModel extends Observable {
         return patchSelectMethodName;
     }
 
-    // public String getInfoLabelName() {
-    // return infoLabelName;
-    // }
+    public String getAssignBankMethodName() {
+        return assignBankMethodName;
+    }
+
+    public void setReceiveMenuName(String receiveMenuName) {
+        this.receiveMenuName = receiveMenuName;
+        setChanged();
+        notifyObservers(receiveMenuName);
+    }
+
+    public void setWriteMenuName(String writeMenuName) {
+        this.writeMenuName = writeMenuName;
+        setChanged();
+        notifyObservers(writeMenuName);
+    }
+
+    public void setLoadMenuName(String loadMenuName) {
+        this.loadMenuName = loadMenuName;
+        setChanged();
+        notifyObservers(loadMenuName);
+    }
+
+    public void setSaveMenuName(String saveMenuName) {
+        this.saveMenuName = saveMenuName;
+        setChanged();
+        notifyObservers(saveMenuName);
+    }
 
 }

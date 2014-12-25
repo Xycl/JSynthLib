@@ -38,19 +38,20 @@ public class EditSender extends SysexSender {
 
     private static HashMap senderMap = new HashMap(200);
 
-    private static int deviceId;
-
     private D10DataSetMessage message;
 
+    private int address;
+
+    public EditSender() {
+
+    }
+
     protected EditSender(Entity base, int offset) {
-        message =
-                new D10DataSetMessage(1, Entity.createFromIntValue(offset)
-                        .add(base).getDataValue());
-        message.setDeviceId((byte) deviceId);
+        address = Entity.createFromIntValue(offset).add(base).getDataValue();
+        message = new D10DataSetMessage(1, address);
     }
 
     public static void setDeviceId(int deviceId) {
-        EditSender.deviceId = deviceId;
     }
 
     public static EditSender getToneSender(int offset) {
@@ -79,8 +80,19 @@ public class EditSender extends SysexSender {
         return (EditSender) sender;
     }
 
+    @Override
     public byte[] generate(int value) {
+        message.setDeviceId(getChannel());
         message.setData((byte) value);
         return message.getBytes();
+    }
+
+    public int getAddress() {
+        return address;
+    }
+
+    public void setAddress(int address) {
+        this.address = address;
+        message = new D10DataSetMessage(1, address);
     }
 }

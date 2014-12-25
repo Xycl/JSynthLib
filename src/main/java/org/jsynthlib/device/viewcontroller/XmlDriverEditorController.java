@@ -165,7 +165,7 @@ public class XmlDriverEditorController extends AbstractDriverEditor {
             initNodeRecursive(patchParamGroup);
         }
 
-        CombinedGroup[] combinedGroups = patchParams.getCombinedgroupArray();
+        CombinedGroup[] combinedGroups = patchParams.getCombinedGroupArray();
         for (CombinedGroup combinedGroup : combinedGroups) {
             handleCombinedGroup(combinedGroup);
         }
@@ -388,7 +388,7 @@ public class XmlDriverEditorController extends AbstractDriverEditor {
                 if (knob.focusedProperty().get()) {
                     DoubleProperty valueProperty = knob.valueProperty();
                     valueProperty.set(valueProperty.get()
-                            - (arg0.getDeltaY() / range));
+                            - arg0.getDeltaY() / range);
                 }
             }
         });
@@ -406,9 +406,10 @@ public class XmlDriverEditorController extends AbstractDriverEditor {
             this.sender = sender;
             this.paramModel = paramModel;
             imgView = (ImageView) namespace.get("img" + paramSpec.getUuid());
-            PatchParamResources paramResources =
-                    paramSpec.getPatchParamResources();
-            if (paramResources != null) {
+
+            if (paramSpec.isSetPatchParamResources()) {
+                PatchParamResources paramResources =
+                        paramSpec.getPatchParamResources();
                 String[] resourceArray =
                         paramResources.getPatchParamResourceArray();
                 images = new Image[resourceArray.length];
@@ -424,7 +425,6 @@ public class XmlDriverEditorController extends AbstractDriverEditor {
                     imgView.setImage(images[paramModel.get()]);
                 }
             }
-
         }
 
         @Override
@@ -446,11 +446,13 @@ public class XmlDriverEditorController extends AbstractDriverEditor {
      * @param paramSpec
      */
     void handleComboBox(final ComboBox<String> js, final IntParamSpec paramSpec) {
-        PatchParamValues patchParamValues = paramSpec.getPatchParamValues();
         ObservableList<String> items = js.getItems();
-        String[] paramValueArray = patchParamValues.getPatchParamValueArray();
-        for (String paramValue : paramValueArray) {
-            items.add(paramValue);
+        if (paramSpec.isSetPatchParamValues()) {
+            PatchParamValues patchParamValues = paramSpec.getPatchParamValues();
+            String[] paramValueArray = patchParamValues.getPatchParamValueArray();
+            for (String paramValue : paramValueArray) {
+                items.add(paramValue);
+            }
         }
         final ISender sender =
                 getSenderFactory().newSender(paramSpec.getMidiSender(), patch);

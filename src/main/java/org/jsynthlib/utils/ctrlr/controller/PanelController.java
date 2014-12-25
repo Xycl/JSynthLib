@@ -210,7 +210,7 @@ public class PanelController implements Observer {
         }
         StringBuilder nameBuilder = new StringBuilder();
         nameBuilder.append(xmldevice.getManufacturer()).append(" - ")
-        .append(xmldevice.getModelName());
+        .append(xmldevice.getModelName().replace("_V2_", ""));
         panel.setName(nameBuilder.toString());
 
         String panelUid = generateRandomUnique(nameBuilder.toString());
@@ -225,10 +225,15 @@ public class PanelController implements Observer {
         panel.setLuaPanelLoaded(luaPanelLoaded);
     }
 
+    public void setLuaPanelBeforeLoad(String arg0) {
+        panel.setLuaPanelBeforeLoad(arg0);
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         updateXmlDevice(model.getXmldevice());
         setPanelLoaded(model.getPanelLoadedName());
+        setLuaPanelBeforeLoad(model.getBeforePanelLoadedName());
     }
 
     public PanelType getPanel() {

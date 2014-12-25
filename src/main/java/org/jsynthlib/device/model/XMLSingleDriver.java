@@ -40,7 +40,7 @@ import com.google.inject.Inject;
  * @author Pascal Collberg
  */
 public class XMLSingleDriver extends AbstractPatchDriver implements
-        IPatchDriver {
+IPatchDriver {
 
     private final XmlDriverDefinition driverSpec;
     private XmlDriverEditorControllerFactory editorFactory;
@@ -57,7 +57,7 @@ public class XMLSingleDriver extends AbstractPatchDriver implements
     }
 
     @Override
-    public Patch createNewPatch() {
+    protected Patch createNewPatch() {
         byte[] sysex = new byte[getPatchSize()];
         if (initPatch == null || initPatch.length == 0) {
             if (sysexID == null || sysexID.length() == 0) {
@@ -121,7 +121,7 @@ public class XMLSingleDriver extends AbstractPatchDriver implements
     @Override
     public String getPatchName(Patch p) {
         if (patchNameSize == 0) {
-            return ("-");
+            return "-";
         }
         try {
             return new String(p.sysex, patchNameStart, patchNameSize,

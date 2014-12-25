@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xd:xmlSingleDriverDefinition xmlns:xd="http://www.jsynthlib.org/xmldevice">
+	<xd:name>Roland D-10 Patch</xd:name>
+	<xd:infoText>This driver supports editing of Tones, Timbres and Patches
+		for the D-10. It currently only supports device id 17.</xd:infoText>
+	<xd:authors>Roger Westerlund</xd:authors>
+	<xd:patchType>Patch</xd:patchType>
+	<xd:patchSize>48</xd:patchSize>
+	<xd:sysexID>F041**1612</xd:sysexID>
+	<xd:patchNumbers>
+		<xd:string>A11</xd:string>
+		<xd:string>A12</xd:string>
+		<xd:string>A13</xd:string>
+		<xd:string>A14</xd:string>
+		<xd:string>A15</xd:string>
+		<xd:string>A16</xd:string>
+		<xd:string>A17</xd:string>
+		<xd:string>A18</xd:string>
+		<xd:string>A21</xd:string>
+		<xd:string>A22</xd:string>
+		<xd:string>A23</xd:string>
+		<xd:string>A24</xd:string>
+		<xd:string>A25</xd:string>
+		<xd:string>A26</xd:string>
+		<xd:string>A27</xd:string>
+		<xd:string>A28</xd:string>
+		<xd:string>A31</xd:string>
+		<xd:string>A32</xd:string>
+		<xd:string>A33</xd:string>
+		<xd:string>A34</xd:string>
+		<xd:string>A35</xd:string>
+		<xd:string>A36</xd:string>
+		<xd:string>A37</xd:string>
+		<xd:string>A38</xd:string>
+		<xd:string>A41</xd:string>
+		<xd:string>A42</xd:string>
+		<xd:string>A43</xd:string>
+		<xd:string>A44</xd:string>
+		<xd:string>A45</xd:string>
+		<xd:string>A46</xd:string>
+		<xd:string>A47</xd:string>
+		<xd:string>A48</xd:string>
+		<xd:string>A51</xd:string>
+		<xd:string>A52</xd:string>
+		<xd:string>A53</xd:string>
+		<xd:string>A54</xd:string>
+		<xd:string>A55</xd:string>
+		<xd:string>A56</xd:string>
+		<xd:string>A57</xd:string>
+		<xd:string>A58</xd:string>
+		<xd:string>A61</xd:string>
+		<xd:string>A62</xd:string>
+		<xd:string>A63</xd:string>
+		<xd:string>A64</xd:string>
+		<xd:string>A65</xd:string>
+		<xd:string>A66</xd:string>
+		<xd:string>A67</xd:string>
+		<xd:string>A68</xd:string>
+		<xd:string>A71</xd:string>
+		<xd:string>A72</xd:string>
+		<xd:string>A73</xd:string>
+		<xd:string>A74</xd:string>
+		<xd:string>A75</xd:string>
+		<xd:string>A76</xd:string>
+		<xd:string>A77</xd:string>
+		<xd:string>A78</xd:string>
+		<xd:string>A81</xd:string>
+		<xd:string>A82</xd:string>
+		<xd:string>A83</xd:string>
+		<xd:string>A84</xd:string>
+		<xd:string>A85</xd:string>
+		<xd:string>A86</xd:string>
+		<xd:string>A87</xd:string>
+		<xd:string>A88</xd:string>
+		<xd:string>B11</xd:string>
+		<xd:string>B12</xd:string>
+		<xd:string>B13</xd:string>
+		<xd:string>B14</xd:string>
+		<xd:string>B15</xd:string>
+		<xd:string>B16</xd:string>
+		<xd:string>B17</xd:string>
+		<xd:string>B18</xd:string>
+		<xd:string>B21</xd:string>
+		<xd:string>B22</xd:string>
+		<xd:string>B23</xd:string>
+		<xd:string>B24</xd:string>
+		<xd:string>B25</xd:string>
+		<xd:string>B26</xd:string>
+		<xd:string>B27</xd:string>
+		<xd:string>B28</xd:string>
+		<xd:string>B31</xd:string>
+		<xd:string>B32</xd:string>
+		<xd:string>B33</xd:string>
+		<xd:string>B34</xd:string>
+		<xd:string>B35</xd:string>
+		<xd:string>B36</xd:string>
+		<xd:string>B37</xd:string>
+		<xd:string>B38</xd:string>
+		<xd:string>B41</xd:string>
+		<xd:string>B42</xd:string>
+		<xd:string>B43</xd:string>
+		<xd:string>B44</xd:string>
+		<xd:string>B45</xd:string>
+		<xd:string>B46</xd:string>
+		<xd:string>B47</xd:string>
+		<xd:string>B48</xd:string>
+		<xd:string>B51</xd:string>
+		<xd:string>B52</xd:string>
+		<xd:string>B53</xd:string>
+		<xd:string>B54</xd:string>
+		<xd:string>B55</xd:string>
+		<xd:string>B56</xd:string>
+		<xd:string>B57</xd:string>
+		<xd:string>B58</xd:string>
+		<xd:string>B61</xd:string>
+		<xd:string>B62</xd:string>
+		<xd:string>B63</xd:string>
+		<xd:string>B64</xd:string>
+		<xd:string>B65</xd:string>
+		<xd:string>B66</xd:string>
+		<xd:string>B67</xd:string>
+		<xd:string>B68</xd:string>
+		<xd:string>B71</xd:string>
+		<xd:string>B72</xd:string>
+		<xd:string>B73</xd:string>
+		<xd:string>B74</xd:string>
+		<xd:string>B75</xd:string>
+		<xd:string>B76</xd:string>
+		<xd:string>B77</xd:string>
+		<xd:string>B78</xd:string>
+		<xd:string>B81</xd:string>
+		<xd:string>B82</xd:string>
+		<xd:string>B83</xd:string>
+		<xd:string>B84</xd:string>
+		<xd:string>B85</xd:string>
+		<xd:string>B86</xd:string>
+		<xd:string>B87</xd:string>
+		<xd:string>B88</xd:string>
+	</xd:patchNumbers>
+	<xd:bankNumbers />
+	<xd:deviceIDoffset>2</xd:deviceIDoffset>
+	<xd:checksumOffset>46</xd:checksumOffset>
+	<xd:checksumStart>5</xd:checksumStart>
+	<xd:checksumEnd>45</xd:checksumEnd>
+	<xd:patchNameStart>29</xd:patchNameStart>
+	<xd:patchNameSize>16</xd:patchNameSize>
+	<xd:patchParams>
+		<xd:patchParamGroup name="Common parameters">
+			<xd:stringParamSpec name="Name">
+				<xd:uuid>f8ee5c8e7ded4e4798ae94e8fc4a3e8d</xd:uuid>
+				<xd:length>16</xd:length>
+				<xd:stringSender name="LegacyPatchNameSender" />
+			</xd:stringParamSpec>
+			<xd:intParamSpec name="Level">
+				<xd:uuid>cafd67048ec5404e9ca93dd3ca38a4d3</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197652" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="28" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>100</xd:max>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="U/L balance">
+				<xd:uuid>f1242c391d7d445ca60aa3d246a428d6</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197651" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="27" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>100</xd:max>
+				<xd:base>-50</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Key mode">
+				<xd:uuid>e74876c1b8cd4c6d9e2c2b1d21b82274</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197632" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="8" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>2</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>Whole</xd:patchParamValue>
+					<xd:patchParamValue>Dual</xd:patchParamValue>
+					<xd:patchParamValue>Split</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Split point">
+				<xd:uuid>b82ee5e66f6a4c41bda4d7ec13306a02</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197633" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="9" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>61</xd:max>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Reverb mode">
+				<xd:uuid>3252296676d7446fa147dd8871516d35</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197648" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="24" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>8</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>Room 1</xd:patchParamValue>
+					<xd:patchParamValue>Room 2</xd:patchParamValue>
+					<xd:patchParamValue>Hall 1</xd:patchParamValue>
+					<xd:patchParamValue>Hall 2</xd:patchParamValue>
+					<xd:patchParamValue>Plate</xd:patchParamValue>
+					<xd:patchParamValue>Tap delay 1</xd:patchParamValue>
+					<xd:patchParamValue>Tap delay 2</xd:patchParamValue>
+					<xd:patchParamValue>Tap delay 3</xd:patchParamValue>
+					<xd:patchParamValue>Off</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Reverb time">
+				<xd:uuid>cf3c00971e214d4db490c535378081ee</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197649" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="25" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>7</xd:max>
+				<xd:base>1</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Reverb level">
+				<xd:uuid>307a426dcfc247159ec195dfe4549ef1</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197650" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="26" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>7</xd:max>
+			</xd:intParamSpec>
+		</xd:patchParamGroup>
+		<xd:patchParamGroup name="Upper Timbre">
+			<xd:intParamSpec name="Tone group">
+				<xd:uuid>df91f33f86b74231953fa1f84e3a53e2</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="196612" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="12" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>3</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>a</xd:patchParamValue>
+					<xd:patchParamValue>b</xd:patchParamValue>
+					<xd:patchParamValue>i</xd:patchParamValue>
+					<xd:patchParamValue>r</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Tone number">
+				<xd:uuid>69ae434b6cc747179f3c51d79d1213c7</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197637" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="13" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>63</xd:max>
+				<xd:base>1</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Key shift">
+				<xd:uuid>dbe6c5b8eb3c4161af9a8ddaa5a56fc0</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197639" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="15" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>48</xd:max>
+				<xd:base>-24</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Fine tune">
+				<xd:uuid>0b7d3f19660047a189462714f98e7828</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197641" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="17" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>100</xd:max>
+				<xd:base>-50</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Bender range">
+				<xd:uuid>3af11556416f46d096a25f7c4d30652e</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197643" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="19" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>100</xd:max>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Assign mode">
+				<xd:uuid>6bfa8ee3f8c34d7a876d5688ed6cd4d2</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197645" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="21" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>3</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>Poly 1</xd:patchParamValue>
+					<xd:patchParamValue>Poly 2</xd:patchParamValue>
+					<xd:patchParamValue>Poly 3</xd:patchParamValue>
+					<xd:patchParamValue>Poly 4</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Reverb switch">
+				<xd:uuid>606fb93abd2747d9bbcc3320fb19a5b1</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197647" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="23" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>1</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>Off</xd:patchParamValue>
+					<xd:patchParamValue>On</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+		</xd:patchParamGroup>
+		<xd:patchParamGroup name="Lower Timbre">
+			<xd:intParamSpec name="Tone group">
+				<xd:uuid>45c9908347434409a4915e930895b8bb</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="196610" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="10" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>3</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>a</xd:patchParamValue>
+					<xd:patchParamValue>b</xd:patchParamValue>
+					<xd:patchParamValue>i</xd:patchParamValue>
+					<xd:patchParamValue>r</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Tone number">
+				<xd:uuid>98eae70d231543cb9ce39a19ce3a8e9f</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197635" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="11" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>63</xd:max>
+				<xd:base>1</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Key shift">
+				<xd:uuid>2faac3c711a24ab8990ad996e858d95e</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197638" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="14" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>48</xd:max>
+				<xd:base>-24</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Fine tune">
+				<xd:uuid>3bd08106d48c4f288c48b10225f6359f</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197640" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="16" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>100</xd:max>
+				<xd:base>-50</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Bender range">
+				<xd:uuid>360c0f74917d4be496519a3085b42da8</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197642" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="18" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>100</xd:max>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Assign mode">
+				<xd:uuid>1447cb61b2ce48fbb20bfc0c67b1ba82</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197644" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="20" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>3</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>Poly 1</xd:patchParamValue>
+					<xd:patchParamValue>Poly 2</xd:patchParamValue>
+					<xd:patchParamValue>Poly 3</xd:patchParamValue>
+					<xd:patchParamValue>Poly 4</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Reverb switch">
+				<xd:uuid>c38a9d2033ed4450b9a98c801a9df11e</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="197646" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="22" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>1</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>Off</xd:patchParamValue>
+					<xd:patchParamValue>On</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+		</xd:patchParamGroup>
+	</xd:patchParams>
+</xd:xmlSingleDriverDefinition>

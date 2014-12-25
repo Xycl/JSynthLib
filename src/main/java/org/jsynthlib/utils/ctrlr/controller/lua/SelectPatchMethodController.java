@@ -63,14 +63,26 @@ public class SelectPatchMethodController extends EditorLuaMethodControllerBase {
         .append(getMethodDecl("mod", "newValue")).append(newLine());
         code.append(getPanelInitCheck(indent)).append(newLine());
 
-        code.append(indent(indent)).append("local ").append(patchDataVar)
-        .append(" = MemoryBlock(").append(driverDef.getPatchSize())
-        .append(", false)").append(newLine());
+        code.append(indent(indent.getAndIncrement())).append("if ")
+        .append(model.getBankDataVarName()).append(" == nil then")
+        .append(newLine());
+        code.append(indent(indent))
+                .append("mod:getComponent():setProperty(\"componentDisabled\", 1, false)")
+        .append(newLine());
+        code.append(indent(indent)).append("return").append(newLine());
+        code.append(indent(indent.decrementAndGet())).append("end")
+        .append(newLine());
+
+        // code.append(indent(indent)).append("local ").append(patchDataVar)
+        // .append(" = MemoryBlock(").append(driverDef.getPatchSize())
+        // .append(", false)").append(newLine());
 
         code.append(indent(indent))
-        .append(getMethodCall(
-                model.getAssembleValuesFromBankMethodName(),
-                patchDataVar, "newValue")).append(newLine());
+        .append("local ")
+        .append(patchDataVar)
+        .append(" = ")
+        .append(getMethodCall(model.getGetPatchMethodName(), "newValue"))
+        .append(newLine());
 
         code.append(indent(indent))
         .append(getMethodCall(model.getAssignValuesMethodName(),

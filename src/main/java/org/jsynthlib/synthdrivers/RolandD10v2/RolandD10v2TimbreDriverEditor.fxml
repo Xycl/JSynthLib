@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.jsynthlib.device.view.*?>
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/2.2" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <FlowPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="bordered-titled-content">
+      <children>
+        <TitledPane text="Timbre">
+          <content>
+            <AnchorPane>
+              <children>
+                <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="bordered-titled-content">
+                  <children>
+                    <ComboBox GridPane.halignment="CENTER" fx:id="d3b4a91709814afbb49ed94f09ec562e" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label prefWidth="100.0" wrapText="true" text="Tone group" fx:id="lbld3b4a91709814afbb49ed94f09ec562e" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Knob styleClass="knobStyle" fx:id="1dfeb155200d474eafb6cf69692c32e6" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <Label prefWidth="100.0" wrapText="true" text="Tone number" fx:id="lbl1dfeb155200d474eafb6cf69692c32e6" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Knob styleClass="knobStyle" fx:id="5fe2c41b5c504ba58e91953dc65d32a9" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <Label prefWidth="100.0" wrapText="true" text="Key shift" fx:id="lbl5fe2c41b5c504ba58e91953dc65d32a9" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <Knob styleClass="knobStyle" fx:id="ea50e23ca8e44754872980f08fab0582" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <Label prefWidth="100.0" wrapText="true" text="Fine tune" fx:id="lblea50e23ca8e44754872980f08fab0582" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <Knob styleClass="knobStyle" fx:id="d42f00424d034db99b2f01361dfa8580" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Label prefWidth="100.0" wrapText="true" text="Bender range" fx:id="lbld42f00424d034db99b2f01361dfa8580" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <ComboBox GridPane.halignment="CENTER" fx:id="e8fde22517f644e9b6dfc37a58d18af9" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                    <Label prefWidth="100.0" wrapText="true" text="Assign mode" fx:id="lble8fde22517f644e9b6dfc37a58d18af9" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                    <ComboBox GridPane.halignment="CENTER" fx:id="cafa82062c17486c9d6004e20c825031" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                    <Label prefWidth="100.0" wrapText="true" text="Reverb switch" fx:id="lblcafa82062c17486c9d6004e20c825031" alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                  </children>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+          <FlowPane.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+          </FlowPane.margin>
+        </TitledPane>
+      </children>
+    </FlowPane>
+  </children>
+</AnchorPane>

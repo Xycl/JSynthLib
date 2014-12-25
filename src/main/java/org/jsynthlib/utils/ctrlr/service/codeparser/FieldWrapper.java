@@ -23,7 +23,7 @@ package org.jsynthlib.utils.ctrlr.service.codeparser;
 /**
  * @author Pascal Collberg
  */
-public class Field {
+public class FieldWrapper {
 
     enum FieldType {
         INT, BYTE, BYTE_ARRAY, STRING, CHAR, PATCH;
@@ -94,7 +94,7 @@ public class Field {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Field other = (Field) obj;
+        FieldWrapper other = (FieldWrapper) obj;
         if (name == null) {
             if (other.name != null) {
                 return false;

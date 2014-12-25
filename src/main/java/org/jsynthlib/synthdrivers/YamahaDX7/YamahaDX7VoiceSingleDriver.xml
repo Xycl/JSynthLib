@@ -101,7 +101,7 @@
 					<patchParamResource>org/jsynthlib/synthdrivers/YamahaDX7/common/images/algo32.png</patchParamResource>
 				</patchParamResources>
 			</intParamSpec>
-			<combinedgroup>
+			<combinedGroup>
 				<midiSender
 					name="VoiceSender">
 					<propertyValue key="parameter" value="155" />
@@ -143,7 +143,7 @@
 					<max>1</max>
 					<leftShift>5</leftShift>
 				</param>
-			</combinedgroup>
+			</combinedGroup>
 			<intParamSpec name="Feedback">
 				<uuid>b6af60fe64ff49c8be053c7b96533992</uuid>
 				<midiSender

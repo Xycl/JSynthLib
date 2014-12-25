@@ -20,11 +20,7 @@
  */
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.jsynthlib.utils.ctrlr.domain.BankToPatchRelationBean;
-import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 
 /**
  * @author Pascal Collberg
@@ -38,34 +34,9 @@ EditorLuaMethodControllerBase {
     protected static final String BANK_OFFSETS_VAR = "bankOffsets";
     protected static final String PATCH_NUM_VAR = "patchNum";
     protected static final String PATCH_DATA_VAR = "patchData";
-    private final List<BankToPatchRelationBean> bankOffsets;
 
-    public BankPatchControllerBase(String methodName,
-            List<BankToPatchRelationBean> bankToPatchData) {
+    public BankPatchControllerBase(String methodName) {
         super(methodName);
-        this.bankOffsets = bankToPatchData;
-    }
-
-    String getBankOffsetsTable() {
-        StringBuilder sb = new StringBuilder();
-        boolean first = true;
-        for (BankToPatchRelationBean bean : bankOffsets) {
-            if (first) {
-                first = false;
-            } else {
-                sb.append(", ");
-            }
-            sb.append(bean.getBankDataOffset());
-        }
-        return sb.toString();
-    }
-
-    @Override
-    protected void checkPreconditions() throws PreConditionsNotMetException {
-        if (bankOffsets == null) { // || bankOffsets.isEmpty()
-            throw new PreConditionsNotMetException();
-        }
-        super.checkPreconditions();
     }
 
     protected String getMethodBegin(AtomicInteger indent) {

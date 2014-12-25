@@ -26,10 +26,10 @@ import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.FormalP
 import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.FormalParameterListContext;
 
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
-import org.jsynthlib.utils.ctrlr.service.codeparser.Field.FieldType;
+import org.jsynthlib.utils.ctrlr.service.codeparser.FieldWrapper.FieldType;
 
 import com.google.inject.Inject;
-
+import com.google.inject.assistedinject.Assisted;
 
 /**
  * @author Pascal Collberg
@@ -37,14 +37,16 @@ import com.google.inject.Inject;
 public class PutPatchMethodVisitor extends MethodVisitorBase {
 
     public interface Factory {
-        PutPatchMethodVisitor newPutPatchMethodVisitor();
+        PutPatchMethodVisitor newPutPatchMethodVisitor(Class<?> parsedClass,
+                MethodWrapper parsedMethod);
     }
 
     private final String bankDataVarName;
 
     @Inject
-    public PutPatchMethodVisitor(DriverModel model) {
-        super(model.getAssignValuesToBankMethodName());
+    public PutPatchMethodVisitor(DriverModel model,
+            @Assisted Class<?> parsedClass, @Assisted MethodWrapper parsedMethod) {
+        super(parsedMethod, parsedClass);
         bankDataVarName = model.getBankDataVarName();
         setIgnoreReturnStatement(true);
     }
@@ -53,14 +55,14 @@ public class PutPatchMethodVisitor extends MethodVisitorBase {
     public Void visitFormalParameterList(FormalParameterListContext ctx) {
         List<FormalParameterContext> formalParameter = ctx.formalParameter();
         FormalParameterContext bankContext = formalParameter.get(0);
-        Field field = new Field();
+        FieldWrapper field = new FieldWrapper();
         field.setName(bankContext.variableDeclaratorId().getText());
         field.setLuaName(bankDataVarName);
         field.setType(FieldType.PATCH);
         putLocalVariable(field.getName(), field);
 
         FormalParameterContext patchContext = formalParameter.get(1);
-        field = new Field();
+        field = new FieldWrapper();
         field.setName(patchContext.variableDeclaratorId().getText());
         field.setLuaName(patchContext.variableDeclaratorId().getText());
         field.setType(FieldType.PATCH);
@@ -69,7 +71,7 @@ public class PutPatchMethodVisitor extends MethodVisitorBase {
         getCode().append(field.getLuaName());
 
         FormalParameterContext patchNumContext = formalParameter.get(2);
-        field = new Field();
+        field = new FieldWrapper();
         field.setName(patchNumContext.variableDeclaratorId().getText());
         field.setLuaName("patchNum");
         field.setType(FieldType.INT);

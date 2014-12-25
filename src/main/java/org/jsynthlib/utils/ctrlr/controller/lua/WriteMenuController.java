@@ -42,9 +42,12 @@ Observer {
     }
 
     @Inject
+    private DriverModel model;
+
+    @Inject
     public WriteMenuController(@Named("prefix") String prefix,
-            DriverModel model, @Named("editor") LuaMethodProvider luaProvider) {
-        super(model.getWriteMenuName(),
+            @Named("editor") LuaMethodProvider luaProvider) {
+        super(prefix + "_WriteMenu",
                 "Write Single Patch or Bank onto the synth", luaProvider);
     }
 
@@ -52,5 +55,10 @@ Observer {
     public void update(Observable o, Object arg) {
         setList(getLuaProvider().getWriteMenuOptions());
         init();
+    }
+
+    @Override
+    protected void setMethodNameToModel() {
+        model.setWriteMenuName(getMethodName());
     }
 }

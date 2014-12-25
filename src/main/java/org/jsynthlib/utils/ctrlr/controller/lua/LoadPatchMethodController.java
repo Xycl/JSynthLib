@@ -42,7 +42,7 @@ public class LoadPatchMethodController extends LoadMethodControllerBase
                 "true")).append(newLine());
 
         code.append(indent(indent)).append(model.getBankDataVarName())
-                .append(" = nil")
+        .append(" = nil")
         .append(newLine());
 
         // Display Patch Loaded
@@ -53,5 +53,9 @@ public class LoadPatchMethodController extends LoadMethodControllerBase
         .append(newLine());
 
         setLuaMethodCode(code.toString());
+
+        if (model.getLoadMenuName() == null) {
+            model.setLoadMenuName(getMethodName());
+        }
     }
 }

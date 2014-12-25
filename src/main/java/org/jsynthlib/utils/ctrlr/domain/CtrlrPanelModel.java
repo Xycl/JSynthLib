@@ -29,7 +29,7 @@ import java.util.Observable;
 import java.util.Set;
 
 import org.ctrlr.panel.PanelType;
-import org.jsynthlib.utils.ctrlr.controller.lua.MidiReceivedDriverPart;
+import org.jsynthlib.utils.ctrlr.controller.lua.MidiReceivedDriverBean;
 import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 
 import com.google.inject.Singleton;
@@ -45,12 +45,13 @@ public class CtrlrPanelModel extends Observable {
     private XmlDeviceDefinition xmldevice;
     private int panelHeight;
     private int panelWidth;
-    private final List<MidiReceivedDriverPart> midiReceivedParts;
+    private final List<MidiReceivedDriverBean> midiReceivedParts;
     private String panelLoadedName;
+    private String beforePanelLoadedName;
     private final Map<String, String> globalVariables;
 
     public CtrlrPanelModel() {
-        midiReceivedParts = new ArrayList<MidiReceivedDriverPart>();
+        midiReceivedParts = new ArrayList<MidiReceivedDriverBean>();
         globalVariables = new HashMap<String, String>();
     }
 
@@ -94,7 +95,7 @@ public class CtrlrPanelModel extends Observable {
         notifyObservers(panelWidth);
     }
 
-    public boolean addMidiReceivedDriverPart(MidiReceivedDriverPart e) {
+    public boolean addMidiReceivedDriverPart(MidiReceivedDriverBean e) {
         boolean add = midiReceivedParts.add(e);
         if (add) {
             setChanged();
@@ -103,7 +104,7 @@ public class CtrlrPanelModel extends Observable {
         return add;
     }
 
-    public List<MidiReceivedDriverPart> getMidiReceivedParts() {
+    public List<MidiReceivedDriverBean> getMidiReceivedParts() {
         return midiReceivedParts;
     }
 
@@ -126,6 +127,16 @@ public class CtrlrPanelModel extends Observable {
 
     public Set<Entry<String, String>> getGlobalVariableEntries() {
         return globalVariables.entrySet();
+    }
+
+    public String getBeforePanelLoadedName() {
+        return beforePanelLoadedName;
+    }
+
+    public void setBeforePanelLoadedName(String beforePanelLoadedName) {
+        this.beforePanelLoadedName = beforePanelLoadedName;
+        setChanged();
+        notifyObservers(beforePanelLoadedName);
     }
 
 }

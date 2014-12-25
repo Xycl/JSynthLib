@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Pascal Collberg
+ * Copyright 2001 Roger Westerlund
  *
  * This file is part of JSynthLib.
  *
@@ -18,30 +18,27 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  */
-package org.jsynthlib.utils.ctrlr.service.codeparser;
+package org.jsynthlib.synthdrivers.RolandD10v2;
+
+import java.util.prefs.Preferences;
+
+import org.jsynthlib.device.model.XMLDevice;
+import org.jsynthlib.xmldevice.XmlDeviceDefinitionDocument.XmlDeviceDefinition;
 
 /**
- * @author Pascal Collberg
+ * @author Roger Westerlund <roger.westerlund@home.se>
  */
-public class Method {
+public class RolandD10v2Device extends XMLDevice {
 
-    private String name;
-    private String luaName;
-
-    public String getName() {
-        return name;
+    /**
+     * @param xmlDeviceSpec
+     */
+    public RolandD10v2Device(XmlDeviceDefinition xmlDeviceSpec) {
+        super(xmlDeviceSpec);
     }
 
-    public String getLuaName() {
-        return luaName;
+    @Override
+    public void setup(Preferences prefs) {
+        super.setup(prefs);
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLuaName(String luaName) {
-        this.luaName = luaName;
-    }
-
 }

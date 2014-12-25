@@ -37,8 +37,6 @@ Observer {
     @Inject
     private ModulatorFactoryFacade factoryFacade;
 
-    // private UiLabelController infoLabelBuilder;
-
     @Inject
     public GlobalGroupController(DriverModel model) {
         super("Global");
@@ -81,13 +79,6 @@ Observer {
                     .getPatchSelectMethodName());
             add(patchSelectController);
         }
-
-        // infoLabelBuilder =
-        // factoryFacade.newUiLabelController("driverStatus");
-        // infoLabelBuilder.setLabelBgColor("0xFF000000");
-        // infoLabelBuilder.setLabelVisible(false);
-        // infoLabelBuilder.setRect(newRectangle(400, 40));
-        // add(infoLabelBuilder);
     }
 
     @Override

@@ -47,19 +47,24 @@ public abstract class LuaMethodControllerBase {
     }
 
     public String getPanelInitCheck(AtomicInteger indent) {
-        StringBuilder codeBuilder = new StringBuilder();
-        codeBuilder
-        .append(indent(indent))
+        StringBuilder code = new StringBuilder();
+        code.append(indent(indent))
         .append("-- This variable stops index issues during panel bootup")
         .append(newLine());
-        codeBuilder
-        .append(indent(indent.getAndIncrement()))
+        code.append(indent(indent.getAndIncrement()))
         .append("if panel:getRestoreState() == true or panel:getProgramState() == true then")
         .append(newLine());
-        codeBuilder.append(indent(indent)).append("return").append(newLine());
-        codeBuilder.append(indent(indent.decrementAndGet())).append("end")
+        code.append(indent(indent)).append("return").append(newLine());
+        code.append(indent(indent.decrementAndGet())).append("end")
+                .append(newLine()).append(newLine());
+
+        code.append(indent(indent.getAndIncrement()))
+        .append("if panel_loaded == 0 then").append(newLine());
+        code.append(indent(indent)).append("return").append(newLine());
+        code.append(indent(indent.decrementAndGet())).append("end")
         .append(newLine());
-        return codeBuilder.toString();
+
+        return code.toString();
     }
 
     public String getMethodCall(String methodName, String... args) {

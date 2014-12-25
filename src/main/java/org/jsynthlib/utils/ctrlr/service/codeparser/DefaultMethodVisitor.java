@@ -26,7 +26,7 @@ import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.FormalP
 import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.FormalParameterListContext;
 
 import org.apache.log4j.Logger;
-import org.jsynthlib.utils.ctrlr.service.codeparser.Field.FieldType;
+import org.jsynthlib.utils.ctrlr.service.codeparser.FieldWrapper.FieldType;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -38,14 +38,16 @@ import com.google.inject.assistedinject.Assisted;
 public class DefaultMethodVisitor extends MethodVisitorBase {
 
     public interface Factory {
-        DefaultMethodVisitor newDefaultMethodVisitor(Method methodName);
+        DefaultMethodVisitor newDefaultMethodVisitor(Class<?> parsedClass,
+                MethodWrapper parsedMethod);
     }
 
     private final transient Logger log = Logger.getLogger(getClass());
 
     @Inject
-    public DefaultMethodVisitor(@Assisted Method methodName) {
-        super(methodName.getLuaName());
+    public DefaultMethodVisitor(@Assisted MethodWrapper parsedMethod,
+            @Assisted Class<?> parsedClass) {
+        super(parsedMethod, parsedClass);
     }
 
     @Override
@@ -53,7 +55,7 @@ public class DefaultMethodVisitor extends MethodVisitorBase {
         List<FormalParameterContext> formalParameter = ctx.formalParameter();
         boolean first = true;
         for (FormalParameterContext formalParamCtx : formalParameter) {
-            Field field = new Field();
+            FieldWrapper field = new FieldWrapper();
             String name = formalParamCtx.variableDeclaratorId().getText();
             field.setName(name);
             field.setLuaName(name);

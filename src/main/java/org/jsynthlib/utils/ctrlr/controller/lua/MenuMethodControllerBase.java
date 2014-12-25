@@ -33,7 +33,7 @@ import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
  * @author Pascal Collberg
  */
 public abstract class MenuMethodControllerBase extends
-EditorLuaMethodControllerBase implements Observer {
+        EditorLuaMethodControllerBase implements Observer {
 
     private final String menuHeader;
     private List<MethodDescriptionPair> list;
@@ -64,42 +64,46 @@ EditorLuaMethodControllerBase implements Observer {
         code.append(getPanelInitCheck(indent)).append(newLine());
 
         code.append(indent(indent))
-        .append("menu = PopupMenu()    -- Main Menu").append(newLine());
+                .append("local menu = PopupMenu()    -- Main Menu")
+                .append(newLine());
 
         code.append(indent(indent)).append("menu:addSectionHeader (\"")
-        .append(menuHeader).append("\")").append(newLine());
+                .append(menuHeader).append("\")").append(newLine());
 
         for (int i = 0; i < list.size(); i++) {
             MethodDescriptionPair menuOption = list.get(i);
             code.append(indent(indent)).append("menu:addItem(").append(i + 1)
-            .append(", \"").append(menuOption.getDescription())
-            .append("\", true, false, Image())").append(newLine());
+                    .append(", \"").append(menuOption.getDescription())
+                    .append("\", true, false, Image())").append(newLine());
         }
 
-        code.append(indent(indent)).append("ret = menu:show(0,0,0,0)")
-        .append(newLine());
+        code.append(indent(indent)).append("local ret = menu:show(0,0,0,0)")
+                .append(newLine());
 
         code.append(indent(indent.getAndIncrement()))
-        .append("if ret == 0 then").append(newLine());
+                .append("if ret == 0 then").append(newLine());
         code.append(indent(indent)).append("return").append(newLine());
         code.append(indent(indent.decrementAndGet())).append("end")
-        .append(newLine());
+                .append(newLine());
 
         for (int i = 0; i < list.size(); i++) {
             MethodDescriptionPair menuOption = list.get(i);
             code.append(indent(indent.getAndIncrement())).append("if ret == ")
-            .append(i + 1).append(" then").append(newLine());
+                    .append(i + 1).append(" then").append(newLine());
             code.append(indent(indent)).append(menuOption.getMethodName())
-            .append("()").append(newLine());
+                    .append("()").append(newLine());
             code.append(indent(indent.decrementAndGet())).append("end")
-            .append(newLine());
+                    .append(newLine());
         }
 
         code.append(indent(indent.decrementAndGet())).append("end")
-        .append(newLine());
+                .append(newLine());
 
         setLuaMethodCode(code.toString());
+        setMethodNameToModel();
     }
+
+    protected abstract void setMethodNameToModel();
 
     public void setList(List<MethodDescriptionPair> list) {
         this.list = list;

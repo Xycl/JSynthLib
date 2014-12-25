@@ -29,19 +29,23 @@ import org.jsynthlib.patch.model.impl.Patch;
  * retrieving data to send.
  * @author Roger Westerlund
  */
-class PartMuteDataModel extends D10ParamModel {
+public class PartMuteDataModel extends D10ParamModel {
 
     public PartMuteDataModel(Patch patch, int offset) {
         super(patch, offset);
     }
 
+    public PartMuteDataModel() {
+        super();
+    }
+
     public int get(int bit) {
-        return get() & (1 << bit);
+        return get() & 1 << bit;
     }
 
     public void set(int bit, int value) {
         if (value != 0) {
-            super.set(super.get() | (1 << bit));
+            super.set(super.get() | 1 << bit);
         } else {
             super.set(super.get() & ~(1 << bit));
         }

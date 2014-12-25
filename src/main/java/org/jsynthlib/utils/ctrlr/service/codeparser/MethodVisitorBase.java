@@ -22,18 +22,18 @@ package org.jsynthlib.utils.ctrlr.service.codeparser;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaBaseVisitor;
+import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.CatchClauseContext;
 import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.CreatorContext;
 import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.ExpressionContext;
 import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.ExpressionListContext;
@@ -59,7 +59,7 @@ import org.apache.log4j.Logger;
 import org.jsynthlib.utils.ctrlr.controller.LuaFactoryFacade;
 import org.jsynthlib.utils.ctrlr.controller.lua.JavaParsedMethodController;
 import org.jsynthlib.utils.ctrlr.domain.CtrlrPanelModel;
-import org.jsynthlib.utils.ctrlr.service.codeparser.Field.FieldType;
+import org.jsynthlib.utils.ctrlr.service.codeparser.FieldWrapper.FieldType;
 import org.jsynthlib.xmldevice.Property;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
 import org.jsynthlib.xmldevice.XmlDriverDefinition.CustomProperties;
@@ -79,8 +79,6 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
 
     private final transient Logger log = Logger.getLogger(getClass());
 
-    private final Set<Method> methodsToParse;
-    private final Set<Field> fieldsToParse;
     protected final AtomicInteger indent = new AtomicInteger(0);
 
     @Inject
@@ -92,13 +90,11 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
     @Inject
     private CtrlrPanelModel panelModel;
 
-    private final String methodName;
+    private final MethodWrapper parsedMethod;
 
     private JavaParsedMethodController code;
 
-    private final Map<String, Field> parsedLocalVariables;
-
-    private Field currField;
+    private final Map<String, FieldWrapper> parsedLocalVariables;
 
     private final List<String> terminals;
 
@@ -108,12 +104,15 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
     @Named("prefix")
     private String prefix;
 
-    public MethodVisitorBase(String methodName) {
-        methodsToParse = new HashSet<Method>();
-        fieldsToParse = new HashSet<Field>();
-        this.methodName = methodName;
-        parsedLocalVariables = new HashMap<String, Field>();
+    @Inject
+    private BankDriverParserModel model;
+    private final Class<?> parsedClass;
+
+    public MethodVisitorBase(MethodWrapper method, Class<?> parsedClass) {
+        this.parsedMethod = method;
+        parsedLocalVariables = new HashMap<String, FieldWrapper>();
         terminals = Arrays.asList(TERMINALS);
+        this.parsedClass = parsedClass;
     }
 
     protected String getFieldValue(String fieldName) {
@@ -144,17 +143,19 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
 
     @Override
     public Void visitMethodDeclaration(MethodDeclarationContext ctx) {
-        code = luaFactory.newJavaParsedMethodController(methodName);
+        code =
+                luaFactory.newJavaParsedMethodController(parsedMethod
+                        .getLuaName());
+
         code.append(code.indent(indent.getAndIncrement()));
-        code.append("function ").append(methodName).append(" (");
+        code.append("function ").append(parsedMethod.getLuaName()).append(" (");
         visit(ctx.formalParameters());
         code.append(")").append(code.newLine());
         code.append(code.getPanelInitCheck(indent)).append(code.newLine())
         .append(code.indent(indent));
 
         visit(ctx.methodBody());
-        code.append(code.newLine()).append("end")
-        .append(code.newLine());
+        code.append(code.newLine()).append("end").append(code.newLine());
 
         return null;
     }
@@ -209,39 +210,90 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         } else if (compareClassArrays(
                 new Class<?>[] {
                         ExpressionContext.class, TerminalNode.class,
-                        TerminalNode.class }, ctx.children)) {
+                        TerminalNode.class }, ctx.children)
+                        && ctx.getChild(1).equals("(")) {
             return true;
         } else {
             return false;
         }
     }
 
+    FieldWrapper getFieldFromVarName(ParseTree tree, boolean global) {
+        String varName = tree.getText();
+        if (varName.endsWith(".sysex")) {
+            varName = varName.replace(".sysex", "");
+        }
+
+        FieldWrapper field = null;
+        if (parsedLocalVariables.containsKey(varName)) {
+            field = parsedLocalVariables.get(varName);
+        } else {
+            String fieldValue = getFieldValue(varName);
+            field = new FieldWrapper();
+            field.setName(varName);
+            if (global) {
+                field.setLuaName(prefix + "_" + varName);
+                if (fieldValue != null) {
+                    panelModel
+                    .putGlobalVariable(field.getLuaName(), fieldValue);
+                } else {
+                    // TODO: implement!
+                    // fieldsToParse.add(field);
+                }
+            } else {
+                field.setLuaName(varName);
+            }
+            parsedLocalVariables.put(varName, field);
+        }
+        return field;
+    }
+
+    void handleSystemArrayCopy(ExpressionContext ctx) {
+        List<ExpressionContext> expression = ctx.expressionList().expression();
+        ExpressionContext src = expression.get(0);
+        ExpressionContext srcPos = expression.get(1);
+        ExpressionContext dest = expression.get(2);
+        ExpressionContext destPos = expression.get(3);
+        ExpressionContext length = expression.get(4);
+
+        FieldWrapper srcField = getFieldFromVarName(src, true);
+        code.append("local trimmedData = ").append(srcField.getLuaName())
+        .append(":getRange(");
+        visit(srcPos);
+        code.append(", ");
+        visit(length);
+        code.append(")").append(code.newLine()).append(code.indent(indent));
+
+        FieldWrapper destField = getFieldFromVarName(dest, true);
+        code.append(destField.getLuaName()).append(":copyFrom(trimmedData, ");
+        visit(destPos);
+        code.append(", ");
+        visit(length);
+        code.append(")").append(code.newLine()).append(code.indent(indent));
+
+    }
+
     @Override
     public Void visitExpression(ExpressionContext ctx) {
         if (isMethodCall(ctx)) {
-            Method method = new Method();
-            method.setName(ctx.getChild(0).getText());
-            method.setLuaName(prefix + "_" + ctx.getChild(0).getText());
-            methodsToParse.add(method);
-            code.append(ctx.getText().replace(method.getName(),
-                    method.getLuaName()));
-            return null;
+            String methodName = ctx.getChild(0).getText();
+            if (methodName.equals("System.arraycopy")) {
+                handleSystemArrayCopy(ctx);
+                return null;
+            } else if (methodName.equals("getSingleDriver().createPatch")) {
+                // TODO: fix single size
+                code.append("MemoryBlock(").append("1").append(", false)");
+                return null;
+            } else {
+                handleGenericMethodCall(ctx);
+                return null;
+            }
         } else if (compareClassArrays(new Class<?>[] {
                 ExpressionContext.class, TerminalNode.class,
                 ExpressionContext.class, TerminalNode.class }, ctx.children)
                 && ctx.getChild(1).getText().equals("[")) {
             // Array value expression
-            String varName = ctx.getChild(0).getText();
-            if (varName.endsWith(".sysex")) {
-                varName = varName.replace(".sysex", "");
-            }
-
-            Field field = null;
-            if (parsedLocalVariables.containsKey(varName)) {
-                field = parsedLocalVariables.get(varName);
-            } else {
-                field = handleVariable(varName);
-            }
+            FieldWrapper field = getFieldFromVarName(ctx.expression(0), true);
             code.append(field.getLuaName()).append(":getByte(");
             Void expression =
                     super.visitExpression((ExpressionContext) ctx.getChild(2));
@@ -276,6 +328,18 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
             return null;
         } else if (compareClassArrays(new Class<?>[] {
                 ExpressionContext.class, TerminalNode.class,
+                TerminalNode.class, ExpressionContext.class, }, ctx.children)
+                && ctx.getChild(1).getText().equals(">")
+                && ctx.getChild(2).getText().equals(">")) {
+            // Bitwise signed right shift
+            code.append("bit.rshift(");
+            visit(ctx.getChild(0));
+            code.append(",");
+            visit(ctx.getChild(3));
+            code.append(")");
+            return null;
+        } else if (compareClassArrays(new Class<?>[] {
+                ExpressionContext.class, TerminalNode.class,
                 ExpressionContext.class, }, ctx.children)
                 && ctx.getChild(1).getText().equals("+=")) {
             // increment
@@ -301,18 +365,48 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         }
     }
 
-    Field handleVariable(String varName) {
-        Field field;
-        String fieldValue = getFieldValue(varName);
-        field = new Field();
-        field.setName(varName);
-        field.setLuaName(prefix + "_" + varName);
-        if (fieldValue != null) {
-            panelModel.putGlobalVariable(field.getLuaName(), fieldValue);
+    void handleGenericMethodCall(ExpressionContext ctx) {
+        ExpressionContext callExpression = ctx.expression(0);
+        if (callExpression.getChildCount() == 1) {
+            Class<?> currClass = parsedClass;
+            boolean foundMethod = false;
+            while (!currClass.equals(Object.class)) {
+                Method[] methods = parsedClass.getMethods();
+
+                for (Method method : methods) {
+                    if (method.getName().equals(callExpression.getText())) {
+                        foundMethod = true;
+                        break;
+                    }
+                }
+                if (foundMethod) {
+                    MethodWrapper method = new MethodWrapper();
+                    method.setName(callExpression.getText());
+                    method.setLuaName(prefix + "_" + callExpression.getText());
+                    model.addMethodToParse(currClass.getSimpleName(), method);
+                    code.append(ctx.getText().replace(method.getName(),
+                            method.getLuaName()));
+                    break;
+                }
+            }
+
+            if (!foundMethod) {
+                log.warn("Could not find implementation for method "
+                        + parsedMethod);
+            }
+        } else if (callExpression.getChildCount() == 3) {
+            ExpressionContext instanceName = callExpression.expression(0);
+            MethodWrapper methodWrapper = new MethodWrapper();
+            methodWrapper.setName(callExpression.getChild(2).getText());
+            methodWrapper
+            .setLuaName(callExpression.getText().replace('.', '_'));
+            model.addMethodToParse(instanceName.getText(), methodWrapper);
+            code.append(methodWrapper.getLuaName()).append("(");
+            visit(ctx.expressionList());
+            code.append(")");
         } else {
-            fieldsToParse.add(field);
+            log.warn("Unsupported method call " + callExpression.getText());
         }
-        return field;
     }
 
     @Override
@@ -336,7 +430,7 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
             code.append("MemoryBlock(");
             visit(ctx.arrayCreatorRest());
             code.append(", false)");
-            currField.setType(FieldType.BYTE_ARRAY);
+            // currField.setType(FieldType.BYTE_ARRAY);
             return null;
         }
         return super.visitCreator(ctx);
@@ -348,29 +442,32 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         VariableDeclaratorContext variableDeclarator =
                 ctx.variableDeclarators().variableDeclarator(0);
         String varName = variableDeclarator.variableDeclaratorId().getText();
-        currField = new Field();
-        currField.setName(varName);
-        currField.setLuaName(varName);
+        FieldWrapper field =
+                getFieldFromVarName(variableDeclarator.variableDeclaratorId(),
+                        false);
         String initializer = variableDeclarator.variableInitializer().getText();
         if (isByteArrayDeclaration(variableDeclarator)) {
             code.append(varName).append(" = ");
-            parsedLocalVariables.put(currField.getName(), currField);
             return super.visitLocalVariableDeclaration(ctx);
         } else if (initializer.startsWith("getPatchFactory")) {
             String sysexVar =
                     variableDeclarator.variableInitializer().expression()
                     .expressionList().expression(0).getText();
-            code.append("patchData:copyFrom(")
-            .append(sysexVar).append(", 0, ").append(sysexVar)
-            .append(":getSize())");
-            currField.setType(FieldType.PATCH);
+
+            String declaratorId = field.getLuaName();
+            code.append("local ").append(declaratorId)
+            .append(" = MemoryBlock(").append(sysexVar)
+            .append(":getSize(), false)").append(code.newLine())
+            .append(code.indent(indent));
+            code.append(declaratorId).append(":copyFrom(").append(sysexVar)
+            .append(", 0, ").append(sysexVar).append(":getSize())");
+            field.setType(FieldType.PATCH);
         } else {
             FieldType type = FieldType.getFromString(ctx.type().getText());
-            currField.setType(type);
-            code.append("local ").append(varName)
-            .append(" = ").append(initializer);
+            field.setType(type);
+            code.append("local ").append(varName).append(" = ");
+            return super.visitLocalVariableDeclaration(ctx);
         }
-        parsedLocalVariables.put(currField.getName(), currField);
         return null;
     }
 
@@ -419,13 +516,7 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         if (literal != null) {
             code.append(literal.getText());
         } else if (ctx.Identifier() != null) {
-            String varName = ctx.getText();
-            Field field = null;
-            if (parsedLocalVariables.containsKey(varName)) {
-                field = parsedLocalVariables.get(varName);
-            } else {
-                field = handleVariable(varName);
-            }
+            FieldWrapper field = getFieldFromVarName(ctx, true);
             code.append(field.getLuaName());
         }
         Void visitPrimary = super.visitPrimary(ctx);
@@ -444,20 +535,9 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         }
 
         if (isArrayElementAssignment(ctx)) {
-
             ExpressionContext expression = ctx.expression().expression(0);
-
-            String varName = expression.expression(0).getText();
-            if (varName.endsWith(".sysex")) {
-                varName = varName.replace(".sysex", "");
-            }
-
-            Field field = null;
-            if (parsedLocalVariables.containsKey(varName)) {
-                field = parsedLocalVariables.get(varName);
-            } else {
-                field = handleVariable(varName);
-            }
+            FieldWrapper field =
+                    getFieldFromVarName(expression.expression(0), true);
             code.append(field.getLuaName()).append(":setByte(");
 
             visit(expression.expression(1));
@@ -500,6 +580,7 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
                 }
             } else {
                 log.info("WHILE!");
+                // TODO handle while
             }
             return visit(ctx.getChild(2));
         } else if (compareClassArrays(new Class<?>[] {
@@ -518,7 +599,11 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         } else {
             return super.visitStatement(ctx);
         }
+    }
 
+    @Override
+    public Void visitCatchClause(CatchClauseContext ctx) {
+        return null;
     }
 
     boolean appendIf(StatementContext ctx) {
@@ -544,8 +629,9 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         VariableDeclaratorContext variableDeclarator =
                 forInit.localVariableDeclaration().variableDeclarators()
                 .variableDeclarator(0);
-        code.append(variableDeclarator.variableDeclaratorId().getText())
-        .append(" = ");
+        code.append(
+                getFieldFromVarName(variableDeclarator.variableDeclaratorId(),
+                        false).getLuaName()).append(" = ");
         code.append(variableDeclarator.variableInitializer().getText()).append(
                 ", ");
 
@@ -561,11 +647,12 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
     }
 
     void appendEnd() {
-        code.append(code.indent(indent.decrementAndGet())).append("end")
+        code.append(code.newLine())
+        .append(code.indent(indent.decrementAndGet())).append("end")
         .append(code.newLine()).append(code.indent(indent));
     }
 
-    protected Field putLocalVariable(String key, Field value) {
+    protected FieldWrapper putLocalVariable(String key, FieldWrapper value) {
         return parsedLocalVariables.put(key, value);
     }
 
@@ -575,14 +662,6 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
 
     void setLuaFactory(LuaFactoryFacade luaFactory) {
         this.luaFactory = luaFactory;
-    }
-
-    public Set<Method> getMethodsToParse() {
-        return methodsToParse;
-    }
-
-    public Set<Field> getFieldsToParse() {
-        return fieldsToParse;
     }
 
     XmlDriverDefinition getDriverDef() {

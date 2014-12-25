@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xd:xmlDeviceDefinition xmlns:xd="http://www.jsynthlib.org/xmldevice">
+	<xd:manufacturer>Roland</xd:manufacturer>
+	<xd:modelName>D-10_V2_</xd:modelName>
+	<xd:inquiryId>NONE</xd:inquiryId>
+	<xd:infoText>This driver supports editing of Tones, Timbres and Patches
+		for the D-10. It currently only supports device id 17.</xd:infoText>
+	<xd:authors>Roger Westerlund</xd:authors>
+	<xd:drivers>
+		<xd:xmlDriverReference>
+			<xd:driverClass>org.jsynthlib.synthdrivers.RolandD10v2.RolandD10v2ToneDriver
+			</xd:driverClass>
+			<xd:driverType>Patch</xd:driverType>
+		</xd:xmlDriverReference>
+		<xd:xmlDriverReference>
+			<xd:driverClass>org.jsynthlib.synthdrivers.RolandD10v2.RolandD10v2ToneBankDriver
+			</xd:driverClass>
+			<xd:driverType>Bank</xd:driverType>
+		</xd:xmlDriverReference>
+		<xd:xmlDriverReference>
+			<xd:driverClass>org.jsynthlib.synthdrivers.RolandD10v2.RolandD10v2TimbreDriver
+			</xd:driverClass>
+			<xd:driverType>Patch</xd:driverType>
+		</xd:xmlDriverReference>
+		<xd:xmlDriverReference>
+			<xd:driverClass>org.jsynthlib.synthdrivers.RolandD10v2.RolandD10v2TimbreBankDriver
+			</xd:driverClass>
+			<xd:driverType>Bank</xd:driverType>
+		</xd:xmlDriverReference>
+		<xd:xmlDriverReference>
+			<xd:driverClass>org.jsynthlib.synthdrivers.RolandD10v2.RolandD10v2PatchDriver
+			</xd:driverClass>
+			<xd:driverType>Patch</xd:driverType>
+		</xd:xmlDriverReference>
+		<xd:xmlDriverReference>
+			<xd:driverClass>org.jsynthlib.synthdrivers.RolandD10v2.RolandD10v2PatchBankDriver
+			</xd:driverClass>
+			<xd:driverType>Bank</xd:driverType>
+		</xd:xmlDriverReference>
+	</xd:drivers>
+	<xd:configuration>
+		<xd:paramModelDefinitions>
+			<xd:paramModelDefinition name="PartMuteParamModel">
+				<xd:handlerClass>org.jsynthlib.synthdrivers.RolandD10.PartMuteParamModel
+				</xd:handlerClass>
+			</xd:paramModelDefinition>
+			<xd:paramModelDefinition name="D10ParamModel">
+				<xd:property key="offset" />
+				<xd:handlerClass>org.jsynthlib.synthdrivers.RolandD10.D10ParamModel
+				</xd:handlerClass>
+			</xd:paramModelDefinition>
+		</xd:paramModelDefinitions>
+		<xd:midiSenderDefinitions>
+			<xd:midiSenderDefinition name="LegacyPatchNameSender">
+				<xd:handlerClass>org.jsynthlib.device.model.handler.LegacyPatchNameSender
+				</xd:handlerClass>
+			</xd:midiSenderDefinition>
+			<xd:midiSenderDefinition name="EditSender">
+				<xd:property key="address" />
+				<xd:handlerClass>org.jsynthlib.synthdrivers.RolandD10.EditSender
+				</xd:handlerClass>
+			</xd:midiSenderDefinition>
+			<xd:midiSenderDefinition name="PartMuteSender">
+				<xd:handlerClass>org.jsynthlib.synthdrivers.RolandD10.PartMuteSender
+				</xd:handlerClass>
+			</xd:midiSenderDefinition>
+		</xd:midiSenderDefinitions>
+	</xd:configuration>
+</xd:xmlDeviceDefinition>

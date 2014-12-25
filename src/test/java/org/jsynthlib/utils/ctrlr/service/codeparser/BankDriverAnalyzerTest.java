@@ -109,5 +109,4 @@ public class BankDriverAnalyzerTest {
                 .endsWith(
                         "src\\main\\java\\org\\jsynthlib\\device\\model\\AbstractDriver.java"));
     }
-
 }

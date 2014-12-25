@@ -15,8 +15,8 @@ import org.jsynthlib.utils.ctrlr.controller.ModulatorFactoryFacade;
 import org.jsynthlib.utils.ctrlr.controller.ModulatorFactoryFacadeImpl;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssembleValuesController;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssembleValuesFromBankController;
+import org.jsynthlib.utils.ctrlr.controller.lua.AssignBankController;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesController;
-import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesToBankController;
 import org.jsynthlib.utils.ctrlr.controller.lua.GetNameMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.JavaParsedMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.LoadBankMethodController;
@@ -53,6 +53,7 @@ import org.jsynthlib.utils.ctrlr.service.ParameterOffsetParser;
 import org.jsynthlib.utils.ctrlr.service.PopupManager;
 import org.jsynthlib.utils.ctrlr.service.SysexFormulaParser;
 import org.jsynthlib.utils.ctrlr.service.XmlDriverParser;
+import org.jsynthlib.utils.ctrlr.service.codeparser.BankDriverParserModel;
 import org.jsynthlib.utils.ctrlr.service.codeparser.DefaultMethodVisitor;
 import org.jsynthlib.utils.ctrlr.service.codeparser.GetPatchMethodVisitor;
 import org.jsynthlib.utils.ctrlr.service.codeparser.PutPatchMethodVisitor;
@@ -229,6 +230,8 @@ public class DriverModule extends AbstractModule {
         bind(PopupManager.class).to(PopupManagerImpl.class);
         bind(LuaMethodProvider.class).annotatedWith(Names.named("editor"))
         .toInstance(luaMethodProvider);
+        bind(BankDriverParserModel.class).toInstance(
+                new BankDriverParserModel());
 
         switch (driverRef.getDriverType().intValue()) {
         case XmlDriverReference.DriverType.INT_PATCH:
@@ -308,9 +311,9 @@ public class DriverModule extends AbstractModule {
                 WritePatchMethodController.class).build(
                         WritePatchMethodController.Factory.class));
         install(new FactoryModuleBuilder().implement(
-                AssignValuesToBankController.class,
-                AssignValuesToBankController.class).build(
-                        AssignValuesToBankController.Factory.class));
+                AssignBankController.class,
+                AssignBankController.class).build(
+                        AssignBankController.Factory.class));
         install(new FactoryModuleBuilder().implement(
                 LoadBankMethodController.class, LoadBankMethodController.class)
                 .build(LoadBankMethodController.Factory.class));

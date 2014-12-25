@@ -1,6 +1,7 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jsynthlib.utils.SysexUtils;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
@@ -44,7 +45,7 @@ public class WriteBankMethodController extends EditorLuaMethodControllerBase {
 
     @Override
     protected void writeLuaMethodCode() {
-        int indent = 0;
+        AtomicInteger indent = new AtomicInteger(0);
         StringBuilder code = new StringBuilder();
         String[] args = new String[0];
         if (variableBanks) {
@@ -65,7 +66,11 @@ public class WriteBankMethodController extends EditorLuaMethodControllerBase {
         .append(newLine());
         code.append(indent(indent)).append("-- store the current patch")
         .append(newLine());
-        code.append(indent(indent++)).append(getMethodDecl(args));
+        code.append(indent(indent.getAndIncrement())).append(
+                getMethodDecl(args));
+
+        code.append(getPanelInitCheck(indent)).append(newLine());
+
         for (WritePatchMessage msg : writeMsgList) {
             byte[] bytes = SysexUtils.stringToSysex(msg.getMessage());
             if (msg.isPatchDataMsg()) {
@@ -106,8 +111,13 @@ public class WriteBankMethodController extends EditorLuaMethodControllerBase {
             .append(newLine());
         }
 
-        code.append(indent(--indent)).append("end").append(newLine());
+        code.append(indent(indent.decrementAndGet())).append("end")
+                .append(newLine());
 
         setLuaMethodCode(code.toString());
+
+        if (model.getWriteMenuName() == null) {
+            model.setWriteMenuName(getMethodName());
+        }
     }
 }

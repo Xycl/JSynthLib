@@ -23,6 +23,8 @@ package org.jsynthlib.utils.ctrlr.controller.lua;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
@@ -38,6 +40,9 @@ public class ReceiveBankMethodController extends ReceiveMethodControllerBase
                 @Assisted("midiMessages") List<String> midiMessages,
                 @Assisted("popupList") List<String> popupList);
     }
+
+    @Inject
+    private DriverModel model;
 
     @Inject
     public ReceiveBankMethodController(@Named("prefix") String prefix) {
@@ -71,5 +76,9 @@ public class ReceiveBankMethodController extends ReceiveMethodControllerBase
         code.append(getReceiveMethodBase(indent)).append(newLine());
 
         setLuaMethodCode(code.toString());
+
+        if (model.getReceiveMenuName() == null) {
+            model.setReceiveMenuName(getMethodName());
+        }
     }
 }

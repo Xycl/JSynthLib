@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xd:xmlBankDriverDefinition xmlns:xd="http://www.jsynthlib.org/xmldevice">
+	<xd:name>Roland D-10 Tone Bank</xd:name>
+	<xd:infoText>This driver supports editing of Tones, Timbres and Patches
+		for the D-10. It currently only supports device id 17.</xd:infoText>
+	<xd:authors>Roger Westerlund</xd:authors>
+	<xd:patchType>Tone</xd:patchType>
+	<xd:patchSize>17024</xd:patchSize>
+	<xd:sysexID>F041**1612</xd:sysexID>
+	<xd:patchNumbers>
+		<xd:string>1</xd:string>
+		<xd:string>2</xd:string>
+		<xd:string>3</xd:string>
+		<xd:string>4</xd:string>
+		<xd:string>5</xd:string>
+		<xd:string>6</xd:string>
+		<xd:string>7</xd:string>
+		<xd:string>8</xd:string>
+		<xd:string>9</xd:string>
+		<xd:string>10</xd:string>
+		<xd:string>11</xd:string>
+		<xd:string>12</xd:string>
+		<xd:string>13</xd:string>
+		<xd:string>14</xd:string>
+		<xd:string>15</xd:string>
+		<xd:string>16</xd:string>
+		<xd:string>17</xd:string>
+		<xd:string>18</xd:string>
+		<xd:string>19</xd:string>
+		<xd:string>20</xd:string>
+		<xd:string>21</xd:string>
+		<xd:string>22</xd:string>
+		<xd:string>23</xd:string>
+		<xd:string>24</xd:string>
+		<xd:string>25</xd:string>
+		<xd:string>26</xd:string>
+		<xd:string>27</xd:string>
+		<xd:string>28</xd:string>
+		<xd:string>29</xd:string>
+		<xd:string>30</xd:string>
+		<xd:string>31</xd:string>
+		<xd:string>32</xd:string>
+		<xd:string>33</xd:string>
+		<xd:string>34</xd:string>
+		<xd:string>35</xd:string>
+		<xd:string>36</xd:string>
+		<xd:string>37</xd:string>
+		<xd:string>38</xd:string>
+		<xd:string>39</xd:string>
+		<xd:string>40</xd:string>
+		<xd:string>41</xd:string>
+		<xd:string>42</xd:string>
+		<xd:string>43</xd:string>
+		<xd:string>44</xd:string>
+		<xd:string>45</xd:string>
+		<xd:string>46</xd:string>
+		<xd:string>47</xd:string>
+		<xd:string>48</xd:string>
+		<xd:string>49</xd:string>
+		<xd:string>50</xd:string>
+		<xd:string>51</xd:string>
+		<xd:string>52</xd:string>
+		<xd:string>53</xd:string>
+		<xd:string>54</xd:string>
+		<xd:string>55</xd:string>
+		<xd:string>56</xd:string>
+		<xd:string>57</xd:string>
+		<xd:string>58</xd:string>
+		<xd:string>59</xd:string>
+		<xd:string>60</xd:string>
+		<xd:string>61</xd:string>
+		<xd:string>62</xd:string>
+		<xd:string>63</xd:string>
+		<xd:string>64</xd:string>
+	</xd:patchNumbers>
+	<xd:bankNumbers />
+	<xd:deviceIDoffset>0</xd:deviceIDoffset>
+	<xd:checksumOffset>0</xd:checksumOffset>
+	<xd:checksumStart>0</xd:checksumStart>
+	<xd:checksumEnd>0</xd:checksumEnd>
+	<xd:patchNameStart>0</xd:patchNameStart>
+	<xd:patchNameSize>0</xd:patchNameSize>
+	<xd:numPatches>64</xd:numPatches>
+	<xd:numColumns>4</xd:numColumns>
+	<xd:singleSize>266</xd:singleSize>
+	<xd:singleSysexID>F041**1612</xd:singleSysexID>
+</xd:xmlBankDriverDefinition>

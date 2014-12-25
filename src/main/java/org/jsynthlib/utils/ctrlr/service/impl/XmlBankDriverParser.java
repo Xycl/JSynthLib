@@ -83,10 +83,10 @@ public class XmlBankDriverParser extends XmlDriverParser {
     protected void parseDriver() throws DriverParseException {
         String description = "Bank";
         // List<BankToPatchRelationBean> putPatchData = parsePutPatch();
-        List<BankToPatchRelationBean> putPatchData =
-                new ArrayList<BankToPatchRelationBean>();
-        luaFacade.newAssignValuesToBankController(putPatchData);
-        luaFacade.newAssembleValuesFromBankController(putPatchData);
+        // List<BankToPatchRelationBean> putPatchData =
+        // new ArrayList<BankToPatchRelationBean>();
+        luaFacade.newAssignBankController();
+        // luaFacade.newAssembleValuesFromBankController(putPatchData);
 
         try {
             Class<? extends XMLBankDriver> bankDriverClass =

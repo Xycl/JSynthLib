@@ -450,7 +450,7 @@
 			<xs:element name="stringParamSpec" type="jsl:stringParamSpec" />
 			<xs:element name="patchParamGroup" type="jsl:patchParamGroup" />
 			<xs:element name="envelopeSpec" type="jsl:envelopeSpec" />
-			<xs:element name="combinedgroup" type="jsl:combinedGroup" />
+			<xs:element name="combinedGroup" type="jsl:combinedGroup" />
 		</xs:choice>
 	</xs:complexType>
 

@@ -26,8 +26,8 @@ import java.util.List;
 import org.jsynthlib.utils.ctrlr.controller.LuaFactoryFacade;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssembleValuesController;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssembleValuesFromBankController;
+import org.jsynthlib.utils.ctrlr.controller.lua.AssignBankController;
 import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesController;
-import org.jsynthlib.utils.ctrlr.controller.lua.AssignValuesToBankController;
 import org.jsynthlib.utils.ctrlr.controller.lua.GetNameMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.JavaParsedMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.LoadBankMethodController;
@@ -143,8 +143,7 @@ class TestLuaFactoryFacade implements LuaFactoryFacade {
     }
 
     @Override
-    public AssignValuesToBankController newAssignValuesToBankController(
-            List<BankToPatchRelationBean> putPatchData) {
+    public AssignBankController newAssignBankController() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -192,6 +191,12 @@ class TestLuaFactoryFacade implements LuaFactoryFacade {
 
     public List<JavaParsedMethodController> getList() {
         return list;
+    }
+
+    @Override
+    public GetNameMethodController newGetNameMethodController(String defaultName) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

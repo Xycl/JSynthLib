@@ -50,8 +50,6 @@ Observer {
     public PanelLoadedController(CtrlrPanelModel model) {
         super("panelCreated");
         this.model = model;
-        model.putGlobalVariable("panel_loaded", "1");
-        model.setPanelLoadedName(getMethodName());
         globalVariableEntries = model.getGlobalVariableEntries();
         model.addObserver(this);
     }
@@ -59,20 +57,31 @@ Observer {
     @Override
     protected void writeLuaMethodCode() {
         int indent = 0;
-        StringBuilder codeBuilder = new StringBuilder();
-        codeBuilder.append(indent(indent)).append("--").append(newLine());
-        codeBuilder.append(indent(indent))
-        .append("-- Called when a panel loaded ").append(newLine());
-        codeBuilder.append(indent(indent++)).append("function ")
+        StringBuilder code = new StringBuilder();
+        code.append(indent(indent)).append("--").append(newLine());
+        code.append(indent(indent)).append("-- Called when a panel loaded ")
+        .append(newLine());
+        code.append(indent(indent++)).append("function ")
         .append(getMethodName()).append("()").append(newLine());
 
         for (Entry<String, String> entry : globalVariableEntries) {
-            codeBuilder.append(indent(indent)).append(entry.getKey())
-            .append(" = ").append(entry.getValue()).append(newLine());
+            code.append(indent(indent)).append(entry.getKey()).append(" = ")
+            .append(entry.getValue()).append(newLine());
         }
-        codeBuilder.append(indent(--indent)).append("end").append(newLine());
 
-        setLuaMethodCode(codeBuilder.toString());
+        code.append(indent(indent)).append("timer:setCallback (33, ")
+        .append(PanelLoadedCallbackController.METHOD_NAME)
+        .append(")").append(newLine());
+        code.append(indent(indent)).append("timer:startTimer(33, 100)")
+        .append(newLine());
+
+        code.append(indent(--indent)).append("end").append(newLine());
+
+        setLuaMethodCode(code.toString());
+
+        if (model.getPanelLoadedName() == null) {
+            model.setPanelLoadedName(getMethodName());
+        }
     }
 
     @Override
@@ -83,7 +92,7 @@ Observer {
     @Override
     public void update(Observable o, Object arg) {
         globalVariableEntries = model.getGlobalVariableEntries();
-        writeLuaMethodCode();
+        init();
     }
 
 }

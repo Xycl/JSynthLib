@@ -516,41 +516,49 @@ public class XmlSingleDriverParser extends XmlDriverParser {
     private static final int CHAR_END = 122;
 
     void parseGetSetPatchNameMethods() {
-        Patch patch = new Patch();
-        HashMap<Integer, String> charMap = new HashMap<Integer, String>();
-        char[] c = new char[getDriver().getPatchNameSize()];
-        for (int i = CHAR_START; i <= CHAR_END; i++) {
-            Arrays.fill(c, (char) 32);
-            c[0] = (char) i;
-            patch.sysex = new byte[getDriver().getPatchSize()];
-            String string = new String(c);
-            getDriver().setPatchName(patch, string);
-            int key = patch.sysex[getDriver().getPatchNameStart()];
-            String value =
-                    StringEscapeUtils.escapeJava(Character.toString(c[0]));
-            if (!charMap.containsKey(key)) {
-                charMap.put(key, value);
+        if (getDriver().getPatchNameSize() > 0) {
+            Patch patch = new Patch();
+            HashMap<Integer, String> charMap = new HashMap<Integer, String>();
+            char[] c = new char[getDriver().getPatchNameSize()];
+            for (int i = CHAR_START; i <= CHAR_END; i++) {
+                Arrays.fill(c, (char) 32);
+                c[0] = (char) i;
+                patch.sysex = new byte[getDriver().getPatchSize()];
+                String string = new String(c);
+                getDriver().setPatchName(patch, string);
+                int key = patch.sysex[getDriver().getPatchNameStart()];
+                String value =
+                        StringEscapeUtils.escapeJava(Character.toString(c[0]));
+                if (!charMap.containsKey(key)) {
+                    charMap.put(key, value);
+                }
             }
-        }
 
-        ArrayList<Integer> keys = new ArrayList<Integer>(charMap.keySet());
-        if (keys.size() == 1 && keys.get(0) == 0) {
-            model.setPatchNameCharMax(127);
-            luaFacade.newGetNameMethodController();
-            luaFacade.newSetNameMethodController();
+            ArrayList<Integer> keys = new ArrayList<Integer>(charMap.keySet());
+            if (keys.size() == 1 && keys.get(0) == 0) {
+                model.setPatchNameCharMax(127);
+                luaFacade.newGetNameMethodController();
+                luaFacade.newSetNameMethodController();
+            } else {
+                Collections.sort(keys);
+
+                model.setPatchNameCharMax(keys.get(keys.size() - 1));
+
+                String[] array = new String[keys.get(keys.size() - 1) + 1];
+                Arrays.fill(array, "|");
+                for (Integer key : keys) {
+                    array[key] = charMap.get(key);
+                }
+
+                luaFacade.newGetNameMethodController(array);
+                luaFacade.newSetNameMethodController(array);
+            }
+        } else if (getDriver().canCreatePatch()) {
+            Patch patch = getDriver().createPatch();
+            String name = patch.getName();
+            luaFacade.newGetNameMethodController(name);
         } else {
-            Collections.sort(keys);
-
-            model.setPatchNameCharMax(keys.get(keys.size() - 1));
-
-            String[] array = new String[keys.get(keys.size() - 1) + 1];
-            Arrays.fill(array, "|");
-            for (Integer key : keys) {
-                array[key] = charMap.get(key);
-            }
-
-            luaFacade.newGetNameMethodController(array);
-            luaFacade.newSetNameMethodController(array);
+            log.warn("Could not provide any getter/setter for patch name");
         }
     }
 }

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xd:xmlSingleDriverDefinition xmlns:xd="http://www.jsynthlib.org/xmldevice">
+	<xd:name>Roland D-10 Timbre</xd:name>
+	<xd:infoText>This driver supports editing of Tones, Timbres and Patches
+		for the D-10. It currently only supports device id 17.</xd:infoText>
+	<xd:authors>Roger Westerlund</xd:authors>
+	<xd:patchType>Timbre</xd:patchType>
+	<xd:patchSize>18</xd:patchSize>
+	<xd:sysexID>F041**1612</xd:sysexID>
+	<xd:patchNumbers>
+		<xd:string>A11</xd:string>
+		<xd:string>A12</xd:string>
+		<xd:string>A13</xd:string>
+		<xd:string>A14</xd:string>
+		<xd:string>A15</xd:string>
+		<xd:string>A16</xd:string>
+		<xd:string>A17</xd:string>
+		<xd:string>A18</xd:string>
+		<xd:string>A21</xd:string>
+		<xd:string>A22</xd:string>
+		<xd:string>A23</xd:string>
+		<xd:string>A24</xd:string>
+		<xd:string>A25</xd:string>
+		<xd:string>A26</xd:string>
+		<xd:string>A27</xd:string>
+		<xd:string>A28</xd:string>
+		<xd:string>A31</xd:string>
+		<xd:string>A32</xd:string>
+		<xd:string>A33</xd:string>
+		<xd:string>A34</xd:string>
+		<xd:string>A35</xd:string>
+		<xd:string>A36</xd:string>
+		<xd:string>A37</xd:string>
+		<xd:string>A38</xd:string>
+		<xd:string>A41</xd:string>
+		<xd:string>A42</xd:string>
+		<xd:string>A43</xd:string>
+		<xd:string>A44</xd:string>
+		<xd:string>A45</xd:string>
+		<xd:string>A46</xd:string>
+		<xd:string>A47</xd:string>
+		<xd:string>A48</xd:string>
+		<xd:string>A51</xd:string>
+		<xd:string>A52</xd:string>
+		<xd:string>A53</xd:string>
+		<xd:string>A54</xd:string>
+		<xd:string>A55</xd:string>
+		<xd:string>A56</xd:string>
+		<xd:string>A57</xd:string>
+		<xd:string>A58</xd:string>
+		<xd:string>A61</xd:string>
+		<xd:string>A62</xd:string>
+		<xd:string>A63</xd:string>
+		<xd:string>A64</xd:string>
+		<xd:string>A65</xd:string>
+		<xd:string>A66</xd:string>
+		<xd:string>A67</xd:string>
+		<xd:string>A68</xd:string>
+		<xd:string>A71</xd:string>
+		<xd:string>A72</xd:string>
+		<xd:string>A73</xd:string>
+		<xd:string>A74</xd:string>
+		<xd:string>A75</xd:string>
+		<xd:string>A76</xd:string>
+		<xd:string>A77</xd:string>
+		<xd:string>A78</xd:string>
+		<xd:string>A81</xd:string>
+		<xd:string>A82</xd:string>
+		<xd:string>A83</xd:string>
+		<xd:string>A84</xd:string>
+		<xd:string>A85</xd:string>
+		<xd:string>A86</xd:string>
+		<xd:string>A87</xd:string>
+		<xd:string>A88</xd:string>
+		<xd:string>B11</xd:string>
+		<xd:string>B12</xd:string>
+		<xd:string>B13</xd:string>
+		<xd:string>B14</xd:string>
+		<xd:string>B15</xd:string>
+		<xd:string>B16</xd:string>
+		<xd:string>B17</xd:string>
+		<xd:string>B18</xd:string>
+		<xd:string>B21</xd:string>
+		<xd:string>B22</xd:string>
+		<xd:string>B23</xd:string>
+		<xd:string>B24</xd:string>
+		<xd:string>B25</xd:string>
+		<xd:string>B26</xd:string>
+		<xd:string>B27</xd:string>
+		<xd:string>B28</xd:string>
+		<xd:string>B31</xd:string>
+		<xd:string>B32</xd:string>
+		<xd:string>B33</xd:string>
+		<xd:string>B34</xd:string>
+		<xd:string>B35</xd:string>
+		<xd:string>B36</xd:string>
+		<xd:string>B37</xd:string>
+		<xd:string>B38</xd:string>
+		<xd:string>B41</xd:string>
+		<xd:string>B42</xd:string>
+		<xd:string>B43</xd:string>
+		<xd:string>B44</xd:string>
+		<xd:string>B45</xd:string>
+		<xd:string>B46</xd:string>
+		<xd:string>B47</xd:string>
+		<xd:string>B48</xd:string>
+		<xd:string>B51</xd:string>
+		<xd:string>B52</xd:string>
+		<xd:string>B53</xd:string>
+		<xd:string>B54</xd:string>
+		<xd:string>B55</xd:string>
+		<xd:string>B56</xd:string>
+		<xd:string>B57</xd:string>
+		<xd:string>B58</xd:string>
+		<xd:string>B61</xd:string>
+		<xd:string>B62</xd:string>
+		<xd:string>B63</xd:string>
+		<xd:string>B64</xd:string>
+		<xd:string>B65</xd:string>
+		<xd:string>B66</xd:string>
+		<xd:string>B67</xd:string>
+		<xd:string>B68</xd:string>
+		<xd:string>B71</xd:string>
+		<xd:string>B72</xd:string>
+		<xd:string>B73</xd:string>
+		<xd:string>B74</xd:string>
+		<xd:string>B75</xd:string>
+		<xd:string>B76</xd:string>
+		<xd:string>B77</xd:string>
+		<xd:string>B78</xd:string>
+		<xd:string>B81</xd:string>
+		<xd:string>B82</xd:string>
+		<xd:string>B83</xd:string>
+		<xd:string>B84</xd:string>
+		<xd:string>B85</xd:string>
+		<xd:string>B86</xd:string>
+		<xd:string>B87</xd:string>
+		<xd:string>B88</xd:string>
+	</xd:patchNumbers>
+	<xd:bankNumbers />
+	<xd:deviceIDoffset>2</xd:deviceIDoffset>
+	<xd:checksumOffset>16</xd:checksumOffset>
+	<xd:checksumStart>5</xd:checksumStart>
+	<xd:checksumEnd>15</xd:checksumEnd>
+	<xd:patchNameStart>0</xd:patchNameStart>
+	<xd:patchNameSize>0</xd:patchNameSize>
+	<xd:patchParams>
+		<xd:patchParamGroup name="Timbre">
+			<xd:intParamSpec name="Tone group">
+				<xd:uuid>d3b4a91709814afbb49ed94f09ec562e</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="196608" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="8" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>3</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>a</xd:patchParamValue>
+					<xd:patchParamValue>b</xd:patchParamValue>
+					<xd:patchParamValue>i</xd:patchParamValue>
+					<xd:patchParamValue>r</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Tone number">
+				<xd:uuid>1dfeb155200d474eafb6cf69692c32e6</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="196609" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="9" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>63</xd:max>
+				<xd:base>1</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Key shift">
+				<xd:uuid>5fe2c41b5c504ba58e91953dc65d32a9</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="196610" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="10" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>48</xd:max>
+				<xd:base>-24</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Fine tune">
+				<xd:uuid>ea50e23ca8e44754872980f08fab0582</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="196611" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="11" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>100</xd:max>
+				<xd:base>-50</xd:base>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Bender range">
+				<xd:uuid>d42f00424d034db99b2f01361dfa8580</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="196612" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="12" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>100</xd:max>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Assign mode">
+				<xd:uuid>e8fde22517f644e9b6dfc37a58d18af9</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="196613" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="13" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>3</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>Poly 1</xd:patchParamValue>
+					<xd:patchParamValue>Poly 2</xd:patchParamValue>
+					<xd:patchParamValue>Poly 3</xd:patchParamValue>
+					<xd:patchParamValue>Poly 4</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+			<xd:intParamSpec name="Reverb switch">
+				<xd:uuid>cafa82062c17486c9d6004e20c825031</xd:uuid>
+				<xd:midiSender name="EditSender">
+					<xd:propertyValue key="address" value="196614" />
+				</xd:midiSender>
+				<xd:paramModel name="D10ParamModel">
+					<xd:propertyValue key="offset" value="14" />
+				</xd:paramModel>
+				<xd:min>0</xd:min>
+				<xd:max>1</xd:max>
+				<xd:patchParamValues>
+					<xd:patchParamValue>Off</xd:patchParamValue>
+					<xd:patchParamValue>On</xd:patchParamValue>
+				</xd:patchParamValues>
+			</xd:intParamSpec>
+		</xd:patchParamGroup>
+	</xd:patchParams>
+</xd:xmlSingleDriverDefinition>

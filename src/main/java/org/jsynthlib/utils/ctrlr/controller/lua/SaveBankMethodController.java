@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 public class SaveBankMethodController extends SaveMethodControllerBase
- {
+{
 
     public interface Factory {
         SaveBankMethodController newSaveBankMethodController();
@@ -42,16 +42,20 @@ public class SaveBankMethodController extends SaveMethodControllerBase
         .append(newLine());
 
         code.append(indent(indent))
-                .append(getMethodCall(model.getAssembleValuesMethodName(),
+        .append(getMethodCall(model.getAssembleValuesMethodName(),
                 "PatchDataCurrent")).append(newLine());
 
         // TODO: get patch number!
         code.append(indent(indent))
-                .append(getMethodCall(model.getAssignValuesToBankMethodName(),
+        .append(getMethodCall(model.getPutPatchMethodName(),
                 "PatchDataCurrent", "1")).append(newLine());
 
         code.append(getMethodEnd(indent)).append(newLine());
 
         setLuaMethodCode(code.toString());
+
+        if (model.getSaveMenuName() == null) {
+            model.setSaveMenuName(getMethodName());
+        }
     }
 }

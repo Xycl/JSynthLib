@@ -20,16 +20,14 @@
  */
 package org.jsynthlib.utils.ctrlr.service.codeparser;
 
-import org.jsynthlib.utils.ctrlr.service.codeparser.DefaultMethodVisitor.Factory;
-
 /**
  * @author Pascal Collberg
- *
  */
 public interface VisitorFactoryFacade
-        extends
-        Factory,
-        org.jsynthlib.utils.ctrlr.service.codeparser.GetPatchMethodVisitor.Factory,
-        org.jsynthlib.utils.ctrlr.service.codeparser.PutPatchMethodVisitor.Factory {
+extends
+org.jsynthlib.utils.ctrlr.service.codeparser.DefaultMethodVisitor.Factory,
+org.jsynthlib.utils.ctrlr.service.codeparser.GetPatchMethodVisitor.Factory,
+org.jsynthlib.utils.ctrlr.service.codeparser.PutPatchMethodVisitor.Factory {
 
+    MethodVisitorBase newMethodVisitor(Class<?> currClass, MethodWrapper method);
 }

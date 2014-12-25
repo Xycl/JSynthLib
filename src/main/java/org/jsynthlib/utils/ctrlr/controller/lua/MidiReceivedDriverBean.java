@@ -20,46 +20,27 @@
  */
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
-import org.jsynthlib.xmldevice.XmlSingleDriverDefinitionDocument.XmlSingleDriverDefinition;
+import org.jsynthlib.xmldevice.XmlBankDriverDefinitionDocument.XmlBankDriverDefinition;
+import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 /**
  * @author Pascal Collberg
- *
  */
-public class MidiReceivedDriverPart extends Observable implements Observer {
+public class MidiReceivedDriverBean {
 
     @Inject
-    private XmlSingleDriverDefinition driverDef;
+    private XmlDriverDefinition driverDef;
 
     @Inject
     @Named("prefix")
     private String prefix;
 
-    private final DriverModel model;
-
-    private String assignValuesMethodName;
-
     @Inject
-    public MidiReceivedDriverPart(DriverModel model) {
-        this.model = model;
-        model.addObserver(this);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        assignValuesMethodName = model.getAssignValuesMethodName();
-        if (assignValuesMethodName != null) {
-            setChanged();
-            notifyObservers();
-        }
-    }
+    private DriverModel model;
 
     public int getPatchSize() {
         return driverDef.getPatchSize();
@@ -69,7 +50,19 @@ public class MidiReceivedDriverPart extends Observable implements Observer {
         return prefix;
     }
 
-    public String getAssignValuesMethodName() {
-        return assignValuesMethodName;
+    public String getSysexId() {
+        return driverDef.getSysexID();
+    }
+
+    public String getMethodName() {
+        if (driverDef instanceof XmlBankDriverDefinition) {
+            return model.getAssignBankMethodName();
+        } else {
+            return model.getAssignValuesMethodName();
+        }
+    }
+
+    public boolean isBankDriver() {
+        return driverDef instanceof XmlBankDriverDefinition;
     }
 }

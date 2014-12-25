@@ -40,14 +40,22 @@ public class LoadMenuController extends MenuMethodControllerBase {
     }
 
     @Inject
-    public LoadMenuController(DriverModel model,
+    private DriverModel model;
+
+    @Inject
+    public LoadMenuController(@Named("prefix") String prefix,
             @Named("editor") LuaMethodProvider luaProvider) {
-        super(model.getLoadMenuName(), "Load data from file", luaProvider);
+        super(prefix + "_LoadMenu", "Load data from file", luaProvider);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         setList(getLuaProvider().getLoadMenuOptions());
         init();
+    }
+
+    @Override
+    protected void setMethodNameToModel() {
+        model.setLoadMenuName(getMethodName());
     }
 }

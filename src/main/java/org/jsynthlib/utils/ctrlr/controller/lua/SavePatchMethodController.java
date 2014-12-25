@@ -43,5 +43,9 @@ public class SavePatchMethodController extends SaveMethodControllerBase {
         code.append(getMethodEnd(indent)).append(newLine());
 
         setLuaMethodCode(code.toString());
+
+        if (model.getSaveMenuName() == null) {
+            model.setSaveMenuName(getMethodName());
+        }
     }
 }

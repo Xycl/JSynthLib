@@ -41,8 +41,10 @@ class TestVisitorFactoryFacade implements VisitorFactoryFacade {
     }
 
     @Override
-    public PutPatchMethodVisitor newPutPatchMethodVisitor() {
-        PutPatchMethodVisitor visitor = new PutPatchMethodVisitor(model);
+    public PutPatchMethodVisitor newPutPatchMethodVisitor(Class<?> parsedClass,
+            MethodWrapper methodName) {
+        PutPatchMethodVisitor visitor =
+                new PutPatchMethodVisitor(model, parsedClass, methodName);
         initVisitor(visitor);
         return visitor;
     }
@@ -55,16 +57,27 @@ class TestVisitorFactoryFacade implements VisitorFactoryFacade {
     }
 
     @Override
-    public GetPatchMethodVisitor newGetPatchMethodVisitor() {
-        GetPatchMethodVisitor visitor = new GetPatchMethodVisitor(model);
+    public GetPatchMethodVisitor newGetPatchMethodVisitor(Class<?> parsedClass,
+            MethodWrapper methodName) {
+        GetPatchMethodVisitor visitor =
+                new GetPatchMethodVisitor(methodName, parsedClass, model);
         initVisitor(visitor);
         return visitor;
     }
 
     @Override
-    public DefaultMethodVisitor newDefaultMethodVisitor(Method methodName) {
-        DefaultMethodVisitor visitor = new DefaultMethodVisitor(methodName);
+    public DefaultMethodVisitor newDefaultMethodVisitor(Class<?> parsedClass,
+            MethodWrapper methodName) {
+        DefaultMethodVisitor visitor =
+                new DefaultMethodVisitor(methodName, parsedClass);
         initVisitor(visitor);
         return visitor;
+    }
+
+    @Override
+    public MethodVisitorBase newMethodVisitor(Class<?> currClass,
+            MethodWrapper method) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

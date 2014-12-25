@@ -20,12 +20,13 @@
  */
 package org.jsynthlib.utils.ctrlr.service.codeparser;
 
+import org.jsynthlib.device.model.XMLBankDriver;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
  * @author Pascal Collberg
- *
  */
 @Singleton
 public class VisitorFactoryFacadeImpl implements VisitorFactoryFacade {
@@ -40,18 +41,42 @@ public class VisitorFactoryFacadeImpl implements VisitorFactoryFacade {
     private PutPatchMethodVisitor.Factory putPatchMethodFactory;
 
     @Override
-    public DefaultMethodVisitor newDefaultMethodVisitor(Method methodName) {
-        return defaultMethodFactory.newDefaultMethodVisitor(methodName);
+    public DefaultMethodVisitor newDefaultMethodVisitor(Class<?> parsedClass,
+            MethodWrapper method) {
+        return defaultMethodFactory
+                .newDefaultMethodVisitor(parsedClass, method);
     }
 
     @Override
-    public GetPatchMethodVisitor newGetPatchMethodVisitor() {
-        return getPatchMethodFactory.newGetPatchMethodVisitor();
+    public GetPatchMethodVisitor newGetPatchMethodVisitor(Class<?> parsedClass,
+            MethodWrapper parsedMethod) {
+        return getPatchMethodFactory.newGetPatchMethodVisitor(parsedClass,
+                parsedMethod);
     }
 
     @Override
-    public PutPatchMethodVisitor newPutPatchMethodVisitor() {
-        return putPatchMethodFactory.newPutPatchMethodVisitor();
+    public PutPatchMethodVisitor newPutPatchMethodVisitor(Class<?> parsedClass,
+            MethodWrapper parsedMethod) {
+        return putPatchMethodFactory.newPutPatchMethodVisitor(parsedClass,
+                parsedMethod);
+    }
+
+    @Override
+    public MethodVisitorBase newMethodVisitor(Class<?> currClass,
+            MethodWrapper method) {
+        String methodName = method.getName();
+        if (methodName.equals("getPatch")
+                && XMLBankDriver.class.isAssignableFrom(currClass)) {
+            return getPatchMethodFactory.newGetPatchMethodVisitor(currClass,
+                    method);
+        } else if (methodName.equals("putPatch")
+                && XMLBankDriver.class.isAssignableFrom(currClass)) {
+            return putPatchMethodFactory.newPutPatchMethodVisitor(currClass,
+                    method);
+        } else {
+            return defaultMethodFactory.newDefaultMethodVisitor(currClass,
+                    method);
+        }
     }
 
 }

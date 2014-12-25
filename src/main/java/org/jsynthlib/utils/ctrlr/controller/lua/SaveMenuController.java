@@ -40,9 +40,12 @@ public class SaveMenuController extends MenuMethodControllerBase {
     }
 
     @Inject
-    public SaveMenuController(DriverModel model,
+    private DriverModel model;
+
+    @Inject
+    public SaveMenuController(@Named("prefix") String prefix,
             @Named("editor") LuaMethodProvider luaProvider) {
-        super(model.getSaveMenuName(), "Save Single Patch or Bank(s) to file",
+        super(prefix + "_SaveMenu", "Save Single Patch or Bank(s) to file",
                 luaProvider);
     }
 
@@ -50,6 +53,11 @@ public class SaveMenuController extends MenuMethodControllerBase {
     public void update(Observable o, Object arg) {
         setList(getLuaMethodProvider().getSaveMenuOptions());
         init();
+    }
+
+    @Override
+    protected void setMethodNameToModel() {
+        model.setSaveMenuName(getMethodName());
     }
 
 }

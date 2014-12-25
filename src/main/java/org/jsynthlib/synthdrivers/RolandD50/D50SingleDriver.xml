@@ -2102,7 +2102,7 @@
 					<patchParamResource>org/jsynthlib/synthdrivers/RolandD10/images/structure13.png</patchParamResource>
 				</patchParamResources>
 			</intParamSpec>
-			<combinedgroup>
+			<combinedGroup>
 				<midiSender name="D50Sender">
 					<propertyValue key="offset" value="174" />
 				</midiSender>
@@ -2121,7 +2121,7 @@
 					<max>1</max>
 					<leftShift>1</leftShift>
 				</param>
-			</combinedgroup>
+			</combinedGroup>
 			<intParamSpec name="Partial Balance">
 				<uuid>b2f114d11f014e97ab95e6dcafba3ec6</uuid>
 				<midiSender name="D50Sender">
@@ -4333,7 +4333,7 @@
 					<patchParamResource>org/jsynthlib/synthdrivers/RolandD10/images/structure13.png</patchParamResource>
 				</patchParamResources>
 			</intParamSpec>
-			<combinedgroup>
+			<combinedGroup>
 				<midiSender name="D50Sender">
 					<propertyValue key="offset" value="366" />
 				</midiSender>
@@ -4352,7 +4352,7 @@
 					<max>1</max>
 					<leftShift>1</leftShift>
 				</param>
-			</combinedgroup>
+			</combinedGroup>
 			<intParamSpec name="Partial Balance">
 				<uuid>ffeb67ad8ec843b7bc4c07099f04935e</uuid>
 				<midiSender name="D50Sender">

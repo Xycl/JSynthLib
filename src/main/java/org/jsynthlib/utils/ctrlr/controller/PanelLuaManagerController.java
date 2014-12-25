@@ -3,7 +3,9 @@ package org.jsynthlib.utils.ctrlr.controller;
 import org.ctrlr.panel.LuaManagerMethodsType;
 import org.ctrlr.panel.LuaManagerType;
 import org.ctrlr.panel.PanelType;
+import org.jsynthlib.utils.ctrlr.controller.lua.BeforePanelLoadedMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.MidiReceivedController;
+import org.jsynthlib.utils.ctrlr.controller.lua.PanelLoadedCallbackController;
 import org.jsynthlib.utils.ctrlr.controller.lua.PanelLoadedController;
 import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 import org.jsynthlib.utils.ctrlr.service.impl.RootLuaMethodProvider;
@@ -27,6 +29,12 @@ public class PanelLuaManagerController extends ElementControllerBase {
     private PanelLoadedController panelCreatedController;
 
     @Inject
+    private PanelLoadedCallbackController panelCreatedCallbackController;
+
+    @Inject
+    private BeforePanelLoadedMethodController beforePanelController;
+
+    @Inject
     @Named("root")
     private LuaMethodProvider luaMethodProvider;
 
@@ -44,5 +52,7 @@ public class PanelLuaManagerController extends ElementControllerBase {
         ((RootLuaMethodProvider) luaMethodProvider).setMethods(methods);
         midiReceivedController.init();
         panelCreatedController.init();
+        beforePanelController.init();
+        panelCreatedCallbackController.init();
     }
 }

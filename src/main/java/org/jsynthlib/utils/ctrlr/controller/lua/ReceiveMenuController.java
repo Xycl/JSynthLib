@@ -39,11 +39,13 @@ public class ReceiveMenuController extends MenuMethodControllerBase {
         ReceiveMenuController newReceiveMenuController();
     }
 
+    @Inject
+    private DriverModel model;
 
     @Inject
-    public ReceiveMenuController(DriverModel model,
+    public ReceiveMenuController(@Named("prefix") String prefix,
             @Named("editor") LuaMethodProvider luaProvider) {
-        super(model.getReceiveMenuName(),
+        super(prefix + "_ReceiveMenu",
                 "Receive Single Patch or Bank from synth", luaProvider);
     }
 
@@ -51,5 +53,10 @@ public class ReceiveMenuController extends MenuMethodControllerBase {
     public void update(Observable o, Object arg) {
         setList(getLuaProvider().getReceiveMenuOptions());
         init();
+    }
+
+    @Override
+    protected void setMethodNameToModel() {
+        model.setReceiveMenuName(getMethodName());
     }
 }

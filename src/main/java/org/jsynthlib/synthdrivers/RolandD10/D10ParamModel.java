@@ -33,4 +33,8 @@ public class D10ParamModel extends ParamModel {
         // Relocate the offset taking the header into account.
         super(patch, D10Constants.SIZE_HEADER_DT1 + offset);
     }
+
+    public D10ParamModel() {
+        super();
+    }
 }

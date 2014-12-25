@@ -30,13 +30,13 @@ import org.jsynthlib.device.model.handler.ISender;
  * general EditSender supplied to this class.
  * @author Roger Westerlund
  */
-class PartMuteSender implements ISender {
+public class PartMuteSender implements ISender {
 
     private ISender sender;
     private PartMuteDataModel model;
 
     /**
-     * 
+     *
      */
     public PartMuteSender(PartMuteDataModel model, ISender sender) {
         super();
@@ -44,6 +44,11 @@ class PartMuteSender implements ISender {
         this.model = model;
     }
 
+    public PartMuteSender() {
+        super();
+    }
+
+    @Override
     public void send(IDriver driver, int value) {
         sender.send(driver, model.getData());
     }

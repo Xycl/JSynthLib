@@ -26,9 +26,10 @@ import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.FormalP
 import main.java.org.jsynthlib.utils.ctrlr.service.codeparser.JavaParser.FormalParameterListContext;
 
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
-import org.jsynthlib.utils.ctrlr.service.codeparser.Field.FieldType;
+import org.jsynthlib.utils.ctrlr.service.codeparser.FieldWrapper.FieldType;
 
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 
 /**
  * @author Pascal Collberg
@@ -36,40 +37,36 @@ import com.google.inject.Inject;
 public class GetPatchMethodVisitor extends MethodVisitorBase {
 
     public interface Factory {
-        GetPatchMethodVisitor newGetPatchMethodVisitor();
+        GetPatchMethodVisitor newGetPatchMethodVisitor(Class<?> parsedClass,
+                MethodWrapper parsedMethod);
     }
 
     private final String bankDataVarName;
 
     @Inject
-    public GetPatchMethodVisitor(DriverModel model) {
-        super(model.getAssembleValuesFromBankMethodName());
+    public GetPatchMethodVisitor(@Assisted MethodWrapper parsedMethod,
+            @Assisted Class<?> parsedClass, DriverModel model) {
+        super(parsedMethod, parsedClass);
         bankDataVarName = model.getBankDataVarName();
-        setIgnoreReturnStatement(true);
+        setIgnoreReturnStatement(false);
     }
 
     @Override
     public Void visitFormalParameterList(FormalParameterListContext ctx) {
         List<FormalParameterContext> formalParameter = ctx.formalParameter();
-        boolean first = true;
         for (FormalParameterContext formalParamCtx : formalParameter) {
-            Field field = new Field();
+            FieldWrapper field = new FieldWrapper();
             field.setName(formalParamCtx.variableDeclaratorId().getText());
             if (formalParamCtx.type().getText().equals("int")) {
                 field.setLuaName("patchNum");
                 field.setType(FieldType.INT);
+
+                getCode().append(field.getLuaName());
             } else {
                 field.setLuaName(bankDataVarName);
                 field.setType(FieldType.PATCH);
             }
             putLocalVariable(field.getName(), field);
-
-            if (first) {
-                first = false;
-            } else {
-                getCode().append(", ");
-            }
-            getCode().append(field.getLuaName());
         }
         return null;
     }

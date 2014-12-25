@@ -7,6 +7,8 @@ import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.utils.ctrlr.CtrlrMidiService;
 import org.jsynthlib.utils.ctrlr.DriverParseException;
 import org.jsynthlib.utils.ctrlr.controller.LuaFactoryFacade;
+import org.jsynthlib.utils.ctrlr.controller.lua.MidiReceivedDriverBean;
+import org.jsynthlib.utils.ctrlr.domain.CtrlrPanelModel;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
 
 import com.google.inject.Inject;
@@ -21,6 +23,9 @@ public abstract class XmlDriverParser {
 
     @Inject
     private DriverModel model;
+
+    @Inject
+    private CtrlrPanelModel panelModel;
 
     private IDriver driver;
 
@@ -45,6 +50,9 @@ public abstract class XmlDriverParser {
     @Named("prefix")
     protected String prefix;
 
+    @Inject
+    private MidiReceivedDriverBean midiReceivedPart;
+
     public void parse() throws DriverParseException {
         PopupHandlerProvider.setInjector(popupManager);
 
@@ -63,6 +71,7 @@ public abstract class XmlDriverParser {
         } else if (!driver.canCreatePatch()) {
             log.info("Driver cannot create patches");
         } else {
+            panelModel.addMidiReceivedDriverPart(midiReceivedPart);
             parseDriver();
             luaFacade.newLoadMenuController();
             luaFacade.newReceiveMenuController();

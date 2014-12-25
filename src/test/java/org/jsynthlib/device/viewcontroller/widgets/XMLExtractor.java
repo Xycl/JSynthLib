@@ -47,6 +47,7 @@ import org.jsynthlib.device.model.impl.HandlerBindingMap;
 import org.jsynthlib.device.viewcontroller.BankEditorFrame;
 import org.jsynthlib.device.viewcontroller.PatchEditorFrame;
 import org.jsynthlib.device.viewcontroller.widgets.EnvelopeWidget.Node;
+import org.jsynthlib.inject.JSynthLibInjector;
 import org.jsynthlib.patch.model.impl.PatchEdit;
 import org.jsynthlib.xmldevice.DeviceConfiguration;
 import org.jsynthlib.xmldevice.DeviceConfiguration.MidiSenderDefinitions;
@@ -141,6 +142,12 @@ public class XMLExtractor {
     }
 
     void run() throws Exception {
+        //        PatchEditFactory patchEditFactory =
+        //                JSynthLibInjector.getInstance(PatchEditFactory.class);
+        //        PatchEdit patchEdit =
+        //                patchEditFactory.newPatchEdit(new ArrayList<String>(), 0);
+
+        JSynthLibInjector.getInjector();
         PatchEditorTest.setUpOnce();
         testFrame = new FrameFixture(PatchEdit.getInstance());
         testFrame.show();
@@ -275,7 +282,7 @@ public class XMLExtractor {
 
         protected void addGenericFields(IDriver driver,
                 XmlDriverDefinition driverSpec, String infoText)
-                throws IllegalAccessException, NoSuchFieldException {
+                        throws IllegalAccessException, NoSuchFieldException {
             driverSpec.setInfoText(infoText);
             driverSpec.setName(deviceName + " " + driver.getPatchType());
             driverSpec.setAuthors(driver.getAuthors());
@@ -320,7 +327,7 @@ public class XMLExtractor {
         @SuppressWarnings("unchecked")
         protected <T> T getField(String fieldName, Class<T> fieldClass,
                 Object object, Class<?> objectClass)
-                throws IllegalAccessException, NoSuchFieldException {
+                        throws IllegalAccessException, NoSuchFieldException {
             Class<?> tmpClass = object.getClass();
             while (!tmpClass.equals(objectClass)) {
                 tmpClass = tmpClass.getSuperclass();
@@ -611,7 +618,7 @@ public class XMLExtractor {
                 property.setValue(Integer.toString(aSender.getOffset()));
             }
         }
-        
+
         String getHandlerName(Object handler) {
             Class<? extends Object> handlerClass = handler.getClass();
             if (defaultHandlerMap.values().contains(handlerClass)) {
@@ -772,7 +779,7 @@ public class XMLExtractor {
         void handleDefaultIntParam(PatchParams patchParams, int valueMax,
                 int valueMin, String name, ISender sender,
                 IParamModel paramModel, int base)
-                throws IllegalAccessException, NoSuchFieldException {
+                        throws IllegalAccessException, NoSuchFieldException {
             IntParamSpec intParamSpec = patchParams.addNewIntParamSpec();
             intParamSpec.setMax(valueMax);
             intParamSpec.setMin(valueMin);
