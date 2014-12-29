@@ -25,10 +25,37 @@ package org.jsynthlib.utils.ctrlr.service.codeparser;
  */
 public class FieldWrapper {
 
-    enum FieldType {
-        INT, BYTE, BYTE_ARRAY, STRING, CHAR, PATCH;
+    public static FieldWrapper newFieldWrapper(String prefix, String fieldName) {
+        return newFieldWrapper(prefix, fieldName, null);
+    }
 
-        static FieldType getFromString(String type) {
+    public static FieldWrapper newFieldWrapper(String prefix, String fieldName,
+            String type) {
+        return newFieldWrapper(prefix, fieldName, type, null);
+    }
+
+    public static FieldWrapper newFieldWrapper(String prefix, String fieldName, String type, String value) {
+        FieldWrapper wrapper = new FieldWrapper();
+        wrapper.setName(fieldName);
+        if (prefix == null) {
+            wrapper.setLuaName(fieldName);
+        } else {
+            wrapper.setLuaName(prefix + "_" + fieldName);
+        }
+        try {
+            FieldType fieldType = FieldType.getFromString(type);
+            wrapper.setType(fieldType);
+        } catch (IllegalArgumentException e) {
+        }
+
+        wrapper.setValue(value);
+        return wrapper;
+    }
+
+    enum FieldType {
+        INT, BYTE, BYTE_ARRAY, STRING, CHAR, PATCH, BOOLEAN;
+
+        public static FieldType getFromString(String type) {
             if ("int".equals(type)) {
                 return INT;
             } else if ("byte".equals(type)) {
@@ -41,6 +68,8 @@ public class FieldWrapper {
                 return CHAR;
             } else if ("Patch".equals(type)) {
                 return PATCH;
+            } else if ("boolean".equals(type)) {
+                return BOOLEAN;
             }
             throw new IllegalArgumentException("Unsupported type " + type);
         }
@@ -50,6 +79,7 @@ public class FieldWrapper {
     private String name;
     private String luaName;
     private FieldType type;
+    private String value;
 
     public String getName() {
         return name;
@@ -103,6 +133,14 @@ public class FieldWrapper {
             return false;
         }
         return true;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
 }

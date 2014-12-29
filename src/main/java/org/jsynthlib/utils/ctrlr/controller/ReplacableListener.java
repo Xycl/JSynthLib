@@ -18,17 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
  * USA
  */
-package org.jsynthlib.utils.ctrlr.service.codeparser;
+package org.jsynthlib.utils.ctrlr.controller;
 
-/**
- * @author Pascal Collberg
- */
-public interface VisitorFactoryFacade
-extends
-org.jsynthlib.utils.ctrlr.service.codeparser.DefaultMethodVisitor.Factory,
-org.jsynthlib.utils.ctrlr.service.codeparser.GetPatchMethodVisitor.Factory,
-        org.jsynthlib.utils.ctrlr.service.codeparser.PutPatchMethodVisitor.Factory,
-        org.jsynthlib.utils.ctrlr.service.codeparser.CalculateChecksumMethodVisitor.Factory {
-
-    MethodVisitorBase newMethodVisitor(Class<?> currClass, MethodWrapper method);
+public interface ReplacableListener {
+    void onReplace(Replaceable replacable, String replacement);
 }

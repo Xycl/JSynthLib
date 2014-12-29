@@ -33,14 +33,14 @@ public class BankDriverParserModel {
     private final Map<String, Map<String, FieldWrapper>> fieldsToParse;
     private final Map<String, Map<String, MethodWrapper>> methodsToParse;
     private final Map<String, Class<?>> referencedClasses;
+    private final Map<String, Map<String, FieldWrapper>> declaredFields;
+    private MethodWrapper checksumMethod;
 
-    /**
-     *
-     */
     public BankDriverParserModel() {
         referencedClasses = new HashMap<String, Class<?>>();
         fieldsToParse = new HashMap<String, Map<String, FieldWrapper>>();
         methodsToParse = new HashMap<String, Map<String, MethodWrapper>>();
+        declaredFields = new HashMap<String, Map<String, FieldWrapper>>();
     }
 
     public void addReferencedClass(String simpleName, Class<?> klass) {
@@ -56,6 +56,17 @@ public class BankDriverParserModel {
         if (map == null) {
             map = new HashMap<String, FieldWrapper>();
             fieldsToParse.put(classSimpleName, map);
+        }
+        if (!map.containsKey(field.getName())) {
+            map.put(field.getName(), field);
+        }
+    }
+
+    public void addDeclaredField(String classSimpleName, FieldWrapper field) {
+        Map<String, FieldWrapper> map = declaredFields.get(classSimpleName);
+        if (map == null) {
+            map = new HashMap<String, FieldWrapper>();
+            declaredFields.put(classSimpleName, map);
         }
         if (!map.containsKey(field.getName())) {
             map.put(field.getName(), field);
@@ -91,5 +102,21 @@ public class BankDriverParserModel {
 
     public Map<String, Class<?>> getReferencedClasses() {
         return referencedClasses;
+    }
+
+    public Map<String, Map<String, FieldWrapper>> getDeclaredFields() {
+        return declaredFields;
+    }
+
+    public MethodWrapper getChecksumMethod() {
+        return checksumMethod;
+    }
+
+    public void setChecksumMethod(MethodWrapper checksumMethod) {
+        this.checksumMethod = checksumMethod;
+    }
+
+    public boolean isChecksumSet() {
+        return this.checksumMethod != null;
     }
 }

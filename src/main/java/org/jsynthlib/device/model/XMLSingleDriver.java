@@ -164,6 +164,7 @@ IPatchDriver {
                 editorFactory.create(this,
                         (XmlSingleDriverDefinition) driverSpec, patch);
         String frameName = driverSpec.getName() + " Editor";
+        System.out.println(SysexUtils.sysexToString(patch.sysex));
         return new JSLDriverEditorFrame(driverEditor, frameName, patch);
     }
 

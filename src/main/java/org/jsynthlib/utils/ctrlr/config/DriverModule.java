@@ -47,6 +47,7 @@ import org.jsynthlib.utils.ctrlr.controller.modulator.UiLabelController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiSliderController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiTabController;
 import org.jsynthlib.utils.ctrlr.domain.CtrlrPanelModel;
+import org.jsynthlib.utils.ctrlr.domain.DriverTypeModel;
 import org.jsynthlib.utils.ctrlr.service.ConverterDeviceFactory;
 import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 import org.jsynthlib.utils.ctrlr.service.ParameterOffsetParser;
@@ -54,6 +55,7 @@ import org.jsynthlib.utils.ctrlr.service.PopupManager;
 import org.jsynthlib.utils.ctrlr.service.SysexFormulaParser;
 import org.jsynthlib.utils.ctrlr.service.XmlDriverParser;
 import org.jsynthlib.utils.ctrlr.service.codeparser.BankDriverParserModel;
+import org.jsynthlib.utils.ctrlr.service.codeparser.CalculateChecksumMethodVisitor;
 import org.jsynthlib.utils.ctrlr.service.codeparser.DefaultMethodVisitor;
 import org.jsynthlib.utils.ctrlr.service.codeparser.GetPatchMethodVisitor;
 import org.jsynthlib.utils.ctrlr.service.codeparser.PutPatchMethodVisitor;
@@ -96,6 +98,9 @@ public class DriverModule extends AbstractModule {
 
         private final Map<String, EditorLuaMethodProvider> editorMethodProviders =
                 new HashMap<String, EditorLuaMethodProvider>();
+
+        private final Map<String, DriverTypeModel> driverTypeModels =
+                new HashMap<String, DriverTypeModel>();
 
         public DriverModule newDriverModule(XmlDeviceDefinition deviceDef,
                 XmlDriverReference driverRef) throws XmlException, IOException {
@@ -146,6 +151,15 @@ public class DriverModule extends AbstractModule {
                     rootLuaMethodProvider
                     .getLuaMethodGroup(builder.driverPrefix);
 
+            if (driverTypeModels.containsKey(builder.driverPrefix)) {
+                builder.driverTypeModel =
+                        driverTypeModels.get(builder.driverPrefix);
+            } else {
+                DriverTypeModel driverTypeModel = new DriverTypeModel();
+                driverTypeModels.put(builder.driverPrefix, driverTypeModel);
+                builder.driverTypeModel = driverTypeModel;
+            }
+
             if (editorMethodProviders.containsKey(methodGroup.getName())) {
                 builder.luaMethodProvider =
                         editorMethodProviders.get(methodGroup.getName());
@@ -166,6 +180,7 @@ public class DriverModule extends AbstractModule {
 
     public static class DriverModuleBuilder {
 
+        public DriverTypeModel driverTypeModel;
         public EditorLuaMethodProvider luaMethodProvider;
         public CtrlrPanelModel panelModel;
         public String driverClassName;
@@ -202,6 +217,7 @@ public class DriverModule extends AbstractModule {
     private final XmlDriverReference driverRef;
     private final PanelType panel;
     private final EditorLuaMethodProvider luaMethodProvider;
+    private final DriverTypeModel driverTypeModel;
 
     public DriverModule(DriverModuleBuilder builder) {
         deviceDef = builder.getDeviceDef();
@@ -210,6 +226,7 @@ public class DriverModule extends AbstractModule {
         driverPrefix = builder.getDriverPrefix();
         driverRef = builder.getDriverRef();
         luaMethodProvider = builder.luaMethodProvider;
+        this.driverTypeModel = builder.driverTypeModel;
 
         if (builder.panelModel.getPanel() == null) {
             throw new IllegalStateException(
@@ -262,7 +279,10 @@ public class DriverModule extends AbstractModule {
         install(new FactoryModuleBuilder().implement(
                 PutPatchMethodVisitor.class, PutPatchMethodVisitor.class)
                 .build(PutPatchMethodVisitor.Factory.class));
-
+        install(new FactoryModuleBuilder().implement(
+                CalculateChecksumMethodVisitor.class,
+                CalculateChecksumMethodVisitor.class).build(
+                        CalculateChecksumMethodVisitor.Factory.class));
     }
 
     void installLuaFactories() {
@@ -311,8 +331,7 @@ public class DriverModule extends AbstractModule {
                 WritePatchMethodController.class).build(
                         WritePatchMethodController.Factory.class));
         install(new FactoryModuleBuilder().implement(
-                AssignBankController.class,
-                AssignBankController.class).build(
+                AssignBankController.class, AssignBankController.class).build(
                         AssignBankController.Factory.class));
         install(new FactoryModuleBuilder().implement(
                 LoadBankMethodController.class, LoadBankMethodController.class)
@@ -406,5 +425,10 @@ public class DriverModule extends AbstractModule {
     @Named("prefix")
     String providePrefix() {
         return driverPrefix;
+    }
+
+    @Provides
+    DriverTypeModel provideDriverTypeModel() {
+        return driverTypeModel;
     }
 }

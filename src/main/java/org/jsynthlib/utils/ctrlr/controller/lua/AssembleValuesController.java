@@ -1,13 +1,19 @@
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import org.jsynthlib.utils.SysexUtils;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.domain.DriverTypeModel;
+import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-public class AssembleValuesController extends EditorLuaMethodControllerBase {
+public class AssembleValuesController extends EditorLuaMethodControllerBase
+implements Observer {
 
     public interface Factory {
         AssembleValuesController newAssembleValuesController();
@@ -18,16 +24,31 @@ public class AssembleValuesController extends EditorLuaMethodControllerBase {
 
     private final String prefix;
 
+    private final DriverTypeModel driverTypeModel;
+
+    private String checksumMethodName;
+
     /**
      * @param group
      * @param methodName
      */
     @Inject
     public AssembleValuesController(@Named("prefix") String prefix,
-            DriverModel model) {
+            DriverModel model, DriverTypeModel driverTypeModel) {
         super(model.getAssembleValuesMethodName());
         this.prefix = prefix;
+        this.driverTypeModel = driverTypeModel;
+        driverTypeModel.addObserver(this);
     }
+
+    @Override
+    protected void checkPreconditions() throws PreConditionsNotMetException {
+        if (checksumMethodName == null) {
+            throw new PreConditionsNotMetException();
+        }
+        super.checkPreconditions();
+    }
+
 
     @Override
     protected void writeLuaMethodCode() {
@@ -71,8 +92,23 @@ public class AssembleValuesController extends EditorLuaMethodControllerBase {
         code.append(indent(--indent)).append("end").append(newLine());
 
         code.append(indent(--indent)).append("end").append(newLine());
+
+        // Call calculateChecksum
+        String csStart = Integer.toString(driverTypeModel.getSingleCsStart());
+        String csEnd = Integer.toString(driverTypeModel.getSingleCsEnd());
+        String csOfs = Integer.toString(driverTypeModel.getSingleCsOfs());
+        code.append(indent(indent))
+        .append(getMethodCall(checksumMethodName, "data", csStart,
+                csEnd, csOfs)).append(newLine());
         code.append(indent(--indent)).append("end").append(newLine());
 
         setLuaMethodCode(code.toString());
+        driverTypeModel.deleteObserver(this);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        checksumMethodName = driverTypeModel.getCalculateChecksumMethodName();
+        init();
     }
 }

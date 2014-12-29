@@ -80,4 +80,11 @@ class TestVisitorFactoryFacade implements VisitorFactoryFacade {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public CalculateChecksumMethodVisitor newCalculateChecksumMethodVisitor(
+            Class<?> parsedClass, MethodWrapper parsedMethod) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

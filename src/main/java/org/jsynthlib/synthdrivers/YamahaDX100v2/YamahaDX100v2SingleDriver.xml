@@ -36,9 +36,9 @@
     <xd:string>0-Internal</xd:string>
   </xd:bankNumbers>
   <xd:deviceIDoffset>2</xd:deviceIDoffset>
-  <xd:checksumOffset>0</xd:checksumOffset>
-  <xd:checksumStart>0</xd:checksumStart>
-  <xd:checksumEnd>0</xd:checksumEnd>
+  <xd:checksumOffset>99</xd:checksumOffset>
+  <xd:checksumStart>6</xd:checksumStart>
+  <xd:checksumEnd>98</xd:checksumEnd>
   <xd:patchNameStart>83</xd:patchNameStart>
   <xd:patchNameSize>10</xd:patchNameSize>
   <xd:patchParams>

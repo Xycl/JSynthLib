@@ -46,6 +46,7 @@ import org.jsynthlib.utils.ctrlr.controller.modulator.ModulatorControllerBase;
 import org.jsynthlib.utils.ctrlr.controller.modulator.PatchNameController;
 import org.jsynthlib.utils.ctrlr.controller.modulator.UiTabController;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.domain.DriverTypeModel;
 import org.jsynthlib.utils.ctrlr.domain.MethodDescriptionPair;
 import org.jsynthlib.utils.ctrlr.domain.WritePatchMessage;
 import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
@@ -107,6 +108,9 @@ public class XmlSingleDriverParser extends XmlDriverParser {
     private CtrlrMidiService midiService;
 
     @Inject
+    private DriverTypeModel driverTypeModel;
+
+    @Inject
     private DriverModel model;
 
     @Inject
@@ -120,7 +124,11 @@ public class XmlSingleDriverParser extends XmlDriverParser {
     protected void parseDriver() {
         globalGroupBuilder.init();
 
-        model.setSinglePatchSize(xmlDriverDef.getPatchSize());
+        driverTypeModel.setSingleCsEnd(xmlDriverDef.getChecksumEnd());
+        driverTypeModel.setSingleCsOfs(xmlDriverDef.getChecksumOffset());
+        driverTypeModel.setSingleCsStart(xmlDriverDef.getChecksumStart());
+
+        driverTypeModel.setSinglePatchSize(xmlDriverDef.getPatchSize());
 
         editorFrame.launchEditor();
         editorFrame.initNodeRecursive(editorFrame.root, null,
@@ -430,7 +438,7 @@ public class XmlSingleDriverParser extends XmlDriverParser {
             boolean patchDataMsg = true;
             for (int i = 0; i < sysexIdBytes.length; i++) {
                 byte b = sysexIdBytes[i];
-                if (b != 0xFF && b != msgBytes[i]) {
+                if (b != (byte) 0xFF && b != msgBytes[i]) {
                     log.info("Message did not match sysex id: " + sentMessage);
                     patchDataMsg = false;
                     break;

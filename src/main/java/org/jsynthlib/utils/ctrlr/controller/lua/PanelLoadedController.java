@@ -20,10 +20,11 @@
  */
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
-import java.util.Map.Entry;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.inject.Named;
 
@@ -44,7 +45,7 @@ Observer {
 
     private final CtrlrPanelModel model;
 
-    private Set<Entry<String, String>> globalVariableEntries;
+    private Map<String, String> globalVariableEntries;
 
     @Inject
     public PanelLoadedController(CtrlrPanelModel model) {
@@ -64,14 +65,17 @@ Observer {
         code.append(indent(indent++)).append("function ")
         .append(getMethodName()).append("()").append(newLine());
 
-        for (Entry<String, String> entry : globalVariableEntries) {
-            code.append(indent(indent)).append(entry.getKey()).append(" = ")
-            .append(entry.getValue()).append(newLine());
+        SortedSet<String> keys =
+                new TreeSet<String>(globalVariableEntries.keySet());
+        for (String key : keys) {
+            String value = globalVariableEntries.get(key);
+            code.append(indent(indent)).append(key).append(" = ").append(value)
+            .append(newLine());
         }
 
         code.append(indent(indent)).append("timer:setCallback (33, ")
-        .append(PanelLoadedCallbackController.METHOD_NAME)
-        .append(")").append(newLine());
+        .append(PanelLoadedCallbackController.METHOD_NAME).append(")")
+        .append(newLine());
         code.append(indent(indent)).append("timer:startTimer(33, 100)")
         .append(newLine());
 

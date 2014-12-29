@@ -69,6 +69,7 @@ Observer {
         if (sliderSpec.getMax() > 1) {
             UiComboController patchSelectController =
                     factoryFacade.newUiComboController(sliderSpec);
+            patchSelectController.setModulatorName(sliderSpec.getName());
             patchSelectController.setUiComboContent(sliderSpec
                     .getComboContent());
             patchSelectController.setComponentVisibleName("Patch");

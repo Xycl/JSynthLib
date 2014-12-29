@@ -24,9 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Observable;
-import java.util.Set;
 
 import org.ctrlr.panel.PanelType;
 import org.jsynthlib.utils.ctrlr.controller.lua.MidiReceivedDriverBean;
@@ -125,8 +123,8 @@ public class CtrlrPanelModel extends Observable {
         return put;
     }
 
-    public Set<Entry<String, String>> getGlobalVariableEntries() {
-        return globalVariables.entrySet();
+    public Map<String, String> getGlobalVariableEntries() {
+        return globalVariables;
     }
 
     public String getBeforePanelLoadedName() {

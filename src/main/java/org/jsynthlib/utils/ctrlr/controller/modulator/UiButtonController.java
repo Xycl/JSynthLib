@@ -23,6 +23,7 @@ public class UiButtonController extends MidiModulatorControllerBase {
     private int width;
     private List<String> contents;
     private boolean toggle;
+    private String name;
 
     @AssistedInject
     public UiButtonController(@Assisted SliderSpecWrapper sliderSpec) {
@@ -33,6 +34,7 @@ public class UiButtonController extends MidiModulatorControllerBase {
         width = 57;
         height = 44;
         toggle = true;
+        name = getSliderSpec().getName();
     }
 
     @AssistedInject
@@ -47,13 +49,17 @@ public class UiButtonController extends MidiModulatorControllerBase {
             }
             toggle = false;
         }
+        name = null;
     }
 
     @Override
     public void init() {
         super.init();
         setContents(contents);
-        setModulatorName(getSliderSpec().getName());
+
+        if (name != null) {
+            setModulatorName(name);
+        }
         getComponent().setUiButtonTrueValue(1);
         getComponent().setUiButtonFalseValue(0);
         getComponent().setUiButtonIsToggle(toggle ? 1 : 0);
@@ -75,13 +81,17 @@ public class UiButtonController extends MidiModulatorControllerBase {
     public void setContents(List<String> contents) {
         StringBuilder contentBuilder = new StringBuilder();
         boolean first = true;
-        for (String string : contents) {
+        for (int i = 0; i < contents.size(); i++) {
+            String string = contents.get(i);
             if (first) {
                 first = false;
             } else {
                 contentBuilder.append("\n");
             }
             contentBuilder.append(string);
+            if (!toggle) {
+                contentBuilder.append("=").append(i);
+            }
         }
         getComponent().setUiButtonContent(contentBuilder.toString());
     }

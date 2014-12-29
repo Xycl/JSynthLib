@@ -38,6 +38,7 @@ import org.jsynthlib.utils.ctrlr.controller.lua.LoadBankMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.ReceiveBankMethodController;
 import org.jsynthlib.utils.ctrlr.controller.lua.SaveBankMethodController;
 import org.jsynthlib.utils.ctrlr.domain.BankToPatchRelationBean;
+import org.jsynthlib.utils.ctrlr.domain.DriverModel;
 import org.jsynthlib.utils.ctrlr.domain.MethodDescriptionPair;
 import org.jsynthlib.utils.ctrlr.service.LuaMethodProvider;
 import org.jsynthlib.utils.ctrlr.service.PopupManager.PopupSession;
@@ -61,6 +62,9 @@ public class XmlBankDriverParser extends XmlDriverParser {
     private BankDriverAnalyzer bankDriverAnalyzer;
 
     @Inject
+    private DriverModel model;
+
+    @Inject
     private CtrlrMidiService midiService;
 
     @Inject
@@ -82,11 +86,11 @@ public class XmlBankDriverParser extends XmlDriverParser {
     @Override
     protected void parseDriver() throws DriverParseException {
         String description = "Bank";
-        // List<BankToPatchRelationBean> putPatchData = parsePutPatch();
-        // List<BankToPatchRelationBean> putPatchData =
-        // new ArrayList<BankToPatchRelationBean>();
         luaFacade.newAssignBankController();
-        // luaFacade.newAssembleValuesFromBankController(putPatchData);
+
+        model.setCsEnd(driverDef.getChecksumEnd());
+        model.setCsOffset(driverDef.getChecksumOffset());
+        model.setCsStart(driverDef.getChecksumStart());
 
         try {
             Class<? extends XMLBankDriver> bankDriverClass =

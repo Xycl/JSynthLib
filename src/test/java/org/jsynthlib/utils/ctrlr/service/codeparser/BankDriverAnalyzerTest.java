@@ -79,7 +79,7 @@ public class BankDriverAnalyzerTest {
         }
 
         Iterator<Entry<String, String>> iterator =
-                panelModel.getGlobalVariableEntries().iterator();
+                panelModel.getGlobalVariableEntries().entrySet().iterator();
         System.out.println("--------Global variables-------");
         while (iterator.hasNext()) {
             Entry<String, String> entry = iterator.next();

@@ -25,6 +25,7 @@ import java.util.Observer;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.domain.DriverTypeModel;
 import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
 
@@ -34,7 +35,8 @@ import com.google.inject.name.Named;
 /**
  * @author Pascal Collberg
  */
-public class AssignBankController extends BankPatchControllerBase implements Observer {
+public class AssignBankController extends BankPatchControllerBase implements
+Observer {
 
     private static final String LOADED_DATA = "loadedData";
 
@@ -51,15 +53,18 @@ public class AssignBankController extends BankPatchControllerBase implements Obs
 
     private int singlePatchSize = -1;
 
+    private final DriverTypeModel driverTypeModel;
+
     @Inject
     public AssignBankController(@Named("prefix") String prefix,
-            DriverModel model) {
+            DriverModel model, DriverTypeModel driverTypeModel) {
         super(model.getAssignBankMethodName());
         this.model = model;
+        this.driverTypeModel = driverTypeModel;
         bankDataVar = model.getBankDataVarName();
 
         this.prefix = prefix;
-        model.addObserver(this);
+        driverTypeModel.addObserver(this);
 
     }
 
@@ -95,36 +100,19 @@ public class AssignBankController extends BankPatchControllerBase implements Obs
         code.append(indent(indent)).append(patchNameTableVar).append(" = {}")
         .append(newLine());
 
-        code.append(indent(indent)).append("local numPatches = ")
-        .append(driverDef.getPatchNumbers().getStringArray().length)
-        .append(newLine());
-
-        code.append(indent(indent.getAndIncrement())).append("for ")
-        .append(loopIndex).append(" = 1, (numPatches) do")
-        .append(newLine());
-
-        code.append(indent(indent)).append("local ").append(patchDataVar)
-                .append(" = MemoryBlock(").append(singlePatchSize)
-        .append(", false)").append(newLine());
-
         code.append(indent(indent))
-        .append(getMethodCall(model.getGetPatchMethodName(),
-                patchDataVar, loopIndex)).append(newLine());
-
-        code.append(indent(indent.getAndIncrement())).append("if ")
-        .append(loopIndex).append(" == 1 then").append(newLine());
+        .append("local ")
+        .append(patchDataVar)
+        .append(" = ")
+        .append(getMethodCall(model.getGetPatchMethodName(), "0"))
+        .append(newLine());
 
         code.append(indent(indent))
         .append(getMethodCall(model.getAssignValuesMethodName(),
                 patchDataVar, "true")).append(newLine());
-        code.append(indent(indent)).append("getModulatorByName(")
-        .append(model.getPatchSelectName()).append("):setValue(0)")
-        .append(newLine());
-
-        code.append(indent(indent.decrementAndGet())).append("end")
-        .append(newLine());
-
-        code.append(indent(indent.decrementAndGet())).append("end")
+        code.append(indent(indent)).append("panel:getModulatorByName(\"")
+        .append(model.getPatchSelectName())
+        .append("\"):setValue(0, false)")
         .append(newLine());
 
         code.append(indent(indent.decrementAndGet())).append("end")
@@ -149,7 +137,7 @@ public class AssignBankController extends BankPatchControllerBase implements Obs
 
     @Override
     public void update(Observable o, Object arg) {
-        singlePatchSize  = model.getSinglePatchSize();
+        singlePatchSize = driverTypeModel.getSinglePatchSize();
         init();
     }
 

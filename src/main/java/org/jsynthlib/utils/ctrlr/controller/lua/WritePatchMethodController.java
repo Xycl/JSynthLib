@@ -85,23 +85,26 @@ public class WritePatchMethodController extends EditorLuaMethodControllerBase {
                 .append("m = CtrlrMidiMessage(PatchDataCurrent)")
                 .append(newLine());
 
+                if (variableBanks && msg.containsBankNbr()) {
+                    code.append(indent(indent))
+                            .append("PatchDataCurrent:setByte(")
+                            .append(msg.getBankNbrOffset()).append(", ")
+                            .append(BANK_NBR).append(")").append(newLine());
+                }
+
+                if (variablePatches && msg.containsPatchNbr()) {
+                    code.append(indent(indent))
+                            .append("PatchDataCurrent:setByte(")
+                            .append(msg.getPatchNbrOffset()).append(", ")
+                            .append(PATCH_NBR).append(")").append(newLine());
+                }
+
             } else {
                 String string = SysexUtils.byteToHexStringArray(bytes);
                 code.append(indent(indent)).append("m = CtrlrMidiMessage({")
                 .append(string).append("})").append(newLine());
             }
 
-            if (variableBanks && msg.containsBankNbr()) {
-                code.append(indent(indent)).append("PatchDataCurrent:setByte(")
-                .append(msg.getBankNbrOffset()).append(", ")
-                .append(BANK_NBR).append(")").append(newLine());
-            }
-
-            if (variablePatches && msg.containsPatchNbr()) {
-                code.append(indent(indent)).append("PatchDataCurrent:setByte(")
-                .append(msg.getPatchNbrOffset()).append(", ")
-                .append(PATCH_NBR).append(")").append(newLine());
-            }
             code.append(indent(indent)).append("panel:sendMidiMessageNow(m)")
             .append(newLine());
         }

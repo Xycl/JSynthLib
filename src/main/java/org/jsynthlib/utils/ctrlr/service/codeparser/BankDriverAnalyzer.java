@@ -67,14 +67,16 @@ public class BankDriverAnalyzer {
         MethodWrapper wrapper = MethodWrapper.newWrapper(prefix, "putPatch");
         Class<?> putPatchClass =
                 getMethodClass(wrapper.getName(), bankDriverClass);
-        parserModel.addMethodToParse(putPatchClass.getSimpleName(),
- wrapper);
+        parserModel.addMethodToParse(putPatchClass.getSimpleName(), wrapper);
 
         wrapper = MethodWrapper.newWrapper(prefix, "getPatch");
         Class<?> getPatchClass =
                 getMethodClass(wrapper.getName(), bankDriverClass);
-        parserModel.addMethodToParse(getPatchClass.getSimpleName(),
- wrapper);
+        parserModel.addMethodToParse(getPatchClass.getSimpleName(), wrapper);
+
+        MethodWrapper csWrapper =
+                MethodWrapper.newWrapper("", "calculateChecksum");
+        parserModel.addMethodToParse(Object.class.getSimpleName(), csWrapper);
 
         // Get the valid source files as a list
         List<File> filesFromParsedClass = getFilesAsList(bankDriverClass);
@@ -108,6 +110,10 @@ public class BankDriverAnalyzer {
                             parserModel.getMethodsToParse().keySet().iterator();
                     while (fileIterator.hasNext()) {
                         String simpleClassName = fileIterator.next();
+                        if (simpleClassName.equals("Object")) {
+                            // Skip for checksum calculation
+                            continue;
+                        }
                         if (referencedClasses.containsKey(simpleClassName)) {
                             log.info("Adding referenced class "
                                     + simpleClassName);

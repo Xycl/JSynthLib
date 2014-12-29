@@ -96,40 +96,40 @@ public class DX7FamilyXmlVoiceBankDriver extends XMLBankDriver {
             // .................(0-99)
             bank.sysex[getPatchStart(patchNum) + 4 + bankOpOffset] =
                     p.sysex[dxSysexHeaderSize + 4 + patchOpOffset]; // EG Level
-                                                                    // 1
+            // 1
             // .................(0-99)
             bank.sysex[getPatchStart(patchNum) + 5 + bankOpOffset] =
                     p.sysex[dxSysexHeaderSize + 5 + patchOpOffset]; // EG Level
-                                                                    // 2
+            // 2
             // .................(0-99)
             bank.sysex[getPatchStart(patchNum) + dxSysexHeaderSize
-                    + bankOpOffset] =
-                    p.sysex[dxSysexHeaderSize + 6 + patchOpOffset]; // EG Level
-                                                                    // 3
+                       + bankOpOffset] =
+                       p.sysex[dxSysexHeaderSize + 6 + patchOpOffset]; // EG Level
+            // 3
             // .................(0-99)
             bank.sysex[getPatchStart(patchNum) + 7 + bankOpOffset] =
                     p.sysex[dxSysexHeaderSize + 7 + patchOpOffset]; // EG Level
-                                                                    // 4
+            // 4
             // .................(0-99)
             bank.sysex[getPatchStart(patchNum) + 8 + bankOpOffset] =
                     p.sysex[dxSysexHeaderSize + 8 + patchOpOffset]; // Kbd Level
-                                                                    // Scale
-                                                                    // Break
+            // Scale
+            // Break
             // Point (0-99)
             bank.sysex[getPatchStart(patchNum) + 9 + bankOpOffset] =
                     p.sysex[dxSysexHeaderSize + 9 + patchOpOffset]; // Kbd Level
-                                                                    // Scale
-                                                                    // Left
+            // Scale
+            // Left
             // Depth .(0-99)
             bank.sysex[getPatchStart(patchNum) + 10 + bankOpOffset] =
                     p.sysex[dxSysexHeaderSize + 10 + patchOpOffset]; // Kbd
-                                                                     // Level
-                                                                     // Scale
-                                                                     // Right
+            // Level
+            // Scale
+            // Right
             // Depth (0-99)
             bank.sysex[getPatchStart(patchNum) + 11 + bankOpOffset] =
                     (byte) (p.sysex[dxSysexHeaderSize + 12 + patchOpOffset] * 4 + p.sysex[dxSysexHeaderSize
-                            + 11 + patchOpOffset]); // Kbd
+                                                                                          + 11 + patchOpOffset]); // Kbd
             // Level
             // Scale
             // Right
@@ -138,33 +138,33 @@ public class DX7FamilyXmlVoiceBankDriver extends XMLBankDriver {
             // | Left Curve ...............(0-3)
             bank.sysex[getPatchStart(patchNum) + 12 + bankOpOffset] =
                     (byte) (p.sysex[dxSysexHeaderSize + 20 + patchOpOffset] * 8 + p.sysex[dxSysexHeaderSize
-                            + 13 + patchOpOffset]); // Osc
+                                                                                          + 13 + patchOpOffset]); // Osc
             // Detune
             // .................(0-14)
             // | Kbd Rate Scaling .........(0-7)
             bank.sysex[getPatchStart(patchNum) + 13 + bankOpOffset] =
                     (byte) (p.sysex[dxSysexHeaderSize + 15 + patchOpOffset] * 4 + p.sysex[dxSysexHeaderSize
-                            + 14 + patchOpOffset]); // Key
+                                                                                          + 14 + patchOpOffset]); // Key
             // Velocity
             // Sensitivity
             // ....(0-7)
             // | Mod Sensitivity Amplitude (0-3)
             bank.sysex[getPatchStart(patchNum) + 14 + bankOpOffset] =
                     p.sysex[dxSysexHeaderSize + 16 + patchOpOffset]; // Operator
-                                                                     // Output
-                                                                     // Level
+            // Output
+            // Level
             // ......(0-99)
             bank.sysex[getPatchStart(patchNum) + 15 + bankOpOffset] =
                     (byte) (p.sysex[dxSysexHeaderSize + 18 + patchOpOffset] * 2 + p.sysex[dxSysexHeaderSize
-                            + 17 + patchOpOffset]); // Osc
+                                                                                          + 17 + patchOpOffset]); // Osc
             // Frequency
             // Coarse
             // .......(0-31)
             // | Osc Mode .................(0-1)
             bank.sysex[getPatchStart(patchNum) + 16 + bankOpOffset] =
                     p.sysex[dxSysexHeaderSize + 19 + patchOpOffset]; // Osc
-                                                                     // Frequency
-                                                                     // Fine
+            // Frequency
+            // Fine
             // .........(0-99)
         }
 
@@ -342,6 +342,7 @@ public class DX7FamilyXmlVoiceBankDriver extends XMLBankDriver {
                 sysex[dxSysexHeaderSize + 11 + patchOpOffset] =
                         (byte) (bank.sysex[getPatchStart(patchNum) + 11
                                            + bankOpOffset] & 3);
+
                 // Kbd Level Scale Right Curve .(0-3)
                 sysex[dxSysexHeaderSize + 12 + patchOpOffset] =
                         (byte) ((bank.sysex[getPatchStart(patchNum) + 11

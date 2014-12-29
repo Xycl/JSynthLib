@@ -20,6 +20,11 @@
  */
 package org.jsynthlib.utils.ctrlr.controller.lua;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jsynthlib.utils.ctrlr.controller.ReplacableListener;
+import org.jsynthlib.utils.ctrlr.controller.Replaceable;
 import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 
 import com.google.inject.Inject;
@@ -27,27 +32,24 @@ import com.google.inject.assistedinject.Assisted;
 
 /**
  * @author Pascal Collberg
- *
  */
-public class JavaParsedMethodController extends EditorLuaMethodControllerBase {
+public class JavaParsedMethodController extends EditorLuaMethodControllerBase
+implements ReplacableListener {
 
     public interface Factory {
         JavaParsedMethodController newJavaParsedMethodController(
                 String methodName);
     }
 
+    private final List<Object> items;
+
     private boolean javaParserDone;
-    /**
-     * @param methodName
-     */
-    private final StringBuilder code;
 
     @Inject
     public JavaParsedMethodController(@Assisted String methodName) {
         super(methodName);
-        code = new StringBuilder();
+        items = new ArrayList<Object>();
     }
-
 
     @Override
     protected void checkPreconditions() throws PreConditionsNotMetException {
@@ -59,6 +61,14 @@ public class JavaParsedMethodController extends EditorLuaMethodControllerBase {
 
     @Override
     protected void writeLuaMethodCode() {
+        StringBuilder code = new StringBuilder();
+        for (Object object : items) {
+            // if (object instanceof Replaceable) {
+            // throw new IllegalStateException(
+            // "Unreplaced Replaceable detected");
+            // }
+            code.append(object);
+        }
         setLuaMethodCode(code.toString());
     }
 
@@ -71,49 +81,67 @@ public class JavaParsedMethodController extends EditorLuaMethodControllerBase {
         init();
     }
 
-    public StringBuilder append(Object obj) {
-        return code.append(obj);
+    public JavaParsedMethodController append(Replaceable replaceable) {
+        items.add(replaceable);
+        replaceable.addListener(this);
+        return this;
     }
 
-    public StringBuilder append(String str) {
-        return code.append(str);
+    public JavaParsedMethodController append(Object obj) {
+        items.add(obj);
+        return this;
     }
 
-    public StringBuilder append(CharSequence s) {
-        return code.append(s);
+    public JavaParsedMethodController append(String str) {
+        items.add(str);
+        return this;
     }
 
-    public StringBuilder append(char[] str) {
-        return code.append(str);
+    public JavaParsedMethodController append(CharSequence s) {
+        items.add(s);
+        return this;
     }
 
-    public StringBuilder append(boolean b) {
-        return code.append(b);
+    public JavaParsedMethodController append(char[] str) {
+        items.add(str);
+        return this;
     }
 
-    public StringBuilder append(char c) {
-        return code.append(c);
+    public JavaParsedMethodController append(boolean b) {
+        items.add(b);
+        return this;
     }
 
-    public StringBuilder append(int i) {
-        return code.append(i);
+    public JavaParsedMethodController append(char c) {
+        items.add(c);
+        return this;
     }
 
-    public StringBuilder append(long lng) {
-        return code.append(lng);
+    public JavaParsedMethodController append(int i) {
+        items.add(i);
+        return this;
     }
 
-    public StringBuilder append(float f) {
-        return code.append(f);
+    public JavaParsedMethodController append(long lng) {
+        items.add(lng);
+        return this;
     }
 
-    public StringBuilder append(double d) {
-        return code.append(d);
+    public JavaParsedMethodController append(float f) {
+        items.add(f);
+        return this;
+    }
+
+    public JavaParsedMethodController append(double d) {
+        items.add(d);
+        return this;
     }
 
     @Override
-    public String toString() {
-        return code.toString();
+    public void onReplace(Replaceable replacable, String replacement) {
+        int index = items.indexOf(replacable);
+        items.set(index, replacement);
+        replacable.removeListener(this);
+        writeLuaMethodCode();
     }
-
 }

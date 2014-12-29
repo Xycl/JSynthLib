@@ -50,7 +50,7 @@ EditorLuaMethodControllerBase {
         code.append(
                 getSaveCurrentWorkPrompt(model.getBankDataVarName(), indent))
                 .append(
-                newLine());
+                        newLine());
 
         code.append(indent(indent)).append("f = utils.openFileWindow (\"")
         .append(fileDialogName)
@@ -58,7 +58,7 @@ EditorLuaMethodControllerBase {
         code.append(indent(indent.getAndIncrement()))
         .append("if f:existsAsFile() then").append(newLine());
         code.append(indent(indent)).append("local ").append(loadedDataVar)
-        .append(" = MemoryBlock(f:getSize(), false)").append(newLine());
+                .append(" = MemoryBlock()").append(newLine());
         code.append(indent(indent)).append("f:loadFileAsData(")
         .append(loadedDataVar).append(")").append(newLine());
         return code.toString();

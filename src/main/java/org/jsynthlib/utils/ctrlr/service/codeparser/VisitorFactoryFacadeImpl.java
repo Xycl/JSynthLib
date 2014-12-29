@@ -20,7 +20,9 @@
  */
 package org.jsynthlib.utils.ctrlr.service.codeparser;
 
+import org.jsynthlib.device.model.IDriver;
 import org.jsynthlib.device.model.XMLBankDriver;
+import org.jsynthlib.utils.ctrlr.domain.DriverTypeModel;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -32,6 +34,9 @@ import com.google.inject.Singleton;
 public class VisitorFactoryFacadeImpl implements VisitorFactoryFacade {
 
     @Inject
+    private DriverTypeModel driverTypeModel;
+
+    @Inject
     private DefaultMethodVisitor.Factory defaultMethodFactory;
 
     @Inject
@@ -39,6 +44,9 @@ public class VisitorFactoryFacadeImpl implements VisitorFactoryFacade {
 
     @Inject
     private PutPatchMethodVisitor.Factory putPatchMethodFactory;
+
+    @Inject
+    private CalculateChecksumMethodVisitor.Factory checksumMethodFactory;
 
     @Override
     public DefaultMethodVisitor newDefaultMethodVisitor(Class<?> parsedClass,
@@ -67,16 +75,25 @@ public class VisitorFactoryFacadeImpl implements VisitorFactoryFacade {
         String methodName = method.getName();
         if (methodName.equals("getPatch")
                 && XMLBankDriver.class.isAssignableFrom(currClass)) {
-            return getPatchMethodFactory.newGetPatchMethodVisitor(currClass,
-                    method);
+            return newGetPatchMethodVisitor(currClass, method);
         } else if (methodName.equals("putPatch")
                 && XMLBankDriver.class.isAssignableFrom(currClass)) {
-            return putPatchMethodFactory.newPutPatchMethodVisitor(currClass,
-                    method);
+            return newPutPatchMethodVisitor(currClass, method);
+        } else if (methodName.equals("calculateChecksum")
+                && IDriver.class.isAssignableFrom(currClass)) {
+            return newCalculateChecksumMethodVisitor(currClass, method);
         } else {
-            return defaultMethodFactory.newDefaultMethodVisitor(currClass,
-                    method);
+            return newDefaultMethodVisitor(currClass, method);
         }
+    }
+
+    @Override
+    public CalculateChecksumMethodVisitor newCalculateChecksumMethodVisitor(
+            Class<?> parsedClass, MethodWrapper parsedMethod) {
+        driverTypeModel.setCalculateChecksumMethodName(parsedMethod
+                .getLuaName());
+        return checksumMethodFactory.newCalculateChecksumMethodVisitor(
+                parsedClass, parsedMethod);
     }
 
 }

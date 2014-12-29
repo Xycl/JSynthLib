@@ -10,6 +10,7 @@ import org.jsynthlib.utils.ctrlr.controller.LuaFactoryFacade;
 import org.jsynthlib.utils.ctrlr.controller.lua.MidiReceivedDriverBean;
 import org.jsynthlib.utils.ctrlr.domain.CtrlrPanelModel;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.domain.DriverTypeModel;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -35,6 +36,9 @@ public abstract class XmlDriverParser {
     @Inject
     @Named("className")
     private String driverClass;
+
+    @Inject
+    private DriverTypeModel driverTypeModel;
 
     @Inject
     private CtrlrMidiService midiService;
@@ -78,6 +82,7 @@ public abstract class XmlDriverParser {
             luaFacade.newSaveMenuController();
             luaFacade.newWriteMenuController();
             model.driverParseComplete();
+            driverTypeModel.driverParseComplete();
             luaMethodProvider.driverParseComplete();
         }
     }

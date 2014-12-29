@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jsynthlib.utils.ctrlr.domain.CtrlrPanelModel;
 import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.domain.DriverTypeModel;
 import org.jsynthlib.utils.ctrlr.domain.PreConditionsNotMetException;
 
 import com.google.inject.Inject;
@@ -44,16 +45,19 @@ implements Observer {
     private final DriverModel model;
     private final String bankDataVar;
     private int singlePatchSize = -1;
+    private final DriverTypeModel driverTypeModel;
 
     @Inject
     public LoadBankMethodController(@Named("prefix") String prefix,
-            DriverModel model, CtrlrPanelModel panelModel) {
+            DriverModel model, CtrlrPanelModel panelModel,
+            DriverTypeModel driverTypeModel) {
         super(prefix + "_LoadBank");
         this.model = model;
+        this.driverTypeModel = driverTypeModel;
         bankDataVar = model.getBankDataVarName();
         panelModel.putGlobalVariable(bankDataVar, "nil");
 
-        model.addObserver(this);
+        driverTypeModel.addObserver(this);
     }
 
     @Override
@@ -104,7 +108,7 @@ implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        singlePatchSize = model.getSinglePatchSize();
+        singlePatchSize = driverTypeModel.getSinglePatchSize();
         init();
     }
 

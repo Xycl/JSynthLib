@@ -56,11 +56,14 @@ public class DriverModel extends Observable {
     private int patchNameCharMax;
     private final String bankDataVarName;
     private final AtomicInteger vstIndex;
-    private int singlePatchSize;
 
     private final List<ModulatorControllerBase> rootModulators;
     private final String prefix;
     private final String patchSelectMethodName;
+
+    private int csStart;
+    private int csEnd;
+    private int csOffset;
 
     @Inject
     public DriverModel(@Named("prefix") String prefix) {
@@ -172,16 +175,6 @@ public class DriverModel extends Observable {
         return bankDataVarName;
     }
 
-    public int getSinglePatchSize() {
-        return singlePatchSize;
-    }
-
-    public void setSinglePatchSize(int singlePatchSize) {
-        this.singlePatchSize = singlePatchSize;
-        setChanged();
-        notifyObservers(singlePatchSize);
-    }
-
     public boolean addRootModulator(ModulatorControllerBase e) {
         return rootModulators.add(e);
     }
@@ -231,6 +224,36 @@ public class DriverModel extends Observable {
         this.saveMenuName = saveMenuName;
         setChanged();
         notifyObservers(saveMenuName);
+    }
+
+    public int getCsStart() {
+        return csStart;
+    }
+
+    public int getCsEnd() {
+        return csEnd;
+    }
+
+    public int getCsOffset() {
+        return csOffset;
+    }
+
+    public void setCsStart(int csStart) {
+        this.csStart = csStart;
+        setChanged();
+        notifyObservers(csStart);
+    }
+
+    public void setCsEnd(int csEnd) {
+        this.csEnd = csEnd;
+        setChanged();
+        notifyObservers(csEnd);
+    }
+
+    public void setCsOffset(int csOffset) {
+        this.csOffset = csOffset;
+        setChanged();
+        notifyObservers(csOffset);
     }
 
 }

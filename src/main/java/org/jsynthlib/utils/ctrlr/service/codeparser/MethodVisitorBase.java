@@ -57,8 +57,11 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 import org.jsynthlib.utils.ctrlr.controller.LuaFactoryFacade;
+import org.jsynthlib.utils.ctrlr.controller.ReplacableBase;
 import org.jsynthlib.utils.ctrlr.controller.lua.JavaParsedMethodController;
 import org.jsynthlib.utils.ctrlr.domain.CtrlrPanelModel;
+import org.jsynthlib.utils.ctrlr.domain.DriverModel;
+import org.jsynthlib.utils.ctrlr.domain.DriverTypeModel;
 import org.jsynthlib.utils.ctrlr.service.codeparser.FieldWrapper.FieldType;
 import org.jsynthlib.xmldevice.Property;
 import org.jsynthlib.xmldevice.XmlDriverDefinition;
@@ -73,9 +76,9 @@ import com.google.inject.name.Named;
 public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
 
     private static final String[] TERMINALS = {
-        "+", "-", "*", "/", "|", "&", "+=", "-=" };
+        "+", "-", "*", "/", "<", ">", "=" };
     private static final String[] IGNORED_STATEMENTS = {
-        "ErrorMsg.report", "calculateChecksum(", "!canHoldPatch(" };
+        "ErrorMsg.report", "!canHoldPatch(" }; // "calculateChecksum(",
 
     private final transient Logger log = Logger.getLogger(getClass());
 
@@ -89,6 +92,12 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
 
     @Inject
     private CtrlrPanelModel panelModel;
+
+    @Inject
+    private DriverTypeModel driverTypeModel;
+
+    @Inject
+    private DriverModel driverModel;
 
     private final MethodWrapper parsedMethod;
 
@@ -116,6 +125,15 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
     }
 
     protected String getFieldValue(String fieldName) {
+        Map<String, Map<String, FieldWrapper>> declaredFields =
+                model.getDeclaredFields();
+        if (declaredFields.containsKey(parsedClass.getSimpleName())) {
+            Map<String, FieldWrapper> map =
+                    declaredFields.get(parsedClass.getSimpleName());
+            if (map.containsKey(fieldName)) {
+                return map.get(fieldName).getValue();
+            }
+        }
         BeanUtilsBean beanUtilsBean = BeanUtilsBean.getInstance();
         try {
             PropertyDescriptor propertyDescriptor =
@@ -143,6 +161,15 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
 
     @Override
     public Void visitMethodDeclaration(MethodDeclarationContext ctx) {
+        appendMethodDecl(ctx);
+
+        visit(ctx.methodBody());
+        code.append(code.newLine()).append("end").append(code.newLine());
+
+        return null;
+    }
+
+    protected void appendMethodDecl(MethodDeclarationContext ctx) {
         code =
                 luaFactory.newJavaParsedMethodController(parsedMethod
                         .getLuaName());
@@ -153,14 +180,12 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         code.append(")").append(code.newLine());
         code.append(code.getPanelInitCheck(indent)).append(code.newLine())
         .append(code.indent(indent));
-
-        visit(ctx.methodBody());
-        code.append(code.newLine()).append("end").append(code.newLine());
-
-        return null;
+        code.append("console(\"").append(parsedMethod.getLuaName())
+        .append("\")").append(code.newLine())
+        .append(code.indent(indent));
     }
 
-    protected boolean compareClassArrays(Class<?>[] cArr,
+    public static boolean compareClassArrays(Class<?>[] cArr,
             List<ParseTree> parseTree) {
         ArrayList<ClassAdapter> list = new ArrayList<ClassAdapter>();
         for (int i = 0; i < cArr.length; i++) {
@@ -211,15 +236,14 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
                 new Class<?>[] {
                         ExpressionContext.class, TerminalNode.class,
                         TerminalNode.class }, ctx.children)
-                        && ctx.getChild(1).equals("(")) {
+                        && ctx.getChild(1).getText().equals("(")) {
             return true;
         } else {
             return false;
         }
     }
 
-    FieldWrapper getFieldFromVarName(ParseTree tree, boolean global) {
-        String varName = tree.getText();
+    protected FieldWrapper getFieldFromVarName(String varName, boolean global) {
         if (varName.endsWith(".sysex")) {
             varName = varName.replace(".sysex", "");
         }
@@ -237,8 +261,7 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
                     panelModel
                     .putGlobalVariable(field.getLuaName(), fieldValue);
                 } else {
-                    // TODO: implement!
-                    // fieldsToParse.add(field);
+                    model.addFieldToParse(parsedClass.getSimpleName(), field);
                 }
             } else {
                 field.setLuaName(varName);
@@ -246,6 +269,12 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
             parsedLocalVariables.put(varName, field);
         }
         return field;
+
+    }
+
+    FieldWrapper getFieldFromVarName(ParseTree tree, boolean global) {
+        String varName = tree.getText();
+        return getFieldFromVarName(varName, global);
     }
 
     void handleSystemArrayCopy(ExpressionContext ctx) {
@@ -311,7 +340,7 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
             // Bitwise and
             code.append("bit.band(");
             visit(ctx.getChild(0));
-            code.append(",");
+            code.append(", ");
             visit(ctx.getChild(2));
             code.append(")");
             return null;
@@ -322,7 +351,7 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
             // Bitwise or
             code.append("bit.bor(");
             visit(ctx.getChild(0));
-            code.append(",");
+            code.append(", ");
             visit(ctx.getChild(2));
             code.append(")");
             return null;
@@ -334,7 +363,7 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
             // Bitwise signed right shift
             code.append("bit.rshift(");
             visit(ctx.getChild(0));
-            code.append(",");
+            code.append(", ");
             visit(ctx.getChild(3));
             code.append(")");
             return null;
@@ -360,6 +389,13 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
             code.append(" - ");
             visit(ctx.getChild(2));
             return null;
+        } else if (compareClassArrays(new Class<?>[] {
+                ExpressionContext.class, TerminalNode.class,
+                TerminalNode.class, }, ctx.children)
+                && ctx.getChild(2).getText().equals("length")) {
+            visit(ctx.getChild(0));
+            code.append(":getSize()");
+            return null;
         } else {
             return super.visitExpression(ctx);
         }
@@ -367,7 +403,22 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
 
     void handleGenericMethodCall(ExpressionContext ctx) {
         ExpressionContext callExpression = ctx.expression(0);
-        if (callExpression.getChildCount() == 1) {
+        if (callExpression.getText().contains("calculateChecksum")) {
+            if (callExpression.getChildCount() == 1) {
+                code.append(prefix + "_CalculateChecksum(");
+                visit(ctx.expressionList());
+                appendCsValues();
+
+                code.append(")");
+            } else if (callExpression.getChildCount() == 3) {
+                code.append(prefix + "_CalculateChecksum(");
+                FieldWrapper name =
+                        getFieldFromVarName(callExpression.getChild(0), false);
+                code.append(name.getLuaName());
+                appendCsValues();
+                code.append(")");
+            }
+        } else if (callExpression.getChildCount() == 1) {
             Class<?> currClass = parsedClass;
             boolean foundMethod = false;
             while (!currClass.equals(Object.class)) {
@@ -402,10 +453,73 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
             .setLuaName(callExpression.getText().replace('.', '_'));
             model.addMethodToParse(instanceName.getText(), methodWrapper);
             code.append(methodWrapper.getLuaName()).append("(");
-            visit(ctx.expressionList());
+            if (ctx.expressionList() != null) {
+                visit(ctx.expressionList());
+            }
             code.append(")");
         } else {
             log.warn("Unsupported method call " + callExpression.getText());
+        }
+    }
+
+    String getCsValue(int value) {
+        if (value <= 0) {
+            return null;
+        } else {
+            return Integer.toString(value);
+        }
+    }
+
+    void appendCsValues() {
+        if (parsedMethod.getName().equals("getPatch")) {
+            code.append(", ")
+            .append(new ReplacableBase<DriverTypeModel>(driverTypeModel) {
+
+                @Override
+                protected String getUpdate(DriverTypeModel t) {
+                    return getCsValue(driverTypeModel
+                            .getSingleCsStart());
+                }
+            })
+            .append(", ")
+            .append(new ReplacableBase<DriverTypeModel>(driverTypeModel) {
+
+                @Override
+                protected String getUpdate(DriverTypeModel t) {
+                    return getCsValue(driverTypeModel.getSingleCsEnd());
+                }
+            })
+            .append(", ")
+            .append(new ReplacableBase<DriverTypeModel>(driverTypeModel) {
+
+                @Override
+                protected String getUpdate(DriverTypeModel t) {
+                    return getCsValue(driverTypeModel.getSingleCsOfs());
+                }
+            });
+        } else if (parsedMethod.getName().equals("putPatch")) {
+            code.append(", ")
+            .append(new ReplacableBase<DriverModel>(driverModel) {
+
+                @Override
+                protected String getUpdate(DriverModel t) {
+                    return getCsValue(driverModel.getCsStart());
+                }
+            }).append(", ")
+            .append(new ReplacableBase<DriverModel>(driverModel) {
+
+                @Override
+                protected String getUpdate(DriverModel t) {
+                    return getCsValue(driverModel.getCsEnd());
+                }
+            }).append(", ")
+            .append(new ReplacableBase<DriverModel>(driverModel) {
+
+                @Override
+                protected String getUpdate(DriverModel t) {
+                    return getCsValue(driverModel.getCsOffset());
+                }
+            });
         }
     }
 
@@ -447,7 +561,7 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
                         false);
         String initializer = variableDeclarator.variableInitializer().getText();
         if (isByteArrayDeclaration(variableDeclarator)) {
-            code.append(varName).append(" = ");
+            code.append(varName);
             return super.visitLocalVariableDeclaration(ctx);
         } else if (initializer.startsWith("getPatchFactory")) {
             String sysexVar =
@@ -465,7 +579,7 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         } else {
             FieldType type = FieldType.getFromString(ctx.type().getText());
             field.setType(type);
-            code.append("local ").append(varName).append(" = ");
+            code.append("local ").append(varName);
             return super.visitLocalVariableDeclaration(ctx);
         }
         return null;
@@ -587,12 +701,22 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
                 TerminalNode.class, ParExpressionContext.class,
                 StatementContext.class, TerminalNode.class,
                 StatementContext.class }, ctx.children)) {
-            log.info("IF_ELSE!");
             if (appendIf(ctx)) {
-                Void visit = visit(ctx.getChild(2));
-                // TODO handle else
+                Void visit = visit(ctx.statement(0));
+                code.append(code.newLine())
+                .append(code.indent(indent.decrementAndGet()))
+                .append("else");
+                if (ctx.statement(1).getText().startsWith("{")) {
+                    // No else if --> add new line
+                    code.append(code.newLine()).append(
+                            code.indent(indent.incrementAndGet()));
+                } else {
+                    code.append(" ");
+                }
+
+                visit(ctx.statement(1));
                 appendEnd();
-                return visit; // visit(ctx.getChild(4));
+                return visit;
             } else {
                 return null;
             }
@@ -616,8 +740,8 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         }
 
         code.append("if ");
-        code.append(expression.getText()).append(" then")
-        .append(code.newLine())
+        visit(expression);
+        code.append(" then").append(code.newLine())
         .append(code.indent(indent.incrementAndGet()));
         return true;
     }
@@ -632,17 +756,23 @@ public abstract class MethodVisitorBase extends JavaBaseVisitor<Void> {
         code.append(
                 getFieldFromVarName(variableDeclarator.variableDeclaratorId(),
                         false).getLuaName()).append(" = ");
-        code.append(variableDeclarator.variableInitializer().getText()).append(
-                ", ");
+        visit(variableDeclarator.variableInitializer());
+        code.append(", ");
 
         ExpressionContext expression = child.expression();
         TerminalNode lt = (TerminalNode) expression.getChild(1);
-        if (!lt.getText().equals("<")) {
+        if (lt.getText().equals("<")) {
+            code.append("(");
+            visit(expression.getChild(2));
+            code.append("-1)");
+        } else if (lt.getText().equals("<=")) {
+            visit(expression.getChild(2));
+        } else {
             throw new RuntimeException("Cannot handle for loops of this kind: "
                     + lt.getText());
         }
-        code.append("(").append(expression.getChild(2).getText()).append("-1)")
-        .append(" do").append(code.newLine())
+
+        code.append(" do").append(code.newLine())
         .append(code.indent(indent.incrementAndGet()));
     }
 

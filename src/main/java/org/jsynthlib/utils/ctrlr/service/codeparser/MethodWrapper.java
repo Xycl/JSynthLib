@@ -28,7 +28,11 @@ public class MethodWrapper {
     public static MethodWrapper newWrapper(String prefix, String javaName) {
         MethodWrapper wrapper = new MethodWrapper();
         wrapper.setName(javaName);
-        wrapper.setLuaName(prefix + "_" + javaName);
+        if (prefix == null) {
+            wrapper.setLuaName(javaName);
+        } else {
+            wrapper.setLuaName(prefix + "_" + javaName);
+        }
         return wrapper;
     }
 
