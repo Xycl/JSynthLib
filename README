@@ -8,3 +8,7 @@ For more elaborate documentation please visit http://jsynthlib.sourceforge.net/
 Development setup:
 
 https://sourceforge.net/p/jsynthlib/wiki/Programmer%27s%20Guide/#setup-ide
+
+The fork is focussing on reanimation of the project. Nested dependencies needs to be upgraded.
+JavaFX packages must be switched to openJFX packages. Target JDK Runtime should be Java 11+ with
+source code compliance to Java 1.8. Resource resolvers needs to be refactored.
